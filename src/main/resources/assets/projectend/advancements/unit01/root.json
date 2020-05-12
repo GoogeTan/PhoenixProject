@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:stone"
+    },
+    "title": {
+      "translate": "advancements.projectend.unit01.title"
+    },
+    "description": {
+      "translate": "advancements.projectend.unit01.title.description"
+    },
+    "background": "blocks/end_stone.png",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "killed_something": {
+      "trigger": "minecraft:player_killed_entity"
+    },
+    "killed_by_something": {
+      "trigger": "minecraft:entity_killed_player"
+    }
+  },
+  "requirements": [["killed_something", "killed_by_something"]]
+}
