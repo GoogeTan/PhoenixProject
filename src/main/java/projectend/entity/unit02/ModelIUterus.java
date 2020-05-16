@@ -10,8 +10,8 @@ public class ModelIUterus extends ModelBase
     public ModelIUterus()
     {
         block = new ModelRenderer(this, 0, 0);
-        block.addBox(-2, 90, -2, 16, 16, 16);
-
+        block.addBox(-2, -2, -2, 16, 16, 16);
+        block.setRotationPoint(0, 0,0);
     }
 
     @Override
@@ -20,6 +20,6 @@ public class ModelIUterus extends ModelBase
         super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entity);
 
-        block.render(scale);
+        block.render(scale / 16);
     }
 }

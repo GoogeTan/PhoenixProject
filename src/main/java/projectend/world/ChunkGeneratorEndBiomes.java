@@ -28,7 +28,7 @@ import net.minecraftforge.event.terraingen.ChunkGeneratorEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.InitNoiseGensEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import projectend.Projectend;
+import projectend.ProjectEnd;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -407,7 +407,7 @@ public class ChunkGeneratorEndBiomes extends ChunkGeneratorEnd
         this.world.getBiome(blockpos.add(16, 0, 16)).decorate(this.world, this.world.rand, blockpos);
 
         if(this.world.getBiome(blockpos.add(16, 0, 16)) == BiomeRegistrar.END_UNDER)
-            if (this.world.getCapability(Projectend.STAGER_CAPABILITY, null).getStage() >= 2)
+            if (this.world.getCapability(ProjectEnd.STAGER_CAPABILITY, null).getStage() >= 2)
              this.world.getBiome(blockpos.add(16, 0, 16)).decorate(this.world, this.world.rand, blockpos);
         else
             this.world.getBiome(blockpos.add(16, 0, 16)).decorate(this.world, this.world.rand, blockpos);
@@ -444,7 +444,7 @@ public class ChunkGeneratorEndBiomes extends ChunkGeneratorEnd
 
                         if (this.world.isAirBlock(blockpos.add(l, k1 + 1, i1)) &&
                             this.world.getBlockState(blockpos.add(l, k1, i1)).getBlock() == Blocks.END_STONE &&
-                            this.world.getCapability(Projectend.STAGER_CAPABILITY, null).getStage() >= 2)
+                            this.world.getCapability(ProjectEnd.STAGER_CAPABILITY, null).getStage() >= 2)
                         {
                             BlockChorusFlower.generatePlant(this.world, blockpos.add(l, k1 + 1, i1), this.rand, 8);
                         }

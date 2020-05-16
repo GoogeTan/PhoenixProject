@@ -5,7 +5,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
-import static projectend.Projectend.STAGER_CAPABILITY;
+import static projectend.ProjectEnd.STAGER_CAPABILITY;
 
 public class StageProvider implements ICapabilitySerializable<NBTTagCompound>
 {

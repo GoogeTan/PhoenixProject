@@ -2,6 +2,9 @@
   "variants": {
     "normal": {
       "model": "projectend:mind_ore"
+    },
+    "inventory": {
+      "model": "projectend:mind_ore"
     }
   }
 }

@@ -1,4 +1,4 @@
-package projectend.proxy;
+package projectend.init;
 
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.common.DimensionManager;
@@ -7,10 +7,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import projectend.BlocksRegister;
+import projectend.init.BlocksRegister;
 import projectend.blocks.Updater;
 import projectend.blocks.title.Updator01TitleEntity;
-import projectend.blocks.unit03.BlockMindOre;
 import projectend.world.BiomeRegistrar;
 import projectend.world.WorldProviderEndBiomes;
 import projectend.world.capablity.IStager;
@@ -23,9 +22,8 @@ public class Common
 
     public void preInit(FMLPreInitializationEvent event)
     {
-        BlocksRegister.register();
+       // BlocksRegister.register();
         CapabilityManager.INSTANCE.register(IStager.class, new StageStorage(), StageHandler.class);//reg capablity
-        GameRegistry.registerTileEntity(Updator01TitleEntity.class, new Updater().getRegistryName().toString());//hand reg tile entity
     }
     public void init(FMLInitializationEvent event)
     {

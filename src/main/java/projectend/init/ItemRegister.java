@@ -1,4 +1,4 @@
-package projectend;
+package projectend.init;
 
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -14,8 +14,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import projectend.Items.TestItem;
 import projectend.Items.twoAir.ItemKassiysSpeaare;
+import projectend.ProjectEnd;
 
-@GameRegistry.ObjectHolder(Projectend.MOD_ID)
+@GameRegistry.ObjectHolder(ProjectEnd.MOD_ID)
 @Mod.EventBusSubscriber
 public class ItemRegister
 {

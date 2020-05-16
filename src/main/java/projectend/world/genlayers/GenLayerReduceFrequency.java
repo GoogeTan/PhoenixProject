@@ -2,7 +2,7 @@ package projectend.world.genlayers;
 
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
-import projectend.config.Configs;
+import projectend.init.Configs;
 
 public class GenLayerReduceFrequency extends GenLayer
 {

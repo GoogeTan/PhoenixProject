@@ -9,17 +9,19 @@
     "description": {
       "translate": "advancements.projectend.unit01.title.description"
     },
-    "background": "blocks/end_stone.png",
+    "background": "minecraft:textures/blocks/end_stone.png",
     "show_toast": false,
     "announce_to_chat": false
   },
-  "criteria": {
-    "killed_something": {
-      "trigger": "minecraft:player_killed_entity"
-    },
-    "killed_by_something": {
-      "trigger": "minecraft:entity_killed_player"
+  "criteria":
+  {
+    "entered_end":
+    {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "the_end"
+      }
     }
   },
-  "requirements": [["killed_something", "killed_by_something"]]
+  "requirements": [["entered_end"]]
 }

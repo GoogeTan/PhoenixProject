@@ -8,7 +8,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.world.World;
-import projectend.Projectend;
+import projectend.ProjectEnd;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -17,14 +17,15 @@ public class ItemKassiysSpeaare extends ItemSword
 {
     public ItemKassiysSpeaare()
     {
-        super(Projectend.siliconlife);
+        super(ProjectEnd.siliconlife);
         setRegistryName("kassiesspeare");
-        setCreativeTab(Projectend.TheEndOfCreativeTabs);
+        setTranslationKey("kassiesspeare");
+        setCreativeTab(ProjectEnd.TheEndOfCreativeTabs);
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add("It uses 1.8 PVP sistem");
+        tooltip.add("Use 1.8 PVP sistem");
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 

@@ -71,11 +71,12 @@ public class EntityUterusSegment extends MultiPartEntityPart
         }
     }
 
-    private void collideWithEntity(Entity entity) {
+    private void collideWithEntity(Entity entity)
+    {
         entity.applyEntityCollision(this);
 
         // attack anything that's not us
-        if ((entity instanceof EntityLivingBase) && !(entity instanceof EntityUterus) && !(entity instanceof EntityUterusSegment)) {
+        if (entity instanceof EntityLivingBase && !(entity instanceof EntityUterus)) {
             int attackStrength = 2;
 
             // get rid of nearby deer & look impressive

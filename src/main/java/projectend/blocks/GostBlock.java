@@ -7,11 +7,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import projectend.blocks.title.BlockTileEntity;
@@ -23,7 +25,7 @@ public class GostBlock extends BlockTileEntity
 {
     public GostBlock()
     {
-      super("gost", Material.ROCK, 3.0F,15.0F, SoundType.GROUND);
+      super("gost", Material.GLASS, 3.0F,15.0F, SoundType.GROUND);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package projectend;
+package projectend.init;
 
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -8,10 +8,11 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import projectend.entity.unit02.EntityUterus;
+import projectend.ProjectEnd;
 import projectend.client.render.RenderEntityUterus;
+import projectend.entity.unit02.EntityUterus;
 
-@Mod.EventBusSubscriber(modid = Projectend.MOD_ID)
+@Mod.EventBusSubscriber(modid = ProjectEnd.MOD_ID)
 public class EntityRegister
 {
     private static int ID = 0;//Для айди
@@ -19,9 +20,9 @@ public class EntityRegister
             .create()//Создаём новый EntityEntry
             .entity(EntityUterus.class)//Какой моб в EntityEntry
             .name("Uterus")//Имя
-            .id("uterus", ID++)//Айди и имя регистрации
+            .id("uterus", ID++)//имя регистрации и Айди
             .egg( 0x1E90FF, 0x87CEEB)//Цвет яйца, первое значение - фона, второе - "точек"(можно не добавлять)
-            .tracker(64, 3, false)//Трекер моба(Первое значение - радиус для которого моб будет обновлятся, второе - частота обновлений за секунду, третье - будет ли отправляться пакет с обновление позиции игрокам)
+            .tracker(120, 3, false)//Трекер моба(Первое значение - радиус для которого моб будет обновлятся, второе - частота обновлений за секунду, третье - будет ли отправляться пакет с обновление позиции игрокам)
             .build();//Устанавливаем параметры
 
     @SubscribeEvent

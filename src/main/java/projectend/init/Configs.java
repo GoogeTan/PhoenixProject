@@ -1,14 +1,14 @@
-package projectend.config;
+package projectend.init;
 
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import projectend.Projectend;
+import projectend.ProjectEnd;
 
-@Config(modid = Projectend.MOD_ID, category = "")
-@Mod.EventBusSubscriber(modid = Projectend.MOD_ID)
+@Config(modid = ProjectEnd.MOD_ID, category = "")
+@Mod.EventBusSubscriber(modid = ProjectEnd.MOD_ID)
 public class Configs 
 {
 	public static ConfigWorldGen worldgen = new ConfigWorldGen();
@@ -31,8 +31,8 @@ public class Configs
 	@SubscribeEvent
 	public static void onConfigReload(ConfigChangedEvent.OnConfigChangedEvent event) 
 	{
-		if (Projectend.MOD_ID.equals(event.getModID()))
-			ConfigManager.sync(Projectend.MOD_ID, Config.Type.INSTANCE);
+		if (ProjectEnd.MOD_ID.equals(event.getModID()))
+			ConfigManager.sync(ProjectEnd.MOD_ID, Config.Type.INSTANCE);
 	}
 
 }

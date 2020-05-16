@@ -4,7 +4,7 @@ import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
-import projectend.config.Configs;
+import projectend.init.Configs;
 import projectend.world.BiomeRegistrar;
 
 public class GenLayerEndBiomes extends GenLayer

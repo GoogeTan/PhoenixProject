@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import projectend.Projectend;
+import projectend.ProjectEnd;
 import projectend.entity.unit02.EntityUterus;
 import projectend.entity.unit02.ModelIUterus;
 
@@ -30,7 +30,7 @@ public class RenderEntityUterus extends RenderLiving<EntityUterus>
     @Nonnull /*Возвращаем текстуру моба*/
     protected ResourceLocation getEntityTexture(@Nonnull EntityUterus entity)
     {
-        return new ResourceLocation(Projectend.MOD_ID, "textures/entity/beacon.png");
+        return new ResourceLocation(ProjectEnd.MOD_ID, "textures/entity/beacon.png");
     }
     /*--------->НАШ РЕНДЕР ФЭКТОРИ <---------*/
     public static class Factory implements IRenderFactory<EntityUterus>

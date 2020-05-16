@@ -16,10 +16,6 @@ import java.util.function.DoubleUnaryOperator;
 public class EntityUtil
 {
 
-    public static boolean canDestroyBlock(World world, BlockPos pos, Entity entity) {
-        return canDestroyBlock(world, pos, world.getBlockState(pos), entity);
-    }
-
     public static boolean canDestroyBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
         float hardness = state.getBlockHardness(world, pos);
         return hardness >= 0f && hardness < 50f && !state.getBlock().isAir(state, world, pos)
@@ -38,11 +34,6 @@ public class EntityUtil
         Vec3d look = entity.getLook(1.0F);
         Vec3d dest = position.add(look.x * range, look.y * range, look.z * range);
         return entity.world.rayTraceBlocks(position, dest);
-    }
-
-    @Nullable
-    public static RayTraceResult rayTrace(EntityPlayer player) {
-        return rayTrace(player, null);
     }
 
     @Nullable

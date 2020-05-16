@@ -3,16 +3,19 @@ package projectend.blocks.unit03;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import projectend.Projectend;
+import projectend.ProjectEnd;
 
 public class BlockMindOre extends BlockOre
 {
     public BlockMindOre()
     {
         setRegistryName("mind_ore");
-        this.setCreativeTab(Projectend.TheEndOfCreativeTabs);
+        this.setCreativeTab(ProjectEnd.TheEndOfCreativeTabs);
     }
 
     @Override

@@ -118,9 +118,9 @@ public class EntityUterus extends EntityMob implements IEntityMultiPart
 
         if (!this.world.isRemote)
         {
-            this.motionX = (double)(this.randomMotionVecX * this.randomMotionSpeed);
-            this.motionY = (double)(this.randomMotionVecY * this.randomMotionSpeed);
-            this.motionZ = (double)(this.randomMotionVecZ * this.randomMotionSpeed);
+            this.motionX = this.randomMotionVecX * this.randomMotionSpeed;
+            this.motionY = this.randomMotionVecY * this.randomMotionSpeed;
+            this.motionZ = this.randomMotionVecZ * this.randomMotionSpeed;
         }
     }
 

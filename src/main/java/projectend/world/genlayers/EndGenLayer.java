@@ -5,7 +5,7 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGeneratorSettings;
 import net.minecraft.world.gen.layer.*;
-import projectend.config.Configs;
+import projectend.init.Configs;
 
 public abstract class EndGenLayer 
 {

@@ -9,13 +9,13 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import projectend.Projectend;
+import projectend.ProjectEnd;
 
 import java.util.Random;
 
 public class WorldGenCorn implements IWorldGenerator
 {
-    private static final ResourceLocation CORN = new ResourceLocation(Projectend.MOD_ID + ":corn");
+    private static final ResourceLocation CORN = new ResourceLocation(ProjectEnd.MOD_ID + ":corn");
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
     {

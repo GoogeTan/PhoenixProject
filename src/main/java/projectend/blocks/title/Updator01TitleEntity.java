@@ -5,7 +5,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import projectend.Projectend;
+import projectend.ProjectEnd;
 
 public class Updator01TitleEntity extends TileEntity implements ITickable
 {
@@ -33,14 +33,14 @@ public class Updator01TitleEntity extends TileEntity implements ITickable
                 iblockstate09.getBlock().getDefaultState() == Blocks.STAINED_GLASS.getDefaultState()   )
         {
             world.setBlockToAir(pos);
-            if (world.getCapability(Projectend.STAGER_CAPABILITY, null).getStageIn() > 3)
+            if (world.getCapability(ProjectEnd.STAGER_CAPABILITY, null).getStageIn() > 3)
             {
-                world.getCapability(Projectend.STAGER_CAPABILITY, null).setStageIn(1);
-                world.getCapability(Projectend.STAGER_CAPABILITY, null).addStage();
+                world.getCapability(ProjectEnd.STAGER_CAPABILITY, null).setStageIn(1);
+                world.getCapability(ProjectEnd.STAGER_CAPABILITY, null).addStage();
             }
             else
             {
-                world.getCapability(Projectend.STAGER_CAPABILITY, null).addStageIn();
+                world.getCapability(ProjectEnd.STAGER_CAPABILITY, null).addStageIn();
             }
         }
     }

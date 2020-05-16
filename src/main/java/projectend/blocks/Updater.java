@@ -7,7 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import projectend.blocks.title.BlockTileEntity;
 import projectend.blocks.title.Updator01TitleEntity;
-import projectend.Projectend;
+import projectend.ProjectEnd;
 
 import javax.annotation.Nullable;
 public class Updater extends BlockTileEntity
@@ -15,7 +15,7 @@ public class Updater extends BlockTileEntity
     public Updater()
     {
         super("updator", Material.BARRIER, 10, 10, SoundType.GLASS);
-        this.setCreativeTab(Projectend.TheEndOfCreativeTabs);
+        this.setCreativeTab(ProjectEnd.TheEndOfCreativeTabs);
     }
 
     @Override
