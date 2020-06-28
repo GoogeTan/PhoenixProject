@@ -1,7 +1,9 @@
-package com.example.examplemod;
+package ru.googletan.phoenix;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -15,17 +17,21 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.system.CallbackI;
 
+import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("phoenix")
-public class ExampleMod
+@Mod(Phoenix.MOD_ID)
+public class Phoenix
 {
+    public static final String MOD_ID = "phoenix";
     // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
-    public ExampleMod() {
+    public Phoenix() {
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -71,14 +77,23 @@ public class ExampleMod
         LOGGER.info("HELLO from server starting");
     }
 
-    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-    // Event bus for receiving Registry Events)
-    @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            // register a new block here
-            LOGGER.info("HELLO from Register Block");
+    public static final ItemGroup MOD_ITEM_GROUP = new ModItemGroup(Phoenix.MOD_ID, () -> new ItemStack(ItemsRegister.EXAMPLE_CRYSTAL.get()));
+
+    public static final class ModItemGroup extends ItemGroup {
+
+        @Nonnull
+        private final Supplier<ItemStack> iconSupplier;
+
+        public ModItemGroup(@Nonnull final String name, @Nonnull final Supplier<ItemStack> iconSupplier) {
+            super(name);
+            this.iconSupplier = iconSupplier;
         }
+
+        @Override
+        @Nonnull
+        public ItemStack createIcon() {
+            return iconSupplier.get();
+        }
+
     }
 }
