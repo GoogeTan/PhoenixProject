@@ -1,8 +1,0 @@
-{
-    "variants":
-    {
-        "type=0": { "model": "end_bricks" },
-        "type=1": { "model": "upper_slab_purpur" },
-        "type=2": { "model": "half_slab_purpur" }
-    }
-}

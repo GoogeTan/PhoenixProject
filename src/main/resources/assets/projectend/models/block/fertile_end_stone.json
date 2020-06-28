@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "projectend:blocks/fertile_end_stone"
-  }
-}
