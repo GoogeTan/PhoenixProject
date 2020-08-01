@@ -1,0 +1,38 @@
+{
+  "language": "Russian",
+  "language.region": "Russia",
+  "language.code": "ru_ru",
+  "author": "WildTan",
+
+  "itemGroup.phoenix": "Проект Феникс",
+
+  "block.phoenix.fragileblock": "Хрупкий блок",
+  "block.phoenix.updater": "Улучшатор",
+  "block.phoenix.fertile_end_stone": "Плодородный камень края",
+  "block.phoenix.mind_ore": "Осколок памяти",
+  "block.phoenix.ceraomic": "Кераомика мира прошлого",
+  "block.phoenix.ceraomic_porcelain": "Фарфоровая кераомика",
+  "block.phoenix.juicer": "Соковыжималка",
+  "block.phoenix.tank": "Канистра",
+  "block.phoenix.kikin_stem": "Стебель кикина",
+  "block.phoenix.kikin_fruit": "Фрукт кикина",
+  "block.phoenix.pipe": "Труба",
+
+  "entity.Uterus.name": "Короначервиус",
+
+  "item.absolutespeedsword.name": "Меч абсолютной скорости",
+  "item.gods_boots.name": "Сапоги из плоти",
+  "item.gods_chestplate.name": "Кириса из плоти",
+  "item.gods_leggins.name": "Штаны из плоти",
+  "item.gods_helmet.name": "Шлем из плоти",
+
+  "advancements.phoenix.unit01.title": "Проект Феникс",
+  "advancements.phoenix.unit01.title.description": "И тут начинается история",
+  "advancements.phoenix.unit01.corn.tile": "Возрадуемся!",
+  "advancements.phoenix.unit01.corn.description": "-Как тебя вообще занесло в этот храм? — Я принял его за город края. Легко спутать.",
+
+  "phoenix.massage.newstage": "Достингута новая стадия",
+  "phoenix.massage.speare":"Использует систему боя из 1.8",
+
+  "fluid.juice": "Выжимка из кикина"
+}

@@ -1,0 +1,29 @@
+{
+    "zero_one": {
+        "category": "music",
+        "sounds": [
+            {
+                "name": "phoenix:zero_one",
+                "stream": true
+            }
+        ]
+    },
+    "one_two": {
+        "category": "music",
+        "sounds": [
+            {
+                "name": "phoenix:gods_massage",
+                "pitch": 0.2,
+                "weight": 2.0
+            }
+        ]
+    },
+    "step": {
+        "category": "block",
+        "sounds": [
+            {
+                "name": "phoenix:step_ceraomic"
+            }
+        ]
+    }
+}

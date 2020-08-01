@@ -1,0 +1,13 @@
+{
+    "parent": "phoenix:block/basor",
+    "textures":
+    {
+        "down":     "phoenix:blocks/basor01_2",
+        "up":       "phoenix:blocks/basor01_2",
+        "north":    "phoenix:blocks/basor01_1",
+        "east":     "phoenix:blocks/basor01_1",
+        "south":    "phoenix:blocks/basor01_1",
+        "west":     "phoenix:blocks/basor01_1",
+        "particle": "phoenix:blocks/basor01_1"
+    }
+}

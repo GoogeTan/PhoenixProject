@@ -1,0 +1,16 @@
+{
+    "ambientocclusion": false,
+    "textures": {
+        "texture": "phoenix:blocks/chorus_plant",
+        "inside": "phoenix:blocks/chorus_plant",
+        "particle": "phoenix:blocks/chorus_plant"
+    },
+    "elements": [
+        {   "from": [ 4, 4, 4 ],
+            "to": [ 12, 12, 12 ],
+            "faces": {
+                "north": { "texture": "#inside" }
+            }
+        }
+    ]
+}

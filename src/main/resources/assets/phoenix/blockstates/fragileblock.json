@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "type=0": { "model": "end_stone" },
+    "type=1": { "model": "end_bricks" },
+    "type=2": { "model": "upper_slab_purpur" },
+    "type=3": { "model": "half_slab_purpur" },
+    "type=4": { "model": "purpur_block" }
+  }
+}

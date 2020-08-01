@@ -1,0 +1,38 @@
+{
+  "language": "English",
+  "language.region": "United States",
+  "language.code": "en_us",
+  "author": "WildTan",
+
+  "itemGroup.phoenix": "Project Phoenix",
+
+  "block.phoenix.fragileblock": "Fragile Block",
+  "block.phoenix.updater": "Updater",
+  "block.phoenix.fertile_end_stone": "Fertile end stone",
+  "block.phoenix.mind_ore": "Осколок памяти",
+  "block.phoenix.ceraomic": "Grand сeraomic",
+  "block.phoenix.ceraomic_porcelain": "Porcelain ceraomic",
+  "block.phoenix.juicer": "Juicer",
+  "block.phoenix.tank": "Tank",
+  "block.phoenix.kikin_stem": "Kinin stem",
+  "block.phoenix.kikin_fruit": "Kinin fruit",
+  "block.phoenix.pipe": "Pipe",
+
+  "entity.Uterus.name": "Coronoworm",
+
+  "item.absolutespeedsword.name": "Sword of absolute speed",
+  "item.gods_boots.name": "Flesh boots",
+  "item.gods_chestplate.name": "Flesh chestplate",
+  "item.gods_leggins.name": "Flesh leggins",
+  "item.gods_helmet.name": "Flesh helmet",
+
+  "advancements.phoenix.unit01.title": "Project Phoenix",
+  "advancements.phoenix.unit01.title.description": "End of the start or start of the end?",
+  "advancements.phoenix.unit01.corn.tile": "Freude",
+  "advancements.phoenix.unit01.corn.description": "-How did you get brought to the past ignis monastery? “I took him for a End city.” Easy to confuse.",
+
+  "phoenix.massage.newstage": "Welcome to the new stage!",
+  "phoenix.massage.speare":"Uses combat system from 1.8",
+
+  "fluid.juice": "Squeezed out kikin"
+}
