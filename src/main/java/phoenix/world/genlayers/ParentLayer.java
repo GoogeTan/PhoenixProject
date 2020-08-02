@@ -4,6 +4,8 @@ import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.layer.traits.IAreaTransformer0;
 import phoenix.world.NewEndBiomeProvider;
 
+import javax.annotation.Nonnull;
+
 public class ParentLayer implements IAreaTransformer0
 {
     NewEndBiomeProvider provider;
@@ -41,7 +43,7 @@ public class ParentLayer implements IAreaTransformer0
     }
 
     @Override
-    public int apply(INoiseRandom context, int x, int z)
+    public int apply(@Nonnull INoiseRandom context, int x, int z)
     {
         return apply(x, z, provider);
     }

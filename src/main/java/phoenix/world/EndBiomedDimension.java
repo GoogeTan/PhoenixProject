@@ -11,6 +11,8 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.EndChunkGenerator;
 import net.minecraft.world.gen.EndGenerationSettings;
 
+import javax.annotation.Nonnull;
+
 public class EndBiomedDimension extends EndDimension
 {
 
@@ -19,6 +21,7 @@ public class EndBiomedDimension extends EndDimension
         super(world, type);
     }
 
+    @Nonnull
     @Override
     public ChunkGenerator<?> createChunkGenerator()
     {
@@ -26,6 +29,6 @@ public class EndBiomedDimension extends EndDimension
         settings.setDefaultBlock(Blocks.END_STONE.getDefaultState());
         settings.setDefaultFluid(Blocks.AIR.getDefaultState());
         settings.setSpawnPos(this.getSpawnCoordinate());
-        return new HundredthLevelChunkGenerator(this.world, new NewEndBiomeProvider(new EndBiomeProviderSettings(world.getWorldInfo()), world), settings);
+        return new EndChunkGenerator(this.world, new NewEndBiomeProvider(new EndBiomeProviderSettings(world.getWorldInfo()), world), settings);
     }
 }

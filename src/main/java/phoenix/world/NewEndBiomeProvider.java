@@ -27,9 +27,8 @@ import net.minecraft.world.gen.layer.ZoomLayer;
 import net.minecraft.world.server.ServerWorld;
 import phoenix.init.PhoenixBiomes;
 import phoenix.utils.GenerationUtils;
-import phoenix.world.genlayers.EndBiomeLayer;
-import phoenix.world.genlayers.ParentLayer;
-import phoenix.world.genlayers.UnderLayer;
+import phoenix.world.biomes.HeartVoidBiome;
+import phoenix.world.genlayers.*;
 import phoenix.world.structures.ErasedStructure;
 
 import javax.annotation.Nonnull;
@@ -111,17 +110,23 @@ public class NewEndBiomeProvider extends BiomeProvider
         return new Layer(iareafactory);
     }
 
-    public <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> getLayersAply(LongFunction<C> function)
+    public <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> getLayersAply(LongFunction<C> context)
     {
-        IAreaFactory<T> parent = (new ParentLayer(this)).apply(function.apply(1L));
-        parent = getBiomeLayer(parent, function);
-        //if(world != null && !world.isRemote)
-        //{
-        //   if(StageSaveData.get((ServerWorld) world).getStage() >= 2)
-        parent = UnderLayer.INSTANCE.apply(function.apply(200L), parent);
-        //}
+        IAreaFactory<T> phoenix_biomes = (new ParentLayer(this)).apply(context.apply(1L));
+        IAreaFactory<T> vanila_biomes =  (new ParentLayer(this)).apply(context.apply(1L));
+        vanila_biomes = getBiomeLayer(vanila_biomes, context);
 
-        return parent;
+        phoenix_biomes = UnderLayer    .INSTANCE.apply(context.apply(200L), phoenix_biomes);
+        phoenix_biomes = HeartVoidLayer.INSTANCE.apply(context.apply(200L), phoenix_biomes);
+        phoenix_biomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenix_biomes);
+        phoenix_biomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenix_biomes);
+        phoenix_biomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenix_biomes);
+        phoenix_biomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenix_biomes);
+        phoenix_biomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenix_biomes);
+        phoenix_biomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenix_biomes);
+
+        IAreaFactory<T> res = UnificationLayer.INSTANCE.apply(context.apply(200L), phoenix_biomes, vanila_biomes);
+        return res;
     }
 
     public <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> getBiomeLayer(IAreaFactory<T> parentLayer, LongFunction<C> contextFactory)

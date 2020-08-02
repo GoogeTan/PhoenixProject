@@ -8,6 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import phoenix.init.PhoenixBiomes;
 
+import javax.annotation.Nonnull;
+
 public class EndBiomeLayer  implements IC0Transformer
 {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -19,21 +21,15 @@ public class EndBiomeLayer  implements IC0Transformer
     private static final int SMALL_END_ISLANDS = Registry.BIOME.getId(Biomes.SMALL_END_ISLANDS);
 
     @Override
-    public int apply(INoiseRandom context, int value)
+    public int apply(@Nonnull INoiseRandom context, int value)
     {
         switch (value)
         {
-            case 1:
-                return END_BARRENS;
-            case 2:
-                return END_MIDLANDS;
-            case 3:
-                return END_HIGHLANDS;
-            case 4:
-                return SMALL_END_ISLANDS;
-            default:
-                return THE_END;
-
+            case 1:  return  END_BARRENS;
+            case 2:  return  END_MIDLANDS;
+            case 3:  return  END_HIGHLANDS;
+            case 4:  return  SMALL_END_ISLANDS;
+            default: return THE_END;
         }
     }
 }

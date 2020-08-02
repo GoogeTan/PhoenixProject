@@ -52,7 +52,7 @@ public class UnderSurfaceBuilder extends SurfaceBuilder<AdvansedSurfaceBuilderCo
             }
             else if (currect_state.getBlock() == defaultBlock.getBlock())
             {
-                if(y < 18 + random.nextInt(5))
+                if(y < 30 + random.nextInt(5))
                 {
                     if(currect_state.getBlock() == Blocks.END_STONE)
                     {

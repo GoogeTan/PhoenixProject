@@ -49,6 +49,7 @@ public class Phoenix
     static
     {
         DimensionType.THE_END = DimensionType.register("the_end",
-                new DimensionType(2, "_end", "DIM1", EndBiomedDimension::new, false, FuzzedBiomeMagnifier.INSTANCE));
+                new DimensionType(2, "_end", "DIM1",
+                        EndBiomedDimension::new, false, FuzzedBiomeMagnifier.INSTANCE));
     }
 }

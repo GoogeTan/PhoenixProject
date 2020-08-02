@@ -51,6 +51,7 @@ public class StageSaveData extends WorldSavedData
         }
     }
 
+    @Nonnull
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {

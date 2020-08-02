@@ -35,24 +35,26 @@ public class UnderBiome extends Biome
     public void decorate(GenerationStage.Decoration stage, ChunkGenerator<? extends GenerationSettings> chunkGenerator, IWorld worldIn, long seed, SharedSeedRandom random, BlockPos pos)
     {
         super.decorate(stage, chunkGenerator, worldIn, seed, random, pos);
-        System.out.println("UNDER GENERATED AT " + pos.getX() + " " + pos.getZ());
-        BlockPos position = getDownHeight(worldIn, pos.getX(), pos.getX(), 0, 30);
-        if (worldIn.getBlockState(position.up()).getBlock() == PhoenixBlocks.FERTILE_END_STONE.get())
+        if(random.nextBoolean())
         {
-            worldIn.setBlockState(position, PhoenixBlocks.KIKIN_FRUIT.get().getDefaultState(), 2);
+            BlockPos position = getDownHeight(worldIn, pos.add(random.nextInt(15), 0, random.nextInt(15)), 30);
+            if (worldIn.getBlockState(position.up()).getBlock() == PhoenixBlocks.FERTILE_END_STONE.get())
+            {
+                worldIn.setBlockState(position, PhoenixBlocks.KIKIN_FRUIT.get().getDefaultState(), 2);
+            } else if (worldIn.getBlockState(position).getBlock() == PhoenixBlocks.FERTILE_END_STONE.get())
+            {
+                worldIn.setBlockState(position.down(), PhoenixBlocks.KIKIN_FRUIT.get().getDefaultState(), 2);
+            }
         }
-
     }
 
-    public static BlockPos getDownHeight(IWorld worldIn, int x, int z, int min, int max)
+    public static BlockPos getDownHeight(IWorld worldIn, BlockPos pos, int max)
     {
-        int r  = max, l = min, m;
-        while (r - l > 1)
+        for (int i = 0; i < max; i++)
         {
-            m = r + l / 2;
-            if(worldIn.isAirBlock(new BlockPos(x, m, z))) l = m;
-            else r = m;
+            if(!worldIn.isAirBlock(pos.add(0, i, 0)))
+                return pos.add(0, i, 0);
         }
-        return new BlockPos(x, r, z);
+        return pos.add(0, 0, 0);
     }
 }
