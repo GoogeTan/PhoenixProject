@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
@@ -15,6 +16,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
@@ -23,6 +27,7 @@ import phoenix.tile.TankTile;
 import phoenix.utils.BlockWithTile;
 import phoenix.utils.IFluidMechanism;
 import phoenix.world.EndBiomedDimension;
+import phoenix.world.FluidGraphSaveData;
 
 import javax.annotation.Nullable;
 
@@ -65,5 +70,13 @@ public class TankBlock extends BlockWithTile
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
         return new TankTile();
+    }
+
+    @OnlyIn(Dist.DEDICATED_SERVER)
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
+    {
+        FluidGraphSaveData.get((ServerWorld) worldIn).addBlock(worldIn, pos, true);
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
 }
