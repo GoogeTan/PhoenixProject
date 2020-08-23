@@ -26,11 +26,11 @@ public class PipeModel extends Model
     BlockState state;
     public PipeModel(BlockState stateIn)
     {
-        super((resourceLocation) -> RenderType.getEntityCutoutNoCull( new ResourceLocation(Phoenix.MOD_ID, "textures/blocks/chorus_plant.png")));
-        textureHeight = 16;
-        textureWidth  = 16;
+        super((resourceLocation) -> RenderType.getEntityCutoutNoCull( new ResourceLocation(Phoenix.MOD_ID, "textures/blocks/chorus_plant_2.png")));
+        textureHeight = 32;
+        textureWidth  = 64;
         state = stateIn;
-        base = new ModelRenderer(this, 0, 0);
+        base = new ModelRenderer(this, 16, 16);
         n = new ModelRenderer(this, 0, 0);
         s = new ModelRenderer(this, 0, 0);
         w = new ModelRenderer(this, 0, 0);
@@ -61,8 +61,9 @@ public class PipeModel extends Model
     @Override
     public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha)
     {
-        TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(new ResourceLocation(Phoenix.MOD_ID, "textures/blocks/chorus_plant.png"));
-        Minecraft.getInstance().getTextureManager().bindTexture(sprite.getAtlasTexture().getTextureLocation());
+        //TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(new ResourceLocation(Phoenix.MOD_ID, "textures/blocks/chorus_plant.png"));
+        //Minecraft.getInstance().getTextureManager().bindTexture(sprite.getAtlasTexture().getTextureLocation());
+        //Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(Phoenix.MOD_ID, "textures/blocks/chorus_plant_2.png"));
         base.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         if(state.get(PipeBlock.NORTH))  n.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         if(state.get(PipeBlock.SOUTH))  s.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
