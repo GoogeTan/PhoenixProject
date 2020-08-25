@@ -23,6 +23,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import phoenix.client.render.TalpaRenderer;
+import phoenix.enity.TalpaEntity;
 import phoenix.init.*;
 import phoenix.world.EndBiomedDimension;
 import phoenix.world.capa.IStager;
