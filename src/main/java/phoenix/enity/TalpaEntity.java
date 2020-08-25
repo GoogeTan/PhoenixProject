@@ -9,6 +9,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import phoenix.init.PhoenixEntities;
 
@@ -39,41 +40,9 @@ public class TalpaEntity extends AnimalEntity implements EntityType.IFactory<Tal
         this(PhoenixEntities.TALPA.get(), worldIn);
         this.isChild = isChildIn;
     }
-
-
-    @Override
-    public void livingTick()
-    {
-        if (!this.world.isRemote)
-        {
-            BlockPos pos = getPosition().offset(Direction.values()[rand.nextInt(Direction.values().length)]);
-            setPosition(pos.getX(), pos.getY(), pos.getZ());
-        }
-        if (!this.world.isRemote)
-        {
-            this.updateLeashedState();
-            if (this.ticksExisted % 5 == 0)
-            {
-                this.updateMovementGoalFlags();
-            }
-        }
-    }
-
     public boolean isInvulnerableTo(DamageSource source)
     {
         return super.isInvulnerableTo(source) || source == DamageSource.IN_WALL;
-    }
-
-    public void setMovementVector(float randomMotionVecXIn, float randomMotionVecYIn, float randomMotionVecZIn)
-    {
-        this.randomMotionX = randomMotionVecXIn;
-        this.randomMotionY = randomMotionVecYIn;
-        this.randomMotionZ = randomMotionVecZIn;
-    }
-
-    public boolean hasMovementVector()
-    {
-        return this.randomMotionX != 0.0F || this.randomMotionY != 0.0F || this.randomMotionZ != 0.0F;
     }
 
     @Override
@@ -88,14 +57,14 @@ public class TalpaEntity extends AnimalEntity implements EntityType.IFactory<Tal
     {
         return new EntitySize(0.6F, 0.6F, false);
     }
-
+/*
     @Nullable
     @Override
     public AxisAlignedBB getCollisionBox(Entity entityIn)
     {
         return isEntityInsideOpaqueBlock() ? null : super.getCollisionBox(entityIn);
     }
-
+*/
     @Override
     protected void registerGoals()
     {
@@ -104,8 +73,6 @@ public class TalpaEntity extends AnimalEntity implements EntityType.IFactory<Tal
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.5D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 0.5D, Ingredient.fromItems(Items.WHEAT), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 0.5D));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
-        this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
     }
 
     @Nonnull
