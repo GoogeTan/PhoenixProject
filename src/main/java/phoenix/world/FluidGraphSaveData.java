@@ -1,5 +1,6 @@
 package phoenix.world;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
@@ -13,12 +14,16 @@ import phoenix.utils.IFluidMechanism;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class FluidGraphSaveData extends WorldSavedData
 {
     private static final String DATA_NAME = "phoenix_fluid";
-    private ArrayList<ArrayList<Integer>> graph = new ArrayList();
+    private ArrayList<HashSet<Integer>> graph = new ArrayList();
     private ArrayList<Pair<Boolean, BlockPos>> inout_puts = new ArrayList();
+
     private CompoundNBT data;
 
     public FluidGraphSaveData()
@@ -27,6 +32,7 @@ public class FluidGraphSaveData extends WorldSavedData
         this.data = new CompoundNBT();
         updateData();
     }
+
 
     //Эт второй конструктор, на всякий. А первый нужен для того, чтобы ничего не упало)
     public FluidGraphSaveData(String s)
@@ -46,9 +52,12 @@ public class FluidGraphSaveData extends WorldSavedData
             if(world.getTileEntity(pos.offset(dir)) instanceof IFluidMechanism)
             {
                 graph.get(tile.getNumberInGraph()).add(((IFluidMechanism) world.getTileEntity(pos.offset(dir))).getNumberInGraph());
+                graph.get(((IFluidMechanism) world.getTileEntity(pos.offset(dir))).getNumberInGraph()).add(tile.getNumberInGraph());
             }
         }
     }
+
+
 
     @Override
     public void read(CompoundNBT nbt)
@@ -65,7 +74,7 @@ public class FluidGraphSaveData extends WorldSavedData
                 {
                     list.add(j);
                 }
-                graph.add(i, new ArrayList<>(list));
+                graph.add(i, new HashSet<>(list));
             }
         }
         else
@@ -88,11 +97,8 @@ public class FluidGraphSaveData extends WorldSavedData
     {
         data.putInt("graph_size", graph.size());
         for (int i = 0; i < graph.size(); i++)
-        {
-            this.data.putIntArray("graph_part_" + i, graph.get(i));
-        }
+            this.data.putIntArray("graph_part_" + i, (List<Integer>) ImmutableList.of((Integer[])graph.get(i).toArray()));
     }
-
     //Этим мы получаем экземпляр данных для мира
     @Nonnull
     public static FluidGraphSaveData get(ServerWorld world)
