@@ -52,7 +52,6 @@ public class PhoenixEvents
     public static void preInit(FMLCommonSetupEvent evt)
     {
         CapabilityManager.INSTANCE.register(IStager.class, new StageStorage(), StageHandler::new);//reg capablity
-        registerBiome(PhoenixBiomes.UNDER.get(), 5, BiomeManager.BiomeType.COOL, END);
         DistExecutor.runWhenOn(Dist.CLIENT, ()->()->ClientRegistry.bindTileEntityRenderer(PhoenixTile.PIPE.get(),   PipeRender::new));
         DistExecutor.runWhenOn(Dist.CLIENT, ()->()->ClientRegistry.bindTileEntityRenderer(PhoenixTile.TANK.get(), TankRenderer::new));
     }
@@ -68,13 +67,6 @@ public class PhoenixEvents
                 new AtlasTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE));
     }
 
-    public static void registerBiome(Biome biome, int weight, BiomeManager.BiomeType type, BiomeDictionary.Type... types)
-    {
-        BiomeDictionary.addTypes(biome, types);
-        BiomeManager.addBiome(type, new BiomeManager.BiomeEntry(biome, weight));
-        BiomeManager.addSpawnBiome(biome);
-        BiomeProvider.BIOMES_TO_SPAWN_IN.add(biome);
-    }
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent

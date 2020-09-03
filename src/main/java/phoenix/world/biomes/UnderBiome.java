@@ -15,6 +15,7 @@ import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import phoenix.init.PhoenixBlocks;
+import phoenix.init.PhoenixEntities;
 import phoenix.init.PhoenixFeatures;
 import phoenix.utils.GenerationUtils;
 import phoenix.world.builders.Builders;
@@ -29,6 +30,7 @@ public class UnderBiome extends Biome
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.CHORUS_PLANT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG)
                 .withPlacement(Placement.CHORUS_PLANT.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
         this.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.ENDERMAN, 10, 4, 4));
+        this.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(PhoenixEntities.TALPA.get(), 5, 2, 8));
     }
 
     @Override

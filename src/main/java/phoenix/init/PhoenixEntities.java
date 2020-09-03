@@ -14,7 +14,6 @@ import phoenix.enity.TalpaEntity;
 
 public class PhoenixEntities
 {
-    static int ID = 0;
     public static final DeferredRegister<EntityType<?>> ENTITIES = new DeferredRegister<>(ForgeRegistries.ENTITIES, Phoenix.MOD_ID);
 
     public static final RegistryObject<EntityType<TalpaEntity>> TALPA = ENTITIES.register("talpa", () -> make(new ResourceLocation(Phoenix.MOD_ID, "talpa"),
