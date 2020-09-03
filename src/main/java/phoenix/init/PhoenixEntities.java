@@ -24,7 +24,6 @@ public class PhoenixEntities
     private static <E extends Entity> EntityType<E> make(ResourceLocation id, EntityType.IFactory<E> factory, EntityClassification classification)
     {
         return EntityType.Builder.create(factory, classification)
-                .disableSummoning()
                 .size(0.6F, 1.8F)
                 .setTrackingRange(80)
                 .setUpdateInterval(3)

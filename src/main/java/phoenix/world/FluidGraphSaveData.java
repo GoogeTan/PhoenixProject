@@ -97,7 +97,7 @@ public class FluidGraphSaveData extends WorldSavedData
     {
         data.putInt("graph_size", graph.size());
         for (int i = 0; i < graph.size(); i++)
-            this.data.putIntArray("graph_part_" + i, (List<Integer>) ImmutableList.of((Integer[])graph.get(i).toArray()));
+            this.data.putIntArray("graph_part_" + i, ImmutableList.copyOf(graph.get(i)));
     }
     //Этим мы получаем экземпляр данных для мира
     @Nonnull
