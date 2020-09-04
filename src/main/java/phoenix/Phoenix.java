@@ -13,7 +13,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import phoenix.init.*;
 import phoenix.world.EndBiomedDimension;
-import phoenix.world.capa.IStager;
 
 @Mod(Phoenix.MOD_ID)
 @Mod.EventBusSubscriber(modid = Phoenix.MOD_ID)
@@ -23,9 +22,6 @@ public class Phoenix
     public static final Logger LOGGER = LogManager.getLogger();
     public static final ItemGroup PHOENIX = new PhoenixGroup(Phoenix.MOD_ID, () -> new ItemStack(Items.END_PORTAL_FRAME));
     public static Phoenix instance;
-
-    @CapabilityInject(IStager.class)
-    public static Capability<IStager> capability = null;
 
     public Phoenix()
     {
