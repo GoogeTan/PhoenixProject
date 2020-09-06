@@ -1,90 +1,124 @@
 package phoenix.world.structures;
 
+import com.mojang.datafixers.Dynamic;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationSettings;
-import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.structure.ScatteredStructure;
+import net.minecraft.world.gen.feature.structure.EndCityPieces;
 import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+import phoenix.init.PhoenixConfiguration;
 
 import javax.annotation.Nonnull;
-import java.util.Iterator;
 import java.util.Random;
+import java.util.function.Function;
 
-public class ErasedStructure extends ScatteredStructure<NoFeatureConfig>
+public class ErasedStructure extends Structure<NoFeatureConfig>
 {
-    public ErasedStructure()
+    public ErasedStructure(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn)
     {
-        super(NoFeatureConfig::deserialize);
+        super(configFactoryIn);
+    }
+
+    @Override
+    public boolean canBeGenerated(@Nonnull BiomeManager biomeManagerIn, @Nonnull ChunkGenerator generatorIn, @Nonnull Random randIn, int chunkX, int chunkZ, Biome biomeIn)
+    {
+        return canBeGeneratedOld(biomeManagerIn, generatorIn, randIn, chunkX, chunkZ, biomeIn) && PhoenixConfiguration.COMMON_CONFIG.GENERATE_OPTIONAL_STRUCTURES.get();
+    }
+
+
+    public boolean canBeGeneratedOld(BiomeManager biomeManagerIn, ChunkGenerator<?> generatorIn, Random randIn, int chunkX, int chunkZ, Biome biomeIn)
+    {
+        ChunkPos chunkpos = this.getStartPositionForPosition(generatorIn, randIn, chunkX, chunkZ, 0, 0);
+        if (chunkX == chunkpos.x && chunkZ == chunkpos.z)
+        {
+            if (!generatorIn.hasStructure(biomeIn, this))
+            {
+                return false;
+            }
+            else
+            {
+                int i = getYPosForStructure(chunkX, chunkZ, generatorIn);
+                return i >= 60;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    @Nonnull
+    @Override
+    public IStartFactory getStartFactory()
+    {
+        return Start::new;
     }
 
     @Nonnull
     @Override
     public String getStructureName()
     {
-        return "ErasedLand";
+        return "erasedcity";
     }
 
     @Override
     public int getSize()
     {
-        return 3;
+        return 15;
     }
 
-    @Nonnull
-    @Override
-    public Structure.IStartFactory getStartFactory()
+    private static int getYPosForStructure(int chunkX, int chunkY, ChunkGenerator<?> generatorIn)
     {
-        return ErasedStructure.Start::new;
-    }
+        Random random = new Random(chunkX + chunkY * 10387313);
+        Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
+        int i = 5;
+        int j = 5;
+        if (rotation == Rotation.CLOCKWISE_90)
+        {
+            i = -5;
+        }
+        else if (rotation == Rotation.CLOCKWISE_180)
+        {
+            i = -5;
+            j = -5;
+        }
+        else if (rotation == Rotation.COUNTERCLOCKWISE_90)
+        {
+            j = -5;
+        }
 
-    @Override
-    public boolean canBeGenerated(BiomeManager biomeManagerIn, ChunkGenerator<?> generatorIn, Random randIn, int chunkX, int chunkZ, Biome biomeIn) {
-        return true;
-    }
-
-    @Override
-    protected int getSeedModifier()
-    {
-        return 14357618;
+        int k = (chunkX << 4) + 7;
+        int l = (chunkY << 4) + 7;
+        int i1 = generatorIn.getNoiseHeightMinusOne(k, l, Heightmap.Type.WORLD_SURFACE_WG);
+        int j1 = generatorIn.getNoiseHeightMinusOne(k, l + j, Heightmap.Type.WORLD_SURFACE_WG);
+        int k1 = generatorIn.getNoiseHeightMinusOne(k + i, l, Heightmap.Type.WORLD_SURFACE_WG);
+        int l1 = generatorIn.getNoiseHeightMinusOne(k + i, l + j, Heightmap.Type.WORLD_SURFACE_WG);
+        return Math.min(Math.min(i1, j1), Math.min(k1, l1));
     }
 
     public static class Start extends StructureStart
     {
-        public Start(Structure<?> str, int chunkPosX, int chunkPosZ, MutableBoundingBox bounds, int references, long seed)
+        public Start(Structure<?> structure, int chunkPosX, int chunkPosZ, MutableBoundingBox mbb, int references, long seed)
         {
-            super(str, chunkPosX, chunkPosZ, bounds, references, seed);
+            super(structure, chunkPosX, chunkPosZ, mbb, references, seed);
         }
 
-        @Override
-        public void init(ChunkGenerator<?> generator, @Nonnull TemplateManager templateManagerIn, int chunkX, int chunkZ, @Nonnull Biome biomeIn)
+        public void init(ChunkGenerator<?> generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn)
         {
-            NoFeatureConfig nofeatureconfig = generator.getStructureConfig(biomeIn, Feature.END_CITY);
-            int x = chunkX * 16;
-            int z = chunkZ * 16;
-            BlockPos blockpos = new BlockPos(x, 90, z);
             Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
-            ErasedPieces.initTemplate(templateManagerIn, blockpos, rotation, this.components, this.rand, nofeatureconfig);
-            this.recalculateStructureSize();
-        }
-
-        @Override
-        public void generateStructure(IWorld world, ChunkGenerator<?> generator, Random rand, MutableBoundingBox box, ChunkPos pos)
-        {
-            synchronized(this.components)
+            int i = ErasedStructure.getYPosForStructure(chunkX, chunkZ, generator);
+            if (i >= 40)
             {
-                this.components.removeIf(structurepiece -> structurepiece.getBoundingBox().intersectsWith(box) && !structurepiece.create(world, generator, rand, box, pos));
-                System.out.println(components.size() + " МНОГО");
+                BlockPos blockpos = new BlockPos(chunkX * 16 + 8, i, chunkZ * 16 + 8);
+                EndCityPieces.startHouseTower(templateManagerIn, blockpos, rotation, this.components, this.rand);
                 this.recalculateStructureSize();
             }
         }

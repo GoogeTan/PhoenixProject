@@ -1,16 +1,11 @@
 package phoenix.world;
 
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.DimensionSavedDataManager;
 import net.minecraft.world.storage.WorldSavedData;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import phoenix.Phoenix;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class StageSaveData extends WorldSavedData
 {

@@ -1,22 +1,14 @@
 package phoenix.init;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -41,16 +33,7 @@ public class PhoenixEvents
         Phoenix.LOGGER.error(PhoenixBiomes.UNDER.get().getSpawns(EntityClassification.CREATURE));
     }
 
-    //@SubscribeEvent
-    public static void om(TextureStitchEvent event)
-    {
-        Minecraft.getInstance().textureManager.loadAsync(
-                new ResourceLocation(Phoenix.MOD_ID, "textures/blocks/chorus_plant.png"),
-                Util.getServerExecutor());
-        Minecraft.getInstance().textureManager.loadTexture(
-                new ResourceLocation(Phoenix.MOD_ID, "textures/blocks/chorus_plant.png"),
-                new AtlasTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE));
-    }
+
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
@@ -63,6 +46,10 @@ public class PhoenixEvents
     public static void init(FMLCommonSetupEvent event)
     {
         PhoenixBiomes.UNDER.get().addStructure(PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+        PhoenixBiomes.HEARTVOID.get().addStructure(PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
         Biomes.END_HIGHLANDS.addStructure(PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
     }
+
+
+
 }

@@ -1,7 +1,6 @@
 package phoenix.enity.tasks;
 
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.monster.VexEntity;
 import net.minecraft.util.math.BlockPos;
 import phoenix.enity.TalpaEntity;
 

@@ -1,8 +1,9 @@
 package phoenix;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.NonNullList;
-import org.apache.logging.log4j.util.PropertySource;
+import phoenix.init.PhoenixBlocks;
 
 import javax.annotation.Nonnull;
 import java.util.Comparator;
@@ -10,20 +11,16 @@ import java.util.function.Supplier;
 
 public class PhoenixGroup extends ItemGroup
 {
-
-    @Nonnull
-    private final Supplier<ItemStack> iconSupplier;
-
-    public PhoenixGroup(@Nonnull final String name, @Nonnull final Supplier<ItemStack> iconSupplier)
+    public PhoenixGroup(@Nonnull final String name)
     {
         super(name);
-        this.iconSupplier = iconSupplier;
     }
 
     @Override
     @Nonnull
-    public ItemStack createIcon() {
-        return iconSupplier.get();
+    public ItemStack createIcon()
+    {
+        return  new ItemStack(Item.getItemFromBlock(Blocks.END_PORTAL_FRAME));
     }
 
     @Override
@@ -44,7 +41,7 @@ public class PhoenixGroup extends ItemGroup
         return 0;
     }
 
-    class comp implements Comparator<ItemStack>
+    static class comp implements Comparator<ItemStack>
     {
         @Override
         public int compare(ItemStack i1, ItemStack i2)
@@ -64,9 +61,7 @@ public class PhoenixGroup extends ItemGroup
             else if (i2.getItem() instanceof ToolItem)    s = 6;
             else if (i2.getItem() instanceof BlockItem)   s = 7;
 
-            if(f > s) return 1;
-            else if (s > f) return -1;
-            else return 0;
+            return Integer.compare(f, s);
         }
     }
 }

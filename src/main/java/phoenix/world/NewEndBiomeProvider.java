@@ -3,68 +3,57 @@ package phoenix.world;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.util.SharedSeedRandom;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.biome.provider.EndBiomeProviderSettings;
 import net.minecraft.world.gen.IExtendedNoiseRandom;
-import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.LazyAreaLayerContext;
 import net.minecraft.world.gen.SimplexNoiseGenerator;
 import net.minecraft.world.gen.area.IArea;
 import net.minecraft.world.gen.area.IAreaFactory;
 import net.minecraft.world.gen.area.LazyArea;
-import net.minecraft.world.gen.feature.structure.EndCityStructure;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.layer.IslandLayer;
 import net.minecraft.world.gen.layer.Layer;
-import net.minecraft.world.gen.layer.LayerUtil;
 import net.minecraft.world.gen.layer.ZoomLayer;
-import net.minecraft.world.server.ServerWorld;
 import phoenix.init.PhoenixBiomes;
-import phoenix.utils.GenerationUtils;
-import phoenix.world.biomes.HeartVoidBiome;
+import phoenix.init.PhoenixConfiguration;
 import phoenix.world.genlayers.*;
-import phoenix.world.structures.ErasedStructure;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 import java.util.function.LongFunction;
 
 public class NewEndBiomeProvider extends BiomeProvider
 {
-    private final Layer genBiomes;
+    private final Layer genLayer;
     private final SimplexNoiseGenerator generator;
     private final SharedSeedRandom random;
-    private World world;
+    private final World world;
     private static final Set<Biome> biomes;
 
     static
     {
-        biomes = ImmutableSet.of(Biomes.THE_END, Biomes.END_HIGHLANDS, Biomes.END_MIDLANDS, Biomes.SMALL_END_ISLANDS, Biomes.END_BARRENS, PhoenixBiomes.UNDER.get());
+        biomes = ImmutableSet.of(Biomes.THE_END, Biomes.END_HIGHLANDS, Biomes.END_MIDLANDS, Biomes.SMALL_END_ISLANDS, Biomes.END_BARRENS, PhoenixBiomes.UNDER.get(), PhoenixBiomes.HEARTVOID.get());
     }
 
     public NewEndBiomeProvider(EndBiomeProviderSettings settings, World worldIn)
     {
         super(biomes);
-        this.genBiomes = createLayer(settings.getSeed());
+        this.genLayer = createLayer(settings.getSeed());
         this.random = new SharedSeedRandom(settings.getSeed());
         this.random.skip(17292);
         this.generator = new SimplexNoiseGenerator(this.random);
         this.world = worldIn;
     }
 
+    @Nonnull
     @Override
     public Biome getNoiseBiome(int x, int y, int z)
     {
-        return this.genBiomes.func_215738_a(x, z);
+        return this.genLayer.func_215738_a(x, z);
     }
 
     @Override
@@ -98,19 +87,20 @@ public class NewEndBiomeProvider extends BiomeProvider
         return result;
     }
 
+    @Nonnull
     @Override
     public List<Biome> getBiomesToSpawnIn()
     {
-        return ImmutableList.of(Biomes.THE_END, Biomes.END_HIGHLANDS, Biomes.END_MIDLANDS, Biomes.SMALL_END_ISLANDS, Biomes.END_BARRENS, PhoenixBiomes.UNDER.get());
+        return ImmutableList.copyOf(biomes);
     }
 
     public Layer createLayer(long seed)
     {
-        IAreaFactory<LazyArea> iareafactory = getLayersAply((seedModifierIn) -> new LazyAreaLayerContext(25, seed, seedModifierIn));
+        IAreaFactory<LazyArea> iareafactory = getLayersApply((seedModifierIn) -> new LazyAreaLayerContext(25, seed, seedModifierIn));
         return new Layer(iareafactory);
     }
 
-    public <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> getLayersAply(LongFunction<C> context)
+    public <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> getLayersApply(LongFunction<C> context)
     {
         IAreaFactory<T> phoenix_biomes = (new ParentLayer(this)).apply(context.apply(1L));
         IAreaFactory<T> vanila_biomes =  (new ParentLayer(this)).apply(context.apply(1L));
@@ -118,27 +108,17 @@ public class NewEndBiomeProvider extends BiomeProvider
 
         phoenix_biomes = UnderLayer    .INSTANCE.apply(context.apply(200L), phoenix_biomes);
         phoenix_biomes = HeartVoidLayer.INSTANCE.apply(context.apply(200L), phoenix_biomes);
-        phoenix_biomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenix_biomes);
-        phoenix_biomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenix_biomes);
-        phoenix_biomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenix_biomes);
-        phoenix_biomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenix_biomes);
-        phoenix_biomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenix_biomes);
-        phoenix_biomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenix_biomes);
+        for (int i = 0; i < PhoenixConfiguration.COMMON_CONFIG.BIOME_SIZE.get(); i++)
+        {
+            phoenix_biomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenix_biomes);
+        }
 
-        IAreaFactory<T> res = UnificationLayer.INSTANCE.apply(context.apply(200L), phoenix_biomes, vanila_biomes);
-        return res;
+        return UnificationLayer.INSTANCE.apply(context.apply(200L), phoenix_biomes, vanila_biomes);
     }
 
     public <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> getBiomeLayer(IAreaFactory<T> parentLayer, LongFunction<C> contextFactory)
     {
         parentLayer = (new EndBiomeLayer()).apply(contextFactory.apply(200L), parentLayer);
         return parentLayer;
-    }
-
-
-    @Override
-    public boolean hasStructure(@Nonnull Structure<?> structureIn)
-    {
-        return super.hasStructure(structureIn) || structureIn instanceof ErasedStructure;
     }
 }

@@ -1,7 +1,6 @@
 package phoenix.world.genlayers;
 
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.layer.traits.ICastleTransformer;
 import phoenix.init.PhoenixBiomes;

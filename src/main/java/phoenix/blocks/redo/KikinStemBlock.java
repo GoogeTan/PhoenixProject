@@ -2,10 +2,8 @@ package phoenix.blocks.redo;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.ChorusPlantBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.state.IProperty;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;

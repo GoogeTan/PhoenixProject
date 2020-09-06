@@ -9,14 +9,11 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.DimensionSavedDataManager;
 import net.minecraft.world.storage.WorldSavedData;
-import phoenix.tile.PipeTile;
 import phoenix.utils.IFluidMechanism;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class FluidGraphSaveData extends WorldSavedData
 {
@@ -103,13 +100,6 @@ public class FluidGraphSaveData extends WorldSavedData
     @Nonnull
     public static FluidGraphSaveData get(ServerWorld world)
     {
-        DimensionSavedDataManager storage = world.getSavedData();
-        FluidGraphSaveData instance = storage.getOrCreate(FluidGraphSaveData::new, DATA_NAME);
-       /* if (instance == null)
-        {
-            instance = new FluidGraphSaveData();
-            storage.set(instance);
-        }*/
-        return instance;
+        return world.getSavedData().getOrCreate(FluidGraphSaveData::new, DATA_NAME);
     }
 }

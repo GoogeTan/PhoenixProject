@@ -1,26 +1,20 @@
 package phoenix.enity;
 
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.AbstractRaiderEntity;
-import net.minecraft.entity.monster.VexEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import phoenix.init.PhoenixEntities;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.EnumSet;
 
 public class TalpaEntity extends AnimalEntity implements EntityType.IFactory<TalpaEntity>
 {

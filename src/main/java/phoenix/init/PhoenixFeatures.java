@@ -3,6 +3,7 @@ package phoenix.init;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.structure.EndCityStructure;
 import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.fml.RegistryObject;
@@ -20,7 +21,7 @@ public class PhoenixFeatures
     public static IStructurePieceType ERASED_PIESES = registerType(ErasedPieces.Piece::new, "era");
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Phoenix.MOD_ID);
 
-    public static final RegistryObject<Structure<NoFeatureConfig>> ERASED = FEATURES.register("erased", ErasedStructure::new);
+    public static final RegistryObject<Structure<NoFeatureConfig>> ERASED = FEATURES.register("erased", () -> new ErasedStructure(NoFeatureConfig::deserialize));
 
     public static void register()
     {

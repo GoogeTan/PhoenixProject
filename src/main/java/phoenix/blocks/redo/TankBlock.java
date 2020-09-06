@@ -1,7 +1,6 @@
 package phoenix.blocks.redo;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
@@ -25,8 +24,6 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import phoenix.tile.TankTile;
 import phoenix.utils.BlockWithTile;
-import phoenix.utils.IFluidMechanism;
-import phoenix.world.EndBiomedDimension;
 import phoenix.world.FluidGraphSaveData;
 
 import javax.annotation.Nullable;

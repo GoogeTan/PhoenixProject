@@ -6,7 +6,6 @@ import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.layer.traits.IC0Transformer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import phoenix.init.PhoenixBiomes;
 
 import javax.annotation.Nonnull;
 

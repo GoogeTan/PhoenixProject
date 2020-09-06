@@ -15,8 +15,6 @@ import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import phoenix.init.PhoenixBlocks;
-import phoenix.init.PhoenixEntities;
-import phoenix.init.PhoenixFeatures;
 import phoenix.utils.GenerationUtils;
 import phoenix.world.builders.Builders;
 

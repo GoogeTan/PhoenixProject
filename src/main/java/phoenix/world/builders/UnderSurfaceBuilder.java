@@ -6,11 +6,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.surfacebuilders.DefaultSurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.ISurfaceBuilderConfig;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
-import phoenix.init.PhoenixBlocks;
 
 import java.util.Random;
 import java.util.function.Function;
