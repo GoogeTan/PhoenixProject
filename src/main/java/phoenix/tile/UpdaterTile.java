@@ -9,7 +9,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
-import phoenix.init.PhoenixTile;
+import phoenix.init.PhoenixTiles;
 import phoenix.world.StageSaveData;
 
 public class UpdaterTile extends TileEntity implements ITickableTileEntity
@@ -21,7 +21,7 @@ public class UpdaterTile extends TileEntity implements ITickableTileEntity
 
     public UpdaterTile()
     {
-        super(PhoenixTile.UPDATOR.get());
+        super(PhoenixTiles.UPDATOR.get());
     }
 
 

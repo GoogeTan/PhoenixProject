@@ -47,7 +47,7 @@ public class PhoenixConfiguration
         if (event.getConfig().getModId().equals(Phoenix.MOD_ID))
         {
             build();
-            Phoenix.LOGGER.error("Reloaded");
+            Phoenix.LOGGER.debug("Reloaded");
         }
     }
 }

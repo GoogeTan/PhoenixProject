@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
-import phoenix.init.PhoenixTile;
+import phoenix.init.PhoenixTiles;
 import phoenix.utils.IFluidMechanism;
 
 public class PipeTile extends TileEntity implements IFluidMechanism
@@ -15,7 +15,7 @@ public class PipeTile extends TileEntity implements IFluidMechanism
     public FluidTank tank = new FluidTank(FluidAttributes.BUCKET_VOLUME * 5);
     public PipeTile()
     {
-        super(PhoenixTile.PIPE.get());
+        super(PhoenixTiles.PIPE.get());
     }
 
     @Override

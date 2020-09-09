@@ -9,7 +9,7 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
-import phoenix.init.PhoenixTile;
+import phoenix.init.PhoenixTiles;
 import phoenix.utils.IFluidMechanism;
 
 import javax.annotation.Nonnull;
@@ -24,7 +24,7 @@ public class TankTile extends TileEntity implements IFluidMechanism
 
     public TankTile()
     {
-        super(PhoenixTile.TANK.get());
+        super(PhoenixTiles.TANK.get());
     }
 
     @Override

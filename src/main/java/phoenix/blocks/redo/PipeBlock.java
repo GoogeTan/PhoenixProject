@@ -42,11 +42,11 @@ public class PipeBlock extends BlockWithTile<PipeTile>
         super(Properties.create(Material.WOOD).notSolid());
         this.setDefaultState(this.stateContainer.getBaseState()
                 .with(NORTH, Boolean.valueOf(false))
-                .with(EAST, Boolean.valueOf(false))
+                .with(EAST,  Boolean.valueOf(false))
                 .with(SOUTH, Boolean.valueOf(false))
-                .with(WEST, Boolean.valueOf(false))
-                .with(UP, Boolean.valueOf(false))
-                .with(DOWN, Boolean.valueOf(false)));
+                .with(WEST,  Boolean.valueOf(false))
+                .with(UP,    Boolean.valueOf(false))
+                .with(DOWN,  Boolean.valueOf(false)));
     }
 
     @Override
@@ -64,12 +64,12 @@ public class PipeBlock extends BlockWithTile<PipeTile>
         TileEntity tile4 = reader.getTileEntity(pos.south());
         TileEntity tile5 = reader.getTileEntity(pos.west());
         return this.getDefaultState()
-                .with(DOWN, tile0 instanceof IFluidMechanism)
-                .with(UP, tile1 instanceof IFluidMechanism)
+                .with(DOWN,  tile0 instanceof IFluidMechanism)
+                .with(UP,    tile1 instanceof IFluidMechanism)
                 .with(NORTH, tile2 instanceof IFluidMechanism)
-                .with(EAST, tile3 instanceof IFluidMechanism)
+                .with(EAST,  tile3 instanceof IFluidMechanism)
                 .with(SOUTH, tile4 instanceof IFluidMechanism)
-                .with(WEST, tile5 instanceof IFluidMechanism);
+                .with(WEST,  tile5 instanceof IFluidMechanism);
     }
 
     @Override
@@ -107,6 +107,7 @@ public class PipeBlock extends BlockWithTile<PipeTile>
         return false;
     }
 
+    @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
         return NORMAL;
@@ -118,16 +119,5 @@ public class PipeBlock extends BlockWithTile<PipeTile>
     {
         FluidGraphSaveData.get((ServerWorld) worldIn).addBlock(worldIn, pos, false);
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-    }
-
-    public static void UpdateRecursive(IWorld world, BlockPos pos, Direction from, int value)
-    {
-        for (Direction dir: Direction.values())
-        {
-            if(dir != from && world.getBlockState(pos.offset(dir)).getBlock() instanceof IFluidMechanism)
-            {
-                UpdateRecursive(world, pos.offset(dir), dir.getOpposite(), value - 1);
-            }
-        }
     }
 }

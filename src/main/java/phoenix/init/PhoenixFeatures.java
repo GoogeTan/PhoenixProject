@@ -18,7 +18,7 @@ import java.util.Locale;
 
 public class PhoenixFeatures
 {
-    public static IStructurePieceType ERASED_PIESES = registerType(ErasedPieces.Piece::new, "era");
+    public static IStructurePieceType ERASED_PIESES = register(ErasedPieces.Piece::new, "era");
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Phoenix.MOD_ID);
 
     public static final RegistryObject<Structure<NoFeatureConfig>> ERASED = FEATURES.register("erased", () -> new ErasedStructure(NoFeatureConfig::deserialize));
@@ -28,8 +28,7 @@ public class PhoenixFeatures
         FEATURES.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
-    public static IStructurePieceType registerType(IStructurePieceType type, String key)
-    {
+    static IStructurePieceType register(IStructurePieceType type, String key) {
         return Registry.register(Registry.STRUCTURE_PIECE, key.toLowerCase(Locale.ROOT), type);
     }
 }
