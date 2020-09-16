@@ -18,7 +18,7 @@ public class TankRenderer extends TileEntityRenderer<TankTile>
 {
     ResourceLocation TEXTURE_FLUID;
 
-    public Material TEXTURE_PIPE;
+    public Material MATERIAL_FLUID;
 
     public TankRenderer(TileEntityRendererDispatcher rendererDispatcherIn)
     {
@@ -37,22 +37,23 @@ public class TankRenderer extends TileEntityRenderer<TankTile>
         }
         if (TEXTURE_FLUID != null)
         {
-            TEXTURE_PIPE = new Material(AtlasTexture.LOCATION_BLOCKS_TEXTURE, TEXTURE_FLUID);
+            MATERIAL_FLUID = new Material(AtlasTexture.LOCATION_BLOCKS_TEXTURE, TEXTURE_FLUID);
             TankModel model = new TankModel(te);
             matrixStackIn.push();
-            IVertexBuilder ivertexbuilder = TEXTURE_PIPE.getBuffer(bufferIn, RenderType::getEntitySolid);
+            IVertexBuilder fluid_builder = MATERIAL_FLUID.getBuffer(bufferIn, RenderType::getEntitySolid);
             if (te.tank.getFluid().getFluid() != Fluids.WATER)
             {
-                model.render(matrixStackIn, ivertexbuilder, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+                model.render(matrixStackIn, fluid_builder, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             } else
             {
                 if (te.getWorld().dimension instanceof EndBiomedDimension)
                 {
-                    model.render(matrixStackIn, ivertexbuilder, combinedLightIn, combinedOverlayIn, 80 / 256F, 43 / 256F, 226 / 256F, 0.7F);
-                } else
+                    model.render(matrixStackIn, fluid_builder, combinedLightIn, combinedOverlayIn, 80 / 256F, 43 / 256F, 226 / 256F, 0.7F);
+                }
+                else
                 {
                     int watercolor = te.getWorld().getBiome(te.getPos()).getWaterColor();
-                    model.render(matrixStackIn, ivertexbuilder, combinedLightIn, combinedOverlayIn, (watercolor / 10000) / 100f, ((watercolor / 100) % 100) / 100f, 1.0F, 0.7F);
+                    model.render(matrixStackIn, fluid_builder, combinedLightIn, combinedOverlayIn, (watercolor / 10000) / 100f, ((watercolor / 100) % 100) / 100f, 1.0F, 0.7F);
                 }
             }
             matrixStackIn.pop();
