@@ -46,6 +46,7 @@ public class UnderBiome extends Biome
                 worldIn.setBlockState(position.down(), PhoenixBlocks.KIKIN_FRUIT.get().getDefaultState(), 2);
             }
         }
+
     }
 
     public static BlockPos getDownHeight(IWorld worldIn, BlockPos pos, int max)

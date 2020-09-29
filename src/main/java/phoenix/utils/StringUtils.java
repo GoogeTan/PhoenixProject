@@ -1,5 +1,6 @@
 package phoenix.utils;
 
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TranslationTextComponent;
 
@@ -15,7 +16,13 @@ public class StringUtils
         String currect = "";
         for (int i = 0; i < s.length(); i++)
         {
-            if(s.charAt(i) == ' ' || i == s.length() - 1)
+            if(s.charAt(i) == '\n')
+            {
+                result.add(currect);
+                result.add("[break]");
+                currect = "";
+            }
+            else if(s.charAt(i) == ' ' || i == s.length() - 1)
             {
                 result.add(currect);
                 currect = "";
@@ -54,4 +61,9 @@ public class StringUtils
 
         return res;
     }
+    public static void drawRightAlignedString(FontRenderer font, String string, int x, int y, int colour)
+    {
+        font.drawStringWithShadow(string, (float)(x - font.getStringWidth(string)), (float)y, colour);
+    }
+
 }

@@ -1,107 +1,56 @@
 package phoenix.client.gui.diaryPages;
 
-import javafx.util.Pair;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.ResourceLocation;
-import phoenix.Phoenix;
-import phoenix.utils.StringUtils;
+import phoenix.client.gui.diaryPages.elements.IDiaryElement;
+import phoenix.utils.ArrayUtils;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 public class DiaryChapter
 {
-    int xSize = (int) (176 * 1.8);
-    FontRenderer font = Minecraft.getInstance().fontRenderer;
-    ArrayList<ArrayList<String>> pages = new ArrayList<>();
+    final int xSize;
+    final FontRenderer font;
+    ArrayList<ArrayList<IDiaryElement>> pages = new ArrayList<>();
 
-    public DiaryChapter(String[] text)
+    public DiaryChapter(IDiaryElement[] elements, int xSizeIn, FontRenderer renderer)
     {
-        int numder_of_string_on_page = 0;
-        ArrayList<String> page = new ArrayList<>();
-        for (String currect: text)
+        this.xSize = xSizeIn;
+        this.font = renderer;
+        ArrayList<IDiaryElement> page = new ArrayList<>();
+        for (int numderOfElements = 0; numderOfElements < elements.length; ++numderOfElements)
         {
-            ArrayList<String> words = StringUtils.stringToWords(currect);
-            for (int number_of_words = 0; number_of_words < words.size(); number_of_words++)
+            int size = 0;
+            if(size + elements[numderOfElements].getHeight() <= 14)
             {
-                String string_to_print = "";
-                while (font.getStringWidth(string_to_print) < this.xSize / 2 - 30 && number_of_words < words.size())
-                {
-                    string_to_print += words.get(number_of_words) + " ";
-                    ++number_of_words;
-                }
-                page.add(string_to_print);
-                numder_of_string_on_page++;
-
-                if(numder_of_string_on_page >= 14)
-                {
-                    pages.add(page);
-                    page.clear();
-                    numder_of_string_on_page = 0;
-                }
+                page.add(elements[numderOfElements]);
+                size += elements[numderOfElements].getHeight();
             }
-            ++numder_of_string_on_page;
+            else
+            {
+                pages.add((ArrayList<IDiaryElement>) page.clone());
+                page.clear();
+            }
+            numderOfElements--;
         }
-        if(!page.isEmpty())
-            pages.add(page);
-
-        for (ArrayList<String> s: pages)
+        if (!page.isEmpty())
         {
-            Phoenix.LOGGER.error(s);
+            pages.add((ArrayList<IDiaryElement>) page.clone());
         }
     }
 
-    public DiaryChapter(ArrayList<String> text)
+    public DiaryChapter(ArrayList<IDiaryElement> elements,int xSize, FontRenderer font)
     {
-        int numder_of_string_on_page = 0;
-        ArrayList<String> page = new ArrayList<>();
-        for (String currect: text)
-        {
-            ArrayList<String> words = StringUtils.stringToWords(currect);
-            for (int number_of_words = 0; number_of_words < words.size(); number_of_words++)
-            {
-                String string_to_print = "";
-                while (font.getStringWidth(string_to_print) < this.xSize / 2 - 30 && number_of_words < words.size())
-                {
-                    string_to_print += words.get(number_of_words) + " ";
-                    ++number_of_words;
-                }
-                page.add(string_to_print);
-                numder_of_string_on_page++;
-
-                if(numder_of_string_on_page >= 14)
-                {
-                    pages.add(page);
-                    page.clear();
-                    numder_of_string_on_page = 0;
-                }
-            }
-            ++numder_of_string_on_page;
-        }
-        if(!page.isEmpty())
-            pages.add(page);
-
-        Phoenix.LOGGER.error(pages.get(0));
-
+        this(ArrayUtils.toArray(elements), xSize, font);
     }
 
-    public ArrayList<String> getTextForPage(int page)
+    //возвращает все строки на странице
+    public ArrayList<IDiaryElement> getElementsForPage(int page)
     {
         return pages.get(page);
     }
 
-    public ArrayList<String> getStringsForPage(int page)
-    {
-        return pages.get(page);
-    }
-    public int countPages()
+    public int countOfPages()
     {
         return pages.size();
-    }
-    @Nullable
-    public ArrayList<Pair<Integer, ResourceLocation>> getImages()
-    {
-        return null;
     }
 }
