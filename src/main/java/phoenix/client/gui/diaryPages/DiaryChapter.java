@@ -1,7 +1,9 @@
 package phoenix.client.gui.diaryPages;
 
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import phoenix.client.gui.diaryPages.elements.IDiaryElement;
+import phoenix.containers.DiaryContainer;
 import phoenix.utils.ArrayUtils;
 
 import java.util.ArrayList;
@@ -30,11 +32,19 @@ public class DiaryChapter
                 pages.add((ArrayList<IDiaryElement>) page.clone());
                 page.clear();
             }
-            numderOfElements--;
+            //numderOfElements--;
         }
         if (!page.isEmpty())
         {
             pages.add((ArrayList<IDiaryElement>) page.clone());
+        }
+    }
+
+    public void render(int number, ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int x, int y)
+    {
+        for (int i = 0; i < pages.get(number).size(); ++i)
+        {
+            pages.get(number).get(i).render(gui, renderer, xSize, x, y +  pages.get(number).get(i).getHeight() * 15);
         }
     }
 

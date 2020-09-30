@@ -14,7 +14,7 @@ public class ImageElement implements IDiaryElement
 {
     final ResourceLocation img;
     int w, h;
-    int scale = 1, xSize, ySize;
+    int xSize, ySize;
     public ImageElement(ResourceLocation img, int xSize, int ySize)
     {
         this.img = img;
@@ -25,24 +25,22 @@ public class ImageElement implements IDiaryElement
         this.ySize = ySize;
     }
 
-    public void setScale(int scale)
-    {
-        this.scale = scale;
-    }
-
     @Override
     public int getHeight()
     {
-        return (int) Math.ceil((double) xSize / (double)  w *  (double) h / 15D);
+        return (int) Math.ceil((double) w / xSize * h);
     }
 
     @Override
     public void render(ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int x, int y)
     {
+        Dimension d = TextureUtils.getTextureSize(img);
+        this.w = d.width;
+        this.h = d.height;
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         Minecraft.getInstance().getTextureManager().bindTexture(img);
-        RenderSystem.scaled(scale, scale, scale);//увеличиваем картинку
-        gui.blit(x / scale, y / scale, 0, 0, xSize, xSize / w * h);
-        RenderSystem.scaled(1D / scale, 1D / scale, 1D / scale);//возвращаем старый скейл, чтоб тект был нормальным
+        RenderSystem.scaled(((double)w) / xSize, ((double)w) / xSize, ((double)w) / xSize);
+        gui.blit((int) (x * ((double)xSize) / w), (int)(y * ((double)xSize) / w), 0, 0, w, h);
+        RenderSystem.scaled(xSize / ((double) w), xSize / ((double) w), xSize / ((double) w));
     }
 }
