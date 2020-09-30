@@ -33,7 +33,6 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
 {
     private static final ResourceLocation DIARY_TEXTURE = new ResourceLocation(Phoenix.MOD_ID, "textures/gui/diary_.png");
     private static final ResourceLocation DIARY_TEXTURE_2 = new ResourceLocation(Phoenix.MOD_ID, "textures/gui/diary_2.png");
-    final EDiaryChapter  currect;
     final DiaryChapter   diaryChapter;
     final DiaryContainer container;
     public DiaryGui(DiaryContainer screenContainer, PlayerInventory inv, ITextComponent titleIn)
@@ -41,9 +40,8 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
         super(screenContainer, inv, titleIn);
         xSize *= 1.8;
         ySize *= 1.8;
-        currect = new FirstChapter(xSize, Minecraft.getInstance().fontRenderer);
-
-            diaryChapter = new DiaryChapter(DiaryUtils.add(DiaryUtils.makeParagraph(font, xSize,
+        diaryChapter = new DiaryChapter(
+                DiaryUtils.add(DiaryUtils.makeParagraph(Minecraft.getInstance().fontRenderer, xSize,
                     "Hear me, hear me, friend. \n " +
                     "I’m very, no, seriously ill. \n " +
                     "What’s the reason? \n" +
@@ -51,7 +49,8 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
                     "As if wind whistles, listen \n " +
                     "Over desolate, vacant, still field. \n " +
                     "Like a grove, leaves blazing I feel. \n " +
-                    "And the drink sheds my leaves as I bend. \n "), Pair.of(3, new ImageElement(DIARY_TEXTURE, xSize - 30, ySize - 30))), xSize, font);
+                    "And the drink sheds my leaves as I bend. \n "),
+                Pair.of(3, new ImageElement(DIARY_TEXTURE, xSize - 30, ySize - 30))), xSize, font);
 
         container = screenContainer;
     }
@@ -77,7 +76,6 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
         this.minecraft.getTextureManager().bindTexture(DIARY_TEXTURE);
         RenderSystem.scaled(2, 2, 2);//увеличиваем картинку
         this.blit((int) (guiLeft * 0.5F), (int) (guiTop * 0.5F), 0, 0, 256, 256);
-        //this.blit(guiLeft, guiTop, 0, 0, 256, 256);
         RenderSystem.scaled(0.5, 0.5, 0.5);//возвращаем старый скейл, чтоб тект был нормальным
     }
 
@@ -85,7 +83,6 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
     public void render(int p_render_1_, int p_render_2_, float p_render_3_)
     {
         this.renderBackground();
-        //element.render(this, font, xSize, guiLeft + 15, guiTop + 15);
         diaryChapter.render(0, this, font, xSize, guiLeft, guiTop);
         /*
         ArrayList<String> currect_page = currect.getTextForPage(container.getPage());//массив со строками на странице

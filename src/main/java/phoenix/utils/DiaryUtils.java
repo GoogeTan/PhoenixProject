@@ -7,6 +7,7 @@ import phoenix.client.gui.diaryPages.DiaryChapter;
 import phoenix.client.gui.diaryPages.EDiaryChapter;
 import phoenix.client.gui.diaryPages.elements.IDiaryElement;
 import phoenix.client.gui.diaryPages.elements.TextElement;
+import phoenix.init.PhoenixEntities;
 import phoenix.utils.exeptions.BookException;
 
 import java.util.ArrayList;
@@ -62,23 +63,15 @@ public class DiaryUtils
 
     public static ArrayList<IDiaryElement> add(ArrayList<IDiaryElement> chapter, Pair<Integer, IDiaryElement>... toAdd)
     {
-
         for (Pair<Integer, IDiaryElement> pair : toAdd)
         {
-            try
+            if (chapter.size() < pair.getLeft())
             {
-                if(chapter.size() < pair.getLeft())
-                {
-                    chapter.add(pair.getRight());
-                }
-                else {
-                    chapter.add(pair.getLeft(), pair.getRight());
-                }
+                chapter.add(pair.getRight());
             }
-            catch (Exception e)
+            else
             {
-                e.printStackTrace();
-                //throw new BookException("Someone badly adds elements to the chapter of the book! Oh, damn it...");
+                chapter.add(pair.getLeft(), pair.getRight());
             }
         }
         return chapter;

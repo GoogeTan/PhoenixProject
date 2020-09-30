@@ -2,7 +2,9 @@ package phoenix.client.gui.diaryPages;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import phoenix.Phoenix;
 import phoenix.client.gui.diaryPages.elements.IDiaryElement;
+import phoenix.client.gui.diaryPages.elements.ImageElement;
 import phoenix.containers.DiaryContainer;
 import phoenix.utils.ArrayUtils;
 
@@ -42,9 +44,14 @@ public class DiaryChapter
 
     public void render(int number, ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int x, int y)
     {
+        int sum = 0;
         for (int i = 0; i < pages.get(number).size(); ++i)
         {
-            pages.get(number).get(i).render(gui, renderer, xSize, x, y +  pages.get(number).get(i).getHeight() * 15);
+            if(pages.get(number).get(i) instanceof ImageElement)
+                Phoenix.LOGGER.error("Good");
+
+            pages.get(number).get(i).render(gui, renderer, xSize, x, y + sum);
+            sum += pages.get(number).get(i).getHeight();
         }
     }
 
