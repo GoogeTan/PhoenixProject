@@ -21,20 +21,16 @@ public class DiaryChapter
         this.xSize = xSizeIn;
         this.font = renderer;
         ArrayList<IDiaryElement> page = new ArrayList<>();
-        for (int numderOfElements = 0; numderOfElements < elements.length; ++numderOfElements)
+        int size = 0;
+        for (IDiaryElement element : elements)
         {
-            int size = 0;
-            if(size + elements[numderOfElements].getHeight() <= 14)
-            {
-                page.add(elements[numderOfElements]);
-                size += elements[numderOfElements].getHeight();
-            }
-            else
+            if (size + element.getHeight() >= 14)
             {
                 pages.add((ArrayList<IDiaryElement>) page.clone());
                 page.clear();
             }
-            //numderOfElements--;
+            page.add(element);
+            size += element.getHeight();
         }
         if (!page.isEmpty())
         {
@@ -44,14 +40,12 @@ public class DiaryChapter
 
     public void render(int number, ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int x, int y)
     {
-        int sum = 0;
-        for (int i = 0; i < pages.get(number).size(); ++i)
+        ArrayList<IDiaryElement> page = pages.get(number);
+        int sum = 15;
+        for (IDiaryElement element : page)
         {
-            if(pages.get(number).get(i) instanceof ImageElement)
-                Phoenix.LOGGER.error("Good");
-
-            pages.get(number).get(i).render(gui, renderer, xSize, x, y + sum);
-            sum += pages.get(number).get(i).getHeight();
+            element.render(gui, renderer, xSize, x, y + sum);
+            sum += element.getHeight();
         }
     }
 
