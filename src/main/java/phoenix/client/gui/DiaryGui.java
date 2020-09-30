@@ -92,7 +92,8 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
     public void render(int p_render_1_, int p_render_2_, float p_render_3_)
     {
         this.renderBackground();
-        element.render(this, font, xSize, guiLeft + 15, guiTop + 15);
+        //element.render(this, font, xSize, guiLeft + 15, guiTop + 15);
+        diaryChapter.render(0, this, font, xSize, guiLeft, guiTop);
         /*
         ArrayList<String> currect_page = currect.getTextForPage(container.getPage());//массив со строками на странице
         for (int numder_of_string_on_page = 0; numder_of_string_on_page < currect_page.size(); ++numder_of_string_on_page)//рисуем каждую строку
