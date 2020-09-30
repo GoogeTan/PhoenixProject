@@ -39,18 +39,46 @@ public class DiaryUtils
         return res;
     }
 
-    public static ArrayList<IDiaryElement> add(ArrayList<IDiaryElement> chapter, Pair<Integer, IDiaryElement>... toAdd) throws BookException
+    public static ArrayList<IDiaryElement> makeParagraph(FontRenderer font, int xSize, String... text)
+    {
+        ArrayList<IDiaryElement> res = new ArrayList<>();
+        for (String currect : text) //проходим по всем параграфам
+        {
+            ArrayList<String> words = StringUtils.stringToWords(currect);//слова в параграфе
+            for (int number_of_words = 0; number_of_words < words.size(); ++number_of_words)//проходим по всем словам
+            {
+                String string_to_add = "";//строка которую будем добавлять
+                while (font.getStringWidth(string_to_add) < xSize / 2 - 30 && number_of_words < words.size())//пока меньше ширины страницы
+                {
+                    string_to_add += words.get(number_of_words) + " ";//добавляем слово
+                    ++number_of_words;
+                }
+                res.add(new TextElement(string_to_add));
+            }
+            res.add(new TextElement(""));//после каждого параграфа перенос
+        }
+        return res;
+    }
+
+    public static ArrayList<IDiaryElement> add(ArrayList<IDiaryElement> chapter, Pair<Integer, IDiaryElement>... toAdd)
     {
 
         for (Pair<Integer, IDiaryElement> pair : toAdd)
         {
             try
             {
-                chapter.add(pair.getLeft(), pair.getRight());
+                if(chapter.size() < pair.getLeft())
+                {
+                    chapter.add(pair.getRight());
+                }
+                else {
+                    chapter.add(pair.getLeft(), pair.getRight());
+                }
             }
             catch (Exception e)
             {
-                throw new BookException("Someone badly adds elements to the chapter of the book! Oh, damn it...");
+                e.printStackTrace();
+                //throw new BookException("Someone badly adds elements to the chapter of the book! Oh, damn it...");
             }
         }
         return chapter;

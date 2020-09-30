@@ -22,12 +22,4 @@ public class ArrayUtils
         res.addAll(Arrays.asList(adv));
         return res;
     }
-
-    @SafeVarargs
-    @Nonnull
-    static public <T extends Object> T[] toArray(@Nonnull ArrayList<T> first, T... adv)
-    {
-        ArrayList<T> arr = sumArrays(first, adv);
-        return (T[]) arr.toArray();
-    }
 }

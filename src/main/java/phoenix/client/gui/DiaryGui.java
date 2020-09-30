@@ -33,21 +33,18 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
 {
     private static final ResourceLocation DIARY_TEXTURE = new ResourceLocation(Phoenix.MOD_ID, "textures/gui/diary_.png");
     private static final ResourceLocation DIARY_TEXTURE_2 = new ResourceLocation(Phoenix.MOD_ID, "textures/gui/diary_2.png");
-    final EDiaryChapter currect;
-    DiaryChapter diaryChapter;
+    final EDiaryChapter  currect;
+    final DiaryChapter   diaryChapter;
     final DiaryContainer container;
-    private InvisibleButton buttonNextPage;
-    private InvisibleButton buttonPreviousPage;
-    ImageElement element;
     public DiaryGui(DiaryContainer screenContainer, PlayerInventory inv, ITextComponent titleIn)
     {
         super(screenContainer, inv, titleIn);
         xSize *= 1.8;
         ySize *= 1.8;
         currect = new FirstChapter(xSize, Minecraft.getInstance().fontRenderer);
-        try
-        {
-            diaryChapter = new DiaryChapter(DiaryUtils.add(DiaryUtils.makeParagraph("Hear me, hear me, friend. \n " +
+
+            diaryChapter = new DiaryChapter(DiaryUtils.add(DiaryUtils.makeParagraph(font, xSize,
+                    "Hear me, hear me, friend. \n " +
                     "I’m very, no, seriously ill. \n " +
                     "What’s the reason? \n" +
                     " This pain I do not understand. \n " +
@@ -55,11 +52,7 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
                     "Over desolate, vacant, still field. \n " +
                     "Like a grove, leaves blazing I feel. \n " +
                     "And the drink sheds my leaves as I bend. \n "), Pair.of(3, new ImageElement(DIARY_TEXTURE, xSize - 30, ySize - 30))), xSize, font);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+
         container = screenContainer;
     }
 

@@ -50,9 +50,17 @@ public class DiaryChapter
 
     public DiaryChapter(ArrayList<IDiaryElement> elements,int xSize, FontRenderer font)
     {
-        this(ArrayUtils.toArray(elements), xSize, font);
+        this(toArray(elements), xSize, font);
     }
-
+    public static IDiaryElement[] toArray(ArrayList<IDiaryElement> elements)
+    {
+        IDiaryElement[] arr = new IDiaryElement[elements.size()];
+        for (int i = 0; i < elements.size(); ++i)
+        {
+            arr[i] = elements.get(i);
+        }
+        return arr;
+    }
     //возвращает все строки на странице
     public ArrayList<IDiaryElement> getElementsForPage(int page)
     {
