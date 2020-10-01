@@ -3,11 +3,9 @@ package phoenix;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.NonNullList;
-import phoenix.init.PhoenixBlocks;
 
 import javax.annotation.Nonnull;
 import java.util.Comparator;
-import java.util.function.Supplier;
 
 public class PhoenixGroup extends ItemGroup
 {

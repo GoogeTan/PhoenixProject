@@ -3,12 +3,11 @@ package phoenix.client.gui.diaryPages.elements;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.util.text.TextFormatting;
-import phoenix.client.gui.diaryPages.DiaryChapter;
 import phoenix.containers.DiaryContainer;
 
 public class TextElement implements IDiaryElement
 {
-    String text;
+    String text = "";
     Integer color = TextFormatting.BLACK.getColor();
     public TextElement(String text)
     {

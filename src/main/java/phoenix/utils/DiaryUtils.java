@@ -2,13 +2,10 @@ package phoenix.utils;
 
 import net.minecraft.client.gui.FontRenderer;
 import org.apache.commons.lang3.tuple.Pair;
-import phoenix.Phoenix;
 import phoenix.client.gui.diaryPages.DiaryChapter;
 import phoenix.client.gui.diaryPages.EDiaryChapter;
 import phoenix.client.gui.diaryPages.elements.IDiaryElement;
 import phoenix.client.gui.diaryPages.elements.TextElement;
-import phoenix.init.PhoenixEntities;
-import phoenix.utils.exeptions.BookException;
 
 import java.util.ArrayList;
 

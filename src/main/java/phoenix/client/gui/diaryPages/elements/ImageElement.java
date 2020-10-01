@@ -13,8 +13,7 @@ import java.awt.*;
 public class ImageElement implements IDiaryElement
 {
     final ResourceLocation img;
-    int w, h;
-    int xSize, ySize;
+    int w, h, xSize, ySize;
     public ImageElement(ResourceLocation img, int xSize, int ySize)
     {
         this.img = img;
@@ -34,13 +33,12 @@ public class ImageElement implements IDiaryElement
     @Override
     public void render(ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int x, int y)
     {
-        Dimension d = TextureUtils.getTextureSize(img);
-        this.w = d.width;
-        this.h = d.height;
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        double scale = ((double)w) / xSize;
+        RenderSystem.scaled(scale, scale, scale);
+
         Minecraft.getInstance().getTextureManager().bindTexture(img);
-        RenderSystem.scaled(((double)w) / xSize, ((double)w) / xSize, ((double)w) / xSize);
         gui.blit((int) (x * ((double)xSize) / w), (int)(y * ((double)xSize) / w), 0, 0, w, h);
-        RenderSystem.scaled(xSize / ((double) w), xSize / ((double) w), xSize / ((double) w));
+
+        RenderSystem.scaled(1 / scale, 1 / scale, 1 / scale);
     }
 }

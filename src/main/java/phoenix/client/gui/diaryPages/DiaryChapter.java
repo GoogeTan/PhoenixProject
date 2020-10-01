@@ -2,11 +2,8 @@ package phoenix.client.gui.diaryPages;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import phoenix.Phoenix;
 import phoenix.client.gui.diaryPages.elements.IDiaryElement;
-import phoenix.client.gui.diaryPages.elements.ImageElement;
 import phoenix.containers.DiaryContainer;
-import phoenix.utils.ArrayUtils;
 
 import java.util.ArrayList;
 
@@ -40,12 +37,15 @@ public class DiaryChapter
 
     public void render(int number, ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int x, int y)
     {
-        ArrayList<IDiaryElement> page = pages.get(number);
-        int sum = 1;
-        for (IDiaryElement element : page)
+        if(number < pages.size())
         {
-            element.render(gui, renderer, xSize, x, y + sum * 15);
-            sum += element.getHeight();
+            ArrayList<IDiaryElement> page = pages.get(number);
+            int sum = 0;
+            for (IDiaryElement element : page)
+            {
+                element.render(gui, renderer, xSize, x, y + sum * 15);
+                sum += element.getHeight();
+            }
         }
     }
 
