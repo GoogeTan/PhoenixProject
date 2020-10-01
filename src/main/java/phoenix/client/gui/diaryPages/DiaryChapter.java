@@ -25,6 +25,7 @@ public class DiaryChapter
             {
                 pages.add((ArrayList<IDiaryElement>) page.clone());
                 page.clear();
+                size = 0;
             }
             page.add(element);
             size += element.getHeight();
@@ -35,9 +36,14 @@ public class DiaryChapter
         }
     }
 
+    public DiaryChapter(ArrayList<IDiaryElement> elements,int xSize, FontRenderer font)
+    {
+        this(toArray(elements), xSize, font);
+    }
+
     public void render(int number, ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int x, int y)
     {
-        if(number < pages.size())
+        if(number < pages.size() && number >= 0)
         {
             ArrayList<IDiaryElement> page = pages.get(number);
             int sum = 0;
@@ -49,10 +55,6 @@ public class DiaryChapter
         }
     }
 
-    public DiaryChapter(ArrayList<IDiaryElement> elements,int xSize, FontRenderer font)
-    {
-        this(toArray(elements), xSize, font);
-    }
     public static IDiaryElement[] toArray(ArrayList<IDiaryElement> elements)
     {
         IDiaryElement[] arr = new IDiaryElement[elements.size()];

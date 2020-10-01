@@ -26,18 +26,6 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
         super(screenContainer, inv, titleIn);
         xSize *= 1.8;
         ySize *= 1.8;
-       /* diaryChapter = new DiaryChapter(
-                DiaryUtils.add(DiaryUtils.makeParagraph(Minecraft.getInstance().fontRenderer, xSize,
-                    "Hear me, hear me, friend. \n " +
-                    "I’m very, no, seriously ill. \n " +
-                    "What’s the reason? \n" +
-                    " This pain I do not understand. \n " +
-                    "As if wind whistles, listen \n " +
-                    "Over desolate, vacant, still field. \n " +
-                    "Like a grove, leaves blazing I feel. \n " +
-                    "And the drink sheds my leaves as I bend. \n "),
-                Pair.of(1, new ImageElement(DIARY_TEXTURE, xSize - 30, ySize - 30))), xSize, font);*/
-
         ArrayList<IDiaryElement> par = DiaryUtils.makeParagraph(Minecraft.getInstance().fontRenderer, xSize,
                 "Hear me, hear me, friend. \n " +
                 "I’m very, no, seriously ill. \n " +
@@ -47,10 +35,8 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
                 "Over desolate, vacant, still field. \n " +
                 "Like a grove, leaves blazing I feel. \n " +
                 "And the drink sheds my leaves as I bend. \n ");
+        par.add(new ImageElement(DIARY_TEXTURE, xSize - 30, ySize - 30));
         diaryChapter = new DiaryChapter(par, xSize, Minecraft.getInstance().fontRenderer);
-
-
-
         container = screenContainer;
     }
 
@@ -82,7 +68,8 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
     public void render(int p_render_1_, int p_render_2_, float p_render_3_)
     {
         this.renderBackground();
-        new ImageElement(DIARY_TEXTURE, xSize, ySize).render(this, font, xSize, guiLeft, guiTop);
+
         diaryChapter.render(0, this, font, xSize, guiLeft, guiTop);
+        new ImageElement(DIARY_TEXTURE, xSize, ySize).render(this, font, xSize, guiLeft, guiTop);
     }
 }

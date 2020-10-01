@@ -27,7 +27,7 @@ public class ImageElement implements IDiaryElement
     @Override
     public int getHeight()
     {
-        return (int) Math.ceil((double) w / xSize * h) / 15;
+        return (int) Math.ceil((double) w / xSize * h / 15D);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ImageElement implements IDiaryElement
         RenderSystem.scaled(scale, scale, scale);
 
         Minecraft.getInstance().getTextureManager().bindTexture(img);
-        gui.blit((int) (x * ((double)xSize) / w), (int)(y * ((double)xSize) / w), 0, 0, w, h);
+        gui.blit((int) (x / scale), (int)(y / scale), 0, 0, w, h);
 
         RenderSystem.scaled(1 / scale, 1 / scale, 1 / scale);
     }
