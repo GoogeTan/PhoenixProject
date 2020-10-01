@@ -11,7 +11,7 @@ public class DiaryChapter
 {
     final int xSize;
     final FontRenderer font;
-    ArrayList<ArrayList<IDiaryElement>> pages = new ArrayList<>();
+    final private ArrayList<ArrayList<IDiaryElement>> pages = new ArrayList<>();
 
     public DiaryChapter(IDiaryElement[] elements, int xSizeIn, FontRenderer renderer)
     {
@@ -36,9 +36,27 @@ public class DiaryChapter
         }
     }
 
-    public DiaryChapter(ArrayList<IDiaryElement> elements,int xSize, FontRenderer font)
+    public DiaryChapter(ArrayList<IDiaryElement> elements, int xSizeIn, FontRenderer renderer)
     {
-        this(toArray(elements), xSize, font);
+        this.xSize = xSizeIn;
+        this.font = renderer;
+        ArrayList<IDiaryElement> page = new ArrayList<>();
+        int size = 0;
+        for (IDiaryElement element : elements)
+        {
+            if (size + element.getHeight() >= 14)
+            {
+                pages.add((ArrayList<IDiaryElement>) page.clone());
+                page.clear();
+                size = 0;
+            }
+            page.add(element);
+            size += element.getHeight();
+        }
+        if (!page.isEmpty())
+        {
+            pages.add((ArrayList<IDiaryElement>) page.clone());
+        }
     }
 
     public void render(int number, ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int x, int y)
@@ -49,21 +67,12 @@ public class DiaryChapter
             int sum = 0;
             for (IDiaryElement element : page)
             {
-                element.render(gui, renderer, xSize, x, y + sum * 15);
+                //element.render(gui, renderer, xSize, x, y + sum * 15);
                 sum += element.getHeight();
             }
         }
     }
 
-    public static IDiaryElement[] toArray(ArrayList<IDiaryElement> elements)
-    {
-        IDiaryElement[] arr = new IDiaryElement[elements.size()];
-        for (int i = 0; i < elements.size(); ++i)
-        {
-            arr[i] = elements.get(i);
-        }
-        return arr;
-    }
     //возвращает все строки на странице
     public ArrayList<IDiaryElement> getElementsForPage(int page)
     {
