@@ -41,10 +41,10 @@ public class DiaryChapter
     public void render(int number, ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int x, int y)
     {
         ArrayList<IDiaryElement> page = pages.get(number);
-        int sum = 15;
+        int sum = 1;
         for (IDiaryElement element : page)
         {
-            element.render(gui, renderer, xSize, x, y + sum);
+            element.render(gui, renderer, xSize, x, y + sum * 15);
             sum += element.getHeight();
         }
     }

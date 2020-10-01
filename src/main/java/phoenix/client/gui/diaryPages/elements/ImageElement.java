@@ -28,7 +28,7 @@ public class ImageElement implements IDiaryElement
     @Override
     public int getHeight()
     {
-        return (int) Math.ceil((double) w / xSize * h);
+        return (int) Math.ceil((double) w / xSize * h) / 15;
     }
 
     @Override

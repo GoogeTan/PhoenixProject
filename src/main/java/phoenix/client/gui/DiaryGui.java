@@ -50,7 +50,7 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
                     "Over desolate, vacant, still field. \n " +
                     "Like a grove, leaves blazing I feel. \n " +
                     "And the drink sheds my leaves as I bend. \n "),
-                Pair.of(3, new ImageElement(DIARY_TEXTURE, xSize - 30, ySize - 30))), xSize, font);
+                Pair.of(1, new ImageElement(DIARY_TEXTURE, xSize - 30, ySize - 30))), xSize, font);
 
         container = screenContainer;
     }
