@@ -26,7 +26,6 @@ public class ItemDrLsDiary extends Item
         if(playerIn instanceof ServerPlayerEntity)
         {
             DiaryContainer container = PhoenixContainers.GUIDE.get().create(0, playerIn.inventory);
-            Phoenix.LOGGER.error("container " + (container == null) + " player" + (playerIn == null));
             NetworkHooks.openGui((ServerPlayerEntity) playerIn, container);
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
