@@ -27,24 +27,21 @@ public class ImageElement implements IDiaryElement
 
     @Override
     public int getHeight()
-    {/*
+    {
         double scale = makeScale();
         double height = Math.ceil(scale * h / 15D);
-        Phoenix.LOGGER.error("logged " + height);
-        return (int) height;*/
-        return 5;
+        Phoenix.LOGGER.error("logged " + height + " " + scale * h);
+        return (int) height;
     }
     public double makeScale()
     {
-        double wi = xSize,
-            he = ySize * xSize / (double) w;
-        if(he >= 14 * 15)
-        {
-            wi *= ySize / he;
-            he = ySize;
-        }
+        double wi = xSize - 30,
+            he = ySize * (xSize - 30) / (double) w;
+        wi *= ySize / he;
+        he = ySize;
         return he / ((double) h);
     }
+
     @Override
     public void render(ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int x, int y)
     {

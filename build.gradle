@@ -20,7 +20,7 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 minecraft
 {
-    mappings channel: 'snapshot', version: '20200721-1.15.1'
+    mappings channel: 'snapshot', version: '20201003-1.15.1'
     accessTransformer = file('src/main/resources/META-INF/phoenix_at.cfg')
     runs
     {
@@ -72,5 +72,5 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.15.2-31.2.33'
+    minecraft 'net.minecraftforge:forge:1.15.2-31.2.43'
 }

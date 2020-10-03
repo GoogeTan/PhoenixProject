@@ -69,6 +69,7 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
     public void render(int p_render_1_, int p_render_2_, float p_render_3_)
     {
         this.renderBackground();
-        diaryChapter.render(0, this, font, xSize, guiLeft, guiTop);
+        diaryChapter.render(0, this, font, xSize,    guiLeft,                  guiTop);
+        diaryChapter.render(1, this, font, xSize, guiLeft + xSize / 2 + 10, guiTop);
     }
 }
