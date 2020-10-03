@@ -27,16 +27,29 @@ public class ImageElement implements IDiaryElement
 
     @Override
     public int getHeight()
-    {
-        Phoenix.LOGGER.error("logged" + (int) Math.ceil((double) w / xSize * h / 15D));
-        return (int) Math.ceil((double) w / xSize * h / 15D);
+    {/*
+        double scale = makeScale();
+        double height = Math.ceil(scale * h / 15D);
+        Phoenix.LOGGER.error("logged " + height);
+        return (int) height;*/
+        return 5;
     }
-
+    public double makeScale()
+    {
+        double wi = xSize,
+            he = ySize * xSize / (double) w;
+        if(he >= 14 * 15)
+        {
+            wi *= ySize / he;
+            he = ySize;
+        }
+        return he / ((double) h);
+    }
     @Override
     public void render(ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int x, int y)
     {
         RenderSystem.pushMatrix();
-        double scale = ((double)w) / xSize;
+        double scale = makeScale();
         RenderSystem.scaled(scale, scale, scale);
 
         Minecraft.getInstance().getTextureManager().bindTexture(img);

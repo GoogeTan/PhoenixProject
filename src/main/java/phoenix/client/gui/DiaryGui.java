@@ -19,7 +19,7 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
 {
     private static final ResourceLocation DIARY_TEXTURE = new ResourceLocation(Phoenix.MOD_ID, "textures/gui/diary_.png");
     private static final ResourceLocation DIARY_TEXTURE_2 = new ResourceLocation(Phoenix.MOD_ID, "textures/gui/kawru.png");
-    final DiaryChapter   diaryChapter;
+     DiaryChapter   diaryChapter;
     final DiaryContainer container;
     public DiaryGui(DiaryContainer screenContainer, PlayerInventory inv, ITextComponent titleIn)
     {
@@ -32,7 +32,7 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
                 "Hear me, hear me, friend. \n " +
                 "I’m very, no, seriously ill. \n " +
                 "What’s the reason? \n" +
-                " This pain I do not understand. \n " +
+                "This pain I do not understand. \n " +
                 "As if wind whistles, listen \n " +
                 "Over desolate, vacant, still field. \n " +
                 "Like a grove, leaves blazing I feel. \n " +

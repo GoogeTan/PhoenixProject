@@ -2,6 +2,7 @@ package phoenix.utils;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.LanguageMap;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nonnull;
@@ -38,25 +39,14 @@ public class StringUtils
 
     public static ArrayList<String> translateAllListed(String... strings)
     {
-        ArrayList<String> res = new ArrayList<>();
-
-        for(String s : strings)
-        {
-            res.add(new TranslationTextComponent(s).getFormattedText());
-        }
-
-        return res;
+        return ArrayUtils.sumArrays(new ArrayList<String>(), translateAll(strings));
     }
 
-
-    public static String[] translateAll(String... strings)
+    public static ArrayList<String> translateAll(String... strings)
     {
-        String[] res = new String[strings.length];
-
-        for(int i = 0; i < strings.length; ++i)
-        {
-            //res[i] = (new TranslationTextComponent(strings[i]).getFormattedText());
-            res[i] = I18n.format(strings[i]);
+        ArrayList<String> res = new ArrayList<>();
+        for (String string : strings) {
+            res.add(LanguageMap.getInstance().translateKey(string));
         }
 
         return res;
@@ -65,5 +55,4 @@ public class StringUtils
     {
         font.drawStringWithShadow(string, (float)(x - font.getStringWidth(string)), (float)y, colour);
     }
-
 }
