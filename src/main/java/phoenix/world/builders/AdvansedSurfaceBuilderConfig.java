@@ -40,14 +40,14 @@ public class AdvansedSurfaceBuilderConfig implements ISurfaceBuilderConfig
         this.advanced   = advancedMaterial.getDefaultState();
     }
 
-    @Nonnull
+      
     @Override
     public BlockState getTop()
     {
         return top;
     }
 
-    @Nonnull
+      
     @Override
     public BlockState getUnder()
     {

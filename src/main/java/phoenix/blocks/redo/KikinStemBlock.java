@@ -11,8 +11,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import phoenix.init.PhoenixBlocks;
 
-import javax.annotation.Nonnull;
-
 public class KikinStemBlock extends ChorusPlantBlock
 {
 
@@ -43,7 +41,7 @@ public class KikinStemBlock extends ChorusPlantBlock
                 .with(WEST, isCompletply(block5));
     }
 
-    static boolean isCompletply(@Nonnull Block block)
+    static boolean isCompletply(   Block block)
     {
         return block == PhoenixBlocks.KIKIN_STEAM.get() || block == PhoenixBlocks.KIKIN_FRUIT.get() || block == PhoenixBlocks.FERTILE_END_STONE.get();
     }

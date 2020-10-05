@@ -45,8 +45,8 @@ public class TankTile extends TileEntity implements IFluidMechanism
     }
 
     @Override
-    @Nonnull
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing)
+      
+    public <T> LazyOptional<T> getCapability(   Capability<T> capability,    Direction facing)
     {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
             return holder.cast();

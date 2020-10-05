@@ -22,7 +22,7 @@ public class ErasedStructure extends ScatteredStructure<NoFeatureConfig>
         super(configFactoryIn);
     }
 
-    @Nonnull
+      
     @Override
     public String getStructureName()
     {
@@ -35,7 +35,7 @@ public class ErasedStructure extends ScatteredStructure<NoFeatureConfig>
         return 3;
     }
 
-    @Nonnull
+      
     @Override
     public Structure.IStartFactory getStartFactory()
     {
@@ -55,7 +55,7 @@ public class ErasedStructure extends ScatteredStructure<NoFeatureConfig>
             super(structure, chunkPosX, chunkPosZ, mbb, references, seed);
         }
 
-        public void init(@Nonnull ChunkGenerator<?> generator, @Nonnull TemplateManager templateManagerIn, int chunkX, int chunkZ, @Nonnull Biome biomeIn)
+        public void init(   ChunkGenerator<?> generator,    TemplateManager templateManagerIn, int chunkX, int chunkZ,    Biome biomeIn)
         {
             int i = chunkX * 16;
             int j = chunkZ * 16;

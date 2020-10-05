@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 
 public class TalpaEntity extends AnimalEntity implements EntityType.IFactory<TalpaEntity>
 {
-    @Nullable
+      
     private BlockPos boundOrigin;
     public TalpaEntity(EntityType<TalpaEntity> type, World worldIn)
     {
@@ -43,11 +43,11 @@ public class TalpaEntity extends AnimalEntity implements EntityType.IFactory<Tal
         this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(14.0D);
     }
     @Override
-    public boolean isInvulnerableTo(@Nonnull DamageSource source)
+    public boolean isInvulnerableTo(   DamageSource source)
     {
         return super.isInvulnerableTo(source) || source == DamageSource.IN_WALL;
     }
-    @Nullable
+      
     public BlockPos getBoundOrigin() {
         return this.boundOrigin;
     }
@@ -58,14 +58,14 @@ public class TalpaEntity extends AnimalEntity implements EntityType.IFactory<Tal
         return 7;
     }
 
-    @Nonnull
+      
     @Override
-    public EntitySize getSize(@Nonnull Pose poseIn)
+    public EntitySize getSize(   Pose poseIn)
     {
         return new EntitySize(0.6F, 0.6F, false);
     }
 
-    @Nullable
+      
     @Override
     public AxisAlignedBB getCollisionBox(Entity entityIn)
     {
@@ -86,14 +86,14 @@ public class TalpaEntity extends AnimalEntity implements EntityType.IFactory<Tal
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
 
-    @Nonnull
+      
     @Override
-    public TalpaEntity create(@Nonnull EntityType<TalpaEntity> type, @Nonnull World world)
+    public TalpaEntity create(   EntityType<TalpaEntity> type,    World world)
     {
         return new TalpaEntity(type, world);
     }
 
-    @Nullable
+      
     @Override
     public AgeableEntity createChild(AgeableEntity ageable)
     {

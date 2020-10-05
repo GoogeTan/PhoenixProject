@@ -97,7 +97,7 @@ public class ErasedPieces
          * (abstract) Helper method to read subclass data from NBT
          */
         @Override
-        protected void readAdditional(@Nonnull CompoundNBT tagCompound)
+        protected void readAdditional(   CompoundNBT tagCompound)
         {
             super.readAdditional(tagCompound);
             tagCompound.putString("Template", this.currect_piece.toString());
@@ -105,7 +105,7 @@ public class ErasedPieces
         }
 
         @Override
-        protected void handleDataMarker(@Nonnull String function, @Nonnull BlockPos pos, @Nonnull IWorld worldIn, @Nonnull Random rand, @Nonnull MutableBoundingBox sbb)
+        protected void handleDataMarker(   String function,    BlockPos pos,    IWorld worldIn,    Random rand,    MutableBoundingBox sbb)
         {
             if ("chest".equals(function))
             {
@@ -129,8 +129,8 @@ public class ErasedPieces
          * @param chunkPosIn           chunkPos
          */
         @Override
-        public boolean create(IWorld worldIn, @Nonnull ChunkGenerator<?> chunkGeneratorIn, @Nonnull Random randomIn,
-                              @Nonnull MutableBoundingBox mutableBoundingBoxIn, @Nonnull ChunkPos chunkPosIn)
+        public boolean create(IWorld worldIn,    ChunkGenerator<?> chunkGeneratorIn,    Random randomIn,
+                                 MutableBoundingBox mutableBoundingBoxIn,    ChunkPos chunkPosIn)
         {
             PlacementSettings placementsettings = (new PlacementSettings()).setRotation(rotation).setMirror(Mirror.NONE).setCenterOffset(ErasedPieces.field_207621_d.get(currect_piece)).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
             BlockPos blockpos = ErasedPieces.field_207622_e.get(currect_piece);

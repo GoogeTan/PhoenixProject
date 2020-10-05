@@ -17,8 +17,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 import phoenix.init.PhoenixBlocks;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 import static phoenix.blocks.redo.KikinStemBlock.makeConnections;
@@ -139,7 +137,7 @@ public class KikiNFruitBlock extends Block
         worldIn.playEvent(1034, pos, 0);
     }
 
-    private static boolean areAllNeighborsEmpty(IWorldReader worldIn, BlockPos pos, @Nullable Direction excludingSide) {
+    private static boolean areAllNeighborsEmpty(IWorldReader worldIn, BlockPos pos,    Direction excludingSide) {
         for(Direction direction : Direction.Plane.HORIZONTAL) {
             if (direction != excludingSide && !worldIn.isAirBlock(pos.offset(direction))) {
                 return false;

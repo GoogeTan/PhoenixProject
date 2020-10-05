@@ -92,7 +92,7 @@ public class PipeBlock extends BlockWithTile<PipeTile>
         return PipeTile.class;
     }
 
-    @Nullable
+      
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
@@ -113,7 +113,7 @@ public class PipeBlock extends BlockWithTile<PipeTile>
 
     @OnlyIn(Dist.DEDICATED_SERVER)
     @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state,    LivingEntity placer, ItemStack stack)
     {
         FluidGraphSaveData.get((ServerWorld) worldIn).addBlock(worldIn, pos, false);
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);

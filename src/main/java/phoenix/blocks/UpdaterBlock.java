@@ -24,7 +24,7 @@ public class UpdaterBlock extends BlockWithTile<UpdaterTile>
         super(Block.Properties.create(Material.ROCK).lightValue(5).hardnessAndResistance(-1));
     }
 
-    @Nullable
+      
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {

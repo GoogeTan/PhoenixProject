@@ -18,7 +18,7 @@ public enum  UnificationLayer implements IAreaTransformer2
     private static final int UNDER             = Registry.BIOME.getId(PhoenixBiomes.UNDER.get());
     private static final int HEARTVOID         = Registry.BIOME.getId(PhoenixBiomes.HEARTVOID.get());
     @Override
-    public int apply(@Nonnull INoiseRandom random, IArea area1, IArea area2, int x, int z)
+    public int apply(   INoiseRandom random, IArea area1, IArea area2, int x, int z)
     {
         int phoenix = area1.getValue(x, z);
         int vanila  = area2.getValue(x, z);

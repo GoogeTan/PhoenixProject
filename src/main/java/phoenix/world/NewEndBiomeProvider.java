@@ -49,7 +49,7 @@ public class NewEndBiomeProvider extends BiomeProvider
         this.world = worldIn;
     }
 
-    @Nonnull
+      
     @Override
     public Biome getNoiseBiome(int x, int y, int z)
     {
@@ -87,7 +87,7 @@ public class NewEndBiomeProvider extends BiomeProvider
         return result;
     }
 
-    @Nonnull
+      
     @Override
     public List<Biome> getBiomesToSpawnIn()
     {

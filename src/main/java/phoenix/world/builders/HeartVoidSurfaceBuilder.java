@@ -23,8 +23,8 @@ public class HeartVoidSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig
     }
 
     @Override
-    public void buildSurface(Random random, @Nonnull IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise,
-                             @Nonnull BlockState defaultBlock, @Nonnull BlockState defaultFluid, int seaLevel, long seed, @Nonnull SurfaceBuilderConfig config)
+    public void buildSurface(Random random,    IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise,
+                                BlockState defaultBlock,    BlockState defaultFluid, int seaLevel, long seed,    SurfaceBuilderConfig config)
     {
         BlockState top_block = config.getTop();
         BlockState middle_block = config.getUnder();

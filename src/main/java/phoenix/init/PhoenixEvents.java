@@ -57,7 +57,7 @@ public class PhoenixEvents
         addStructure(Biomes.END_HIGHLANDS, PhoenixFeatures.ERASED.get());
     }
 
-    public static void addStructure(@Nonnull Biome biome, @Nonnull Structure structure)
+    public static void addStructure(   Biome biome,    Structure structure)
     {
         biome.addStructure(structure.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
         biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, structure

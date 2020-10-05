@@ -19,7 +19,7 @@ public class EndBiomedDimension extends EndDimension
         super(world, type);
     }
 
-    @Nonnull
+      
     @Override
     public ChunkGenerator<?> createChunkGenerator()
     {

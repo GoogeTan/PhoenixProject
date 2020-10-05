@@ -16,9 +16,9 @@ public class TalpaRenderer extends MobRenderer<TalpaEntity, TalpaModel>
         super(renderManager, new TalpaModel(), 0.5F);
     }
 
-    @Nonnull
+      
     @Override
-    public ResourceLocation getEntityTexture(@Nonnull TalpaEntity entity)
+    public ResourceLocation getEntityTexture(   TalpaEntity entity)
     {
         return entity.isChild() ? new ResourceLocation(Phoenix.MOD_ID, "textures/entity/talpa_child.png") :
                                   new ResourceLocation(Phoenix.MOD_ID, "textures/entity/talpa.png");

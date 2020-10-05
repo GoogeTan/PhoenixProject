@@ -4,18 +4,16 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.NonNullList;
 
-import javax.annotation.Nonnull;
 import java.util.Comparator;
 
 public class PhoenixGroup extends ItemGroup
 {
-    public PhoenixGroup(@Nonnull final String name)
+    public PhoenixGroup(final String name)
     {
         super(name);
     }
 
     @Override
-    @Nonnull
     public ItemStack createIcon()
     {
         return  new ItemStack(Item.getItemFromBlock(Blocks.END_PORTAL_FRAME));

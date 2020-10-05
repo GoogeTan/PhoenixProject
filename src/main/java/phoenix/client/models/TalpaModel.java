@@ -18,7 +18,7 @@ public class TalpaModel extends EntityModel<TalpaEntity>
     }
 
     @Override
-    public void setLivingAnimations(@Nonnull TalpaEntity entityIn, float limbSwing, float limbSwingAmount, float partialTick)
+    public void setLivingAnimations(   TalpaEntity entityIn, float limbSwing, float limbSwingAmount, float partialTick)
     {
         if(entityIn.isChild())
         {
@@ -75,7 +75,7 @@ public class TalpaModel extends EntityModel<TalpaEntity>
     }
 
     @Override
-    public void setRotationAngles(@Nonnull TalpaEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
+    public void setRotationAngles(   TalpaEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
         paws[0].rotateAngleY = -25;
         paws[1].rotateAngleY =  25;
@@ -84,7 +84,7 @@ public class TalpaModel extends EntityModel<TalpaEntity>
     }
 
     @Override
-    public void render(@Nonnull MatrixStack matrixStackIn, @Nonnull IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha)
+    public void render(   MatrixStack matrixStackIn,    IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha)
     {
         body.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         for (ModelRenderer paw:paws)

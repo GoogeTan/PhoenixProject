@@ -80,7 +80,7 @@ public class FluidGraphSaveData extends WorldSavedData
         }
     }
 
-    @Nonnull
+      
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {
@@ -96,7 +96,7 @@ public class FluidGraphSaveData extends WorldSavedData
             this.data.putIntArray("graph_part_" + i, ImmutableList.copyOf(graph.get(i)));
     }
     //Этим мы получаем экземпляр данных для мира
-    @Nonnull
+      
     public static FluidGraphSaveData get(ServerWorld world)
     {
         return world.getSavedData().getOrCreate(FluidGraphSaveData::new, DATA_NAME);

@@ -43,7 +43,7 @@ public class ParentLayer implements IAreaTransformer0
     }
 
     @Override
-    public int apply(@Nonnull INoiseRandom context, int x, int z)
+    public int apply(   INoiseRandom context, int x, int z)
     {
         return apply(x, z, provider);
     }

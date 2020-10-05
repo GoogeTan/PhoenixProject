@@ -64,7 +64,7 @@ public class DiaryContainer extends Container implements INamedContainerProvider
         return new StringTextComponent("DR L. Diary");
     }
 
-    @Nullable
+      
     @Override
     public Container createMenu(int id, PlayerInventory inventory, PlayerEntity entity)
     {

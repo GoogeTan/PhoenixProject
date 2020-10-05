@@ -20,7 +20,7 @@ public class EndBiomeLayer  implements IC0Transformer
     private static final int SMALL_END_ISLANDS = Registry.BIOME.getId(Biomes.SMALL_END_ISLANDS);
 
     @Override
-    public int apply(@Nonnull INoiseRandom context, int value)
+    public int apply(   INoiseRandom context, int value)
     {
         switch (value)
         {

@@ -46,7 +46,7 @@ public class StageSaveData extends WorldSavedData
         }
     }
 
-    @Nonnull
+      
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {
@@ -55,7 +55,7 @@ public class StageSaveData extends WorldSavedData
     }
 
     //Этим мы получаем экземпляр данных для мира
-    @Nonnull
+      
     public static StageSaveData get(ServerWorld world)
     {
         DimensionSavedDataManager storage = world.getSavedData();

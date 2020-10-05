@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class StringUtils
 {
-    @Nonnull
-    public static ArrayList<String> stringToWords(@Nonnull String s)
+      
+    public static ArrayList<String> stringToWords(   String s)
     {
         ArrayList<String> result = new ArrayList<>();
         String currect = "";
