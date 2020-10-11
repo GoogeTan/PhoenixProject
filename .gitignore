@@ -20,6 +20,7 @@ build
 # other
 eclipse
 run
-#mc
+#mc files
+mc
 # Files from Forge MDK
 forge*changelog.txt
