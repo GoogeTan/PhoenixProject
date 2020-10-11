@@ -51,6 +51,10 @@ public class StringUtils
 
         return res;
     }
+    public static String translate(String key)
+    {
+        return LanguageMap.getInstance().translateKey(key);
+    }
     public static void drawRightAlignedString(FontRenderer font, String string, int x, int y, int colour)
     {
         font.drawStringWithShadow(string, (float)(x - font.getStringWidth(string)), (float)y, colour);

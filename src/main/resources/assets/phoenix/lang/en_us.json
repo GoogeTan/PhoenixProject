@@ -20,6 +20,8 @@
 
   "entity.Uterus.name": "Coronoworm",
 
+  "phoenix.quality": "Quality:",
+  "item.phoenix.bucket_with_clay": "Bucket with clay",
   "item.absolutespeedsword.name": "Sword of absolute speed",
   "item.gods_boots.name": "Flesh boots",
   "item.gods_chestplate.name": "Flesh chestplate",
