@@ -16,6 +16,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import phoenix.Phoenix;
 import phoenix.blocks.AntiAirBlock;
 import phoenix.blocks.UpdaterBlock;
+import phoenix.blocks.ash.PotteryBarrelBlock;
 import phoenix.blocks.redo.*;
 import phoenix.utils.INonItem;
 
@@ -24,13 +25,14 @@ public class PhoenixBlocks
 {
     private static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, Phoenix.MOD_ID);
 
-    public static final RegistryObject<Block>            UPDATOR           = BLOCKS.register("updater",           UpdaterBlock::new);
-    public static final RegistryObject<Block>            PIPE              = BLOCKS.register("pipe",              PipeBlock::new);
-    public static final RegistryObject<Block>            TANK              = BLOCKS.register("tank",              TankBlock::new);
+    public static final RegistryObject<Block>            UPDATOR           = BLOCKS.register("updater",           UpdaterBlock        ::new);
+    public static final RegistryObject<Block>            PIPE              = BLOCKS.register("pipe",              PipeBlock           ::new);
+    public static final RegistryObject<Block>            TANK              = BLOCKS.register("tank",              TankBlock           ::new);
     public static final RegistryObject<Block>            FERTILE_END_STONE = BLOCKS.register("fertile_end_stone", FertileEndStoneBlock::new);
-    public static final RegistryObject<ChorusPlantBlock> KIKIN_STEAM       = BLOCKS.register("kikin_stem",        KikinStemBlock::new);
-    public static final RegistryObject<Block>            KIKIN_FRUIT       = BLOCKS.register("kikin_fruit",       KikiNFruitBlock::new);
-    public static final RegistryObject<Block>            ANTI_AIR          = BLOCKS.register("anti_air",          AntiAirBlock::new);
+    public static final RegistryObject<ChorusPlantBlock> KIKIN_STEAM       = BLOCKS.register("kikin_stem",        KikinStemBlock      ::new);
+    public static final RegistryObject<Block>            KIKIN_FRUIT       = BLOCKS.register("kikin_fruit",       KikiNFruitBlock     ::new);
+    public static final RegistryObject<Block>            ANTI_AIR          = BLOCKS.register("anti_air",          AntiAirBlock        ::new);
+    public static final RegistryObject<Block>            POTTERY_BARREL    = BLOCKS.register("pottery_barrel",    PotteryBarrelBlock  ::new);
 
     public static void register()
     {
