@@ -30,15 +30,6 @@ import phoenix.client.render.TankRenderer;
 @Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class PhoenixEvents
 {
-    @SubscribeEvent
-    public static void onJoin(EntityJoinWorldEvent event)
-    {
-        if (event.getEntity() instanceof PlayerEntity)
-        {
-            PlayerEntity player = (PlayerEntity) event.getEntity();
-            player.sendMessage(new StringTextComponent("Hello, %p!".replace("%p", player.getName().getFormattedText())));
-        }
-    }
 
     @SubscribeEvent
     public static void preInit(FMLCommonSetupEvent event)

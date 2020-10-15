@@ -32,25 +32,26 @@ public class PotteryBarrelBlock extends Block
     protected static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), VoxelShapes.or(makeCuboidShape(0.0D, 0.0D, 4.0D, 16.0D, 3.0D, 12.0D), makeCuboidShape(4.0D, 0.0D, 0.0D, 12.0D, 3.0D, 16.0D), makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 3.0D, 14.0D), makeCuboidShape(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D)), IBooleanFunction.ONLY_FIRST);
     public static final BooleanProperty hasWater = BooleanProperty.create("haswater");
     public static final BooleanProperty hasClay = BooleanProperty.create("hasclay");
+    public static final BooleanProperty isClose = BooleanProperty.create("isclose");
     public static final IntegerProperty countOfJumps = IntegerProperty.create("jumps", 0, 1000);
 
     public PotteryBarrelBlock()
     {
         super(Properties.create(Material.BAMBOO));
         this.setDefaultState(this.stateContainer.getBaseState()
-                .with(hasWater, Boolean.valueOf(false)).with(countOfJumps, Integer.valueOf(0)).with(hasClay, Boolean.valueOf(false)));
+                .with(hasWater, Boolean.valueOf(false)).with(countOfJumps, Integer.valueOf(0)).with(hasClay, Boolean.valueOf(false)).with(isClose, Boolean.FALSE));
     }
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
-        return SHAPE;
+        return state.get(isClose) ?  super.getCollisionShape(state, worldIn, pos, context) : SHAPE;
     }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
     {
-        builder.add(hasWater).add(countOfJumps).add(hasClay);
+        builder.add(hasWater).add(countOfJumps).add(hasClay).add(isClose);
     }
 
     @Override
@@ -76,9 +77,10 @@ public class PotteryBarrelBlock extends Block
         ItemStack itemstack = player.getHeldItem(handIn);
         if (itemstack.isEmpty())
         {
-            return ActionResultType.PASS;
+            worldIn.setBlockState(pos, state.with(isClose, !state.get(isClose)));
+            return ActionResultType.SUCCESS;
         }
-        else
+        else if(!state.get(isClose))
         {
             boolean  hasWaterInState = state.get(hasWater);
             boolean  hasClayInState = state.get(hasClay);
@@ -156,6 +158,10 @@ public class PotteryBarrelBlock extends Block
             {
                 return ActionResultType.PASS;
             }
+        }
+        else
+        {
+            return ActionResultType.PASS;
         }
     }
 

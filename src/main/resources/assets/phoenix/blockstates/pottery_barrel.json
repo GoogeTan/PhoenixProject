@@ -1,0 +1,13 @@
+{
+  "variants":
+  {
+    "isclose=false, haswater=false, hasclay=true":  { "model": "phoenix:block/pottery_barrel"         },
+    "isclose=false, haswater=true,  hasclay=true":  { "model": "phoenix:block/pottery_barrel_clay"    },
+    "isclose=true,  haswater=true,  hasclay=true":  { "model": "phoenix:block/pottery_barrel_closed"  },
+    "isclose=true,  haswater=false, hasclay=true":  { "model": "phoenix:block/pottery_barrel_closed"  },
+    "isclose=false, haswater=false, hasclay=false": { "model": "phoenix:block/pottery_barrel"         },
+    "isclose=false, haswater=true,  hasclay=false": { "model": "phoenix:block/pottery_barrel_water"   },
+    "isclose=true,  haswater=true,  hasclay=false": { "model": "phoenix:block/pottery_barrel_closed"  },
+    "isclose=true,  haswater=false, hasclay=false": { "model": "phoenix:block/pottery_barrel_closed"  }
+  }
+}
