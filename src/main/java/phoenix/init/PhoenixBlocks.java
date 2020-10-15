@@ -16,6 +16,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import phoenix.Phoenix;
 import phoenix.blocks.AntiAirBlock;
 import phoenix.blocks.UpdaterBlock;
+import phoenix.blocks.ash.EndStoneColumnBlock;
 import phoenix.blocks.ash.PotteryBarrelBlock;
 import phoenix.blocks.redo.*;
 import phoenix.utils.INonItem;
@@ -33,6 +34,7 @@ public class PhoenixBlocks
     public static final RegistryObject<Block>            KIKIN_FRUIT       = BLOCKS.register("kikin_fruit",       KikiNFruitBlock     ::new);
     public static final RegistryObject<Block>            ANTI_AIR          = BLOCKS.register("anti_air",          AntiAirBlock        ::new);
     public static final RegistryObject<Block>            POTTERY_BARREL    = BLOCKS.register("pottery_barrel",    PotteryBarrelBlock  ::new);
+    public static final RegistryObject<Block>            END_STONE_COLUMN  = BLOCKS.register("end_stone_column",  EndStoneColumnBlock ::new);
 
     public static void register()
     {

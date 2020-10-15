@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y":  { "model": "phoenix:block/end_stone_column" },
+    "axis=z":   { "model": "phoenix:block/end_stone_column", "x": 90 },
+    "axis=x":   { "model": "phoenix:block/end_stone_column", "x": 90, "y": 90 }
+  }
+}

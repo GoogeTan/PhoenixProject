@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "side": "phoenix:blocks/end_stone_column",
+    "end":  "phoenix:blocks/end_stone_column_top"
+  }
+}

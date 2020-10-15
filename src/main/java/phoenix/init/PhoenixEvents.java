@@ -3,6 +3,10 @@ package phoenix.init;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.GenerationStage;
@@ -12,6 +16,8 @@ import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -26,11 +32,21 @@ import phoenix.client.render.TankRenderer;
 
 import javax.annotation.Nonnull;
 
-@Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class PhoenixEvents
 {
     @SubscribeEvent
-    public static void preInit(FMLCommonSetupEvent evt)
+    public static void onJoin(EntityJoinWorldEvent event)
+    {
+        if (event.getEntity() instanceof PlayerEntity)
+        {
+            PlayerEntity player = (PlayerEntity) event.getEntity();
+            player.sendMessage(new StringTextComponent("Hello, %p!".replace("%p", player.getName().getFormattedText())));
+        }
+    }
+
+    @SubscribeEvent
+    public static void preInit(FMLCommonSetupEvent event)
     {
         PhoenixBiomes.UNDER.get().addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(PhoenixEntities.TALPA.get(), 10, 2, 8));
     }

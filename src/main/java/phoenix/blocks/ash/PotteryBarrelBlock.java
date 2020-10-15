@@ -96,52 +96,51 @@ public class PotteryBarrelBlock extends Block
                     }
                     setHasWater(worldIn, pos, state, true);
                     worldIn.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    return ActionResultType.SUCCESS;
                 }
 
-                return ActionResultType.SUCCESS;
+                return ActionResultType.PASS;
             }
             else if (item == Items.BUCKET)
             {
                 if (hasWaterInState && !worldIn.isRemote)
                 {
-                    if (!player.abilities.isCreativeMode)
+                    itemstack.shrink(1);
+                    if (itemstack.isEmpty())
                     {
-                        itemstack.shrink(1);
-                        if (itemstack.isEmpty())
+                        if (hasClayInState)
                         {
-                            if(hasClayInState)
-                            {
-                                ItemStack stackToAdd = new ItemStack(PhoenixItems.bucket_with_clay.get());
-                                if(stackToAdd.getTag() == null)
-                                    stackToAdd.setTag(new CompoundNBT());
+                            ItemStack stackToAdd = new ItemStack(PhoenixItems.bucket_with_clay.get());
+                            if (stackToAdd.getTag() == null)
+                                stackToAdd.setTag(new CompoundNBT());
 
-                                stackToAdd.getTag().putDouble("quality", (Math.sqrt(state.get(countOfJumps)) / Math.sqrt(1000)));//тут значение в %. От 0 до 1
-                                player.setHeldItem(handIn, stackToAdd);
-                            }
-                            else
-                                player.setHeldItem(handIn, new ItemStack(Items.WATER_BUCKET));
+                            stackToAdd.getTag().putDouble("quality", (Math.sqrt(state.get(countOfJumps)) / Math.sqrt(1000)));//тут значение в %. От 0 до 1
+                            player.setHeldItem(handIn, stackToAdd);
+                        }
+                        else
+                            player.setHeldItem(handIn, new ItemStack(Items.WATER_BUCKET));
+                    }
+                    else
+                    {
+                        if (hasClayInState)
+                        {
+                            ItemStack stackToAdd = new ItemStack(PhoenixItems.bucket_with_clay.get());
+                            if (stackToAdd.getTag() == null)
+                                stackToAdd.setTag(new CompoundNBT());
+
+                            stackToAdd.getTag().putDouble("quality", (Math.sqrt(state.get(countOfJumps)) / Math.sqrt(1000)));//тут значение в %. От 0 до 1
+                            if (!player.inventory.addItemStackToInventory(stackToAdd))
+                                player.dropItem(stackToAdd, false);
                         }
                         else
                         {
-                            if(hasClayInState)
-                            {
-                                ItemStack stackToAdd = new ItemStack(PhoenixItems.bucket_with_clay.get());
-                                if(stackToAdd.getTag() == null)
-                                    stackToAdd.setTag(new CompoundNBT());
-
-                                stackToAdd.getTag().putDouble("quality", (Math.sqrt(state.get(countOfJumps)) / Math.sqrt(1000)));//тут значение в %. От 0 до 1
-                                if(!player.inventory.addItemStackToInventory(stackToAdd))
-                                    player.dropItem(stackToAdd,false);
-                            }
-                            else
-                            {
-                                if(!player.inventory.addItemStackToInventory(new ItemStack(Items.WATER_BUCKET)))
-                                    player.dropItem(new ItemStack(Items.WATER_BUCKET), false);
-                            }
+                            if (!player.inventory.addItemStackToInventory(new ItemStack(Items.WATER_BUCKET)))
+                                player.dropItem(new ItemStack(Items.WATER_BUCKET), false);
                         }
                     }
+
                     setHasWater(worldIn, pos, state, false);
-                    setHasClay (worldIn, pos, state, false);
+                    setHasClay(worldIn, pos, state, false);
                     worldIn.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
                 return ActionResultType.SUCCESS;
@@ -151,7 +150,7 @@ public class PotteryBarrelBlock extends Block
                 if (hasWaterInState && !hasClayInState && !worldIn.isRemote)
                 {
                     if (!player.abilities.isCreativeMode) itemstack.shrink(1);
-                    setHasClay(worldIn, pos, state, false);
+                    setHasClay(worldIn, pos, state, true);
                     worldIn.playSound(null, pos, SoundEvents.BLOCK_SAND_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
                 return ActionResultType.SUCCESS;
