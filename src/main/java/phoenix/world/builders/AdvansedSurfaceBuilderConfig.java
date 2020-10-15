@@ -6,8 +6,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.world.gen.surfacebuilders.ISurfaceBuilderConfig;
 
-import javax.annotation.Nonnull;
-
 /*
 * Используется для генерации биомов, где нужен дополнительный блок.
 * Пример UnderBiome

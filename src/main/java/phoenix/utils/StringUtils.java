@@ -1,11 +1,8 @@
 package phoenix.utils;
 
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.LanguageMap;
-import net.minecraft.util.text.TranslationTextComponent;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 public class StringUtils

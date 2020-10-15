@@ -7,8 +7,6 @@ import net.minecraft.world.gen.layer.traits.IC0Transformer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nonnull;
-
 public class EndBiomeLayer  implements IC0Transformer
 {
     private static final Logger LOGGER = LogManager.getLogger();

@@ -7,8 +7,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public abstract class BlockWithTile<T extends TileEntity> extends Block
 {
 	public BlockWithTile(Block.Properties properties)

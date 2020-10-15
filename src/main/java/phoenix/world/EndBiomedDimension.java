@@ -9,8 +9,6 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.EndChunkGenerator;
 import net.minecraft.world.gen.EndGenerationSettings;
 
-import javax.annotation.Nonnull;
-
 public class EndBiomedDimension extends EndDimension
 {
 

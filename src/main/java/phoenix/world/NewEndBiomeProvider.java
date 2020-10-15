@@ -21,7 +21,6 @@ import phoenix.init.PhoenixBiomes;
 import phoenix.init.PhoenixConfiguration;
 import phoenix.world.genlayers.*;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Set;
 import java.util.function.LongFunction;

@@ -12,9 +12,6 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import phoenix.init.PhoenixTiles;
 import phoenix.utils.IFluidMechanism;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 public class TankTile extends TileEntity implements IFluidMechanism
 {
     int number_in_graph;

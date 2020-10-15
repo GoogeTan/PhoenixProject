@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 import phoenix.init.PhoenixBlocks;
+
 import java.util.Random;
 
 import static phoenix.blocks.redo.KikinStemBlock.makeConnections;

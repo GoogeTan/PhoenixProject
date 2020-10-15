@@ -7,8 +7,6 @@ import phoenix.Phoenix;
 import phoenix.client.models.TalpaModel;
 import phoenix.enity.TalpaEntity;
 
-import javax.annotation.Nonnull;
-
 public class TalpaRenderer extends MobRenderer<TalpaEntity, TalpaModel>
 {
     public TalpaRenderer(EntityRendererManager renderManager)

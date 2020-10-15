@@ -7,8 +7,6 @@ import net.minecraft.world.gen.area.IArea;
 import net.minecraft.world.gen.layer.traits.IAreaTransformer2;
 import phoenix.init.PhoenixBiomes;
 
-import javax.annotation.Nonnull;
-
 public enum  UnificationLayer implements IAreaTransformer2
 {
     INSTANCE;

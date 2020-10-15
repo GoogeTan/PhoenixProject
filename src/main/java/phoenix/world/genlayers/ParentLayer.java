@@ -4,8 +4,6 @@ import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.layer.traits.IAreaTransformer0;
 import phoenix.world.NewEndBiomeProvider;
 
-import javax.annotation.Nonnull;
-
 public class ParentLayer implements IAreaTransformer0
 {
     NewEndBiomeProvider provider;

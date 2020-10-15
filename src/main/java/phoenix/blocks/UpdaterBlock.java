@@ -15,8 +15,6 @@ import phoenix.enity.TalpaEntity;
 import phoenix.tile.UpdaterTile;
 import phoenix.utils.BlockWithTile;
 
-import javax.annotation.Nullable;
-
 public class UpdaterBlock extends BlockWithTile<UpdaterTile>
 {
     public UpdaterBlock()

@@ -26,8 +26,6 @@ import phoenix.tile.TankTile;
 import phoenix.utils.BlockWithTile;
 import phoenix.world.FluidGraphSaveData;
 
-import javax.annotation.Nullable;
-
 public class TankBlock extends BlockWithTile
 {
     public TankBlock()

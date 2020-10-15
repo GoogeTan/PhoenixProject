@@ -2,9 +2,7 @@ package phoenix.client.gui.diaryPages;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import phoenix.Phoenix;
 import phoenix.client.gui.diaryPages.elements.IDiaryElement;
-import phoenix.client.gui.diaryPages.elements.ImageElement;
 import phoenix.containers.DiaryContainer;
 
 import java.util.ArrayList;

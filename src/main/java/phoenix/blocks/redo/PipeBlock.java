@@ -23,8 +23,6 @@ import phoenix.utils.BlockWithTile;
 import phoenix.utils.IFluidMechanism;
 import phoenix.world.FluidGraphSaveData;
 
-import javax.annotation.Nullable;
-
 public class PipeBlock extends BlockWithTile<PipeTile>
 {
     public static final BooleanProperty UP = BooleanProperty.create("up");

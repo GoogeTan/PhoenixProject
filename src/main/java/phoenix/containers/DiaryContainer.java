@@ -8,8 +8,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import phoenix.init.PhoenixContainers;
 
-import javax.annotation.Nullable;
-
 public class DiaryContainer extends Container implements INamedContainerProvider
 {
     int page = 0;

@@ -7,8 +7,6 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 import phoenix.enity.TalpaEntity;
 
-import javax.annotation.Nonnull;
-
 public class TalpaModel extends EntityModel<TalpaEntity>
 {
     public ModelRenderer body;

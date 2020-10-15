@@ -5,8 +5,6 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.DimensionSavedDataManager;
 import net.minecraft.world.storage.WorldSavedData;
 
-import javax.annotation.Nonnull;
-
 public class CornSaveData extends WorldSavedData
 {
     private static final String DATA_NAME = "phoenix_stage";

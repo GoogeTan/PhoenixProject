@@ -10,7 +10,6 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import phoenix.init.PhoenixBlocks;
 
-import javax.annotation.Nonnull;
 import java.util.Random;
 import java.util.function.Function;
 

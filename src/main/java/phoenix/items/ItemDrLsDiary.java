@@ -9,7 +9,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
-import phoenix.Phoenix;
 import phoenix.containers.DiaryContainer;
 import phoenix.init.PhoenixContainers;
 

@@ -13,9 +13,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import phoenix.init.PhoenixEntities;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 public class TalpaEntity extends AnimalEntity implements EntityType.IFactory<TalpaEntity>
 {
       

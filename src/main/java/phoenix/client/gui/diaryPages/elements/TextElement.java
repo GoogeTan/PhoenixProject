@@ -1,9 +1,7 @@
 package phoenix.client.gui.diaryPages.elements;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.text.TextFormatting;
 import phoenix.containers.DiaryContainer;
 
