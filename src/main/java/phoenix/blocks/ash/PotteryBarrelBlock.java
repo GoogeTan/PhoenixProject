@@ -9,7 +9,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -30,6 +29,8 @@ import phoenix.init.PhoenixItems;
 import phoenix.tile.PotteryBarrelTile;
 import phoenix.utils.BlockWithTile;
 
+import javax.annotation.Nonnull;
+
 public class PotteryBarrelBlock extends BlockWithTile
 {
     protected static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), VoxelShapes.or(makeCuboidShape(0.0D, 0.0D, 4.0D, 16.0D, 3.0D, 12.0D), makeCuboidShape(4.0D, 0.0D, 0.0D, 12.0D, 3.0D, 16.0D), makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 3.0D, 14.0D), makeCuboidShape(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D)), IBooleanFunction.ONLY_FIRST);
@@ -47,11 +48,7 @@ public class PotteryBarrelBlock extends BlockWithTile
         return SHAPE;
     }
 
-    @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
-    {
-        builder.add(state);//.add(hasClay);//.add(isClose);
-    }
+    @Override protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) { builder.add(state); }
 
     @Override
     public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance)
@@ -60,11 +57,13 @@ public class PotteryBarrelBlock extends BlockWithTile
         if (pos.getY() < entityIn.getPosY() && state.get(PotteryBarrelBlock.state) == 2 && worldIn.getTileEntity(pos) != null)
         {
             ((PotteryBarrelTile)worldIn.getTileEntity(pos)).incrementJumpsCount();
-            entityIn.sendMessage(new StringTextComponent(((PotteryBarrelTile)worldIn.getTileEntity(pos)).jumpsCount + " "));
+            if(!worldIn.isRemote)
+                entityIn.sendMessage(new StringTextComponent(((PotteryBarrelTile)worldIn.getTileEntity(pos)).jumpsCount + " "));
         }
         super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
     }
 
+    @Nonnull
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
@@ -74,13 +73,16 @@ public class PotteryBarrelBlock extends BlockWithTile
         } catch (Exception ignored){}
 
         ItemStack itemstack = player.getHeldItem(handIn);
-        /*if (player.getActiveItemStack().isEmpty()) //itemstack.isEmpty() ||
+        if (player.getActiveItemStack().equals(new ItemStack(Items.AIR))) //itemstack.isEmpty() ||
         {
-            worldIn.setBlockState(pos, state.with(isClose, !state.get(isClose)));
+            if(state.get(PotteryBarrelBlock.state) == 2)
+                setState(worldIn, pos, state, 3);
+            else if (state.get(PotteryBarrelBlock.state) == 3)
+                setState(worldIn, pos, state, 2);
             return ActionResultType.SUCCESS;
         }
-        else */
-        if(true)//!state.get(isClose))
+
+        if(state.get(PotteryBarrelBlock.state) != 3)//!state.get(isClose))
         {
             int stateInt = state.get(PotteryBarrelBlock.state);
             Item item = itemstack.getItem();
@@ -94,10 +96,9 @@ public class PotteryBarrelBlock extends BlockWithTile
                     }
                     setState(worldIn, pos, state, 1);
                     worldIn.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    return ActionResultType.SUCCESS;
                 }
 
-                return ActionResultType.PASS;
+                return ActionResultType.SUCCESS;
             }
             else if (item == Items.BUCKET)
             {
