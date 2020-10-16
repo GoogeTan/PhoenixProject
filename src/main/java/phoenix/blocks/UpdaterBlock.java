@@ -30,12 +30,6 @@ public class UpdaterBlock extends BlockWithTile<UpdaterTile>
     }
 
     @Override
-    public Class getTileEntityClass()
-    {
-        return UpdaterTile.class;
-    }
-
-    @Override
     public boolean hasTileEntity()
     {
         return true;

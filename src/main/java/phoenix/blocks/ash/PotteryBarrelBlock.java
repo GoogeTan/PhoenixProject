@@ -12,6 +12,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -26,47 +27,40 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import phoenix.init.PhoenixItems;
+import phoenix.tile.PotteryBarrelTile;
+import phoenix.utils.BlockWithTile;
 
-public class PotteryBarrelBlock extends Block
+public class PotteryBarrelBlock extends BlockWithTile
 {
     protected static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), VoxelShapes.or(makeCuboidShape(0.0D, 0.0D, 4.0D, 16.0D, 3.0D, 12.0D), makeCuboidShape(4.0D, 0.0D, 0.0D, 12.0D, 3.0D, 16.0D), makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 3.0D, 14.0D), makeCuboidShape(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D)), IBooleanFunction.ONLY_FIRST);
-    public static final BooleanProperty hasWater = BooleanProperty.create("haswater");
-    public static final BooleanProperty hasClay = BooleanProperty.create("hasclay");
-    public static final BooleanProperty isClose = BooleanProperty.create("isclose");
-    public static final IntegerProperty countOfJumps = IntegerProperty.create("jumps", 0, 1000);
+    public static final IntegerProperty state = IntegerProperty.create("state", 0, 2);
 
     public PotteryBarrelBlock()
     {
         super(Properties.create(Material.BAMBOO));
-        this.setDefaultState(this.stateContainer.getBaseState()
-                .with(hasWater, Boolean.valueOf(false)).with(countOfJumps, Integer.valueOf(0)).with(hasClay, Boolean.valueOf(false)).with(isClose, Boolean.FALSE));
+        this.setDefaultState(this.stateContainer.getBaseState().with(state, Integer.valueOf(0)));
     }
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
-        return state.get(isClose) ?  super.getCollisionShape(state, worldIn, pos, context) : SHAPE;
+        return SHAPE;
     }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
     {
-        builder.add(hasWater).add(countOfJumps).add(hasClay).add(isClose);
+        builder.add(state);//.add(hasClay);//.add(isClose);
     }
 
     @Override
     public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance)
     {
         BlockState state = worldIn.getBlockState(pos);
-        if (pos.getY() < entityIn.getPosY() && state.get(hasClay) && state.get(hasWater))
+        if (pos.getY() < entityIn.getPosY() && state.get(PotteryBarrelBlock.state) == 2 && worldIn.getTileEntity(pos) != null)
         {
-            worldIn.setBlockState(pos, state.with(countOfJumps, state.get(countOfJumps) + 1));
-            try
-            {
-                entityIn.sendMessage(new StringTextComponent(state.get(countOfJumps) + " "));
-            } catch (Exception ignored)
-            {
-            }
+            ((PotteryBarrelTile)worldIn.getTileEntity(pos)).incrementJumpsCount();
+            entityIn.sendMessage(new StringTextComponent(((PotteryBarrelTile)worldIn.getTileEntity(pos)).jumpsCount + " "));
         }
         super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
     }
@@ -74,26 +68,31 @@ public class PotteryBarrelBlock extends Block
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
+        int countOfJumps = 0;
+        try {
+            countOfJumps = ((PotteryBarrelTile)worldIn.getTileEntity(pos)).jumpsCount;
+        } catch (Exception ignored){}
+
         ItemStack itemstack = player.getHeldItem(handIn);
-        if (itemstack.isEmpty())
+        /*if (player.getActiveItemStack().isEmpty()) //itemstack.isEmpty() ||
         {
             worldIn.setBlockState(pos, state.with(isClose, !state.get(isClose)));
             return ActionResultType.SUCCESS;
         }
-        else if(!state.get(isClose))
+        else */
+        if(true)//!state.get(isClose))
         {
-            boolean  hasWaterInState = state.get(hasWater);
-            boolean  hasClayInState = state.get(hasClay);
+            int stateInt = state.get(PotteryBarrelBlock.state);
             Item item = itemstack.getItem();
             if (item == Items.WATER_BUCKET)
             {
-                if (!hasWaterInState && !worldIn.isRemote)
+                if (stateInt == 0 && !worldIn.isRemote)
                 {
                     if (!player.abilities.isCreativeMode)
                     {
                         player.setHeldItem(handIn, new ItemStack(Items.BUCKET));
                     }
-                    setHasWater(worldIn, pos, state, true);
+                    setState(worldIn, pos, state, 1);
                     worldIn.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     return ActionResultType.SUCCESS;
                 }
@@ -102,18 +101,19 @@ public class PotteryBarrelBlock extends Block
             }
             else if (item == Items.BUCKET)
             {
-                if (hasWaterInState && !worldIn.isRemote)
+                if (stateInt >= 0 && !worldIn.isRemote)
                 {
                     itemstack.shrink(1);
+                    double quality = Math.sqrt(countOfJumps) / Math.sqrt(1000);
                     if (itemstack.isEmpty())
                     {
-                        if (hasClayInState)
+                        if (stateInt >= 2)
                         {
                             ItemStack stackToAdd = new ItemStack(PhoenixItems.bucket_with_clay.get());
                             if (stackToAdd.getTag() == null)
                                 stackToAdd.setTag(new CompoundNBT());
 
-                            stackToAdd.getTag().putDouble("quality", (Math.sqrt(state.get(countOfJumps)) / Math.sqrt(1000)));//тут значение в %. От 0 до 1
+                            stackToAdd.getTag().putDouble("quality", quality);//тут значение в %. От 0 до 1
                             player.setHeldItem(handIn, stackToAdd);
                         }
                         else
@@ -121,13 +121,14 @@ public class PotteryBarrelBlock extends Block
                     }
                     else
                     {
-                        if (hasClayInState)
+                        if (stateInt >= 2)
                         {
                             ItemStack stackToAdd = new ItemStack(PhoenixItems.bucket_with_clay.get());
                             if (stackToAdd.getTag() == null)
                                 stackToAdd.setTag(new CompoundNBT());
 
-                            stackToAdd.getTag().putDouble("quality", (Math.sqrt(state.get(countOfJumps)) / Math.sqrt(1000)));//тут значение в %. От 0 до 1
+
+                            stackToAdd.getTag().putDouble("quality", quality);//тут значение в %. От 0 до 1
                             if (!player.inventory.addItemStackToInventory(stackToAdd))
                                 player.dropItem(stackToAdd, false);
                         }
@@ -138,18 +139,20 @@ public class PotteryBarrelBlock extends Block
                         }
                     }
 
-                    setHasWater(worldIn, pos, state, false);
-                    setHasClay(worldIn, pos, state, false);
+                    setState(worldIn, pos, state, 0);
                     worldIn.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    try {
+                        ((PotteryBarrelTile)worldIn.getTileEntity(pos)).nullifyJumpsCount();
+                    } catch (Exception ignored){}
                 }
                 return ActionResultType.SUCCESS;
             }
             else  if(item == Items.CLAY)
             {
-                if (hasWaterInState && !hasClayInState && !worldIn.isRemote)
+                if (stateInt == 1 && !worldIn.isRemote)
                 {
                     if (!player.abilities.isCreativeMode) itemstack.shrink(1);
-                    setHasClay(worldIn, pos, state, true);
+                        setState(worldIn, pos, state, 2);
                     worldIn.playSound(null, pos, SoundEvents.BLOCK_SAND_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
                 return ActionResultType.SUCCESS;
@@ -166,11 +169,8 @@ public class PotteryBarrelBlock extends Block
     }
 
 
-    public void setHasWater(World worldIn, BlockPos pos, BlockState state, boolean level) {
-        worldIn.setBlockState(pos, state.with(hasWater, Boolean.valueOf(level)));
-    }
-    public void setHasClay(World worldIn, BlockPos pos, BlockState state, boolean level) {
-        worldIn.setBlockState(pos, state.with(hasClay, Boolean.valueOf(level)));
+    public void setState(World worldIn, BlockPos pos, BlockState state, int level) {
+        worldIn.setBlockState(pos, state.with(PotteryBarrelBlock.state, level));
     }
     @Override
     public boolean hasComparatorInputOverride(BlockState state) {
@@ -180,6 +180,17 @@ public class PotteryBarrelBlock extends Block
     @Override
     public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos)
     {
-        return (int) ((blockState.get(countOfJumps) / 1000D) * 15);
+        int countOfJumps = 0;
+        try
+        {
+            countOfJumps = ((PotteryBarrelTile)worldIn.getTileEntity(pos)).jumpsCount;
+        } catch (Exception ignored){}
+
+        return (int) ((Math.sqrt(countOfJumps) / Math.sqrt(1000)) * 15);
+    }
+
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        return new PotteryBarrelTile();
     }
 }

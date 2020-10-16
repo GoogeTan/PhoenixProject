@@ -34,12 +34,6 @@ public class TankBlock extends BlockWithTile
     }
 
     @Override
-    public Class getTileEntityClass()
-    {
-        return TileEntity.class;
-    }
-
-    @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
         TankTile tileTank = (TankTile) worldIn.getTileEntity(pos);
