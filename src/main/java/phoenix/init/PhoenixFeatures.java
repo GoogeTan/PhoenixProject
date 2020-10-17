@@ -17,7 +17,6 @@ import java.util.Locale;
 
 public class PhoenixFeatures
 {
-    public static IStructurePieceType ERASED_PIESES = register(ErasedPieces.Piece::new, "era");
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Phoenix.MOD_ID);
 
     public static final RegistryObject<Structure<NoFeatureConfig>> ERASED = FEATURES.register("erased", () -> new ErasedStructure(NoFeatureConfig::deserialize));

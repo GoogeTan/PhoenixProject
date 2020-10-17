@@ -17,6 +17,7 @@ import phoenix.Phoenix;
 import phoenix.blocks.AntiAirBlock;
 import phoenix.blocks.UpdaterBlock;
 import phoenix.blocks.ash.EndStoneColumnBlock;
+import phoenix.blocks.ash.OvenBlock;
 import phoenix.blocks.ash.PotteryBarrelBlock;
 import phoenix.blocks.redo.*;
 import phoenix.utils.INonItem;
@@ -24,7 +25,7 @@ import phoenix.utils.INonItem;
 @Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PhoenixBlocks
 {
-    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, Phoenix.MOD_ID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Phoenix.MOD_ID);
 
     public static final RegistryObject<Block>            UPDATOR           = BLOCKS.register("updater",           UpdaterBlock        ::new);
     public static final RegistryObject<Block>            PIPE              = BLOCKS.register("pipe",              PipeBlock           ::new);
@@ -35,6 +36,8 @@ public class PhoenixBlocks
     public static final RegistryObject<Block>            ANTI_AIR          = BLOCKS.register("anti_air",          AntiAirBlock        ::new);
     public static final RegistryObject<Block>            POTTERY_BARREL    = BLOCKS.register("pottery_barrel",    PotteryBarrelBlock  ::new);
     public static final RegistryObject<Block>            END_STONE_COLUMN  = BLOCKS.register("end_stone_column",  EndStoneColumnBlock ::new);
+    public static final RegistryObject<Block>            OVEN              = BLOCKS.register("oven",              OvenBlock           ::new);
+
 
     public static void register()
     {

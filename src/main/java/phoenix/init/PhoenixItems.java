@@ -11,7 +11,7 @@ import phoenix.items.ash.BucketWithClayItem;
 
 public class PhoenixItems
 {
-    private static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, Phoenix.MOD_ID);
+    private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Phoenix.MOD_ID);
 
     public static final RegistryObject<Item> guide             = ITEMS.register("drls_diary",       ItemDrLsDiary     ::new);
     public static final RegistryObject<Item> bucket_with_clay  = ITEMS.register("bucket_with_clay", BucketWithClayItem::new);
