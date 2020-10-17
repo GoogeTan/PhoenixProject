@@ -3,6 +3,9 @@ package phoenix.blocks.ash;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -24,14 +27,17 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.ILightReader;
 import net.minecraft.world.World;
 import phoenix.init.PhoenixItems;
 import phoenix.tile.PotteryBarrelTile;
 import phoenix.utils.BlockWithTile;
+import phoenix.utils.IColoredBlock;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-public class PotteryBarrelBlock extends BlockWithTile
+public class PotteryBarrelBlock extends BlockWithTile<PotteryBarrelTile> implements IColoredBlock
 {
     protected static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), VoxelShapes.or(makeCuboidShape(0.0D, 0.0D, 4.0D, 16.0D, 3.0D, 12.0D), makeCuboidShape(4.0D, 0.0D, 0.0D, 12.0D, 3.0D, 16.0D), makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 3.0D, 14.0D), makeCuboidShape(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D)), IBooleanFunction.ONLY_FIRST);
     public static final IntegerProperty state = IntegerProperty.create("state", 0, 2);
@@ -193,5 +199,17 @@ public class PotteryBarrelBlock extends BlockWithTile
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new PotteryBarrelTile();
+    }
+
+    @Override
+    public IBlockColor getBlockColor()
+    {
+        return (state, light, pos, tintIndex) -> Material.WATER.getColor().colorValue;
+    }
+
+    @Override
+    public IItemColor getItemColor()
+    {
+        return (stack, tintIndex) -> Material.WATER.getColor().colorValue;
     }
 }

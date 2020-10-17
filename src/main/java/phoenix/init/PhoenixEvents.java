@@ -1,9 +1,12 @@
 package phoenix.init;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
@@ -17,6 +20,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -26,8 +30,9 @@ import phoenix.Phoenix;
 import phoenix.client.render.PipeRender;
 import phoenix.client.render.TalpaRenderer;
 import phoenix.client.render.TankRenderer;
+import phoenix.utils.IColoredBlock;
 
-@Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PhoenixEvents
 {
 
@@ -44,8 +49,20 @@ public class PhoenixEvents
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.TANK.get(), RenderType.getCutoutMipped());
         RenderingRegistry.registerEntityRenderingHandler(PhoenixEntities.TALPA.get(), TalpaRenderer::new);
         PhoenixContainers.renderScreens();
-        DistExecutor.runWhenOn(Dist.CLIENT, ()->()->ClientRegistry.bindTileEntityRenderer(PhoenixTiles.PIPE.get(),   PipeRender::new));
-        DistExecutor.runWhenOn(Dist.CLIENT, ()->()->ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK.get(), TankRenderer::new));
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.PIPE.get(),   PipeRender::new);
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK.get(), TankRenderer::new);
+        // регистрация цветных блоков
+        for(RegistryObject<Block> block : PhoenixBlocks.BLOCKS.getEntries())
+        {
+            if(block.get() instanceof IColoredBlock)
+            {
+                IColoredBlock colorBlock = (IColoredBlock)block.get();
+                if (colorBlock.getBlockColor() != null)
+                    Minecraft.getInstance().getBlockColors().register(colorBlock.getBlockColor(), block.get());
+                if (colorBlock.getItemColor() != null)
+                    Minecraft.getInstance().getItemColors().register(colorBlock.getItemColor(), Item.getItemFromBlock(block.get()));
+            }
+        }
     }
 
     @SubscribeEvent

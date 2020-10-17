@@ -1,0 +1,27 @@
+{
+  "display":
+  {
+    "icon":  {  "item": "minecraft:end_portal_frame"            },
+    "title": {  "translate": "advancements.phoenix.ash.title"   },
+    "description": { "translate": "advancements.phoenix.ash.title.description"   },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "phoenix:textures/blocks/end_stone_column_top.png"
+  },
+  "criteria":
+  {
+    "entered_end":
+    {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": { "to": "minecraft:the_end" }
+    }
+  },
+  "requirements":
+  [
+    [
+      "entered_end"
+    ]
+  ]
+}

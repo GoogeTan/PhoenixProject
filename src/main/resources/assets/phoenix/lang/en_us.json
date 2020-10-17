@@ -28,10 +28,10 @@
   "item.gods_leggins.name": "Flesh leggins",
   "item.gods_helmet.name": "Flesh helmet",
 
-  "advancements.phoenix.unit01.title": "Project Phoenix",
-  "advancements.phoenix.unit01.title.description": "End of the start or start of the end?",
-  "advancements.phoenix.unit01.corn.tile": "Freude",
-  "advancements.phoenix.unit01.corn.description": "-How did you get brought to the past ignis monastery? “I took him for a End city.” Easy to confuse.",
+  "advancements.phoenix.ash.title": "Project Phoenix: ash",
+  "advancements.phoenix.ash.title.description": "End of the start or start of the end?",
+  "advancements.phoenix.ash.corn.tile": "Freude",
+  "advancements.phoenix.ash.corn.description": "-How did you get brought to the past ignis monastery? “I took him for a End city.” Easy to confuse.",
 
   "phoenix.massage.newstage": "Welcome to the new stage!",
   "phoenix.massage.speare":"Uses combat system from 1.8",

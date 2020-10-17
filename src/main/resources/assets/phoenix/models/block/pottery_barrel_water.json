@@ -5,7 +5,7 @@
 		"particle": "block/barrel_top",
 		"top": "block/barrel_top",
 		"bottom": "phoenix:blocks/barrel_bottom",
-		"water": "block/water",
+		"water": "block/water_still",
 		"side": "block/barrel_side"
 	},
 	"elements": [
@@ -78,12 +78,7 @@
 			"rotation": {"angle": 0, "axis": "y", "origin": [10, 9, 10]},
 			"color": 4,
 			"faces": {
-				"north": {"uv": [0, 0, 12, 11], "texture": "#water"},
-				"east": {"uv": [0, 0, 13, 11], "texture": "#water"},
-				"south": {"uv": [0, 0, 12, 11], "texture": "#water"},
-				"west": {"uv": [0, 0, 13, 11], "texture": "#water"},
-				"up": {"uv": [0, 0, 12, 13], "texture": "#water"},
-				"down": {"uv": [0, 0, 12, 13], "texture": "#water"}
+				"up": { "texture": "#water", "tintindex": 0 }
 			}
 		}
 	],
