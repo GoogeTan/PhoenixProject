@@ -3,7 +3,6 @@ package phoenix.blocks.ash;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.Entity;
@@ -27,15 +26,13 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.ILightReader;
 import net.minecraft.world.World;
 import phoenix.init.PhoenixItems;
-import phoenix.tile.PotteryBarrelTile;
+import phoenix.tile.ash.PotteryBarrelTile;
 import phoenix.utils.BlockWithTile;
 import phoenix.utils.IColoredBlock;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class PotteryBarrelBlock extends BlockWithTile<PotteryBarrelTile> implements IColoredBlock
 {

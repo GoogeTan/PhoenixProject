@@ -1,4 +1,4 @@
-package phoenix.tile;
+package phoenix.tile.ash;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;

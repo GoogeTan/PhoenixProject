@@ -16,7 +16,6 @@ public class PhoenixBiomes
     public static final RegistryObject<Biome> UNDER     = BIOMRS.register("under", UnderBiome::new);
     public static final RegistryObject<Biome> HEARTVOID = BIOMRS.register("heart_void", HeartVoidBiome::new);
 
-
     public static void register()
     {
         BIOMRS.register(FMLJavaModLoadingContext.get().getModEventBus());

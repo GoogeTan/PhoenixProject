@@ -1,12 +1,15 @@
 package phoenix.blocks.ash;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
-import phoenix.utils.BlockWithTile;
+import phoenix.tile.ash.OvenTile;
 
-public class OvenBlock extends BlockWithTile
+import javax.annotation.Nullable;
+
+public class OvenBlock extends ContainerBlock
 {
     public OvenBlock()
     {
@@ -16,6 +19,13 @@ public class OvenBlock extends BlockWithTile
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
-        return null;
+        return new OvenTile();
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(IBlockReader worldIn)
+    {
+        return new OvenTile();
     }
 }
