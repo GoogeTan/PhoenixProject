@@ -1,10 +1,10 @@
-package phoenix.client.render;
+package phoenix.client.render.entity;
 
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 import phoenix.Phoenix;
-import phoenix.client.models.TalpaModel;
+import phoenix.client.models.entity.TalpaModel;
 import phoenix.enity.TalpaEntity;
 
 public class TalpaRenderer extends MobRenderer<TalpaEntity, TalpaModel>

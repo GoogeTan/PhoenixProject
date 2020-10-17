@@ -9,6 +9,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import phoenix.Phoenix;
+import phoenix.enity.CaudaEntity;
 import phoenix.enity.TalpaEntity;
 
 public class PhoenixEntities
@@ -17,7 +18,8 @@ public class PhoenixEntities
 
     public static final RegistryObject<EntityType<TalpaEntity>> TALPA = ENTITIES.register("talpa", () -> make(new ResourceLocation(Phoenix.MOD_ID, "talpa"),
             TalpaEntity::new, EntityClassification.CREATURE));
-
+    public static final RegistryObject<EntityType<CaudaEntity>> CAUDA = ENTITIES.register("cauda", () -> make(new ResourceLocation(Phoenix.MOD_ID, "cauda"),
+            CaudaEntity::new, EntityClassification.CREATURE));
 
     private static <E extends Entity> EntityType<E> make(ResourceLocation id, EntityType.IFactory<E> factory, EntityClassification classification)
     {

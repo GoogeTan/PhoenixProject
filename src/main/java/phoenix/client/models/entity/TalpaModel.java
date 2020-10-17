@@ -1,4 +1,4 @@
-package phoenix.client.models;
+package phoenix.client.models.entity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;

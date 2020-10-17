@@ -15,8 +15,6 @@ import phoenix.init.PhoenixEntities;
 
 public class TalpaEntity extends AnimalEntity implements EntityType.IFactory<TalpaEntity>
 {
-      
-    private BlockPos boundOrigin;
     public TalpaEntity(EntityType<TalpaEntity> type, World worldIn)
     {
         super(type, worldIn);
@@ -43,10 +41,6 @@ public class TalpaEntity extends AnimalEntity implements EntityType.IFactory<Tal
     public boolean isInvulnerableTo(   DamageSource source)
     {
         return super.isInvulnerableTo(source) || source == DamageSource.IN_WALL;
-    }
-      
-    public BlockPos getBoundOrigin() {
-        return this.boundOrigin;
     }
 
     @Override
