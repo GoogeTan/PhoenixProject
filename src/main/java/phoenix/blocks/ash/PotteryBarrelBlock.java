@@ -33,6 +33,7 @@ import phoenix.utils.BlockWithTile;
 import phoenix.utils.IColoredBlock;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 public class PotteryBarrelBlock extends BlockWithTile<PotteryBarrelTile> implements IColoredBlock
 {
@@ -45,6 +46,8 @@ public class PotteryBarrelBlock extends BlockWithTile<PotteryBarrelTile> impleme
         this.setDefaultState(this.stateContainer.getBaseState().with(state, Integer.valueOf(0)));
     }
 
+    @Nonnull
+    @ParametersAreNonnullByDefault
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
@@ -53,8 +56,9 @@ public class PotteryBarrelBlock extends BlockWithTile<PotteryBarrelTile> impleme
 
     @Override protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) { builder.add(state); }
 
+
     @Override
-    public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance)
+    public void onFallenUpon(World worldIn, @Nonnull BlockPos pos, Entity entityIn, float fallDistance)
     {
         BlockState state = worldIn.getBlockState(pos);
         if (pos.getY() < entityIn.getPosY() && state.get(PotteryBarrelBlock.state) == 2 && worldIn.getTileEntity(pos) != null)
@@ -67,6 +71,7 @@ public class PotteryBarrelBlock extends BlockWithTile<PotteryBarrelTile> impleme
     }
 
     @Nonnull
+    @ParametersAreNonnullByDefault
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
@@ -181,6 +186,8 @@ public class PotteryBarrelBlock extends BlockWithTile<PotteryBarrelTile> impleme
         return true;
     }
 
+
+    @ParametersAreNonnullByDefault
     @Override
     public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos)
     {

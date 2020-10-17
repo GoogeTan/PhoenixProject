@@ -8,6 +8,7 @@ import net.minecraft.world.IBlockReader;
 import phoenix.tile.ash.OvenTile;
 
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 public class OvenBlock extends ContainerBlock
 {
@@ -23,6 +24,7 @@ public class OvenBlock extends ContainerBlock
     }
 
     @Nullable
+    @ParametersAreNonnullByDefault
     @Override
     public TileEntity createNewTileEntity(IBlockReader worldIn)
     {

@@ -79,8 +79,7 @@ public class PhoenixEvents
     public static void addStructure(   Biome biome,    Structure structure)
     {
         biome.addStructure(structure.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-        biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, structure
-                                                                            .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG)
-                                                                            .withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+        biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, structure.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG)
+                                                                                 .withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
     }
 }

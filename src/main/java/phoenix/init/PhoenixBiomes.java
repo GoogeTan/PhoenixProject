@@ -11,13 +11,13 @@ import phoenix.world.biomes.UnderBiome;
 
 public class PhoenixBiomes
 {
-    private static final DeferredRegister<Biome> BIOMRS = DeferredRegister.create(ForgeRegistries.BIOMES, Phoenix.MOD_ID);
+    private static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, Phoenix.MOD_ID);
 
-    public static final RegistryObject<Biome> UNDER     = BIOMRS.register("under", UnderBiome::new);
-    public static final RegistryObject<Biome> HEARTVOID = BIOMRS.register("heart_void", HeartVoidBiome::new);
+    public static final RegistryObject<Biome> UNDER     = BIOMES.register("under", UnderBiome::new);
+    public static final RegistryObject<Biome> HEARTVOID = BIOMES.register("heart_void", HeartVoidBiome::new);
 
     public static void register()
     {
-        BIOMRS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        BIOMES.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 }

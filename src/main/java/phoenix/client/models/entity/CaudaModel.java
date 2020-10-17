@@ -6,86 +6,113 @@ import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import phoenix.enity.CaudaEntity;
 
-public class CaudaModel extends EntityModel<CaudaEntity>
-{
+public class CaudaModel extends EntityModel<CaudaEntity> {
     private final ModelRenderer body;
     private final ModelRenderer body2;
     private final ModelRenderer body3;
     private final ModelRenderer tail1;
     private final ModelRenderer tail2;
     private final ModelRenderer tail3;
+    private final ModelRenderer bone;
+    private final ModelRenderer bone2;
     private final ModelRenderer wingLeft;
     private final ModelRenderer wingLeft2;
     private final ModelRenderer wingLeft3;
+    private final ModelRenderer wingLeft4;
     private final ModelRenderer wingRight;
     private final ModelRenderer wingRight2;
     private final ModelRenderer wingRight3;
+    private final ModelRenderer wingRight4;
 
     public CaudaModel() {
         textureWidth = 128;
         textureHeight = 128;
 
         body = new ModelRenderer(this);
-        body.setRotationPoint(0.0F, 24.0F, 0.0F);
-        body.setTextureOffset(0, 0).addBox(-1.0F, -7.0F, -4.0F, 4.0F, 3.0F, 8.0F, 0.0F, false);
+        body.setRotationPoint(1.0F, 18.0F, 0.0F);
+        body.setTextureOffset(0, 0).addBox(-2.0F, -1.0F, -4.0F, 4.0F, 3.0F, 8.0F, 0.0F, false);
 
         body2 = new ModelRenderer(this);
-        body2.setRotationPoint(0.0F, 0.0F, 0.0F);
+        body2.setRotationPoint(-2.0F, 0.0F, 0.0F);
         body.addChild(body2);
-        body2.setTextureOffset(0, 0).addBox(-4.0F, -6.0F, -4.0F, 3.0F, 1.0F, 8.0F, 0.0F, false);
-        body2.setTextureOffset(0, 0).addBox(-4.0F, -7.0F, -3.0F, 3.0F, 3.0F, 6.0F, 0.0F, false);
+        body2.setTextureOffset(52, 11).addBox(-3.0F, 0.0F, -4.0F, 3.0F, 1.0F, 8.0F, 0.0F, false);
+        body2.setTextureOffset(54, 0).addBox(-3.0F, -1.0F, -3.0F, 3.0F, 3.0F, 6.0F, 0.0F, false);
 
         body3 = new ModelRenderer(this);
-        body3.setRotationPoint(0.0F, 0.0F, 0.0F);
+        body3.setRotationPoint(-3.0F, 0.0F, 0.0F);
         body2.addChild(body3);
-        body3.setTextureOffset(0, 0).addBox(-7.0F, -6.0F, -4.0F, 3.0F, 1.0F, 8.0F, 0.0F, false);
-        body3.setTextureOffset(0, 0).addBox(-6.0F, -7.0F, -2.0F, 2.0F, 3.0F, 4.0F, 0.0F, false);
+        body3.setTextureOffset(12, 20).addBox(-4.0F, 0.0F, -4.0F, 4.0F, 1.0F, 8.0F, 0.0F, false);
+        body3.setTextureOffset(0, 20).addBox(-4.0F, -1.0F, -2.0F, 4.0F, 3.0F, 4.0F, 0.0F, false);
 
         tail1 = new ModelRenderer(this);
-        tail1.setRotationPoint(0.0F, 0.0F, 0.0F);
+        tail1.setRotationPoint(-6.0F, 0.0F, 0.0F);
         body3.addChild(tail1);
-        tail1.setTextureOffset(0, 0).addBox(-11.0F, -6.0F, 1.0F, 4.0F, 1.0F, 3.0F, 0.0F, false);
-        tail1.setTextureOffset(0, 0).addBox(-11.0F, -6.0F, -4.0F, 4.0F, 1.0F, 3.0F, 0.0F, false);
+        tail1.setTextureOffset(34, 20).addBox(-6.0F, 0.0F, 1.0F, 8.0F, 1.0F, 3.0F, 0.0F, false);
+        tail1.setTextureOffset(34, 20).addBox(-6.0F, 0.0F, -4.0F, 8.0F, 1.0F, 3.0F, 0.0F, false);
 
         tail2 = new ModelRenderer(this);
-        tail2.setRotationPoint(-7.0F, -5.0F, -1.0F);
+        tail2.setRotationPoint(-8.0F, 1.0F, 0.0F);
         tail1.addChild(tail2);
-        tail2.setTextureOffset(0, 0).addBox(-8.0F, -1.0F, -2.0F, 4.0F, 1.0F, 2.0F, 0.0F, false);
-        tail2.setTextureOffset(0, 0).addBox(-8.0F, -1.0F, 2.0F, 4.0F, 1.0F, 2.0F, 0.0F, false);
+        tail2.setTextureOffset(34, 24).addBox(-4.0F, -1.0F, -3.0F, 6.0F, 1.0F, 2.0F, 0.0F, false);
+        tail2.setTextureOffset(34, 24).addBox(-4.0F, -1.0F, 1.0F, 6.0F, 1.0F, 2.0F, 0.0F, false);
 
         tail3 = new ModelRenderer(this);
-        tail3.setRotationPoint(0.0F, 0.0F, 0.0F);
+        tail3.setRotationPoint(-3.0F, 0.0F, 0.0F);
         tail2.addChild(tail3);
-        tail3.setTextureOffset(0, 0).addBox(-15.0F, -1.0F, -1.0F, 7.0F, 1.0F, 1.0F, 0.0F, false);
-        tail3.setTextureOffset(0, 0).addBox(-15.0F, -1.0F, 2.0F, 7.0F, 1.0F, 1.0F, 0.0F, false);
+        tail3.setTextureOffset(36, 27).addBox(-8.0F, -1.0F, -2.0F, 7.0F, 1.0F, 1.0F, 0.0F, false);
+        tail3.setTextureOffset(36, 27).addBox(-8.0F, -1.0F, 1.0F, 7.0F, 1.0F, 1.0F, 0.0F, false);
+
+        bone = new ModelRenderer(this);
+        bone.setRotationPoint(-4.0F, -1.0F, 2.0F);
+        tail2.addChild(bone);
+        setRotationAngle(bone, 0.0F, 0.2967F, 0.0F);
+        bone.setTextureOffset(36, 27).addBox(-7.0F, 0.0F, 0.0F, 7.0F, 1.0F, 1.0F, 0.0F, false);
+
+        bone2 = new ModelRenderer(this);
+        bone2.setRotationPoint(-4.0F, -1.0F, -2.0F);
+        tail2.addChild(bone2);
+        setRotationAngle(bone2, 0.0F, -0.2967F, 0.0F);
+        bone2.setTextureOffset(36, 27).addBox(-7.0F, 0.0F, -1.0F, 7.0F, 1.0F, 1.0F, 0.0F, false);
 
         wingLeft = new ModelRenderer(this);
-        wingLeft.setRotationPoint(0.0F, 24.0F, 0.0F);
-        wingLeft.setTextureOffset(0, 0).addBox(-5.0F, -8.0F, 4.0F, 8.0F, 3.0F, 7.0F, 0.0F, false);
+        wingLeft.setRotationPoint(3.0F, 16.0F, 4.0F);
+        wingLeft.setTextureOffset(24, 1).addBox(-8.0F, 0.0F, 0.0F, 8.0F, 3.0F, 7.0F, 0.0F, false);
 
         wingLeft2 = new ModelRenderer(this);
-        wingLeft2.setRotationPoint(0.0F, -5.0F, 4.0F);
+        wingLeft2.setRotationPoint(0.0F, 1.0F, 7.0F);
         wingLeft.addChild(wingLeft2);
-        wingLeft2.setTextureOffset(0, 0).addBox(-4.0F, -2.0F, 7.0F, 7.0F, 2.0F, 7.0F, 0.0F, false);
+        setRotationAngle(wingLeft2, 0.0F, 0.0F, 0.0F);
+        wingLeft2.setTextureOffset(0, 11).addBox(-7.0F, 0.0F, 0.0F, 7.0F, 2.0F, 7.0F, 0.0F, false);
 
         wingLeft3 = new ModelRenderer(this);
-        wingLeft3.setRotationPoint(0.0F, 0.0F, 0.0F);
+        wingLeft3.setRotationPoint(0.0F, 1.0F, 7.0F);
         wingLeft2.addChild(wingLeft3);
-        wingLeft3.setTextureOffset(0, 0).addBox(-3.0F, -1.0F, 14.0F, 6.0F, 1.0F, 6.0F, 0.0F, false);
+        setRotationAngle(wingLeft3, 0.0F, 0.0F, 0.0F);
+        wingLeft3.setTextureOffset(28, 13).addBox(-6.0F, 0.0F, 0.0F, 6.0F, 1.0F, 6.0F, 0.0F, false);
+
+        wingLeft4 = new ModelRenderer(this);
+        wingLeft4.setRotationPoint(0.0F, 0.0F, 6.0F);
+        wingLeft3.addChild(wingLeft4);
+        wingLeft4.setTextureOffset(56, 20).addBox(-2.0F, 0.0F, 0.0F, 2.0F, 1.0F, 6.0F, 0.0F, false);
 
         wingRight = new ModelRenderer(this);
-        wingRight.setRotationPoint(0.0F, 24.0F, 0.0F);
-        wingRight.setTextureOffset(0, 0).addBox(-5.0F, -8.0F, -11.0F, 8.0F, 3.0F, 7.0F, 0.0F, false);
+        wingRight.setRotationPoint(3.0F, 16.0F, -4.0F);
+        wingRight.setTextureOffset(24, 1).addBox(-8.0F, 0.0F, -7.0F, 8.0F, 3.0F, 7.0F, 0.0F, false);
 
         wingRight2 = new ModelRenderer(this);
-        wingRight2.setRotationPoint(0.0F, 0.0F, 0.0F);
+        wingRight2.setRotationPoint(0.0F, 1.0F, -7.0F);
         wingRight.addChild(wingRight2);
-        wingRight2.setTextureOffset(0, 0).addBox(-4.0F, -7.0F, -18.0F, 7.0F, 2.0F, 7.0F, 0.0F, false);
+        wingRight2.setTextureOffset(0, 11).addBox(-7.0F, 0.0F, -7.0F, 7.0F, 2.0F, 7.0F, 0.0F, false);
 
         wingRight3 = new ModelRenderer(this);
-        wingRight3.setRotationPoint(0.0F, 0.0F, 0.0F);
+        wingRight3.setRotationPoint(0.0F, 1.0F, -7.0F);
         wingRight2.addChild(wingRight3);
-        wingRight3.setTextureOffset(0, 0).addBox(-3.0F, -6.0F, -24.0F, 6.0F, 1.0F, 6.0F, 0.0F, false);
+        wingRight3.setTextureOffset(28, 13).addBox(-6.0F, 0.0F, -6.0F, 6.0F, 1.0F, 6.0F, 0.0F, false);
+
+        wingRight4 = new ModelRenderer(this);
+        wingRight4.setRotationPoint(0.0F, 0.0F, -6.0F);
+        wingRight3.addChild(wingRight4);
+        wingRight4.setTextureOffset(56, 20).addBox(-2.0F, 0.0F, -6.0F, 2.0F, 1.0F, 6.0F, 0.0F, false);
     }
 
     @Override

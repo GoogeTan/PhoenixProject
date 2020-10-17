@@ -15,6 +15,7 @@ import phoenix.init.PhoenixEntities;
 
 public class TalpaEntity extends AnimalEntity implements EntityType.IFactory<TalpaEntity>
 {
+    private BlockPos boundOrigin;
     public TalpaEntity(EntityType<TalpaEntity> type, World worldIn)
     {
         super(type, worldIn);
@@ -49,7 +50,10 @@ public class TalpaEntity extends AnimalEntity implements EntityType.IFactory<Tal
         return 7;
     }
 
-      
+    public BlockPos getBoundOrigin() {
+        return this.boundOrigin;
+    }
+
     @Override
     public EntitySize getSize(   Pose poseIn)
     {

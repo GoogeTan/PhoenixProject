@@ -21,7 +21,7 @@ public class UpdaterTile extends TileEntity implements ITickableTileEntity
 
     public UpdaterTile()
     {
-        super(PhoenixTiles.UPDATOR.get());
+        super(PhoenixTiles.UPDATER.get());
     }
 
 
