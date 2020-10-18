@@ -1,9 +1,11 @@
 package phoenix.world;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.DimensionSavedDataManager;
 import net.minecraft.world.storage.WorldSavedData;
+
+import javax.annotation.Nonnull;
 
 public class StageSaveData extends WorldSavedData
 {
@@ -18,13 +20,13 @@ public class StageSaveData extends WorldSavedData
         this.data.putInt("part", 1);
     }
 
-    //Эт второй конструктор, на всякий. А первый нужен для того, чтобы ничего не упало)
+    //Этj второй конструктор, на всякий. А первый нужен для того, чтобы ничего не упало)
     public StageSaveData(String s)
     {
         super(s);
         this.data = new CompoundNBT();
-        this.data.putInt("stage", 1);
-        this.data.putInt("part", 1);
+        this.data.putInt("stage", 0);
+        this.data.putInt("part", 0);
     }
 
     @Override
@@ -37,8 +39,8 @@ public class StageSaveData extends WorldSavedData
         else
         {
             CompoundNBT compound = new CompoundNBT();
-            compound.putInt("stage", 1);
-            compound.putInt("part",  1);
+            compound.putInt("stage", 0);
+            compound.putInt("part",  0);
             data = compound;
             nbt.put("stage_nbt", compound);
         }
@@ -53,65 +55,49 @@ public class StageSaveData extends WorldSavedData
     }
 
     //Этим мы получаем экземпляр данных для мира
-      
     public static StageSaveData get(ServerWorld world)
     {
-        DimensionSavedDataManager storage = world.getSavedData();
-        StageSaveData instance = storage.getOrCreate(StageSaveData::new, DATA_NAME);
-        if (instance == null)
-        {
-            instance = new StageSaveData();
-            storage.set(instance);
-        }
-        return instance;
+        return world.getSavedData().getOrCreate(StageSaveData::new, DATA_NAME);
     }
 
     public int getStage()
     {
         if(data == null) data = new CompoundNBT();
-        int s = data.getInt("stage");
-        if(s == 0)
-        {
-            data.putInt("stage", 1);
-            return 1;
-        }
-        else
-        {
-            return s;
-        }
+        return data.getInt("stage");
     }
+
     public int getPart()
     {
         if(data == null) data = new CompoundNBT();
-        int s = data.getInt("part");
-        if(s == 0)
-        {
-            data.putInt("part", 1);
-            return 1;
-        }
-        else
-        {
-            return s;
-        }
+        return data.getInt("part");
     }
-    public void setStage(int stage)
+
+    private void setStage(int stage)
     {
         data.putInt("stage", stage);
         markDirty();
     }
-    public void setPart(int part)
+
+    private void setPart(int part)
     {
         data.putInt("part", part);
         markDirty();
     }
+
     public void addStage()
     {
-        data.putInt("stage", getStage() + 1);
+        setStage(Math.min(getStage() + 1, 3));
         markDirty();
     }
+
     public void addPart()
     {
-        data.putInt("part", getPart() + 1);
+        setPart(getPart() + 1);
+        if(data.getInt("part") >= 3)
+        {
+            addStage();
+            setPart(0);
+        }
         markDirty();
     }
 }

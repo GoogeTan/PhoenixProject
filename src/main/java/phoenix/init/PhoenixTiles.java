@@ -9,15 +9,12 @@ import phoenix.Phoenix;
 import phoenix.tile.PipeTile;
 import phoenix.tile.ash.PotteryBarrelTile;
 import phoenix.tile.TankTile;
-import phoenix.tile.UpdaterTile;
 import phoenix.tile.ash.OvenTile;
 
 public class PhoenixTiles
 {
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Phoenix.MOD_ID);
 
-    public static final RegistryObject<TileEntityType<UpdaterTile>>       UPDATER        = TILE_ENTITIES.register("updater",
-            () -> TileEntityType.Builder.create(UpdaterTile::new,  PhoenixBlocks.UPDATER.get()).build(null));
     public static final RegistryObject<TileEntityType<TankTile>>          TANK           = TILE_ENTITIES.register("tank",
             () -> TileEntityType.Builder.create(TankTile::new, PhoenixBlocks.TANK.get()).build(null));
     public static final RegistryObject<TileEntityType<PipeTile>>          PIPE           = TILE_ENTITIES.register("pipe",

@@ -11,20 +11,30 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import phoenix.enity.TalpaEntity;
-import phoenix.tile.UpdaterTile;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import phoenix.utils.BlockWithTile;
+import phoenix.world.StageSaveData;
 
-public class UpdaterBlock extends BlockWithTile<UpdaterTile>
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+
+public class UpdaterBlock extends Block
 {
     public UpdaterBlock()
     {
         super(Block.Properties.create(Material.ROCK).lightValue(5).hardnessAndResistance(-1));
     }
-    
+
+    @Nonnull
+    @ParametersAreNonnullByDefault
+    @OnlyIn(Dist.DEDICATED_SERVER)
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world)
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        return new UpdaterTile();
+        StageSaveData data = StageSaveData.get((ServerWorld) worldIn);
+        data.addPart();
+        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
 }
