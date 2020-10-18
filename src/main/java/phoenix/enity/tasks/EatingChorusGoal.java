@@ -21,7 +21,7 @@ public class EatingChorusGoal extends ThreeDimensionsMovingGoal
         if(entity.getAttackTarget() != null)
             return false;
 
-        for(BlockPos correct : BlockPos.getAllInBoxMutable
+        for(BlockPos current : BlockPos.getAllInBoxMutable
                 (
                         MathHelper.floor(entity.getPosX() - distance),
                         MathHelper.floor(entity.getPosY() - distance),
@@ -32,8 +32,8 @@ public class EatingChorusGoal extends ThreeDimensionsMovingGoal
                         MathHelper.floor(entity.getPosZ() + distance)
                 ))
         {
-            if (entity.world.getBlockState(correct).getBlock() == Blocks.CHORUS_FLOWER) {
-                entity.orbitPosition = correct;
+            if (entity.world.getBlockState(current).getBlock() == Blocks.CHORUS_FLOWER) {
+                entity.orbitPosition = current;
                 return true;
             }
         }
@@ -43,7 +43,7 @@ public class EatingChorusGoal extends ThreeDimensionsMovingGoal
     @Override
     public void startExecuting()
     {
-        for(BlockPos correct : BlockPos.getAllInBoxMutable
+        for(BlockPos current : BlockPos.getAllInBoxMutable
                 (
                 MathHelper.floor(entity.getPosX() - distance),
                 MathHelper.floor(entity.getPosY() - distance),
@@ -54,8 +54,8 @@ public class EatingChorusGoal extends ThreeDimensionsMovingGoal
                 MathHelper.floor(entity.getPosZ() + distance)
                 ))
         {
-            if (entity.world.getBlockState(correct).getBlock() == Blocks.CHORUS_FLOWER) {
-                entity.orbitPosition = correct;
+            if (entity.world.getBlockState(current).getBlock() == Blocks.CHORUS_FLOWER) {
+                entity.orbitPosition = current;
                 break;
             }
         }

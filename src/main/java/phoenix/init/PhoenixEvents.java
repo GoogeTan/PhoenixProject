@@ -8,13 +8,16 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.item.Item;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -28,6 +31,7 @@ import phoenix.client.render.entity.CaudaRenderer;
 import phoenix.client.render.entity.TalpaRenderer;
 import phoenix.client.render.TankRenderer;
 import phoenix.utils.IColoredBlock;
+import phoenix.world.GenSaveData;
 
 @Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PhoenixEvents
@@ -64,6 +68,17 @@ public class PhoenixEvents
                 if (colorBlock.getItemColor() != null)
                     Minecraft.getInstance().getItemColors().register(colorBlock.getItemColor(), Item.getItemFromBlock(block.get()));
             }
+        }
+    }
+
+    @OnlyIn(Dist.DEDICATED_SERVER)
+    @SubscribeEvent
+    public static void join(EntityJoinWorldEvent event)
+    {
+        if(!GenSaveData.get((ServerWorld) event.getWorld()).isCornGened() && event.getWorld().dimension.getType() == DimensionType.THE_END)
+        {
+            GenSaveData.get((ServerWorld) event.getWorld()).setCornGened();
+
         }
     }
 

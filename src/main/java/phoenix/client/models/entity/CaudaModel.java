@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.math.MathHelper;
 import phoenix.enity.CaudaEntity;
 
 public class CaudaModel<T extends LivingEntity> extends EntityModel<T> {
@@ -121,6 +122,14 @@ public class CaudaModel<T extends LivingEntity> extends EntityModel<T> {
     @Override
     public void setRotationAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
         //previously the render function, render code was moved to a method below
+        float ticks = ((float)(entity.getEntityId() * 3) + ageInTicks) * 0.13F;
+        float f1 = 16.0F;
+        this.wingLeft .rotateAngleZ = MathHelper.cos(ticks) * 16.0F * ((float)Math.PI / 180F);
+        this.wingLeft2.rotateAngleZ = MathHelper.cos(ticks) * 16.0F * ((float)Math.PI / 180F);
+        this.wingLeft.rotateAngleZ = -this.wingLeft.rotateAngleZ;
+        this.wingRight2.rotateAngleZ = -this.wingLeft.rotateAngleZ;
+        this.body2.rotateAngleX = -(5.0F + MathHelper.cos(ticks * 2.0F) * 5.0F) * ((float)Math.PI / 180F);
+        this.body3.rotateAngleX = -(5.0F + MathHelper.cos(ticks * 2.0F) * 5.0F) * ((float)Math.PI / 180F);
     }
 
     @Override

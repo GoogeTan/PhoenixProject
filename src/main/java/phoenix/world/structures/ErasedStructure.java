@@ -21,7 +21,6 @@ public class ErasedStructure extends ScatteredStructure<NoFeatureConfig>
         super(configFactoryIn);
     }
 
-      
     @Override
     public String getStructureName()
     {
@@ -34,7 +33,6 @@ public class ErasedStructure extends ScatteredStructure<NoFeatureConfig>
         return 3;
     }
 
-      
     @Override
     public Structure.IStartFactory getStartFactory()
     {
