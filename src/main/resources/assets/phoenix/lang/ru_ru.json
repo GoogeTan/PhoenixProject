@@ -7,7 +7,7 @@
   "itemGroup.phoenix": "Проект Феникс",
 
   "block.phoenix.fragileblock": "Хрупкий блок",
-  "block.phoenix.updater": "Улучшатор",
+  "block.phoenix.updater": "Это \"Улучшатор\", но поидее ты не должен этого видеть...",
   "block.phoenix.fertile_end_stone": "Плодородный камень края",
   "block.phoenix.mind_ore": "Осколок памяти",
   "block.phoenix.ceraomic": "Кераомика мира прошлого",
@@ -26,10 +26,6 @@
   "phoenix.quality": "Качество:",
   "item.phoenix.bucket_with_clay": "Ведро с глиной",
   "item.absolutespeedsword.name": "Меч абсолютной скорости",
-  "item.gods_boots.name": "Сапоги из плоти",
-  "item.gods_chestplate.name": "Кириса из плоти",
-  "item.gods_leggins.name": "Штаны из плоти",
-  "item.gods_helmet.name": "Шлем из плоти",
 
   "advancements.phoenix.ash.title": "Проект Феникс: пепел",
   "advancements.phoenix.ash.title.description": "И тут начинается история",
@@ -37,9 +33,5 @@
   "advancements.phoenix.ash.corn.description": "-Как тебя вообще занесло в этот храм? — Я принял его за город края. Легко спутать.",
 
   "phoenix.massage.newstage": "Достингута новая стадия",
-  "phoenix.massage.speare":"Использует систему боя из 1.8",
-
-  "fluid.juice": "Выжимка из кикина",
-
-  "phoenix.diary.ch1":"Hear me, hear me, friend.I’m very, no, seriously ill.What’s the reason? This pain I do not understand.As if wind whistles, listen Over desolate, vacant, still field.Like a grove, leaves blazing I feel.And the drink sheds my leaves as I bend."
+  "phoenix.massage.speare":"Использует систему боя из 1.8"
 }

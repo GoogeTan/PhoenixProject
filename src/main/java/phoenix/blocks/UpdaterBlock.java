@@ -21,27 +21,10 @@ public class UpdaterBlock extends BlockWithTile<UpdaterTile>
     {
         super(Block.Properties.create(Material.ROCK).lightValue(5).hardnessAndResistance(-1));
     }
-
-      
+    
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
         return new UpdaterTile();
-    }
-
-    @Override
-    public boolean hasTileEntity()
-    {
-        return true;
-    }
-
-
-    @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
-    {
-        TalpaEntity entity = TalpaEntity.create(worldIn);
-        entity.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
-        worldIn.addEntity(entity);
-        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
 }

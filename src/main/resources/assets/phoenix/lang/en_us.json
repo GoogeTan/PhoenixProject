@@ -9,7 +9,7 @@
   "block.phoenix.fragileblock": "Fragile Block",
   "block.phoenix.updater": "Updater",
   "block.phoenix.fertile_end_stone": "Fertile end stone",
-  "block.phoenix.mind_ore": "Осколок памяти",
+  "block.phoenix.mind_ore": "Peace of mind",
   "block.phoenix.ceraomic": "Grand ceraomic",
   "block.phoenix.ceraomic_porcelain": "Porcelain ceraomic",
   "block.phoenix.juicer": "Juicer",
@@ -27,10 +27,6 @@
   "phoenix.quality": "Quality:",
   "item.phoenix.bucket_with_clay": "Bucket with clay",
   "item.absolutespeedsword.name": "Sword of absolute speed",
-  "item.gods_boots.name": "Flesh boots",
-  "item.gods_chestplate.name": "Flesh chestplate",
-  "item.gods_leggins.name": "Flesh leggins",
-  "item.gods_helmet.name": "Flesh helmet",
 
   "advancements.phoenix.ash.title": "Project Phoenix: ash",
   "advancements.phoenix.ash.title.description": "End of the start or start of the end?",
@@ -38,9 +34,5 @@
   "advancements.phoenix.ash.corn.description": "-How did you get brought to the past ignis monastery? “I took him for a End city.” Easy to confuse.",
 
   "phoenix.massage.newstage": "Welcome to the new stage!",
-  "phoenix.massage.speare":"Uses combat system from 1.8",
-
-  "fluid.juice": "Squeezed out kikin",
-  "phoenix.diary.ch1":"Hear me, hear me, friend.I’m very, no, seriously ill.What’s the reason? This pain I do not understand.As if wind whistles, listen Over desolate, vacant, still field.Like a grove, leaves blazing I feel.And the drink sheds my leaves as I bend."
-
+  "phoenix.massage.speare":"Uses combat system from 1.8"
 }
