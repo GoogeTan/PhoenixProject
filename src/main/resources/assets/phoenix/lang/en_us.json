@@ -10,13 +10,17 @@
   "block.phoenix.updater": "Updater",
   "block.phoenix.fertile_end_stone": "Fertile end stone",
   "block.phoenix.mind_ore": "Осколок памяти",
-  "block.phoenix.ceraomic": "Grand сeraomic",
+  "block.phoenix.ceraomic": "Grand ceraomic",
   "block.phoenix.ceraomic_porcelain": "Porcelain ceraomic",
   "block.phoenix.juicer": "Juicer",
   "block.phoenix.tank": "Tank",
   "block.phoenix.kikin_stem": "Kinin stem",
   "block.phoenix.kikin_fruit": "Kinin fruit",
   "block.phoenix.pipe": "Pipe",
+  "block.phoenix.pottery_barrel": "Pottery barrel",
+  "block.phoenix.end_stone_column": "End stone column",
+  "block.phoenix.oven": "Oven",
+
 
   "entity.Uterus.name": "Coronoworm",
 

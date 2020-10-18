@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import phoenix.Phoenix;
 import phoenix.blocks.redo.PipeBlock;
 
-public class PipeModel extends Model
+public class    PipeModel extends Model
 {
     ModelRenderer base;
     ModelRenderer n;
