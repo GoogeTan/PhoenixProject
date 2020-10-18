@@ -10,6 +10,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import phoenix.init.PhoenixEntities;
 
@@ -65,6 +66,12 @@ public class TalpaEntity extends AnimalEntity
     public AxisAlignedBB getCollisionBox(Entity entityIn)
     {
         return isEntityInsideOpaqueBlock() ? null : super.getCollisionBox(entityIn);
+    }
+
+    @Override
+    public boolean canSpawn(IWorld worldIn, SpawnReason spawnReasonIn)
+    {
+        return this.getPosition().getY() > 10 && this.getPosition().getY() < 50 && super.canSpawn(worldIn, spawnReasonIn);
     }
 
     @Override

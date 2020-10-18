@@ -3,7 +3,6 @@ package phoenix.enity.tasks;
 import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.Heightmap;
 import phoenix.utils.entity.AbstractFlyingEntity;
@@ -48,7 +47,6 @@ public class PickAttackGoal extends Goal
                 entity.attackPhase = AttackPhases.SWOOP;
                 this.updateOrbitPosition();
                 this.tickDelay = (8 + entity.getRNG().nextInt(4)) * 20;
-                entity.playSound(SoundEvents.ENTITY_PHANTOM_SWOOP, 10.0F, 0.95F + entity.getRNG().nextFloat() * 0.1F);
             }
         }
 
@@ -61,6 +59,5 @@ public class PickAttackGoal extends Goal
         {
             entity.orbitPosition = new BlockPos(entity.orbitPosition.getX(), entity.world.getSeaLevel() + 1, entity.orbitPosition.getZ());
         }
-
     }
 }

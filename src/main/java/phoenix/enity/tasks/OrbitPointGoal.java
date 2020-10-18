@@ -94,6 +94,6 @@ public class OrbitPointGoal extends ThreeDimensionsMovingGoal
         }
 
         this.field_203150_c += this.field_203153_f * 15.0F * ((float) Math.PI / 180F);
-        entity.orbitOffset = (new Vec3d(entity.orbitPosition)).add((double) (this.field_203151_d * MathHelper.cos(this.field_203150_c)), (double) (-4.0F + this.field_203152_e), (double) (this.field_203151_d * MathHelper.sin(this.field_203150_c)));
+        entity.orbitOffset = (new Vec3d(entity.orbitPosition)).add(this.field_203151_d * MathHelper.cos(this.field_203150_c), -4.0F + this.field_203152_e, this.field_203151_d * MathHelper.sin(this.field_203150_c));
     }
 }

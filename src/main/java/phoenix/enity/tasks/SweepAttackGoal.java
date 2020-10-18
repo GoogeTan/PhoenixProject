@@ -4,7 +4,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.EntityPredicates;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import phoenix.utils.entity.AbstractFlyingEntity;
 import phoenix.utils.entity.AttackPhases;
@@ -14,9 +13,9 @@ import java.util.List;
 
 public class SweepAttackGoal extends ThreeDimensionsMovingGoal
 {
-    public SweepAttackGoal(AbstractFlyingEntity entity)
+    public SweepAttackGoal(AbstractFlyingEntity entityIn)
     {
-        super(entity);
+        super(entityIn);
     }
 
     public boolean shouldExecute()

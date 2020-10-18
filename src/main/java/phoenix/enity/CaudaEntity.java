@@ -1,9 +1,6 @@
 package phoenix.enity;
 
-import net.minecraft.entity.EntitySize;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.Pose;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.controller.BodyController;
 import net.minecraft.entity.monster.PhantomEntity;
 import net.minecraft.network.datasync.DataParameter;
@@ -12,11 +9,9 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import phoenix.enity.tasks.AttackPlayerGoal;
-import phoenix.enity.tasks.OrbitPointGoal;
-import phoenix.enity.tasks.PickAttackGoal;
-import phoenix.enity.tasks.SweepAttackGoal;
+import phoenix.enity.tasks.*;
 import phoenix.init.PhoenixEntities;
 import phoenix.utils.entity.AbstractFlyingEntity;
 import phoenix.utils.entity.ThreeDimensionsLookHelperController;
@@ -46,6 +41,7 @@ public class CaudaEntity extends AbstractFlyingEntity
         entity.setPosition(pos.getX(), pos.getY(), pos.getZ());
         return entity;
     }
+
     public static CaudaEntity create(World worldIn, float x, float y, float z)
     {
         CaudaEntity entity = new CaudaEntity(PhoenixEntities.CAUDA.get(), worldIn);
@@ -56,11 +52,13 @@ public class CaudaEntity extends AbstractFlyingEntity
     @Override
     protected void registerGoals()
     {
-        this.goalSelector.addGoal(1, new PickAttackGoal(this));
-        this.goalSelector.addGoal(2, new SweepAttackGoal(this));
-        this.goalSelector.addGoal(3, new OrbitPointGoal(this));
+        this.goalSelector.addGoal  (1, new PickAttackGoal  (this));
+        this.goalSelector.addGoal  (2, new SweepAttackGoal (this));
+        this.goalSelector.addGoal  (3, new EatingChorusGoal(this));
+        this.goalSelector.addGoal  (4, new OrbitPointGoal  (this));
         this.targetSelector.addGoal(1, new AttackPlayerGoal(this));
     }
+
     @Override
     protected void registerData()
     {
@@ -77,6 +75,13 @@ public class CaudaEntity extends AbstractFlyingEntity
     {
         return this.dataManager.get(SIZE);
     }
+
+    @Override
+    public boolean canSpawn(IWorld worldIn, SpawnReason spawnReasonIn)
+    {
+        return this.getPosition().getY() < 10 && this.getPosition().getY() > 80 && super.canSpawn(worldIn, spawnReasonIn);
+    }
+
     @Override
     protected float getStandingEyeHeight(@Nonnull Pose poseIn, EntitySize sizeIn)
     {
