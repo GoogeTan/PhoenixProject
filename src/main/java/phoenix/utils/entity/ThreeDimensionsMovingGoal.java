@@ -7,7 +7,7 @@ import java.util.EnumSet;
 
 public abstract class ThreeDimensionsMovingGoal extends Goal
 {
-    AbstractFlyingEntity entity;
+    protected AbstractFlyingEntity entity;
     public ThreeDimensionsMovingGoal(AbstractFlyingEntity entityIn)
     {
         this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));

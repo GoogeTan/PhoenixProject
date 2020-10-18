@@ -1,9 +1,11 @@
-package phoenix.utils.entity;
+package phoenix.enity.tasks;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-
+import phoenix.utils.entity.AbstractFlyingEntity;
+import phoenix.utils.entity.AttackPhases;
+import phoenix.utils.entity.ThreeDimensionsMovingGoal;
 
 
 public class OrbitPointGoal extends ThreeDimensionsMovingGoal

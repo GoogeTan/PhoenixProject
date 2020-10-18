@@ -39,7 +39,7 @@ public class UpdaterBlock extends BlockWithTile<UpdaterTile>
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        TalpaEntity entity = new TalpaEntity(worldIn);
+        TalpaEntity entity = TalpaEntity.create(worldIn);
         entity.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
         worldIn.addEntity(entity);
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);

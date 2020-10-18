@@ -42,17 +42,16 @@ public class MoveRandomGoal extends Goal
 
         for(int i = 0; i < 3; ++i)
         {
-            BlockPos blockpos1 = blockpos.add(entity.getRNG().nextInt(15) - 7, entity.getRNG().nextInt(11) - 5, entity.getRNG().nextInt(15) - 7);
-            if (entity.world.isAirBlock(blockpos1))
+            BlockPos randompoint = blockpos.add(entity.getRNG().nextInt(15) - 7, entity.getRNG().nextInt(11) - 5, entity.getRNG().nextInt(15) - 7);
+            if (entity.world.isAirBlock(randompoint))
             {
-                entity.getMoveHelper().setMoveTo((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.5D, (double)blockpos1.getZ() + 0.5D, 0.25D);
+                entity.getMoveHelper().setMoveTo((double)randompoint.getX() + 0.5D, (double)randompoint.getY() + 0.5D, (double)randompoint.getZ() + 0.5D, 0.25D);
                 if (entity.getAttackTarget() == null)
                 {
-                    entity.getLookController().setLookPosition((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.5D, (double)blockpos1.getZ() + 0.5D, 180.0F, 20.0F);
+                    entity.getLookController().setLookPosition((double)randompoint.getX() + 0.5D, (double)randompoint.getY() + 0.5D, (double)randompoint.getZ() + 0.5D, 180.0F, 20.0F);
                 }
                 break;
             }
         }
-
     }
 }

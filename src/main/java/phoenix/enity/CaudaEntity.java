@@ -1,42 +1,137 @@
 package phoenix.enity;
 
+import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.Pose;
+import net.minecraft.entity.ai.controller.BodyController;
 import net.minecraft.entity.monster.PhantomEntity;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import phoenix.enity.tasks.AttackPlayerGoal;
+import phoenix.enity.tasks.OrbitPointGoal;
+import phoenix.enity.tasks.PickAttackGoal;
+import phoenix.enity.tasks.SweepAttackGoal;
 import phoenix.init.PhoenixEntities;
 import phoenix.utils.entity.AbstractFlyingEntity;
-import phoenix.utils.entity.OrbitPointGoal;
 import phoenix.utils.entity.ThreeDimensionsLookHelperController;
 import phoenix.utils.entity.ThreeDimensionsMoveHelperController;
 
 import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
 
-public class CaudaEntity extends AbstractFlyingEntity implements EntityType.IFactory<CaudaEntity>
+public class CaudaEntity extends AbstractFlyingEntity
 {
+    private static final DataParameter<Integer> SIZE = EntityDataManager.createKey(PhantomEntity.class, DataSerializers.VARINT);
+
     public CaudaEntity(EntityType<CaudaEntity> type, World worldIn)
     {
         super(type, worldIn);
         this.moveController = new ThreeDimensionsMoveHelperController(this);
         this.lookController = new ThreeDimensionsLookHelperController(this);
     }
-    public CaudaEntity(World worldIn)
+
+    public static CaudaEntity create(World worldIn)
     {
-        this(PhoenixEntities.CAUDA.get(), worldIn);
+        return new CaudaEntity(PhoenixEntities.CAUDA.get(), worldIn);
+    }
+
+    public static CaudaEntity create(World worldIn, BlockPos pos)
+    {
+        CaudaEntity entity = new CaudaEntity(PhoenixEntities.CAUDA.get(), worldIn);
+        entity.setPosition(pos.getX(), pos.getY(), pos.getZ());
+        return entity;
+    }
+    public static CaudaEntity create(World worldIn, float x, float y, float z)
+    {
+        CaudaEntity entity = new CaudaEntity(PhoenixEntities.CAUDA.get(), worldIn);
+        entity.setPosition(x, y, z);
+        return entity;
     }
 
     @Override
     protected void registerGoals()
     {
-        super.registerGoals();
-        this.goalSelector.addGoal(0, new OrbitPointGoal(this));
+        this.goalSelector.addGoal(1, new PickAttackGoal(this));
+        this.goalSelector.addGoal(2, new SweepAttackGoal(this));
+        this.goalSelector.addGoal(3, new OrbitPointGoal(this));
+        this.targetSelector.addGoal(1, new AttackPlayerGoal(this));
+    }
+    @Override
+    protected void registerData()
+    {
+        super.registerData();
+        this.dataManager.register(SIZE, 0);
+    }
+
+    public void setCaudaSize(int sizeIn)
+    {
+        this.dataManager.set(SIZE, MathHelper.clamp(sizeIn, 0, 64));
+    }
+
+    public int getCaudaSize()
+    {
+        return this.dataManager.get(SIZE);
+    }
+    @Override
+    protected float getStandingEyeHeight(@Nonnull Pose poseIn, EntitySize sizeIn)
+    {
+        return sizeIn.height * 0.35F;
     }
 
     @Nonnull
-    @ParametersAreNonnullByDefault
     @Override
-    public CaudaEntity create(EntityType<CaudaEntity> type, World world)
+    protected BodyController createBodyController()
     {
-        return new CaudaEntity(type, world);
+        return new BodyHelperController(this);
+    }
+
+    @Override
+    public boolean canAttack(@Nonnull EntityType<?> typeIn)
+    {
+        return true;
+    }
+
+    class BodyHelperController extends BodyController
+    {
+        MobEntity entity;
+
+        public BodyHelperController(MobEntity mob)
+        {
+            super(mob);
+            entity = mob;
+        }
+
+        public void updateRenderAngles()
+        {
+            entity.rotationYawHead = entity.renderYawOffset;
+            entity.renderYawOffset = entity.rotationYaw;
+        }
+    }
+    @Override
+    public void tick()
+    {
+        super.tick();
+        if (this.world.isRemote)
+        {
+            float currect  = MathHelper.cos((float) (this.getEntityId() * 3 + this.ticksExisted) * 0.13F + (float) Math.PI);
+            float next = MathHelper.cos((float) (this.getEntityId() * 3 + this.ticksExisted + 1) * 0.13F + (float) Math.PI);
+            if (currect > 0.0F && next <= 0.0F)
+            {
+                this.world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ENTITY_PHANTOM_FLAP, this.getSoundCategory(), 0.95F + this.rand.nextFloat() * 0.05F, 0.95F + this.rand.nextFloat() * 0.05F, false);
+            }
+        }
+    }
+
+    @Nonnull
+    @Override
+    public EntitySize getSize(@Nonnull Pose poseIn)
+    {
+        EntitySize entitysize = super.getSize(poseIn);
+        return entitysize.scale((entitysize.width + 0.2F * (float) this.getCaudaSize()) / entitysize.width);
     }
 }

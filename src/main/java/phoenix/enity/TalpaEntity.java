@@ -13,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import phoenix.init.PhoenixEntities;
 
-public class TalpaEntity extends AnimalEntity implements EntityType.IFactory<TalpaEntity>
+public class TalpaEntity extends AnimalEntity
 {
     private BlockPos boundOrigin;
     public TalpaEntity(EntityType<TalpaEntity> type, World worldIn)
@@ -21,9 +21,9 @@ public class TalpaEntity extends AnimalEntity implements EntityType.IFactory<Tal
         super(type, worldIn);
     }
 
-    public TalpaEntity(World worldIn)
+    public static TalpaEntity create(World worldIn)
     {
-        this(PhoenixEntities.TALPA.get(), worldIn);
+        return new TalpaEntity(PhoenixEntities.TALPA.get(), worldIn);
     }
 
     @Override
@@ -80,18 +80,10 @@ public class TalpaEntity extends AnimalEntity implements EntityType.IFactory<Tal
         this.targetSelector.addGoal(5, (new HurtByTargetGoal(this, AbstractRaiderEntity.class)).setCallsForHelp());
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
-
-      
-    @Override
-    public TalpaEntity create(   EntityType<TalpaEntity> type,    World world)
-    {
-        return new TalpaEntity(type, world);
-    }
-
       
     @Override
     public AgeableEntity createChild(AgeableEntity ageable)
     {
-        return new TalpaEntity(ageable.world);
+        return TalpaEntity.create(ageable.world);
     }
 }
