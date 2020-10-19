@@ -1,0 +1,30 @@
+{
+  "parent": "phoenix:ash/root",
+  "display":
+  {
+    "icon":
+    {
+      "item": "phoenix:updater"
+    },
+    "title":
+    {
+      "translate": "advancements.phoenix.ash.corn.tile"
+    },
+    "description":
+    {
+      "translate": "advancements.phoenix.ash.corn.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "in_city": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "feature": "corn"
+      }
+    }
+  }
+}

@@ -2,13 +2,17 @@ package phoenix.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -27,14 +31,21 @@ public class UpdaterBlock extends Block
         super(Block.Properties.create(Material.ROCK).lightValue(5).hardnessAndResistance(-1));
     }
 
-    @Nonnull
-    @ParametersAreNonnullByDefault
-    @OnlyIn(Dist.DEDICATED_SERVER)
+
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        StageSaveData data = StageSaveData.get((ServerWorld) worldIn);
-        data.addPart();
+        if(!worldIn.isRemote)
+        {
+            StageSaveData data = StageSaveData.get((ServerWorld) worldIn);
+            data.addPart();
+            for (PlayerEntity entity : worldIn.getPlayers())
+            {
+                entity.sendStatusMessage(new TranslationTextComponent("phoenix.message.newstage"), false);
+                entity.sendStatusMessage(new StringTextComponent((data.getStage() + 1) + " " + (data.getPart() + 1) + " "), false);
+            }
+            worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+        }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
 }

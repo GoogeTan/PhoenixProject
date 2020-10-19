@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
+import phoenix.Phoenix;
 import phoenix.enity.CaudaEntity;
 
 public class CaudaModel<T extends LivingEntity> extends EntityModel<T> {
@@ -26,7 +27,8 @@ public class CaudaModel<T extends LivingEntity> extends EntityModel<T> {
     private final ModelRenderer wingRight3;
     private final ModelRenderer wingRight4;
 
-    public CaudaModel() {
+    public CaudaModel()
+    {
         textureWidth = 128;
         textureHeight = 128;
 
@@ -124,12 +126,23 @@ public class CaudaModel<T extends LivingEntity> extends EntityModel<T> {
         //previously the render function, render code was moved to a method below
         float ticks = ((float)(entity.getEntityId() * 3) + ageInTicks) * 0.13F;
         float f1 = 16.0F;
-        this.wingLeft .rotateAngleZ = MathHelper.cos(ticks) * 16.0F * ((float)Math.PI / 180F);
-        this.wingLeft2.rotateAngleZ = MathHelper.cos(ticks) * 16.0F * ((float)Math.PI / 180F);
-        this.wingLeft.rotateAngleZ = -this.wingLeft.rotateAngleZ;
-        this.wingRight2.rotateAngleZ = -this.wingLeft.rotateAngleZ;
-        this.body2.rotateAngleX = -(5.0F + MathHelper.cos(ticks * 2.0F) * 5.0F) * ((float)Math.PI / 180F);
-        this.body3.rotateAngleX = -(5.0F + MathHelper.cos(ticks * 2.0F) * 5.0F) * ((float)Math.PI / 180F);
+        if(Math.cos(ticks / 20) - 0.3 > 0)
+        {
+            this.wingLeft  .rotateAngleX = MathHelper.cos(ticks) * 16.0F * ((float) Math.PI / 180F);
+            this.wingLeft2 .rotateAngleX = MathHelper.cos(ticks) * 16.0F * ((float) Math.PI / 180F);
+            this.wingRight .rotateAngleX = -this.wingLeft.rotateAngleX;
+            this.wingRight2.rotateAngleX = -this.wingLeft.rotateAngleX;
+        }
+        else
+        {
+            this.wingLeft  .rotateAngleX = 0;
+            this.wingLeft2 .rotateAngleX = 0;
+            this.wingRight .rotateAngleX = 0;
+            this.wingRight2.rotateAngleX = 0;
+        }
+
+        this.body2.rotateAngleZ = -(5.0F + MathHelper.cos(ticks * 2.0F) * 5.0F) * ((float)Math.PI / 180F);
+        this.body3.rotateAngleZ = -(5.0F + MathHelper.cos(ticks * 2.0F) * 5.0F) * ((float)Math.PI / 180F);
     }
 
     @Override

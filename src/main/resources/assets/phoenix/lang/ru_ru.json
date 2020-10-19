@@ -29,9 +29,9 @@
 
   "advancements.phoenix.ash.title": "Проект Феникс: пепел",
   "advancements.phoenix.ash.title.description": "И тут начинается история",
-  "advancements.phoenix.ash.corn.tile": "Возрадуемся!",
+  "advancements.phoenix.ash.corn.tile": "Потерянный храм снова найден...",
   "advancements.phoenix.ash.corn.description": "-Как тебя вообще занесло в этот храм? — Я принял его за город края. Легко спутать.",
 
-  "phoenix.massage.newstage": "Достингута новая стадия",
-  "phoenix.massage.speare":"Использует систему боя из 1.8"
+  "phoenix.message.newstage": "Достингута новая стадия: ",
+  "phoenix.message.speare":"Использует систему боя из 1.8"
 }

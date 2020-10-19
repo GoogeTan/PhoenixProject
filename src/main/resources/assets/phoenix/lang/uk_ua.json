@@ -1,0 +1,37 @@
+{
+  "language": "Ukranian",
+  "language.region": "Ukranian",
+  "language.code": "uk_ua",
+  "author": "WildTan",
+
+  "itemGroup.phoenix": "Проект Фенікс",
+
+  "block.phoenix.fragileblock": "Хрупкий блок",
+  "block.phoenix.updater": "Це \"Улучшатор\", але взагалі-то ти не повинен цього бачити...",
+  "block.phoenix.fertile_end_stone": "Родюче каміння краю",
+  "block.phoenix.mind_ore": "Уламок пам'яті",
+  "block.phoenix.ceraomic": "Кераомика світа минулого",
+  "block.phoenix.ceraomic_porcelain": "Фарфорова кераомика",
+  "block.phoenix.juicer": "Соковижималка",
+  "block.phoenix.tank": "Каністра",
+  "block.phoenix.kikin_stem": "Стебло кикина",
+  "block.phoenix.kikin_fruit": "Фрукт кикина",
+  "block.phoenix.pipe": "Труба",
+  "block.phoenix.pottery_barrel": "Гончарна діжка",
+  "block.phoenix.end_stone_column": "Коллона із каміння Енду",
+  "block.phoenix.oven": "Піч",
+
+  "entity.Uterus.name": "Короначервиус",
+
+  "phoenix.quality": "Якість:",
+  "item.phoenix.bucket_with_clay": "Відро з глиной",
+  "item.absolutespeedsword.name": "Меч абсолютної швидкості",
+
+  "advancements.phoenix.ash.title": "Проект Фенікс: попіл",
+  "advancements.phoenix.ash.title.description": "І от тут починається історія",
+  "advancements.phoenix.ash.corn.tile": "Радіймо!",
+  "advancements.phoenix.ash.corn.description": "-Як тебе взагалі занесло у цей храм? — Я прийняв його за місто краю. Легко сплутати.",
+
+  "phoenix.massage.newstage": "Досягнута нова стадія",
+  "phoenix.massage.speare":"Використовує схему бою з 1.8"
+}
