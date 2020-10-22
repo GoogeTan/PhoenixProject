@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.WorldSavedData;
+import phoenix.Phoenix;
 
 import javax.annotation.Nonnull;
 
@@ -55,8 +56,10 @@ public class StageSaveData extends WorldSavedData
     }
 
     //Этим мы получаем экземпляр данных для мира
-    public static StageSaveData get(ServerWorld world)
+    public static StageSaveData get(@Nonnull ServerWorld world)
     {
+        Phoenix.LOGGER.error(world.getChunkProvider() == null);
+        Phoenix.LOGGER.error(world.getChunkProvider().getSavedData() == null);
         return world.getSavedData().getOrCreate(StageSaveData::new, DATA_NAME);
     }
 

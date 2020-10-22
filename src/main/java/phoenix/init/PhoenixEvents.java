@@ -6,12 +6,17 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.item.Item;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
+import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.server.ServerWorld;
@@ -32,6 +37,7 @@ import phoenix.client.render.entity.TalpaRenderer;
 import phoenix.client.render.TankRenderer;
 import phoenix.utils.IColoredBlock;
 import phoenix.world.GenSaveData;
+import phoenix.world.structures.ErasedPieces;
 
 @Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PhoenixEvents
@@ -41,6 +47,18 @@ public class PhoenixEvents
     public static void preInit(FMLCommonSetupEvent event)
     {
         PhoenixBiomes.UNDER.get().addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(PhoenixEntities.TALPA.get(), 10, 2, 8));
+    }
+
+    @SubscribeEvent
+    public static void cornGen(EntityJoinWorldEvent event)
+    {
+        World world = event.getWorld();
+        if(!world.isRemote && world.dimension.getType() == DimensionType.THE_END && !GenSaveData.get((ServerWorld) world).isCornGened())
+        {
+            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(Rotation.randomRotation(world.getRandom()))
+                    .setMirror(Mirror.NONE).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
+
+        }
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -123,26 +123,25 @@ public class CaudaModel<T extends LivingEntity> extends EntityModel<T> {
 
     @Override
     public void setRotationAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
-        //previously the render function, render code was moved to a method below
         float ticks = ((float)(entity.getEntityId() * 3) + ageInTicks) * 0.13F;
-        float f1 = 16.0F;
         if(Math.cos(ticks / 20) - 0.3 > 0)
         {
-            this.wingLeft  .rotateAngleX = MathHelper.cos(ticks) * 16.0F * ((float) Math.PI / 180F);
-            this.wingLeft2 .rotateAngleX = MathHelper.cos(ticks) * 16.0F * ((float) Math.PI / 180F);
-            this.wingRight .rotateAngleX = -this.wingLeft.rotateAngleX;
-            this.wingRight2.rotateAngleX = -this.wingLeft.rotateAngleX;
+            wingLeft  .rotateAngleX = MathHelper.cos(ticks) * 16.0F * ((float) Math.PI / 180F);
+            wingLeft2 .rotateAngleX = MathHelper.cos(ticks) * 16.0F * ((float) Math.PI / 180F);
+            wingRight .rotateAngleX = -wingLeft.rotateAngleX;
+            wingRight2.rotateAngleX = -wingLeft.rotateAngleX;
         }
         else
         {
-            this.wingLeft  .rotateAngleX = 0;
-            this.wingLeft2 .rotateAngleX = 0;
-            this.wingRight .rotateAngleX = 0;
-            this.wingRight2.rotateAngleX = 0;
+            wingLeft  .rotateAngleX = 0;
+            wingLeft2 .rotateAngleX = 0;
+            wingRight .rotateAngleX = 0;
+            wingRight2.rotateAngleX = 0;
         }
 
-        this.body2.rotateAngleZ = -(5.0F + MathHelper.cos(ticks * 2.0F) * 5.0F) * ((float)Math.PI / 180F);
-        this.body3.rotateAngleZ = -(5.0F + MathHelper.cos(ticks * 2.0F) * 5.0F) * ((float)Math.PI / 180F);
+        tail3    .rotateAngleZ =  (5.0F + MathHelper.cos(ticks * 2.0F) * 7.0F) * ((float)Math.PI / 180F);
+        clawLeft .rotateAngleZ = -(5.0F + MathHelper.cos(ticks * 2.0F) * 7.0F) * ((float)Math.PI / 180F);
+        clawRight.rotateAngleZ = -(5.0F + MathHelper.cos(ticks * 2.0F) * 7.0F) * ((float)Math.PI / 180F);
     }
 
     @Override

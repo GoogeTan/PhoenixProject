@@ -8,6 +8,8 @@ import net.minecraft.world.dimension.EndDimension;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.EndChunkGenerator;
 import net.minecraft.world.gen.EndGenerationSettings;
+import net.minecraft.world.server.ServerWorld;
+import org.apache.commons.lang3.ObjectUtils;
 
 public class EndBiomedDimension extends EndDimension
 {
@@ -25,6 +27,7 @@ public class EndBiomedDimension extends EndDimension
         settings.setDefaultBlock(Blocks.END_STONE.getDefaultState());
         settings.setDefaultFluid(Blocks.AIR.getDefaultState());
         settings.setSpawnPos(this.getSpawnCoordinate());
-        return new EndChunkGenerator(this.world, new NewEndBiomeProvider(new EndBiomeProviderSettings(world.getWorldInfo()), world), settings);
+
+        return new EndChunkGenerator(this.world, new NewEndBiomeProvider(new EndBiomeProviderSettings(world.getWorldInfo()), (ServerWorld) world), settings);
     }
 }
