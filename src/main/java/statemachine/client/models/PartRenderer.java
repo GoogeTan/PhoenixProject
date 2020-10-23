@@ -12,6 +12,12 @@ public class PartRenderer extends ModelRenderer
         isMaster = isMasterIn;
     }
 
+    public PartRenderer(Model model)
+    {
+        super(model);
+        isMaster = false;
+    }
+
     public PartRenderer(Model model, int texOffX, int texOffY, boolean isMasterIn)
     {
         super(model, texOffX, texOffY);

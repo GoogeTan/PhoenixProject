@@ -2,11 +2,15 @@ package phoenix.world;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.storage.DimensionSavedDataManager;
+import net.minecraft.world.storage.SaveHandler;
 import net.minecraft.world.storage.WorldSavedData;
 import phoenix.Phoenix;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 
 public class StageSaveData extends WorldSavedData
 {
@@ -56,11 +60,30 @@ public class StageSaveData extends WorldSavedData
     }
 
     //Этим мы получаем экземпляр данных для мира
+    //Безопасен в любое время - длаже если WSD еще не инициализирована.
     public static StageSaveData get(@Nonnull ServerWorld world)
     {
-        Phoenix.LOGGER.error(world.getChunkProvider() == null);
-        Phoenix.LOGGER.error(world.getChunkProvider().getSavedData() == null);
-        return world.getSavedData().getOrCreate(StageSaveData::new, DATA_NAME);
+        try
+        {
+            return world.getSavedData().getOrCreate(StageSaveData::new, DATA_NAME);
+        }
+        catch (Exception ignored)
+        {
+            try
+            {
+                String saveName = "";
+                SaveHandler saveHandler = world.getServer().getActiveAnvilConverter().getSaveLoader(saveName, world.getServer());
+                File file1 = DimensionType.THE_END.getDirectory(saveHandler.getWorldDirectory());
+                File file2 = new File(file1, "data");
+                file2.mkdirs();
+                return new DimensionSavedDataManager(file2, null).getOrCreate(StageSaveData::new, DATA_NAME);   
+            }
+            catch (Exception ex)
+            {
+                ex.printStackTrace();
+                return null;
+            }
+        }
     }
 
     public int getStage()

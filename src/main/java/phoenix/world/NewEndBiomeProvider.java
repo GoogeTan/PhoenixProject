@@ -18,11 +18,14 @@ import net.minecraft.world.gen.area.LazyArea;
 import net.minecraft.world.gen.layer.Layer;
 import net.minecraft.world.gen.layer.ZoomLayer;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.storage.DimensionSavedDataManager;
+import phoenix.Phoenix;
 import phoenix.init.PhoenixBiomes;
 import phoenix.init.PhoenixConfiguration;
 import phoenix.world.genlayers.*;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 import java.util.List;
 import java.util.Set;
 import java.util.function.LongFunction;
@@ -46,12 +49,6 @@ public class NewEndBiomeProvider extends BiomeProvider
         random.skip(17292);
         this.generator = new SimplexNoiseGenerator(random);
         this.genLayer = createLayer(settings.getSeed(), worldIn);
-        Phoenix.LOGGER.error(worldIn == null);
-        this.world = worldIn;
-        this.genLayer = createLayer(settings.getSeed());
-        this.random = new SharedSeedRandom(settings.getSeed());
-        this.random.skip(17292);
-        this.generator = new SimplexNoiseGenerator(this.random);
     }
 
       
@@ -110,7 +107,10 @@ public class NewEndBiomeProvider extends BiomeProvider
         IAreaFactory<T> phoenix_biomes = (new ParentLayer(this)).apply(context.apply(1L));
         IAreaFactory<T> vanila_biomes =  (new ParentLayer(this)).apply(context.apply(1L));
         vanila_biomes = getBiomeLayer(vanila_biomes, context);
-        if(StageSaveData.get((ServerWorld) world).getStage() >= 1)
+
+
+
+        if(StageSaveData.get(worldIn).getStage() >= 1)
         {
             phoenix_biomes = UnderLayer.INSTANCE.apply(context.apply(200L), phoenix_biomes);
             phoenix_biomes = HeartVoidLayer.INSTANCE.apply(context.apply(200L), phoenix_biomes);

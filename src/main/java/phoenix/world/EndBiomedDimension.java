@@ -30,16 +30,6 @@ public class EndBiomedDimension extends EndDimension
         settings.setDefaultBlock(Blocks.END_STONE.getDefaultState());
         settings.setDefaultFluid(Blocks.AIR.getDefaultState());
         settings.setSpawnPos(this.getSpawnCoordinate());
-        initWorldSavedData((ServerWorld) world);
-        return new EndChunkGenerator(this.world, new NewEndBiomeProvider(new EndBiomeProviderSettings(world.getWorldInfo()), world), settings);
-    }
-
-    private void initWorldSavedData(ServerWorld world)
-    {
-        File file1 = world.getDimension().getType().getDirectory(world.getSaveHandler().getWorldDirectory());
-        File file2 = new File(file1, "data");
-        file2.mkdirs();
-
-        world.getChunkProvider().savedData = new DimensionSavedDataManager(file2, null);
+        return new EndChunkGenerator(this.world, new NewEndBiomeProvider(new EndBiomeProviderSettings(world.getWorldInfo()), (ServerWorld) world), settings);
     }
 }
