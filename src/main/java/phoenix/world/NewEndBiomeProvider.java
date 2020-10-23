@@ -33,7 +33,6 @@ import java.util.function.LongFunction;
 public class NewEndBiomeProvider extends BiomeProvider
 {
     private final Layer genLayer;
-    private final SimplexNoiseGenerator generator;
     private static final Set<Biome> biomes;
 
     static
@@ -41,14 +40,13 @@ public class NewEndBiomeProvider extends BiomeProvider
         biomes = ImmutableSet.of(Biomes.THE_END, Biomes.END_HIGHLANDS, Biomes.END_MIDLANDS, Biomes.SMALL_END_ISLANDS, Biomes.END_BARRENS, PhoenixBiomes.UNDER.get(), PhoenixBiomes.HEARTVOID.get());
     }
 
-
     public NewEndBiomeProvider(EndBiomeProviderSettings settings, @Nonnull ServerWorld worldIn)
     {
         super(biomes);
+        this.genLayer = createLayer(settings.getSeed(), worldIn);
         SharedSeedRandom random = new SharedSeedRandom(settings.getSeed());
         random.skip(17292);
-        this.generator = new SimplexNoiseGenerator(random);
-        this.genLayer = createLayer(settings.getSeed(), worldIn);
+        SimplexNoiseGenerator generator = new SimplexNoiseGenerator(random);
     }
 
       
@@ -58,6 +56,7 @@ public class NewEndBiomeProvider extends BiomeProvider
         return this.genLayer.func_215738_a(x, z);
     }
 
+    /*
     @Override
     public float func_222365_c(int x, int z)
     {
@@ -88,7 +87,7 @@ public class NewEndBiomeProvider extends BiomeProvider
 
         return result;
     }
-
+    //*/
       
     @Override
     public List<Biome> getBiomesToSpawnIn()
@@ -108,9 +107,13 @@ public class NewEndBiomeProvider extends BiomeProvider
         IAreaFactory<T> vanila_biomes =  (new ParentLayer(this)).apply(context.apply(1L));
         vanila_biomes = getBiomeLayer(vanila_biomes, context);
 
+        int stage = 0;
+        try
+        {
+            stage = StageSaveData.get(worldIn).getStage();
+        }catch (Exception ignored){}
 
-
-        if(StageSaveData.get(worldIn).getStage() >= 1)
+        if(stage >= 1)
         {
             phoenix_biomes = UnderLayer.INSTANCE.apply(context.apply(200L), phoenix_biomes);
             phoenix_biomes = HeartVoidLayer.INSTANCE.apply(context.apply(200L), phoenix_biomes);

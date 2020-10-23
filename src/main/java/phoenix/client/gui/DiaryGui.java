@@ -12,6 +12,7 @@ import phoenix.client.gui.diaryPages.elements.IDiaryElement;
 import phoenix.client.gui.diaryPages.elements.ImageElement;
 import phoenix.containers.DiaryContainer;
 import phoenix.utils.DiaryUtils;
+import phoenix.utils.RenderUtils;
 
 import java.util.ArrayList;
 
@@ -50,20 +51,23 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
     {
-
-    }
+   }
 
 
     @Override
     public void renderBackground()
     {
+        /*
         this.setFocused(null);
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.getTextureManager().bindTexture(DIARY_TEXTURE);
         RenderSystem.scaled(2, 2, 2);//увеличиваем картинку
         this.blit((int) (guiLeft * 0.5F), (int) (guiTop * 0.5F), 0, 0, 256, 256);
         RenderSystem.scaled(0.5, 0.5, 0.5);//возвращаем старый скейл, чтоб тект был нормальным
+        */
+        RenderUtils.drawTexturedRectWithSize(DIARY_TEXTURE_2, 256, 256, guiLeft, guiTop, width, height);
     }
+
 
     @Override
     public void render(int p_render_1_, int p_render_2_, float p_render_3_)

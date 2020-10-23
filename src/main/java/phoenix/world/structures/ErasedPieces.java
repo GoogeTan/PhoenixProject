@@ -39,7 +39,7 @@ public class ErasedPieces
                     mid_location, new BlockPos(1, 3, 1),
                     bot_location, new BlockPos(3, 6, 7));
 
-    private static final Map<ResourceLocation, BlockPos> field_207622_e =
+    private static final Map<ResourceLocation, BlockPos> offsets =
             ImmutableMap.of(
                     top_location, BlockPos.ZERO,
                     mid_location, new BlockPos(2, -3, 4),
@@ -71,7 +71,7 @@ public class ErasedPieces
         {
             super(IStructurePieceType.IGLU, 0);
             this.current_piece = location;
-            BlockPos blockpos = ErasedPieces.field_207622_e.get(location);
+            BlockPos blockpos = ErasedPieces.offsets.get(location);
             this.templatePosition = pos.add(blockpos.getX(), blockpos.getY() - y_offset, blockpos.getZ());
             this.rotation = rotation;
             this.makeSetup(manager);
@@ -120,19 +120,13 @@ public class ErasedPieces
 
         /**
          * Create Structure Piece
-         *
-         * @param worldIn              world
-         * @param chunkGeneratorIn     chunkGenerator
-         * @param randomIn             random
-         * @param mutableBoundingBoxIn mutableBoundingBox
-         * @param chunkPosIn           chunkPos
          */
         @Override
         public boolean create(IWorld worldIn,    ChunkGenerator<?> chunkGeneratorIn,    Random randomIn,
                                  MutableBoundingBox mutableBoundingBoxIn,    ChunkPos chunkPosIn)
         {
             PlacementSettings placementsettings = (new PlacementSettings()).setRotation(rotation).setMirror(Mirror.NONE).setCenterOffset(ErasedPieces.piese_to_offset.get(current_piece)).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
-            BlockPos blockpos = ErasedPieces.field_207622_e.get(current_piece);
+            BlockPos blockpos = ErasedPieces.offsets.get(current_piece);
             BlockPos blockpos1 = this.templatePosition.add(Template.transformedBlockPos(placementsettings, new BlockPos(3 - blockpos.getX(), 0, -blockpos.getZ())));
             int height = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, blockpos1.getX(), blockpos1.getZ());
             BlockPos blockpos2 = this.templatePosition;
