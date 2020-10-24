@@ -2,11 +2,14 @@ package phoenix.utils;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldVertexBufferUploader;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+
+import java.awt.*;
 
 public class RenderUtils
 {
@@ -18,46 +21,79 @@ public class RenderUtils
         blit(x, y, 0, 0, sizeX, sizeY);
         RenderSystem.scaled(1 / scale, 1 / scale, 1 / scale);//возвращаем старый скейл, чтоб тект был нормальным
     }
+    public static void drawRectScalable
+            (ResourceLocation texture,
+             int x, int y,
+             double maxSizeX, double maxSizeY,
+             int depth)
+    {
+        Minecraft.getInstance().getTextureManager().bindTexture(texture);
+        Dimension d = TextureUtils.getTextureSize(texture);
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        double scale = maxSizeX / d.width;
+        int sizeX = (int) (d.width * scale),
+            sizeY = (int) (d.height * scale);
+        if(maxSizeY < sizeY)
+        {
+            scale = maxSizeY / sizeY;
+            sizeY = (int) (d.width * scale);
+            sizeX = (int) (d.height * scale);
+        }
 
-    public static void drawTexturedRectWithSize(ResourceLocation texture, int textureSizeX, int textureSizeY, int x, int y, int sizeY, int sizeX)
+        blit(x, y, depth, 0, 0, sizeX, sizeY, sizeX, sizeY);
+    }
+
+    public static void drawTexturedRectWithSize(ResourceLocation texture, int textureSizeX, int textureSizeY, int x, int y, int sizeX, int sizeY, int blitOffset)
     {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         Minecraft.getInstance().getTextureManager().bindTexture(texture);
-        blit(x, y, 0, 0, textureSizeX, textureSizeY, sizeX, sizeY);
+        blit(x, y, blitOffset, 0, 0, sizeX, sizeY, textureSizeX, textureSizeY);
     }
 
-    public static void blit(int x, int y, float offsetU, float offsetV, int textureSizeX, int textureSizeY)
+    public static void drawTexturedRectWithSize(ResourceLocation texture, int textureSizeX, int textureSizeY, int x, int y, int sizeX, int sizeY, int blitOffset, int u, int v)
     {
-        blit(x, y, 0, offsetU, offsetV, textureSizeX, textureSizeY, 256, 256);
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        Minecraft.getInstance().getTextureManager().bindTexture(texture);
+        AbstractGui.blit(x, y, blitOffset, (float) u, (float) v, sizeX, sizeY, textureSizeX, textureSizeY);
     }
 
-    public static void blit(int x, int y, float offsetU, float offsetV, int textureSizeX, int textureSizeY, int renderSizeX, int renderSizeY)
+    public static void blit(int x, int y, float offsetU, float offsetV, int sizeX, int sizeY)
     {
-        blit(x, y, 0, offsetU, offsetV, textureSizeX, textureSizeY, renderSizeX, renderSizeY);
+        blit(x, y, 0, offsetU, offsetV, sizeX, sizeY, 256, 256);
     }
 
-    public static void blit(int x, int y, int blitOffset, float offsetU, float offsetV, int textureSizeX, int textureSizeY, int renderSizeY, int renderSizeX)
+    public static void blit(int x, int y, int depth, float offsetU, float offsetV, int sizeX, int sizeY, int texSizeX, int texSizeY)
     {
-        innerBlit(x, x + textureSizeX, y, y + textureSizeY, blitOffset, textureSizeX, textureSizeY, offsetU, offsetV, renderSizeX, renderSizeY);
+        draw(x, x + sizeX, y, y + sizeY, depth, offsetU, offsetV, texSizeX, texSizeY, sizeX, sizeY);
     }
 
-    private static void innerBlit(int startX, int endX, int startY, int endY, int blitOffset, int textureSizeX, int textureSizeY, float offsetU, float offsetV, int renderSizeX, int renderSizeY)
+    private static void draw(int posA, int posB, int posC, int posD, int depth, float offsetU, float offsetV, float texSizeX, float texSizeY, int sizeX, int sizeY)
     {
-        innerBlit(startX, endX, startY, endY, blitOffset,
-                (offsetU) / (float) renderSizeX,
-                (offsetU + (float) textureSizeX) / (float) renderSizeX,
-                (offsetV) / (float) renderSizeY,
-                (offsetV + (float) textureSizeY) / (float) renderSizeY);
+        //*
+        innerBlit(posA, posB, posC, posD, depth,
+                (offsetU + 0.00F) / texSizeX,
+                (offsetU + sizeX) / texSizeX,
+                (offsetV + 0.00F) / texSizeY,
+                (offsetV + sizeY) / texSizeY);
+
+        //*/
+        /*
+        innerBlit(posA, posB, posC, posD, depth,
+                (offsetU + 0.00F) / texSizeX,
+                (offsetU + texSizeX) / texSizeX,
+                (offsetV + 0.00F) / texSizeY,
+                (offsetV + texSizeY) / texSizeY);
+        //*/
     }
 
-    protected static void innerBlit(int startX, int endX, int startY, int endY, int blitOffset, float startU, float endU, float startV, float endV)
+    public static void innerBlit(int posA, int posB, int posC, int posD, int depth, float uvA, float uvB, float uvC, float uvD)
     {
         BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-        bufferbuilder.pos(startX, endY, blitOffset)  .tex(startU, endV).endVertex();
-        bufferbuilder.pos(endX, endY, blitOffset)    .tex(endU, endV).endVertex();
-        bufferbuilder.pos(endX, startY, blitOffset)  .tex(endU, startV).endVertex();
-        bufferbuilder.pos(startX, startY, blitOffset).tex(startU, startV).endVertex();
+        bufferbuilder.pos(posA, posD, depth).tex(uvA, uvD).endVertex();
+        bufferbuilder.pos(posB, posD, depth).tex(uvB, uvD).endVertex();
+        bufferbuilder.pos(posB, posC, depth).tex(uvB, uvC).endVertex();
+        bufferbuilder.pos(posA, posC, depth).tex(uvA, uvC).endVertex();
         bufferbuilder.finishDrawing();
         RenderSystem.enableAlphaTest();
         WorldVertexBufferUploader.draw(bufferbuilder);

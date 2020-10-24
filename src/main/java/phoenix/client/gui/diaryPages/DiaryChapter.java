@@ -2,7 +2,9 @@ package phoenix.client.gui.diaryPages;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import phoenix.Phoenix;
 import phoenix.client.gui.diaryPages.elements.IDiaryElement;
+import phoenix.client.gui.diaryPages.elements.ImageElement;
 import phoenix.containers.DiaryContainer;
 
 import java.util.ArrayList;
@@ -44,6 +46,7 @@ public class DiaryChapter
         int size = 0;
         for (IDiaryElement element : elements)
         {
+            Phoenix.LOGGER.error(element.getHeight());
             if (size + element.getHeight() >= 14)
             {
                 pages.add((ArrayList<IDiaryElement>) page.clone());
@@ -59,7 +62,7 @@ public class DiaryChapter
         }
     }
 
-    public void render(int number, ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int x, int y)
+    public void render(int number, ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int ySize, int x, int y, int depth)
     {
         if(number < pages.size() && number >= 0)
         {
@@ -67,7 +70,7 @@ public class DiaryChapter
             int sum = 0;
             for (IDiaryElement element : page)
             {
-                element.render(gui, renderer, xSize, x, y + sum * 15);
+                element.render(gui, renderer, xSize, ySize, x, y + sum * 15, depth);
                 sum += element.getHeight();
             }
         }

@@ -4,9 +4,12 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
 import net.minecraft.util.ResourceLocation;
 import phoenix.Phoenix;
 import phoenix.containers.DiaryContainer;
+import phoenix.utils.RenderUtils;
 import phoenix.utils.TextureUtils;
 
 import java.awt.*;
@@ -14,45 +17,52 @@ import java.awt.*;
 public class ImageElement implements IDiaryElement
 {
     final ResourceLocation img;
-    int w, h, xSize, ySize;
-    public ImageElement(ResourceLocation img, int xSize, int ySize)
+    int w, h, maxSizeX, maxSizeY;
+    public ImageElement(ResourceLocation img, int maxSizeXIn, int maxSizeYIn)
     {
         this.img = img;
         Dimension d = TextureUtils.getTextureSize(img);
         this.w = d.width;
         this.h = d.height;
-        this.xSize = xSize;
-        this.ySize = ySize;
+        this.maxSizeX = maxSizeXIn;
+        this.maxSizeY = maxSizeYIn;
     }
 
     @Override
     public int getHeight()
     {
-        double scale = makeScale();
-        double height = Math.ceil(scale * h / 15D);
-        Phoenix.LOGGER.error("logged " + height + " " + scale * h);
-        return (int) height;
-    }
-    public double makeScale()
-    {
-        double wi = xSize - 30,
-            he = ySize * (xSize - 30) / (double) w;
-        wi *= ySize / he;
-        he = ySize;
-        return he / ((double) h);
+        Dimension d = TextureUtils.getTextureSize(img);
+        if(d.width != 0 && d.height != 0)
+        {
+            double scale = maxSizeX / d.width;
+            int sizeX = (int) (d.width * scale),
+                    sizeY = (int) (d.height * scale);
+            if (maxSizeY < sizeY)
+            {
+                scale = maxSizeY / sizeY;
+            }
+            double height = Math.ceil(scale * h / (Minecraft.getInstance().fontRenderer.FONT_HEIGHT + 4));
+            Phoenix.LOGGER.error("logged " + height + " " + scale * h);
+            return (int) height;
+        }
+        else
+        {
+            return 1;
+        }
     }
 
     @Override
-    public void render(ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int x, int y)
+    public void render(ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int ySize, int x, int y, int depth)
     {
         RenderSystem.pushMatrix();
-        double scale = makeScale();
-        RenderSystem.scaled(scale, scale, scale);
-
         Minecraft.getInstance().getTextureManager().bindTexture(img);
-        gui.blit((int) (x / scale), (int)(y / scale), 0, 0, w, h);
-
-        RenderSystem.scaled(1 / scale, 1 / scale, 1 / scale);
+        RenderUtils.drawRectScalable(img, x, y, xSize, ySize, depth);
         RenderSystem.popMatrix();
+    }
+
+    @Override
+    public void serialise(CompoundNBT nbt)
+    {
+        nbt.putString("res", img.getPath());
     }
 }

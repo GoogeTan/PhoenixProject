@@ -19,27 +19,34 @@ import java.util.ArrayList;
 public class DiaryGui extends ContainerScreen<DiaryContainer>
 {
     private static final ResourceLocation DIARY_TEXTURE = new ResourceLocation(Phoenix.MOD_ID, "textures/gui/diary_.png");
-    private static final ResourceLocation DIARY_TEXTURE_2 = new ResourceLocation(Phoenix.MOD_ID, "textures/gui/kawru.png");
-     DiaryChapter   diaryChapter;
+    private static final ResourceLocation DIARY_TEXTURE_2 = new ResourceLocation(Phoenix.MOD_ID, "textures/gui/diary_2.png");
+    private DiaryChapter diaryChapter = null;
     final DiaryContainer container;
     public DiaryGui(DiaryContainer screenContainer, PlayerInventory inv, ITextComponent titleIn)
     {
         super(screenContainer, inv, titleIn);
         xSize *= 1.8;
         ySize *= 1.8;
-        ArrayList<IDiaryElement> par = new ArrayList<>();
-        par.add(new ImageElement(DIARY_TEXTURE, xSize - 30, ySize - 30));
-        par.addAll(DiaryUtils.makeParagraph(Minecraft.getInstance().fontRenderer, xSize,
-                "Hear me, hear me, friend. \n " +
-                "I’m very, no, seriously ill. \n " +
-                "What’s the reason? \n" +
-                "This pain I do not understand. \n " +
-                "As if wind whistles, listen \n " +
-                "Over desolate, vacant, still field. \n " +
-                "Like a grove, leaves blazing I feel. \n " +
-                "And the drink sheds my leaves as I bend. \n "));
-        diaryChapter = new DiaryChapter(par, xSize, Minecraft.getInstance().fontRenderer);
         container = screenContainer;
+    }
+
+    public DiaryGui initGui()
+    {
+        ArrayList<IDiaryElement> par = new ArrayList<>();
+
+        par.addAll(DiaryUtils.makeParagraph(Minecraft.getInstance().fontRenderer, xSize - 15,
+                "Hear me, hear me, friend." +
+                        "I’m very, no, seriously ill." +
+                        "What’s the reason?" +
+                        "This pain I do not understand." +
+                        "As if wind whistles, listen " +
+                        "Over desolate, vacant, still field. " +
+                        "Like a grove, leaves blazing I feel. " +
+                        "And the drink sheds my leaves as I bend. "));
+        par.add(new ImageElement(DIARY_TEXTURE, xSize - 30, ySize - 30));
+        diaryChapter = new DiaryChapter(par, xSize, Minecraft.getInstance().fontRenderer);
+
+        return this;
     }
 
     @Override
@@ -57,23 +64,17 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
     @Override
     public void renderBackground()
     {
-        /*
-        this.setFocused(null);
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.minecraft.getTextureManager().bindTexture(DIARY_TEXTURE);
-        RenderSystem.scaled(2, 2, 2);//увеличиваем картинку
-        this.blit((int) (guiLeft * 0.5F), (int) (guiTop * 0.5F), 0, 0, 256, 256);
-        RenderSystem.scaled(0.5, 0.5, 0.5);//возвращаем старый скейл, чтоб тект был нормальным
-        */
-        RenderUtils.drawTexturedRectWithSize(DIARY_TEXTURE_2, 256, 256, guiLeft, guiTop, width, height);
+        RenderUtils.drawRectScalable(DIARY_TEXTURE_2, guiLeft, guiTop, xSize * 1.0D, ySize * 1.0D, getBlitOffset());
     }
 
 
     @Override
     public void render(int p_render_1_, int p_render_2_, float p_render_3_)
     {
+        if(diaryChapter == null)
+            initGui();
         this.renderBackground();
-        diaryChapter.render(0, this, font, xSize,    guiLeft,                  guiTop);
-        diaryChapter.render(1, this, font, xSize, guiLeft + xSize / 2 + 10, guiTop);
+        diaryChapter.render(0, this, font, xSize, ySize, guiLeft + 0,              guiTop, getBlitOffset());
+        diaryChapter.render(1, this, font, xSize, ySize, guiLeft + xSize / 2 + 10, guiTop, getBlitOffset());
     }
 }

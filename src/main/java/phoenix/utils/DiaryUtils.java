@@ -2,9 +2,13 @@ package phoenix.utils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.tuple.Pair;
 import phoenix.client.gui.diaryPages.DiaryChapter;
 import phoenix.client.gui.diaryPages.elements.IDiaryElement;
+import phoenix.client.gui.diaryPages.elements.ImageElement;
+import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement;
 import phoenix.client.gui.diaryPages.elements.TextElement;
 
 import java.util.ArrayList;
@@ -115,5 +119,24 @@ public class DiaryUtils
             }
         }
         return chapter;
+    }
+
+
+    public static ImageElement readImageElement(CompoundNBT nbt, int maxSizeX, int maxSizeY)
+    {
+        return new ImageElement(new ResourceLocation(nbt.getString("res")), maxSizeX, maxSizeY);
+    }
+
+    public static TextElement readTextElement(CompoundNBT nbt)
+    {
+        String s = nbt.getString("text");
+        if(s.length() >= 2 && s.charAt(0) == '\\' && s.charAt(2) == 'r')
+        {
+            return new RightAlignedTextElement(s.substring(2));
+        }
+        else
+        {
+            return new TextElement(s);
+        }
     }
 }

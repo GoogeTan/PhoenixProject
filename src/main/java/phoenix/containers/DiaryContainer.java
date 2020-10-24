@@ -6,18 +6,22 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextComponent;
+import net.minecraft.util.text.TextFormatting;
+import org.lwjgl.system.CallbackI;
+import phoenix.client.gui.diaryPages.elements.IDiaryElement;
 import phoenix.init.PhoenixContainers;
+
+import java.util.ArrayList;
 
 public class DiaryContainer extends Container implements INamedContainerProvider
 {
+    ITextComponent name = new StringTextComponent("Steve");
+    ArrayList<IDiaryElement> allOpened;
     int page = 0;
-    public DiaryContainer(int id) {
-        super(PhoenixContainers.GUIDE.get(), id);
-    }
-
-    public DiaryContainer()
+    public DiaryContainer(int id)
     {
-        super(PhoenixContainers.GUIDE.get(), 0);
+        super(PhoenixContainers.GUIDE.get(), id);
     }
 
     public int getPage()
@@ -46,8 +50,14 @@ public class DiaryContainer extends Container implements INamedContainerProvider
         this.page--;
     }
 
+    public DiaryContainer setName(ITextComponent nameIn)
+    {
+        this.name = nameIn;
+        return this;
+    }
+
     public static DiaryContainer fromNetwork(int id, PlayerInventory inventory) {
-        return new DiaryContainer(id);
+        return new DiaryContainer(id).setName(inventory.player.getName());
     }
 
     @Override
@@ -59,7 +69,7 @@ public class DiaryContainer extends Container implements INamedContainerProvider
     @Override
     public ITextComponent getDisplayName()
     {
-        return new StringTextComponent("DR L. Diary");
+        return new StringTextComponent(name.getFormattedText() + "'s Diary");
     }
 
       

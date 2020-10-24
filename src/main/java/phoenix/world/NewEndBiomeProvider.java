@@ -46,7 +46,7 @@ public class NewEndBiomeProvider extends BiomeProvider
         this.genLayer = createLayer(settings.getSeed(), worldIn);
         SharedSeedRandom random = new SharedSeedRandom(settings.getSeed());
         random.skip(17292);
-        SimplexNoiseGenerator generator = new SimplexNoiseGenerator(random);
+        new SimplexNoiseGenerator(random);
     }
 
       

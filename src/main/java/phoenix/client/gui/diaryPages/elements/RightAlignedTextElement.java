@@ -2,6 +2,7 @@ package phoenix.client.gui.diaryPages.elements;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.nbt.CompoundNBT;
 import phoenix.containers.DiaryContainer;
 import phoenix.utils.StringUtils;
 
@@ -18,10 +19,14 @@ public class RightAlignedTextElement extends TextElement
     }
 
     @Override
-    public void render(ContainerScreen<DiaryContainer> gui, FontRenderer font, int xSize, int x, int y)
+    public void render(ContainerScreen<DiaryContainer> gui, FontRenderer font, int xSize, int ySize, int x, int y, int depth)
     {
-        //font.drawString(text, x + 15, y + 15, color);
-        StringUtils.drawRightAlignedString(font, text, x + 15, y + 15, color);
+        StringUtils.drawRightAlignedString(font, text.getFormattedText(), x + 15, y + 15, color);
     }
 
+    @Override
+    public void serialise(CompoundNBT nbt)
+    {
+        nbt.putString("text", "\\r" + text.getFormattedText());
+    }
 }
