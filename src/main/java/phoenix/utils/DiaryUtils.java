@@ -5,31 +5,21 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.tuple.Pair;
-import phoenix.client.gui.diaryPages.DiaryChapter;
 import phoenix.client.gui.diaryPages.elements.IDiaryElement;
 import phoenix.client.gui.diaryPages.elements.ImageElement;
 import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement;
 import phoenix.client.gui.diaryPages.elements.TextElement;
+import phoenix.utils.exeptions.BookException;
 
 import java.util.ArrayList;
 
 public class DiaryUtils
 {
-    public static DiaryChapter makeChapter(FontRenderer renderer, int xSizeIn, String... text)
-    {
-        return new DiaryChapter(makeParagraph(text), xSizeIn, renderer);
-    }
-
 
     //принимает ключи параграфоф
     public static ArrayList<IDiaryElement> makeParagraphFromTranslate(int xSizeIn, FontRenderer renderer, String... keys)
     {
         return makeParagraph(xSizeIn, StringUtils.translateAll(keys));
-    }
-
-    public static DiaryChapter makeChapterFromTranslate(int xSizeIn, FontRenderer renderer, String... keys)
-    {
-        return new DiaryChapter(makeParagraphFromTranslate(xSizeIn, renderer, keys), xSizeIn, renderer);
     }
 
     public static ArrayList<IDiaryElement> makeParagraph(String... text)
@@ -127,16 +117,38 @@ public class DiaryUtils
         return new ImageElement(new ResourceLocation(nbt.getString("res")), maxSizeX, maxSizeY);
     }
 
-    public static TextElement readTextElement(CompoundNBT nbt)
+    public static IDiaryElement read(CompoundNBT nbt) throws BookException
     {
-        String s = nbt.getString("text");
-        if(s.length() >= 2 && s.charAt(0) == '\\' && s.charAt(2) == 'r')
+        try
         {
-            return new RightAlignedTextElement(s.substring(2));
+            String type = nbt.getString("type");
+            switch (type)
+            {
+                case "text":
+                {
+                    String text = nbt.getString("text");
+                    return new TextElement(text);
+                }
+                case "rtext":
+                {
+                    String text = nbt.getString("text");
+                    return new RightAlignedTextElement(text);
+                }
+                case "img":
+                {
+                    String res = nbt.getString("res");
+                    int maxSizeX = nbt.getInt("maxx"), maxSizeY = nbt.getInt("maxy");
+                    return new ImageElement(new ResourceLocation(res), maxSizeX, maxSizeY);
+                }
+                default:
+                {
+                    return null;
+                }
+            }
         }
-        else
+        catch (Exception e)
         {
-            return new TextElement(s);
+            throw new BookException("Can not read element");
         }
     }
 }

@@ -61,8 +61,13 @@ public class ImageElement implements IDiaryElement
     }
 
     @Override
-    public void serialise(CompoundNBT nbt)
+    public CompoundNBT serialize()
     {
-        nbt.putString("res", img.getPath());
+        CompoundNBT res = new CompoundNBT();
+        res.putString("type", "img");
+        res.putString("res", img.getPath());
+        res.putInt("maxx", maxSizeX);
+        res.putInt("maxy", maxSizeY);
+        return res;
     }
 }

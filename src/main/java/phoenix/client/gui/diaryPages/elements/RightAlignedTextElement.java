@@ -25,8 +25,11 @@ public class RightAlignedTextElement extends TextElement
     }
 
     @Override
-    public void serialise(CompoundNBT nbt)
+    public CompoundNBT serialize()
     {
-        nbt.putString("text", "\\r" + text.getFormattedText());
+        CompoundNBT res = new CompoundNBT();
+        res.putString("type", "rtext");
+        res.putString("text", "\\r" + text.getFormattedText());
+        return res;
     }
 }

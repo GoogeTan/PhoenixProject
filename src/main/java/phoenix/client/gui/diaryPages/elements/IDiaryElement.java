@@ -10,5 +10,5 @@ public interface IDiaryElement
 {
     int getHeight();
     void render(ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int ySize, int x, int y, int depth);
-    void serialise(CompoundNBT nbt);
+    CompoundNBT serialize();
 }

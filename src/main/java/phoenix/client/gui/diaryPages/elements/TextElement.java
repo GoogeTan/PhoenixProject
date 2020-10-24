@@ -41,8 +41,11 @@ public class TextElement implements IDiaryElement
     }
 
     @Override
-    public void serialise(CompoundNBT nbt)
+    public CompoundNBT serialize()
     {
-        nbt.putString("text", text.getFormattedText());
+        CompoundNBT res = new CompoundNBT();
+        res.putString("text", text.getFormattedText());
+        res.putString("type", "string");
+        return res;
     }
 }
