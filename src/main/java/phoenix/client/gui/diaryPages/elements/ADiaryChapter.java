@@ -6,11 +6,12 @@ import phoenix.utils.ArrayUtils;
 
 import java.util.ArrayList;
 
-public abstract class ADiaryChapter
+public class ADiaryChapter
 {
     FontRenderer font;
     ArrayList<IDiaryElement> elements;
     private int start = 0, end = 14, end2 = 28;
+
     public ADiaryChapter()
     {
         font = Minecraft.getInstance().fontRenderer;
@@ -22,29 +23,49 @@ public abstract class ADiaryChapter
         elements.addAll(elementsIn);
         recalculateSizes();
     }
+
     private void recalculateSizes()
     {
-        int size = 0;
-        int count  = 0;
-        int count1 = 0;
-        for (IDiaryElement element : elements)
+        int size  = 0;
+        int count = 0;
+        boolean isEnded = false;
+        for (int i = 0; i < elements.size() && !isEnded; i++)
         {
-            if(size + element.getHeight() >= 28)
+            if (size + elements.get(i).getHeight() >= 14)
             {
-                end2 += count;
+                isEnded = true;
             }
-            else if (size + element.getHeight() >= 14)
-            {
-                start += 0;
-                end   += count;
-            }
-            size += element.getHeight();
-            if(count == count1)
-                count++;
-
-            count1++;
+            size += elements.get(i).getHeight();
+            count++;
         }
+        start = end2 + 1;
+        end   = end2 + count + 1;
+
+        size  = 0;
+        count = 0;
+        isEnded = false;
+        for (int i = end; i < elements.size() && !isEnded; i++)
+        {
+            if (size + elements.get(i).getHeight() >= 14)
+            {
+                isEnded = true;
+            }
+            size += elements.get(i).getHeight();
+            count++;
+        }
+        end2 = end + count + 1;
     }
+
+    public boolean isLast()
+    {
+        return end >= elements.size() - 1 || end2 >= elements.size() - 1;
+    }
+
+    public boolean isFirst()
+    {
+        return start == 0;
+    }
+
     public ArrayList<IDiaryElement> getCurrentPage1()
     {
         return ArrayUtils.part(elements, start, end);
@@ -59,37 +80,63 @@ public abstract class ADiaryChapter
     {
         int size  = 0;
         int count = 0;
-        for (int i = end; i < elements.size(); i++)
+        boolean isEnded = false;
+        for (int i = end2; i < elements.size() && !isEnded; i++)
         {
             if (size + elements.get(i).getHeight() >= 14)
             {
-                start += count + 1;
-                end   += count + 1;
-                return;
+                isEnded = true;
             }
             size += elements.get(i).getHeight();
             count++;
         }
-        start += count + 1;
-        end   += count + 1;
+        start = end2 + 1;
+        end   = end2 + count + 1;
+
+        size  = 0;
+        count = 0;
+        isEnded = false;
+        for (int i = end; i < elements.size() && !isEnded; i++)
+        {
+            if (size + elements.get(i).getHeight() >= 14)
+            {
+                isEnded = true;
+            }
+            size += elements.get(i).getHeight();
+            count++;
+        }
+        end2 = end + count + 1;
     }
 
     public void prev()
     {
         int size  = 0;
         int count = 0;
-        for (int i = start - 1; i >= 0; --i)
+        boolean isEnded = false;
+        for (int i = start - 1; i >= 0 && !isEnded; --i)
         {
             if (size + elements.get(i).getHeight() >= 14)
             {
-                start -= count + 1;
-                end   -= count + 1;
-                return;
+                isEnded = true;
             }
             size += elements.get(i).getHeight();
             count++;
         }
-        start -= count + 1;
-        end   -= count + 1;
+        end -= count + 1;
+        end2   -= count + 1;
+
+        size  = 0;
+        count = 0;
+        isEnded = false;
+        for (int i = end - 1; i >= 0 && !isEnded; --i)
+        {
+            if (size + elements.get(i).getHeight() >= 14)
+            {
+                isEnded = true;
+            }
+            size += elements.get(i).getHeight();
+            count++;
+        }
+        start = end - count - 1;
     }
 }

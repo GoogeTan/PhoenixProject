@@ -2,6 +2,7 @@ package phoenix.client.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -24,9 +25,17 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
     public DiaryGui(DiaryContainer screenContainer, PlayerInventory inv, ITextComponent titleIn)
     {
         super(screenContainer, inv, titleIn);
-        xSize *= 1.8;
-        ySize *= 1.8;
         container = screenContainer;
+        xSize  *= 1.8;
+        ySize *= 1.8;
+   }
+
+    @Override
+    protected void init()
+    {
+        super.init();
+        addButton(new InvisibleButton( guiLeft - 20,   guiTop, ySize, (button) -> diaryChapter.next(), true));
+        addButton(new InvisibleButton( guiLeft + xSize - 10,guiTop, ySize, (button) -> diaryChapter.prev(), true));
     }
 
     public DiaryGui initGui()
@@ -61,11 +70,19 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
 
 
     @Override
-    public void render(int p_render_1_, int p_render_2_, float p_render_3_)
+    public void render(int p1, int p2, float p3)
     {
+        super.render(p1, p2, p3);
         if(diaryChapter == null) initGui();
+
         this.renderBackground();
+
         diaryChapter.render(0, this, font, xSize, ySize, guiLeft + 0,              guiTop, getBlitOffset());
         diaryChapter.render(1, this, font, xSize, ySize, guiLeft + xSize / 2 + 10, guiTop, getBlitOffset());
+
+        for (Widget button : this.buttons)
+        {
+            button.render(p1, p2, p3);
+        }
     }
 }

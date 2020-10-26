@@ -4,6 +4,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.nbt.CompoundNBT;
 import phoenix.Phoenix;
+import phoenix.client.gui.diaryPages.elements.ADiaryChapter;
 import phoenix.client.gui.diaryPages.elements.IDiaryElement;
 import phoenix.client.gui.diaryPages.elements.ImageElement;
 import phoenix.containers.DiaryContainer;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 
 public class DiaryBook
 {
+    private final ADiaryChapter current;
     final int xSize;
     final FontRenderer font;
     final private ArrayList<ArrayList<IDiaryElement>> pages = new ArrayList<>();
@@ -20,17 +22,31 @@ public class DiaryBook
     {
         this.xSize = xSizeIn;
         this.font = renderer;
+        current = new ADiaryChapter();
+    }
+
+    public void next()
+    {
+
+    }
+
+    public void prev()
+    {
+
     }
 
     public void add(ArrayList<IDiaryElement> elements)
     {
         ArrayList<IDiaryElement> page = new ArrayList<>();
-        int sum = 0;
-        for(IDiaryElement element : pages.get(pages.size() - 1))
-            sum += element.getHeight();
-        if(sum < 14)
-            page = pages.get(pages.size() - 1);
 
+        if(pages.size() != 0)
+        {
+            int sum = 0;
+            for (IDiaryElement element : pages.get(pages.size() - 1))
+                sum += element.getHeight();
+            if (sum < 14)
+                page = pages.get(pages.size() - 1);
+        }
         int size = 0;
         for (IDiaryElement element : elements)
         {
