@@ -13,6 +13,7 @@ import net.minecraft.world.gen.SimplexNoiseGenerator;
 import net.minecraft.world.gen.area.IArea;
 import net.minecraft.world.gen.area.IAreaFactory;
 import net.minecraft.world.gen.area.LazyArea;
+import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.layer.Layer;
 import net.minecraft.world.gen.layer.ZoomLayer;
 import net.minecraft.world.server.ServerWorld;

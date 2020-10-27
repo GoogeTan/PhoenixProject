@@ -33,7 +33,7 @@ public class ErasedPieces
     private static final ResourceLocation top_location = new ResourceLocation("phoenix:corn/corn");
     private static final ResourceLocation mid_location = new ResourceLocation("igloo/middle");
     private static final ResourceLocation bot_location = new ResourceLocation("igloo/bottom");
-    private static final Map<ResourceLocation, BlockPos> piese_to_offset =
+    private static final Map<ResourceLocation, BlockPos> pieces_to_offset =
             ImmutableMap.of(
                     top_location, new BlockPos(3, 5, 5),
                     mid_location, new BlockPos(1, 3, 1),
@@ -88,7 +88,7 @@ public class ErasedPieces
         private void makeSetup(TemplateManager manager)
         {
             Template template = manager.getTemplateDefaulted(this.current_piece);
-            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(rotation).setMirror(Mirror.NONE).setCenterOffset(ErasedPieces.piese_to_offset.get(current_piece)).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
+            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(rotation).setMirror(Mirror.NONE).setCenterOffset(ErasedPieces.pieces_to_offset.get(current_piece)).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
             this.setup(template, this.templatePosition, placementsettings);
         }
 
@@ -125,9 +125,14 @@ public class ErasedPieces
         public boolean create(IWorld worldIn,    ChunkGenerator<?> chunkGeneratorIn,    Random randomIn,
                                  MutableBoundingBox mutableBoundingBoxIn,    ChunkPos chunkPosIn)
         {
-            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(rotation).setMirror(Mirror.NONE).setCenterOffset(ErasedPieces.piese_to_offset.get(current_piece)).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
+            PlacementSettings settings = (new PlacementSettings())
+                                                .setRotation(rotation)
+                                                .setMirror(Mirror.NONE)
+                                                .setCenterOffset(ErasedPieces.pieces_to_offset.get(current_piece))
+                                                .addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
+
             BlockPos blockpos = ErasedPieces.offsets.get(current_piece);
-            BlockPos blockpos1 = this.templatePosition.add(Template.transformedBlockPos(placementsettings, new BlockPos(3 - blockpos.getX(), 0, -blockpos.getZ())));
+            BlockPos blockpos1 = this.templatePosition.add(Template.transformedBlockPos(settings, new BlockPos(3 - blockpos.getX(), 0, -blockpos.getZ())));
             int height = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, blockpos1.getX(), blockpos1.getZ());
             BlockPos blockpos2 = this.templatePosition;
             this.templatePosition = this.templatePosition.add(0, height - 90 - 1, 0);
@@ -135,7 +140,7 @@ public class ErasedPieces
 
             if (current_piece.equals(ErasedPieces.top_location))
             {
-                BlockPos blockpos3 = this.templatePosition.add(Template.transformedBlockPos(placementsettings, new BlockPos(3, 0, 5)));
+                BlockPos blockpos3 = this.templatePosition.add(Template.transformedBlockPos(settings, new BlockPos(3, 0, 5)));
                 BlockState blockstate = worldIn.getBlockState(blockpos3.down());
                 if (!blockstate.isAir() && blockstate.getBlock() != Blocks.LADDER)
                 {

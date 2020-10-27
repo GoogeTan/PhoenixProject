@@ -5,13 +5,14 @@ import net.minecraft.client.gui.FontRenderer;
 import phoenix.utils.ArrayUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class ADiaryChapter
 {
     FontRenderer font;
     int xSize, ySize;
-    ArrayList<ADiaryElement> elements = new ArrayList<>();
-    private int start = 0, end = 14, end2 = 28;
+    public LinkedList<ADiaryElement> elements = new LinkedList<>();
+    private int start = 0, end = 0, end2 = 0;
 
     public ADiaryChapter(int xSizeIn, int ySizeIn)
     {
@@ -44,8 +45,8 @@ public class ADiaryChapter
                 count++;
             }
         }
-        start = end2 + 1;
-        end   = end2 + count + 1;
+        start = 0;
+        end   = count;
 
         size  = 0;
         count = 0;
@@ -72,7 +73,7 @@ public class ADiaryChapter
 
     public boolean isFirst()
     {
-        return start == 0;
+        return start <= 0;
     }
 
     public ArrayList<ADiaryElement> getCurrentPage1()
@@ -87,71 +88,77 @@ public class ADiaryChapter
 
     public void next()
     {
-        int size  = 0;
-        int count = 0;
-        boolean isEnded = false;
-        for (int i = end2; i < elements.size() && !isEnded; i++)
+        System.out.println(elements.size());
+        if(!isLast())
         {
-            if ((size + elements.get(i).getHeight()) * font.FONT_HEIGHT >= ySize - 30)
+            int size = 0;
+            int count = 0;
+            boolean isEnded = false;
+            for (int i = end2; i < elements.size() && !isEnded; i++)
             {
-                isEnded = true;
+                if ((size + elements.get(i).getHeight()) * font.FONT_HEIGHT >= ySize - 30)
+                {
+                    isEnded = true;
+                }
+                size += elements.get(i).getHeight();
+                count++;
             }
-            size += elements.get(i).getHeight();
-            count++;
-        }
-        start = end2 + 1;
-        end   = end2 + count + 1;
+            start = end2 + 1;
+            end = end2 + count + 1;
 
-        size  = 0;
-        count = 0;
-        isEnded = false;
-        for (int i = end; i < elements.size() && !isEnded; i++)
-        {
-            if (size + elements.get(i).getHeight() >= 14)
+            size = 0;
+            count = 0;
+            isEnded = false;
+            for (int i = end; i < elements.size() && !isEnded; i++)
             {
-                isEnded = true;
+                if (size + elements.get(i).getHeight() >= 14)
+                {
+                    isEnded = true;
+                }
+                size += elements.get(i).getHeight();
+                count++;
             }
-            size += elements.get(i).getHeight();
-            count++;
+            end2 = end + count + 1;
         }
-        end2 = end + count + 1;
     }
 
     public void prev()
     {
-        int size  = 0;
-        int count = 0;
-        boolean isEnded = false;
-        for (int i = start - 1; i >= 0 && !isEnded; --i)
+        System.out.println(elements.size());
+        if(!isFirst())
         {
-            if ((size + elements.get(i).getHeight()) * font.FONT_HEIGHT >= ySize - 30)
+            int size = 0;
+            int count = 0;
+            boolean isEnded = false;
+            for (int i = start - 1; i >= 0 && !isEnded; --i)
             {
-                isEnded = true;
+                if ((size + elements.get(i).getHeight()) * font.FONT_HEIGHT >= ySize - 30)
+                {
+                    isEnded = true;
+                } else
+                {
+                    size += elements.get(i).getHeight();
+                    count++;
+                }
             }
-            else
-            {
-                size += elements.get(i).getHeight();
-                count++;
-            }
-        }
-        end -= count + 1;
-        end2   -= count + 1;
+            end -= count + 1;
+            end2 -= count + 1;
 
-        size  = 0;
-        count = 0;
-        isEnded = false;
-        for (int i = end - 1; i >= 0 && !isEnded; --i)
-        {
-            if ((size + elements.get(i).getHeight()) * font.FONT_HEIGHT >= ySize - 30)
+            size = 0;
+            count = 0;
+            isEnded = false;
+            for (int i = end - 1; i >= 0 && !isEnded; --i)
             {
-                isEnded = true;
+                if ((size + elements.get(i).getHeight()) * font.FONT_HEIGHT >= ySize - 30)
+                {
+                    isEnded = true;
+                } else
+                {
+                    size += elements.get(i).getHeight();
+                    count++;
+                }
             }
-            else
-            {
-                size += elements.get(i).getHeight();
-                count++;
-            }
+            start = end - count - 1;
         }
-        start = end - count - 1;
     }
 }

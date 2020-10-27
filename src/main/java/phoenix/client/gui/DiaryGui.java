@@ -19,7 +19,7 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
 {
     private static final ResourceLocation DIARY_TEXTURE = new ResourceLocation(Phoenix.MOD_ID, "textures/gui/diary_.png");
     private static final ResourceLocation DIARY_TEXTURE_2 = new ResourceLocation(Phoenix.MOD_ID, "textures/gui/diary_2.png");
-    private DiaryBook diaryChapter = null;
+    private DiaryBook book = null;
     final DiaryContainer container;
     public DiaryGui(DiaryContainer screenContainer, PlayerInventory inv, ITextComponent titleIn)
     {
@@ -33,26 +33,25 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
     protected void init()
     {
         super.init();
-        addButton(new InvisibleButton( guiLeft - 20,   guiTop, ySize, (button) -> diaryChapter.next(), true));
-        addButton(new InvisibleButton( guiLeft + xSize - 10,guiTop, ySize, (button) -> diaryChapter.prev(), true));
+        addButton(new InvisibleButton( guiLeft - 20,   guiTop, ySize, (button) -> book.prev(), true));
+        addButton(new InvisibleButton( guiLeft + xSize - 10,guiTop, ySize, (button) -> book.next(), true));
     }
 
     public DiaryGui initGui()
     {
-        diaryChapter = new DiaryBook(xSize - 30, ySize, Minecraft.getInstance().fontRenderer);
-        ArrayList<ADiaryElement> par = new ArrayList<>();
-        par.addAll(DiaryUtils.makeParagraph(Minecraft.getInstance().fontRenderer, xSize - 120,
-                "Друг мой, друг мой, " +
-                        "Я очень и очень болен. " +
-                        "Сам не знаю, откуда взялась эта боль. " +
-                        "То ли ветер свистит " +
+        book = new DiaryBook(xSize - 30, ySize, Minecraft.getInstance().fontRenderer);
+        ArrayList<ADiaryElement> par = new ArrayList<>(DiaryUtils.makeParagraph(Minecraft.getInstance().fontRenderer, xSize - 90,
+                "Друг мой, друг мой, \\n " +
+                        "Я очень и очень болен. \\n " +
+                        "Сам не знаю, откуда взялась эта боль. \\n " +
+                        "То ли ветер свистит \\n " +
                         "Над пустым и безлюдным полем, " +
                         "То ль, как рощу в сентябрь, " +
                         "Осыпает мозги алкоголь. " +
                         "Голова моя машет ушами, " +
                         "Как крыльями птица. " +
                         "Ей на шее ноги ",
-                        "Маячить больше невмочь. " +
+                "Маячить больше невмочь. " +
                         "Черный человек, " +
                         "Черный, черный, " +
                         "Черный человек " +
@@ -63,7 +62,7 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
                         "Водит пальцем по мерзкой книге " +
                         "И, гнусавя надо мной, " +
                         "Как над усопшим монах, ",
-                        "Читает мне жизнь " +
+                "Читает мне жизнь " +
                         "Какого-то прохвоста и забулдыги, " +
                         "Нагоняя на душу тоску и страх. " +
                         "Черный человек, " +
@@ -72,7 +71,7 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
                         "Бормочет он мне, — " +
                         "В книге много прекраснейших " +
                         "Мыслей и планов. ",
-                        "Этот человек " +
+                "Этот человек " +
                         "Проживал в стране " +
                         "Самых отвратительных " +
                         "Громил и шарлатанов. " +
@@ -82,16 +81,16 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
                         "Веселые прялки. " +
                         "Был человек тот авантюрист, " +
                         "Но самой высокой " +
-                        "И лучшей марки. " ,
-                        "Был он изящен, " +
+                        "И лучшей марки. ",
+                "Был он изящен, " +
                         "К тому ж поэт, " +
                         "Хоть с небольшой, " +
                         "Но ухватистой силою, " +
                         "И какую-то женщину, " +
                         "Сорока с лишним лет, " +
                         "Называл скверной девочкой " +
-                        "И своею милою. " ,
-                        "Счастье, — говорил он, — " +
+                        "И своею милою. ",
+                "Счастье, — говорил он, — " +
                         "Есть ловкость ума и рук. " +
                         "Все неловкие души " +
                         "За несчастных всегда известны. " +
@@ -100,8 +99,8 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
                         "Приносят изломанные " +
                         "И лживые жесты. " +
                         "В житейскую стынь, " +
-                        "При тяжелых утратах " ,
-                        "И когда тебе грустно, " +
+                        "При тяжелых утратах ",
+                "И когда тебе грустно, " +
                         "Казаться улыбчивым и простым — " +
                         "Самое высшее в мире искусство». " +
                         "«Черный человек! " +
@@ -109,8 +108,8 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
                         "Ты ведь не на службе " +
                         "Живешь водолазовой. " +
                         "Что мне до жизни " +
-                        "Скандального поэта. " ,
-                        "Пожалуйста, другим " +
+                        "Скандального поэта. ",
+                "Пожалуйста, другим " +
                         "Читай и рассказывай». " +
                         "Черный человек " +
                         "Глядит на меня в упор. " +
@@ -122,8 +121,8 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
                         "Обокравший кого-то. " +
                         "........................ " +
                         "Друг мой, друг мой, " +
-                        "Я очень и очень болен. " ,
-                        "Сам не знаю, откуда взялась эта боль. " +
+                        "Я очень и очень болен. ",
+                "Сам не знаю, откуда взялась эта боль. " +
                         "То ли ветер свистит " +
                         "Над пустым и безлюдным полем, " +
                         "То ль, как рощу в сентябрь, " +
@@ -136,7 +135,7 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
                         "Сыпучей и мягкой известкой, " +
                         "И деревья, как всадники, " +
                         "Съехались в нашем саду. ",
-                        "Где-то плачет " +
+                "Где-то плачет " +
                         "Ночная зловещая птица. " +
                         "Деревянные всадники " +
                         "Сеют копытливый стук. " +
@@ -147,7 +146,7 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
         //par.add(new ImageElement(DIARY_TEXTURE, xSize - 30 - 40, ySize - 30));
         for (ADiaryElement el : par)
             System.out.println(el);
-        diaryChapter.add(par);
+        book.add(par);
         return this;
     }
 
@@ -165,12 +164,13 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
     @Override
     public void render(int p1, int p2, float p3)
     {
+
         super.render(p1, p2, p3);
-        if(diaryChapter == null) initGui();
+        if (book == null) initGui();
 
         this.renderBackground();
 
-        diaryChapter.render(this, font, xSize, ySize, guiLeft, guiTop, getBlitOffset());
+        book.render(this, font, xSize, ySize, guiLeft, guiTop, getBlitOffset());
 
         for (Widget button : this.buttons)
         {

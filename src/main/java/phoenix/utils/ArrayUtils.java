@@ -2,6 +2,7 @@ package phoenix.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class ArrayUtils
 {
@@ -33,13 +34,24 @@ public class ArrayUtils
         return res;
     }
 
+    public static <T> ArrayList<T> part(LinkedList<T> list, int from, int to)
+    {
+        ArrayList<T> res = new ArrayList<>();
+        for (int i = from; i < to; i++)
+        {
+            res.add(list.get(getIndex(list.size(), i)));
+        }
+        return res;
+    }
+
     private static int getIndex(int size, int index)
     {
         if(size == 0)
             return 0;
         while (index < 0)
             index += size;
-        index %= size;
+        if(index >= size)
+            return size - 1;
         return index;
     }
 }

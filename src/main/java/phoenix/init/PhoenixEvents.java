@@ -6,8 +6,8 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.item.Item;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
@@ -15,8 +15,8 @@ import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
+import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.server.ServerWorld;
@@ -52,11 +52,21 @@ public class PhoenixEvents
     public static void cornGen(EntityJoinWorldEvent event)
     {
         World world = event.getWorld();
-        if(!world.isRemote && world.dimension.getType() == DimensionType.THE_END && !GenSaveData.get((ServerWorld) world).isCornGened())
+        if(!world.isRemote && world.dimension.getType() == DimensionType.THE_END && !GenSaveData.get((ServerWorld) world).isCornGenned())
         {
-            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(Rotation.randomRotation(world.getRandom()))
-                    .setMirror(Mirror.NONE).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
 
+            TemplateManager manager = ((ServerWorld) world).getStructureTemplateManager();
+            manager.getTemplate(new ResourceLocation("phoenix:corn/corn"))
+                    .addBlocksToWorld(world, new BlockPos(1000, 100, 1000), new PlacementSettings());
+            manager.getTemplate(new ResourceLocation("phoenix:corn/corn"))
+                    .addBlocksToWorld(world, new BlockPos(-1000, 100, 1000), new PlacementSettings());
+            manager.getTemplate(new ResourceLocation("phoenix:corn/corn"))
+                    .addBlocksToWorld(world, new BlockPos(1000, 100, -1000), new PlacementSettings());
+            manager.getTemplate(new ResourceLocation("phoenix:corn/corn"))
+                    .addBlocksToWorld(world, new BlockPos(-1000, 100, -1000), new PlacementSettings());
+
+            Phoenix.LOGGER.error("Corn genned");
+            GenSaveData.get((ServerWorld) world).setCornGenned();
         }
     }
 
@@ -92,9 +102,9 @@ public class PhoenixEvents
     @SubscribeEvent
     public static void join(EntityJoinWorldEvent event)
     {
-        if(!GenSaveData.get((ServerWorld) event.getWorld()).isCornGened() && event.getWorld().dimension.getType() == DimensionType.THE_END)
+        if(!GenSaveData.get((ServerWorld) event.getWorld()).isCornGenned() && event.getWorld().dimension.getType() == DimensionType.THE_END)
         {
-            GenSaveData.get((ServerWorld) event.getWorld()).setCornGened();
+            GenSaveData.get((ServerWorld) event.getWorld()).setCornGenned();
 
         }
     }

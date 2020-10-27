@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DiaryBook
 {
-    private final ADiaryChapter current;
+    public final ADiaryChapter current_chapter;
     final int xSize, ySize;
     final FontRenderer font;
 
@@ -19,29 +19,29 @@ public class DiaryBook
         this.xSize = xSizeIn;
         this.ySize = (int) (ySizeIn * 0.6);
         this.font = renderer;
-        current = new ADiaryChapter(xSizeIn, (int) (ySizeIn * 0.6));
+        current_chapter = new ADiaryChapter(xSizeIn, (int) (ySizeIn * 0.6));
     }
 
     public void next()
     {
-        if(!current.isLast())
-            current.next();
+        if(!current_chapter.isLast())
+            current_chapter.next();
     }
 
     public void prev()
     {
-        if(!current.isFirst())
-            current.prev();
+        if(!current_chapter.isFirst())
+            current_chapter.prev();
     }
 
     public void add(ArrayList<ADiaryElement> elements)
     {
-        current.add(elements);
+        current_chapter.add(elements);
     }
 
     public void render(ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int ySize, int x, int y, int depth)
     {
-        ArrayList<ADiaryElement> page = current.getCurrentPage1();;
+        ArrayList<ADiaryElement> page = current_chapter.getCurrentPage1();;
         int sum = 0;
         for (ADiaryElement element : page)
         {
@@ -50,7 +50,7 @@ public class DiaryBook
         }
 
 
-        page = current.getCurrentPage2();;
+        page = current_chapter.getCurrentPage2();;
         sum = 0;
         for (ADiaryElement element : page)
         {
