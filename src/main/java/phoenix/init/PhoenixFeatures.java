@@ -10,7 +10,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import phoenix.Phoenix;
-import phoenix.world.structures.ErasedPieces;
 import phoenix.world.structures.ErasedStructure;
 
 import java.util.Locale;

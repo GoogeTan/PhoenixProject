@@ -9,10 +9,6 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.EndChunkGenerator;
 import net.minecraft.world.gen.EndGenerationSettings;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.DimensionSavedDataManager;
-import net.minecraft.world.storage.SaveHandler;
-
-import java.io.File;
 
 public class EndBiomedDimension extends EndDimension
 {

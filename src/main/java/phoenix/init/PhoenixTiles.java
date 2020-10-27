@@ -7,9 +7,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import phoenix.Phoenix;
 import phoenix.tile.PipeTile;
-import phoenix.tile.ash.PotteryBarrelTile;
 import phoenix.tile.TankTile;
 import phoenix.tile.ash.OvenTile;
+import phoenix.tile.ash.PotteryBarrelTile;
 
 public class PhoenixTiles
 {

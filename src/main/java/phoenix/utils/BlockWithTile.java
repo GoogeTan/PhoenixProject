@@ -3,9 +3,7 @@ package phoenix.utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
 
 public abstract class BlockWithTile<T extends TileEntity> extends Block
 {

@@ -6,10 +6,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextComponent;
-import net.minecraft.util.text.TextFormatting;
-import org.lwjgl.system.CallbackI;
-import phoenix.client.gui.diaryPages.elements.IDiaryElement;
+import phoenix.client.gui.diaryPages.elements.ADiaryElement;
 import phoenix.init.PhoenixContainers;
 
 import java.util.ArrayList;
@@ -17,7 +14,7 @@ import java.util.ArrayList;
 public class DiaryContainer extends Container implements INamedContainerProvider
 {
     ITextComponent name = new StringTextComponent("Steve");
-    ArrayList<IDiaryElement> allOpened;
+    ArrayList<ADiaryElement> allOpened;
     int page = 0;
     public DiaryContainer(int id)
     {

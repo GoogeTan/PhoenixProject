@@ -5,16 +5,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
 import net.minecraft.util.ResourceLocation;
-import phoenix.Phoenix;
 import phoenix.containers.DiaryContainer;
 import phoenix.utils.RenderUtils;
 import phoenix.utils.TextureUtils;
 
 import java.awt.*;
 
-public class ImageElement implements IDiaryElement
+public class ImageElement extends ADiaryElement
 {
     final ResourceLocation img;
     int w, h, maxSizeX, maxSizeY;
@@ -58,7 +56,13 @@ public class ImageElement implements IDiaryElement
         RenderUtils.drawRectScalable(img, x + 15, y + 15, xSize, ySize, depth);
         RenderSystem.popMatrix();
     }
-
+    //*
+    @Override
+    public String toString()
+    {
+        return img.toString();
+    }
+    //*/
     @Override
     public CompoundNBT serialize()
     {

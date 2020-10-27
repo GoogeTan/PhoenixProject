@@ -6,8 +6,6 @@ import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
-import phoenix.Phoenix;
-import phoenix.enity.CaudaEntity;
 
 public class CaudaModel<T extends LivingEntity> extends EntityModel<T> {
     private final ModelRenderer body;

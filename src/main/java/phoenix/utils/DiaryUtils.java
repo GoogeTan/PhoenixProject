@@ -1,30 +1,32 @@
 package phoenix.utils;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.tuple.Pair;
-import phoenix.client.gui.diaryPages.elements.IDiaryElement;
+import phoenix.client.gui.diaryPages.elements.ADiaryElement;
 import phoenix.client.gui.diaryPages.elements.ImageElement;
 import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement;
 import phoenix.client.gui.diaryPages.elements.TextElement;
 import phoenix.utils.exeptions.BookException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DiaryUtils
 {
 
     //принимает ключи параграфоф
-    public static ArrayList<IDiaryElement> makeParagraphFromTranslate(int xSizeIn, FontRenderer renderer, String... keys)
+    public static ArrayList<ADiaryElement> makeParagraphFromTranslate(int xSizeIn, FontRenderer renderer, String... keys)
     {
         return makeParagraph(xSizeIn, StringUtils.translateAll(keys));
     }
 
-    public static ArrayList<IDiaryElement> makeParagraph(String... text)
+    public static ArrayList<ADiaryElement> makeParagraph(String... text)
     {
-        ArrayList<IDiaryElement> res = new ArrayList<>();
+        ArrayList<ADiaryElement> res = new ArrayList<>();
         for (String s : text)
         {
             res.add(new TextElement(s));
@@ -32,14 +34,14 @@ public class DiaryUtils
         return res;
     }
 
-    public static ArrayList<IDiaryElement> makeParagraph(FontRenderer font, int xSize, String... text)
+    public static ArrayList<ADiaryElement> makeParagraph(FontRenderer font, int xSize, String... text)
     {
-        ArrayList<IDiaryElement> res = new ArrayList<>();
-        for (String currect : text) //проходим по всем параграфам
+        ArrayList<ADiaryElement> res = new ArrayList<>();
+        for (String current : text) //проходим по всем параграфам
         {
-            if(currect != null)
+            if(current != null)
             {
-                ArrayList<String> words = StringUtils.stringToWords(currect);//слова в параграфе
+                List<String> words = ImmutableList.copyOf(current.split(" "));
                 for (int number_of_words = 0; number_of_words < words.size(); ++number_of_words)//проходим по всем словам
                 {
                     String string_to_add = "";//строка которую будем добавлять
@@ -65,12 +67,12 @@ public class DiaryUtils
         return res;
     }
 
-    public static ArrayList<IDiaryElement> makeParagraph(int xSize, ArrayList<String> text)
+    public static ArrayList<ADiaryElement> makeParagraph(int xSize, ArrayList<String> text)
     {
-        ArrayList<IDiaryElement> res = new ArrayList<>();
-        for (String currect : text) //проходим по всем параграфам
+        ArrayList<ADiaryElement> res = new ArrayList<>();
+        for (String current : text) //проходим по всем параграфам
         {
-            ArrayList<String> words = StringUtils.stringToWords(currect);//слова в параграфе
+            List<String> words =  ImmutableList.copyOf(current.split(" ")); //StringUtils.stringToWords(currect);//слова в параграфе
             for (int number_of_words = 0; number_of_words < words.size(); ++number_of_words)//проходим по всем словам
             {
                 String string_to_add = "";//строка которую будем добавлять
@@ -80,13 +82,12 @@ public class DiaryUtils
                     {
                         res.add(new TextElement(string_to_add));//добавляем строку
                         string_to_add = "";//обнуляем строку
-                        ++number_of_words;//проходим это слово
                     }
                     else
                     {
                         string_to_add += words.get(number_of_words) + " ";//добавляем слово
-                        ++number_of_words;
                     }
+                    ++number_of_words;//проходим это слово
                 }
                 res.add(new TextElement(string_to_add));
             }
@@ -95,9 +96,9 @@ public class DiaryUtils
         return res;
     }
 
-    public static ArrayList<IDiaryElement> add(ArrayList<IDiaryElement> chapter, Pair<Integer, IDiaryElement>... toAdd)
+    public static ArrayList<ADiaryElement> add(ArrayList<ADiaryElement> chapter, Pair<Integer, ADiaryElement>... toAdd)
     {
-        for (Pair<Integer, IDiaryElement> pair : toAdd)
+        for (Pair<Integer, ADiaryElement> pair : toAdd)
         {
             if (chapter.size() < pair.getLeft())
             {
@@ -117,7 +118,7 @@ public class DiaryUtils
         return new ImageElement(new ResourceLocation(nbt.getString("res")), maxSizeX, maxSizeY);
     }
 
-    public static IDiaryElement read(CompoundNBT nbt) throws BookException
+    public static ADiaryElement read(CompoundNBT nbt) throws BookException
     {
         try
         {

@@ -9,16 +9,19 @@ import java.util.ArrayList;
 public class ADiaryChapter
 {
     FontRenderer font;
-    ArrayList<IDiaryElement> elements;
+    int xSize, ySize;
+    ArrayList<ADiaryElement> elements = new ArrayList<>();
     private int start = 0, end = 14, end2 = 28;
 
-    public ADiaryChapter()
+    public ADiaryChapter(int xSizeIn, int ySizeIn)
     {
         font = Minecraft.getInstance().fontRenderer;
+        xSize = xSizeIn;
+        ySize = ySizeIn;
     }
 
 
-    public void add(ArrayList<IDiaryElement> elementsIn)
+    public void add(ArrayList<ADiaryElement> elementsIn)
     {
         elements.addAll(elementsIn);
         recalculateSizes();
@@ -31,12 +34,15 @@ public class ADiaryChapter
         boolean isEnded = false;
         for (int i = 0; i < elements.size() && !isEnded; i++)
         {
-            if (size + elements.get(i).getHeight() >= 14)
+            if ((size + elements.get(i).getHeight()) * (font.FONT_HEIGHT + 2) >= ySize - 30)
             {
                 isEnded = true;
             }
-            size += elements.get(i).getHeight();
-            count++;
+            else
+            {
+                size += elements.get(i).getHeight();
+                count++;
+            }
         }
         start = end2 + 1;
         end   = end2 + count + 1;
@@ -46,12 +52,15 @@ public class ADiaryChapter
         isEnded = false;
         for (int i = end; i < elements.size() && !isEnded; i++)
         {
-            if (size + elements.get(i).getHeight() >= 14)
+            if ((size + elements.get(i).getHeight()) * font.FONT_HEIGHT >= ySize - 30)
             {
                 isEnded = true;
             }
-            size += elements.get(i).getHeight();
-            count++;
+            else
+            {
+                size += elements.get(i).getHeight();
+                count++;
+            }
         }
         end2 = end + count + 1;
     }
@@ -66,12 +75,12 @@ public class ADiaryChapter
         return start == 0;
     }
 
-    public ArrayList<IDiaryElement> getCurrentPage1()
+    public ArrayList<ADiaryElement> getCurrentPage1()
     {
         return ArrayUtils.part(elements, start, end);
     }
 
-    public ArrayList<IDiaryElement> getCurrentPage2()
+    public ArrayList<ADiaryElement> getCurrentPage2()
     {
         return ArrayUtils.part(elements, end, end2);
     }
@@ -83,7 +92,7 @@ public class ADiaryChapter
         boolean isEnded = false;
         for (int i = end2; i < elements.size() && !isEnded; i++)
         {
-            if (size + elements.get(i).getHeight() >= 14)
+            if ((size + elements.get(i).getHeight()) * font.FONT_HEIGHT >= ySize - 30)
             {
                 isEnded = true;
             }
@@ -115,12 +124,15 @@ public class ADiaryChapter
         boolean isEnded = false;
         for (int i = start - 1; i >= 0 && !isEnded; --i)
         {
-            if (size + elements.get(i).getHeight() >= 14)
+            if ((size + elements.get(i).getHeight()) * font.FONT_HEIGHT >= ySize - 30)
             {
                 isEnded = true;
             }
-            size += elements.get(i).getHeight();
-            count++;
+            else
+            {
+                size += elements.get(i).getHeight();
+                count++;
+            }
         }
         end -= count + 1;
         end2   -= count + 1;
@@ -130,12 +142,15 @@ public class ADiaryChapter
         isEnded = false;
         for (int i = end - 1; i >= 0 && !isEnded; --i)
         {
-            if (size + elements.get(i).getHeight() >= 14)
+            if ((size + elements.get(i).getHeight()) * font.FONT_HEIGHT >= ySize - 30)
             {
                 isEnded = true;
             }
-            size += elements.get(i).getHeight();
-            count++;
+            else
+            {
+                size += elements.get(i).getHeight();
+                count++;
+            }
         }
         start = end - count - 1;
     }

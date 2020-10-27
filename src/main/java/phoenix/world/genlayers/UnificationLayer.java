@@ -14,13 +14,13 @@ public enum  UnificationLayer implements IAreaTransformer2
     private static final int THE_END           = Registry.BIOME.getId(Biomes.THE_END);
     private static final int SMALL_END_ISLANDS = Registry.BIOME.getId(Biomes.SMALL_END_ISLANDS);
     private static final int UNDER             = Registry.BIOME.getId(PhoenixBiomes.UNDER.get());
-    private static final int HEARTVOID         = Registry.BIOME.getId(PhoenixBiomes.HEARTVOID.get());
+    private static final int HEART_VOID        = Registry.BIOME.getId(PhoenixBiomes.HEARTVOID.get());
     @Override
-    public int apply(   INoiseRandom random, IArea area1, IArea area2, int x, int z)
+    public int apply(INoiseRandom random, IArea area1, IArea area2, int x, int z)
     {
         int phoenix = area1.getValue(x, z);
         int vanila  = area2.getValue(x, z);
-        if(vanila == THE_END || vanila == SMALL_END_ISLANDS || vanila == END_BARRENS || (phoenix != UNDER && phoenix != HEARTVOID))
+        if(vanila == THE_END || vanila == SMALL_END_ISLANDS || vanila == END_BARRENS || (phoenix != UNDER && phoenix != HEART_VOID))
         {
             return vanila;
         }

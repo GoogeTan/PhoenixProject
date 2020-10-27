@@ -5,9 +5,10 @@ import java.util.Arrays;
 
 public class ArrayUtils
 {
-    static public <T extends Object> ArrayList<T> sumArrays(ArrayList<T> first, ArrayList<T> second, T... adv)
+    @SafeVarargs
+    static public <T> ArrayList<T> sumArrays(ArrayList<T> first, ArrayList<T> second, T... adv)
     {
-        ArrayList<T> res = new ArrayList(first);
+        ArrayList<T> res = new ArrayList<>(first);
         res.addAll(second);
 
         res.addAll(Arrays.asList(adv));
@@ -15,7 +16,7 @@ public class ArrayUtils
     }
 
     @SafeVarargs
-    static public <T extends Object> ArrayList<T> sumArrays(ArrayList<T> first, T... adv)
+    static public <T> ArrayList<T> sumArrays(ArrayList<T> first, T... adv)
     {
         ArrayList<T> res = new ArrayList<>(first);
         res.addAll(Arrays.asList(adv));
@@ -34,9 +35,11 @@ public class ArrayUtils
 
     private static int getIndex(int size, int index)
     {
+        if(size == 0)
+            return 0;
         while (index < 0)
             index += size;
-        //index %= size;
+        index %= size;
         return index;
     }
 }

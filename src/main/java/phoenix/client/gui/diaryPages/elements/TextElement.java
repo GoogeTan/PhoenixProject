@@ -8,7 +8,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import phoenix.containers.DiaryContainer;
 
-public class TextElement implements IDiaryElement
+public class TextElement extends ADiaryElement
 {
     ITextComponent text = new StringTextComponent("");
     Integer color = TextFormatting.BLACK.getColor();
@@ -38,6 +38,12 @@ public class TextElement implements IDiaryElement
     public void render(ContainerScreen<DiaryContainer> gui, FontRenderer font, int xSize, int ySize, int x, int y, int depth)
     {
         font.drawString(text.getFormattedText(), x + 15, y + 15, color);
+    }
+
+    @Override
+    public String toString()
+    {
+        return text.getFormattedText();
     }
 
     @Override

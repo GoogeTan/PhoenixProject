@@ -32,12 +32,11 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import phoenix.Phoenix;
 import phoenix.client.render.PipeRender;
+import phoenix.client.render.TankRenderer;
 import phoenix.client.render.entity.CaudaRenderer;
 import phoenix.client.render.entity.TalpaRenderer;
-import phoenix.client.render.TankRenderer;
 import phoenix.utils.IColoredBlock;
 import phoenix.world.GenSaveData;
-import phoenix.world.structures.ErasedPieces;
 
 @Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PhoenixEvents
