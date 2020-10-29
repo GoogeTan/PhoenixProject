@@ -2,12 +2,14 @@ package phoenix.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class ArrayUtils
 {
-    static public <T extends Object> ArrayList<T> sumArrays(ArrayList<T> first, ArrayList<T> second, T... adv)
+    @SafeVarargs
+    static public <T> ArrayList<T> sumArrays(ArrayList<T> first, ArrayList<T> second, T... adv)
     {
-        ArrayList<T> res = new ArrayList(first);
+        ArrayList<T> res = new ArrayList<>(first);
         res.addAll(second);
 
         res.addAll(Arrays.asList(adv));
@@ -15,7 +17,7 @@ public class ArrayUtils
     }
 
     @SafeVarargs
-    static public <T extends Object> ArrayList<T> sumArrays(ArrayList<T> first, T... adv)
+    static public <T> ArrayList<T> sumArrays(ArrayList<T> first, T... adv)
     {
         ArrayList<T> res = new ArrayList<>(first);
         res.addAll(Arrays.asList(adv));
@@ -32,11 +34,24 @@ public class ArrayUtils
         return res;
     }
 
+    public static <T> ArrayList<T> part(LinkedList<T> list, int from, int to)
+    {
+        ArrayList<T> res = new ArrayList<>();
+        for (int i = from; i < to; i++)
+        {
+            res.add(list.get(getIndex(list.size(), i)));
+        }
+        return res;
+    }
+
     private static int getIndex(int size, int index)
     {
+        if(size == 0)
+            return 0;
         while (index < 0)
             index += size;
-        //index %= size;
+        if(index >= size)
+            return size - 1;
         return index;
     }
 }

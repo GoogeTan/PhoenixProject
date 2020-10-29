@@ -5,16 +5,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
 import net.minecraft.util.ResourceLocation;
-import phoenix.Phoenix;
 import phoenix.containers.DiaryContainer;
 import phoenix.utils.RenderUtils;
 import phoenix.utils.TextureUtils;
 
 import java.awt.*;
 
-public class ImageElement implements IDiaryElement
+public class ImageElement extends ADiaryElement
 {
     final ResourceLocation img;
     int w, h, maxSizeX, maxSizeY;
@@ -24,8 +22,8 @@ public class ImageElement implements IDiaryElement
         Dimension d = TextureUtils.getTextureSize(img);
         this.w = d.width;
         this.h = d.height;
-        this.maxSizeX = maxSizeXIn;
-        this.maxSizeY = maxSizeYIn;
+        this.maxSizeX = maxSizeXIn - 30;
+        this.maxSizeY = maxSizeYIn - 30;
     }
 
     @Override
@@ -42,7 +40,6 @@ public class ImageElement implements IDiaryElement
                 scale = maxSizeY / sizeY;
             }
             double height = Math.ceil(scale * h / (Minecraft.getInstance().fontRenderer.FONT_HEIGHT + 4));
-            Phoenix.LOGGER.error("logged " + height + " " + scale * h);
             return (int) height;
         }
         else
@@ -56,10 +53,16 @@ public class ImageElement implements IDiaryElement
     {
         RenderSystem.pushMatrix();
         Minecraft.getInstance().getTextureManager().bindTexture(img);
-        RenderUtils.drawRectScalable(img, x, y, xSize, ySize, depth);
+        RenderUtils.drawRectScalable(img, x + 15, y + 15, xSize, ySize, depth);
         RenderSystem.popMatrix();
     }
-
+    //*
+    @Override
+    public String toString()
+    {
+        return img.toString();
+    }
+    //*/
     @Override
     public CompoundNBT serialize()
     {

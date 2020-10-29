@@ -54,13 +54,13 @@ public class GenSaveData extends WorldSavedData
         return world.getSavedData().getOrCreate(GenSaveData::new, DATA_NAME);
     }
 
-    public boolean isCornGened()
+    public boolean isCornGenned()
     {
         if(data == null) data = new CompoundNBT();
         return data.getBoolean("iscorngened");
     }
 
-    public void setCornGened()
+    public void setCornGenned()
     {
         data.putBoolean("iscorngened", true);
         markDirty();

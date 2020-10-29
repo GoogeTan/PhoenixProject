@@ -8,26 +8,26 @@ import java.util.ArrayList;
 public class StringUtils
 {
       
-    public static ArrayList<String> stringToWords(   String s)
+    public static ArrayList<String> stringToWords(String s)
     {
         ArrayList<String> result = new ArrayList<>();
-        String currect = "";
+        String current = "";
         for (int i = 0; i < s.length(); i++)
         {
             if(s.charAt(i) == '\n')
             {
-                result.add(currect);
+                result.add(current);
                 result.add("[break]");
-                currect = "";
+                current = "";
             }
             else if(s.charAt(i) == ' ' || i == s.length() - 1)
             {
-                result.add(currect);
-                currect = "";
+                result.add(current);
+                current = "";
             }
             else
             {
-                currect += s.charAt(i);
+                current += s.charAt(i);
             }
         }
         return result;

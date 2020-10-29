@@ -2,67 +2,63 @@ package phoenix.client.gui.diaryPages;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.nbt.CompoundNBT;
-import phoenix.Phoenix;
-import phoenix.client.gui.diaryPages.elements.IDiaryElement;
-import phoenix.client.gui.diaryPages.elements.ImageElement;
+import phoenix.client.gui.diaryPages.elements.ADiaryChapter;
+import phoenix.client.gui.diaryPages.elements.ADiaryElement;
 import phoenix.containers.DiaryContainer;
 
 import java.util.ArrayList;
 
 public class DiaryBook
 {
-    final int xSize;
+    public final ADiaryChapter current_chapter;
+    final int xSize, ySize;
     final FontRenderer font;
-    final private ArrayList<ArrayList<IDiaryElement>> pages = new ArrayList<>();
 
-    public DiaryBook(int xSizeIn, FontRenderer renderer)
+    public DiaryBook(int xSizeIn, int ySizeIn, FontRenderer renderer)
     {
         this.xSize = xSizeIn;
+        this.ySize = (int) (ySizeIn * 0.6);
         this.font = renderer;
+        current_chapter = new ADiaryChapter(xSizeIn, (int) (ySizeIn * 0.6));
     }
 
-    public void add(ArrayList<IDiaryElement> elements)
+    public void next()
     {
-        ArrayList<IDiaryElement> page = new ArrayList<>();
+        if(!current_chapter.isLast())
+            current_chapter.next();
+    }
+
+    public void prev()
+    {
+        if(!current_chapter.isFirst())
+            current_chapter.prev();
+    }
+
+    public void add(ArrayList<ADiaryElement> elements)
+    {
+        current_chapter.add(elements);
+    }
+
+    public void render(ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int ySize, int x, int y, int depth)
+    {
+        ArrayList<ADiaryElement> page = current_chapter.getCurrentPage1();;
         int sum = 0;
-        for(IDiaryElement element : pages.get(pages.size() - 1))
+        for (ADiaryElement element : page)
+        {
+            element.render(gui, renderer, xSize, ySize, x, y + sum * (font.FONT_HEIGHT + 2), depth);
             sum += element.getHeight();
-        if(sum < 14)
-            page = pages.get(pages.size() - 1);
-
-        int size = 0;
-        for (IDiaryElement element : elements)
-        {
-            if (size + element.getHeight() >= 14)
-            {
-                pages.add((ArrayList<IDiaryElement>) page.clone());
-                page.clear();
-                size = 0;
-            }
-            page.add(element);
-            size += element.getHeight();
         }
-        if (!page.isEmpty())
+
+
+        page = current_chapter.getCurrentPage2();;
+        sum = 0;
+        for (ADiaryElement element : page)
         {
-            pages.add((ArrayList<IDiaryElement>) page.clone());
+            element.render(gui, renderer, xSize, ySize, x + xSize / 2 - 10, y + sum * (font.FONT_HEIGHT + 2), depth);
+            sum += element.getHeight();
         }
     }
-
-    public void render(int number, ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int ySize, int x, int y, int depth)
-    {
-        if(number < pages.size() && number >= 0)
-        {
-            ArrayList<IDiaryElement> page = pages.get(number);
-            int sum = 0;
-            for (IDiaryElement element : page)
-            {
-                element.render(gui, renderer, xSize, ySize, x, y + sum * 15, depth);
-                sum += element.getHeight();
-            }
-        }
-    }
-
+    /*
     public CompoundNBT serialize()
     {
         CompoundNBT res = new CompoundNBT();
@@ -78,16 +74,5 @@ public class DiaryBook
         res.putInt("size", number);
         return res;
     }
-
-
-    //возвращает все строки на странице
-    public ArrayList<IDiaryElement> getElementsForPage(int page)
-    {
-        return pages.get(page);
-    }
-
-    public int countOfPages()
-    {
-        return pages.size();
-    }
+    //*/
 }
