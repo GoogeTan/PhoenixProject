@@ -10,6 +10,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import phoenix.Phoenix;
 import phoenix.client.gui.DiaryGui;
+import phoenix.client.gui.OvenScreen;
 import phoenix.containers.DiaryContainer;
 import phoenix.containers.OvenContainer;
 
@@ -27,8 +28,9 @@ public class PhoenixContainers
 
 
     @OnlyIn(Dist.CLIENT)
-    public static void renderScreens()
+    public static void registerScreens()
     {
         ScreenManager.registerFactory(GUIDE.get(), DiaryGui::new);
+        ScreenManager.registerFactory(OVEN.get(), OvenScreen::new);
     }
 }

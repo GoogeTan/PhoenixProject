@@ -83,7 +83,7 @@ public class PhoenixEvents
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.PIPE.get(),   PipeRender::new);
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK.get(), TankRenderer::new);
 
-        PhoenixContainers.renderScreens();
+        PhoenixContainers.registerScreens();
         // регистрация цветных блоков
         for(RegistryObject<Block> block : PhoenixBlocks.BLOCKS.getEntries())
         {
