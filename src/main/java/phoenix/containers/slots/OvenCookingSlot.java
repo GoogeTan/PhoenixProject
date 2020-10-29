@@ -5,6 +5,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.AbstractFurnaceTileEntity;
+import phoenix.items.ash.CrucibleItem;
 
 public class OvenCookingSlot extends Slot
 {
@@ -17,17 +18,11 @@ public class OvenCookingSlot extends Slot
         this.player = player;
     }
 
-    /**
-     * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
-     */
     public boolean isItemValid(ItemStack stack)
     {
-        return false;
+        return stack.getItem() instanceof CrucibleItem;
     }
 
-    /**
-     * Decrease the size of the stack in slot (first int arg) by the amount of the second int arg. Returns the new stack.
-     */
     public ItemStack decrStackSize(int amount)
     {
         if (this.getHasStack())
@@ -45,10 +40,6 @@ public class OvenCookingSlot extends Slot
         return stack;
     }
 
-    /**
-     * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood. Typically increases an
-     * internal count then calls onCrafting(item).
-     */
     protected void onCrafting(ItemStack stack, int amount)
     {
         this.removeCount += amount;

@@ -11,12 +11,14 @@ import net.minecraftforge.registries.ForgeRegistries;
 import phoenix.Phoenix;
 import phoenix.client.gui.DiaryGui;
 import phoenix.containers.DiaryContainer;
+import phoenix.containers.OvenContainer;
 
 public class PhoenixContainers
 {
     private static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Phoenix.MOD_ID);
 
     public static final RegistryObject<ContainerType<DiaryContainer>> GUIDE   = CONTAINERS.register("drls_diary", () -> new ContainerType<>(DiaryContainer::fromNetwork));
+    public static final RegistryObject<ContainerType<OvenContainer>>  OVEN    = CONTAINERS.register("oven",       () -> new ContainerType<>(OvenContainer::fromNetwork));
 
     public static void register()
     {
