@@ -118,7 +118,7 @@ public class PotteryBarrelBlock extends BlockWithTile<PotteryBarrelTile> impleme
                     {
                         if (stateInt >= 2)
                         {
-                            ItemStack stackToAdd = new ItemStack(PhoenixItems.bucket_with_clay.get());
+                            ItemStack stackToAdd = new ItemStack(PhoenixItems.BUCKET_WITH_CLAY.get());
                             if (stackToAdd.getTag() == null)
                                 stackToAdd.setTag(new CompoundNBT());
 
@@ -132,7 +132,7 @@ public class PotteryBarrelBlock extends BlockWithTile<PotteryBarrelTile> impleme
                     {
                         if (stateInt >= 2)
                         {
-                            ItemStack stackToAdd = new ItemStack(PhoenixItems.bucket_with_clay.get());
+                            ItemStack stackToAdd = new ItemStack(PhoenixItems.BUCKET_WITH_CLAY.get());
                             if (stackToAdd.getTag() == null)
                                 stackToAdd.setTag(new CompoundNBT());
 

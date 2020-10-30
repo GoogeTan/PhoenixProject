@@ -74,6 +74,8 @@ public class PhoenixEvents
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
     {
+        PhoenixKeyBindings.register();
+
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.TANK.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.OVEN.get(), RenderType.getCutoutMipped());
 
@@ -112,6 +114,8 @@ public class PhoenixEvents
     @SubscribeEvent
     public static void init(FMLCommonSetupEvent event)
     {
+        PhoenixRecipes.register();
+
         PhoenixBiomes.UNDER    .get().addStructure(PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
         PhoenixBiomes.HEARTVOID.get().addStructure(PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
         PhoenixBiomes.UNDER    .get().addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));

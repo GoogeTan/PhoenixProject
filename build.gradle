@@ -67,10 +67,23 @@ minecraft
         }
     }
 }
+repositories {
+    maven { // Мавен, который поддерживает JEI.
+        name = "Progwml6 maven"
+        url = "http://dvs1.progwml6.com/files/maven"
+    }
+    maven { // Мавен, который поддерживает JEI, для резерва.
+        name = "ModMaven"
+        url = "modmaven.k-4u.nl"
+    }
+}
+
 
 dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.15.2-31.2.45'
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 }

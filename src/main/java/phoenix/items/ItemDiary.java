@@ -13,9 +13,9 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import phoenix.containers.DiaryContainer;
 import phoenix.init.PhoenixContainers;
 
-public class ItemDrLsDiary extends Item
+public class ItemDiary extends Item
 {
-    public ItemDrLsDiary()
+    public ItemDiary()
     {
         super(new Properties().rarity(Rarity.EPIC));
     }

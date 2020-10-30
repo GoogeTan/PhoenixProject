@@ -33,5 +33,6 @@
   "advancements.phoenix.ash.corn.description": "-Как тебя вообще занесло в этот храм? — Я принял его за город края. Легко спутать.",
 
   "phoenix.message.newstage": "Достингута новая стадия: ",
-  "phoenix.message.speare":"Использует систему боя из 1.8"
+  "phoenix.message.speare":"Использует систему боя из 1.8",
+  "phoenix.jei.category.oven": "Печь"
 }
