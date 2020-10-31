@@ -13,7 +13,7 @@ public class PhoenixRecipeSerializers
 {
     private static final DeferredRegister<IRecipeSerializer<?>> RS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Phoenix.MOD_ID);
 
-    public static final RegistryObject<OvenRecipeSerializer<OvenRecipe>> OVEN = RS.register("oven_recipe_serializer", () -> new OvenRecipeSerializer<>(OvenRecipe::new, 100));
+    public static final RegistryObject<OvenRecipeSerializer<OvenRecipe>> OVEN = RS.register("oven_recipe", () -> new OvenRecipeSerializer<>(OvenRecipe::new, 100));
 
     public static void register()
     {

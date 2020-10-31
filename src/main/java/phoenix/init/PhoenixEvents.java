@@ -6,8 +6,10 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
@@ -41,13 +43,6 @@ import phoenix.world.GenSaveData;
 @Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PhoenixEvents
 {
-
-    @SubscribeEvent
-    public static void preInit(FMLCommonSetupEvent event)
-    {
-        PhoenixBiomes.UNDER.get().addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(PhoenixEntities.TALPA.get(), 10, 2, 8));
-    }
-
     @SubscribeEvent
     public static void cornGen(EntityJoinWorldEvent event)
     {

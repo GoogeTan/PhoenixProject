@@ -4,8 +4,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.tileentity.AbstractFurnaceTileEntity;
+import phoenix.Phoenix;
+import phoenix.init.PhoenixRecipes;
 import phoenix.items.ash.CrucibleItem;
+import phoenix.recipes.OvenRecipe;
 
 public class OvenCookingSlot extends Slot
 {
@@ -18,11 +22,13 @@ public class OvenCookingSlot extends Slot
         this.player = player;
     }
 
+    @Override
     public boolean isItemValid(ItemStack stack)
     {
-        return stack.getItem() instanceof CrucibleItem;
+        return OvenRecipe.inputs.contains(stack.getItem());
     }
 
+    @Override
     public ItemStack decrStackSize(int amount)
     {
         if (this.getHasStack())
@@ -33,6 +39,7 @@ public class OvenCookingSlot extends Slot
         return super.decrStackSize(amount);
     }
 
+    @Override
     public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack)
     {
         this.onCrafting(stack);
@@ -49,6 +56,7 @@ public class OvenCookingSlot extends Slot
     /**
      * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood.
      */
+    @Override
     protected void onCrafting(ItemStack stack)
     {
         stack.onCrafting(this.player.world, this.player, this.removeCount);

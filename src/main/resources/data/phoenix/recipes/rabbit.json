@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:oven_recipe",
+  "type": "phoenix:oven_recipe",
   "ingredient": {
     "item": "minecraft:rabbit"
   },

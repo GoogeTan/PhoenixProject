@@ -4,5 +4,4 @@ public enum AttackPhases
 {
     CIRCLE,
     SWOOP;
-
 }

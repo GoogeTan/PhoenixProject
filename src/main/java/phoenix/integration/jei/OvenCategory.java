@@ -26,36 +26,16 @@ public class OvenCategory implements IRecipeCategory<OvenRecipe>
     {
         helper = guiHelper;
         this.background = guiHelper.createDrawable(OvenScreen.OVEN_TEXTURE, 0, 0, 176, 256);
-        this.cachedDisplayData = CacheBuilder.newBuilder().maximumSize(25L).build(new CacheLoader<OvenRecipe, OvenRecipeDisplayData>() {
-            public OvenRecipeDisplayData load(OvenRecipe key) {
-                return new OvenRecipeDisplayData();
-            }
+        this.cachedDisplayData = CacheBuilder.newBuilder().maximumSize(25L).build(new CacheLoader<OvenRecipe, OvenRecipeDisplayData>()
+        {
+            public OvenRecipeDisplayData load(OvenRecipe key) { return new OvenRecipeDisplayData();  }
         });
     }
 
-    @Override
-    public ResourceLocation getUid()
-    {
-        return new ResourceLocation("phoenix", "oven");
-    }
-
-    @Override
-    public Class getRecipeClass()
-    {
-        return OvenRecipe.class;
-    }
-
-    @Override
-    public String getTitle()
-    {
-        return "Oven";
-    }
-
-    @Override
-    public IDrawable getBackground()
-    {
-        return this.background;
-    }
+    @Override public ResourceLocation getUid () {  return new ResourceLocation("phoenix", "oven");  }
+    @Override public Class     getRecipeClass() { return OvenRecipe.class;                                           }
+    @Override public String    getTitle      () { return "Oven";                                                     }
+    @Override public IDrawable getBackground () { return this.background;                                            }
 
     @Override
     public IDrawable getIcon()
@@ -78,7 +58,7 @@ public class OvenCategory implements IRecipeCategory<OvenRecipe>
         guiItemStacks.init(1, true, 49, 0);
         guiItemStacks.init(2, false, 107, 0);
         guiItemStacks.set(ingredients);
-        OvenRecipeDisplayData displayData = (OvenRecipeDisplayData)this.cachedDisplayData.getUnchecked(recipe);
+        OvenRecipeDisplayData displayData = this.cachedDisplayData.getUnchecked(recipe);
         displayData.setCurrentIngredients(guiItemStacks.getGuiIngredients());
     }
 }

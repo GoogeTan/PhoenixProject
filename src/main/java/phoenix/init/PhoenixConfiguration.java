@@ -20,8 +20,9 @@ public class PhoenixConfiguration
                     push("Game Settings");
             IS_HARDCORE = builder.
                     worldRestart().
-                    comment("Is game in hardcode mode. It will be hard like Misty World or higher").
-                    define("Is Liahim mode", true);
+                    comment("Is game in hardcode mode or easy mode. If \"Liahim\" game will be hard and trolling like Misty World or higher" +
+                            ", but if \"hohserg\" it will be easier and more simple.")
+                    .defineEnum("Game mode", GameMode.normal);
             GENERATE_OPTIONAL_STRUCTURES = builder.
                     worldRestart().
                     define("Is generating optional structures", true);
@@ -30,13 +31,18 @@ public class PhoenixConfiguration
             builder.pop();
         }
 
-        public ForgeConfigSpec.BooleanValue IS_HARDCORE;
+        public ForgeConfigSpec.EnumValue<GameMode> IS_HARDCORE;
         public ForgeConfigSpec.BooleanValue GENERATE_OPTIONAL_STRUCTURES;
         public ForgeConfigSpec.IntValue     BIOME_SIZE;
     }
-
+    public enum GameMode
+    {
+        normal,
+        Liahim,
+        hohserg
+    }
     //On reload
-    public static void build()
+    public static void onReload()
     {
     }
 
@@ -46,7 +52,7 @@ public class PhoenixConfiguration
     {
         if (event.getConfig().getModId().equals(Phoenix.MOD_ID))
         {
-            build();
+            onReload();
             Phoenix.LOGGER.debug("Reloaded");
         }
     }

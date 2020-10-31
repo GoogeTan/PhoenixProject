@@ -26,14 +26,15 @@ public class Phoenix
     {
         instance = this;
         MinecraftForge.EVENT_BUS.register(this);
-        PhoenixBiomes     .register();
-        PhoenixBlocks     .register();
-        PhoenixTiles      .register();
-        PhoenixFeatures   .register();
-        PhoenixEntities   .register();
-        PhoenixItems      .register();
-        PhoenixContainers .register();
+        PhoenixBiomes           .register();
+        PhoenixBlocks           .register();
+        PhoenixTiles            .register();
+        PhoenixFeatures         .register();
+        PhoenixEntities         .register();
+        PhoenixItems            .register();
+        PhoenixContainers       .register();
         PhoenixRecipeSerializers.register();
+
         Pair<PhoenixConfiguration.Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(PhoenixConfiguration.Common::new);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, specPair.getRight());
         PhoenixConfiguration.COMMON_CONFIG = specPair.getLeft();

@@ -14,7 +14,6 @@ public class PhoenixRecipes
     public static void register()
     {
         OVEN = register("oven_recipe");
-        Phoenix.LOGGER.error("Recipe types registered: " + OVEN.toString());
     }
 
     static <T extends IRecipe<?>> IRecipeType<T> register(final String key)
