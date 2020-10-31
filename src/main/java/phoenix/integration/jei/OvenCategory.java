@@ -20,16 +20,11 @@ public class OvenCategory implements IRecipeCategory<OvenRecipe>
 {
     private final IDrawable background;
     IGuiHelper helper;
-    private final LoadingCache<OvenRecipe, OvenRecipeDisplayData> cachedDisplayData;
 
     public OvenCategory(IGuiHelper guiHelper)
     {
         helper = guiHelper;
-        this.background = guiHelper.createDrawable(OvenScreen.OVEN_TEXTURE, 0, 0, 176, 256);
-        this.cachedDisplayData = CacheBuilder.newBuilder().maximumSize(25L).build(new CacheLoader<OvenRecipe, OvenRecipeDisplayData>()
-        {
-            public OvenRecipeDisplayData load(OvenRecipe key) { return new OvenRecipeDisplayData();  }
-        });
+        this.background = guiHelper.createDrawable(OvenScreen.OVEN_TEXTURE, 0, 0, 100, 34);
     }
 
     @Override public ResourceLocation getUid () {  return new ResourceLocation("phoenix", "oven");  }
@@ -54,11 +49,8 @@ public class OvenCategory implements IRecipeCategory<OvenRecipe>
     public void setRecipe(IRecipeLayout recipeLayout, OvenRecipe recipe, IIngredients ingredients)
     {
         IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-        guiItemStacks.init(0, true, 0, 0);
-        guiItemStacks.init(1, true, 49, 0);
-        guiItemStacks.init(2, false, 107, 0);
+        guiItemStacks.init(0, true, 8, 8);
+        guiItemStacks.init(1, false, 42, 8);
         guiItemStacks.set(ingredients);
-        OvenRecipeDisplayData displayData = this.cachedDisplayData.getUnchecked(recipe);
-        displayData.setCurrentIngredients(guiItemStacks.getGuiIngredients());
     }
 }

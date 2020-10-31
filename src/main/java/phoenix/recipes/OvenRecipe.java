@@ -16,11 +16,15 @@ import java.util.*;
 public class OvenRecipe extends AbstractCookingRecipe
 {
     public static Set<Item> inputs = new HashSet<>();
+    public static HashMap<Item, OvenRecipe> recipes_from_inputs = new HashMap<>();
     public OvenRecipe(ResourceLocation idIn, String groupIn, Ingredient ingredientIn, ItemStack resultIn, float experienceIn, int cookTimeIn)
     {
         super(PhoenixRecipes.OVEN, idIn, groupIn, ingredientIn, resultIn, experienceIn, cookTimeIn);
         for (ItemStack stack : ingredientIn.getMatchingStacks())
+        {
             inputs.add(stack.getItem());
+            recipes_from_inputs.put(stack.getItem(), this);
+        }
     }
 
     @Override

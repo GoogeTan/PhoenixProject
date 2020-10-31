@@ -1,0 +1,9 @@
+{
+  "type": "phoenix:oven_recipe",
+  "ingredient": {
+    "item": "phoenix:crucible_with_iron_ore"
+  },
+  "result": "phoenix:crucible_with_iron",
+  "experience": 0.6,
+  "cookingtime": 40
+}

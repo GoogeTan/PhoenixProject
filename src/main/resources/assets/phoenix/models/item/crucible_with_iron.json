@@ -1,0 +1,6 @@
+{
+  "parent": "phoenix:item/crucible_with_smth",
+  "textures": {
+    "content": "phoenix:blocks/crucible_content/iron"
+  }
+}

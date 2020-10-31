@@ -16,8 +16,12 @@ public class PhoenixItems
 
     public static final RegistryObject<Item> GUIDE             = ITEMS.register("diary",            ItemDiary::new);
     public static final RegistryObject<Item> BUCKET_WITH_CLAY  = ITEMS.register("bucket_with_clay", BucketWithClayItem::new);
-    public static final RegistryObject<Item> CRUSIBLE          = ITEMS.register("crucible",         CrucibleItem::new);
+    public static final RegistryObject<Item> CRUCIBLE          = ITEMS.register("crucible",         CrucibleItem::new);
 
+    public static final RegistryObject<Item> CRUCIBLE_WITH_IRON_ORE  = ITEMS.register("crucible_with_iron_ore",  CrucibleItem::new);
+    public static final RegistryObject<Item> CRUCIBLE_WITH_IRON      = ITEMS.register("crucible_with_iron",      CrucibleItem::new);
+    public static final RegistryObject<Item> CRUCIBLE_WITH_GOLD_ORE  = ITEMS.register("crucible_with_gold_ore",  CrucibleItem::new);
+    public static final RegistryObject<Item> CRUCIBLE_WITH_GOLD      = ITEMS.register("crucible_with_gold",      CrucibleItem::new);
 
     public static void register()
     {
