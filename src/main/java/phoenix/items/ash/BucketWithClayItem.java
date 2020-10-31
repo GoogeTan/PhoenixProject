@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import phoenix.Phoenix;
 import phoenix.utils.StringUtils;
 
 import javax.annotation.Nullable;
@@ -17,7 +18,7 @@ public class BucketWithClayItem extends Item
 {
     public BucketWithClayItem()
     {
-        super(new Properties().maxStackSize(1));
+        super(new Properties().maxStackSize(1).group(Phoenix.PHOENIX));
     }
 
     @Override

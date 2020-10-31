@@ -1,11 +1,12 @@
 package phoenix.items.ash;
 
 import net.minecraft.item.Item;
+import phoenix.Phoenix;
 
 public class CrucibleItem extends Item
 {
-    public CrucibleItem(Properties properties)
+    public CrucibleItem()
     {
-        super(properties);
+        super(new Item.Properties().group(Phoenix.PHOENIX));
     }
 }

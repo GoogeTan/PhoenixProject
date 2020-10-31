@@ -8,6 +8,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import phoenix.Phoenix;
 import phoenix.items.ItemDiary;
 import phoenix.items.ash.BucketWithClayItem;
+import phoenix.items.ash.CrucibleItem;
 
 public class PhoenixItems
 {
@@ -15,6 +16,8 @@ public class PhoenixItems
 
     public static final RegistryObject<Item> GUIDE             = ITEMS.register("diary",            ItemDiary::new);
     public static final RegistryObject<Item> BUCKET_WITH_CLAY  = ITEMS.register("bucket_with_clay", BucketWithClayItem::new);
+    public static final RegistryObject<Item> CRUSIBLE          = ITEMS.register("crucible",         CrucibleItem::new);
+
 
     public static void register()
     {

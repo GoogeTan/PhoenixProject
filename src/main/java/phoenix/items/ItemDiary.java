@@ -10,6 +10,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
+import phoenix.Phoenix;
 import phoenix.containers.DiaryContainer;
 import phoenix.init.PhoenixContainers;
 
@@ -17,7 +18,7 @@ public class ItemDiary extends Item
 {
     public ItemDiary()
     {
-        super(new Properties().rarity(Rarity.EPIC));
+        super(new Properties().rarity(Rarity.EPIC).group(Phoenix.PHOENIX));
     }
 
     @Override
