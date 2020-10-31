@@ -10,7 +10,7 @@ import phoenix.containers.OvenContainer;
 
 public class OvenScreen extends ContainerScreen<OvenContainer>
 {
-    private static final ResourceLocation OVEN_TEXTURE = new ResourceLocation(Phoenix.MOD_ID, "textures/gui/oven.png");
+    public static final ResourceLocation OVEN_TEXTURE = new ResourceLocation(Phoenix.MOD_ID, "textures/gui/oven.png");
     public OvenScreen(OvenContainer screenContainer, PlayerInventory inv, ITextComponent titleIn)
     {
         super(screenContainer, inv, titleIn);

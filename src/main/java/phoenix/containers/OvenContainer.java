@@ -4,23 +4,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.*;
-import net.minecraft.item.crafting.AbstractCookingRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.IIntArray;
-import net.minecraft.util.IntArray;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.world.IWorld;
-import phoenix.Phoenix;
-import phoenix.client.gui.OvenScreen;
 import phoenix.containers.slots.OvenCookingSlot;
 import phoenix.containers.slots.OvenFuelSlot;
 import phoenix.init.PhoenixContainers;
-
-import javax.annotation.Nullable;
-
-import static net.minecraft.item.crafting.IRecipeType.SMELTING;
 
 public class OvenContainer extends Container
 {

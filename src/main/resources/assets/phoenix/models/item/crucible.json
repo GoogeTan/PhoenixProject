@@ -1,8 +1,7 @@
 {
-	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "phoenix:blocks/crusible",
-		"particle": "phoenix:blocks/crusible"
+		"0": "phoenix:blocks/crucible",
+		"particle": "phoenix:blocks/crucible"
 	},
 	"elements": [
 		{

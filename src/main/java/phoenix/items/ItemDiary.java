@@ -2,7 +2,6 @@ package phoenix.items;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
@@ -18,7 +17,7 @@ public class ItemDiary extends Item
 {
     public ItemDiary()
     {
-        super(new Properties().rarity(Rarity.EPIC).group(Phoenix.PHOENIX));
+        super(new Properties().rarity(Rarity.EPIC).group(Phoenix.PHOENIX).maxStackSize(1));
     }
 
     @Override

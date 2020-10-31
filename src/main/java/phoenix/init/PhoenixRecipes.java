@@ -19,7 +19,7 @@ public class PhoenixRecipes
 
     static <T extends IRecipe<?>> IRecipeType<T> register(final String key)
     {
-        return Registry.register(Registry.RECIPE_TYPE, new ResourceLocation("phoenix", key), new IRecipeType<T>()
+        return Registry.register(Registry.RECIPE_TYPE, new ResourceLocation(key), new IRecipeType<T>()
         {
             public String toString()
             {

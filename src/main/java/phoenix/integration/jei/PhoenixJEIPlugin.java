@@ -3,29 +3,23 @@ package phoenix.integration.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaRecipeCategoryUid;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.helpers.IModIdHelper;
-import mezz.jei.api.recipe.category.IRecipeCategory;
-import mezz.jei.api.recipe.vanilla.IVanillaRecipeFactory;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import mezz.jei.api.runtime.IIngredientManager;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
-import phoenix.Phoenix;
 import phoenix.init.PhoenixBlocks;
 import phoenix.init.PhoenixRecipes;
-import phoenix.recipes.OvenRecipe;
-import phoenix.recipes.PhoenixRecipeValidator;
 
 import javax.annotation.Nullable;
-import java.util.List;
+import java.util.Collection;
 
 
 @JeiPlugin
@@ -36,7 +30,7 @@ public class PhoenixJEIPlugin implements IModPlugin
 
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation("jei", "phoenix");
+        return new ResourceLocation("phoenix", "jei_plugin");
     }
 
     @Override
@@ -48,14 +42,23 @@ public class PhoenixJEIPlugin implements IModPlugin
         this.ovenCategory = new OvenCategory(guiHelper);
         registration.addRecipeCategories(ovenCategory);
     }
-
     @Override
-    public void registerRecipes(IRecipeRegistration registration)
+    public void registerRecipes(IRecipeRegistration register)
     {
-        List<OvenRecipe> recipes = PhoenixRecipeValidator.getValidRecipes(ovenCategory).getOvenRecipes();
+        assert Minecraft.getInstance().world != null;
+        RecipeManager manager = Minecraft.getInstance().world.getRecipeManager();
+        // oven
+        //List<OvenRecipe> castingBasinRecipes = RecipeUtil.getJEIRecipes(manager, PhoenixRecipes.OVEN, OvenRecipe.class);
+        Collection<IRecipe<IInventory>> castingBasinRecipes = manager.getRecipes(PhoenixRecipes.OVEN).values();
+        register.addRecipes(castingBasinRecipes, ovenCategory.getUid());
+        /*
+                List<OvenRecipe> recipes = PhoenixRecipeValidator.getValidRecipes(ovenCategory).getOvenRecipes();
         registration.addRecipes(recipes, ovenCategory.getUid());
         Phoenix.LOGGER.error(recipes);
+         */
     }
+
+
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {

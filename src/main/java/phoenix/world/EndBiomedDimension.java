@@ -1,8 +1,6 @@
 package phoenix.world;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.provider.EndBiomeProviderSettings;
 import net.minecraft.world.dimension.DimensionType;
@@ -10,8 +8,6 @@ import net.minecraft.world.dimension.EndDimension;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.EndChunkGenerator;
 import net.minecraft.world.gen.EndGenerationSettings;
-import net.minecraft.world.gen.feature.template.PlacementSettings;
-import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.server.ServerWorld;
 
 public class EndBiomedDimension extends EndDimension

@@ -1,5 +1,6 @@
 package phoenix.recipes;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.AbstractCookingRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -7,8 +8,11 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import phoenix.init.PhoenixRecipeSerializers;
 import phoenix.init.PhoenixRecipes;
+import phoenix.utils.IMultiRecipe;
 
-public class OvenRecipe extends AbstractCookingRecipe
+import java.util.List;
+
+public class OvenRecipe extends AbstractCookingRecipe implements IMultiRecipe
 {
     public OvenRecipe(ResourceLocation idIn, String groupIn, Ingredient ingredientIn, ItemStack resultIn, float experienceIn, int cookTimeIn)
     {
@@ -44,5 +48,19 @@ public class OvenRecipe extends AbstractCookingRecipe
     public String getGroup()
     {
         return group;
+    }
+
+    public List<List<ItemStack>> getInputs() {
+        return ImmutableList.of(ImmutableList.copyOf(getIngredient().getMatchingStacks()));
+    }
+
+    public List<List<ItemStack>> getOutputs() {
+        return ImmutableList.of(ImmutableList.of(getResult()));
+    }
+
+    @Override
+    public List getRecipes()
+    {
+        return null;
     }
 }
