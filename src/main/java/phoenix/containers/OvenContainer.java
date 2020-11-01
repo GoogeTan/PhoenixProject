@@ -32,12 +32,11 @@ public class OvenContainer extends Container
         assertInventorySize(ovenInventoryIn, 3);
         this.inventory = ovenInventoryIn;
         this.world = playerInventoryIn.player.world;
-        this.addSlot(new OvenFuelSlot(ovenInventoryIn, 0, 80, 30));
-        this.addSlot(new OvenCookingSlot(playerInventoryIn.player, ovenInventoryIn, 1, 60, 60));
-        this.addSlot(new OvenCookingSlot(playerInventoryIn.player, ovenInventoryIn, 2, 100, 60));
-        this.addSlot(new OvenCookingSlot(playerInventoryIn.player, ovenInventoryIn, 3, 60, 100));
-        this.addSlot(new OvenCookingSlot(playerInventoryIn.player, ovenInventoryIn, 4, 100, 100));
-
+        this.addSlot(new OvenCookingSlot(playerInventoryIn.player, ovenInventoryIn, 0, 60, 60));
+        this.addSlot(new OvenCookingSlot(playerInventoryIn.player, ovenInventoryIn, 1, 100, 60));
+        this.addSlot(new OvenCookingSlot(playerInventoryIn.player, ovenInventoryIn, 2, 60, 100));
+        this.addSlot(new OvenCookingSlot(playerInventoryIn.player, ovenInventoryIn, 3, 100, 100));
+        this.addSlot(new OvenFuelSlot(ovenInventoryIn, 4, 80, 30));
         for (int i = 0; i < 3; ++i)
         {
             for (int j = 0; j < 9; ++j)

@@ -25,7 +25,7 @@ public class OvenCookingSlot extends Slot
     @Override
     public boolean isItemValid(ItemStack stack)
     {
-        return OvenRecipe.inputs.contains(stack.getItem());
+        return OvenRecipe.recipes_from_inputs.get(stack.getItem()) != null;
     }
 
     @Override

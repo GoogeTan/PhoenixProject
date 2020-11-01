@@ -45,9 +45,9 @@ public class OvenRecipeSerializer<T extends OvenRecipe> extends ForgeRegistryEnt
             ResourceLocation resourcelocation = new ResourceLocation(s1);
             itemstack = new ItemStack(Registry.ITEM.getValue(resourcelocation).orElseThrow(() -> new IllegalStateException("Item: " + s1 + " does not exist")));
         }
-        float f = JSONUtils.getFloat(json, "experience", 0.0F);
-        int i = JSONUtils.getInt(json, "cookingtime", this.cookingTime);
-        return this.factory.create(recipeId, s, ingredient, itemstack, f, i);
+        float exp = JSONUtils.getFloat(json, "experience", 0.0F);
+        int cookingtime = JSONUtils.getInt(json, "cookingtime", this.cookingTime);
+        return this.factory.create(recipeId, s, ingredient, itemstack, exp, cookingtime);
     }
 
     public T read(ResourceLocation recipeId, PacketBuffer buffer)
@@ -57,6 +57,7 @@ public class OvenRecipeSerializer<T extends OvenRecipe> extends ForgeRegistryEnt
         ItemStack  result     = buffer.readItemStack();
         float      exp        = buffer.readFloat();
         int        cookTime   = buffer.readVarInt();
+        cookTime = ((Object) cookingTime) == null ? 40 : cookingTime;
         return this.factory.create(recipeId, group, ingredient, result, exp, cookTime);
     }
 

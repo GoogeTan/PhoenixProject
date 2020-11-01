@@ -1,17 +1,26 @@
 package phoenix.items.ash;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import phoenix.Phoenix;
+import phoenix.init.PhoenixItems;
 
 public class CrucibleItem extends Item
 {
     public CrucibleItem()
     {
-        super(new Item.Properties().group(Phoenix.PHOENIX).maxStackSize(8));
+        super(new Item.Properties().group(Phoenix.PHOENIX).maxStackSize(1));
     }
 
-    public CrucibleItem(Item.Properties properties)
+    @Override
+    public boolean hasContainerItem()
     {
-        super(properties.group(Phoenix.PHOENIX).maxStackSize(8));
+        return true;
+    }
+
+    @Override
+    public ItemStack getContainerItem(ItemStack stack)
+    {
+        return new ItemStack(PhoenixItems.CRUCIBLE.get());
     }
 }

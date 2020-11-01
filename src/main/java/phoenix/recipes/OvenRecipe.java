@@ -48,7 +48,11 @@ public class OvenRecipe extends AbstractCookingRecipe
         return experience;
     }
 
-    public int getCookTime() { return cookTime; }
+    public int getCookTime()
+    {
+        return cookTime;
+    }
+
     public String getGroup() { return group;    }
 
     public List<List<ItemStack>> getInputs() { return ImmutableList.of(ImmutableList.copyOf(getIngredient().getMatchingStacks())); }

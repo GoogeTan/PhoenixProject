@@ -32,27 +32,36 @@ public class OvenTile extends TileEntity implements ITickableTileEntity, INamedC
     @Override
     public void tick()
     {
-        if(container != null)
+        if (container != null)
         {
             List<Slot> slotList = container.inventorySlots;
 
-            for (int i = 1; i < slotList.size(); ++i)
+            for (int i = 0; i < 4; ++i)
             {
                 Slot current = slotList.get(i);
-                if(!current.getStack().isEmpty() || !OvenRecipe.inputs.contains(current.getStack().getItem()))
+                OvenRecipe recipe = OvenRecipe.recipes_from_inputs.get(current.getStack().getItem());
+                if (recipe != null)
                 {
-                    OvenRecipe recipe = OvenRecipe.recipes_from_inputs.get(current.getStack().getItem());
-                    timers[i - 1]++;
-                    if(timers[i - 1] >= recipe.getCookTime())
+                    int cookTime = recipe.getCookTime();
+                    try
+                    {
+                        cookTime++;
+                        cookTime--;
+                    } catch (Exception e)
+                    {
+                        cookTime = 40;
+                    }
+                    timers[i]++;
+                    if (timers[i] >= cookTime)
                     {
                         container.putStackInSlot(i, recipe.getResult());
                     }
-                }
-                else
+                } else
                 {
-                    timers[i - 1] = 0;
+                    timers[i] = 0;
                 }
             }
+
         }
     }
 
