@@ -1,19 +1,17 @@
 modLoader="javafml" #mandatory
-loaderVersion="[28,)" #mandatory (26 is current forge version)
+loaderVersion="[28,)" #mandatory
 [[mods]] #mandatory
 modId="phoenix" #mandatory
-version="${file.jarVersion}" #mandatory
+version="${modVersion}" #mandatory
 displayName="Project Phoenix" #mandatory
 #updateJSONURL="http://myurl.me/" #optional
-#displayURL="https://www.curseforge.com/minecraft/mc-mods/phoenix-project"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/phoenix-project"
 #logoFile="Phoenix.png" #optional
-#credits="Hohserg, Krokodil, Liahim, you" #optional
+credits="Hohserg, Krokodil, Liahim, and you for help me" #optional
 authors="WildTan" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-End is an empty, almost boring place. In the beginning it will. But then everything will change. In the end, biomes, mobs, dungeons, bosses, plants will appear.
-
-Let the story begin!
+End is an empty, almost boring place. In the beginning it will. But then everything will change. In the end, biomes, mobs, dungeons, bosses, plants will appear. Let the story begin!
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 #[[dependencies.Phoenix]] #optional

@@ -18,6 +18,7 @@ import phoenix.blocks.UpdaterBlock;
 import phoenix.blocks.ash.EndStoneColumnBlock;
 import phoenix.blocks.ash.OvenBlock;
 import phoenix.blocks.ash.PotteryBarrelBlock;
+import phoenix.blocks.ash.ZirconiumOreBlock;
 import phoenix.blocks.redo.*;
 import phoenix.utils.INonItem;
 
@@ -36,6 +37,7 @@ public class PhoenixBlocks
     public static final RegistryObject<Block>   POTTERY_BARREL    = BLOCKS.register("pottery_barrel",    PotteryBarrelBlock  ::new);
     public static final RegistryObject<Block>   END_STONE_COLUMN  = BLOCKS.register("end_stone_column",  EndStoneColumnBlock ::new);
     public static final RegistryObject<Block>   OVEN              = BLOCKS.register("oven",              OvenBlock           ::new);
+    public static final RegistryObject<Block>   ZIRCONIUM         = BLOCKS.register("zirconium_ore",     ZirconiumOreBlock   ::new);
 
 
     public static void register()

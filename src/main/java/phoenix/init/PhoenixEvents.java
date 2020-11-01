@@ -15,10 +15,13 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.server.ServerWorld;
@@ -32,6 +35,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import phoenix.Phoenix;
 import phoenix.client.render.PipeRender;
 import phoenix.client.render.TankRenderer;
@@ -120,6 +124,16 @@ public class PhoenixEvents
         PhoenixBiomes.HEARTVOID.get().addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(PhoenixEntities.TALPA.get(), 15, 1, 4));
 
         addStructure(Biomes.END_HIGHLANDS, PhoenixFeatures.ERASED.get());
+
+
+        for (Biome biome : Registry.BIOME)
+        {
+            if(biome != Biomes.END_BARRENS && biome != Biomes.END_HIGHLANDS && biome != Biomes.END_MIDLANDS && biome != Biomes.THE_END &&
+            biome != Biomes.SMALL_END_ISLANDS && biome != PhoenixBiomes.UNDER.get() && biome != PhoenixBiomes.HEARTVOID.get())
+            {
+                addZirconiumOre(biome);
+            }
+        }
     }
 
     public static void addStructure(   Biome biome,    Structure structure)
@@ -127,5 +141,14 @@ public class PhoenixEvents
         biome.addStructure(structure.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
         biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, structure.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG)
                                                                                  .withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+    }
+
+
+    public static void addZirconiumOre(Biome biome)
+    {
+        biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
+                Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, PhoenixBlocks.ZIRCONIUM.get().getDefaultState(), 4))
+                        .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(20, 0, 0, 64))));
+
     }
 }

@@ -3,14 +3,13 @@
   "pattern":
   [
     "# #",
-    "# #",
     " # "
   ],
   "key":
   {
     "#":
     {
-      "item": "minecraft:brick"
+      "item": "phoenix:high_quality_clay"
     }
   },
   "result":

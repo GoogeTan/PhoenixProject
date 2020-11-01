@@ -11,7 +11,7 @@ import phoenix.world.biomes.UnderBiome;
 
 public class PhoenixBiomes
 {
-    private static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, Phoenix.MOD_ID);
+    public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, Phoenix.MOD_ID);
 
     public static final RegistryObject<Biome> UNDER     = BIOMES.register("under", UnderBiome::new);
     public static final RegistryObject<Biome> HEARTVOID = BIOMES.register("heart_void", HeartVoidBiome::new);
