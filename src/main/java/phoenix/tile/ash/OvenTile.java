@@ -23,6 +23,10 @@ public class OvenTile extends TileEntity implements ITickableTileEntity, INamedC
     public OvenTile()
     {
         super(PhoenixTiles.OVEN.get());
+        timers[0] = 0;
+        timers[1] = 0;
+        timers[2] = 0;
+        timers[3] = 0;
     }
 
     @Override

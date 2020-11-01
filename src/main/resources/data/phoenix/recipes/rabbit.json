@@ -1,9 +1,0 @@
-{
-  "type": "phoenix:oven_recipe",
-  "ingredient": {
-    "item": "minecraft:rabbit"
-  },
-  "result": "minecraft:cooked_rabbit",
-  "experience": 0.35,
-  "cookingtime": 200
-}

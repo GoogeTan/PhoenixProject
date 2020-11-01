@@ -14,9 +14,9 @@ import phoenix.utils.StringUtils;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BucketWithClayItem extends Item
+public class HighQualityClayItem extends Item
 {
-    public BucketWithClayItem()
+    public HighQualityClayItem()
     {
         super(new Properties().maxStackSize(1).group(Phoenix.PHOENIX));
     }
