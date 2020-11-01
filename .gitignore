@@ -25,3 +25,4 @@ mc
 # Files from Forge MDK
 forge*changelog.txt
 build.gradle
+*.gradle
