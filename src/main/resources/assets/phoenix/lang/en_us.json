@@ -6,6 +6,7 @@
 
   "itemGroup.phoenix": "Project Phoenix",
 
+
   "item.phoenix.high_quality_clay": "High quality clay",
   "item.phoenix.diary": "Diary",
   "item.phoenix.crucible": "Crucible",
@@ -15,7 +16,6 @@
   "item.phoenix.crucible_with_gold": "Crucible with gold",
   "item.phoenix.steel_ingot": "Steel ingot",
   "item.phoenix.zirconium_ingot": "Zirconium ingot",
-
 
   "block.phoenix.fragileblock": "Fragile Block",
   "block.phoenix.updater": "Updater",
