@@ -6,6 +6,7 @@
 
   "itemGroup.phoenix": "Project Phoenix",
 
+<<<<<<< HEAD
   "item.phoenix.high_quality_clay": "High quality clay",
   "item.phoenix.diary": "Diary",
   "item.phoenix.crucible": "Crucible",
@@ -16,6 +17,8 @@
   "item.phoenix.steel_ingot": "Steel ingot",
   "item.phoenix.zirconium_ingot": "Zirconium ingot",
 
+=======
+>>>>>>> parent of 2558199... add translations
   "block.phoenix.fragileblock": "Fragile Block",
   "block.phoenix.updater": "Updater",
   "block.phoenix.fertile_end_stone": "Fertile end stone",
@@ -30,7 +33,7 @@
   "block.phoenix.pottery_barrel": "Pottery barrel",
   "block.phoenix.end_stone_column": "End stone column",
   "block.phoenix.oven": "Oven",
-  "block.phoenix.zirconium_ore": "Zirconium ore",
+
 
   "entity.Uterus.name": "Coronoworm",
 
@@ -44,6 +47,6 @@
   "advancements.phoenix.ash.corn.description": "-How did you get brought to the past ignis monastery? “I took him for a End city.” Easy to confuse.",
 
   "phoenix.message.newstage": "Welcome to the new stage!",
-  "phoenix.message.spear":"Uses combat system from 1.8",
+  "phoenix.message.speare":"Uses combat system from 1.8",
   "phoenix.jei.category.oven": "Oven"
 }
