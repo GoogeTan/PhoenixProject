@@ -51,20 +51,12 @@ public class OvenBlock extends ContainerBlock
         return ActionResultType.SUCCESS;
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of d8f3eea... ingots
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
     {
         for (BooleanProperty bucket : buckets) builder.add(bucket);
         super.fillStateContainer(builder);
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of d8f3eea... ingots
 
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
