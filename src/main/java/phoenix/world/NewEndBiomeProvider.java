@@ -3,7 +3,6 @@ package phoenix.world;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.util.SharedSeedRandom;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.provider.BiomeProvider;
@@ -30,7 +29,7 @@ public class NewEndBiomeProvider extends BiomeProvider
 {
     private final Layer genLayer;
     private static final Set<Biome> biomes;
-    private final SimplexNoiseGenerator generator;
+
     static
     {
         biomes = ImmutableSet.of(Biomes.THE_END, Biomes.END_HIGHLANDS, Biomes.END_MIDLANDS, Biomes.SMALL_END_ISLANDS, Biomes.END_BARRENS, PhoenixBiomes.UNDER.get(), PhoenixBiomes.HEARTVOID.get());
@@ -42,17 +41,17 @@ public class NewEndBiomeProvider extends BiomeProvider
         this.genLayer = createLayer(settings.getSeed(), worldIn);
         SharedSeedRandom random = new SharedSeedRandom(settings.getSeed());
         random.skip(17292);
-        generator = new SimplexNoiseGenerator(random);
+        new SimplexNoiseGenerator(random);
     }
 
       
     @Override
     public Biome getNoiseBiome(int x, int y, int z)
     {
-        return genLayer.func_215738_a(x, z);
+        return this.genLayer.func_215738_a(x, z);
     }
 
-
+    /*
     @Override
     public float func_222365_c(int x, int z)
     {
@@ -67,11 +66,11 @@ public class NewEndBiomeProvider extends BiomeProvider
         {
             for (int j = -12; j <= 12; ++j)
             {
-                long current_x = real_x + i;
-                long current_z = real_Z + j;
-                if (current_x * current_x + current_z * current_z > 4096L && this.generator.getValue((double) current_x, (double) current_z) < -0.8999999761581421D)
+                long currect_x = real_x + i;
+                long currect_z = real_Z + j;
+                if (currect_x * currect_x + currect_z * currect_z > 4096L && this.generator.getValue((double) currect_x, (double) currect_z) < -0.8999999761581421D)
                 {
-                    float lvt_14_1_ = (MathHelper.abs((float) current_z) * 3439.0F + MathHelper.abs((float) current_z) * 147.0F) % 13.0F + 9.0F;
+                    float lvt_14_1_ = (MathHelper.abs((float) currect_z) * 3439.0F + MathHelper.abs((float) currect_z) * 147.0F) % 13.0F + 9.0F;
                     float lvt_15_1_ = (float) (dop_x - i * 2);
                     float lvt_16_1_ = (float) (dop_z - j * 2);
                     float lvt_17_1_ = 100.0F - MathHelper.sqrt(lvt_15_1_ * lvt_15_1_ + lvt_16_1_ * lvt_16_1_) * lvt_14_1_;
@@ -83,7 +82,7 @@ public class NewEndBiomeProvider extends BiomeProvider
 
         return result;
     }
-
+    //*/
       
     @Override
     public List<Biome> getBiomesToSpawnIn()

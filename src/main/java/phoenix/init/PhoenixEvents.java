@@ -72,8 +72,6 @@ public class PhoenixEvents
     @SubscribeEvent
     public static void cornGen(EntityJoinWorldEvent event)
     {
-        Phoenix.LOGGER.error("joined!!!");
-
         World world = event.getWorld();
         if(!world.isRemote && world.dimension.getType() == DimensionType.THE_END && !GenSaveData.get((ServerWorld) world).isCornGenned())
         {
@@ -91,10 +89,6 @@ public class PhoenixEvents
             Phoenix.LOGGER.error("Corn genned");
             GenSaveData.get((ServerWorld) world).setCornGenned();
         }
-        else
-        {
-            Phoenix.LOGGER.error(!world.isRemote + " " + world.dimension.getType() + " " + GenSaveData.get((ServerWorld) world).isCornGenned());
-        }
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -104,6 +98,7 @@ public class PhoenixEvents
         PhoenixKeyBindings.register();
 
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.TANK.get(), RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(PhoenixBlocks.OVEN.get(), RenderType.getCutoutMipped());
 
         RenderingRegistry.registerEntityRenderingHandler(PhoenixEntities.TALPA.get(), TalpaRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(PhoenixEntities.CAUDA.get(), CaudaRenderer::new);
@@ -112,7 +107,6 @@ public class PhoenixEvents
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK.get(), TankRenderer::new);
 
         PhoenixContainers.registerScreens();
-
         // регистрация цветных блоков
         for(RegistryObject<Block> block : PhoenixBlocks.BLOCKS.getEntries())
         {
@@ -124,6 +118,17 @@ public class PhoenixEvents
                 if (colorBlock.getItemColor() != null)
                     Minecraft.getInstance().getItemColors().register(colorBlock.getItemColor(), Item.getItemFromBlock(block.get()));
             }
+        }
+    }
+
+    @OnlyIn(Dist.DEDICATED_SERVER)
+    @SubscribeEvent
+    public static void join(EntityJoinWorldEvent event)
+    {
+        if(!GenSaveData.get((ServerWorld) event.getWorld()).isCornGenned() && event.getWorld().dimension.getType() == DimensionType.THE_END)
+        {
+            GenSaveData.get((ServerWorld) event.getWorld()).setCornGenned();
+
         }
     }
 
