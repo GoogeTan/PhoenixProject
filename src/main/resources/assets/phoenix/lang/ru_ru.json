@@ -6,8 +6,6 @@
 
   "itemGroup.phoenix": "Проект Феникс",
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   "item.phoenix.high_quality_clay": "Высококачественная глина",
   "item.phoenix.diary": "Дневник",
   "item.phoenix.crucible": "Тигель",
@@ -18,10 +16,6 @@
   "item.phoenix.steel_ingot": "Слиток стали",
   "item.phoenix.zirconium_ingot": "Слиток циркония",
 
-=======
->>>>>>> parent of 2558199... add translations
-=======
->>>>>>> parent of 2558199... add translations
   "block.phoenix.fragileblock": "Хрупкий блок",
   "block.phoenix.updater": "Это \"Улучшатор\", но поидее ты не должен этого видеть...",
   "block.phoenix.fertile_end_stone": "Плодородный камень края",

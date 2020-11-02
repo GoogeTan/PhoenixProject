@@ -6,8 +6,6 @@
 
   "itemGroup.phoenix": "Project Phoenix",
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   "item.phoenix.high_quality_clay": "High quality clay",
   "item.phoenix.diary": "Diary",
   "item.phoenix.crucible": "Crucible",
@@ -18,10 +16,7 @@
   "item.phoenix.steel_ingot": "Steel ingot",
   "item.phoenix.zirconium_ingot": "Zirconium ingot",
 
-=======
->>>>>>> parent of 2558199... add translations
-=======
->>>>>>> parent of 2558199... add translations
+
   "block.phoenix.fragileblock": "Fragile Block",
   "block.phoenix.updater": "Updater",
   "block.phoenix.fertile_end_stone": "Fertile end stone",
