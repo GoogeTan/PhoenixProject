@@ -5,6 +5,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.Slot;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.ITextComponent;
@@ -78,5 +79,19 @@ public class OvenTile extends TileEntity implements ITickableTileEntity, INamedC
         if(container == null)
             container = new OvenContainer(id, playerInventory);
         return container;
+    }
+
+    @Override
+    public CompoundNBT write(CompoundNBT compound)
+    {
+        compound.putIntArray("timers", timers);
+        return super.write(compound);
+    }
+
+    @Override
+    public void read(CompoundNBT compound)
+    {
+        timers = compound.getIntArray("timers");
+        super.read(compound);
     }
 }

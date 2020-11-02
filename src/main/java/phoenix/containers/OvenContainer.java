@@ -23,20 +23,22 @@ public class OvenContainer extends Container
 
     public OvenContainer(int id, PlayerInventory playerInventoryIn)
     {
-        this(id, playerInventoryIn, new Inventory(3));
+        this(id, playerInventoryIn, new Inventory(5));
     }
 
     public OvenContainer(int id, PlayerInventory playerInventoryIn, IInventory ovenInventoryIn)
     {
         super(PhoenixContainers.OVEN.get(), id);
-        assertInventorySize(ovenInventoryIn, 3);
+        assertInventorySize(ovenInventoryIn, 5);
         this.inventory = ovenInventoryIn;
         this.world = playerInventoryIn.player.world;
         this.addSlot(new OvenCookingSlot(playerInventoryIn.player, ovenInventoryIn, 0, 60, 60));
         this.addSlot(new OvenCookingSlot(playerInventoryIn.player, ovenInventoryIn, 1, 100, 60));
         this.addSlot(new OvenCookingSlot(playerInventoryIn.player, ovenInventoryIn, 2, 60, 100));
         this.addSlot(new OvenCookingSlot(playerInventoryIn.player, ovenInventoryIn, 3, 100, 100));
+
         this.addSlot(new OvenFuelSlot(ovenInventoryIn, 4, 80, 30));
+
         for (int i = 0; i < 3; ++i)
         {
             for (int j = 0; j < 9; ++j)
