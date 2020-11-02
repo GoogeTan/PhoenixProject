@@ -1,10 +1,12 @@
 package phoenix.init;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
@@ -27,6 +29,7 @@ import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -36,17 +39,36 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
 import phoenix.Phoenix;
 import phoenix.client.render.PipeRender;
 import phoenix.client.render.TankRenderer;
 import phoenix.client.render.entity.CaudaRenderer;
 import phoenix.client.render.entity.TalpaRenderer;
 import phoenix.utils.IColoredBlock;
+import phoenix.utils.INonItem;
 import phoenix.world.GenSaveData;
 
 @Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PhoenixEvents
 {
+    @SubscribeEvent
+    public static void onRegisterItems(final RegistryEvent.Register<Item> event)
+    {
+        final IForgeRegistry<Item> registry = event.getRegistry();
+        PhoenixBlocks.BLOCKS.getEntries().stream()
+                .map(RegistryObject::get)
+                .filter(block -> !(block instanceof INonItem))
+                .filter(block -> !(block instanceof FlowingFluidBlock))
+                .forEach(block ->
+                {
+                    final Item.Properties prop = new Item.Properties().group(Phoenix.PHOENIX);
+                    final BlockItem blockItem = new BlockItem(block, prop);
+                    blockItem.setRegistryName(block.getRegistryName());
+                    registry.register(blockItem);
+                });
+    }
+
     @SubscribeEvent
     public static void cornGen(EntityJoinWorldEvent event)
     {

@@ -1,11 +1,13 @@
 package phoenix.blocks.ash;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -49,14 +51,15 @@ public class OvenBlock extends ContainerBlock
         }
         return ActionResultType.SUCCESS;
     }
-    /*
+
+
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
     {
         for (BooleanProperty bucket : buckets) builder.add(bucket);
         super.fillStateContainer(builder);
     }
-    //*/
+
 
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)

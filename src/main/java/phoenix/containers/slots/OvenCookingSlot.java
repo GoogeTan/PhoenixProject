@@ -4,13 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.tileentity.AbstractFurnaceTileEntity;
-import phoenix.Phoenix;
-import phoenix.init.PhoenixRecipes;
-import phoenix.items.ash.CrucibleItem;
 import phoenix.recipes.OvenRecipe;
-import phoenix.tile.ash.OvenTile;
 
 public class OvenCookingSlot extends Slot
 {

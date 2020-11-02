@@ -1,17 +1,11 @@
 package phoenix.init;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
 import phoenix.Phoenix;
 import phoenix.blocks.AntiAirBlock;
 import phoenix.blocks.UpdaterBlock;
@@ -20,7 +14,6 @@ import phoenix.blocks.ash.OvenBlock;
 import phoenix.blocks.ash.PotteryBarrelBlock;
 import phoenix.blocks.ash.ZirconiumOreBlock;
 import phoenix.blocks.redo.*;
-import phoenix.utils.INonItem;
 
 @Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PhoenixBlocks
@@ -39,26 +32,8 @@ public class PhoenixBlocks
     public static final RegistryObject<Block>   OVEN              = BLOCKS.register("oven",              OvenBlock           ::new);
     public static final RegistryObject<Block>   ZIRCONIUM         = BLOCKS.register("zirconium_ore",     ZirconiumOreBlock   ::new);
 
-
     public static void register()
     {
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-    }
-
-    @SubscribeEvent
-    public static void onRegisterItems(final RegistryEvent.Register<Item> event)
-    {
-        final IForgeRegistry<Item> registry = event.getRegistry();
-        PhoenixBlocks.BLOCKS.getEntries().stream()
-                .map(RegistryObject::get)
-                .filter(block -> !(block instanceof INonItem))
-                .filter(block -> !(block instanceof FlowingFluidBlock))
-                .forEach(block ->
-                {
-                    final Item.Properties prop = new Item.Properties().group(Phoenix.PHOENIX);
-                    final BlockItem blockItem = new BlockItem(block, prop);
-                    blockItem.setRegistryName(block.getRegistryName());
-                    registry.register(blockItem);
-                });
     }
 }

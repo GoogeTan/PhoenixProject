@@ -16,9 +16,9 @@ import java.util.function.Function;
 
 public class ErasedStructure extends ScatteredStructure<NoFeatureConfig>
 {
-    public ErasedStructure(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn)
+    public ErasedStructure()
     {
-        super(configFactoryIn);
+        super(NoFeatureConfig::deserialize);
     }
 
     @Override

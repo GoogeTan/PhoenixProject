@@ -18,14 +18,10 @@ public class PhoenixFeatures
 {
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Phoenix.MOD_ID);
 
-    public static final RegistryObject<Structure<NoFeatureConfig>> ERASED = FEATURES.register("erased", () -> new ErasedStructure(NoFeatureConfig::deserialize));
+    public static final RegistryObject<Structure<NoFeatureConfig>> ERASED = FEATURES.register("erased", ErasedStructure::new);
 
     public static void register()
     {
         FEATURES.register(FMLJavaModLoadingContext.get().getModEventBus());
-    }
-
-    static IStructurePieceType register(IStructurePieceType type, String key) {
-        return Registry.register(Registry.STRUCTURE_PIECE, key.toLowerCase(Locale.ROOT), type);
     }
 }

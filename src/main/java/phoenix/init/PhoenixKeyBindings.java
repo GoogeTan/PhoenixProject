@@ -5,10 +5,10 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public class PhoenixKeyBindings
 {
-    private static final String category = "The My KeyBinds for Mcmodding";
+    private static final String category = "Phoenix Project";
     public static final KeyBinding
-            MY_KEY_FIRST = new KeyBinding("key.first", 70, category),
-            MY_KEY_SECOND = new KeyBinding("key.second", 71 , category);
+            MY_KEY_FIRST = new KeyBinding("phoenix.keys.first", 70, category),
+            MY_KEY_SECOND = new KeyBinding("phoenix.keys.second", 71 , category);
 
     public static void register()
     {
