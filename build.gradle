@@ -30,7 +30,6 @@ minecraft
     {
         client
         {
-            args '--username=googletan@mail.ru', '--password=ImHentaiLover!!!'
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
