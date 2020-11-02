@@ -11,8 +11,6 @@ import phoenix.items.ItemDiary;
 import phoenix.items.ash.CrucibleItem;
 import phoenix.items.ash.HighQualityClayItem;
 
-import java.util.function.Supplier;
-
 public class PhoenixItems
 {
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Phoenix.MOD_ID);
@@ -26,16 +24,8 @@ public class PhoenixItems
     public static final RegistryObject<Item> CRUCIBLE_WITH_GOLD_ORE  = ITEMS.register("crucible_with_gold_ore", CrucibleItem::new);
     public static final RegistryObject<Item> CRUCIBLE_WITH_GOLD      = ITEMS.register("crucible_with_gold",     CrucibleItem::new);
 
-    public static final RegistryObject<Item> STEEL_INGOT             = ITEMS.register("steel_ingot",     nullItem());
-    public static final RegistryObject<Item> ZIRCONIUM_INGOT         = ITEMS.register("zirconium_ingot", nullItem());
-
     public static void register()
     {
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-    }
-
-    private static Supplier<? extends Item> nullItem()
-    {
-        return () -> new Item(new Item.Properties().group(Phoenix.PHOENIX));
     }
 }

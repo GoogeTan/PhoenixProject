@@ -35,7 +35,7 @@ public class PhoenixConfiguration
         public ForgeConfigSpec.BooleanValue GENERATE_OPTIONAL_STRUCTURES;
         public ForgeConfigSpec.IntValue     BIOME_SIZE;
     }
-    public static enum GameMode
+    public enum GameMode
     {
         normal,
         Liahim,
