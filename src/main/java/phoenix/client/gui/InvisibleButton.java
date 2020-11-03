@@ -10,7 +10,7 @@ public class InvisibleButton extends Button
     private final boolean playTurnSound;
 
     public InvisibleButton(int xIn, int yIn, int height, Button.IPressable pressable, boolean playTurnSound) {
-        super(xIn, yIn, 20, height, "", pressable);
+        super(xIn, yIn, 40, height, "", pressable);
         this.playTurnSound = playTurnSound;
     }
 

@@ -33,7 +33,7 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
     protected void init()
     {
         super.init();
-        addButton(new InvisibleButton( guiLeft - 20,   guiTop, ySize, (button) -> book.prev(), true));
+        addButton(new InvisibleButton( guiLeft - 40,   guiTop, ySize, (button) -> book.prev(), true));
         addButton(new InvisibleButton( guiLeft + xSize - 10,guiTop, ySize, (button) -> book.next(), true));
     }
 
