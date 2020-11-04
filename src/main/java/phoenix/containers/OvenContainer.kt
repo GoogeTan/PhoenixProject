@@ -7,7 +7,7 @@ import net.minecraft.inventory.container.Container
 import net.minecraft.inventory.container.ContainerType
 import net.minecraft.inventory.container.Slot
 import net.minecraft.nbt.CompoundNBT
-import net.minecraft.world.World
+import net.minecraft.world.IWorld
 import phoenix.containers.slots.OvenCookingSlot
 import phoenix.containers.slots.OvenFuelSlot
 import phoenix.utils.ISerializable
@@ -15,7 +15,7 @@ import phoenix.utils.SerializeUtils
 
 class OvenContainer(id : Int) : Container(phoenix.init.PhoenixContainers.OVEN.get(), id), ISerializable
 {
-    lateinit var world : World
+    lateinit var world : IWorld
     var inventory: Inventory = Inventory(5)
 
     constructor(id : Int, playerInventoryIn: PlayerInventory) : this(id)
@@ -33,7 +33,7 @@ class OvenContainer(id : Int) : Container(phoenix.init.PhoenixContainers.OVEN.ge
             addSlot(Slot(playerInventoryIn, k, 8 + k * 18, 227 + 4))
     }
 
-    constructor(id : Int, worldIn : World, nbt: CompoundNBT) : this(id)
+    constructor(id : Int, worldIn : IWorld, nbt: CompoundNBT) : this(id)
     {
         read(nbt)
         world = worldIn
