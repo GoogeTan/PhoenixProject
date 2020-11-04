@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.ResourceLocation;
 import phoenix.client.models.TankModel;
-import phoenix.tile.TankTile;
+import phoenix.tile.redo.TankTile;
 import phoenix.world.EndBiomedDimension;
 
 public class TankRenderer extends TileEntityRenderer<TankTile>
@@ -41,7 +41,7 @@ public class TankRenderer extends TileEntityRenderer<TankTile>
             TankModel model = new TankModel(te);
             matrixStackIn.push();
             IVertexBuilder fluid_builder = MATERIAL_FLUID.getBuffer(bufferIn, RenderType::getEntitySolid);
-            if (te.tank.getFluid().getFluid() != Fluids.WATER)
+            if (te.getTank().getFluid().getFluid() != Fluids.WATER)
             {
                 model.render(matrixStackIn, fluid_builder, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             } else

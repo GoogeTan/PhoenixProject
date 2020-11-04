@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import phoenix.tile.TankTile;
+import phoenix.tile.redo.TankTile;
 
 public class TankModel extends Model
 {

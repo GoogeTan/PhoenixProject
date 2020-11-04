@@ -25,6 +25,7 @@ import static phoenix.blocks.redo.KikinStemBlock.makeConnections;
 public class KikiNFruitBlock extends Block
 {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_0_5;
+
     public KikiNFruitBlock()
     {
         super(Block.Properties.create(Material.PLANTS, MaterialColor.BLUE_TERRACOTTA).tickRandomly().hardnessAndResistance(0.4F).sound(SoundType.WOOD).notSolid());
@@ -36,8 +37,7 @@ public class KikiNFruitBlock extends Block
         if (!this.isValidPosition(blockstate, worldIn, pos))
         {
             worldIn.destroyBlock(pos, true);
-        }
-        else
+        } else
         {
             BlockPos blockpos = pos.up(-1);
 
@@ -52,10 +52,10 @@ public class KikiNFruitBlock extends Block
                     BlockState iblockstate = worldIn.getBlockState(pos.up());
                     Block block = iblockstate.getBlock();
 
-                    if (block == PhoenixBlocks.FERTILE_END_STONE.get()) {
+                    if (block == PhoenixBlocks.FERTILE_END_STONE.get())
+                    {
                         flag = true;
-                    }
-                    else if (block == PhoenixBlocks.KIKIN_STEAM.get())
+                    } else if (block == PhoenixBlocks.KIKIN_STEAM.get())
                     {
                         int j = 1;
 
@@ -64,21 +64,22 @@ public class KikiNFruitBlock extends Block
                             Block block1 = worldIn.getBlockState(pos.up(j + 1)).getBlock();
                             if (block1 != PhoenixBlocks.KIKIN_STEAM.get())
                             {
-                                if (block1 == PhoenixBlocks.FERTILE_END_STONE.get())  hasEndStone = true;
+                                if (block1 == PhoenixBlocks.FERTILE_END_STONE.get()) hasEndStone = true;
                                 break;
                             }
                             ++j;
                         }
                         int i1 = 4;
-                        if (hasEndStone) {
+                        if (hasEndStone)
+                        {
                             ++i1;
                         }
 
-                        if (j < 2 || rand.nextInt(i1) >= j) {
+                        if (j < 2 || rand.nextInt(i1) >= j)
+                        {
                             flag = true;
                         }
-                    }
-                    else if (iblockstate.getMaterial() == Material.AIR)
+                    } else if (iblockstate.getMaterial() == Material.AIR)
                     {
                         flag = true;
                     }
@@ -87,8 +88,7 @@ public class KikiNFruitBlock extends Block
                     {
                         worldIn.setBlockState(pos, makeConnections(worldIn, PhoenixBlocks.KIKIN_STEAM.get().getDefaultState(), pos), 2);
                         this.placeGrownFlower(worldIn, blockpos, i);
-                    }
-                    else if (i < 4)
+                    } else if (i < 4)
                     {
                         int l = rand.nextInt(4);
                         boolean flag2 = false;
@@ -112,13 +112,11 @@ public class KikiNFruitBlock extends Block
                         if (flag2)
                         {
                             worldIn.setBlockState(pos, makeConnections(worldIn, PhoenixBlocks.KIKIN_STEAM.get().getDefaultState(), pos), 2);
-                        }
-                        else
+                        } else
                         {
                             this.placeDeadFlower(worldIn, pos);
                         }
-                    }
-                    else if (i == 4)
+                    } else if (i == 4)
                     {
                         this.placeDeadFlower(worldIn, pos);
                     }
@@ -128,19 +126,24 @@ public class KikiNFruitBlock extends Block
         }
     }
 
-    private void placeGrownFlower(World worldIn, BlockPos pos, int age) {
+    private void placeGrownFlower(World worldIn, BlockPos pos, int age)
+    {
         worldIn.setBlockState(pos, this.getDefaultState().with(AGE, Integer.valueOf(age)), 2);
         worldIn.playEvent(1033, pos, 0);
     }
 
-    private void placeDeadFlower(World worldIn, BlockPos pos) {
+    private void placeDeadFlower(World worldIn, BlockPos pos)
+    {
         worldIn.setBlockState(pos, this.getDefaultState().with(AGE, Integer.valueOf(5)), 2);
         worldIn.playEvent(1034, pos, 0);
     }
 
-    private static boolean areAllNeighborsEmpty(IWorldReader worldIn, BlockPos pos,    Direction excludingSide) {
-        for(Direction direction : Direction.Plane.HORIZONTAL) {
-            if (direction != excludingSide && !worldIn.isAirBlock(pos.offset(direction))) {
+    private static boolean areAllNeighborsEmpty(IWorldReader worldIn, BlockPos pos, Direction excludingSide)
+    {
+        for (Direction direction : Direction.Plane.HORIZONTAL)
+        {
+            if (direction != excludingSide && !worldIn.isAirBlock(pos.offset(direction)))
+            {
                 return false;
             }
         }
@@ -158,12 +161,11 @@ public class KikiNFruitBlock extends Block
             if (!blockstate.isAir(worldIn, pos.up()))
             {
                 return false;
-            }
-            else
+            } else
             {
                 boolean flag = false;
 
-                for(Direction direction : Direction.Plane.HORIZONTAL)
+                for (Direction direction : Direction.Plane.HORIZONTAL)
                 {
                     BlockState blockstate1 = worldIn.getBlockState(pos.offset(direction));
                     if (blockstate1.getBlock() == PhoenixBlocks.KIKIN_STEAM.get())
@@ -182,7 +184,8 @@ public class KikiNFruitBlock extends Block
 
                 return flag;
             }
-        } else {
+        } else
+        {
             return true;
         }
     }
@@ -194,13 +197,16 @@ public class KikiNFruitBlock extends Block
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
+    {
         builder.add(AGE);
     }
 
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        if (facing != Direction.DOWN && !stateIn.isValidPosition(worldIn, currentPos)) {
+    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos)
+    {
+        if (facing != Direction.DOWN && !stateIn.isValidPosition(worldIn, currentPos))
+        {
             worldIn.getPendingBlockTicks().scheduleTick(currentPos, this, 1);
         }
 

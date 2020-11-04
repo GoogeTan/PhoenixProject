@@ -5,6 +5,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.world.IWorld;
 import phoenix.containers.slots.OvenCookingSlot;
@@ -16,10 +17,11 @@ public class OvenContainer extends Container
     IWorld world;
     IInventory inventory;
 
-    public static OvenContainer fromNetwork(int id, PlayerInventory inventory)
+    public static ContainerType<OvenContainer> fromNetwork()
     {
-        return new OvenContainer(id, inventory);
+        return new ContainerType<>(OvenContainer::new);
     }
+
 
     public OvenContainer(int id, PlayerInventory playerInventoryIn)
     {

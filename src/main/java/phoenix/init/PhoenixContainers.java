@@ -13,13 +13,15 @@ import phoenix.client.gui.DiaryGui;
 import phoenix.client.gui.OvenScreen;
 import phoenix.containers.DiaryContainer;
 import phoenix.containers.OvenContainer;
+import phoenix.containers.redo.TankContainer;
 
 public class PhoenixContainers
 {
     private static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Phoenix.MOD_ID);
 
-    public static final RegistryObject<ContainerType<DiaryContainer>> GUIDE   = CONTAINERS.register("drls_diary", () -> new ContainerType<>(DiaryContainer::fromNetwork));
-    public static final RegistryObject<ContainerType<OvenContainer>>  OVEN    = CONTAINERS.register("oven",       () -> new ContainerType<>(OvenContainer::fromNetwork));
+    public static final RegistryObject<ContainerType<DiaryContainer>> GUIDE   = CONTAINERS.register("drls_diary", DiaryContainer::fromNetwork);
+    public static final RegistryObject<ContainerType<OvenContainer>>  OVEN    = CONTAINERS.register("oven",       OvenContainer::fromNetwork);
+    public static final RegistryObject<ContainerType<TankContainer>>  TANK    = CONTAINERS.register("tank",       TankContainer.Factory::fromNetwork);
 
     public static void register()
     {

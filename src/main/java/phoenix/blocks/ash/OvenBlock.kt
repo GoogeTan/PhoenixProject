@@ -24,7 +24,7 @@ class OvenBlock : ContainerBlock(Properties.create(Material.ROCK))
 
     init
     {
-        for (i in buckets.indices)
+        for (i in 0..buckets.size)
             buckets[i] = BooleanProperty.create("hasbucket$i")
         val state = stateContainer.baseState
         for (property in buckets) state.with(property, false)
