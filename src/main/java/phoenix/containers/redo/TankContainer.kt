@@ -8,7 +8,7 @@ import net.minecraft.inventory.container.ContainerType
 import phoenix.containers.slots.OvenCookingSlot
 import phoenix.init.PhoenixContainers
 
-class TankContainer(id: Int, playerInventory: PlayerInventory?) : Container(PhoenixContainers.TANK.get(), id)
+class TankContainer(id: Int) : Container(PhoenixContainers.TANK.get(), id)
 {
     var inventory = Inventory(1)
 
@@ -25,7 +25,7 @@ class TankContainer(id: Int, playerInventory: PlayerInventory?) : Container(Phoe
         @JvmStatic
         fun fromNetwork(): ContainerType<TankContainer>
         {
-            return ContainerType { id: Int, playerInventoryIn: PlayerInventory? -> TankContainer(id, playerInventoryIn) }
+            return ContainerType { id: Int, playerInventoryIn: PlayerInventory? -> TankContainer(id) }
         }
     }
 }

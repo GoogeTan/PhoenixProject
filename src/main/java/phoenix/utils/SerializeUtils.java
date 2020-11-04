@@ -4,6 +4,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
 import phoenix.containers.slots.OvenCookingSlot;
 import phoenix.containers.slots.OvenFuelSlot;
 

@@ -1,5 +1,6 @@
 package phoenix.tile.redo
 
+import net.minecraft.item.ItemStack
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntity
@@ -16,7 +17,7 @@ import phoenix.utils.block.IFluidMechanism
 
 class TankTile : TileEntity(PhoenixTiles.TANK.get()), IFluidMechanism, ITickableTileEntity
 {
-    var container: TankContainer? = null
+    private var stack = ItemStack.EMPTY;
     private var numberInGraph = 0
     var tank = FluidTank(FluidAttributes.BUCKET_VOLUME * 5)
     private val holder = LazyOptional.of<IFluidHandler> { tank }
@@ -30,14 +31,16 @@ class TankTile : TileEntity(PhoenixTiles.TANK.get()), IFluidMechanism, ITickable
     {
         super.read(tag)
         tank.readFromNBT(tag)
+        stack = ItemStack.read(tag)
         numberInGraph = tag.getInt("number_in_graph")
     }
 
     override fun write(tagIn: CompoundNBT): CompoundNBT
     {
-        var tag = tagIn
-        tag = super.write(tag)
+        var tag = super.write(tagIn)
+
         tank.writeToNBT(tag)
+        stack.write(tag)
         tag.putInt("number_in_graph", numberInGraph)
         return tag
     }

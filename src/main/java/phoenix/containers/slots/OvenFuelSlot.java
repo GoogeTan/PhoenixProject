@@ -8,8 +8,8 @@ import net.minecraftforge.common.ForgeHooks;
 
 public class OvenFuelSlot extends Slot
 {
-    public OvenFuelSlot(IInventory iInventory, int index, int x, int y) {
-        super(iInventory, index, x, y);
+    public OvenFuelSlot(IInventory inventoryIn, int index, int xPosition, int yPosition) {
+        super(inventoryIn, index, xPosition, yPosition);
     }
 
     /**

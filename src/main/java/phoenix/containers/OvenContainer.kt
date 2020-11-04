@@ -21,11 +21,11 @@ class OvenContainer(id : Int) : Container(phoenix.init.PhoenixContainers.OVEN.ge
     constructor(id : Int, playerInventoryIn: PlayerInventory) : this(id)
     {
         world = playerInventoryIn.player.world
-        addSlot(OvenCookingSlot(inventory, 0, 60, 60))
+        addSlot(OvenCookingSlot(inventory, 0, 60,  60))
         addSlot(OvenCookingSlot(inventory, 1, 100, 60))
-        addSlot(OvenCookingSlot(inventory, 2, 60, 100))
+        addSlot(OvenCookingSlot(inventory, 2, 60,  100))
         addSlot(OvenCookingSlot(inventory, 3, 100, 100))
-        addSlot(OvenFuelSlot(inventory, 4, 80, 30))
+        addSlot(OvenFuelSlot   (inventory, 4, 80,  30))
         for (i in 0..2)
             for (j in 0..8)
                 addSlot(Slot(playerInventoryIn, j + i * 9 + 9, 8 + j * 18, 173 + i * 18))
@@ -54,7 +54,8 @@ class OvenContainer(id : Int) : Container(phoenix.init.PhoenixContainers.OVEN.ge
     {
         for (i in 0 until nbt.getInt("slots_count"))
         {
-            inventorySlots[i] = SerializeUtils.deserializeSlot(nbt, inventory)
+            val current = nbt.getCompound("slot" + i)
+            inventorySlots[i] = SerializeUtils.deserializeSlot(current, inventory)
         }
     }
 

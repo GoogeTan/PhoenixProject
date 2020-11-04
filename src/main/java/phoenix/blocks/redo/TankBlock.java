@@ -2,6 +2,7 @@ package phoenix.blocks.redo;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,11 +23,12 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import org.jetbrains.annotations.Nullable;
 import phoenix.tile.redo.TankTile;
 import phoenix.utils.BlockWithTile;
 import phoenix.world.FluidGraphSaveData;
 
-public class TankBlock extends BlockWithTile
+public class TankBlock extends ContainerBlock
 {
     public TankBlock()
     {
@@ -67,5 +69,12 @@ public class TankBlock extends BlockWithTile
     {
         FluidGraphSaveData.get((ServerWorld) worldIn).addBlock(worldIn, pos, true);
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(IBlockReader worldIn)
+    {
+        return new TankTile();
     }
 }
