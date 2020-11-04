@@ -30,7 +30,7 @@ import net.minecraft.world.World;
 import phoenix.init.PhoenixItems;
 import phoenix.tile.ash.PotteryBarrelTile;
 import phoenix.utils.BlockWithTile;
-import phoenix.utils.IColoredBlock;
+import phoenix.utils.block.IColoredBlock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;

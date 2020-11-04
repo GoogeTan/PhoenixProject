@@ -21,7 +21,7 @@ public class PhoenixContainers
 
     public static final RegistryObject<ContainerType<DiaryContainer>> GUIDE   = CONTAINERS.register("drls_diary", DiaryContainer::fromNetwork);
     public static final RegistryObject<ContainerType<OvenContainer>>  OVEN    = CONTAINERS.register("oven",       OvenContainer::fromNetwork);
-    public static final RegistryObject<ContainerType<TankContainer>>  TANK    = CONTAINERS.register("tank",       TankContainer.Factory::fromNetwork);
+    public static final RegistryObject<ContainerType<TankContainer>>  TANK    = CONTAINERS.register("tank",       TankContainer::fromNetwork);
 
     public static void register()
     {
@@ -33,6 +33,6 @@ public class PhoenixContainers
     public static void registerScreens()
     {
         ScreenManager.registerFactory(GUIDE.get(), DiaryGui::new);
-        ScreenManager.registerFactory(OVEN.get(), OvenScreen::new);
+        ScreenManager.registerFactory(OVEN.get(),  OvenScreen::new);
     }
 }

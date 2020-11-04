@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import phoenix.init.PhoenixTiles;
-import phoenix.utils.IFluidMechanism;
+import phoenix.utils.block.IFluidMechanism;
 
 public class PipeTile extends TileEntity implements IFluidMechanism
 {

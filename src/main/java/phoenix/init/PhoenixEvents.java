@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -38,15 +37,14 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import phoenix.Phoenix;
 import phoenix.client.render.PipeRender;
 import phoenix.client.render.TankRenderer;
 import phoenix.client.render.entity.CaudaRenderer;
 import phoenix.client.render.entity.TalpaRenderer;
-import phoenix.utils.IColoredBlock;
-import phoenix.utils.INonItem;
+import phoenix.utils.block.IColoredBlock;
+import phoenix.utils.block.INonItem;
 import phoenix.world.GenSaveData;
 
 @Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -171,6 +169,5 @@ public class PhoenixEvents
         biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
                 Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, PhoenixBlocks.ZIRCONIUM.get().getDefaultState(), 4))
                         .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(20, 0, 0, 64))));
-
     }
 }

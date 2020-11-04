@@ -3,7 +3,7 @@ package phoenix.blocks;
 import net.minecraft.block.AirBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import phoenix.utils.INonItem;
+import phoenix.utils.block.INonItem;
 
 public class AntiAirBlock extends AirBlock implements INonItem
 {

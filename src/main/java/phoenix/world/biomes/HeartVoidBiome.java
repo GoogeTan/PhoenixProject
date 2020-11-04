@@ -8,6 +8,6 @@ public class HeartVoidBiome  extends Biome
 {
     public HeartVoidBiome()
     {
-        super(GenerationUtils.DEF.deafultSettingsForEnd(Builders.HEARTVOID, Builders.HEARTVOID_CONFIG));
+        super(GenerationUtils.deafultSettingsForEnd(Builders.HEARTVOID, Builders.HEARTVOID_CONFIG));
     }
 }

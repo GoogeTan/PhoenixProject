@@ -1,4 +1,4 @@
-package phoenix.utils;
+package phoenix.utils.block;
 
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;

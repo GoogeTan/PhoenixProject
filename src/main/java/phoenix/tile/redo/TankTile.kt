@@ -1,6 +1,7 @@
 package phoenix.tile.redo
 
 import net.minecraft.nbt.CompoundNBT
+import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.Direction
 import net.minecraftforge.common.capabilities.Capability
@@ -9,14 +10,21 @@ import net.minecraftforge.fluids.FluidAttributes
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.fluids.capability.templates.FluidTank
+import phoenix.containers.redo.TankContainer
 import phoenix.init.PhoenixTiles
-import phoenix.utils.IFluidMechanism
+import phoenix.utils.block.IFluidMechanism
 
-class TankTile : TileEntity(PhoenixTiles.TANK.get()), IFluidMechanism
+class TankTile : TileEntity(PhoenixTiles.TANK.get()), IFluidMechanism, ITickableTileEntity
 {
+    var container: TankContainer? = null
     private var numberInGraph = 0
-    public var tank = FluidTank(FluidAttributes.BUCKET_VOLUME * 5)
+    var tank = FluidTank(FluidAttributes.BUCKET_VOLUME * 5)
     private val holder = LazyOptional.of<IFluidHandler> { tank }
+
+    override fun tick()
+    {
+
+    }
 
     override fun read(tag: CompoundNBT)
     {

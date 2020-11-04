@@ -1,0 +1,91 @@
+package phoenix.containers;
+
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.inventory.container.Slot;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.IWorld;
+import phoenix.containers.slots.OvenCookingSlot;
+import phoenix.containers.slots.OvenFuelSlot;
+import phoenix.init.PhoenixContainers;
+import phoenix.utils.ISerializable;
+import phoenix.utils.SerializeUtils;
+
+public class OvenContainer extends Container implements ISerializable
+{
+    IWorld world;
+    Inventory inventory;
+
+    public static ContainerType<OvenContainer> fromNetwork()
+    {
+        return new ContainerType<>(OvenContainer::new);
+    }
+
+    public OvenContainer(int id, PlayerInventory playerInventoryIn)
+    {
+        this(id, playerInventoryIn, new Inventory(3));
+    }
+
+    public OvenContainer(int id, PlayerInventory playerInventoryIn, Inventory ovenInventoryIn)
+    {
+        super(PhoenixContainers.OVEN.get(), id);
+        assertInventorySize(ovenInventoryIn, 3);
+        this.inventory = ovenInventoryIn;
+        this.world = playerInventoryIn.player.world;
+        this.addSlot(new OvenCookingSlot(ovenInventoryIn, 0, 60, 60));
+        this.addSlot(new OvenCookingSlot(ovenInventoryIn, 1, 100, 60));
+        this.addSlot(new OvenCookingSlot(ovenInventoryIn, 2, 60, 100));
+        this.addSlot(new OvenCookingSlot(ovenInventoryIn, 3, 100, 100));
+        this.addSlot(new OvenFuelSlot   (ovenInventoryIn, 4, 80, 30));
+        for (int i = 0; i < 3; ++i)
+            for (int j = 0; j < 9; ++j)
+                this.addSlot(new Slot(playerInventoryIn, j + i * 9 + 9, 8 + j * 18, 173 + i * 18));
+
+        for (int k = 0; k < 9; ++k)
+            this.addSlot(new Slot(playerInventoryIn, k, 8 + k * 18, 227 + 4));
+
+    }
+
+    public OvenContainer(int id, CompoundNBT nbt)
+    {
+        super(PhoenixContainers.OVEN.get(), id);
+        read(nbt);
+    }
+
+    @Override
+    public boolean canInteractWith(PlayerEntity playerIn)
+    {
+        return true;
+    }
+
+
+    @Override
+    public void write(CompoundNBT nbt)
+    {
+        nbt.putInt("slots_count", inventorySlots.size());
+        for (Slot slot : inventorySlots)
+        {
+            nbt.put("slot" + slot.getSlotIndex(), SerializeUtils.serialize(slot));
+        }
+    }
+
+    @Override
+    public void read(CompoundNBT nbt)
+    {
+        for (int i = 0; i < nbt.getInt("slots_count"); i++)
+        {
+            inventorySlots.set(i, SerializeUtils.deserializeSlot(nbt, inventory));
+        }
+    }
+
+    @Override
+    public void onContainerClosed(PlayerEntity p_75134_1_)
+    {
+        super.onContainerClosed(p_75134_1_);
+    }
+
+
+}

@@ -8,12 +8,10 @@ import phoenix.world.builders.AdvansedSurfaceBuilderConfig;
 
 public class GenerationUtils<T extends ISurfaceBuilderConfig>
 {
-    public static GenerationUtils<AdvansedSurfaceBuilderConfig> ADV = new GenerationUtils<>(); // Инстанция для AdvansedSurfaceBuilderConfig
-    public static GenerationUtils<SurfaceBuilderConfig> DEF = new GenerationUtils<>();// Инстанция для SurfaceBuilderConfig
     /*
-    * Создает классический конфиг для биома в краю.
+     * Создает классический конфиг для биома в краю.
      */
-    public Biome.Builder deafultSettingsForEnd(SurfaceBuilder<T> surfaceBuilderIn, T surfaceBuilderConfigIn)
+    public static <T extends ISurfaceBuilderConfig> Biome.Builder deafultSettingsForEnd(SurfaceBuilder<T> surfaceBuilderIn, T surfaceBuilderConfigIn)
     {
         return (new Biome.Builder()).surfaceBuilder(surfaceBuilderIn, surfaceBuilderConfigIn)
                 .precipitation(Biome.RainType.NONE)

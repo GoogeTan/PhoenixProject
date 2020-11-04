@@ -14,6 +14,7 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
+import phoenix.containers.OvenContainer;
 import phoenix.init.PhoenixBlocks;
 import phoenix.utils.GenerationUtils;
 import phoenix.world.builders.Builders;
@@ -22,7 +23,7 @@ public class UnderBiome extends Biome
 {
     public UnderBiome()
     {
-        super(GenerationUtils.ADV.deafultSettingsForEnd(Builders.UNDER, Builders.UNDER_CONFIG));
+        super(GenerationUtils.deafultSettingsForEnd(Builders.UNDER, Builders.UNDER_CONFIG));
         this.addStructure(Feature.END_CITY.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
         DefaultBiomeFeatures.addEndCity(this);
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.CHORUS_PLANT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG)

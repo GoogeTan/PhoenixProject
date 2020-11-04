@@ -67,6 +67,7 @@ class OvenTile : TileEntity(PhoenixTiles.OVEN.get()), ITickableTileEntity, IName
     override fun write(compound: CompoundNBT): CompoundNBT?
     {
         compound.putIntArray("timers", timers)
+
         return super.write(compound)
     }
 

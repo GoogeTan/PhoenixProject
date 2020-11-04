@@ -8,13 +8,11 @@ import phoenix.recipes.OvenRecipe;
 
 public class OvenCookingSlot extends Slot
 {
-    private final PlayerEntity player;
     private int removeCount;
 
-    public OvenCookingSlot(PlayerEntity player, IInventory inventoryIn, int slotIndex, int xPosition, int yPosition)
+    public OvenCookingSlot(IInventory inventoryIn, int index, int xPosition, int yPosition)
     {
-        super(inventoryIn, slotIndex, xPosition, yPosition);
-        this.player = player;
+        super(inventoryIn, index, xPosition, yPosition);
     }
 
     @Override
@@ -54,9 +52,6 @@ public class OvenCookingSlot extends Slot
     @Override
     protected void onCrafting(ItemStack stack)
     {
-        stack.onCrafting(this.player.world, this.player, this.removeCount);
-
         this.removeCount = 0;
-        net.minecraftforge.fml.hooks.BasicEventHooks.firePlayerSmeltedEvent(this.player, stack);
     }
 }

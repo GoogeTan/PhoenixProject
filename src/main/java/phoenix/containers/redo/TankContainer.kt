@@ -6,6 +6,7 @@ import net.minecraft.inventory.Inventory
 import net.minecraft.inventory.container.Container
 import net.minecraft.inventory.container.ContainerType
 import phoenix.containers.slots.OvenCookingSlot
+import phoenix.init.PhoenixContainers
 
 class TankContainer(id: Int, playerInventory: PlayerInventory?) : Container(PhoenixContainers.TANK.get(), id)
 {
@@ -13,16 +14,15 @@ class TankContainer(id: Int, playerInventory: PlayerInventory?) : Container(Phoe
 
     init
     {
-        addSlot(OvenCookingSlot(playerInventory!!.player, inventory, 0, 60, 60))
+        addSlot(OvenCookingSlot(inventory, 0, 60, 60))
     }
 
-    override fun canInteractWith(playerIn: PlayerEntity): Boolean
-    {
-        return true;
-    }
+    override fun canInteractWith(playerIn: PlayerEntity): Boolean = true;
+
 
     companion object Factory
     {
+        @JvmStatic
         fun fromNetwork(): ContainerType<TankContainer>
         {
             return ContainerType { id: Int, playerInventoryIn: PlayerInventory? -> TankContainer(id, playerInventoryIn) }

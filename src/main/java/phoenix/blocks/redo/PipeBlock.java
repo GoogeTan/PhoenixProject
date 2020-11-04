@@ -20,7 +20,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import phoenix.tile.PipeTile;
 import phoenix.utils.BlockWithTile;
-import phoenix.utils.IFluidMechanism;
+import phoenix.utils.block.IFluidMechanism;
 import phoenix.world.FluidGraphSaveData;
 
 public class PipeBlock extends BlockWithTile<PipeTile>
