@@ -10,10 +10,12 @@ import phoenix.recipes.OvenRecipe;
 public class PhoenixRecipes
 {
     public static IRecipeType<OvenRecipe> OVEN;
+    public static IRecipeType<OvenRecipe> TANK;
 
     public static void register()
     {
         OVEN = register("oven_recipe");
+        TANK = register("tank_recipe");
     }
 
     static <T extends IRecipe<?>> IRecipeType<T> register(final String key)

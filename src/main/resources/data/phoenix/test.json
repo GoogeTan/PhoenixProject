@@ -1,0 +1,7 @@
+{
+  "type": "phoenix:tank_recipe",
+  "input": "minecraft:iron",
+  "result": "minecraft:diamond",
+  "experience": 0.6,
+  "cookingtime": 40
+}

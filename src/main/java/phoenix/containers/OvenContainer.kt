@@ -2,6 +2,7 @@ package phoenix.containers
 
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
+import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.Inventory
 import net.minecraft.inventory.container.Container
 import net.minecraft.inventory.container.ContainerType
@@ -10,12 +11,15 @@ import net.minecraft.nbt.CompoundNBT
 import net.minecraft.world.IWorld
 import phoenix.containers.slots.OvenCookingSlot
 import phoenix.containers.slots.OvenFuelSlot
+import phoenix.tile.ash.OvenTile
+import phoenix.utils.ArrayUtils
 import phoenix.utils.ISerializable
 import phoenix.utils.SerializeUtils
 
 class OvenContainer(id : Int) : Container(phoenix.init.PhoenixContainers.OVEN.get(), id), ISerializable
 {
     lateinit var world : IWorld
+    var tile = OvenTile()
     var inventory: Inventory = Inventory(5)
 
     constructor(id : Int, playerInventoryIn: PlayerInventory) : this(id)
@@ -33,29 +37,30 @@ class OvenContainer(id : Int) : Container(phoenix.init.PhoenixContainers.OVEN.ge
             addSlot(Slot(playerInventoryIn, k, 8 + k * 18, 227 + 4))
     }
 
-    constructor(id : Int, worldIn : IWorld, nbt: CompoundNBT) : this(id)
+    override fun onContainerClosed(playerIn : PlayerEntity)
     {
-        read(nbt)
-        world = worldIn
+        write(tile.deferredInformation)
     }
 
     override fun canInteractWith(playerIn: PlayerEntity): Boolean = true
 
-    override fun write(nbt: CompoundNBT)
+    override fun write(nbtIn: CompoundNBT)
     {
-        nbt.putInt("slots_count", inventorySlots.size)
-        for (slot in inventorySlots)
+        val nbt = CompoundNBT();
+        for (i in 0..4)
         {
-            nbt.put("slot" + slot.slotIndex, SerializeUtils.serialize(slot))
+            nbt.put("slot" + inventorySlots[i].slotIndex, SerializeUtils.serialize(inventorySlots[i]))
         }
+        nbtIn.put("container", nbt);
     }
 
-    override fun read(nbt: CompoundNBT)
+    override fun read(nbtIn: CompoundNBT)
     {
-        for (i in 0 until nbt.getInt("slots_count"))
+        val nbt = nbtIn.getCompound("container")
+        for (i in 0..4)
         {
             val current = nbt.getCompound("slot" + i)
-            inventorySlots[i] = SerializeUtils.deserializeSlot(current, inventory)
+            addSlot(SerializeUtils.deserializeSlot(current, inventory))
         }
     }
 

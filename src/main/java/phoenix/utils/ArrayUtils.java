@@ -3,6 +3,7 @@ package phoenix.utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 public class ArrayUtils
 {
@@ -32,6 +33,20 @@ public class ArrayUtils
             res.add(list.get(getIndex(list.size(), i)));
         }
         return res;
+    }
+
+    public static <T> List<T> resize(List<T> list, int newSize, T toFill)
+    {
+        if(list.size() > newSize)
+        {
+            list.subList(newSize, list.size()).clear();
+        }
+        else if(list.size() < newSize)
+        {
+            for (int i = 0; i < newSize - list.size(); ++i)
+                list.add(toFill);
+        }
+        return list;
     }
 
     public static <T> ArrayList<T> part(LinkedList<T> list, int from, int to)

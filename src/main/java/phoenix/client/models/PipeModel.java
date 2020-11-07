@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import phoenix.Phoenix;
 import phoenix.blocks.redo.PipeBlock;
 
-public class    PipeModel extends Model
+public class PipeModel extends Model
 {
     ModelRenderer base;
     ModelRenderer n;
@@ -58,9 +58,6 @@ public class    PipeModel extends Model
     @Override
     public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha)
     {
-        //TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(new ResourceLocation(Phoenix.MOD_ID, "textures/blocks/chorus_plant.png"));
-        //Minecraft.getInstance().getTextureManager().bindTexture(sprite.getAtlasTexture().getTextureLocation());
-        //Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(Phoenix.MOD_ID, "textures/blocks/chorus_plant_2.png"));
         base.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         if(state.get(PipeBlock.NORTH))  n.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         if(state.get(PipeBlock.SOUTH))  s.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);

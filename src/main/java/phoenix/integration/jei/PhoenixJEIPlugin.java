@@ -25,6 +25,8 @@ public class PhoenixJEIPlugin implements IModPlugin
 {
     @Nullable
     private OvenCategory ovenCategory;
+    @Nullable
+    private TankCategory tankCategory;
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -37,8 +39,12 @@ public class PhoenixJEIPlugin implements IModPlugin
         IJeiHelpers jeiHelpers = registration.getJeiHelpers();
         IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
         IModIdHelper modIdHelper = jeiHelpers.getModIdHelper();
+
         this.ovenCategory = new OvenCategory(guiHelper);
         registration.addRecipeCategories(ovenCategory);
+
+        this.tankCategory = new TankCategory(guiHelper);
+        registration.addRecipeCategories(tankCategory);
     }
 
     @Override
@@ -47,13 +53,17 @@ public class PhoenixJEIPlugin implements IModPlugin
         assert Minecraft.getInstance().world != null;
         RecipeManager manager = Minecraft.getInstance().world.getRecipeManager();
         // oven
-        Collection<IRecipe<IInventory>> castingBasinRecipes = manager.getRecipes(PhoenixRecipes.OVEN).values();
-        register.addRecipes(castingBasinRecipes, ovenCategory.getUid());
+        Collection<IRecipe<IInventory>> ovenRecipes = manager.getRecipes(PhoenixRecipes.OVEN).values();
+        register.addRecipes(ovenRecipes, ovenCategory.getUid());
+        // tank
+        Collection<IRecipe<IInventory>> tankRecipes = manager.getRecipes(PhoenixRecipes.TANK).values();
+        register.addRecipes(tankRecipes, tankCategory.getUid());
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration)
     {
         registration.addRecipeCatalyst(new ItemStack(PhoenixBlocks.OVEN.get()), ovenCategory.getUid());
+        registration.addRecipeCatalyst(new ItemStack(PhoenixBlocks.TANK.get()), tankCategory.getUid());
     }
 }

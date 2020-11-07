@@ -16,26 +16,18 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 
-public class OvenRecipeSerializer<T extends OvenRecipe> extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<T>
+public class OvenRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<OvenRecipe>
 {
-    private final int cookingTime;
-    private final IFactory<T> factory;
-
-    public OvenRecipeSerializer(IFactory<T> factory, int cookingTime)
-    {
-        this.cookingTime = cookingTime;
-        this.factory = factory;
-    }
+    private final int cookingTime = 100;
 
     @Nonnull
     @Override
-    public T read(ResourceLocation recipeId, JsonObject json)
+    public OvenRecipe read(ResourceLocation recipeId, JsonObject json)
     {
         String s = JSONUtils.getString(json, "group", "");
         JsonElement jsonelement = JSONUtils.isJsonArray(json, "ingredient") ? JSONUtils.getJsonArray(json, "ingredient") : JSONUtils.getJsonObject(json, "ingredient");
         Ingredient ingredient = Ingredient.deserialize(jsonelement);
-        if (!json.has("result"))
-            throw new JsonSyntaxException("Missing result, expected to find a string or object");
+        if (!json.has("result"))  throw new JsonSyntaxException("Missing result, expected to find a string or object");
         ItemStack itemstack;
         if (json.get("result").isJsonObject())
             itemstack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "result"));
@@ -47,21 +39,21 @@ public class OvenRecipeSerializer<T extends OvenRecipe> extends ForgeRegistryEnt
         }
         float exp = JSONUtils.getFloat(json, "experience", 0.0F);
         int cookingtime = JSONUtils.getInt(json, "cookingtime", this.cookingTime);
-        return this.factory.create(recipeId, s, ingredient, itemstack, exp, cookingtime);
+        return new OvenRecipe(recipeId, s, ingredient, itemstack, exp, cookingtime);
     }
 
-    public T read(ResourceLocation recipeId, PacketBuffer buffer)
+    public OvenRecipe read(ResourceLocation recipeId, PacketBuffer buffer)
     {
         String     group      = buffer.readString(32767);
         Ingredient ingredient = Ingredient.read(buffer);
         ItemStack  result     = buffer.readItemStack();
         float      exp        = buffer.readFloat();
         int        cookTime   = buffer.readVarInt();
-        cookTime = ((Object) cookingTime) == null ? 40 : cookingTime;
-        return this.factory.create(recipeId, group, ingredient, result, exp, cookTime);
+        cookTime = ((Object) cookTime) == null ? 40 : cookTime;
+        return new OvenRecipe(recipeId, group, ingredient, result, exp, cookTime);
     }
 
-    public void write(PacketBuffer buffer, T recipe)
+    public void write(PacketBuffer buffer, OvenRecipe recipe)
     {
         buffer.writeString(recipe.getGroup());
         recipe.getIngredient().write(buffer);
