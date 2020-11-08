@@ -5,15 +5,18 @@ import net.minecraft.nbt.CompoundNBT
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.Direction
+import net.minecraft.world.server.ServerWorld
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.fluids.FluidAttributes
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.fluids.capability.templates.FluidTank
-import phoenix.containers.redo.TankContainer
 import phoenix.init.PhoenixTiles
-import phoenix.utils.block.IFluidMechanism
+import phoenix.utils.GraphNode
+import phoenix.utils.pipe.FluidGraphSaveData
+import phoenix.utils.pipe.IFluidMechanism
+import java.util.*
 
 class TankTile : TileEntity(PhoenixTiles.TANK.get()), IFluidMechanism, ITickableTileEntity
 {
@@ -21,10 +24,51 @@ class TankTile : TileEntity(PhoenixTiles.TANK.get()), IFluidMechanism, ITickable
     private var numberInGraph = 0
     var tank = FluidTank(FluidAttributes.BUCKET_VOLUME * 5)
     private val holder = LazyOptional.of<IFluidHandler> { tank }
+    private var inputs  : ArrayList<GraphNode>? = null
+    private var outputs : ArrayList<GraphNode>? = null
 
     override fun tick()
     {
+        if(!(world!!.isRemote()) && world != null)
+        {
+            try
+            {
+                if (inputs == null || outputs == null)
+                {
+                    val res = FluidGraphSaveData.get(world as ServerWorld?).findConnectedMechanisms(numberInGraph)
+                    inputs = res.first
+                    outputs = res.second
+                }
+                for (current in outputs!!)
+                {
+                    val tile: TileEntity? = world?.getTileEntity(current.pos);
+                    if (tile is IFluidMechanism)
+                    {
+                        val mechanism: IFluidMechanism = tile;
+                        val currentTank = mechanism.input;
+                        if (currentTank.fluidAmount < currentTank.capacity && currentTank.isFluidValid(tank.fluid) && currentTank.fluidAmount < tank.fluidAmount)
+                        {
+                            currentTank.fill(tank.fluid, IFluidHandler.FluidAction.EXECUTE)
+                        }
+                    }
+                }
+            }
+            catch (e: Exception)
+            {
+                e.printStackTrace()
+            }
+        }
+    }
 
+    override fun toString(): String
+    {
+        var s = "TankTile{ stack= ";
+        s += stack;
+        s += " number in graph = "
+        s += numberInGraph
+        s += " tank = "
+        s += tank
+        return s
     }
 
     override fun read(tag: CompoundNBT)
@@ -37,7 +81,7 @@ class TankTile : TileEntity(PhoenixTiles.TANK.get()), IFluidMechanism, ITickable
 
     override fun write(tagIn: CompoundNBT): CompoundNBT
     {
-        var tag = super.write(tagIn)
+        val tag = super.write(tagIn)
 
         tank.writeToNBT(tag)
         stack.write(tag)

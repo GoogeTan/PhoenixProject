@@ -1,26 +1,31 @@
-package phoenix.world;
+package phoenix.utils.pipe;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.WorldSavedData;
-import phoenix.Phoenix;
-import phoenix.utils.ArrayUtils;
-import phoenix.utils.block.IFluidMechanism;
+import phoenix.utils.GraphNode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class FluidGraphSaveData extends WorldSavedData
 {
     private static final String DATA_NAME = "phoenix_fluid";
-    private ArrayList<HashSet<Integer>> graph = new ArrayList();
-    private ArrayList<Pair<Boolean, BlockPos>> in_out_puts = new ArrayList();
+    /*
+     *Contains graph elements.
+     */
+    protected ArrayList<GraphNode> elements = new ArrayList();
+    /*
+     *Contains graph element neighbors.
+     */
+    protected ArrayList<HashSet<Integer>> graph = new ArrayList();
+
 
     private CompoundNBT data;
 
@@ -40,12 +45,12 @@ public class FluidGraphSaveData extends WorldSavedData
         updateData();
     }
 
-    public void addBlock(IWorld world, BlockPos pos, boolean is_inout_put)
+    public void addBlock(IWorld world, BlockPos pos, boolean isInput, boolean isOutput)
     {
         IFluidMechanism tile = ((IFluidMechanism)world.getTileEntity(pos));
         tile.setNumberInGraph(graph.size());
         graph.add(new HashSet<>());
-        in_out_puts.add(Pair.of(is_inout_put, (is_inout_put ? pos : null)));
+        elements.add(new GraphNode(pos, 0, isInput, isOutput));
         for (Direction dir: Direction.values())
         {
             if(world.getTileEntity(pos.offset(dir)) instanceof IFluidMechanism)
@@ -54,31 +59,38 @@ public class FluidGraphSaveData extends WorldSavedData
                 graph.get(((IFluidMechanism) world.getTileEntity(pos.offset(dir))).getNumberInGraph()).add(tile.getNumberInGraph());
             }
         }
-        Phoenix.LOGGER.error(graph.size());
     }
 
-    private ArrayList<Integer> colorTmp = new ArrayList<>();
-    private ArrayList<BlockPos> tmp = new ArrayList<>();
+    private Integer[] colorTmp;
+    private final ArrayList<GraphNode> outputsTmp = new ArrayList<>();
+    private final ArrayList<GraphNode> inputsTmp = new ArrayList<>();
 
-    public ArrayList<BlockPos> getInputs(int numberInGraph)
+    public Pair<ArrayList<GraphNode>, ArrayList<GraphNode>> findConnectedMechanisms(int numberInGraph)
     {
-        tmp.clear();
-        colorTmp.clear();
-        ArrayUtils.resize(colorTmp, graph.size(), 0);
-        bfs(numberInGraph, 0, 25);
-        return tmp;
+        outputsTmp.clear();
+        inputsTmp.clear();
+        colorTmp = new Integer[graph.size()];
+        Arrays.fill(colorTmp, 0);
+        findMechanisms(numberInGraph, 0, 25, new ArrayList<>());
+        return Pair.of((ArrayList<GraphNode>) inputsTmp.clone(), (ArrayList<GraphNode>) outputsTmp.clone());
     }
 
-    private void bfs(int v, int color, int maxColor)
+    /*
+     * It is simply BFS
+     */
+    private void findMechanisms(int v, int color, int maxColor, ArrayList<Integer> path)
     {
-        colorTmp.set(v, color);
-        if(in_out_puts.get(v).getFirst())
-        {
-            tmp.add(in_out_puts.get(v).getSecond());
-        }
+        path.add(v);
+        colorTmp[v] = color;
+        if(elements.get(v).isOutput)
+            outputsTmp.add(new GraphNode(elements.get(v).pos, color, path, elements.get(v).isInput, elements.get(v).isOutput));
+        if(elements.get(v).isInput)
+             inputsTmp.add(new GraphNode(elements.get(v).pos, color, path, elements.get(v).isInput, elements.get(v).isOutput));
+
         if(color < maxColor)
             for (int i : graph.get(v))
-                bfs(i, color + 1, maxColor);
+                if(colorTmp[i] != 0)
+                    findMechanisms(i, color + 1, maxColor, path);
     }
 
     @Override

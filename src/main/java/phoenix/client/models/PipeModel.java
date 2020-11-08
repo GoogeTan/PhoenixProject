@@ -23,7 +23,7 @@ public class PipeModel extends Model
     BlockState state;
     public PipeModel(BlockState stateIn)
     {
-        super((resourceLocation) -> RenderType.getEntityCutoutNoCull( new ResourceLocation(Phoenix.MOD_ID, "textures/blocks/chorus_plant_2.png")));
+        super((resourceLocation) -> RenderType.getEntityCutoutNoCull(new ResourceLocation("block/chorus_plant")));
         textureHeight = 32;
         textureWidth  = 64;
         state = stateIn;

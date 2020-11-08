@@ -67,7 +67,7 @@ public class OrbitPointGoal extends ThreeDimensionsMovingGoal
             this.func_203148_i();
         }
 
-        if (this.func_203146_f())
+        if (this.isNear())
         {
             this.func_203148_i();
         }

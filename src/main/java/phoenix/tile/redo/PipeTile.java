@@ -3,11 +3,10 @@ package phoenix.tile.redo;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import phoenix.init.PhoenixTiles;
-import phoenix.utils.block.IFluidMechanism;
+import phoenix.utils.pipe.IFluidMechanism;
 
 public class PipeTile extends TileEntity implements IFluidMechanism
 {

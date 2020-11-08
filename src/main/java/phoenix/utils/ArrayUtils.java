@@ -43,7 +43,7 @@ public class ArrayUtils
         }
         else if(list.size() < newSize)
         {
-            for (int i = 0; i < newSize - list.size(); ++i)
+            for (int i = list.size(); i < newSize; ++i)
                 list.add(toFill);
         }
         return list;

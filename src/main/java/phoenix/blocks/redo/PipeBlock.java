@@ -21,13 +21,11 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import phoenix.Phoenix;
 import phoenix.tile.redo.PipeTile;
 import phoenix.utils.BlockWithTile;
-import phoenix.utils.block.IFluidMechanism;
-import phoenix.world.FluidGraphSaveData;
+import phoenix.utils.pipe.IFluidMechanism;
+import phoenix.utils.pipe.FluidGraphSaveData;
 
 public class PipeBlock extends BlockWithTile<PipeTile>
 {
@@ -122,7 +120,7 @@ public class PipeBlock extends BlockWithTile<PipeTile>
     {
         if(!worldIn.isRemote)
         {
-            FluidGraphSaveData.get((ServerWorld) worldIn).addBlock(worldIn, pos, false);
+            FluidGraphSaveData.get((ServerWorld) worldIn).addBlock(worldIn, pos, false, false);
             Phoenix.LOGGER.error(FluidGraphSaveData.get((ServerWorld) worldIn));
         }
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);

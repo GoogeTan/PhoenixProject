@@ -25,8 +25,7 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 import phoenix.tile.redo.TankTile;
-import phoenix.utils.BlockWithTile;
-import phoenix.world.FluidGraphSaveData;
+import phoenix.utils.pipe.FluidGraphSaveData;
 
 public class TankBlock extends ContainerBlock
 {
@@ -63,11 +62,11 @@ public class TankBlock extends ContainerBlock
         return new TankTile();
     }
 
-    @OnlyIn(Dist.DEDICATED_SERVER)
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state,    LivingEntity placer, ItemStack stack)
     {
-        FluidGraphSaveData.get((ServerWorld) worldIn).addBlock(worldIn, pos, true);
+        if(!worldIn.isRemote)
+            FluidGraphSaveData.get((ServerWorld) worldIn).addBlock(worldIn, pos, true, true);
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
 
