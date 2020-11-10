@@ -1,7 +1,13 @@
 package phoenix.tile.ash;
 
+import net.minecraft.block.Block;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.registries.RegistryManager;
+import phoenix.blocks.ash.PotteryBarrelBlock;
 import phoenix.init.PhoenixTiles;
 
 public class PotteryBarrelTile extends TileEntity
@@ -22,14 +28,17 @@ public class PotteryBarrelTile extends TileEntity
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {
+
         compound.putInt("jumpscount", jumpsCount);
         return super.write(compound);
     }
+
     public void incrementJumpsCount()
     {
         jumpsCount++;
-        jumpsCount = Math.min(jumpsCount, 1000);
+        jumpsCount = Math.min(jumpsCount, 200);
     }
+
     public void nullifyJumpsCount()
     {
         jumpsCount = 0;

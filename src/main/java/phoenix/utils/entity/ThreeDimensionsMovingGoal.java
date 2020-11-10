@@ -14,7 +14,7 @@ public abstract class ThreeDimensionsMovingGoal extends Goal
         entity = entityIn;
     }
 
-    protected boolean func_203146_f()
+    protected boolean isNear()
     {
         return entity.orbitOffset.squareDistanceTo(entity.getPosX(), entity.getPosY(), entity.getPosZ()) < 4.0D;
     }

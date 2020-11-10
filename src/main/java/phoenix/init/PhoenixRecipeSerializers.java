@@ -8,12 +8,15 @@ import net.minecraftforge.registries.ForgeRegistries;
 import phoenix.Phoenix;
 import phoenix.recipes.OvenRecipe;
 import phoenix.recipes.OvenRecipeSerializer;
+import phoenix.recipes.tank.TankRecipe;
+import phoenix.recipes.tank.TankRecipeSerializer;
 
 public class PhoenixRecipeSerializers
 {
     private static final DeferredRegister<IRecipeSerializer<?>> RS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Phoenix.MOD_ID);
 
-    public static final RegistryObject<OvenRecipeSerializer<OvenRecipe>> OVEN = RS.register("oven_recipe", () -> new OvenRecipeSerializer<>(OvenRecipe::new, 100));
+    public static final RegistryObject<OvenRecipeSerializer> OVEN = RS.register("oven_recipe", OvenRecipeSerializer::new);
+    public static final RegistryObject<TankRecipeSerializer> TANK = RS.register("tank_recipe", TankRecipeSerializer::new);
 
     public static void register()
     {

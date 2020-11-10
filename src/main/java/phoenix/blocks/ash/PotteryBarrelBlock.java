@@ -113,7 +113,7 @@ public class PotteryBarrelBlock extends BlockWithTile<PotteryBarrelTile> impleme
                 if (stateInt >= 0 && !worldIn.isRemote)
                 {
                     itemstack.shrink(1);
-                    double quality = Math.sqrt(countOfJumps) / Math.sqrt(1000);
+                    double quality = Math.sqrt(countOfJumps) / Math.sqrt(200);
                     if (itemstack.isEmpty())
                     {
                         if (stateInt >= 2)

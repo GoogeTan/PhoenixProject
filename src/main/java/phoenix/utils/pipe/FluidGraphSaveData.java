@@ -1,4 +1,4 @@
-package phoenix.world;
+package phoenix.utils.pipe;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
@@ -8,16 +8,24 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.WorldSavedData;
-import phoenix.utils.block.IFluidMechanism;
+import phoenix.utils.GraphNode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class FluidGraphSaveData extends WorldSavedData
 {
     private static final String DATA_NAME = "phoenix_fluid";
-    private ArrayList<HashSet<Integer>> graph = new ArrayList();
-    private ArrayList<Pair<Boolean, BlockPos>> inout_puts = new ArrayList();
+    /*
+     *Contains graph elements.
+     */
+    protected ArrayList<GraphNode> elements = new ArrayList();
+    /*
+     *Contains graph element neighbors.
+     */
+    protected ArrayList<HashSet<Integer>> graph = new ArrayList();
+
 
     private CompoundNBT data;
 
@@ -37,11 +45,12 @@ public class FluidGraphSaveData extends WorldSavedData
         updateData();
     }
 
-    public void addBlock(IWorld world, BlockPos pos, boolean is_inout_put)
+    public void addBlock(IWorld world, BlockPos pos, boolean isInput, boolean isOutput)
     {
         IFluidMechanism tile = ((IFluidMechanism)world.getTileEntity(pos));
         tile.setNumberInGraph(graph.size());
-        inout_puts.add(Pair.of(is_inout_put, (is_inout_put ? pos : null)));
+        graph.add(new HashSet<>());
+        elements.add(new GraphNode(pos, 0, isInput, isOutput));
         for (Direction dir: Direction.values())
         {
             if(world.getTileEntity(pos.offset(dir)) instanceof IFluidMechanism)
@@ -52,7 +61,37 @@ public class FluidGraphSaveData extends WorldSavedData
         }
     }
 
+    private Integer[] colorTmp;
+    private final ArrayList<GraphNode> outputsTmp = new ArrayList<>();
+    private final ArrayList<GraphNode> inputsTmp = new ArrayList<>();
 
+    public Pair<ArrayList<GraphNode>, ArrayList<GraphNode>> findConnectedMechanisms(int numberInGraph)
+    {
+        outputsTmp.clear();
+        inputsTmp.clear();
+        colorTmp = new Integer[graph.size()];
+        Arrays.fill(colorTmp, 0);
+        findMechanisms(numberInGraph, 0, 25, new ArrayList<>());
+        return Pair.of((ArrayList<GraphNode>) inputsTmp.clone(), (ArrayList<GraphNode>) outputsTmp.clone());
+    }
+
+    /*
+     * It is simply BFS
+     */
+    private void findMechanisms(int v, int color, int maxColor, ArrayList<Integer> path)
+    {
+        path.add(v);
+        colorTmp[v] = color;
+        if(elements.get(v).isOutput)
+            outputsTmp.add(new GraphNode(elements.get(v).pos, color, path, elements.get(v).isInput, elements.get(v).isOutput));
+        if(elements.get(v).isInput)
+             inputsTmp.add(new GraphNode(elements.get(v).pos, color, path, elements.get(v).isInput, elements.get(v).isOutput));
+
+        if(color < maxColor)
+            for (int i : graph.get(v))
+                if(colorTmp[i] != 0)
+                    findMechanisms(i, color + 1, maxColor, path);
+    }
 
     @Override
     public void read(CompoundNBT nbt)
@@ -78,13 +117,30 @@ public class FluidGraphSaveData extends WorldSavedData
         }
     }
 
-      
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {
         updateData();
         compound.put("graph", data);
         return compound;
+    }
+
+    @Override
+    public String toString()
+    {
+        String res = "Fluid graph: \n";
+        for (int i = 0; i < graph.size(); ++i)
+        {
+            res += i;
+            res += ": ";
+            for (int j : graph.get(i))
+            {
+                res += j;
+                res += " ";
+            }
+            res += "\n";
+        }
+        return res;
     }
 
     public void updateData()

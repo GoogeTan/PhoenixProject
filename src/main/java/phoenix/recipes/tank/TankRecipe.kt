@@ -10,26 +10,24 @@ import net.minecraft.util.ResourceLocation
 import phoenix.init.PhoenixRecipeSerializers
 import phoenix.init.PhoenixRecipes
 
-class TankRecipe(id: ResourceLocation?, group: String?, ingr: Ingredient, result: ItemStack?, exp: Float, cookTime: Int)
-    : AbstractCookingRecipe(PhoenixRecipes.OVEN, id, group, ingr, result, exp, cookTime)
+class TankRecipe(id: ResourceLocation?, group: String?, inputIn: ItemStack, result: ItemStack?, exp: Float, cookTime: Int)
+    : AbstractCookingRecipe(PhoenixRecipes.OVEN, id, group, Ingredient.fromStacks(inputIn), result, exp, cookTime)
 {
-    val inputs: MutableSet<Item> = HashSet()
-    val recipes_from_inputs = HashMap<Item, TankRecipe>()
+    private var input : ItemStack = inputIn
+    private val inputs = HashSet<Item>()
+    private val recipesFromInputs = HashMap<Item, TankRecipe>()
 
     init
     {
-        for (stack in ingr.matchingStacks)
-        {
-            inputs.add(stack.item)
-            recipes_from_inputs[stack.item] = this
-        }
+        inputs.add(inputIn.item)
+        recipesFromInputs[inputIn.item] = this
+
     }
 
-    override fun getSerializer(): IRecipeSerializer<*>? = PhoenixRecipeSerializers.OVEN.get()
+    override fun getSerializer(): IRecipeSerializer<*>? = PhoenixRecipeSerializers.TANK.get()
     fun getIngredient(): Ingredient = ingredient
     fun getResult(): ItemStack = result
-
-    fun getInputs (): List<List<ItemStack>?>? = ImmutableList.of(ImmutableList.copyOf(getIngredient().matchingStacks))
-    fun getOutputs(): List<List<ItemStack>?>? = ImmutableList.of(ImmutableList.of(getResult()))
-
+    fun getInput(): ItemStack = input
+    fun getInputs (): List<List<ItemStack>> = ImmutableList.of(ImmutableList.copyOf(getIngredient().matchingStacks))
+    fun getOutputs(): List<List<ItemStack>> = ImmutableList.of(ImmutableList.of(getResult()))
 }

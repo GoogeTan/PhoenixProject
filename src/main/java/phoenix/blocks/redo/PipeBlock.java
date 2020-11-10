@@ -5,33 +5,38 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import phoenix.tile.PipeTile;
+import phoenix.Phoenix;
+import phoenix.tile.redo.PipeTile;
 import phoenix.utils.BlockWithTile;
-import phoenix.utils.block.IFluidMechanism;
-import phoenix.world.FluidGraphSaveData;
+import phoenix.utils.pipe.IFluidMechanism;
+import phoenix.utils.pipe.FluidGraphSaveData;
 
 public class PipeBlock extends BlockWithTile<PipeTile>
 {
-    public static final BooleanProperty UP = BooleanProperty.create("up");
-    public static final BooleanProperty DOWN = BooleanProperty.create("down");
+    public static final BooleanProperty UP    = BooleanProperty.create("up");
+    public static final BooleanProperty DOWN  = BooleanProperty.create("down");
     public static final BooleanProperty NORTH = BooleanProperty.create("north");
-    public static final BooleanProperty EAST = BooleanProperty.create("east");
+    public static final BooleanProperty EAST  = BooleanProperty.create("east");
     public static final BooleanProperty SOUTH = BooleanProperty.create("south");
-    public static final BooleanProperty WEST = BooleanProperty.create("west");
-    protected static final VoxelShape NORMAL = Block.makeCuboidShape(4.0D, 4.0D, 4.0D, 12.0D, 12.0D, 12.0D);
+    public static final BooleanProperty WEST  = BooleanProperty.create("west");
+
+    protected static final VoxelShape NORMAL  = Block.makeCuboidShape(4.0D, 4.0D, 4.0D, 12.0D, 12.0D, 12.0D);
 
     public PipeBlock()
     {
@@ -43,6 +48,13 @@ public class PipeBlock extends BlockWithTile<PipeTile>
                 .with(WEST,  Boolean.valueOf(false))
                 .with(UP,    Boolean.valueOf(false))
                 .with(DOWN,  Boolean.valueOf(false)));
+    }
+
+    @Override
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+    {
+        player.sendStatusMessage(new StringTextComponent(" " + ((IFluidMechanism)worldIn.getTileEntity(pos)).getNumberInGraph()), false);
+        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
 
     @Override
@@ -103,11 +115,14 @@ public class PipeBlock extends BlockWithTile<PipeTile>
         return NORMAL;
     }
 
-    @OnlyIn(Dist.DEDICATED_SERVER)
     @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state,    LivingEntity placer, ItemStack stack)
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
     {
-        FluidGraphSaveData.get((ServerWorld) worldIn).addBlock(worldIn, pos, false);
+        if(!worldIn.isRemote)
+        {
+            FluidGraphSaveData.get((ServerWorld) worldIn).addBlock(worldIn, pos, false, false);
+            Phoenix.LOGGER.error(FluidGraphSaveData.get((ServerWorld) worldIn));
+        }
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
 }

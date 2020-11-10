@@ -12,7 +12,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import phoenix.enity.tasks.*;
-import phoenix.init.PhoenixEntities;
 import phoenix.utils.entity.AbstractFlyingEntity;
 import phoenix.utils.entity.ThreeDimensionsLookHelperController;
 import phoenix.utils.entity.ThreeDimensionsMoveHelperController;
@@ -30,33 +29,14 @@ public class CaudaEntity extends AbstractFlyingEntity
         this.lookController = new ThreeDimensionsLookHelperController(this);
     }
 
-    public static CaudaEntity create(World worldIn)
-    {
-        return new CaudaEntity(PhoenixEntities.CAUDA.get(), worldIn);
-    }
-
-    public static CaudaEntity create(World worldIn, BlockPos pos)
-    {
-        CaudaEntity entity = new CaudaEntity(PhoenixEntities.CAUDA.get(), worldIn);
-        entity.setPosition(pos.getX(), pos.getY(), pos.getZ());
-        return entity;
-    }
-
-    public static CaudaEntity create(World worldIn, float x, float y, float z)
-    {
-        CaudaEntity entity = new CaudaEntity(PhoenixEntities.CAUDA.get(), worldIn);
-        entity.setPosition(x, y, z);
-        return entity;
-    }
-
     @Override
     protected void registerGoals()
     {
-        this.goalSelector.addGoal  (1, new PickAttackGoal  (this));
-        this.goalSelector.addGoal  (2, new SweepAttackGoal (this));
-        this.goalSelector.addGoal  (3, new EatingChorusGoal(this));
-        this.goalSelector.addGoal  (4, new OrbitPointGoal  (this));
-        this.targetSelector.addGoal(1, new AttackPlayerGoal(this));
+        //this.goalSelector.addGoal  (1, new PickAttackGoal(this));
+        //this.goalSelector.addGoal  (2, new SweepAttackGoal(this));
+        this.goalSelector.addGoal  (1, new OrbitPoint2Goal(this));
+        //this.goalSelector.addGoal  (2, new OrbitPointGoal(this));
+        //this.targetSelector.addGoal(1, new AttackPlayerGoal(this));
     }
 
     @Override
@@ -123,11 +103,18 @@ public class CaudaEntity extends AbstractFlyingEntity
         super.tick();
         if (this.world.isRemote)
         {
-            float currect  = MathHelper.cos((float) (this.getEntityId() * 3 + this.ticksExisted) * 0.13F + (float) Math.PI);
+            float current = MathHelper.cos((float) (this.getEntityId() * 3 + this.ticksExisted) * 0.13F + (float) Math.PI);
             float next = MathHelper.cos((float) (this.getEntityId() * 3 + this.ticksExisted + 1) * 0.13F + (float) Math.PI);
-            if (currect > 0.0F && next <= 0.0F)
+            if (current > 0.0F && next <= 0.0F)
             {
                 this.world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ENTITY_PHANTOM_FLAP, this.getSoundCategory(), 0.95F + this.rand.nextFloat() * 0.05F, 0.95F + this.rand.nextFloat() * 0.05F, false);
+            }
+        }
+        else
+        {
+            if(orbitPosition == null || orbitPosition == BlockPos.ZERO)
+            {
+                orbitPosition = getPosition();
             }
         }
     }

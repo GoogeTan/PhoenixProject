@@ -15,6 +15,7 @@ import phoenix.recipes.OvenRecipe
 
 class OvenTile : TileEntity(PhoenixTiles.OVEN.get()), ITickableTileEntity, INamedContainerProvider
 {
+    var deferredInformation = CompoundNBT()
     var timers = IntArray(4)
     var container: OvenContainer? = null
 
@@ -54,7 +55,15 @@ class OvenTile : TileEntity(PhoenixTiles.OVEN.get()), ITickableTileEntity, IName
 
     override fun createMenu(id: Int, playerInventory: PlayerInventory, playerEntity: PlayerEntity): Container?
     {
-        if (container == null) container = OvenContainer(id, playerInventory)
+        if (container == null)
+        {
+            container = OvenContainer(id, playerInventory)
+            if(deferredInformation.contains("container"))
+            {
+                container?.read(deferredInformation)
+            }
+        }
+        container?.tile = this
         return container
     }
 
@@ -63,17 +72,20 @@ class OvenTile : TileEntity(PhoenixTiles.OVEN.get()), ITickableTileEntity, IName
         return StringTextComponent("Oven")
     }
 
-
     override fun write(compound: CompoundNBT): CompoundNBT?
     {
         compound.putIntArray("timers", timers)
-
+        if(container != null)
+            (container)?.write(compound);
         return super.write(compound)
     }
 
     override fun read(compound: CompoundNBT)
     {
         timers = compound.getIntArray("timers")
+        if(compound.contains("container"))
+            deferredInformation.put("container", compound.get("container"))
+
         super.read(compound)
     }
 }
