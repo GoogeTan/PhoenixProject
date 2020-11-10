@@ -11,7 +11,6 @@ import net.minecraftforge.fluids.FluidAttributes
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.fluids.capability.templates.FluidTank
-import phoenix.containers.redo.TankContainer
 import phoenix.init.PhoenixTiles
 import phoenix.utils.block.IFluidMechanism
 

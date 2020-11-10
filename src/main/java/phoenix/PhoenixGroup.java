@@ -16,7 +16,7 @@ public class PhoenixGroup extends ItemGroup
     @Override
     public ItemStack createIcon()
     {
-        return  new ItemStack(Item.getItemFromBlock(Blocks.END_PORTAL_FRAME));
+        return new ItemStack(Item.getItemFromBlock(Blocks.END_PORTAL_FRAME));
     }
 
     @Override

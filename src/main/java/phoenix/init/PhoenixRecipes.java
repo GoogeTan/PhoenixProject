@@ -4,7 +4,6 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import phoenix.Phoenix;
 import phoenix.recipes.OvenRecipe;
 
 public class PhoenixRecipes

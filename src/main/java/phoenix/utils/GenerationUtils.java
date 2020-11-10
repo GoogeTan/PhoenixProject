@@ -3,8 +3,6 @@ package phoenix.utils;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.surfacebuilders.ISurfaceBuilderConfig;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
-import phoenix.world.builders.AdvansedSurfaceBuilderConfig;
 
 public class GenerationUtils<T extends ISurfaceBuilderConfig>
 {
