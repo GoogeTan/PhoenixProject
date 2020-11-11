@@ -1,7 +1,6 @@
 package phoenix.recipes;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.AbstractCookingRecipe;
@@ -11,7 +10,10 @@ import net.minecraft.util.ResourceLocation;
 import phoenix.init.PhoenixRecipeSerializers;
 import phoenix.init.PhoenixRecipes;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class OvenRecipe extends AbstractCookingRecipe
 {

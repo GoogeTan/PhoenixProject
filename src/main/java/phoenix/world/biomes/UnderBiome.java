@@ -14,7 +14,6 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
-import phoenix.containers.OvenContainer;
 import phoenix.init.PhoenixBlocks;
 import phoenix.utils.GenerationUtils;
 import phoenix.world.builders.Builders;
@@ -42,7 +41,8 @@ public class UnderBiome extends Biome
             if (worldIn.getBlockState(position.up()).getBlock() == PhoenixBlocks.FERTILE_END_STONE.get())
             {
                 worldIn.setBlockState(position, PhoenixBlocks.KIKIN_FRUIT.get().getDefaultState(), 2);
-            } else if (worldIn.getBlockState(position).getBlock() == PhoenixBlocks.FERTILE_END_STONE.get())
+            }
+            else if (worldIn.getBlockState(position).getBlock() == PhoenixBlocks.FERTILE_END_STONE.get())
             {
                 worldIn.setBlockState(position.down(), PhoenixBlocks.KIKIN_FRUIT.get().getDefaultState(), 2);
             }

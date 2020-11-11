@@ -5,6 +5,7 @@ import net.minecraft.block.ContainerBlock
 import net.minecraft.block.material.Material
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.container.INamedContainerProvider
+import net.minecraft.state.BooleanProperty
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.ActionResultType
 import net.minecraft.util.Hand
@@ -30,14 +31,8 @@ class OvenBlock : ContainerBlock(Properties.create(Material.ROCK).notSolid())
         return ActionResultType.SUCCESS
     }
 
-    override fun createTileEntity(state: BlockState?, world: IBlockReader?): TileEntity?
-    {
-        return OvenTile()
-    }
 
+    override fun createTileEntity(state: BlockState?, world: IBlockReader?): TileEntity? = OvenTile()
     @ParametersAreNonnullByDefault
-    override fun createNewTileEntity(worldIn: IBlockReader?): TileEntity?
-    {
-        return OvenTile()
-    }
+    override fun createNewTileEntity(worldIn: IBlockReader?): TileEntity? = OvenTile()
 }

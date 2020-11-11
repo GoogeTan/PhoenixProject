@@ -119,17 +119,6 @@ public class PhoenixEvents
         }
     }
 
-    @OnlyIn(Dist.DEDICATED_SERVER)
-    @SubscribeEvent
-    public static void join(EntityJoinWorldEvent event)
-    {
-        if(!GenSaveData.get((ServerWorld) event.getWorld()).isCornGenned() && event.getWorld().dimension.getType() == DimensionType.THE_END)
-        {
-            GenSaveData.get((ServerWorld) event.getWorld()).setCornGenned();
-
-        }
-    }
-
     @SubscribeEvent
     public static void init(FMLCommonSetupEvent event)
     {
@@ -144,7 +133,7 @@ public class PhoenixEvents
         PhoenixBiomes.HEARTVOID.get().addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(PhoenixEntities.TALPA.get(), 15, 1, 4));
 
         addStructure(Biomes.END_HIGHLANDS, PhoenixFeatures.ERASED.get());
-
+        addStructure(Biomes.END_HIGHLANDS, PhoenixFeatures.CORN.get());
 
         for (Biome biome : Registry.BIOME)
         {
@@ -156,7 +145,7 @@ public class PhoenixEvents
         }
     }
 
-    public static void addStructure(   Biome biome,    Structure structure)
+    public static void addStructure(Biome biome, Structure structure)
     {
         biome.addStructure(structure.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
         biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, structure.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG)

@@ -1,4 +1,4 @@
-package phoenix.world.structures;
+package phoenix.world.structures.corn;
 
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -11,9 +11,9 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
-public class ErasedStructure extends ScatteredStructure<NoFeatureConfig>
+public class CornStructure extends ScatteredStructure<NoFeatureConfig>
 {
-    public ErasedStructure()
+    public CornStructure()
     {
         super(NoFeatureConfig::deserialize);
     }
@@ -21,7 +21,7 @@ public class ErasedStructure extends ScatteredStructure<NoFeatureConfig>
     @Override
     public String getStructureName()
     {
-        return "erasedcity";
+        return "corn";
     }
 
     @Override
@@ -31,10 +31,7 @@ public class ErasedStructure extends ScatteredStructure<NoFeatureConfig>
     }
 
     @Override
-    public Structure.IStartFactory getStartFactory()
-    {
-        return Start::new;
-    }
+    public Structure.IStartFactory getStartFactory() { return Start::new; }
 
     @Override
     protected int getSeedModifier()
@@ -49,13 +46,14 @@ public class ErasedStructure extends ScatteredStructure<NoFeatureConfig>
             super(structure, chunkPosX, chunkPosZ, mbb, references, seed);
         }
 
-        public void init(   ChunkGenerator<?> generator,    TemplateManager templateManagerIn, int chunkX, int chunkZ,    Biome biomeIn)
+        @Override
+        public void init(ChunkGenerator<?> generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn)
         {
             int i = chunkX * 16;
             int j = chunkZ * 16;
             BlockPos blockpos = new BlockPos(i, 90, j);
             Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
-            ErasedPieces.init(templateManagerIn, blockpos, rotation, this.components, this.rand);
+            CornPieces.init(templateManagerIn, blockpos, rotation, this.components, this.rand);
             this.recalculateStructureSize();
         }
     }

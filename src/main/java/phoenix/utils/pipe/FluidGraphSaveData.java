@@ -105,9 +105,8 @@ public class FluidGraphSaveData extends WorldSavedData
                 ArrayList<Integer> list = new ArrayList<>();
                 int[] arr = data.getIntArray("graph_part_" + 1);
                 for (int j : arr)
-                {
                     list.add(j);
-                }
+
                 graph.add(i, new HashSet<>(list));
             }
         }

@@ -1,6 +1,7 @@
 package phoenix.init;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -14,6 +15,7 @@ import phoenix.blocks.ash.OvenBlock;
 import phoenix.blocks.ash.PotteryBarrelBlock;
 import phoenix.blocks.ash.ZirconiumOreBlock;
 import phoenix.blocks.redo.*;
+import phoenix.utils.block.AnonimBlock;
 
 @Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PhoenixBlocks
@@ -31,6 +33,7 @@ public class PhoenixBlocks
     public static final RegistryObject<Block>   END_STONE_COLUMN  = BLOCKS.register("end_stone_column",  EndStoneColumnBlock ::new);
     public static final RegistryObject<Block>   OVEN              = BLOCKS.register("oven",              OvenBlock           ::new);
     public static final RegistryObject<Block>   ZIRCONIUM         = BLOCKS.register("zirconium_ore",     ZirconiumOreBlock   ::new);
+    public static final RegistryObject<Block>   TEXT_BLOCK        = BLOCKS.register("block_with_text",   AnonimBlock.create(Material.ROCK));
 
     public static void register()
     {
