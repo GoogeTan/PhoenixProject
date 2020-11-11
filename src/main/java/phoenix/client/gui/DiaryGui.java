@@ -12,8 +12,8 @@ import phoenix.client.gui.diaryPages.elements.ADiaryElement;
 import phoenix.containers.DiaryContainer;
 import phoenix.utils.DiaryUtils;
 import phoenix.utils.RenderUtils;
-
 import java.util.ArrayList;
+
 
 public class DiaryGui extends ContainerScreen<DiaryContainer>
 {

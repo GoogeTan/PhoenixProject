@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 
 public class PhoenixItems
 {
-    private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Phoenix.MOD_ID);
+    private static final DeferredRegister<Item> ITEMS = new DeferredRegister(ForgeRegistries.ITEMS, Phoenix.MOD_ID);
 
     public static final RegistryObject<Item> GUIDE                   = ITEMS.register("diary",            ItemDiary::new);
     public static final RegistryObject<Item> HIGH_QUALITY_CLAY_ITEM  = ITEMS.register("high_quality_clay",HighQualityClayItem::new);

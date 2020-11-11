@@ -13,7 +13,7 @@ import phoenix.tile.redo.TankTile;
 
 public class PhoenixTiles
 {
-    public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Phoenix.MOD_ID);
+    public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = new DeferredRegister(ForgeRegistries.TILE_ENTITIES, Phoenix.MOD_ID);
 
     public static final RegistryObject<TileEntityType<TankTile>>          TANK           = TILE_ENTITIES.register("tank",
             () -> TileEntityType.Builder.create(TankTile::new, PhoenixBlocks.TANK.get()).build(null));

@@ -25,7 +25,7 @@ class TankContainer(id: Int) : Container(PhoenixContainers.TANK.get(), id)
         @JvmStatic
         fun fromNetwork(): ContainerType<TankContainer>
         {
-            return ContainerType { id: Int, playerInventoryIn: PlayerInventory? -> TankContainer(id) }
+            return ContainerType { id: Int, _: PlayerInventory? -> TankContainer(id) }
         }
     }
 }

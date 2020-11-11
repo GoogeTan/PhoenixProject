@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation
 import phoenix.init.PhoenixRecipeSerializers
 import phoenix.init.PhoenixRecipes
 
-class TankRecipe(id: ResourceLocation?, group: String?, inputIn: ItemStack, result: ItemStack?, exp: Float, cookTime: Int)
+class TankRecipe(id: ResourceLocation, group: String, inputIn: ItemStack, result: ItemStack, exp: Float, cookTime: Int)
     : AbstractCookingRecipe(PhoenixRecipes.OVEN, id, group, Ingredient.fromStacks(inputIn), result, exp, cookTime)
 {
     private var input : ItemStack = inputIn
