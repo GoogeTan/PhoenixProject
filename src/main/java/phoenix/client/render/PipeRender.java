@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.ResourceLocation;
-import phoenix.client.models.PipeModel;
+import phoenix.client.models.block.PipeModel;
 import phoenix.tile.redo.PipeTile;
 
 public class PipeRender extends TileEntityRenderer<PipeTile>

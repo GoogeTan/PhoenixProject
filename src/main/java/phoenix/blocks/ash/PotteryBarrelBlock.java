@@ -29,7 +29,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import phoenix.init.PhoenixItems;
 import phoenix.tile.ash.PotteryBarrelTile;
-import phoenix.utils.BlockWithTile;
+import phoenix.utils.block.BlockWithTile;
 import phoenix.utils.block.IColoredBlock;
 
 import javax.annotation.Nonnull;
@@ -76,12 +76,11 @@ public class PotteryBarrelBlock extends BlockWithTile<PotteryBarrelTile> impleme
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
         int countOfJumps = 0;
-        try {
-            countOfJumps = ((PotteryBarrelTile)worldIn.getTileEntity(pos)).jumpsCount;
-        } catch (Exception ignored){}
+        assert worldIn.getTileEntity(pos) == null;
+        countOfJumps = ((PotteryBarrelTile)worldIn.getTileEntity(pos)).jumpsCount;
 
         ItemStack itemstack = player.getHeldItem(handIn);
-        if (player.getActiveItemStack().equals(new ItemStack(Items.AIR))) //itemstack.isEmpty() ||
+        if (player.getActiveItemStack().equals(new ItemStack(Items.AIR)))
         {
             if(state.get(PotteryBarrelBlock.state) == 2)
                 setState(worldIn, pos, state, 3);

@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import phoenix.Phoenix;
 import phoenix.tile.redo.PipeTile;
-import phoenix.utils.BlockWithTile;
+import phoenix.utils.block.BlockWithTile;
 import phoenix.utils.pipe.IFluidMechanism;
 import phoenix.utils.pipe.FluidGraphSaveData;
 

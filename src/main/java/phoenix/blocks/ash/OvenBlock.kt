@@ -18,8 +18,6 @@ import javax.annotation.ParametersAreNonnullByDefault
 
 class OvenBlock : ContainerBlock(Properties.create(Material.ROCK))
 {
-    val buckets = arrayOfNulls<BooleanProperty>(4)
-
     override fun onBlockActivated(state: BlockState?, worldIn: World, pos: BlockPos?, playerIn: PlayerEntity, handIn: Hand?, hit: BlockRayTraceResult?): ActionResultType?
     {
         if (!worldIn.isRemote && pos != null)
@@ -33,14 +31,8 @@ class OvenBlock : ContainerBlock(Properties.create(Material.ROCK))
         return ActionResultType.SUCCESS
     }
 
-    override fun createTileEntity(state: BlockState?, world: IBlockReader?): TileEntity?
-    {
-        return OvenTile()
-    }
+    override fun createTileEntity(state: BlockState?, world: IBlockReader?): TileEntity? = OvenTile()
 
     @ParametersAreNonnullByDefault
-    override fun createNewTileEntity(worldIn: IBlockReader?): TileEntity?
-    {
-        return OvenTile()
-    }
+    override fun createNewTileEntity(worldIn: IBlockReader?): TileEntity? = OvenTile()
 }

@@ -25,7 +25,6 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 import phoenix.tile.redo.TankTile;
-import phoenix.world.FluidGraphSaveData;
 import phoenix.utils.pipe.FluidGraphSaveData;
 
 public class TankBlock extends ContainerBlock
