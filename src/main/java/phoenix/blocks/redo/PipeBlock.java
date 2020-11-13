@@ -1,15 +1,20 @@
 package phoenix.blocks.redo;
 
+import mezz.jei.api.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.IWaterLoggable;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -26,8 +31,15 @@ import phoenix.tile.redo.PipeTile;
 import phoenix.utils.block.BlockWithTile;
 import phoenix.utils.pipe.IFluidMechanism;
 import phoenix.utils.pipe.FluidGraphSaveData;
+import phoenix.utils.pipe.IFluidPipe;
 
-public class PipeBlock extends BlockWithTile<PipeTile>
+import javax.annotation.ParametersAreNonnullByDefault;
+
+import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
+
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
+public class PipeBlock extends BlockWithTile<PipeTile> implements IWaterLoggable
 {
     public static final BooleanProperty UP    = BooleanProperty.create("up");
     public static final BooleanProperty DOWN  = BooleanProperty.create("down");
@@ -47,20 +59,21 @@ public class PipeBlock extends BlockWithTile<PipeTile>
                 .with(SOUTH, Boolean.valueOf(false))
                 .with(WEST,  Boolean.valueOf(false))
                 .with(UP,    Boolean.valueOf(false))
-                .with(DOWN,  Boolean.valueOf(false)));
+                .with(DOWN,  Boolean.valueOf(false))
+                .with(WATERLOGGED, Boolean.FALSE));
     }
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        player.sendStatusMessage(new StringTextComponent(" " + ((IFluidMechanism)worldIn.getTileEntity(pos)).getNumberInGraph()), false);
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
-        return this.makeConnections(context.getWorld(), context.getPos());
+        IFluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
+        return this.makeConnections(context.getWorld(), context.getPos()).with(WATERLOGGED, ifluidstate.getFluid() == Fluids.WATER);
     }
 
     public BlockState makeConnections(IBlockReader reader, BlockPos pos)
@@ -72,22 +85,27 @@ public class PipeBlock extends BlockWithTile<PipeTile>
         TileEntity tile4 = reader.getTileEntity(pos.south());
         TileEntity tile5 = reader.getTileEntity(pos.west());
         return this.getDefaultState()
-                .with(DOWN,  tile0 instanceof IFluidMechanism)
-                .with(UP,    tile1 instanceof IFluidMechanism)
-                .with(NORTH, tile2 instanceof IFluidMechanism)
-                .with(EAST,  tile3 instanceof IFluidMechanism)
-                .with(SOUTH, tile4 instanceof IFluidMechanism)
-                .with(WEST,  tile5 instanceof IFluidMechanism);
+                .with(DOWN,  tile0 instanceof IFluidPipe)
+                .with(UP,    tile1 instanceof IFluidPipe)
+                .with(NORTH, tile2 instanceof IFluidPipe)
+                .with(EAST,  tile3 instanceof IFluidPipe)
+                .with(SOUTH, tile4 instanceof IFluidPipe)
+                .with(WEST,  tile5 instanceof IFluidPipe);
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) { builder.add(NORTH, EAST, WEST, SOUTH, UP, DOWN); }
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) { builder.add(NORTH, EAST, WEST, SOUTH, UP, DOWN, WATERLOGGED); }
 
     @Override
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving)
     {
-        worldIn.setBlockState(pos, makeConnections(worldIn, pos));
+        IFluidState ifluidstate = worldIn.getFluidState(pos);
+        worldIn.setBlockState(pos, makeConnections(worldIn, pos).with(WATERLOGGED, ifluidstate.getFluid() == Fluids.WATER));
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
+    }
+
+    public IFluidState getFluidState(BlockState state) {
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 
     @Override
@@ -120,8 +138,7 @@ public class PipeBlock extends BlockWithTile<PipeTile>
     {
         if(!worldIn.isRemote)
         {
-            FluidGraphSaveData.get((ServerWorld) worldIn).addBlock(worldIn, pos, false, false);
-            Phoenix.LOGGER.error(FluidGraphSaveData.get((ServerWorld) worldIn));
+            FluidGraphSaveData.get((ServerWorld) worldIn).addBlock((ServerWorld) worldIn, pos, false, false);
         }
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }

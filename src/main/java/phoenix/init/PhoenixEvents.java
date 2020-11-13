@@ -41,6 +41,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import phoenix.Phoenix;
 import phoenix.client.render.PipeRender;
 import phoenix.client.render.TankRenderer;
+import phoenix.client.render.TextRenderer;
 import phoenix.client.render.entity.CaudaRenderer;
 import phoenix.client.render.entity.TalpaRenderer;
 import phoenix.utils.block.IColoredBlock;
@@ -103,6 +104,7 @@ public class PhoenixEvents
 
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.PIPE.get(),   PipeRender::new);
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK.get(), TankRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TEXT.get(), TextRenderer::new);
 
         PhoenixContainers.registerScreens();
         // регистрация цветных блоков

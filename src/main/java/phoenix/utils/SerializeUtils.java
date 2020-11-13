@@ -7,9 +7,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 import phoenix.containers.slots.OvenCookingSlot;
 import phoenix.containers.slots.OvenFuelSlot;
 
@@ -67,5 +71,20 @@ public class SerializeUtils
             itemstack = new ItemStack(Registry.ITEM.getValue(resourcelocation).orElseThrow(() -> new IllegalStateException("Item: " + s1 + " does not exist")));
         }
         return itemstack;
+    }
+
+    public static void writeToBuf(FluidTank tank, PacketBuffer buf)
+    {
+        tank.getFluid().writeToPacket(buf);
+        buf.writeInt(tank.getCapacity());
+    }
+
+    public static FluidTank readTank(PacketBuffer buf)
+    {
+        FluidStack stack = buf.readFluidStack();
+        int capacity = buf.readInt();
+        FluidTank res = new FluidTank(capacity);
+        res.setFluid(stack);
+        return res;
     }
 }

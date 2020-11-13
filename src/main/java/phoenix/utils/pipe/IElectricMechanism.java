@@ -1,4 +1,4 @@
-package phoenix.utils.block;
+package phoenix.utils.pipe;
 
 public interface IElectricMechanism
 {

@@ -1,18 +1,16 @@
 package phoenix.utils.pipe;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.WorldSavedData;
-import phoenix.utils.GraphNode;
+import phoenix.utils.graph.GraphNode;
+import phoenix.utils.graph.MGraphNode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.*;
 
 public class FluidGraphSaveData extends WorldSavedData
 {
@@ -20,11 +18,16 @@ public class FluidGraphSaveData extends WorldSavedData
     /*
      *Contains graph elements.
      */
-    protected ArrayList<GraphNode> elements = new ArrayList();
+    public ArrayList<GraphNode> elements = new ArrayList();
     /*
      *Contains graph element neighbors.
      */
-    protected ArrayList<HashSet<Integer>> graph = new ArrayList();
+    public ArrayList<HashSet<Integer>> graph = new ArrayList();
+
+    /*
+     *Contains graph element indexes which has been removed.
+     */
+    protected LinkedList<Integer> removedIndexes = new LinkedList<>();
 
 
     private CompoundNBT data;
@@ -45,52 +48,59 @@ public class FluidGraphSaveData extends WorldSavedData
         updateData();
     }
 
-    public void addBlock(IWorld world, BlockPos pos, boolean isInput, boolean isOutput)
+    public void addBlock(ServerWorld world, BlockPos pos, boolean isInput, boolean isOutput)
     {
-        IFluidMechanism tile = ((IFluidMechanism)world.getTileEntity(pos));
-        tile.setNumberInGraph(graph.size());
-        graph.add(new HashSet<>());
-        elements.add(new GraphNode(pos, 0, isInput, isOutput));
+        IFluidPipe tile = ((IFluidPipe)world.getTileEntity(pos));
+        int index = graph.size();
+        if(!removedIndexes.isEmpty())
+        {
+            index = removedIndexes.getFirst();
+            removedIndexes.remove(index);
+        }
+        tile.setNumberInGraph(index);
+        if(index != elements.size())
+        {
+            graph.set(index, new HashSet<>());
+            elements.set(index, new GraphNode(world, pos, isInput, isOutput));
+        }
+        else
+        {
+            graph.add(new HashSet<>());
+            elements.add(new GraphNode(world, pos, isInput, isOutput));
+        }
+
         for (Direction dir: Direction.values())
         {
-            if(world.getTileEntity(pos.offset(dir)) instanceof IFluidMechanism)
+            if(world.getTileEntity(pos.offset(dir)) != null && world.getTileEntity(pos.offset(dir)) instanceof IFluidMechanism)
             {
                 graph.get(tile.getNumberInGraph()).add(((IFluidMechanism) world.getTileEntity(pos.offset(dir))).getNumberInGraph());
                 graph.get(((IFluidMechanism) world.getTileEntity(pos.offset(dir))).getNumberInGraph()).add(tile.getNumberInGraph());
             }
         }
+        for(GraphNode node : elements)
+        {
+            if(node.pipe instanceof IFluidMechanism)
+                ((IFluidMechanism) node.pipe).addMechanismByIndex(world, index);
+        }
     }
 
-    private Integer[] colorTmp;
-    private final ArrayList<GraphNode> outputsTmp = new ArrayList<>();
-    private final ArrayList<GraphNode> inputsTmp = new ArrayList<>();
-
-    public Pair<ArrayList<GraphNode>, ArrayList<GraphNode>> findConnectedMechanisms(int numberInGraph)
+    public void removeBlock(int numberInGraph)
     {
-        outputsTmp.clear();
-        inputsTmp.clear();
-        colorTmp = new Integer[graph.size()];
-        Arrays.fill(colorTmp, 0);
-        findMechanisms(numberInGraph, 0, 25, new ArrayList<>());
-        return Pair.of((ArrayList<GraphNode>) inputsTmp.clone(), (ArrayList<GraphNode>) outputsTmp.clone());
-    }
+        assert (numberInGraph < graph.size() && numberInGraph > 0);
 
-    /*
-     * It is simply BFS
-     */
-    private void findMechanisms(int v, int color, int maxColor, ArrayList<Integer> path)
-    {
-        path.add(v);
-        colorTmp[v] = color;
-        if(elements.get(v).isOutput)
-            outputsTmp.add(new GraphNode(elements.get(v).pos, color, path, elements.get(v).isInput, elements.get(v).isOutput));
-        if(elements.get(v).isInput)
-             inputsTmp.add(new GraphNode(elements.get(v).pos, color, path, elements.get(v).isInput, elements.get(v).isOutput));
+        for (int i : graph.get(numberInGraph))
+            graph.get(i).remove(numberInGraph);
 
-        if(color < maxColor)
-            for (int i : graph.get(v))
-                if(colorTmp[i] != 0)
-                    findMechanisms(i, color + 1, maxColor, path);
+        for (GraphNode el : elements)
+        {
+            TileEntity entity = el.tileEntity;
+            if (entity instanceof IFluidMechanism)
+            {
+                ((IFluidMechanism) entity).removeMechanismByIndex(numberInGraph);
+            }
+        }
+        graph.set(numberInGraph, null);
+        removedIndexes.add(numberInGraph);
     }
 
     @Override

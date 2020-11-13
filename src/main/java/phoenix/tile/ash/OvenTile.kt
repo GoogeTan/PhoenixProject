@@ -4,16 +4,23 @@ import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.inventory.container.Container
 import net.minecraft.inventory.container.INamedContainerProvider
+import net.minecraft.item.ItemStack
 import net.minecraft.nbt.CompoundNBT
+import net.minecraft.network.NetworkManager
+import net.minecraft.network.PacketBuffer
+import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.util.text.StringTextComponent
+import net.minecraftforge.fluids.capability.templates.FluidTank
 import phoenix.containers.OvenContainer
 import phoenix.init.PhoenixTiles
 import phoenix.recipes.OvenRecipe
+import phoenix.utils.SerializeUtils
+import phoenix.utils.block.PhoenixTile
 
-class OvenTile : TileEntity(PhoenixTiles.OVEN.get()), ITickableTileEntity, INamedContainerProvider
+class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, INamedContainerProvider
 {
     var deferredInformation = CompoundNBT()
     var timers = IntArray(4)
@@ -67,10 +74,7 @@ class OvenTile : TileEntity(PhoenixTiles.OVEN.get()), ITickableTileEntity, IName
         return container
     }
 
-    override fun getDisplayName(): ITextComponent
-    {
-        return StringTextComponent("Oven")
-    }
+    override fun getDisplayName(): ITextComponent = StringTextComponent("Oven")
 
     override fun write(compound: CompoundNBT): CompoundNBT?
     {
@@ -80,6 +84,13 @@ class OvenTile : TileEntity(PhoenixTiles.OVEN.get()), ITickableTileEntity, IName
         return super.write(compound)
     }
 
+    override fun getUpdatePacket(): SUpdateTileEntityPacket = UpdatePacket(timers)
+
+    override fun onDataPacket(net: NetworkManager?, pkt: SUpdateTileEntityPacket?)
+    {
+        timers = (pkt as UpdatePacket).timers
+    }
+
     override fun read(compound: CompoundNBT)
     {
         timers = compound.getIntArray("timers")
@@ -87,5 +98,21 @@ class OvenTile : TileEntity(PhoenixTiles.OVEN.get()), ITickableTileEntity, IName
             deferredInformation.put("container", compound.get("container"))
 
         super.read(compound)
+    }
+
+
+    class UpdatePacket(var timers: IntArray) : SUpdateTileEntityPacket()
+    {
+        override fun writePacketData(buf: PacketBuffer)
+        {
+            super.writePacketData(buf)
+            buf.writeVarIntArray(timers)
+        }
+
+        override fun readPacketData(buf: PacketBuffer)
+        {
+            super.readPacketData(buf)
+            timers = buf.readVarIntArray()
+        }
     }
 }

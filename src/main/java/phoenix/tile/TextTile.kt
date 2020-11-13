@@ -11,7 +11,7 @@ import java.util.function.Function
 
 class TextTile : TileEntity(PhoenixTiles.TEXT.get())
 {
-    var text : ITextComponent = StringTextComponent("Just Licke a Eva mark 06")
+    var text : ITextComponent = StringTextComponent("Just Lick a Eva mark 06")
 
     override fun read(nbt: CompoundNBT)
     {

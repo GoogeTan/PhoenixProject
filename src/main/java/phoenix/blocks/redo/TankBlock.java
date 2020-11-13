@@ -66,7 +66,7 @@ public class TankBlock extends ContainerBlock
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state,    LivingEntity placer, ItemStack stack)
     {
         if(!worldIn.isRemote)
-            FluidGraphSaveData.get((ServerWorld) worldIn).addBlock(worldIn, pos, true, true);
+            FluidGraphSaveData.get((ServerWorld) worldIn).addBlock((ServerWorld) worldIn, pos, true, true);
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
 
