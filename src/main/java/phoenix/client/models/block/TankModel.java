@@ -1,7 +1,9 @@
 package phoenix.client.models.block;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.Material;
@@ -11,7 +13,10 @@ import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.dimension.DimensionType;
+import phoenix.init.PhoenixRenderTypes;
 import phoenix.tile.redo.TankTile;
+import phoenix.utils.RenderUtils;
+import phoenix.utils.ResourseUtils;
 
 public class TankModel extends Model
 {
@@ -25,7 +30,7 @@ public class TankModel extends Model
 
     public TankModel(TankTile tankIn)
     {
-        super(RenderType::getEntitySolid);
+        super((param) -> PhoenixRenderTypes.TANK);
 
         tileTank = tankIn;
         fluid.setRotationPoint(0, 0, 0);
@@ -71,10 +76,10 @@ public class TankModel extends Model
                     fluid.render(matrixStackIn, fluid_builder, packedLightIn, packedOverlayIn, (watercolor / 10000) / 100f, ((watercolor / 100) % 100) / 100f, 1.0F, 0.7F);
                 }
             }
-
         }
-        //block.render(matrixStackIn, TEXTURE.getBuffer(buffer, RenderType::getEntityCutout), packedLightIn, packedOverlayIn);
+        IVertexBuilder builder = buffer.getBuffer(PhoenixRenderTypes.TANK);
+        block.render(matrixStackIn, builder, packedLightIn, packedOverlayIn);
+        RenderUtils.refreshDrawing(builder, PhoenixRenderTypes.TANK);
         matrixStackIn.pop();
     }
 }
-

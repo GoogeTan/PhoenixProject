@@ -1,9 +1,11 @@
 package phoenix.utils;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldVertexBufferUploader;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -97,5 +99,12 @@ public class RenderUtils
         bufferbuilder.finishDrawing();
         RenderSystem.enableAlphaTest();
         WorldVertexBufferUploader.draw(bufferbuilder);
+    }
+
+    public static void refreshDrawing(IVertexBuilder vb, RenderType type) {
+        if (vb instanceof BufferBuilder) {
+            type.finish((BufferBuilder) vb, 0, 0, 0);
+            ((BufferBuilder) vb).begin(type.getDrawMode(), type.getVertexFormat());
+        }
     }
 }

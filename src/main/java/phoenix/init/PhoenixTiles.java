@@ -6,6 +6,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import phoenix.Phoenix;
+import phoenix.tile.CounterTile;
 import phoenix.tile.TextTile;
 import phoenix.tile.redo.PipeTile;
 import phoenix.tile.ash.OvenTile;
@@ -26,6 +27,8 @@ public class PhoenixTiles
             () -> TileEntityType.Builder.create(OvenTile::new,  PhoenixBlocks.OVEN.get()).build(null));
     public static final RegistryObject<TileEntityType<TextTile>> TEXT           = TILE_ENTITIES.register("text",
             () -> TileEntityType.Builder.create(TextTile::new,  PhoenixBlocks.TEXT_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<CounterTile>> COUNTER        = TILE_ENTITIES.register("counter",
+            () -> TileEntityType.Builder.create(CounterTile::new,  PhoenixBlocks.COUNTER.get()).build(null));
 
     public static void register()
     {

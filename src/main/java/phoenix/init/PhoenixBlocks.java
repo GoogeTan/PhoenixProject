@@ -9,6 +9,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import phoenix.Phoenix;
 import phoenix.blocks.AntiAirBlock;
+import phoenix.blocks.CounterBlock;
 import phoenix.blocks.UpdaterBlock;
 import phoenix.blocks.ash.EndStoneColumnBlock;
 import phoenix.blocks.ash.OvenBlock;
@@ -34,6 +35,7 @@ public class PhoenixBlocks
     public static final RegistryObject<Block>   OVEN              = BLOCKS.register("oven",              OvenBlock           ::new);
     public static final RegistryObject<Block>   ZIRCONIUM         = BLOCKS.register("zirconium_ore",     ZirconiumOreBlock   ::new);
     public static final RegistryObject<Block>   TEXT_BLOCK        = BLOCKS.register("block_with_text",   AnonimBlock.create(Material.ROCK));
+    public static final RegistryObject<Block>   COUNTER           = BLOCKS.register("counter",   CounterBlock::new);
 
     public static void register()
     {

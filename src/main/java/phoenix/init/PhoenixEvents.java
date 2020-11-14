@@ -94,6 +94,7 @@ public class PhoenixEvents
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
     {
+        PhoenixRenderTypes.init();
         PhoenixKeyBindings.register();
 
         //RenderTypeLookup.setRenderLayer(PhoenixBlocks.TANK.get(), RenderType.getCutoutMipped());
