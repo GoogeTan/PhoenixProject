@@ -52,7 +52,7 @@ public class ArrayUtils
     public static <T> ArrayList<T> part(LinkedList<T> list, int from, int to)
     {
         ArrayList<T> res = new ArrayList<>();
-        for (int i = from; i < to; i++)
+        for (int i = from; i < to && i < list.size(); i++)
         {
             res.add(list.get(getIndex(list.size(), i)));
         }

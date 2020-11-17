@@ -31,16 +31,25 @@ public class DiaryUtils
     {
         ArrayList<ADiaryElement> res = new ArrayList<>();
         List<String> words = new ArrayList<>();
+
         for (String current : text) //проходим по всем параграфам
         {
             if (current != null)
             {
-                words.addAll(ImmutableList.copyOf(current.split(" ")));
-                words.add("\\n");
+                try
+                {
+                    words.addAll(StringUtils.stringToWords(current));
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                //words.addAll(ImmutableList.copyOf(current.split(" ")));
+                words.add("[break]");
             }
         }
 
-        for (int number_of_words = 0; number_of_words < words.size(); )//проходим по всем словам
+        for (int number_of_words = 0; number_of_words < words.size();)//проходим по всем словам
         {
             String string_to_add = "";//строка которую будем добавлять
             String next_word = words.get(number_of_words);

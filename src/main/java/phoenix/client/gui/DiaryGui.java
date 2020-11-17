@@ -40,6 +40,7 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
     public DiaryGui initGui()
     {
         book = new DiaryBook(xSize - 30, ySize, Minecraft.getInstance().fontRenderer);
+
         ArrayList<ADiaryElement> par = new ArrayList<>(DiaryUtils.makeParagraph(Minecraft.getInstance().fontRenderer, xSize - 90,
                 "Друг мой, друг мой, \\n " +
                         "Я очень и очень болен. \\n " +
@@ -146,6 +147,8 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
         //par.add(new ImageElement(DIARY_TEXTURE, xSize - 30 - 40, ySize - 30));
         for (ADiaryElement el : par)
             System.out.println(el);
+
+
         book.add(par);
         return this;
     }

@@ -37,13 +37,13 @@ public class PhoenixItems
     public static final RegistryObject<Item> ZIRCONIUM_BUTT          = ITEMS.register("zirconium_butt",          basicItem());
 
 
-    public static final RegistryObject<Item> STEEL_FORM_KNIFE_BLADE  = ITEMS.register("steel_form_blade",   FormItem::new);
-    public static final RegistryObject<Item> STEEL_FORM_SWORD_BLADE  = ITEMS.register("steel_form_blade",   FormItem::new);
-    public static final RegistryObject<Item> STEEl_FORM_BAYONET      = ITEMS.register("steel_form_bayonet", FormItem::new);
-    public static final RegistryObject<Item> STEEl_FORM_BUTT         = ITEMS.register("steel_form_butt",    FormItem::new);
+    public static final RegistryObject<Item> STEEL_FORM_KNIFE_BLADE  = ITEMS.register("steel_form_knife_blade",   basicItem());
+    public static final RegistryObject<Item> STEEL_FORM_SWORD_BLADE  = ITEMS.register("steel_form_sword_blade",   basicItem());
+    public static final RegistryObject<Item> STEEl_FORM_BAYONET      = ITEMS.register("steel_form_bayonet", basicItem());
+    public static final RegistryObject<Item> STEEl_FORM_BUTT         = ITEMS.register("steel_form_butt",    basicItem());
 
-    public static final RegistryObject<Item> STEEL_FORM_KNIFE_BLADE_FULL   = ITEMS.register("steel_form_blade_full",   () -> new FormItem(STEEL_FORM_KNIFE_BLADE));
-    public static final RegistryObject<Item> STEEL_FORM_SWORD_BLADE_FULL   = ITEMS.register("steel_form_blade_full",   () -> new FormItem(STEEL_FORM_SWORD_BLADE));
+    public static final RegistryObject<Item> STEEL_FORM_KNIFE_BLADE_FULL   = ITEMS.register("steel_form_knife_blade_full",   () -> new FormItem(STEEL_FORM_KNIFE_BLADE));
+    public static final RegistryObject<Item> STEEL_FORM_SWORD_BLADE_FULL   = ITEMS.register("steel_form_sword_blade_full",   () -> new FormItem(STEEL_FORM_SWORD_BLADE));
     public static final RegistryObject<Item> STEEl_FORM_BAYONET_FULL       = ITEMS.register("steel_form_bayonet_full", () -> new FormItem(STEEl_FORM_BAYONET));
     public static final RegistryObject<Item> STEEl_FORM_BUTT_FULL          = ITEMS.register("steel_form_butt_full",    () -> new FormItem(STEEl_FORM_BUTT));
 
@@ -51,7 +51,6 @@ public class PhoenixItems
     public static final RegistryObject<Item> ZIRCONIUM_PICKAXE      = ITEMS.register("ceramic_zirconium_pickaxe",    () -> new FormItem(STEEl_FORM_BUTT));
     public static final RegistryObject<Item> ZIRCONIUM_SWORD        = ITEMS.register("ceramic_zirconium_sword", () -> new FormItem(STEEl_FORM_BAYONET));
     public static final RegistryObject<Item> ZIRCONIUM_KNIFE        = ITEMS.register("ceramic_zirconium_knife",    () -> new FormItem(STEEl_FORM_BUTT));
-
 
     public static void register()
     {
