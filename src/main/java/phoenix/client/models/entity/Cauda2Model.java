@@ -21,7 +21,8 @@ public class Cauda2Model<T extends LivingEntity> extends EntityModel<T>
 	private final ModelRenderer body;
 	private final ModelRenderer bb_main;
 
-	public Cauda2Model() {
+	public Cauda2Model()
+	{
 		textureWidth = 16;
 		textureHeight = 16;
 
