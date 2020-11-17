@@ -14,10 +14,7 @@ public class PhoenixShaiders
     private static HashMap<String, Integer> programs = new HashMap<>();
     public static void initShaders()
     {
-        programs.put("Colorax", ShaderLoader.loadProgram(getFile(("/assets/hydramod/shaders/colorax/final.vsh")), getFile("/assets/hydramod/shaders/colorax/final.fsh")));
-        programs.put("Warp1", ShaderLoader.loadProgram(getFile("/assets/hydramod/shaders/warp1/final.vsh"), getFile("/assets/hydramod/shaders/warp1/final.fsh")));
-        programs.put("Glow", ShaderLoader.loadProgram(getFile("/assets/hydramod/shaders/glow/final.vsh"), getFile("/assets/hydramod/shaders/glow/final.fsh")));
-        programs.put("Break", ShaderLoader.loadProgram(getFile("/assets/hydramod/shaders/break/final.vsh"), getFile("/assets/hydramod/shaders/break/final.fsh")));
+        //programs.put("normal", ShaderLoader.loadProgram(getFile(("/assets/phoenix/shaders/normal_vert.glsl")), getFile("/assets/phoenix/shaders/normal_frag.glsl")));
     }
 
     public static int getProgram(String name)

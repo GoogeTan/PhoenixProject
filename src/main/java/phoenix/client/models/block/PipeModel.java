@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.ResourceLocation;
 import phoenix.Phoenix;
 import phoenix.blocks.redo.PipeBlock;
+import phoenix.init.PhoenixRenderTypes;
 
 public class PipeModel extends Model
 {
@@ -23,7 +24,7 @@ public class PipeModel extends Model
     BlockState state;
     public PipeModel(BlockState stateIn)
     {
-        super((resourceLocation) -> RenderType.getEntityCutoutNoCull(new ResourceLocation("block/chorus_plant")));
+        super((param) -> PhoenixRenderTypes.PIPE);
         textureHeight = 32;
         textureWidth  = 64;
         state = stateIn;

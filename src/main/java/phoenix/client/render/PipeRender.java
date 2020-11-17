@@ -10,7 +10,9 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.ResourceLocation;
 import phoenix.client.models.block.PipeModel;
+import phoenix.init.PhoenixRenderTypes;
 import phoenix.tile.redo.PipeTile;
+import phoenix.utils.RenderUtils;
 
 public class PipeRender extends TileEntityRenderer<PipeTile>
 {
@@ -26,8 +28,9 @@ public class PipeRender extends TileEntityRenderer<PipeTile>
     {
         PipeModel model = new PipeModel(tile.getBlockState());
         matrix.push();
-        IVertexBuilder vertexBuilder = TEXTURE.getBuffer(buffer, RenderType::getEntityCutout);
-        model.render(matrix, vertexBuilder, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        IVertexBuilder builder = buffer.getBuffer(PhoenixRenderTypes.PIPE);
+        model.render(matrix, builder, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        RenderUtils.refreshDrawing(builder, PhoenixRenderTypes.PIPE);
         matrix.pop();
     }
 }

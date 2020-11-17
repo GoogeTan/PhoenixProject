@@ -68,6 +68,7 @@ public class PhoenixEvents
                 });
     }
 
+    /*
     @SubscribeEvent
     public static void cornGen(EntityJoinWorldEvent event)
     {
@@ -89,16 +90,15 @@ public class PhoenixEvents
             GenSaveData.get((ServerWorld) world).setCornGenned();
         }
     }
-
+    //*/
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
     {
+        PhoenixShaiders.initShaders();
         PhoenixRenderTypes.init();
         PhoenixKeyBindings.register();
-
-        //RenderTypeLookup.setRenderLayer(PhoenixBlocks.TANK.get(), RenderType.getCutoutMipped());
-        //RenderTypeLookup.setRenderLayer(PhoenixBlocks.OVEN.get(), RenderType.getCutoutMipped());
+        PhoenixContainers.registerScreens();
 
         RenderingRegistry.registerEntityRenderingHandler(PhoenixEntities.TALPA.get(), TalpaRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(PhoenixEntities.CAUDA.get(), CaudaRenderer::new);
@@ -107,7 +107,6 @@ public class PhoenixEvents
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK.get(), TankRenderer::new);
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TEXT.get(), TextRenderer::new);
 
-        PhoenixContainers.registerScreens();
         // регистрация цветных блоков
         for(RegistryObject<Block> block : PhoenixBlocks.BLOCKS.getEntries())
         {
