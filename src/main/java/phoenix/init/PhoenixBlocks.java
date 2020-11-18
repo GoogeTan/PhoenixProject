@@ -21,7 +21,7 @@ import phoenix.utils.block.AnonimBlock;
 @Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PhoenixBlocks
 {
-    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister(ForgeRegistries.BLOCKS, Phoenix.MOD_ID);
+    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, Phoenix.MOD_ID);
 
     public static final RegistryObject<Block>   UPDATER           = BLOCKS.register("updater",           UpdaterBlock        ::new);
     public static final RegistryObject<Block>   PIPE              = BLOCKS.register("pipe",              PipeBlock           ::new);

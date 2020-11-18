@@ -25,7 +25,7 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 minecraft
 {
-    mappings channel: 'snapshot', version: '20201102-1.15.1'
+    mappings channel: 'snapshot', version: '20201118-1.15.1'
     accessTransformer = file('src/main/resources/META-INF/phoenix_at.cfg')
     runs
     {
@@ -95,7 +95,7 @@ repositories
 
 dependencies
 {
-    minecraft 'net.minecraftforge:forge:1.15.2-31.2.2'
+    minecraft 'net.minecraftforge:forge:1.15.2-31.2.46'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")

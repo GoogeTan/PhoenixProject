@@ -13,7 +13,7 @@ import phoenix.world.structures.corn.CornStructure;
 
 public class PhoenixFeatures
 {
-    public static final DeferredRegister<Feature<?>> FEATURES = new DeferredRegister(ForgeRegistries.FEATURES, Phoenix.MOD_ID);
+    public static final DeferredRegister<Feature<?>> FEATURES = new DeferredRegister<>(ForgeRegistries.FEATURES, Phoenix.MOD_ID);
 
     public static final RegistryObject<Structure<NoFeatureConfig>> ERASED = FEATURES.register("erased", ErasedStructure::new);
     public static final RegistryObject<Structure<NoFeatureConfig>> CORN   = FEATURES.register("corn",     CornStructure::new);

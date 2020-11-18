@@ -15,14 +15,14 @@ class PhoenixGroup(name: String) : ItemGroup(name)
 
     override fun fill(items: NonNullList<ItemStack>)
     {
-        items.sortWith(ItemCompotator())
+        items.sortWith(comp())
         super.fill(items)
     }
 
     override fun getSlotColor(): Int = 0
 
 
-    internal class ItemCompotator : Comparator<ItemStack>
+    internal class comp : Comparator<ItemStack>
     {
         override fun compare(i1: ItemStack, i2: ItemStack): Int
         {

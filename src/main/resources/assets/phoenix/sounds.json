@@ -25,5 +25,13 @@
                 "name": "phoenix:step_ceraomic"
             }
         ]
+    },
+    "oven_fire": {
+        "category": "block",
+        "sounds": [
+            {
+                "name": "phoenix:oven_fire"
+            }
+        ]
     }
 }

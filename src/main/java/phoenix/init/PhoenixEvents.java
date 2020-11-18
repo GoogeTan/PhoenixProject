@@ -84,7 +84,6 @@ public class PhoenixEvents
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
     {
-        PhoenixShaiders.initShaders();
         PhoenixRenderTypes.init();
         PhoenixKeyBindings.register();
         PhoenixContainers.registerScreens();

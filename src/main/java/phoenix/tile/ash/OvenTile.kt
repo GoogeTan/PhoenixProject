@@ -76,7 +76,7 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, INam
     {
         compound.putIntArray("timers", timers)
         if(container != null)
-            (container)?.write(compound);
+            (container)?.write(compound)
         return super.write(compound)
     }
 
@@ -90,7 +90,7 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, INam
     override fun read(compound: CompoundNBT)
     {
         timers = compound.getIntArray("timers")
-        val info = compound.get("container");
+        val info = compound.get("container")
         if(info != null)
             deferredInformation.put("container", info)
 
