@@ -4,20 +4,16 @@ import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.inventory.container.Container
 import net.minecraft.inventory.container.INamedContainerProvider
-import net.minecraft.item.ItemStack
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.network.NetworkManager
 import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
-import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.util.text.StringTextComponent
-import net.minecraftforge.fluids.capability.templates.FluidTank
 import phoenix.containers.OvenContainer
 import phoenix.init.PhoenixTiles
 import phoenix.recipes.OvenRecipe
-import phoenix.utils.SerializeUtils
 import phoenix.utils.block.PhoenixTile
 
 class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, INamedContainerProvider
@@ -94,8 +90,9 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, INam
     override fun read(compound: CompoundNBT)
     {
         timers = compound.getIntArray("timers")
-        if(compound.contains("container"))
-            deferredInformation.put("container", compound.get("container"))
+        val info = compound.get("container");
+        if(info != null)
+            deferredInformation.put("container", info)
 
         super.read(compound)
     }

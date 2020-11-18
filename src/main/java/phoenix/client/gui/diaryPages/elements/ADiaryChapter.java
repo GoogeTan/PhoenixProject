@@ -21,7 +21,6 @@ public class ADiaryChapter
         ySize = ySizeIn;
     }
 
-
     public void add(ArrayList<ADiaryElement> elementsIn)
     {
         elements.addAll(elementsIn);
@@ -32,16 +31,15 @@ public class ADiaryChapter
     {
         int size  = 0;
         int count = 0;
-        boolean isEnded = false;
-        for (int i = 0; i < elements.size() && !isEnded; i++)
+        for (ADiaryElement element : elements)
         {
-            if ((size + elements.get(i).getHeight()) * (font.FONT_HEIGHT + 2) >= ySize - 30)
+            if ((size + element.getHeight()) * (font.FONT_HEIGHT + 2) >= ySize - 30)
             {
-                isEnded = true;
+                break;
             }
             else
             {
-                size += elements.get(i).getHeight();
+                size += element.getHeight();
                 count++;
             }
         }
@@ -50,12 +48,11 @@ public class ADiaryChapter
 
         size  = 0;
         count = 0;
-        isEnded = false;
-        for (int i = end; i < elements.size() && !isEnded; i++)
+        for (int i = end; i < elements.size(); i++)
         {
             if ((size + elements.get(i).getHeight()) * font.FONT_HEIGHT >= ySize - 30)
             {
-                isEnded = true;
+                break;
             }
             else
             {

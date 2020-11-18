@@ -2,7 +2,6 @@ package phoenix.containers
 
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
-import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.Inventory
 import net.minecraft.inventory.container.Container
 import net.minecraft.inventory.container.ContainerType
@@ -12,7 +11,6 @@ import net.minecraft.world.IWorld
 import phoenix.containers.slots.OvenCookingSlot
 import phoenix.containers.slots.OvenFuelSlot
 import phoenix.tile.ash.OvenTile
-import phoenix.utils.ArrayUtils
 import phoenix.utils.ISerializable
 import phoenix.utils.SerializeUtils
 

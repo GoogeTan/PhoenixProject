@@ -1,11 +1,7 @@
 package phoenix.init;
 
 import phoenix.Phoenix;
-import phoenix.utils.ShaderLoader;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.HashMap;
 

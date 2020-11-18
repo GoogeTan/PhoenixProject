@@ -1,16 +1,9 @@
 package phoenix.tile.ash;
 
-import net.minecraft.block.Block;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
-import net.minecraftforge.registries.RegistryManager;
-import phoenix.blocks.ash.PotteryBarrelBlock;
 import phoenix.init.PhoenixTiles;
 import phoenix.utils.block.PhoenixTile;
 

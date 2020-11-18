@@ -1,6 +1,5 @@
 package phoenix.utils;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
@@ -36,14 +35,7 @@ public class DiaryUtils
         {
             if (current != null)
             {
-                try
-                {
-                    words.addAll(StringUtils.stringToWords(current));
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
+                words.addAll(StringUtils.stringToWords(current));
                 //words.addAll(ImmutableList.copyOf(current.split(" ")));
                 words.add("[break]");
             }
@@ -53,9 +45,9 @@ public class DiaryUtils
         {
             String string_to_add = "";//строка которую будем добавлять
             String next_word = words.get(number_of_words);
-            while (number_of_words < words.size() && font.getStringWidth(string_to_add + " " + next_word) < xSize / 2 - 30)//пока меньше ширины страницы
+            while (font.getStringWidth(string_to_add + " " + next_word) < xSize / 2 - 30)//пока меньше ширины страницы
             {
-                if (words.get(number_of_words).equals("\\n"))
+                if (words.get(number_of_words).equals("\\n") || words.get(number_of_words).equals("[break]"))
                 {
                     res.add(new TextElement(string_to_add));
                     string_to_add = "";
@@ -64,11 +56,14 @@ public class DiaryUtils
                     string_to_add += next_word + " ";//добавляем слово
                 }
                 ++number_of_words;
-                next_word = words.get(number_of_words);
+                if(number_of_words < words.size())
+                    next_word = words.get(number_of_words);
+                else
+                    break;
             }
             res.add(new TextElement(string_to_add));//добавляем строку
         }
-        //res.add(new TextElement(""));//после каждого параграфа перенос
+        res.add(new TextElement(""));//после каждого параграфа перенос
 
         return res;
     }

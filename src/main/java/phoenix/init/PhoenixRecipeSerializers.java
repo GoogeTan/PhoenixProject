@@ -6,9 +6,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import phoenix.Phoenix;
-import phoenix.recipes.OvenRecipe;
 import phoenix.recipes.OvenRecipeSerializer;
-import phoenix.recipes.tank.TankRecipe;
 import phoenix.recipes.tank.TankRecipeSerializer;
 
 public class PhoenixRecipeSerializers

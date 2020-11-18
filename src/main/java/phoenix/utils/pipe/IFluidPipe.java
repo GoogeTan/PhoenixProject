@@ -1,7 +1,5 @@
 package phoenix.utils.pipe;
 
-import javax.annotation.Nonnull;
-
 public interface IFluidPipe
 {
     int getNumberInGraph();

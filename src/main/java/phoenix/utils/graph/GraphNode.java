@@ -3,10 +3,7 @@ package phoenix.utils.graph;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
 import phoenix.utils.pipe.IFluidPipe;
-
-import java.util.ArrayList;
 
 public class GraphNode
 {

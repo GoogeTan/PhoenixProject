@@ -7,7 +7,7 @@ import java.util.*
 
 class PhoenixGroup(name: String) : ItemGroup(name)
 {
-    override fun createIcon(): ItemStack = ItemStack(Item.getItemFromBlock(Blocks.END_PORTAL_FRAME))
+    override fun createIcon(): ItemStack = ItemStack(Blocks.END_PORTAL_FRAME)
 
     override fun hasSearchBar(): Boolean = true
 
@@ -15,14 +15,14 @@ class PhoenixGroup(name: String) : ItemGroup(name)
 
     override fun fill(items: NonNullList<ItemStack>)
     {
-        items.sortWith(comp())
+        items.sortWith(ItemCompotator())
         super.fill(items)
     }
 
     override fun getSlotColor(): Int = 0
 
 
-    internal class comp : Comparator<ItemStack>
+    internal class ItemCompotator : Comparator<ItemStack>
     {
         override fun compare(i1: ItemStack, i2: ItemStack): Int
         {

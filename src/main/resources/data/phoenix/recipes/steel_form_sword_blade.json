@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "X#X",
+    "XXX"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:diamond_sword"
+    },
+    "X": {
+      "item": "phoenix:steel_ingot"
+    }
+  },
+  "result": {
+    "item": "phoenix:steel_form_sword_blade"
+  }
+}

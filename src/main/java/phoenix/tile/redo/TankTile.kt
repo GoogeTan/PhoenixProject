@@ -16,9 +16,9 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.fluids.capability.templates.FluidTank
 import phoenix.init.PhoenixTiles
-import phoenix.utils.graph.GraphNode
 import phoenix.utils.SerializeUtils
 import phoenix.utils.block.PhoenixTile
+import phoenix.utils.graph.GraphNode
 import phoenix.utils.graph.MGraphNode
 import phoenix.utils.pipe.FluidGraphSaveData
 import phoenix.utils.pipe.IFluidMechanism

@@ -10,7 +10,6 @@ import phoenix.init.PhoenixTiles;
 import phoenix.utils.block.PhoenixTile;
 import phoenix.utils.pipe.IFluidPipe;
 
-import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
 

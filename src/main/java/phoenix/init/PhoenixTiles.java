@@ -8,9 +8,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import phoenix.Phoenix;
 import phoenix.tile.CounterTile;
 import phoenix.tile.TextTile;
-import phoenix.tile.redo.PipeTile;
 import phoenix.tile.ash.OvenTile;
 import phoenix.tile.ash.PotteryBarrelTile;
+import phoenix.tile.redo.PipeTile;
 import phoenix.tile.redo.TankTile;
 
 public class PhoenixTiles

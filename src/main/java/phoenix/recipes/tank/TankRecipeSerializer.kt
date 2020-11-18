@@ -4,8 +4,6 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonSyntaxException
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipeSerializer
-import net.minecraft.item.crafting.Ingredient
-import net.minecraft.item.crafting.Ingredient.fromStacks
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.JSONUtils
 import net.minecraft.util.ResourceLocation
