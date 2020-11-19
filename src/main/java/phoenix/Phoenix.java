@@ -20,11 +20,9 @@ public class Phoenix
     public static final String MOD_ID = "phoenix";
     public static final Logger LOGGER = LogManager.getLogger();
     public static final ItemGroup PHOENIX = new PhoenixGroup(Phoenix.MOD_ID);
-    public static Phoenix instance;
 
     public Phoenix()
     {
-        instance = this;
         MinecraftForge.EVENT_BUS.register(this);
         PhoenixBiomes           .register();
         PhoenixBlocks           .register();

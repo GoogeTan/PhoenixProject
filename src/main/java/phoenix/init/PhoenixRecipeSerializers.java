@@ -11,7 +11,7 @@ import phoenix.recipes.tank.TankRecipeSerializer;
 
 public class PhoenixRecipeSerializers
 {
-    private static final DeferredRegister<IRecipeSerializer<?>> RS = new DeferredRegister<>(ForgeRegistries.RECIPE_SERIALIZERS, Phoenix.MOD_ID);
+    private static final DeferredRegister<IRecipeSerializer<?>> RS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Phoenix.MOD_ID);
 
     public static final RegistryObject<OvenRecipeSerializer> OVEN = RS.register("oven_recipe", OvenRecipeSerializer::new);
     public static final RegistryObject<TankRecipeSerializer> TANK = RS.register("tank_recipe", TankRecipeSerializer::new);

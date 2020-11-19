@@ -2,6 +2,8 @@ package phoenix.init;
 
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.SwordItem;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -16,7 +18,7 @@ import java.util.function.Supplier;
 
 public class PhoenixItems
 {
-    private static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, Phoenix.MOD_ID);
+    private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Phoenix.MOD_ID);
 
     public static final RegistryObject<Item> GUIDE                   = ITEMS.register("diary",            ItemDiary::new);
     public static final RegistryObject<Item> HIGH_QUALITY_CLAY_ITEM  = ITEMS.register("high_quality_clay",HighQualityClayItem::new);
@@ -38,18 +40,24 @@ public class PhoenixItems
 
     public static final RegistryObject<Item> STEEL_FORM_KNIFE_BLADE  = ITEMS.register("steel_form_knife_blade",   basicItem());
     public static final RegistryObject<Item> STEEL_FORM_SWORD_BLADE  = ITEMS.register("steel_form_sword_blade",   basicItem());
-    public static final RegistryObject<Item> STEEl_FORM_BAYONET      = ITEMS.register("steel_form_bayonet", basicItem());
-    public static final RegistryObject<Item> STEEl_FORM_BUTT         = ITEMS.register("steel_form_butt",    basicItem());
+    public static final RegistryObject<Item> STEEl_FORM_BAYONET      = ITEMS.register("steel_form_bayonet",       basicItem());
+    public static final RegistryObject<Item> STEEl_FORM_BUTT         = ITEMS.register("steel_form_butt",          basicItem());
 
-    public static final RegistryObject<Item> STEEL_FORM_KNIFE_BLADE_FULL   = ITEMS.register("steel_form_knife_blade_full",   () -> new FormItem(STEEL_FORM_KNIFE_BLADE));
-    public static final RegistryObject<Item> STEEL_FORM_SWORD_BLADE_FULL   = ITEMS.register("steel_form_sword_blade_full",   () -> new FormItem(STEEL_FORM_SWORD_BLADE));
-    public static final RegistryObject<Item> STEEl_FORM_BAYONET_FULL       = ITEMS.register("steel_form_bayonet_full", () -> new FormItem(STEEl_FORM_BAYONET));
-    public static final RegistryObject<Item> STEEl_FORM_BUTT_FULL          = ITEMS.register("steel_form_butt_full",    () -> new FormItem(STEEl_FORM_BUTT));
+    public static final RegistryObject<Item> STEEL_FORM_KNIFE_BLADE_FULL    = ITEMS.register("steel_form_knife_blade_full",   form(STEEL_FORM_KNIFE_BLADE));
+    public static final RegistryObject<Item> STEEL_FORM_SWORD_BLADE_FULL    = ITEMS.register("steel_form_sword_blade_full",   form(STEEL_FORM_SWORD_BLADE));
+    public static final RegistryObject<Item> STEEl_FORM_BAYONET_FULL        = ITEMS.register("steel_form_bayonet_full",       form(STEEl_FORM_BAYONET));
+    public static final RegistryObject<Item> STEEl_FORM_BUTT_FULL           = ITEMS.register("steel_form_butt_full",          form(STEEl_FORM_BUTT));
 
-    public static final RegistryObject<Item> ZIRCONIUM_AXE          = ITEMS.register("ceramic_zirconium_axe", () -> new AxeItem(PhoenixTiers.ZIRCONIUM_TIER, 9.0F, 1.1F, new Item.Properties().group(Phoenix.PHOENIX)));
-    public static final RegistryObject<Item> ZIRCONIUM_PICKAXE      = ITEMS.register("ceramic_zirconium_pickaxe",    () -> new FormItem(STEEl_FORM_BUTT));
-    public static final RegistryObject<Item> ZIRCONIUM_SWORD        = ITEMS.register("ceramic_zirconium_sword", () -> new FormItem(STEEl_FORM_BAYONET));
-    public static final RegistryObject<Item> ZIRCONIUM_KNIFE        = ITEMS.register("ceramic_zirconium_knife",    () -> new FormItem(STEEl_FORM_BUTT));
+    public static final RegistryObject<Item> STEEL_FORM_KNIFE_BLADE_ROASTED = ITEMS.register("steel_form_knife_blade_roasted",   form(STEEL_FORM_KNIFE_BLADE));
+    public static final RegistryObject<Item> STEEL_FORM_SWORD_BLADE_ROASTED = ITEMS.register("steel_form_sword_blade_roasted",   form(STEEL_FORM_SWORD_BLADE));
+    public static final RegistryObject<Item> STEEl_FORM_BAYONET_ROASTED     = ITEMS.register("steel_form_bayonet_roasted",       form(STEEl_FORM_BAYONET));
+    public static final RegistryObject<Item> STEEl_FORM_BUTT_ROASTED        = ITEMS.register("steel_form_butt_roasted",          form(STEEl_FORM_BUTT));
+
+
+    public static final RegistryObject<Item> ZIRCONIUM_AXE          = ITEMS.register("ceramic_zirconium_axe",      () -> new AxeItem(PhoenixTiers.ZIRCONIUM_TIER, 9.0F, 1.1F, new Item.Properties().group(Phoenix.PHOENIX)));
+    public static final RegistryObject<Item> ZIRCONIUM_PICKAXE      = ITEMS.register("ceramic_zirconium_pickaxe",  () -> new PickaxeItem(PhoenixTiers.ZIRCONIUM_TIER, 4, 0.5F, new Item.Properties().group(Phoenix.PHOENIX)));
+    public static final RegistryObject<Item> ZIRCONIUM_SWORD        = ITEMS.register("ceramic_zirconium_sword",    () -> new SwordItem(PhoenixTiers.ZIRCONIUM_TIER, 3, 1F, new Item.Properties().group(Phoenix.PHOENIX)));
+    public static final RegistryObject<Item> ZIRCONIUM_KNIFE        = ITEMS.register("ceramic_zirconium_knife",    basicItem());
 
     public static void register()
     {
@@ -59,5 +67,15 @@ public class PhoenixItems
     private static Supplier<? extends Item> basicItem()
     {
         return () -> new Item(new Item.Properties().group(Phoenix.PHOENIX));
+    }
+
+    private static Supplier<? extends Item> form(RegistryObject<Item> contains)
+    {
+        return () -> new Item(new Item.Properties().group(Phoenix.PHOENIX).containerItem(contains.get()));
+    }
+
+    private static Supplier<? extends Item> form(Item contains)
+    {
+        return () -> new Item(new Item.Properties().group(Phoenix.PHOENIX).containerItem(contains));
     }
 }

@@ -13,7 +13,7 @@ import phoenix.enity.TalpaEntity;
 
 public class PhoenixEntities
 {
-    public static final DeferredRegister<EntityType<?>> ENTITIES = new DeferredRegister<>(ForgeRegistries.ENTITIES, Phoenix.MOD_ID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Phoenix.MOD_ID);
 
     public static final RegistryObject<EntityType<TalpaEntity>> TALPA = ENTITIES.register("talpa",
             () ->

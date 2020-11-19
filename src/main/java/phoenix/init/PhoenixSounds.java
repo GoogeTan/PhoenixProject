@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 public class PhoenixSounds
 {
-    public static final DeferredRegister<SoundEvent> SOUNDS = new DeferredRegister<>(ForgeRegistries.SOUND_EVENTS, Phoenix.MOD_ID);
+    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Phoenix.MOD_ID);
 
     public static final RegistryObject<SoundEvent> UPDATER = SOUNDS.register("updater", sound("oven_fire"));
 

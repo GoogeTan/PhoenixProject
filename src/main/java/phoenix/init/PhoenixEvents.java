@@ -142,7 +142,6 @@ public class PhoenixEvents
                                                                                  .withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
     }
 
-
     public static void addZirconiumOre(Biome biome)
     {
         biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
