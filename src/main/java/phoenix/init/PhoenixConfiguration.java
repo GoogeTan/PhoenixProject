@@ -18,7 +18,7 @@ public class PhoenixConfiguration
             builder.
                   //  comment("Settings that are not reversible without consequences.").
                     push("Game Settings");
-            IS_HARDCORE = builder.
+            HARDCORE = builder.
                     worldRestart().
                     comment("Is game in hardcode mode or easy mode. If \"Liahim\" game will be hard and trolling like Misty World or higher" +
                             ", but if \"hohserg\" it will be easier and more simple.")
@@ -31,15 +31,20 @@ public class PhoenixConfiguration
             builder.pop();
         }
 
-        public ForgeConfigSpec.EnumValue<GameMode> IS_HARDCORE;
+        public ForgeConfigSpec.EnumValue<GameMode> HARDCORE;
         public ForgeConfigSpec.BooleanValue GENERATE_OPTIONAL_STRUCTURES;
         public ForgeConfigSpec.IntValue     BIOME_SIZE;
     }
     public enum GameMode
     {
-        normal,
-        Liahim,
-        hohserg
+        normal(60),
+        Liahim(16),
+        hohserg(80);
+        public int maxKnifeUsages;
+        GameMode(int maxKnifeUsagesIn)
+        {
+            maxKnifeUsages = maxKnifeUsagesIn;
+        }
     }
     //On reload
     public static void onReload()

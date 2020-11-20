@@ -20,17 +20,22 @@ import phoenix.items.ash.KnifeItem;
 public class KnifeEntity extends ThrowableEntity
 {
     public ItemStack knife = new ItemStack(PhoenixItems.ZIRCONIUM_KNIFE.get());
+    public boolean isReal = true;
     public static KnifeEntity create(EntityType<? extends ThrowableEntity> type, World worldIn)
     {
         return new KnifeEntity(worldIn, null);
     }
 
-    //*
     public KnifeEntity(World worldIn, LivingEntity owner)
     {
         super(PhoenixEntities.KNIFE.get(), owner, worldIn);
     }
-    //*/
+    public KnifeEntity(World worldIn, LivingEntity owner, boolean isReal)
+    {
+        super(PhoenixEntities.KNIFE.get(), owner, worldIn);
+        this.isReal = isReal;
+    }
+
     @Override
     @OnlyIn(Dist.CLIENT)
     public void handleStatusUpdate(byte id) {
@@ -47,17 +52,16 @@ public class KnifeEntity extends ThrowableEntity
     {
         if(!world.isRemote)
         {
-            boolean dropItem = true;
+            boolean dropItem = isReal;
             switch (result.getType())
             {
                 case ENTITY:
-                    dropItem = ((KnifeItem) knife.getItem()).onHitEntity(world, this, ((EntityRayTraceResult)result).getEntity(), knife);
+                    dropItem &= ((KnifeItem) knife.getItem()).onHitEntity(world, owner, this, ((EntityRayTraceResult)result).getEntity(), knife);
                     break;
                 case BLOCK:
-                    dropItem = ((KnifeItem) knife.getItem()).onHitBlock(world, ((BlockRayTraceResult)result).getPos(), this, knife);
+                    dropItem &= ((KnifeItem) knife.getItem()).onHitBlock(world, owner, ((BlockRayTraceResult)result).getPos(), this, knife);
                     break;
             }
-
             if (dropItem)  world.addEntity(new ItemEntity(world, getPosX(), getPosY(), getPosZ(), knife));
 
             onKillCommand();

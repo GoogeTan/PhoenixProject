@@ -38,8 +38,8 @@ public class PhoenixEntities
 
     public static final RegistryObject<EntityType<KnifeEntity>> KNIFE = ENTITIES.register("zirconium_knife",
             () ->
-                    EntityType.Builder.create(KnifeEntity::create, EntityClassification.CREATURE)
-                            .size(0.9F, 0.5F)
+                    EntityType.Builder.create(KnifeEntity::create, EntityClassification.MISC)
+                            .size(0.1F, 0.1F)
                             .setTrackingRange(80)
                             .setUpdateInterval(3)
                             .setShouldReceiveVelocityUpdates(true)
