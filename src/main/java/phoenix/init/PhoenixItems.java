@@ -13,6 +13,7 @@ import phoenix.items.ItemDiary;
 import phoenix.items.ash.CrucibleItem;
 import phoenix.items.ash.FormItem;
 import phoenix.items.ash.HighQualityClayItem;
+import phoenix.items.ash.KnifeItem;
 
 import java.util.function.Supplier;
 
@@ -57,7 +58,7 @@ public class PhoenixItems
     public static final RegistryObject<Item> ZIRCONIUM_AXE          = ITEMS.register("ceramic_zirconium_axe",      () -> new AxeItem(PhoenixTiers.ZIRCONIUM_TIER, 9.0F, 1.1F, new Item.Properties().group(Phoenix.PHOENIX)));
     public static final RegistryObject<Item> ZIRCONIUM_PICKAXE      = ITEMS.register("ceramic_zirconium_pickaxe",  () -> new PickaxeItem(PhoenixTiers.ZIRCONIUM_TIER, 4, 0.5F, new Item.Properties().group(Phoenix.PHOENIX)));
     public static final RegistryObject<Item> ZIRCONIUM_SWORD        = ITEMS.register("ceramic_zirconium_sword",    () -> new SwordItem(PhoenixTiers.ZIRCONIUM_TIER, 3, 1F, new Item.Properties().group(Phoenix.PHOENIX)));
-    public static final RegistryObject<Item> ZIRCONIUM_KNIFE        = ITEMS.register("ceramic_zirconium_knife",    basicItem());
+    public static final RegistryObject<KnifeItem> ZIRCONIUM_KNIFE   = ITEMS.register("ceramic_zirconium_knife",    () -> new KnifeItem(PhoenixTiers.ZIRCONIUM_TIER, 3, 1F));
 
     public static void register()
     {

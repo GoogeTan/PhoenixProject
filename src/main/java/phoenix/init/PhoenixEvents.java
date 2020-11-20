@@ -33,6 +33,7 @@ import phoenix.client.render.PipeRender;
 import phoenix.client.render.TankRenderer;
 import phoenix.client.render.TextRenderer;
 import phoenix.client.render.entity.CaudaRenderer;
+import phoenix.client.render.entity.KnifeRenderer;
 import phoenix.client.render.entity.TalpaRenderer;
 import phoenix.utils.block.IColoredBlock;
 import phoenix.utils.block.INonItem;
@@ -90,6 +91,7 @@ public class PhoenixEvents
 
         RenderingRegistry.registerEntityRenderingHandler(PhoenixEntities.TALPA.get(), TalpaRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(PhoenixEntities.CAUDA.get(), CaudaRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(PhoenixEntities.KNIFE.get(), KnifeRenderer::new);
 
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.PIPE.get(),   PipeRender::new);
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK.get(), TankRenderer::new);

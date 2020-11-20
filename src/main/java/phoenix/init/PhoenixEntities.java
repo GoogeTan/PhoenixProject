@@ -9,6 +9,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import phoenix.Phoenix;
 import phoenix.enity.CaudaEntity;
+import phoenix.enity.KnifeEntity;
 import phoenix.enity.TalpaEntity;
 
 public class PhoenixEntities
@@ -34,6 +35,16 @@ public class PhoenixEntities
                             .setShouldReceiveVelocityUpdates(true)
                             .size(0.5f, 0.5f)
                             .build(new ResourceLocation(Phoenix.MOD_ID, "cauda").toString()));
+
+    public static final RegistryObject<EntityType<KnifeEntity>> KNIFE = ENTITIES.register("zirconium_knife",
+            () ->
+                    EntityType.Builder.create(KnifeEntity::create, EntityClassification.CREATURE)
+                            .size(0.9F, 0.5F)
+                            .setTrackingRange(80)
+                            .setUpdateInterval(3)
+                            .setShouldReceiveVelocityUpdates(true)
+                            .size(0.5f, 0.5f)
+                            .build(new ResourceLocation(Phoenix.MOD_ID, "zirconium_knife").toString()));
 
 
     public static void register()
