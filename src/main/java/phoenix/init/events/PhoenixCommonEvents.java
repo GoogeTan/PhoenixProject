@@ -33,36 +33,17 @@ import java.util.ArrayList;
 @Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PhoenixCommonEvents
 {
-    public static ArrayList<Truple<Integer, Integer, Runnable>> tasks = new ArrayList<>();
-
-    @SubscribeEvent
-    public static void deferredTasks(TickEvent.WorldTickEvent event)
-    {
-        Phoenix.LOGGER.error(tasks);
-        if (event.phase == TickEvent.Phase.END)
-            for (Truple<Integer, Integer, Runnable> current : tasks)
-            {
-                current.first++;
-                if (current.first >= current.second) current.third.run();
-            }
-    }
-
-    public static void addTask(int time, Runnable r)
-    {
-        tasks.add(new Truple<>(0, time, r));
-    }
-
     @SubscribeEvent
     public static void onRegisterItems(final RegistryEvent.Register<Item> event)
     {
         final IForgeRegistry<Item> registry = event.getRegistry();
-        PhoenixBlocks.BLOCKS.getEntries().stream()
+        PhoenixBlocks.getBLOCKS().getEntries().stream()
                 .map(RegistryObject::get)
                 .filter(block -> !(block instanceof INonItem))
                 .filter(block -> !(block instanceof FlowingFluidBlock))
                 .forEach(block ->
                 {
-                    final Item.Properties prop = new Item.Properties().group(Phoenix.PHOENIX);
+                    final Item.Properties prop = new Item.Properties().group(Phoenix.Companion.getPHOENIX());
                     final BlockItem blockItem = new BlockItem(block, prop);
                     blockItem.setRegistryName(block.getRegistryName());
                     registry.register(blockItem);
@@ -75,13 +56,13 @@ public class PhoenixCommonEvents
         FMLJavaModLoadingContext.get().getModEventBus().register(PhoenixCommonEvents.class);
         PhoenixRecipes.register();
 
-        PhoenixBiomes.UNDER    .get().addStructure(PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-        PhoenixBiomes.HEARTVOID.get().addStructure(PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-        PhoenixBiomes.UNDER    .get().addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-        PhoenixBiomes.HEARTVOID.get().addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+        PhoenixBiomes.getUNDER()    .get().addStructure(PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+        PhoenixBiomes.getHEARTVOID().get().addStructure(PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+        PhoenixBiomes.getUNDER()    .get().addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+        PhoenixBiomes.getHEARTVOID().get().addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 
-        PhoenixBiomes.UNDER    .get().addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(PhoenixEntities.CAUDA.get(), 15, 1, 3));
-        PhoenixBiomes.HEARTVOID.get().addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(PhoenixEntities.TALPA.get(), 15, 1, 4));
+        PhoenixBiomes.getUNDER()    .get().addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(PhoenixEntities.getCAUDA().get(), 15, 1, 3));
+        PhoenixBiomes.getHEARTVOID().get().addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(PhoenixEntities.getTALPA().get(), 15, 1, 4));
 
         addStructure(Biomes.END_HIGHLANDS, PhoenixFeatures.ERASED.get());
         addStructure(Biomes.END_HIGHLANDS, PhoenixFeatures.CORN.get());
@@ -89,7 +70,7 @@ public class PhoenixCommonEvents
         for (Biome biome : Registry.BIOME)
         {
             if(biome != Biomes.END_BARRENS && biome != Biomes.END_HIGHLANDS && biome != Biomes.END_MIDLANDS && biome != Biomes.THE_END &&
-                    biome != Biomes.SMALL_END_ISLANDS && biome != PhoenixBiomes.UNDER.get() && biome != PhoenixBiomes.HEARTVOID.get())
+                    biome != Biomes.SMALL_END_ISLANDS && biome != PhoenixBiomes.getUNDER().get() && biome != PhoenixBiomes.getHEARTVOID().get())
             {
                 addZirconiumOre(biome);
             }
@@ -106,7 +87,7 @@ public class PhoenixCommonEvents
     public static void addZirconiumOre(Biome biome)
     {
         biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
-                Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, PhoenixBlocks.ZIRCONIUM.get().getDefaultState(), 4))
+                Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, PhoenixBlocks.getZIRCONIUM().get().getDefaultState(), 4))
                         .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(20, 0, 0, 64))));
     }
         /*

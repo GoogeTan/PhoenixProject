@@ -19,6 +19,6 @@ public class ZirconiumOreBlock extends OreBlock
     }
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-        return ImmutableList.of(new ItemStack(Item.getItemFromBlock(this)));
+        return ImmutableList.of(new ItemStack(this));
     }
 }

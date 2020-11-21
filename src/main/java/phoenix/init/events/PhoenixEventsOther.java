@@ -18,7 +18,7 @@ public class PhoenixEventsOther
     {
         if(!event.world.isRemote)
         {
-            Phoenix.LOGGER.error(tasks);
+            Phoenix.getLOGGER().error(tasks);
             if (event.phase == TickEvent.Phase.END)
                 for (int i = 0; i < tasks.size(); ++i)
                 {
@@ -28,6 +28,7 @@ public class PhoenixEventsOther
                     {
                         current.third.run();
                         tasks.remove(i);
+                        i--;
                     }
                 }
         }

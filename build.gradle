@@ -75,10 +75,6 @@ minecraft
 repositories
 {
     mavenCentral()
-    maven {
-        name = 'sponge'
-        url = 'http://repo.spongepowered.org/maven'
-    }
     maven { // Мавен, который поддерживает JEI.
         name = "Progwml6 maven"
         url = "http://dvs1.progwml6.com/files/maven"
@@ -111,19 +107,3 @@ compileTestKotlin {
         jvmTarget = "1.8"
     }
 }
-sourceSets {
-    main {
-        ext.refMap = 'mixins.[название мода].refmap.json'
-    }
-}
-
-jar {
-    manifest.attributes(
-            'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
-            'MixinConfigs': 'mixins.phoenix.json', // Файлы наших миксинов
-            'FMLCorePluginContainsFMLMod': 'true',         // Говорим, что наш джарник еще и мод
-            'ForceLoadAsMod': 'true',                      // Точно точно мод
-    )
-}
-
-

@@ -16,7 +16,7 @@ public class TalpaModel extends EntityModel<TalpaEntity>
     }
 
     @Override
-    public void setLivingAnimations(   TalpaEntity entityIn, float limbSwing, float limbSwingAmount, float partialTick)
+    public void setLivingAnimations(TalpaEntity entityIn, float limbSwing, float limbSwingAmount, float partialTick)
     {
         if(entityIn.isChild())
         {

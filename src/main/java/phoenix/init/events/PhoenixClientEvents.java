@@ -32,16 +32,16 @@ public class PhoenixClientEvents
         PhoenixKeyBindings.register();
         PhoenixContainers.registerScreens();
 
-        RenderingRegistry.registerEntityRenderingHandler(PhoenixEntities.TALPA.get(), TalpaRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(PhoenixEntities.CAUDA.get(), CaudaRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(PhoenixEntities.KNIFE.get(), KnifeRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(PhoenixEntities.getTALPA().get(), TalpaRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(PhoenixEntities.getCAUDA().get(), CaudaRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(PhoenixEntities.getKNIFE().get(), KnifeRenderer::new);
 
-        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.PIPE.get(), PipeRender::new);
-        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK.get(), TankRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TEXT.get(), TextRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.getPIPE().get(), PipeRender::new);
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.getTANK().get(), TankRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.getTEXT().get(), TextRenderer::new);
 
         // регистрация цветных блоков
-        for (RegistryObject<Block> block : PhoenixBlocks.BLOCKS.getEntries())
+        for (RegistryObject<Block> block : PhoenixBlocks.getBLOCKS().getEntries())
         {
             if (block.get() instanceof IColoredBlock)
             {

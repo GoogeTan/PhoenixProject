@@ -14,7 +14,7 @@ public class PotteryBarrelTile extends PhoenixTile
     public int jumpsCount = 0;
     public PotteryBarrelTile()
     {
-        super(PhoenixTiles.POTTERY_BARREL.get());
+        super(PhoenixTiles.getPOTTERY_BARREL().get());
     }
 
     @Override
