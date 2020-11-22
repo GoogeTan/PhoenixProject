@@ -1,6 +1,7 @@
 package phoenix.world;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.provider.EndBiomeProviderSettings;
 import net.minecraft.world.dimension.DimensionType;
@@ -10,6 +11,8 @@ import net.minecraft.world.gen.EndChunkGenerator;
 import net.minecraft.world.gen.EndGenerationSettings;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
+
 public class EndBiomedDimension extends EndDimension
 {
 
@@ -18,7 +21,7 @@ public class EndBiomedDimension extends EndDimension
         super(world, type);
     }
 
-      
+    @Nonnull
     @Override
     public ChunkGenerator<?> createChunkGenerator()
     {

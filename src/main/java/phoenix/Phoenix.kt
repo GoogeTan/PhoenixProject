@@ -4,6 +4,7 @@ import net.minecraft.item.ItemGroup
 import net.minecraft.world.World
 import net.minecraft.world.biome.FuzzedBiomeMagnifier
 import net.minecraft.world.dimension.DimensionType
+import net.minecraftforge.common.DimensionManager
 import net.minecraftforge.common.ForgeConfigSpec
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
@@ -45,7 +46,7 @@ class Phoenix
         init
         {
             DimensionType.THE_END = DimensionType.register("the_end",
-                    DimensionType(2, "_end", "DIM1", { world: World?, type: DimensionType? -> EndBiomedDimension(world, type) }, false, FuzzedBiomeMagnifier.INSTANCE))
+                    DimensionType(2, "_end", "DIM1", { world: World, type: DimensionType -> EndBiomedDimension(world, type) }, false, FuzzedBiomeMagnifier.INSTANCE))
         }
     }
 }

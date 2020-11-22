@@ -23,10 +23,6 @@ compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
-if (System.getenv("BUILD_NUMBER") != null) {
-    build_version = version + ".v" + System.getenv("BUILD_NUMBER")
-}
-
 minecraft
 {
     mappings channel: 'snapshot', version: '20201118-1.15.1'

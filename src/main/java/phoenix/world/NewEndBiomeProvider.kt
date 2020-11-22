@@ -3,6 +3,8 @@ package phoenix.world
 import com.google.common.collect.ImmutableList
 import com.google.common.collect.ImmutableSet
 import net.minecraft.util.SharedSeedRandom
+import net.minecraft.util.math.MathHelper
+import net.minecraft.world.World
 import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.Biomes
 import net.minecraft.world.biome.provider.BiomeProvider
@@ -19,55 +21,57 @@ import phoenix.init.PhoenixBiomes
 import phoenix.init.PhoenixConfiguration
 import phoenix.world.genlayers.*
 import java.util.function.LongFunction
-import javax.annotation.Nonnull
 
 
-class NewEndBiomeProvider(settings: EndBiomeProviderSettings, @Nonnull worldIn: ServerWorld?) : BiomeProvider(biomes)
+class NewEndBiomeProvider(settings: EndBiomeProviderSettings, worldIn: ServerWorld) : BiomeProvider(biomes)
 {
     private val genLayer: Layer
-
-    companion object
+    private val generator: SimplexNoiseGenerator
+    private val random: SharedSeedRandom
+    private val world: World
+    init
     {
-        private val biomes: Set<Biome> = ImmutableSet.of(Biomes.THE_END, Biomes.END_HIGHLANDS, Biomes.END_MIDLANDS, Biomes.SMALL_END_ISLANDS, Biomes.END_BARRENS, PhoenixBiomes.UNDER.get(), PhoenixBiomes.HEARTVOID.get())
+        world = worldIn;
+        this.genLayer = createLayer(settings.seed, worldIn)
+        random = SharedSeedRandom(settings.getSeed());
+        this.random.skip(17292);
+        this.generator = SimplexNoiseGenerator(this.random);
     }
+
 
     override fun getNoiseBiome(x: Int, y: Int, z: Int): Biome
     {
         return genLayer.func_215738_a(x, z)
     }
 
-    /*
-    @Override
-    public float func_222365_c(int x, int z)
+    override fun func_222365_c(x: Int, z: Int): Float
     {
-        int real_x = x / 2;
-        int real_Z = z / 2;
-        int dop_x = x % 2;
-        int dop_z = z % 2;
-        float result = 100.0F - MathHelper.sqrt((float) (x * x + z * z)) * 8.0F;
-        result = MathHelper.clamp(result, -100.0F, 80.0F);
-
-        for (int i = -12; i <= 12; ++i)
+        val real_x = x / 2
+        val real_Z = z / 2
+        val dop_x = x % 2
+        val dop_z = z % 2
+        var result = 100.0f - MathHelper.sqrt((x * x + z * z).toFloat()) * 8.0f
+        result = MathHelper.clamp(result, -100.0f, 80.0f)
+        for (i in -12..12)
         {
-            for (int j = -12; j <= 12; ++j)
+            for (j in -12..12)
             {
-                long currect_x = real_x + i;
-                long currect_z = real_Z + j;
-                if (currect_x * currect_x + currect_z * currect_z > 4096L && this.generator.getValue((double) currect_x, (double) currect_z) < -0.8999999761581421D)
+                val currect_x = real_x + i.toLong()
+                val currect_z = real_Z + j.toLong()
+                if (currect_x * currect_x + currect_z * currect_z > 4096L && this.generator.getValue(currect_x.toDouble(), currect_z.toDouble()) < -0.8999999761581421)
                 {
-                    float lvt_14_1_ = (MathHelper.abs((float) currect_z) * 3439.0F + MathHelper.abs((float) currect_z) * 147.0F) % 13.0F + 9.0F;
-                    float lvt_15_1_ = (float) (dop_x - i * 2);
-                    float lvt_16_1_ = (float) (dop_z - j * 2);
-                    float lvt_17_1_ = 100.0F - MathHelper.sqrt(lvt_15_1_ * lvt_15_1_ + lvt_16_1_ * lvt_16_1_) * lvt_14_1_;
-                    lvt_17_1_ = MathHelper.clamp(lvt_17_1_, -100.0F, 80.0F);
-                    result = Math.max(result, lvt_17_1_);
+                    val lvt_14_1_ = (MathHelper.abs(currect_z.toFloat()) * 3439.0f + MathHelper.abs(currect_z.toFloat()) * 147.0f) % 13.0f + 9.0f
+                    val lvt_15_1_ = (dop_x - i * 2).toFloat()
+                    val lvt_16_1_ = (dop_z - j * 2).toFloat()
+                    var lvt_17_1_ = 100.0f - MathHelper.sqrt(lvt_15_1_ * lvt_15_1_ + lvt_16_1_ * lvt_16_1_) * lvt_14_1_
+                    lvt_17_1_ = MathHelper.clamp(lvt_17_1_, -100.0f, 80.0f)
+                    result = Math.max(result, lvt_17_1_)
                 }
             }
         }
-
-        return result;
+        return result
     }
-    // */
+
     override fun getBiomesToSpawnIn(): List<Biome>
     {
         return ImmutableList.copyOf(Companion.biomes)
@@ -81,26 +85,26 @@ class NewEndBiomeProvider(settings: EndBiomeProviderSettings, @Nonnull worldIn: 
 
     fun <T : IArea?, C : IExtendedNoiseRandom<T>?> getLayersApply(worldIn: ServerWorld?, context: LongFunction<C>): IAreaFactory<T>
     {
-        var phoenix_biomes = ParentLayer(this).apply(context.apply(1L))
-        var vanila_biomes = ParentLayer(this).apply(context.apply(1L))
-        vanila_biomes = getBiomeLayer(vanila_biomes, context)
+        var phoenixBiomes = ParentLayer(this).apply(context.apply(1L))
+        var vanilaBiomes = ParentLayer(this).apply(context.apply(1L))
+        vanilaBiomes = getBiomeLayer(vanilaBiomes, context)
         var stage = 0
         try
         {
             stage = StageSaveData.get(worldIn!!).stage
-        } catch (ignored: Exception)
-        {
-        }
+        } catch (ignored: Exception){}
+
         if (stage >= 1)
         {
-            phoenix_biomes = UnderLayer.INSTANCE.apply(context.apply(200L), phoenix_biomes)
-            phoenix_biomes = HeartVoidLayer.INSTANCE.apply(context.apply(200L), phoenix_biomes)
+            phoenixBiomes = UnderLayer.INSTANCE.apply(context.apply(200L), phoenixBiomes)
+            phoenixBiomes = HeartVoidLayer.INSTANCE.apply(context.apply(200L), phoenixBiomes)
         }
+
         for (i in 0..PhoenixConfiguration.COMMON_CONFIG.BIOME_SIZE.get())
         {
-            phoenix_biomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenix_biomes)
+            phoenixBiomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenixBiomes)
         }
-        return UnificationLayer.INSTANCE.apply(context.apply(200L), phoenix_biomes, vanila_biomes)
+        return UnificationLayer.INSTANCE.apply(context.apply(200L), phoenixBiomes, vanilaBiomes)
     }
 
     fun <T : IArea?, C : IExtendedNoiseRandom<T>?> getBiomeLayer(parentLayer: IAreaFactory<T>, contextFactory: LongFunction<C>): IAreaFactory<T>
@@ -110,11 +114,8 @@ class NewEndBiomeProvider(settings: EndBiomeProviderSettings, @Nonnull worldIn: 
         return parentLayer
     }
 
-    init
+    companion object
     {
-        genLayer = createLayer(settings.seed, worldIn)
-        val random = SharedSeedRandom(settings.seed)
-        random.skip(17292)
-        SimplexNoiseGenerator(random)
+        private val biomes: Set<Biome> = ImmutableSet.of(Biomes.THE_END, Biomes.END_HIGHLANDS, Biomes.END_MIDLANDS, Biomes.SMALL_END_ISLANDS, Biomes.END_BARRENS, PhoenixBiomes.UNDER.get(), PhoenixBiomes.HEARTVOID.get())
     }
 }
