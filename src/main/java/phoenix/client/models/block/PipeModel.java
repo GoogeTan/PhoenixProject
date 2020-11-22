@@ -22,10 +22,10 @@ public class PipeModel extends Model
     public PipeModel(BlockState stateIn)
     {
         super((param) -> PhoenixRenderTypes.PIPE);
-        textureHeight = 32;
+        textureHeight = 64;
         textureWidth  = 64;
         state = stateIn;
-        base = new ModelRenderer(this, 16, 16);
+        base = new ModelRenderer(this, 64, 64);
         n = new ModelRenderer(this, 0, 0);
         s = new ModelRenderer(this, 0, 0);
         w = new ModelRenderer(this, 0, 0);

@@ -3,8 +3,10 @@ package phoenix
 import net.minecraft.item.ItemGroup
 import net.minecraft.world.World
 import net.minecraft.world.biome.FuzzedBiomeMagnifier
+import net.minecraft.world.biome.IBiomeMagnifier
+import net.minecraft.world.dimension.Dimension
 import net.minecraft.world.dimension.DimensionType
-import net.minecraftforge.common.DimensionManager
+import net.minecraft.world.dimension.EndDimension
 import net.minecraftforge.common.ForgeConfigSpec
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
@@ -13,6 +15,7 @@ import org.apache.logging.log4j.LogManager
 import phoenix.init.*
 import phoenix.init.PhoenixConfiguration.Common
 import phoenix.world.EndBiomedDimension
+import java.util.function.BiFunction
 
 @Mod(Phoenix.MOD_ID)
 class Phoenix
@@ -36,8 +39,7 @@ class Phoenix
 
     companion object
     {
-
-        public const val MOD_ID = "phoenix"
+        const val MOD_ID = "phoenix"
         @JvmStatic
         val LOGGER = LogManager.getLogger()
         @JvmStatic
@@ -45,8 +47,7 @@ class Phoenix
 
         init
         {
-            DimensionType.THE_END = DimensionType.register("the_end",
-                    DimensionType(2, "_end", "DIM1", { world: World, type: DimensionType -> EndBiomedDimension(world, type) }, false, FuzzedBiomeMagnifier.INSTANCE))
+            InitEnd.init();
         }
     }
 }

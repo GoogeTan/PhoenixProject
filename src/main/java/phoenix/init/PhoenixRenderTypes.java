@@ -19,7 +19,7 @@ public class PhoenixRenderTypes
     public static void init()
     {
         TANK = initTexture(ResourseUtils.block("tank"), "tank");
-        PIPE = initTexture(ResourseUtils.block("pipe"),  "pipe");
+        PIPE = initTexture(ResourseUtils.block("pipe_"),  "pipe_");
     }
 
     private static RenderType initTexture(ResourceLocation path, String name)

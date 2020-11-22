@@ -18,8 +18,7 @@ import java.util.ArrayList;
 
 public class DiaryGui extends ContainerScreen<DiaryContainer>
 {
-    private static final ResourceLocation DIARY_TEXTURE = new ResourceLocation(Phoenix.MOD_ID, "textures/gui/diary_.png");
-    private static final ResourceLocation DIARY_TEXTURE_2 = new ResourceLocation(Phoenix.MOD_ID, "textures/gui/diary_2.png");
+    private static final ResourceLocation DIARY_TEXTURE = new ResourceLocation(Phoenix.MOD_ID, "textures/gui/diary_container.png");
     private DiaryBook book = null;
     final DiaryContainer container;
     public DiaryGui(DiaryContainer screenContainer, PlayerInventory inv, ITextComponent titleIn)
@@ -52,7 +51,8 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
                         "Осыпает мозги алкоголь. " +
                         "Голова моя машет ушами, " +
                         "Как крыльями птица. " +
-                        "Ей на шее ноги " +
+                        "Ей на шее ноги "));
+                        /*
                 "Маячить больше невмочь. " +
                         "Черный человек, " +
                         "Черный, черный, " +
@@ -104,6 +104,8 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
                         "При тяжелых утратах "));
         //par.add(new ImageElement(DIARY_TEXTURE, xSize - 30 - 40, ySize - 30));
 
+
+                         */
         book.add(par);
         return this;
     }
@@ -116,13 +118,12 @@ public class DiaryGui extends ContainerScreen<DiaryContainer>
     @Override
     public void renderBackground()
     {
-        RenderUtils.drawRectScalable(DIARY_TEXTURE_2, guiLeft, guiTop, xSize * 1.0D, ySize * 1.0D, getBlitOffset());
+        RenderUtils.drawRectScalable(DIARY_TEXTURE, guiLeft, guiTop, xSize, ySize, getBlitOffset());
     }
 
     @Override
     public void render(int p1, int p2, float p3)
     {
-
         super.render(p1, p2, p3);
         if (book == null) initGui();
 

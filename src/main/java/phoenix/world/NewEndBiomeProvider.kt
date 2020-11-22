@@ -88,7 +88,7 @@ class NewEndBiomeProvider(settings: EndBiomeProviderSettings, worldIn: ServerWor
         var phoenixBiomes = ParentLayer(this).apply(context.apply(1L))
         var vanilaBiomes = ParentLayer(this).apply(context.apply(1L))
         vanilaBiomes = getBiomeLayer(vanilaBiomes, context)
-        var stage = 0
+        var stage = 2
         try
         {
             stage = StageSaveData.get(worldIn!!).stage

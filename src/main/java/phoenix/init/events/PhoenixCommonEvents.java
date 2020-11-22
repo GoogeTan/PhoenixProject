@@ -1,9 +1,13 @@
 package phoenix.init.events;
 
 import net.minecraft.block.FlowingFluidBlock;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.particles.BasicParticleType;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
@@ -25,6 +29,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
 import phoenix.Phoenix;
 import phoenix.init.*;
+import phoenix.particles.PhoenixBornFactory;
+import phoenix.particles.PhoenixParticleData;
 import phoenix.utils.Truple;
 import phoenix.utils.block.INonItem;
 
@@ -75,6 +81,8 @@ public class PhoenixCommonEvents
                 addZirconiumOre(biome);
             }
         }
+
+        //Minecraft.getInstance().particles.registerFactory(((ParticleType)PhoenixParticles.INSTANCE.getPHOENIX_BORN().get()), new PhoenixBornFactory());
     }
 
     public static void addStructure(Biome biome, Structure structure)
@@ -90,27 +98,4 @@ public class PhoenixCommonEvents
                 Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, PhoenixBlocks.getZIRCONIUM().get().getDefaultState(), 4))
                         .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(20, 0, 0, 64))));
     }
-        /*
-    @SubscribeEvent
-    public static void cornGen(EntityJoinWorldEvent event)
-    {
-        World world = event.getWorld();
-        if(!world.isRemote && world.dimension.getType() == DimensionType.THE_END && !GenSaveData.get((ServerWorld) world).isCornGenned())
-        {
-
-            TemplateManager manager = ((ServerWorld) world).getStructureTemplateManager();
-            manager.getTemplate(new ResourceLocation("phoenix:corn/corn"))
-                    .addBlocksToWorld(world, new BlockPos(1000, 100, 1000), new PlacementSettings());
-            manager.getTemplate(new ResourceLocation("phoenix:corn/corn"))
-                    .addBlocksToWorld(world, new BlockPos(-1000, 100, 1000), new PlacementSettings());
-            manager.getTemplate(new ResourceLocation("phoenix:corn/corn"))
-                    .addBlocksToWorld(world, new BlockPos(1000, 100, -1000), new PlacementSettings());
-            manager.getTemplate(new ResourceLocation("phoenix:corn/corn"))
-                    .addBlocksToWorld(world, new BlockPos(-1000, 100, -1000), new PlacementSettings());
-
-            Phoenix.LOGGER.error("Corn genned");
-            GenSaveData.get((ServerWorld) world).setCornGenned();
-        }
-    }
-    //*/
 }
