@@ -33,24 +33,23 @@ public class PipeModel extends Model
         u = new ModelRenderer(this, 0, 0);
         d = new ModelRenderer(this, 0, 0);
 
-        base.setRotationPoint(4, 4, 4);
+        base.setRotationPoint(6, 6, 6);
 
-        n.setRotationPoint(4,         4, 4 - 4);
-        s.setRotationPoint(4,         4, 4 + 8);
-        e.setRotationPoint(4 + 8,     4, 4);
-        w.setRotationPoint(4 - 4,     4, 4);
-        u.setRotationPoint(4,     4 + 8, 4);
-        d.setRotationPoint(4,     4 - 4, 4);
+        n.setRotationPoint(6,     6, 0);
+        s.setRotationPoint(6,     6, 6 + 4);
+        e.setRotationPoint(6 + 4, 6, 6);
+        w.setRotationPoint(0,     6, 6);
+        u.setRotationPoint(6,     6 + 4, 6);
+        d.setRotationPoint(6,     0, 6);
 
-        base.addBox(0 ,0, 0, 8, 8, 8);
+        base.addBox(0 ,0, 0, 4, 4, 4);
 
-        n.addBox(0 ,0, 0, 8, 8, 4);
-        s.addBox(0 ,0, 0, 8, 8, 4);
-        e.addBox(0 ,0, 0, 4, 8, 8);
-        w.addBox(0 ,0, 0, 4, 8, 8);
-        u.addBox(0 ,0, 0, 8, 4, 8);
-        d.addBox(0 ,0, 0, 8, 4, 8);
-
+        n.addBox(0 ,0, 0, 4, 4, 6);
+        s.addBox(0 ,0, 0, 4, 4, 6);
+        e.addBox(0 ,0, 0, 6, 4, 4);
+        w.addBox(0 ,0, 0, 6, 4, 4);
+        u.addBox(0 ,0, 0, 4, 6, 4);
+        d.addBox(0 ,0, 0, 4, 6, 4);
     }
 
     @Override
