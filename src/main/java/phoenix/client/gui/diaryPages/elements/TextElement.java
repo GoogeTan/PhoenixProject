@@ -29,7 +29,7 @@ public class TextElement extends ADiaryElement
     }
 
     @Override
-    public int getHeight()
+    public int getHeight(int maxSizeXIn, int maxSizeYIn)
     {
         return 1;
     }

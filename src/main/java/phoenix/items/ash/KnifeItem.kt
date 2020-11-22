@@ -18,40 +18,46 @@ import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.Tags
+import net.minecraftforge.event.ForgeEventFactory
 import phoenix.Phoenix
 import phoenix.enity.KnifeEntity
 import phoenix.init.events.PhoenixEventsOther.addTask
 import phoenix.utils.WorldUtils
+import java.util.function.Consumer
 
 
 class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, maxUsages: Int) : ToolItem(attackDamageIn, attackSpeedIn, tier, breakableBlocks, Properties().group(Phoenix.PHOENIX).maxDamage(maxUsages))
 {
     val damage: Float = attackDamageIn + tier.attackDamage
 
-    override fun onItemRightClick(world : World, player : PlayerEntity, hand : Hand): ActionResult<ItemStack>
+    override fun onItemRightClick(world: World, player: PlayerEntity, hand: Hand): ActionResult<ItemStack>
     {
         val itemstack = player.getHeldItem(hand)
         world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5f, 0.4f / (random.nextFloat() * 0.4f + 0.8f))
         var coolDown = 10
         val speed = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, itemstack)
-        coolDown = (coolDown * speed.toDouble() / 3).toInt()
+        coolDown -= speed / 3
+        coolDown = kotlin.math.max(0, coolDown)
         player.cooldownTracker.setCooldown(this, coolDown)
         if (!world.isRemote)
         {
             val knife = KnifeEntity(world, player, true)
+            knife.knife = itemstack
+            knife.knife.damageItem(1, player, {})
             knife.shoot(player, player.rotationPitch, player.rotationYaw, 0.0f, 1.5f, 1.0f)
             world.addEntity(knife)
-            val count = EnchantmentHelper.getEnchantmentLevel(Enchantments.MULTISHOT, itemstack) + 1
-            for (i in 0..count - 1)
+            val count = EnchantmentHelper.getEnchantmentLevel(Enchantments.MULTISHOT, itemstack)
+            for (i in 0..count)
             {
-                addTask(5) {
+                addTask(5 * i) {
                     val knife2 = KnifeEntity(world, player, false)
                     knife2.shoot(player, player.rotationPitch, player.rotationYaw, 0.0f, 1.5f, 1.0f)
                     world.addEntity(knife2)
                 }
             }
+            player.setHeldItem(hand, ItemStack.EMPTY)
         }
-        itemstack.count = 0
+
         return ActionResult(ActionResultType.SUCCESS, itemstack)
     }
 
@@ -72,7 +78,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
         return !(block !== Blocks.SNOW_BLOCK && block !== Blocks.SNOW && block.isIn(Tags.Blocks.SAND))
     }
 
-    fun onHitEntity(world: World?, owner: LivingEntity, knife: KnifeEntity, hitted: Entity, knifeItem: ItemStack): Boolean
+    fun onHitEntity(world: World, owner: LivingEntity, knife: KnifeEntity, hitted: Entity, knifeItem: ItemStack): Boolean
     {
         val powerLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, knifeItem)
         val damage = damage + powerLevel.toDouble() * 0.6
@@ -81,15 +87,14 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
         return hitted.type !== EntityType.SNOW_GOLEM && hitted.type !== EntityType.END_CRYSTAL && hitted.type !== EntityType.PANDA
     }
 
-    override fun canApplyAtEnchantingTable(stack: ItemStack, enchantment: Enchantment): Boolean
-    {
-        return enchantment === Enchantments.POWER || enchantment === Enchantments.QUICK_CHARGE || enchantment === Enchantments.MENDING || enchantment === Enchantments.FLAME || enchantment === Enchantments.SILK_TOUCH || enchantment === Enchantments.UNBREAKING
-    }
+    override fun isEnchantable(stack: ItemStack) = true
+
+    override fun canApplyAtEnchantingTable(stack: ItemStack, enchantment: Enchantment) = allowedEnchantments.contains(enchantment)
 
     companion object
     {
         var breakableBlocks: Set<Block> = ImmutableSet.of(Blocks.SPONGE, Blocks.VINE, Blocks.SEA_PICKLE, Blocks.WET_SPONGE)
-        var breakableBlocksTypes: Set<Tag<Block?>> = ImmutableSet.of(Tags.Blocks.GLASS, Tags.Blocks.STAINED_GLASS_PANES)
+        var breakableBlocksTypes: Set<Tag<Block>> = ImmutableSet.of(Tags.Blocks.GLASS, Tags.Blocks.STAINED_GLASS_PANES)
+        var allowedEnchantments: Set<Enchantment> = ImmutableSet.of(Enchantments.POWER, Enchantments.QUICK_CHARGE, Enchantments.MENDING, Enchantments.FLAME, Enchantments.SILK_TOUCH, Enchantments.UNBREAKING)
     }
-
 }

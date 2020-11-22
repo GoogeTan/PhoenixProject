@@ -2,6 +2,7 @@ package phoenix.utils;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import javafx.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -30,16 +31,16 @@ public class RenderUtils
              int depth)
     {
         Minecraft.getInstance().getTextureManager().bindTexture(texture);
-        Dimension d = TextureUtils.getTextureSize(texture);
+        Pair<Integer, Integer> d = TextureUtils.getTextureSize(texture);
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        double scale = maxSizeX / d.width;
-        int sizeX = (int) (d.width * scale),
-            sizeY = (int) (d.height * scale);
+        double scale = maxSizeX / d.getKey();
+        int sizeX = (int) (d.getKey() * scale),
+            sizeY = (int) (d.getValue() * scale);
         if(maxSizeY < sizeY)
         {
-            scale = maxSizeY / sizeY;
-            sizeY = (int) (d.width * scale);
-            sizeX = (int) (d.height * scale);
+            scale *= maxSizeY / sizeY;
+            sizeY = (int) (d.getKey() * scale);
+            sizeX = (int) (d.getValue() * scale);
         }
 
         blit(x, y, depth, 0, 0, sizeX, sizeY, sizeX, sizeY);

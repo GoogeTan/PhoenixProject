@@ -21,15 +21,12 @@ public class RightAlignedTextElement extends TextElement
     @Override
     public void render(ContainerScreen<DiaryContainer> gui, FontRenderer font, int xSize, int ySize, int x, int y, int depth)
     {
-        StringUtils.drawRightAlignedString(font, text.getFormattedText(), x + 15, y + 15, color);
+        super.render(gui, font, xSize, ySize, xSize - font.getStringWidth(text.getFormattedText()), y, depth);
     }
 
     @Override
-    public CompoundNBT serialize()
+    public String toString()
     {
-        CompoundNBT res = new CompoundNBT();
-        res.putString("type", "rtext");
-        res.putString("text", "\\r" + text.getFormattedText());
-        return res;
+        return "[r]" + text + "[R]";  
     }
 }

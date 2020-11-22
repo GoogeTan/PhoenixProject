@@ -1,8 +1,11 @@
 package phoenix.utils;
 
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.RenderComponentsUtil;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import org.apache.commons.lang3.tuple.Pair;
 import phoenix.client.gui.diaryPages.elements.ADiaryElement;
 import phoenix.client.gui.diaryPages.elements.ImageElement;
@@ -10,6 +13,7 @@ import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement;
 import phoenix.client.gui.diaryPages.elements.TextElement;
 import phoenix.utils.exeptions.BookException;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +72,39 @@ public class DiaryUtils
         return res;
     }
 
+    public static ArrayList<ADiaryElement> toElements(FontRenderer font, int xSize, String... text)
+    {
+        List<String> words = new ArrayList<>();
+
+        for (String current : text) //проходим по всем параграфам
+        {
+            if (current != null)
+            {
+                words.addAll(StringUtils.stringToWords(current));
+                //words.addAll(ImmutableList.copyOf(current.split(" ")));
+                words.add("[break]");
+            }
+        }
+        ArrayList<ADiaryElement> res = new ArrayList<>();
+        StringBuilder tmp = new StringBuilder();
+        for (String s : words)
+        {
+            if(!s.equals("[break]") && !s.equals("\\n"))
+            {
+                tmp.append(" ").append(s);
+            }
+            else
+            {
+                List<ITextComponent> components = RenderComponentsUtil.splitText(new StringTextComponent(tmp.toString()), xSize, font, false, true);
+                for (ITextComponent component : components)
+                    res.add(new TextElement(component));
+                tmp = new StringBuilder();
+            }
+        }
+
+        return res;
+    }
+
     public static ArrayList<ADiaryElement> add(ArrayList<ADiaryElement> chapter, Pair<Integer, ADiaryElement>... toAdd)
     {
         for (Pair<Integer, ADiaryElement> pair : toAdd)
@@ -87,7 +124,8 @@ public class DiaryUtils
 
     public static ImageElement readImageElement(CompoundNBT nbt, int maxSizeX, int maxSizeY)
     {
-        return new ImageElement(new ResourceLocation(nbt.getString("res")), maxSizeX, maxSizeY);
+        javafx.util.Pair<Integer, Integer> d = TextureUtils.getTextureSize(new ResourceLocation(nbt.getString("res")));
+        return new ImageElement(new ResourceLocation(nbt.getString("res")), d.getKey(), d.getValue());
     }
 
     public static ADiaryElement read(CompoundNBT nbt) throws BookException

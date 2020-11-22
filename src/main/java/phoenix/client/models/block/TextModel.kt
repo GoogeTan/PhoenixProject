@@ -10,15 +10,20 @@ import java.util.function.Function
 
 class TextModel : Model(Function { location: ResourceLocation -> RenderType.getEntitySolid(location) })
 {
-    var base = ModelRenderer(this, 0, 0)
+    private var base : ModelRenderer = ModelRenderer(this, 0, 0)
+
+    init
+    {
+        base.addBox(0F, 0F, 0F, 16F, 16F, 16F)
+    }
 
     fun render(matrixStackIn: MatrixStack, bufferIn: IVertexBuilder, packedLightIn: Int, packedOverlayIn: Int)
     {
         base.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn)
     }
 
-    override fun render(p0: MatrixStack, p1: IVertexBuilder, p2: Int, p3: Int, p4: Float, p5: Float, p6: Float, p7: Float)
+    override fun render(matrixStackIn: MatrixStack, bufferIn: IVertexBuilder, packedLightIn: Int, packedOverlayIn: Int, red: Float, green: Float, blue: Float, alpha: Float)
     {
-        base.render(p0, p1, p2, p3)
+        base.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn)
     }
 }

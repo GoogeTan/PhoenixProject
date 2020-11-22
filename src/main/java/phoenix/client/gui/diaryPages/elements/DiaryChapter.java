@@ -1,27 +1,42 @@
 package phoenix.client.gui.diaryPages.elements;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import phoenix.utils.ArrayUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 
-public class ADiaryChapter
+public class DiaryChapter
 {
     FontRenderer font;
     int xSize, ySize;
-    public LinkedList<ADiaryElement> elements = new LinkedList<>();
+    private final LinkedList<ADiaryElement> elements = new LinkedList<>();
     private int start = 0, end = 0, end2 = 0;
 
-    public ADiaryChapter(int xSizeIn, int ySizeIn)
+    public DiaryChapter(int xSizeIn, int ySizeIn)
     {
         font = Minecraft.getInstance().fontRenderer;
         xSize = xSizeIn;
         ySize = ySizeIn;
     }
 
-    public void add(ArrayList<ADiaryElement> elementsIn)
+    public DiaryChapter(int xSizeIn, int ySizeIn, ADiaryElement... elementsIn)
+    {
+        this(xSizeIn, ySizeIn, ImmutableList.copyOf(elementsIn));
+    }
+
+    public DiaryChapter(int xSizeIn, int ySizeIn, Collection<ADiaryElement> elementsIn)
+    {
+        font = Minecraft.getInstance().fontRenderer;
+        xSize = xSizeIn;
+        ySize = ySizeIn;
+        add(elementsIn);
+    }
+
+    public void add(Collection<ADiaryElement> elementsIn)
     {
         elements.addAll(elementsIn);
         recalculateSizes();
@@ -33,13 +48,13 @@ public class ADiaryChapter
         int count = 0;
         for (ADiaryElement element : elements)
         {
-            if ((size + element.getHeight()) * (font.FONT_HEIGHT + 2) >= ySize - 30)
+            if ((size + element.getHeight(xSize, ySize)) * (font.FONT_HEIGHT + 2) >= ySize - 30)
             {
                 break;
             }
             else
             {
-                size += element.getHeight();
+                size += element.getHeight(xSize, ySize);
                 count++;
             }
         }
@@ -50,17 +65,25 @@ public class ADiaryChapter
         count = 0;
         for (int i = end; i < elements.size(); i++)
         {
-            if ((size + elements.get(i).getHeight()) * font.FONT_HEIGHT >= ySize - 30)
+            if ((size + elements.get(i).getHeight(xSize, ySize)) * font.FONT_HEIGHT >= ySize - 30)
             {
                 break;
             }
             else
             {
-                size += elements.get(i).getHeight();
+                size += elements.get(i).getHeight(xSize, ySize);
                 count++;
             }
         }
         end2 = end + count + 1;
+    }
+
+    public void toFirst()
+    {
+        start = 0;
+        end = 0;
+        end2 = 0;
+        recalculateSizes();
     }
 
     public boolean isLast()
@@ -93,11 +116,11 @@ public class ADiaryChapter
             boolean isEnded = false;
             for (int i = end2; i < elements.size() && !isEnded; i++)
             {
-                if ((size + elements.get(i).getHeight()) * font.FONT_HEIGHT >= ySize - 30)
+                if ((size + elements.get(i).getHeight(xSize, ySize)) * font.FONT_HEIGHT >= ySize - 30)
                 {
                     isEnded = true;
                 }
-                size += elements.get(i).getHeight();
+                size += elements.get(i).getHeight(xSize, ySize);
                 count++;
             }
             start = end2 + 1;
@@ -108,11 +131,11 @@ public class ADiaryChapter
             isEnded = false;
             for (int i = end; i < elements.size() && !isEnded; i++)
             {
-                if (size + elements.get(i).getHeight() >= 14)
+                if (size + elements.get(i).getHeight(xSize, ySize) >= 14)
                 {
                     isEnded = true;
                 }
-                size += elements.get(i).getHeight();
+                size += elements.get(i).getHeight(xSize, ySize);
                 count++;
             }
             end2 = end + count + 1;
@@ -129,12 +152,12 @@ public class ADiaryChapter
             boolean isEnded = false;
             for (int i = start - 1; i >= 0 && !isEnded; --i)
             {
-                if ((size + elements.get(i).getHeight()) * font.FONT_HEIGHT >= ySize - 30)
+                if ((size + elements.get(i).getHeight(xSize, ySize)) * font.FONT_HEIGHT >= ySize - 30)
                 {
                     isEnded = true;
                 } else
                 {
-                    size += elements.get(i).getHeight();
+                    size += elements.get(i).getHeight(xSize, ySize);
                     count++;
                 }
             }
@@ -146,12 +169,12 @@ public class ADiaryChapter
             isEnded = false;
             for (int i = end - 1; i >= 0 && !isEnded; --i)
             {
-                if ((size + elements.get(i).getHeight()) * font.FONT_HEIGHT >= ySize - 30)
+                if ((size + elements.get(i).getHeight(xSize, ySize)) * font.FONT_HEIGHT >= ySize - 30)
                 {
                     isEnded = true;
                 } else
                 {
-                    size += elements.get(i).getHeight();
+                    size += elements.get(i).getHeight(xSize, ySize);
                     count++;
                 }
             }

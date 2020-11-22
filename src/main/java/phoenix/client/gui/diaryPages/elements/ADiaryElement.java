@@ -7,7 +7,7 @@ import phoenix.containers.DiaryContainer;
 
 public abstract class ADiaryElement
 {
-    abstract public int getHeight();
+    abstract public int getHeight(int maxSizeXIn, int maxSizeYIn);
     abstract public void render(ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int ySize, int x, int y, int depth);
     abstract public CompoundNBT serialize();
 

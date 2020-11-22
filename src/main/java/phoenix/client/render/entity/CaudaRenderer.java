@@ -17,7 +17,7 @@ public class CaudaRenderer extends MobRenderer<CaudaEntity, Cauda2Model<CaudaEnt
 {
     public CaudaRenderer(EntityRendererManager renderManager)
     {
-        super(renderManager, new Cauda2Model<CaudaEntity>(), 1.5F);
+        super(renderManager, new Cauda2Model<>(), 1.5F);
         this.addLayer(new CaudaEyesLayer<>(this));
     }
 

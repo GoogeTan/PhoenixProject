@@ -6,6 +6,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
+import phoenix.Phoenix;
 import phoenix.containers.DiaryContainer;
 import phoenix.utils.RenderUtils;
 import phoenix.utils.TextureUtils;
@@ -14,33 +15,35 @@ import java.awt.*;
 
 public class ImageElement extends ADiaryElement
 {
+    int w, h;
     final ResourceLocation img;
-    int w, h, maxSizeX, maxSizeY;
-    public ImageElement(ResourceLocation img, int maxSizeXIn, int maxSizeYIn)
+    public ImageElement(ResourceLocation img, int textureX, int textureY)
     {
         this.img = img;
-        Dimension d = TextureUtils.getTextureSize(img);
-        this.w = d.width;
-        this.h = d.height;
-        this.maxSizeX = maxSizeXIn - 30;
-        this.maxSizeY = maxSizeYIn - 30;
+        w = textureX;
+        h = textureY;
     }
 
     @Override
-    public int getHeight()
+    public int getHeight(int maxSizeXIn, int maxSizeYIn)
     {
-        Dimension d = TextureUtils.getTextureSize(img);
-        if(d.width != 0 && d.height != 0)
+        double scale = scale(maxSizeXIn / 2, maxSizeYIn / 2);
+        Phoenix.getLOGGER().error(Math.ceil(h * scale));
+        return (int) Math.ceil(h * scale);
+    }
+
+    public double scale(int maxSizeX, int maxSizeY)
+    {
+        if(w != 0 && h != 0)
         {
-            double scale = maxSizeX / d.width;
-            int sizeX = (int) (d.width * scale),
-                    sizeY = (int) (d.height * scale);
+            double scale = maxSizeX / (double) w;
+            double sizeX = (int) (w * scale),
+                    sizeY = (int) (h * scale);
             if (maxSizeY < sizeY)
             {
-                scale = maxSizeY / sizeY;
+                scale *= (double) maxSizeY / sizeY;
             }
-            double height = Math.ceil(scale * h / (Minecraft.getInstance().fontRenderer.FONT_HEIGHT + 4));
-            return (int) height;
+            return scale;
         }
         else
         {
@@ -51,9 +54,12 @@ public class ImageElement extends ADiaryElement
     @Override
     public void render(ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int ySize, int x, int y, int depth)
     {
+        double scale = scale(xSize / 2, ySize / 2);
         RenderSystem.pushMatrix();
+        RenderSystem.scaled(scale, scale, scale);
         Minecraft.getInstance().getTextureManager().bindTexture(img);
         RenderUtils.drawRectScalable(img, x + 15, y + 15, xSize, ySize, depth);
+        RenderSystem.scaled(1 / scale, 1 / scale, 1 / scale);
         RenderSystem.popMatrix();
     }
     //*
@@ -69,8 +75,8 @@ public class ImageElement extends ADiaryElement
         CompoundNBT res = new CompoundNBT();
         res.putString("type", "img");
         res.putString("res", img.getPath());
-        res.putInt("maxx", maxSizeX);
-        res.putInt("maxy", maxSizeY);
+        //res.putInt("maxx", maxSizeX);
+        //res.putInt("maxy", maxSizeY);
         return res;
     }
 }

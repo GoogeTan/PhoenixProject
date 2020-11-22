@@ -13,9 +13,10 @@ import net.minecraft.util.ResourceLocation
 import phoenix.client.models.block.TextModel
 import phoenix.tile.TextTile
 
-class TextRenderer(dis: TileEntityRendererDispatcher?) : TileEntityRenderer<TextTile>(dis)
+class TextRenderer(dis: TileEntityRendererDispatcher) : TileEntityRenderer<TextTile>(dis)
 {
     var model = TextModel()
+
     override fun render(p0: TextTile, p1: Float, matrics: MatrixStack, p3: IRenderTypeBuffer, p4: Int, p5: Int)
     {
         val fontrenderer = Minecraft.getInstance().fontRenderer
