@@ -12,8 +12,6 @@ import net.minecraft.client.renderer.WorldVertexBufferUploader;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 
-import java.awt.*;
-
 public class RenderUtils
 {
     public static void drawWithScale(ResourceLocation texture, int sizeX, int sizeY, int x, int y, float scale)

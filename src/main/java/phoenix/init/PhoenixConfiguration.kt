@@ -3,9 +3,6 @@ package phoenix.init
 import net.minecraftforge.common.ForgeConfigSpec
 import net.minecraftforge.common.ForgeConfigSpec.EnumValue
 import net.minecraftforge.common.ForgeConfigSpec.IntValue
-import net.minecraftforge.eventbus.api.SubscribeEvent
-import net.minecraftforge.fml.config.ModConfig.Reloading
-import phoenix.Phoenix
 
 
 object PhoenixConfiguration

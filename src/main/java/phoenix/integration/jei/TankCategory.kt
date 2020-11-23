@@ -8,7 +8,7 @@ import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.recipe.category.IRecipeCategory
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
-import phoenix.client.gui.OvenScreen
+import phoenix.Phoenix
 import phoenix.init.PhoenixBlocks
 import phoenix.recipes.tank.TankRecipe
 
@@ -18,7 +18,7 @@ class TankCategory(var helper: IGuiHelper) : IRecipeCategory<TankRecipe>
 
     init
     {
-        background = helper.createDrawable(OvenScreen.OVEN_TEXTURE, 0, 0, 100, 34)
+        background = helper.createDrawable(ResourceLocation(Phoenix.MOD_ID, "textures/gui/oven.png"), 0, 0, 100, 34)
     }
 
     override fun getUid         (): ResourceLocation       = ResourceLocation("phoenix", "tank")

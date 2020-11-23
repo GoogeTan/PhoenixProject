@@ -5,13 +5,11 @@ import mezz.jei.api.JeiPlugin
 import mezz.jei.api.registration.IRecipeCatalystRegistration
 import mezz.jei.api.registration.IRecipeCategoryRegistration
 import mezz.jei.api.registration.IRecipeRegistration
-import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
 import net.minecraft.util.ResourceLocation
-import net.minecraftforge.fml.RegistryObject
 import phoenix.init.PhoenixBlocks
 import phoenix.init.PhoenixRecipes
 

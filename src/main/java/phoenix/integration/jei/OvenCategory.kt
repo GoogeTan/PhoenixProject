@@ -8,13 +8,13 @@ import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.recipe.category.IRecipeCategory
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
-import phoenix.client.gui.OvenScreen
+import phoenix.Phoenix
 import phoenix.init.PhoenixBlocks
 import phoenix.recipes.OvenRecipe
 
 class OvenCategory(val helper: IGuiHelper) : IRecipeCategory<OvenRecipe>
 {
-    private val background: IDrawable = helper.createDrawable(OvenScreen.OVEN_TEXTURE, 0, 0, 100, 34)
+    private val background: IDrawable = helper.createDrawable(ResourceLocation(Phoenix.MOD_ID, "textures/gui/oven.png"), 0, 0, 100, 34)
     override fun getUid        (): ResourceLocation      = ResourceLocation("phoenix", "oven")
     override fun getRecipeClass(): Class<out OvenRecipe> = OvenRecipe::class.java
     override fun getTitle      (): String                = "Oven"

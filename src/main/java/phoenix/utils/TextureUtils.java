@@ -4,10 +4,8 @@ import javafx.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
-import phoenix.Phoenix;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 
 public class TextureUtils
 {

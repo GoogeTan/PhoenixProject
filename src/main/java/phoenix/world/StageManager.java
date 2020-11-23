@@ -1,14 +1,6 @@
 package phoenix.world;
 
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.world.dimension.DimensionType;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.DimensionSavedDataManager;
-import net.minecraft.world.storage.SaveHandler;
-import net.minecraft.world.storage.WorldSavedData;
-
-import javax.annotation.Nonnull;
-import java.io.File;
 
 public class StageManager
 {

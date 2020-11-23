@@ -10,9 +10,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import phoenix.Phoenix;
 import phoenix.client.gui.DiaryGui;
-import phoenix.client.gui.OvenScreen;
 import phoenix.containers.DiaryContainer;
-import phoenix.containers.OvenContainer;
 import phoenix.containers.redo.TankContainer;
 
 public class PhoenixContainers
@@ -20,7 +18,6 @@ public class PhoenixContainers
     private static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Phoenix.MOD_ID);
 
     public static final RegistryObject<ContainerType<DiaryContainer>> GUIDE   = CONTAINERS.register("drls_diary", DiaryContainer::fromNetwork);
-    public static final RegistryObject<ContainerType<OvenContainer>>  OVEN    = CONTAINERS.register("oven",       OvenContainer::fromNetwork);
     public static final RegistryObject<ContainerType<TankContainer>>  TANK    = CONTAINERS.register("tank",       TankContainer::fromNetwork);
 
     public static void register()
@@ -33,6 +30,5 @@ public class PhoenixContainers
     public static void registerScreens()
     {
         ScreenManager.registerFactory(GUIDE.get(), DiaryGui::new);
-        ScreenManager.registerFactory(OVEN.get(),  OvenScreen::new);
     }
 }

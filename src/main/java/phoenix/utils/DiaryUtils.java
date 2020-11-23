@@ -13,7 +13,6 @@ import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement;
 import phoenix.client.gui.diaryPages.elements.TextElement;
 import phoenix.utils.exeptions.BookException;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

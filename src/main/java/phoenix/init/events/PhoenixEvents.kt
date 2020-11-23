@@ -2,8 +2,6 @@ package phoenix.init.events
 
 import net.minecraft.block.BlockRenderType
 import net.minecraft.block.BlockState
-import net.minecraft.particles.ParticleType
-import net.minecraft.particles.ParticleTypes
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec3d
@@ -12,8 +10,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
-import phoenix.init.PhoenixParticles
-import phoenix.particles.PhoenixParticleData
 import phoenix.world.StageManager
 
 @Mod.EventBusSubscriber

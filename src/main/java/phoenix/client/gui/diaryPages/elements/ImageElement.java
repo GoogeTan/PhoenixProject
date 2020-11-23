@@ -9,9 +9,6 @@ import net.minecraft.util.ResourceLocation;
 import phoenix.Phoenix;
 import phoenix.containers.DiaryContainer;
 import phoenix.utils.RenderUtils;
-import phoenix.utils.TextureUtils;
-
-import java.awt.*;
 
 public class ImageElement extends ADiaryElement
 {

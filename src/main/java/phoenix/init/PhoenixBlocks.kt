@@ -1,6 +1,5 @@
 package phoenix.init
 
-import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import net.minecraftforge.registries.DeferredRegister

@@ -21,15 +21,27 @@ class OvenBlock : ContainerBlock(Properties.create(Material.ROCK).notSolid())
     {
         if (!worldIn.isRemote && pos != null)
         {
-            val tile = worldIn.getTileEntity(pos)
-            if (tile is OvenTile)
+            if(playerIn.isSneaking)
             {
-                playerIn.openContainer(tile as INamedContainerProvider?)
+
+            }
+            else
+            {
+                val tile = worldIn.getTileEntity(pos)
+                if (tile is OvenTile)
+                {
+                    playerIn.openContainer(tile as INamedContainerProvider?)
+                }
             }
         }
         return ActionResultType.SUCCESS
     }
 
+    override fun getLightValue(state: BlockState, world: IBlockReader, pos: BlockPos): Int
+    {
+        val tile : OvenTile = world.getTileEntity(pos) as OvenTile
+        return tile.burnTime / tile.maxBurnTime * 15
+    }
 
     override fun createTileEntity(state: BlockState?, world: IBlockReader?): TileEntity? = OvenTile()
     @ParametersAreNonnullByDefault

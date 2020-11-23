@@ -2,7 +2,6 @@ package phoenix.init.events;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -19,7 +18,6 @@ import phoenix.client.render.TextRenderer;
 import phoenix.client.render.entity.CaudaRenderer;
 import phoenix.client.render.entity.KnifeRenderer;
 import phoenix.client.render.entity.TalpaRenderer;
-import phoenix.enity.KnifeEntity;
 import phoenix.init.*;
 import phoenix.utils.block.IColoredBlock;
 

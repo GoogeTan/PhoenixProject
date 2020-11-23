@@ -3,10 +3,7 @@ package phoenix
 import net.minecraft.item.ItemGroup
 import net.minecraft.world.World
 import net.minecraft.world.biome.FuzzedBiomeMagnifier
-import net.minecraft.world.biome.IBiomeMagnifier
-import net.minecraft.world.dimension.Dimension
 import net.minecraft.world.dimension.DimensionType
-import net.minecraft.world.dimension.EndDimension
 import net.minecraftforge.common.ForgeConfigSpec
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
@@ -15,7 +12,6 @@ import org.apache.logging.log4j.LogManager
 import phoenix.init.*
 import phoenix.init.PhoenixConfiguration.Common
 import phoenix.world.EndBiomedDimension
-import java.util.function.BiFunction
 
 @Mod(Phoenix.MOD_ID)
 class Phoenix

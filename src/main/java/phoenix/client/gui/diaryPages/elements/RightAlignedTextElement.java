@@ -2,9 +2,7 @@ package phoenix.client.gui.diaryPages.elements;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.nbt.CompoundNBT;
 import phoenix.containers.DiaryContainer;
-import phoenix.utils.StringUtils;
 
 public class RightAlignedTextElement extends TextElement
 {
