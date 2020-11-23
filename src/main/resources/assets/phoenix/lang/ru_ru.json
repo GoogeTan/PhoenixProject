@@ -24,11 +24,11 @@
   "item.phoenix.steel_form_knife_blade_full": "Заполенная форма лезвия ножа",
   "item.phoenix.steel_form_sword_blade_full": "Заполенная форма лезвия меча",
   "item.phoenix.steel_form_pickaxe_head_full": "Заполенная форма изголовья кирки",
-  "item.phoenix.steel_form_butt_full": "Заполенная форма лезвия топора",
+  "item.phoenix.steel_form_axe_blade_full": "Заполенная форма лезвия топора",
   "item.phoenix.steel_form_knife_blade_roasted": "Обработанная заготовка лезвия ножа",
   "item.phoenix.steel_form_sword_blade_roasted": "Обработанная заготовка лезвия меча",
   "item.phoenix.steel_form_pickaxe_head_roasted": "Обработанная заготовка изголовья кирки",
-  "item.phoenix.steel_form_butt_roasted": "Обработанная заготовка лезвия топора",
+  "item.phoenix.steel_form_axe_blade_roasted": "Обработанная заготовка лезвия топора",
   "item.phoenix.ceramic_zirconium_axe": "Циркониево-кирамический топор",
   "item.phoenix.ceramic_zirconium_pickaxe": "Циркониево-кирамическая кирка",
   "item.phoenix.ceramic_zirconium_sword": "Циркониево-кирамический мечь",
@@ -48,6 +48,7 @@
   "block.phoenix.pottery_barrel": "Гончарная бочка",
   "block.phoenix.end_stone_column": "Коллонна из эндерняка",
   "block.phoenix.oven": "Печь",
+  "block.phoenix.zirconium_ore": "Руда циркония",
 
   "entity.Uterus.name": "Короначервиус",
 

@@ -29,7 +29,7 @@ object PhoenixBlocks
     val ANTI_AIR          = BLOCKS.register("anti_air")          { AntiAirBlock()         }!!
     val POTTERY_BARREL    = BLOCKS.register("pottery_barrel")    { PotteryBarrelBlock()   }!!
     val END_STONE_COLUMN  = BLOCKS.register("end_stone_column")  { EndStoneColumnBlock()  }!!
-    val OVEN              = BLOCKS.register<Block>("oven")       { OvenBlock()            }!!
+    val OVEN              = BLOCKS.register("oven")              { OvenBlock()            }!!
     @JvmStatic
     val ZIRCONIUM         = BLOCKS.register("zirconium_ore")     { ZirconiumOreBlock()    }!!
     val TEXT_BLOCK        = BLOCKS.register("block_with_text", AnonimBlock.create(Material.ROCK))!!

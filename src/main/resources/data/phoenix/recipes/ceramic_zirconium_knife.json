@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X  ",
+    "#  ",
+    "   "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "phoenix:zirconium_knife_blade"
+    }
+  },
+  "result": {
+    "item": "phoenix:ceramic_zirconium_knife"
+  }
+}
