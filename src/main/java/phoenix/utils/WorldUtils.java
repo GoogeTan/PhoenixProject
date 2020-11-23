@@ -22,7 +22,6 @@ public class WorldUtils
         else
         {
             IFluidState ifluidstate = world.getFluidState(pos);
-            world.playEvent(2001, pos, Block.getStateId(blockstate));
             if (shouldDrop)
             {
                 TileEntity tileentity = blockstate.hasTileEntity() ? world.getTileEntity(pos) : null;

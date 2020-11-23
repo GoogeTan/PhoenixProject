@@ -6,7 +6,6 @@
 
   "itemGroup.phoenix": "Project Phoenix",
 
-
   "item.phoenix.high_quality_clay": "High quality clay",
   "item.phoenix.diary": "Diary",
   "item.phoenix.crucible": "Crucible",
@@ -17,7 +16,9 @@
   "item.phoenix.zirconium_blade": "Zirconium blade",
   "item.phoenix.zirconium_bayonet": "Zirconium bayonet",
   "item.phoenix.zirconium_butt": "Zirconium butt",
-
+  "item.phoenix.ceramic_zirconium_knife": "Ceramic zirconium knife",
+  "item.phoenix.bucket_with_clay": "Bucket with clay",
+  "item.phoenix.absolutespeedsword": "Sword of absolute speed",
 
   "block.phoenix.fragileblock": "Fragile Block",
   "block.phoenix.updater": "Updater",
@@ -34,12 +35,9 @@
   "block.phoenix.end_stone_column": "End stone column",
   "block.phoenix.oven": "Oven",
 
-
   "entity.Uterus.name": "Coronoworm",
 
   "phoenix.quality": "Quality:",
-  "item.phoenix.bucket_with_clay": "Bucket with clay",
-  "item.absolutespeedsword.name": "Sword of absolute speed",
 
   "advancements.phoenix.ash.title": "Project Phoenix: ash",
   "advancements.phoenix.ash.title.description": "End of the start or start of the end?",

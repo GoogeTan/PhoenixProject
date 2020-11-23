@@ -13,6 +13,26 @@
   "item.phoenix.crucible_with_iron": "Тигель с расплавленным железом",
   "item.phoenix.crucible_with_gold_ore": "Тигель с золотой рудой",
   "item.phoenix.crucible_with_gold": "Тигель с расплавленным золотом",
+  "item.phoenix.zirconium_sword_blade": "Керамическое лезвие меча на цирконевой основе",
+  "item.phoenix.zirconium_knife_blade": "Керамическое лезвие ножа на цирконевой основе",
+  "item.phoenix.zirconium_pickaxe_head": "Керамическое изголовье кирки на цирконевой основе",
+  "item.phoenix.zirconium_butt": "Керамическое лезвие топора на цирконевой основе",
+  "item.phoenix.steel_form_knife_blade": "Форма лезвия ножа",
+  "item.phoenix.steel_form_sword_blade": "Форма лезвия меча",
+  "item.phoenix.steel_form_pickaxe_head": "Форма изголовья кирки",
+  "item.phoenix.steel_form_butt": "Форма лезвия топора",
+  "item.phoenix.steel_form_knife_blade_full": "Заполенная форма лезвия ножа",
+  "item.phoenix.steel_form_sword_blade_full": "Заполенная форма лезвия меча",
+  "item.phoenix.steel_form_pickaxe_head_full": "Заполенная форма изголовья кирки",
+  "item.phoenix.steel_form_butt_full": "Заполенная форма лезвия топора",
+  "item.phoenix.steel_form_knife_blade_roasted": "Обработанная заготовка лезвия ножа",
+  "item.phoenix.steel_form_sword_blade_roasted": "Обработанная заготовка лезвия меча",
+  "item.phoenix.steel_form_pickaxe_head_roasted": "Обработанная заготовка изголовья кирки",
+  "item.phoenix.steel_form_butt_roasted": "Обработанная заготовка лезвия топора",
+  "item.phoenix.ceramic_zirconium_axe": "Циркониево-кирамический топор",
+  "item.phoenix.ceramic_zirconium_pickaxe": "Циркониево-кирамическая кирка",
+  "item.phoenix.ceramic_zirconium_sword": "Циркониево-кирамический мечь",
+  "item.phoenix.ceramic_zirconium_knife": "Циркониево-кирамический нож",
 
   "block.phoenix.fragileblock": "Хрупкий блок",
   "block.phoenix.updater": "Это \"Улучшатор\", но поидее ты не должен этого видеть...",
@@ -42,5 +62,10 @@
 
   "phoenix.message.newstage": "Достингута новая стадия: ",
   "phoenix.message.speare":"Использует систему боя из 1.8",
-  "phoenix.jei.category.oven": "Печь"
+  "phoenix.jei.category.oven": "Печь",
+
+  "item.phoenix.": "",
+  "item.phoenix.zirconium_blade": "Zirconium blade",
+  "item.phoenix.zirconium_bayonet": "Zirconium bayonet",
+  "item.phoenix.absolutespeedsword": "Sword of absolute speed"
 }

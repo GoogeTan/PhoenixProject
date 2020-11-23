@@ -17,6 +17,7 @@ import net.minecraft.world.gen.area.IAreaFactory
 import net.minecraft.world.gen.layer.Layer
 import net.minecraft.world.gen.layer.ZoomLayer
 import net.minecraft.world.server.ServerWorld
+import phoenix.Phoenix
 import phoenix.init.PhoenixBiomes
 import phoenix.init.PhoenixConfiguration
 import phoenix.world.genlayers.*
@@ -83,7 +84,7 @@ class NewEndBiomeProvider(settings: EndBiomeProviderSettings, worldIn: ServerWor
         return Layer(factory)
     }
 
-    fun <T : IArea?, C : IExtendedNoiseRandom<T>?> getLayersApply(worldIn: ServerWorld?, context: LongFunction<C>): IAreaFactory<T>
+    fun <T : IArea?, C : IExtendedNoiseRandom<T>> getLayersApply(worldIn: ServerWorld?, context: LongFunction<C>): IAreaFactory<T>
     {
         var phoenixBiomes = ParentLayer(this).apply(context.apply(1L))
         var vanilaBiomes = ParentLayer(this).apply(context.apply(1L))
@@ -91,9 +92,12 @@ class NewEndBiomeProvider(settings: EndBiomeProviderSettings, worldIn: ServerWor
         var stage = 2
         try
         {
-            stage = StageSaveData.get(worldIn!!).stage
-        } catch (ignored: Exception){}
-
+            stage = StageManager.getStage()
+        } catch (ignored: Exception)
+        {
+            ignored.printStackTrace()
+        }
+        Phoenix.LOGGER.error(stage)
         if (stage >= 1)
         {
             phoenixBiomes = UnderLayer.INSTANCE.apply(context.apply(200L), phoenixBiomes)

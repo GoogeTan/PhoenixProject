@@ -14,6 +14,7 @@ import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.IFeatureConfig
 import net.minecraft.world.gen.placement.IPlacementConfig
 import net.minecraft.world.gen.placement.Placement
+import phoenix.Phoenix
 import phoenix.init.PhoenixBlocks
 import phoenix.utils.GenerationUtils
 import phoenix.world.builders.Builders
@@ -24,6 +25,7 @@ class UnderBiome : Biome(GenerationUtils.deafultSettingsForEnd(Builders.UNDER, B
     override fun decorate(stage: GenerationStage.Decoration, chunkGenerator: ChunkGenerator<out GenerationSettings?>, worldIn: IWorld, seed: Long, random: SharedSeedRandom, pos: BlockPos)
     {
         super.decorate(stage, chunkGenerator, worldIn, seed, random, pos)
+        Phoenix.LOGGER.error(pos)
         if (random.nextBoolean())
         {
             val position = getDownHeight(worldIn, pos.add(random.nextInt(15), 0, random.nextInt(15)), 30)

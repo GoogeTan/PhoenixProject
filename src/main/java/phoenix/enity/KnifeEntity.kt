@@ -35,6 +35,15 @@ class KnifeEntity : ThrowableEntity
         this.isReal = isReal;
     }
 
+    override fun tick()
+    {
+        super.tick()
+        if(EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, knife) > 0)
+        {
+            world.addParticle(ParticleTypes.LAVA, posX, posY, posZ, 0.0, 0.0, 0.0)
+        }
+    }
+
     @OnlyIn(Dist.CLIENT)
     override fun handleStatusUpdate(id: Byte)
     {

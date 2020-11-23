@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "phoenix:items/form_bayonet_full"
+    "layer0": "phoenix:items/zirconium_pickaxe_head"
   }
 }
