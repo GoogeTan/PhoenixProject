@@ -39,9 +39,9 @@ class PhoenixGroup(name: String) : ItemGroup(name)
         {
             return when (i1.item)
             {
-                is ToolItem  -> 1
-                is BlockItem -> 2
-                else         -> 3
+                is BlockItem -> 1
+                is ToolItem  -> 3
+                else         -> 2
             }
         }
     }
