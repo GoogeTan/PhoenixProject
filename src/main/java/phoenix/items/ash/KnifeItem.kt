@@ -34,22 +34,17 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
     {
         val itemstack = player.getHeldItem(hand)
         world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5f, 0.4f / (random.nextFloat() * 0.4f + 0.8f))
-        var coolDown = 10
-        val speed = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, itemstack)
-        coolDown -= speed / 3
-        coolDown = kotlin.math.max(0, coolDown)
-        player.cooldownTracker.setCooldown(this, coolDown)
+        player.cooldownTracker.setCooldown(this, 10)
         if (!world.isRemote)
         {
             val knife = KnifeEntity(world, player, true)
             knife.knife = itemstack
-            knife.knife.damageItem(1, player, {})
             knife.shoot(player, player.rotationPitch, player.rotationYaw, 0.0f, 1.5f, 1.0f)
             world.addEntity(knife)
             val count = EnchantmentHelper.getEnchantmentLevel(Enchantments.MULTISHOT, itemstack)
             for (i in 0..count)
             {
-                addTask(5 * i) {
+                addTask(10 * i) {
                     val knife2 = KnifeEntity(world, player, false)
                     knife2.shoot(player, player.rotationPitch, player.rotationYaw, 0.0f, 1.5f, 1.0f)
                     world.addEntity(knife2)
@@ -73,9 +68,10 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
         if (breakableBlocks.contains(world.getBlockState(pos).block) || shouldBroke)
         {
             WorldUtils.destroyBlock(world, pos, true, owner, item)
+            knife.knife.attemptDamageItem(1, world.rand, null)
         }
         item.damageItem(1, owner, { p: LivingEntity? -> world.playSound(null, owner.position, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5f, 0.4f / (random.nextFloat() * 0.4f + 0.8f)) })
-        return !(block !== Blocks.SNOW_BLOCK && block !== Blocks.SNOW && block.isIn(Tags.Blocks.SAND))
+        return !(block !== Blocks.GRASS_BLOCK && block !== Blocks.SNOW && block.isIn(Tags.Blocks.SAND))
     }
 
     fun onHitEntity(world: World, owner: LivingEntity, knife: KnifeEntity, hitted: Entity, knifeItem: ItemStack): Boolean
@@ -93,7 +89,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
 
     companion object
     {
-        var breakableBlocks: Set<Block> = ImmutableSet.of(Blocks.SPONGE, Blocks.VINE, Blocks.SEA_PICKLE, Blocks.WET_SPONGE)
+        var breakableBlocks: Set<Block> = ImmutableSet.of(Blocks.SPONGE, Blocks.VINE, Blocks.SEA_PICKLE, Blocks.WET_SPONGE, Blocks.GRASS, Blocks.TALL_GRASS)
         var breakableBlocksTypes: Set<Tag<Block>> = ImmutableSet.of(Tags.Blocks.GLASS, Tags.Blocks.STAINED_GLASS_PANES)
         var allowedEnchantments: Set<Enchantment> = ImmutableSet.of(Enchantments.POWER, Enchantments.QUICK_CHARGE, Enchantments.MENDING, Enchantments.FLAME, Enchantments.SILK_TOUCH, Enchantments.UNBREAKING)
     }

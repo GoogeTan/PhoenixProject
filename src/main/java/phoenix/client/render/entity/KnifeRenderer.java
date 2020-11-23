@@ -10,10 +10,8 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import phoenix.Phoenix;
 import phoenix.enity.KnifeEntity;
 import phoenix.init.PhoenixItems;
 
@@ -33,11 +31,11 @@ public class KnifeRenderer<T extends KnifeEntity> extends EntityRenderer<T> {
 
     @Override
     public void render(T entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        Phoenix.getLOGGER().error("no...");
         matrixStackIn.push();
-        matrixStackIn.scale(this.scale, this.scale, this.scale);
-        matrixStackIn.rotate(this.renderManager.getCameraOrientation());
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F));
+        matrixStackIn.scale(scale, scale, scale);
+        //matrixStackIn.rotate(renderManager.getCameraOrientation());
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90.0F));
+        matrixStackIn.rotate(Vector3f.XN.rotationDegrees(90.0F));
         this.itemRenderer.renderItem(new ItemStack(PhoenixItems.INSTANCE.getZIRCONIUM_KNIFE().get()), ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
         matrixStackIn.pop();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
