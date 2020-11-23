@@ -6,6 +6,7 @@ import net.minecraft.block.Blocks
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.enchantment.Enchantments
+import net.minecraft.enchantment.Enchantments.QUICK_CHARGE
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity
@@ -32,24 +33,27 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
     {
         val itemstack = player.getHeldItem(hand)
         world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5f, 0.4f / (random.nextFloat() * 0.4f + 0.8f))
-        player.cooldownTracker.setCooldown(this, 10)
+        var coolDown = 10
+        coolDown -= (1.5 * EnchantmentHelper.getEnchantmentLevel(QUICK_CHARGE, itemstack)).toInt()
+        player.cooldownTracker.setCooldown(this, coolDown)
         if (!world.isRemote)
         {
-            val knife = KnifeEntity(world, player, true)
+            val knife = KnifeEntity(world, player, EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, itemstack) == 0)
             knife.knife = itemstack
-            knife.shoot(player, player.rotationPitch, player.rotationYaw, 0.0f, 1.5f, 1.0f)
+            knife.shoot(player, player.rotationPitch, player.rotationYaw, 0.0f, 2f, 0.3f)
             world.addEntity(knife)
             val count = EnchantmentHelper.getEnchantmentLevel(Enchantments.MULTISHOT, itemstack)
-            for (i in 0..count)
+            for (i in 1..count)
             {
                 addTask(10 * i)
                 {
                     val knife2 = KnifeEntity(world, player, false)
-                    knife2.shoot(player, player.rotationPitch, player.rotationYaw, 0.0f, 1.5f, 1.0f)
+                    knife2.shoot(player, player.rotationPitch, player.rotationYaw, 0.0f, 2.5f, 1.0f)
                     world.addEntity(knife2)
                 }
             }
-            player.setHeldItem(hand, ItemStack.EMPTY)
+            if(EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, itemstack) == 0)
+                player.setHeldItem(hand, ItemStack.EMPTY)
         }
 
         return ActionResult(ActionResultType.SUCCESS, itemstack)
@@ -97,6 +101,6 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
     {
         var breakableBlocks: Set<Block> = ImmutableSet.of(Blocks.SPONGE, Blocks.VINE, Blocks.SEA_PICKLE, Blocks.WET_SPONGE, Blocks.GRASS, Blocks.TALL_GRASS, Blocks.SUGAR_CANE)
         var breakableBlocksTypes: Set<Tag<Block>> = ImmutableSet.of(Tags.Blocks.GLASS, Tags.Blocks.STAINED_GLASS_PANES)
-        var allowedEnchantments: Set<Enchantment> = ImmutableSet.of(Enchantments.POWER, Enchantments.QUICK_CHARGE, Enchantments.MENDING, Enchantments.FLAME, Enchantments.SILK_TOUCH, Enchantments.UNBREAKING)
+        var allowedEnchantments: Set<Enchantment> = ImmutableSet.of(Enchantments.POWER, QUICK_CHARGE, Enchantments.MENDING, Enchantments.FLAME, Enchantments.SILK_TOUCH, Enchantments.UNBREAKING)
     }
 }

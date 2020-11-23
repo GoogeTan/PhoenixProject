@@ -47,7 +47,7 @@ class Phoenix
 
         init
         {
-            InitEnd.init();
+            DimensionType.THE_END = DimensionType.register("the_end",  DimensionType(2, "_end", "DIM1", { world: World, type: DimensionType -> EndBiomedDimension(world, type) }, false, FuzzedBiomeMagnifier.INSTANCE))
         }
     }
 }

@@ -1,0 +1,9 @@
+{
+  "type": "phoenix:oven_recipe",
+  "ingredient": {
+    "item": "phoenix:steel_form_sword_blade_full"
+  },
+  "result": "phoenix:steel_form_sword_blade_roasted",
+  "experience": 0.4,
+  "cookingtime": 200
+}

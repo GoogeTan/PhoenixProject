@@ -7,13 +7,13 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:diamond_shovel"
+      "item": "minecraft:diamond_pickaxe"
     },
     "X": {
       "item": "phoenix:steel_ingot"
     }
   },
   "result": {
-    "item": "phoenix:steel_form_bayonet"
+    "item": "phoenix:steel_form_pickaxe_head"
   }
 }

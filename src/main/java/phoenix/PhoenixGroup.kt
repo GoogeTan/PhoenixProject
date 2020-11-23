@@ -13,10 +13,10 @@ class PhoenixGroup(name: String) : ItemGroup(name)
     override fun fill(items: NonNullList<ItemStack>)
     {
         super.fill(items)
-        items.sortWith(ItemStackComporator())
+        items.sortWith(ItemStackComparator())
     }
 
-    internal class ItemStackComporator : Comparator<ItemStack>
+    internal class ItemStackComparator : Comparator<ItemStack>
     {
         override fun compare(i1: ItemStack, i2: ItemStack): Int
         {

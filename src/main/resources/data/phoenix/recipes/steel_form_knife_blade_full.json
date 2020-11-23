@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "XYX",
+    " Y "
+  ],
+  "key": {
+    "#": {
+      "item": "phoenix:steel_form_knife_blade"
+    },
+    "X": {
+      "item": "phoenix:high_quality_clay"
+    },
+    "Y": {
+      "item": "phoenix:zirconium_ingot"
+    }
+  },
+  "result": {
+    "item": "phoenix:steel_form_knife_blade_full"
+  }
+}

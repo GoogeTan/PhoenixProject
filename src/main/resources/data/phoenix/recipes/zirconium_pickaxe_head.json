@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    {
+      "item": "phoenix:steel_form_pickaxe_head_roasted"
+    }
+  ],
+  "result": {
+    "item": "phoenix:zirconium_pickaxe_head",
+    "count": 1
+  }
+}

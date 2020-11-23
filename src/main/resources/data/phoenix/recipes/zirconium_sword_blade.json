@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    {
+      "item": "phoenix:steel_form_sword_blade_roasted"
+    }
+  ],
+  "result": {
+    "item": "phoenix:zirconium_sword_blade",
+    "count": 1
+  }
+}

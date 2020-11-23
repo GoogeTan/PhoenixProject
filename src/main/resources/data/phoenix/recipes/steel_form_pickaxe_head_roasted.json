@@ -1,0 +1,9 @@
+{
+  "type": "phoenix:oven_recipe",
+  "ingredient": {
+    "item": "phoenix:steel_form_pickaxe_head_full"
+  },
+  "result": "phoenix:steel_form_pickaxe_head_roasted",
+  "experience": 0.4,
+  "cookingtime": 200
+}

@@ -37,27 +37,27 @@ object PhoenixItems
     val ZIRCONIUM_SWORD_BLADE          = ITEMS.register("zirconium_sword_blade", basicItem())!!
     val ZIRCONIUM_KNIFE_BLADE          = ITEMS.register("zirconium_knife_blade", basicItem())!!
     val ZIRCONIUM_BAYONET              = ITEMS.register("zirconium_pickaxe_head",basicItem())!!
-    val ZIRCONIUM_BUTT                 = ITEMS.register("zirconium_butt",        basicItem())!!
+    val ZIRCONIUM_AXE_BLADE            = ITEMS.register("zirconium_axe_blade",   basicItem())!!
 
     val STEEL_FORM_KNIFE_BLADE         = ITEMS.register("steel_form_knife_blade", basicItem())!!
     val STEEL_FORM_SWORD_BLADE         = ITEMS.register("steel_form_sword_blade", basicItem())!!
     val STEEl_FORM_PICKAXE_HEAD        = ITEMS.register("steel_form_pickaxe_head",basicItem())!!
-    val STEEl_FORM_BUTT                = ITEMS.register("steel_form_butt",        basicItem())!!
+    val STEEl_FORM_AXE_BLADE           = ITEMS.register("steel_form_axe_blade",   basicItem())!!
 
     val STEEL_FORM_KNIFE_BLADE_FULL    = ITEMS.register("steel_form_knife_blade_full", form(STEEL_FORM_KNIFE_BLADE))!!
     val STEEL_FORM_SWORD_BLADE_FULL    = ITEMS.register("steel_form_sword_blade_full", form(STEEL_FORM_SWORD_BLADE))!!
     val STEEl_FORM_PICKAXE_HEAD_FULL   = ITEMS.register("steel_form_pickaxe_head_full",form(STEEl_FORM_PICKAXE_HEAD))!!
-    val STEEl_FORM_BUTT_FULL           = ITEMS.register("steel_form_butt_full",        form(STEEl_FORM_BUTT))!!
+    val STEEl_FORM_AXE_BLADE_FULL      = ITEMS.register("steel_form_axe_blade_full",   form(STEEl_FORM_AXE_BLADE))!!
 
     val STEEL_FORM_KNIFE_BLADE_ROASTED = ITEMS.register("steel_form_knife_blade_roasted", form(STEEL_FORM_KNIFE_BLADE))!!
     val STEEL_FORM_SWORD_BLADE_ROASTED = ITEMS.register("steel_form_sword_blade_roasted", form(STEEL_FORM_SWORD_BLADE))!!
     val STEEl_FORM_PICKAXE_HEAD_ROASTED= ITEMS.register("steel_form_pickaxe_head_roasted",form(STEEl_FORM_PICKAXE_HEAD))!!
-    val STEEl_FORM_BUTT_ROASTED        = ITEMS.register("steel_form_butt_roasted",        form(STEEl_FORM_BUTT))!!
+    val STEEl_FORM_AXE_BLADE_ROASTED   = ITEMS.register("steel_form_axe_blade_roasted",   form(STEEl_FORM_AXE_BLADE))!!
 
     val ZIRCONIUM_AXE                  = ITEMS.register("ceramic_zirconium_axe")     { AxeItem    (PhoenixTiers.ZIRCONIUM_TIER, 9.0f, 1.1f, Item.Properties().group(PHOENIX)) }!!
     val ZIRCONIUM_PICKAXE              = ITEMS.register("ceramic_zirconium_pickaxe") { PickaxeItem(PhoenixTiers.ZIRCONIUM_TIER, 4, 0.5f, Item.Properties().group(PHOENIX)) }!!
     val ZIRCONIUM_SWORD                = ITEMS.register("ceramic_zirconium_sword")   { SwordItem  (PhoenixTiers.ZIRCONIUM_TIER, 3, 1f, Item.Properties().group(PHOENIX)) }!!
-    val ZIRCONIUM_KNIFE                = ITEMS.register("ceramic_zirconium_knife")   { KnifeItem  (PhoenixTiers.ZIRCONIUM_TIER, 3f, 1f, PhoenixConfiguration.COMMON_CONFIG.HARDCORE.get().maxKnifeUsages) }!!
+    val ZIRCONIUM_KNIFE                = ITEMS.register("ceramic_zirconium_knife")   { KnifeItem  (PhoenixTiers.ZIRCONIUM_TIER, 3f, 1f, PhoenixConfiguration.COMMON_CONFIG.gameMode.get().maxKnifeUsages) }!!
 
     fun register() = ITEMS.register(FMLJavaModLoadingContext.get().modEventBus)
 

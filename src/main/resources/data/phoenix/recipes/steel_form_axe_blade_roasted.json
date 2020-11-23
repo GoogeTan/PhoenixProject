@@ -1,9 +1,9 @@
 {
   "type": "phoenix:oven_recipe",
   "ingredient": {
-    "item": "phoenix:crucible_with_gold_ore"
+    "item": "phoenix:steel_form_axe_blade_full"
   },
-  "result": "phoenix:crucible_with_gold",
+  "result": "phoenix:steel_form_axe_blade_roasted",
   "experience": 0.4,
   "cookingtime": 200
 }

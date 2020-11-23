@@ -1,11 +1,13 @@
 package phoenix.enity
 
 import net.minecraft.block.Blocks
+import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.enchantment.Enchantments
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.item.ItemEntity
+import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.projectile.ProjectileItemEntity
 import net.minecraft.entity.projectile.ThrowableEntity
 import net.minecraft.item.Item
@@ -68,7 +70,10 @@ class KnifeEntity : ThrowableEntity
                {
                    dropItem = dropItem && (knife.item as KnifeItem).onHitEntity(world, owner, this, (result as EntityRayTraceResult).entity, knife)
                    knife.attemptDamageItem(1, rand, null)
-                   if (dropItem) world.addEntity(ItemEntity(world, posX, posY, posZ, knife))
+                   if (EnchantmentHelper.getEnchantmentLevel(Enchantments.LOYALTY, knife) > 0 && owner is PlayerEntity && isReal)
+                       (owner as PlayerEntity).addItemStackToInventory(knife)
+                   else if (dropItem) world.addEntity(ItemEntity(world, posX, posY, posZ, knife))
+
                    onKillCommand()
                }
                BLOCK ->
@@ -77,9 +82,12 @@ class KnifeEntity : ThrowableEntity
                    dropItem = dropItem and (knife.item as KnifeItem).onHitBlock(world, owner, result.pos, this, knife)
                    if(block.block !== Blocks.GRASS || block.block !== Blocks.TALL_GRASS)
                    {
-                       onKillCommand()
                        knife.attemptDamageItem(1, rand, null)
-                       if (dropItem) world.addEntity(ItemEntity(world, posX, posY, posZ, knife))
+                       if (EnchantmentHelper.getEnchantmentLevel(Enchantments.LOYALTY, knife) > 0 && owner is PlayerEntity && isReal)
+                           (owner as PlayerEntity).addItemStackToInventory(knife)
+                       else if (dropItem)
+                           world.addEntity(ItemEntity(world, posX, posY, posZ, knife))
+                       onKillCommand()
                    }
                }
             }
