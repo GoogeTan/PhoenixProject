@@ -1,5 +1,6 @@
 package phoenix.containers;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -10,8 +11,11 @@ import net.minecraft.util.text.StringTextComponent;
 import phoenix.client.gui.diaryPages.elements.ADiaryElement;
 import phoenix.init.PhoenixContainers;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class DiaryContainer extends Container implements INamedContainerProvider
 {
     ITextComponent name = new StringTextComponent("Steve");
@@ -32,30 +36,11 @@ public class DiaryContainer extends Container implements INamedContainerProvider
         this.page = page;
     }
 
-    @Override
-    public boolean enchantItem(PlayerEntity playerIn, int id)
-    {
-        return super.enchantItem(playerIn, id);
-    }
-
-    public void nextPage()
-    {
-        this.page++;
-    }
-
-    public void prevPage()
-    {
-        this.page--;
-    }
 
     public DiaryContainer setName(ITextComponent nameIn)
     {
         this.name = nameIn;
         return this;
-    }
-
-    public static DiaryContainer fromNetwork(int id, PlayerInventory inventory) {
-        return new DiaryContainer(id).setName(inventory.player.getName());
     }
 
     public static ContainerType<DiaryContainer> fromNetwork() {

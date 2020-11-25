@@ -1,49 +1,90 @@
 package phoenix.tile.ash
 
 import net.minecraft.item.ItemStack
+import net.minecraft.item.Items
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.network.NetworkManager
 import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
-import phoenix.containers.OvenInventory
+import net.minecraft.util.NonNullList
+import net.minecraft.util.text.StringTextComponent
+import phoenix.Phoenix
 import phoenix.init.PhoenixTiles
 import phoenix.recipes.OvenRecipe
+import phoenix.recipes.OvenRecipe.recipes_from_inputs
 import phoenix.utils.block.PhoenixTile
 
 class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity
 {
     var timers = IntArray(4)
-    var inventory: OvenInventory = OvenInventory(4)
     var burnTime = 0
     val maxBurnTime = 20 * 4
-
+    val inventory: NonNullList<ItemStack> = NonNullList.withSize(4, ItemStack.EMPTY)
     init
     {
-        timers[0] = 0
-        timers[1] = 0
-        timers[2] = 0
-        timers[3] = 0
+        timers[0] = -1
+        timers[1] = -1
+        timers[2] = -1
+        timers[3] = -1
     }
-    
+
+    fun outOtherItems() : List<ItemStack>
+    {
+        val res = ArrayList<ItemStack>()
+        for (i in 0 until inventory.size)
+        {
+            if(!recipes_from_inputs.contains(inventory[i].item))
+            {
+                res.add(inventory[i].copy())
+                inventory[i] = ItemStack.EMPTY
+            }
+       1 }
+        return res
+    }
+
+    fun getOtherItems() : List<ItemStack>
+    {
+        val res = ArrayList<ItemStack>()
+        for (i in 0 until inventory.size)
+        {
+            if(!recipes_from_inputs.contains(inventory[i].item))
+            {
+                res.add(inventory[i]);
+            }
+        }
+        return res
+    }
+
+    fun addItem(stack : ItemStack) : Boolean
+    {
+        for (i in 0..3)
+            if(inventory[i].item == Items.AIR)
+            {
+                inventory[i] = stack
+                timers[i] = 0
+                return true
+            }
+        return false
+    }
+
     override fun tick()
     {
-        val slotList = inventory
-        for (i in 0..3)
+        if(!world!!.isRemote)
         {
-            val current = slotList[i]
-            val recipe = OvenRecipe.recipes_from_inputs[current.stack.item]
-            if (recipe != null)
+            for (i in 0 until inventory.size)
             {
-                val cookTime = recipe.cookTime
-                timers[i]++
-                if (timers[i] >= cookTime)
+                val current = inventory[i]
+                if (recipes_from_inputs.contains(current.item))
                 {
-                    inventory[i] = recipe.result
+                    val recipe = recipes_from_inputs[current.item]!!
+                    val cookTime: Int = recipe.cookTime
+                    timers[i]++
+                    if (timers[i] >= cookTime)
+                    {
+                        inventory[i] = recipe.result
+                    }
                 }
-            } else
-            {
-                timers[i] = 0
             }
         }
     }
@@ -79,9 +120,10 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity
     {
         timers = compound.getIntArray("timers")
         burnTime = compound.getInt("burn_time")
+        val nbt = compound.getCompound("container")
         for (i in 0..3)
         {
-            val current = compound.getCompound("slot$i")
+            val current = nbt.getCompound("slot$i")
             inventory[i] = ItemStack.read(current)
         }
         super.read(compound)

@@ -95,7 +95,6 @@ class DiaryGui(screenContainer: DiaryContainer, inv: PlayerInventory, titleIn: I
                         "При тяжелых утратах "))
         //book.add(DiaryChapter(xSize - 30, ySize - 50, par))
         val d = TextureUtils.getTextureSize(DIARY_TEXTURE)
-        LOGGER.error("${d.key}, ${d.value}")
         book.add(DiaryChapter(xSize - 30, ySize - 50, ImageElement(DIARY_TEXTURE, d.key, d.value)))
     }
 

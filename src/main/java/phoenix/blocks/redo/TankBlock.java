@@ -1,5 +1,6 @@
 package phoenix.blocks.redo;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ContainerBlock;
@@ -9,6 +10,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.crafting.CampfireCookingRecipe;
+import net.minecraft.stats.Stats;
+import net.minecraft.tileentity.CampfireTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -23,14 +27,21 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 import phoenix.tile.redo.TankTile;
+import phoenix.utils.block.BlockWithTile;
 import phoenix.utils.pipe.FluidGraphSaveData;
 
-public class TankBlock extends ContainerBlock
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Optional;
+
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
+public class TankBlock extends BlockWithTile<TankTile>
 {
     public TankBlock()
     {
         super(Block.Properties.create(Material.ROCK).lightValue(5).notSolid());
     }
+
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
@@ -43,7 +54,7 @@ public class TankBlock extends ContainerBlock
             player.addItemStackToInventory(FluidUtil.getFilledBucket(stack));
             return ActionResultType.SUCCESS;
         }
-        if(player.getHeldItem(handIn).getItem() instanceof BucketItem && tileTank.getInput().getCapacity() - tileTank.getInput().getFluidAmount() >= FluidAttributes.BUCKET_VOLUME)
+        else if(player.getHeldItem(handIn).getItem() instanceof BucketItem && tileTank.getInput().getCapacity() - tileTank.getInput().getFluidAmount() >= FluidAttributes.BUCKET_VOLUME)
         {
             tileTank.getInput().fill(FluidUtil.getFluidContained(player.getHeldItem(handIn)).orElse(FluidStack.EMPTY), IFluidHandler.FluidAction.EXECUTE);
             player.getHeldItem(handIn).shrink(1);
@@ -66,12 +77,5 @@ public class TankBlock extends ContainerBlock
         if(!worldIn.isRemote)
             FluidGraphSaveData.get((ServerWorld) worldIn).addBlock((ServerWorld) worldIn, pos, true, true);
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-    }
-
-    @Nullable
-    @Override
-    public TileEntity createNewTileEntity(IBlockReader worldIn)
-    {
-        return new TankTile();
     }
 }

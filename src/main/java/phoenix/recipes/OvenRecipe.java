@@ -1,6 +1,8 @@
 package phoenix.recipes;
 
+
 import com.google.common.collect.ImmutableList;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.AbstractCookingRecipe;
@@ -11,26 +13,28 @@ import phoenix.init.PhoenixRecipeSerializers;
 import phoenix.init.PhoenixRecipes;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+@MethodsReturnNonnullByDefault
 public class OvenRecipe extends AbstractCookingRecipe
 {
-    public static Set<Item> inputs = new HashSet<>();
     public static HashMap<Item, OvenRecipe> recipes_from_inputs = new HashMap<>();
     public OvenRecipe(ResourceLocation idIn, String groupIn, Ingredient ingredientIn, ItemStack resultIn, float experienceIn, int cookTimeIn)
     {
         super(PhoenixRecipes.OVEN, idIn, groupIn, ingredientIn, resultIn, experienceIn, cookTimeIn);
         for (ItemStack stack : ingredientIn.getMatchingStacks())
         {
-            inputs.add(stack.getItem());
             recipes_from_inputs.put(stack.getItem(), this);
         }
     }
 
+    public static HashMap<Item, OvenRecipe> getRecipes_from_inputs()
+    {
+        return recipes_from_inputs;
+    }
+
     @Override
-    public IRecipeSerializer<?> getSerializer()
+    public IRecipeSerializer<OvenRecipe> getSerializer()
     {
         return PhoenixRecipeSerializers.OVEN.get();
     }
@@ -42,7 +46,7 @@ public class OvenRecipe extends AbstractCookingRecipe
 
     public ItemStack getResult()
     {
-        return result;
+        return result.copy();
     }
 
     public float getExperience()
@@ -62,4 +66,16 @@ public class OvenRecipe extends AbstractCookingRecipe
     public List<List<ItemStack>> getOutputs() {
         return ImmutableList.of(ImmutableList.of(getResult()));
     }
+
+
+    public String string()
+    {
+        return "OvenRecipe{" +
+                "ingredient=" + ingredient +
+                ", result=" + result +
+                ", cookTime=" + cookTime +
+                '}';
+    }
+
+
 }

@@ -54,10 +54,10 @@ object PhoenixItems
     val STEEl_FORM_PICKAXE_HEAD_ROASTED= ITEMS.register("steel_form_pickaxe_head_roasted",form(STEEl_FORM_PICKAXE_HEAD))!!
     val STEEl_FORM_AXE_BLADE_ROASTED   = ITEMS.register("steel_form_axe_blade_roasted",   form(STEEl_FORM_AXE_BLADE))!!
 
-    val ZIRCONIUM_AXE                  = ITEMS.register("ceramic_zirconium_axe")     { AxeItem    (PhoenixTiers.ZIRCONIUM_TIER, 9.0f, 1.1f, Item.Properties().group(PHOENIX)) }!!
-    val ZIRCONIUM_PICKAXE              = ITEMS.register("ceramic_zirconium_pickaxe") { PickaxeItem(PhoenixTiers.ZIRCONIUM_TIER, 4, 0.5f, Item.Properties().group(PHOENIX)) }!!
-    val ZIRCONIUM_SWORD                = ITEMS.register("ceramic_zirconium_sword")   { SwordItem  (PhoenixTiers.ZIRCONIUM_TIER, 3, 1f, Item.Properties().group(PHOENIX)) }!!
-    val ZIRCONIUM_KNIFE                = ITEMS.register("ceramic_zirconium_knife")   { KnifeItem  (PhoenixTiers.ZIRCONIUM_TIER, 3f, 1f, PhoenixConfiguration.COMMON_CONFIG.gameMode.get().maxKnifeUsages) }!!
+    val ZIRCONIUM_AXE                  = ITEMS.register("ceramic_zirconium_axe")     { AxeItem    (PhoenixTiers.ZIRCONIUM_TIER, 9.0f, -3.2f, Item.Properties().group(PHOENIX)) }!!
+    val ZIRCONIUM_PICKAXE              = ITEMS.register("ceramic_zirconium_pickaxe") { PickaxeItem(PhoenixTiers.ZIRCONIUM_TIER, 0, -1f, Item.Properties().group(PHOENIX)) }!!
+    val ZIRCONIUM_SWORD                = ITEMS.register("ceramic_zirconium_sword")   { SwordItem  (PhoenixTiers.ZIRCONIUM_TIER, 2, -1f, Item.Properties().group(PHOENIX)) }!!
+    val ZIRCONIUM_KNIFE                = ITEMS.register("ceramic_zirconium_knife")   { KnifeItem  (PhoenixTiers.ZIRCONIUM_TIER, 3f, -10f, PhoenixConfiguration.COMMON_CONFIG.gameMode.get().maxKnifeUsages) }!!
 
     fun register() = ITEMS.register(FMLJavaModLoadingContext.get().modEventBus)
 

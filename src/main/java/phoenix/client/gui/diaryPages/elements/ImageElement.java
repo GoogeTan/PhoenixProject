@@ -25,7 +25,6 @@ public class ImageElement extends ADiaryElement
     public int getHeight(int maxSizeXIn, int maxSizeYIn)
     {
         double scale = scale(maxSizeXIn / 2, maxSizeYIn / 2);
-        Phoenix.getLOGGER().error(Math.ceil(h * scale));
         return (int) Math.ceil(h * scale);
     }
 

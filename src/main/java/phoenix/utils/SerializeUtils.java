@@ -12,13 +12,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
-import phoenix.containers.slots.OvenCookingSlot;
-import phoenix.containers.slots.OvenFuelSlot;
 
 public class SerializeUtils
 {
-    private static final String ovenCookingSlotClass = OvenCookingSlot.class.toGenericString();
-    private static final String ovenFuelSlotClass = OvenFuelSlot.class.toGenericString();
     public static CompoundNBT serialize(Slot slot)
     {
         CompoundNBT res = new CompoundNBT();
@@ -37,24 +33,11 @@ public class SerializeUtils
         int y = nbt.getInt("y");
         String cLass = nbt.getString("class");
         ItemStack stack = ItemStack.read(nbt);
-        if (ovenCookingSlotClass.equals(cLass))
-        {
-            Slot slot = new OvenCookingSlot(inventory, index, x, y);
-            slot.putStack(stack);
-            return slot;
-        }
-        else if(ovenFuelSlotClass.equals(cLass))
-        {
-            Slot slot = new OvenFuelSlot(inventory, index, x, y);
-            slot.putStack(stack);
-            return slot;
-        }
-        else
-        {
-            Slot slot = new Slot(inventory, index, x, y);
-            slot.putStack(stack);
-            return slot;
-        }
+
+        Slot slot = new Slot(inventory, index, x, y);
+        slot.putStack(stack);
+        return slot;
+
     }
 
     public static ItemStack readItemStack(JsonObject json, String name)
