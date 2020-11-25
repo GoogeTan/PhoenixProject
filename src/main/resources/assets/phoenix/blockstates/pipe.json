@@ -1,9 +1,6 @@
 {
   "variants":
   {
-    "":
-    {
-      "model": "phoenix:block/pipe"
-    }
+    "": {  "model": "blocks/air" }
   }
 }

@@ -35,7 +35,7 @@ import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class PipeBlock extends BlockWithTile<PipeTile> implements IWaterLoggable
+public class PipeBlock extends BlockWithTile implements IWaterLoggable
 {
     public static final BooleanProperty UP    = BooleanProperty.create("up");
     public static final BooleanProperty DOWN  = BooleanProperty.create("down");

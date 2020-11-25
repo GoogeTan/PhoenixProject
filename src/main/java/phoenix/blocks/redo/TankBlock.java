@@ -35,7 +35,7 @@ import java.util.Optional;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class TankBlock extends BlockWithTile<TankTile>
+public class TankBlock extends BlockWithTile
 {
     public TankBlock()
     {

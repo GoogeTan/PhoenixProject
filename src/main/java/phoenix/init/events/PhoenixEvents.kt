@@ -44,17 +44,21 @@ object PhoenixEvents
     @SubscribeEvent
     fun onSave(event: WorldEvent.Save)
     {
+        Phoenix.LOGGER.error("Phoenix is starting saving")
         val nbt = event.world.worldInfo.getDimensionData(DimensionType.THE_END)
         StageManager.write(nbt)
         event.world.worldInfo.setDimensionData(DimensionType.THE_END, nbt)
+        Phoenix.LOGGER.error("Phoenix has ended saving")
     }
 
     @JvmStatic
     @SubscribeEvent
     fun onLoad(event: WorldEvent.Load)
     {
+        Phoenix.LOGGER.error("Phoenix is starting loading")
         val nbt = event.world.worldInfo.getDimensionData(DimensionType.THE_END)
         StageManager.read(nbt)
         Phoenix.LOGGER.error("${this.javaClass} ${StageManager.getStage()} ${StageManager.getPart()}")
+        Phoenix.LOGGER.error("Phoenix has ended loading")
     }
 }

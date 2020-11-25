@@ -2,6 +2,8 @@ package phoenix.init.events;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -32,6 +34,11 @@ public class PhoenixClientEvents
         PhoenixRenderTypes.init();
         PhoenixKeyBindings.register();
         PhoenixContainers.registerScreens();
+
+        RenderTypeLookup.setRenderLayer(PhoenixBlocks.getOVEN().get(), RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(PhoenixBlocks.getPIPE().get(), RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(PhoenixBlocks.getTANK().get(), RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(PhoenixBlocks.getTEXT_BLOCK().get(), RenderType.getCutoutMipped());
 
         RenderingRegistry.registerEntityRenderingHandler(PhoenixEntities.getTALPA().get(), TalpaRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(PhoenixEntities.getCAUDA().get(), CaudaRenderer::new);

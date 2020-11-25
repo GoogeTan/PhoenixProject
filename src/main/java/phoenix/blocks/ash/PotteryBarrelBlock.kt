@@ -35,7 +35,7 @@ import javax.annotation.ParametersAreNonnullByDefault
 import kotlin.math.sqrt
 
 
-class PotteryBarrelBlock : BlockWithTile<PotteryBarrelTile?>(Properties.create(Material.BAMBOO)), IColoredBlock
+class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO)), IColoredBlock
 {
     @Nonnull
     @ParametersAreNonnullByDefault
@@ -73,73 +73,78 @@ class PotteryBarrelBlock : BlockWithTile<PotteryBarrelTile?>(Properties.create(M
         {
             val stateInt = state.get(Companion.state)
             val item = itemStack.item
-            if (item === Items.WATER_BUCKET)
+            when
             {
-                if (stateInt == 0 && !worldIn.isRemote)
+                item === Items.WATER_BUCKET ->
                 {
-                    if (!player.abilities.isCreativeMode)
+                    if (stateInt == 0 && !worldIn.isRemote)
                     {
-                        player.setHeldItem(handIn, ItemStack(Items.BUCKET))
-                    }
-                    setState(worldIn, pos, state, 1)
-                    worldIn.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0f, 1.0f)
-                }
-                ActionResultType.SUCCESS
-            } else if (item === Items.BUCKET)
-            {
-                if (stateInt >= 0 && !worldIn.isRemote)
-                {
-                    itemStack.shrink(1)
-                    val quality = Math.sqrt(countOfJumps.toDouble()) / Math.sqrt(200.0)
-                    if (itemStack.isEmpty)
-                    {
-                        if (stateInt >= 2)
+                        if (!player.abilities.isCreativeMode)
                         {
-                            val stackToAdd = ItemStack(PhoenixItems.HIGH_QUALITY_CLAY_ITEM.get())
-                            if (stackToAdd.tag == null) stackToAdd.tag = CompoundNBT()
-                            stackToAdd.tag!!.putDouble("quality", quality) //тут значение в %. От 0 до 1
-                            player.setHeldItem(handIn, stackToAdd)
+                            player.setHeldItem(handIn, ItemStack(Items.BUCKET))
+                        }
+                        setState(worldIn, pos, state, 1)
+                        worldIn.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0f, 1.0f)
+                    }
+                    ActionResultType.SUCCESS
+                }
+                item === Items.BUCKET       ->
+                {
+                    if (stateInt >= 0 && !worldIn.isRemote)
+                    {
+                        itemStack.shrink(1)
+                        val quality = sqrt(countOfJumps.toDouble()) / sqrt(200.0)
+                        if (itemStack.isEmpty)
+                        {
+                            if (stateInt >= 2)
+                            {
+                                val stackToAdd = ItemStack(PhoenixItems.HIGH_QUALITY_CLAY_ITEM.get())
+                                if (stackToAdd.tag == null) stackToAdd.tag = CompoundNBT()
+                                stackToAdd.tag!!.putDouble("quality", quality) //тут значение в %. От 0 до 1
+                                player.setHeldItem(handIn, stackToAdd)
+                            }
+                            else
+                            {
+                                player.setHeldItem(handIn, ItemStack(Items.WATER_BUCKET))
+                            }
                         }
                         else
                         {
-                            player.setHeldItem(handIn, ItemStack(Items.WATER_BUCKET))
+                            if (stateInt >= 2)
+                            {
+                                val stackToAdd = ItemStack(PhoenixItems.HIGH_QUALITY_CLAY_ITEM.get())
+                                if (stackToAdd.tag == null) stackToAdd.tag = CompoundNBT()
+                                stackToAdd.tag!!.putDouble("quality", quality) //тут значение в %. От 0 до 1
+                                if (!player.inventory.addItemStackToInventory(stackToAdd)) player.dropItem(stackToAdd, false)
+                            }
+                            else
+                            {
+                                if (!player.inventory.addItemStackToInventory(ItemStack(Items.WATER_BUCKET))) player.dropItem(ItemStack(Items.WATER_BUCKET), false)
+                            }
                         }
-                    }
-                    else
-                    {
-                        if (stateInt >= 2)
+                        setState(worldIn, pos, state, 0)
+                        worldIn.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0f, 1.0f)
+                        try
                         {
-                            val stackToAdd = ItemStack(PhoenixItems.HIGH_QUALITY_CLAY_ITEM.get())
-                            if (stackToAdd.tag == null) stackToAdd.tag = CompoundNBT()
-                            stackToAdd.tag!!.putDouble("quality", quality) //тут значение в %. От 0 до 1
-                            if (!player.inventory.addItemStackToInventory(stackToAdd)) player.dropItem(stackToAdd, false)
-                        }
-                        else
-                        {
-                            if (!player.inventory.addItemStackToInventory(ItemStack(Items.WATER_BUCKET))) player.dropItem(ItemStack(Items.WATER_BUCKET), false)
-                        }
+                            (worldIn.getTileEntity(pos) as PotteryBarrelTile?)!!.nullifyJumpsCount()
+                        } catch (ignored: Exception) {}
                     }
-                    setState(worldIn, pos, state, 0)
-                    worldIn.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0f, 1.0f)
-                    try
-                    {
-                        (worldIn.getTileEntity(pos) as PotteryBarrelTile?)!!.nullifyJumpsCount()
-                    } catch (ignored: Exception) {}
+                    ActionResultType.SUCCESS
                 }
-                ActionResultType.SUCCESS
-            } else if (item === Items.CLAY)
-            {
-                if (stateInt == 1 && !worldIn.isRemote)
+                item === Items.CLAY         ->
                 {
-                    if (!player.abilities.isCreativeMode) itemStack.shrink(1)
-                    setState(worldIn, pos, state, 2)
-                    worldIn.playSound(null, pos, SoundEvents.BLOCK_SAND_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f)
+                    if (stateInt == 1 && !worldIn.isRemote)
+                    {
+                        if (!player.abilities.isCreativeMode) itemStack.shrink(1)
+                        setState(worldIn, pos, state, 2)
+                        worldIn.playSound(null, pos, SoundEvents.BLOCK_SAND_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f)
+                    }
+                    ActionResultType.SUCCESS
                 }
-                ActionResultType.SUCCESS
-            }
-            else
-            {
-                ActionResultType.PASS
+                else                        ->
+                {
+                    ActionResultType.PASS
+                }
             }
         }
         else
