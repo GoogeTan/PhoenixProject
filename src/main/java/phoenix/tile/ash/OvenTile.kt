@@ -8,18 +8,17 @@ import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.util.NonNullList
-import net.minecraft.util.text.StringTextComponent
-import phoenix.Phoenix
 import phoenix.init.PhoenixTiles
-import phoenix.recipes.OvenRecipe
 import phoenix.recipes.OvenRecipe.recipes_from_inputs
 import phoenix.utils.block.PhoenixTile
+import java.lang.Integer.max
+import java.lang.Integer.min
 
 class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity
 {
     var timers = IntArray(4)
     var burnTime = 0
-    val maxBurnTime = 20 * 4
+    val maxBurnTime = 20 * 60
     val inventory: NonNullList<ItemStack> = NonNullList.withSize(4, ItemStack.EMPTY)
     init
     {
@@ -39,7 +38,7 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity
                 res.add(inventory[i].copy())
                 inventory[i] = ItemStack.EMPTY
             }
-       1 }
+        }
         return res
     }
 
@@ -72,6 +71,9 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity
     {
         if(!world!!.isRemote)
         {
+            burnTime = min(maxBurnTime, burnTime)
+            burnTime--
+            burnTime = max(0, burnTime)
             for (i in 0 until inventory.size)
             {
                 val current = inventory[i]
@@ -79,7 +81,11 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity
                 {
                     val recipe = recipes_from_inputs[current.item]!!
                     val cookTime: Int = recipe.cookTime
-                    timers[i]++
+                    if(burnTime != 0)
+                        if (timers[i] != 0)
+                            timers[i]--
+                    else
+                        timers[i]++
                     if (timers[i] >= cookTime)
                     {
                         inventory[i] = recipe.result

@@ -12,6 +12,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import phoenix.Phoenix;
+import phoenix.client.render.OvenRenderer;
 import phoenix.client.render.PipeRender;
 import phoenix.client.render.TankRenderer;
 import phoenix.client.render.TextRenderer;
@@ -38,6 +39,7 @@ public class PhoenixClientEvents
 
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.getPIPE().get(), PipeRender::new);
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.getTANK().get(), TankRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.getOVEN().get(), OvenRenderer::new);
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.getTEXT().get(), TextRenderer::new);
 
         // регистрация цветных блоков
