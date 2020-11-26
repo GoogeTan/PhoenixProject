@@ -40,12 +40,12 @@ public class StageManager
         return data.getInt("part");
     }
 
-    private static void setStage(int stage)
+    public static void setStage(int stage)
     {
         data.putInt("stage", stage);
     }
 
-    private static void setPart(int part)
+    public static void setPart(int part)
     {
         data.putInt("part", part);
     }

@@ -22,6 +22,7 @@ import phoenix.client.render.entity.CaudaRenderer;
 import phoenix.client.render.entity.KnifeRenderer;
 import phoenix.client.render.entity.TalpaRenderer;
 import phoenix.init.*;
+import phoenix.network.NetworkHandler;
 import phoenix.utils.block.IColoredBlock;
 
 @OnlyIn(Dist.CLIENT)
@@ -31,6 +32,7 @@ public class PhoenixClientEvents
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
     {
+        NetworkHandler.init();
         PhoenixRenderTypes.init();
         PhoenixKeyBindings.register();
         PhoenixContainers.registerScreens();

@@ -24,6 +24,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
 import phoenix.Phoenix;
 import phoenix.init.*;
+import phoenix.network.NetworkHandler;
 import phoenix.utils.block.INonItem;
 
 @Mod.EventBusSubscriber(modid = Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -49,6 +50,7 @@ public class PhoenixCommonEvents
     @SubscribeEvent
     public static void init(FMLCommonSetupEvent event)
     {
+        NetworkHandler.init();
         FMLJavaModLoadingContext.get().getModEventBus().register(PhoenixCommonEvents.class);
         PhoenixRecipes.register();
 
