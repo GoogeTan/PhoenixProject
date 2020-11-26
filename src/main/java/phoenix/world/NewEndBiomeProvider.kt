@@ -47,38 +47,35 @@ class NewEndBiomeProvider(settings: EndBiomeProviderSettings, worldIn: ServerWor
 
     override fun func_222365_c(x: Int, z: Int): Float
     {
-        val real_x = x / 2
-        val real_Z = z / 2
-        val dop_x = x % 2
-        val dop_z = z % 2
+        val realX = x / 2
+        val realZ = z / 2
+        val dopX = x % 2
+        val dopZ = z % 2
         var result = 100.0f - MathHelper.sqrt((x * x + z * z).toFloat()) * 8.0f
         result = MathHelper.clamp(result, -100.0f, 80.0f)
         for (i in -12..12)
         {
             for (j in -12..12)
             {
-                val currect_x = real_x + i.toLong()
-                val currect_z = real_Z + j.toLong()
-                if (currect_x * currect_x + currect_z * currect_z > 4096L && this.generator.getValue(currect_x.toDouble(), currect_z.toDouble()) < -0.8999999761581421)
+                val currentX = realX + i.toLong()
+                val currentZ = realZ + j.toLong()
+                if (currentX * currentX + currentZ * currentZ > 4096L && this.generator.getValue(currentX.toDouble(), currentZ.toDouble()) < -0.8999999761581421)
                 {
-                    val lvt_14_1_ = (MathHelper.abs(currect_z.toFloat()) * 3439.0f + MathHelper.abs(currect_z.toFloat()) * 147.0f) % 13.0f + 9.0f
-                    val lvt_15_1_ = (dop_x - i * 2).toFloat()
-                    val lvt_16_1_ = (dop_z - j * 2).toFloat()
+                    val lvt_14_1_ = (MathHelper.abs(currentZ.toFloat()) * 3439.0f + MathHelper.abs(currentZ.toFloat()) * 147.0f) % 13.0f + 9.0f
+                    val lvt_15_1_ = (dopX - i * 2).toFloat()
+                    val lvt_16_1_ = (dopZ - j * 2).toFloat()
                     var lvt_17_1_ = 100.0f - MathHelper.sqrt(lvt_15_1_ * lvt_15_1_ + lvt_16_1_ * lvt_16_1_) * lvt_14_1_
                     lvt_17_1_ = MathHelper.clamp(lvt_17_1_, -100.0f, 80.0f)
-                    result = Math.max(result, lvt_17_1_)
+                    result = result.coerceAtLeast(lvt_17_1_)
                 }
             }
         }
         return result
     }
 
-    override fun getBiomesToSpawnIn(): List<Biome>
-    {
-        return ImmutableList.copyOf(Companion.biomes)
-    }
+    override fun getBiomesToSpawnIn() = ImmutableList.copyOf(Companion.biomes)
 
-    fun createLayer(seed: Long, world: ServerWorld?): Layer
+    private fun createLayer(seed: Long, world: ServerWorld?): Layer
     {
         val factory = getLayersApply(world) { seedModifierIn: Long -> LazyAreaLayerContext(25, seed, seedModifierIn) }
         return Layer(factory)
@@ -98,11 +95,11 @@ class NewEndBiomeProvider(settings: EndBiomeProviderSettings, worldIn: ServerWor
             ignored.printStackTrace()
         }
         Phoenix.LOGGER.error(stage)
-        if (stage >= 1)
-        {
+        //if (stage >= 1)
+        //{
             phoenixBiomes = UnderLayer.INSTANCE.apply(context.apply(200L), phoenixBiomes)
             phoenixBiomes = HeartVoidLayer.INSTANCE.apply(context.apply(200L), phoenixBiomes)
-        }
+        //}
 
         for (i in 0..PhoenixConfiguration.COMMON_CONFIG.BIOME_SIZE.get())
         {

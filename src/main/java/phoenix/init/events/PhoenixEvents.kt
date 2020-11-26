@@ -2,6 +2,7 @@ package phoenix.init.events
 
 import net.minecraft.block.BlockRenderType
 import net.minecraft.block.BlockState
+import net.minecraft.block.Blocks
 import net.minecraft.particles.ParticleTypes
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
@@ -40,6 +41,7 @@ object PhoenixEvents
                 //world.addParticle(PhoenixParticleData(ParticleTypes.EFFECT), player.getPosX() + (world.rand.nextFloat().toDouble() - 0.5) * player.getSize(player.pose).width.toDouble(), player.getPosY() + 0.1, player.getPosZ() + (world.rand.nextFloat() as Double - 0.5) * player.getSize(player.pose).width as Double, vec3d.x * -4.0, 1.5, vec3d.z * -4.0)
             }
         }
+
     }
 
     @JvmStatic
