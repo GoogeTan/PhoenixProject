@@ -20,8 +20,8 @@ import java.util.*
 
 open class EndDimension(worldIn: World, typeIn: DimensionType) : Dimension(worldIn, typeIn, 0.0f)
 {
-    val SPAWN = BlockPos(100, 50, 0)
-    val dragonFightManager: CustomDragonFightManager? = if (worldIn is ServerWorld) CustomDragonFightManager(worldIn, worldIn.worldInfo.getDimensionData(typeIn).getCompound("DragonFight"), this) else null
+    private val spawn = BlockPos(100, 50, 0)
+    private val dragonFightManager: CustomDragonFightManager? = if (worldIn is ServerWorld) CustomDragonFightManager(worldIn, worldIn.worldInfo.getDimensionData(typeIn).getCompound("DragonFight"), this) else null
 
     override fun createChunkGenerator(): EndChunkGenerator
     {
@@ -33,39 +33,26 @@ open class EndDimension(worldIn: World, typeIn: DimensionType) : Dimension(world
     }
 
     override fun calculateCelestialAngle(worldTime: Long, partialTicks: Float) = 0.0f
+    override fun canRespawnHere() = false
+    override fun isSurfaceWorld() = false
+    override fun getSpawnCoordinate() = spawn
+    override fun findSpawn(posX: Int, posZ: Int, checkValid: Boolean) = findSpawn(ChunkPos(posX shr 4, posZ shr 4), checkValid)
     @OnlyIn(Dist.CLIENT)
     override fun calcSunriseSunsetColors(celestialAngle: Float, partialTicks: Float) = null
     @OnlyIn(Dist.CLIENT)
-    override fun isSkyColored() = false
-    override fun canRespawnHere() = false
-    override fun isSurfaceWorld() = false
+    override fun isSkyColored()   = false
     @OnlyIn(Dist.CLIENT)
     override fun getCloudHeight() = 8.0f
-    override fun getSpawnCoordinate() = SPAWN
-    override fun findSpawn(posX: Int, posZ: Int, checkValid: Boolean) = findSpawn(ChunkPos(posX shr 4, posZ shr 4), checkValid)
     @OnlyIn(Dist.CLIENT)
     override fun doesXZShowFog(x: Int, z: Int) = false
-
     @OnlyIn(Dist.CLIENT)
-    override fun getFogColor(celestialAngle: Float, partialTicks: Float): Vec3d
-    {
-        val i = 10518688
-        var f = MathHelper.cos(celestialAngle * (Math.PI.toFloat() * 2f)) * 2.0f + 0.5f
-        f = MathHelper.clamp(f, 0.0f, 1.0f)
-        var f1 = 0.627451f
-        var f2 = 0.5019608f
-        var f3 = 0.627451f
-        f1 *= (f * 0.0f + 0.15f)
-        f2 *= (f * 0.0f + 0.15f)
-        f3 *= (f * 0.0f + 0.15f)
-        return Vec3d(f1.toDouble(), f2.toDouble(), f3.toDouble())
-    }
+    override fun getFogColor(celestialAngle: Float, partialTicks: Float) = Vec3d(0.09411765, 0.07529412, 0.09411765)
 
     override fun findSpawn(chunkPosIn: ChunkPos, checkValid: Boolean): BlockPos?
     {
         val random = Random(world.seed)
-        val res = BlockPos(chunkPosIn.xStart + random.nextInt(15), 0, chunkPosIn.zEnd + random.nextInt(15))
-        return if (world.getGroundAboveSeaLevel(res).material.blocksMovement()) res else null
+        val pos = BlockPos(chunkPosIn.xStart + random.nextInt(15), 0, chunkPosIn.zEnd + random.nextInt(15))
+        return if (world.getGroundAboveSeaLevel(pos).material.blocksMovement()) pos else null
     }
 
     override fun onWorldSave()

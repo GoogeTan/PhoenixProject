@@ -121,7 +121,7 @@ class CustomDragonFightManager(var world: ServerWorld, compound: CompoundNBT, di
         return res
     }
 
-    fun tick()
+    fun tick() : kotlin.Unit
     {
         bossInfo.isVisible = !dragonKilled
         if (++ticksSinceLastPlayerScan >= 20)
