@@ -1,5 +1,6 @@
 package phoenix.blocks
 
+import mcp.MethodsReturnNonnullByDefault
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
@@ -17,13 +18,12 @@ import phoenix.init.PhoenixSounds
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncStagePacket
 import phoenix.world.StageManager
-import javax.annotation.Nonnull
 import javax.annotation.ParametersAreNonnullByDefault
 
+@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 class UpdaterBlock : Block(Properties.create(Material.ROCK).lightValue(5).hardnessAndResistance(-1f))
 {
-    @Nonnull
     override fun onBlockActivated(state: BlockState, worldIn: World, pos: BlockPos, player: PlayerEntity, handIn: Hand, hit: BlockRayTraceResult): ActionResultType
     {
         if (!worldIn.isRemote)

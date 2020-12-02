@@ -50,6 +50,7 @@ public class PhoenixCommonEvents
     @SubscribeEvent
     public static void init(FMLCommonSetupEvent event)
     {
+        PhoenixSounds.init();
         NetworkHandler.init();
         FMLJavaModLoadingContext.get().getModEventBus().register(PhoenixCommonEvents.class);
         PhoenixRecipes.register();

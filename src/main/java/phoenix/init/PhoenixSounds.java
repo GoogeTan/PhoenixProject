@@ -13,22 +13,14 @@ import java.util.function.Supplier;
 
 public class PhoenixSounds
 {
-    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Phoenix.MOD_ID);
+    public static SoundEvent CHANGE_STAGE;
 
-    public static final RegistryObject<SoundEvent> UPDATER      = SOUNDS.register("updater", sound("oven_fire"));
-    public static final SoundEvent CHANGE_STAGE = register("change_stage");
-
-    public static void register()
+    public static void init()
     {
-        SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        CHANGE_STAGE = registerSound("change_stage");
     }
 
-    private static Supplier<SoundEvent> sound(String s)
-    {
-        return () -> new SoundEvent(new ResourceLocation(Phoenix.MOD_ID, s));
-    }
-
-    private static SoundEvent register(String key) {
+    private static SoundEvent registerSound(String key) {
         return Registry.register(Registry.SOUND_EVENT, key, new SoundEvent(new ResourceLocation(Phoenix.MOD_ID, key)));
     }
 }
