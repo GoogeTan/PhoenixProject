@@ -15,7 +15,7 @@ import phoenix.enity.TalpaEntity
 
 object PhoenixEntities
 {
-    val ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Phoenix.MOD_ID)!!
+    private val ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Phoenix.MOD_ID)!!
     @JvmStatic
     val TALPA = ENTITIES.register("talpa")
     {

@@ -3,16 +3,12 @@ package phoenix.blocks.redo;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.CampfireCookingRecipe;
-import net.minecraft.stats.Stats;
-import net.minecraft.tileentity.CampfireTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -25,13 +21,11 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import org.jetbrains.annotations.Nullable;
 import phoenix.tile.redo.TankTile;
 import phoenix.utils.block.BlockWithTile;
 import phoenix.utils.pipe.FluidGraphSaveData;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Optional;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault

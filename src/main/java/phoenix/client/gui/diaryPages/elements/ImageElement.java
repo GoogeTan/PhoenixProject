@@ -6,7 +6,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
-import phoenix.Phoenix;
 import phoenix.containers.DiaryContainer;
 import phoenix.utils.RenderUtils;
 

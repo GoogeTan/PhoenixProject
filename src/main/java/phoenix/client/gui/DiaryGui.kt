@@ -7,7 +7,6 @@ import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.text.ITextComponent
 import phoenix.Phoenix
-import phoenix.Phoenix.Companion.LOGGER
 import phoenix.client.gui.diaryPages.DiaryBook
 import phoenix.client.gui.diaryPages.elements.DiaryChapter
 import phoenix.client.gui.diaryPages.elements.ImageElement

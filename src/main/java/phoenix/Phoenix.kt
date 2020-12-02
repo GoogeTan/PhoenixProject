@@ -52,7 +52,7 @@ class Phoenix
         {
             DimensionType.THE_END = DimensionType.register("the_end", DimensionType(2, "_end", "DIM1", { world: World, type: DimensionType -> EndDimension(world, type) }, false, FuzzedBiomeMagnifier.INSTANCE))
             //Feature.END_SPIKE = register("new_end_spike", CustomEndSpike { d: Dynamic<*> -> EndSpikeFeatureConfig.deserialize(d) })
-            PhoenixSounds.CHANGE_STAGE.name;
+            PhoenixSounds.init();
         }
 
         fun <C : IFeatureConfig, F : Feature<C>> register(key: String, value : F): F

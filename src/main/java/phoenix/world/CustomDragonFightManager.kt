@@ -27,7 +27,6 @@ import net.minecraft.util.text.TranslationTextComponent
 import net.minecraft.world.BossInfo
 import net.minecraft.world.chunk.Chunk
 import net.minecraft.world.chunk.ChunkStatus
-import net.minecraft.world.end.DragonSpawnState
 import net.minecraft.world.gen.Heightmap
 import net.minecraft.world.gen.feature.*
 import net.minecraft.world.server.ChunkHolder.LocationType

@@ -20,7 +20,6 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.feature.EndSpikeFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
-import phoenix.Phoenix;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collections;
