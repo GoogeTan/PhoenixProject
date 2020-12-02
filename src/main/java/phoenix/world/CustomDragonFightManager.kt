@@ -27,6 +27,7 @@ import net.minecraft.util.text.TranslationTextComponent
 import net.minecraft.world.BossInfo
 import net.minecraft.world.chunk.Chunk
 import net.minecraft.world.chunk.ChunkStatus
+import net.minecraft.world.end.DragonSpawnState
 import net.minecraft.world.gen.Heightmap
 import net.minecraft.world.gen.feature.*
 import net.minecraft.world.server.ChunkHolder.LocationType
@@ -220,7 +221,7 @@ class CustomDragonFightManager(var world: ServerWorld, compound: CompoundNBT, di
         }
     }
 
-    protected fun setRespawnState(state: CustomDragonSpawnState)
+    fun setRespawnState(state: CustomDragonSpawnState)
     {
         checkNotNull(respawnState) { "Dragon respawn isn't in progress, can't skip ahead in the animation." }
         respawnStateTicks = 0

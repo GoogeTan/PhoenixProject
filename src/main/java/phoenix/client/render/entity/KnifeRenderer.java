@@ -1,6 +1,7 @@
 package phoenix.client.render.entity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -15,6 +16,10 @@ import net.minecraft.util.ResourceLocation;
 import phoenix.enity.KnifeEntity;
 import phoenix.init.PhoenixItems;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class KnifeRenderer<T extends KnifeEntity> extends EntityRenderer<T> {
     private final ItemRenderer itemRenderer;
     private final float scale = 1;
@@ -33,7 +38,6 @@ public class KnifeRenderer<T extends KnifeEntity> extends EntityRenderer<T> {
     public void render(T entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         matrixStackIn.push();
         matrixStackIn.scale(scale, scale, scale);
-        //matrixStackIn.rotate(renderManager.getCameraOrientation());
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90.0F));
         matrixStackIn.rotate(Vector3f.XN.rotationDegrees(90.0F));
         this.itemRenderer.renderItem(new ItemStack(PhoenixItems.INSTANCE.getZIRCONIUM_KNIFE().get()), ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);

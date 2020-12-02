@@ -14,7 +14,9 @@ public class PhoenixSounds
 {
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Phoenix.MOD_ID);
 
-    public static final RegistryObject<SoundEvent> UPDATER = SOUNDS.register("updater", sound("oven_fire"));
+    public static final RegistryObject<SoundEvent> UPDATER      = SOUNDS.register("updater", sound("oven_fire"));
+    public static final RegistryObject<SoundEvent> CHANGE_STAGE = SOUNDS.register("change_stage", sound("change_stage"));
+
 
     public static void register()
     {

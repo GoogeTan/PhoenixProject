@@ -59,7 +59,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
         return ActionResult(ActionResultType.SUCCESS, itemstack)
     }
 
-    fun onHitBlock(world: World, owner: LivingEntity, pos: BlockPos, knife: KnifeEntity, item: ItemStack): Boolean
+    fun onHitBlock(world: World, owner: LivingEntity?, pos: BlockPos, knife: KnifeEntity, item: ItemStack): Boolean
     {
         var shouldBroke = false
         val block = world.getBlockState(pos).block
@@ -83,7 +83,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
         return !(block !== Blocks.GRASS_BLOCK && block !== Blocks.SNOW && block.isIn(Tags.Blocks.SAND))
     }
 
-    fun onHitEntity(world: World, owner: LivingEntity, knife: KnifeEntity, hitted: Entity, knifeItem: ItemStack): Boolean
+    fun onHitEntity(world: World, owner: LivingEntity?, knife: KnifeEntity, hitted: Entity, knifeItem: ItemStack): Boolean
     {
         val powerLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, knifeItem)
         val damage = damage + powerLevel.toDouble() * 0.6
