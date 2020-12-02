@@ -119,7 +119,7 @@ object NetworkHandler
      * @param packet - наш пакет
      * @param chunk  - чанк, который нужно отправить отслеживающим
      */
-    fun sendToTrackingChunk(packet: Packet?, chunk: Chunk?)
+    fun sendToTrackingChunk(packet: Packet?, chunk: Chunk)
     {
         CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with { chunk }, packet)
     }
@@ -155,7 +155,7 @@ object NetworkHandler
         }
     }
 
-    public abstract class Packet()
+    abstract class Packet()
     {
         abstract fun encode(packet: Packet, buf: PacketBuffer)
         abstract fun decode(buf: PacketBuffer): Packet
@@ -178,4 +178,3 @@ object NetworkHandler
         private fun clientPlayer() = Minecraft.getInstance().player
     }
 }
-

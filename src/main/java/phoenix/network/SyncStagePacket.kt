@@ -7,7 +7,7 @@ import phoenix.world.StageManager
 
 class SyncStagePacket(var stage : Int, var part : Int) : NetworkHandler.Packet()
 {
-    constructor() : this(0, 0)
+    constructor() : this(StageManager.getStage(), StageManager.getPart())
     override fun encode(packet: NetworkHandler.Packet, buf: PacketBuffer)
     {
         buf.writeInt(stage)

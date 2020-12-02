@@ -1,11 +1,11 @@
 {
-	"chage_stage":
+	"change_stage":
 	{
 		"category": "block",
 		"sounds": 
 		[
 			{
-				"name": "phoenix:chage_stage",
+				"name": "phoenix:change_stage",
 				"stream": false
 			}
 		]

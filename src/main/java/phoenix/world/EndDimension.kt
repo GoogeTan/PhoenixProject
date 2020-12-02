@@ -17,7 +17,6 @@ import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import java.util.*
 
-
 open class EndDimension(worldIn: World, typeIn: DimensionType) : Dimension(worldIn, typeIn, 0.0f)
 {
     private val spawn = BlockPos(100, 50, 0)
