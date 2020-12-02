@@ -1,5 +1,6 @@
 package phoenix.enity;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.controller.BodyController;
 import net.minecraft.entity.monster.PhantomEntity;
@@ -17,7 +18,10 @@ import phoenix.utils.entity.ThreeDimensionsLookHelperController;
 import phoenix.utils.entity.ThreeDimensionsMoveHelperController;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class CaudaEntity extends AbstractFlyingEntity
 {
     private static final DataParameter<Integer> SIZE = EntityDataManager.createKey(PhantomEntity.class, DataSerializers.VARINT);
@@ -81,7 +85,7 @@ public class CaudaEntity extends AbstractFlyingEntity
         return true;
     }
 
-    class BodyHelperController extends BodyController
+    static class BodyHelperController extends BodyController
     {
         MobEntity entity;
 
@@ -97,6 +101,7 @@ public class CaudaEntity extends AbstractFlyingEntity
             entity.renderYawOffset = entity.rotationYaw;
         }
     }
+
     @Override
     public void tick()
     {

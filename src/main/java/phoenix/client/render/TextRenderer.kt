@@ -21,7 +21,7 @@ class TextRenderer(dis: TileEntityRendererDispatcher) : TileEntityRenderer<TextT
     {
         val fontrenderer = Minecraft.getInstance().fontRenderer
         val vertex = Material(AtlasTexture.LOCATION_BLOCKS_TEXTURE, ResourceLocation("block/clay")).getBuffer(p3, RenderType::getEntitySolid)
-        //model.render(matrics, vertex, p4, p5)
+        model.render(matrics, vertex, p4, p5)
         val i: Int? = p0.text.style.color?.color
         if(i != null)
         {

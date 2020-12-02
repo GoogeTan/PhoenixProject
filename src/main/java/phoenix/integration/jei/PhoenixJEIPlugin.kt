@@ -17,7 +17,6 @@ import phoenix.init.PhoenixRecipes
 class PhoenixJEIPlugin : IModPlugin
 {
     private lateinit var ovenCategory: OvenCategory
-    private lateinit var tankCategory: TankCategory
 
     override fun getPluginUid(): ResourceLocation = ResourceLocation("phoenix", "jei_plugin")
 
@@ -28,8 +27,6 @@ class PhoenixJEIPlugin : IModPlugin
         val modIdHelper = jeiHelpers.modIdHelper
         ovenCategory = OvenCategory(guiHelper)
         registration.addRecipeCategories(ovenCategory)
-        tankCategory = TankCategory(guiHelper)
-        registration.addRecipeCategories(tankCategory)
     }
 
     override fun registerRecipes(register: IRecipeRegistration)
@@ -39,15 +36,11 @@ class PhoenixJEIPlugin : IModPlugin
         // oven
         val ovenRecipes: Collection<IRecipe<IInventory>> = manager.getRecipes(PhoenixRecipes.OVEN).values
         register.addRecipes(ovenRecipes, ovenCategory.uid)
-        // tank
-        val tankRecipes: Collection<IRecipe<IInventory>> = manager.getRecipes(PhoenixRecipes.TANK).values
-        register.addRecipes(tankRecipes, tankCategory.uid)
     }
 
     override fun registerRecipeCatalysts(registration: IRecipeCatalystRegistration)
     {
         registration.addRecipeCatalyst(ItemStack(PhoenixBlocks.OVEN.get()), ovenCategory.uid)
-        registration.addRecipeCatalyst(ItemStack(PhoenixBlocks.TANK.get()), tankCategory.uid)
     }
 
 

@@ -10,16 +10,17 @@ import phoenix.tile.ash.OvenTile
 import phoenix.tile.ash.PotteryBarrelTile
 import phoenix.tile.redo.PipeTile
 import phoenix.tile.redo.TankTile
+import com.mojang.datafixers.types.Type
 
 object PhoenixTiles
 {
     @JvmStatic val TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Phoenix.MOD_ID)
 
-    @JvmStatic public val TANK           = TILE_ENTITIES.register("tank")           { TileEntityType.Builder.create({ TankTile() },          PhoenixBlocks.TANK          .get()).build(null) }!!
-    @JvmStatic public val PIPE           = TILE_ENTITIES.register("pipe")           { TileEntityType.Builder.create({ PipeTile() },          PhoenixBlocks.PIPE          .get()).build(null) }!!
+    @JvmStatic public val TANK           = TILE_ENTITIES.register("tank")           { TileEntityType.Builder.create({ TankTile() }, PhoenixBlocks.TANK.get()).build(null) }!!
+    @JvmStatic public val PIPE           = TILE_ENTITIES.register("pipe")           { TileEntityType.Builder.create({ PipeTile() }, PhoenixBlocks.PIPE.get()).build(null) }!!
     @JvmStatic public val POTTERY_BARREL = TILE_ENTITIES.register("pottery_barrel") { TileEntityType.Builder.create({ PotteryBarrelTile() }, PhoenixBlocks.POTTERY_BARREL.get()).build(null) }!!
-    @JvmStatic public val OVEN           = TILE_ENTITIES.register("oven")           { TileEntityType.Builder.create({ OvenTile() },          PhoenixBlocks.OVEN          .get()).build(null) }!!
-    @JvmStatic public val TEXT           = TILE_ENTITIES.register("text")           { TileEntityType.Builder.create({ TextTile() },          PhoenixBlocks.TEXT_BLOCK    .get()).build(null) }!!
+    @JvmStatic public val OVEN           = TILE_ENTITIES.register("oven")           { TileEntityType.Builder.create({ OvenTile() }, PhoenixBlocks.OVEN.get()).build(null) }!!
+    @JvmStatic public val TEXT           = TILE_ENTITIES.register("text")           { TileEntityType.Builder.create({ TextTile() }, PhoenixBlocks.TEXT_BLOCK.get()).build(null) }!!
 
     @JvmStatic fun register() = TILE_ENTITIES.register(FMLJavaModLoadingContext.get().modEventBus)
 }

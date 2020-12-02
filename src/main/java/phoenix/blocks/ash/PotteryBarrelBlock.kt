@@ -153,7 +153,7 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO)), IC
         }
     }
 
-    fun setState(worldIn: World, pos: BlockPos?, state: BlockState, level: Int)
+    private fun setState(worldIn: World, pos: BlockPos?, state: BlockState, level: Int)
     {
         worldIn.setBlockState(pos, state.with(Companion.state, level))
     }

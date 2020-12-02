@@ -12,7 +12,7 @@ import phoenix.Phoenix
 import phoenix.init.PhoenixBlocks
 import phoenix.recipes.OvenRecipe
 
-class OvenCategory(val helper: IGuiHelper) : IRecipeCategory<OvenRecipe>
+class OvenCategory(private val helper: IGuiHelper) : IRecipeCategory<OvenRecipe>
 {
     private val background: IDrawable = helper.createDrawable(ResourceLocation(Phoenix.MOD_ID, "textures/gui/oven.png"), 0, 0, 100, 34)
     override fun getUid        (): ResourceLocation      = ResourceLocation("phoenix", "oven")

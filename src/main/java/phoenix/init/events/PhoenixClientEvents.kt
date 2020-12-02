@@ -22,7 +22,6 @@ import phoenix.client.render.entity.KnifeRenderer
 import phoenix.client.render.entity.TalpaRenderer
 import phoenix.init.*
 import phoenix.init.PhoenixBlocks.BLOCKS
-import phoenix.init.PhoenixBlocks.TEXT_BLOCK
 import phoenix.init.PhoenixEntities.CAUDA
 import phoenix.init.PhoenixEntities.KNIFE
 import phoenix.init.PhoenixEntities.TALPA
@@ -39,12 +38,11 @@ object PhoenixClientEvents
     {
         NetworkHandler.init()
         PhoenixRenderTypes.init()
-        PhoenixKeyBindings.register()
         PhoenixContainers.registerScreens()
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.OVEN.get(), RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.PIPE.get(), RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.TANK.get(), RenderType.getCutoutMipped())
-        RenderTypeLookup.setRenderLayer(TEXT_BLOCK.get(), RenderType.getCutoutMipped())
+        RenderTypeLookup.setRenderLayer(PhoenixBlocks.TEXT_BLOCK.get(), RenderType.getCutoutMipped())
         RenderingRegistry.registerEntityRenderingHandler(TALPA.get())  { renderManager: EntityRendererManager -> TalpaRenderer(renderManager) }
         RenderingRegistry.registerEntityRenderingHandler(CAUDA.get())  { renderManager: EntityRendererManager -> CaudaRenderer(renderManager) }
         RenderingRegistry.registerEntityRenderingHandler(KNIFE.get())  { renderManagerIn: EntityRendererManager -> KnifeRenderer(renderManagerIn) }

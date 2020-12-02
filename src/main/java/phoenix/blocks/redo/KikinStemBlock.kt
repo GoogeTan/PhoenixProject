@@ -26,7 +26,7 @@ class KikinStemBlock : ChorusPlantBlock(Properties.create(Material.ROCK).notSoli
         {
             val block = facingState.block
             val isValid = block === this || block === PhoenixBlocks.KIKIN_FRUIT.get() || facing == Direction.DOWN && block === PhoenixBlocks.FERTILE_END_STONE.get()
-            stateIn.with(SixWayBlock.FACING_TO_PROPERTY_MAP[facing], isValid)
+            stateIn.with(SixWayBlock.FACING_TO_PROPERTY_MAP[facing]!!, isValid)
         }
     }
 

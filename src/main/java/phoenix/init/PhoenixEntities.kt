@@ -29,7 +29,7 @@ object PhoenixEntities
     @JvmStatic
     val CAUDA = ENTITIES.register("cauda")
     {
-        EntityType.Builder.create({ type: EntityType<CaudaEntity?>?, worldIn: World? -> CaudaEntity(type, worldIn) }, EntityClassification.CREATURE)
+        EntityType.Builder.create({ type: EntityType<CaudaEntity?>?, worldIn: World? -> CaudaEntity(type, worldIn!!) }, EntityClassification.CREATURE)
                 .size(0.9f, 0.5f)
                 .setTrackingRange(80)
                 .setUpdateInterval(3)
