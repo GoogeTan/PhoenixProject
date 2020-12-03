@@ -57,14 +57,12 @@ object PhoenixCommonEvents
         NetworkHandler.init()
         FMLJavaModLoadingContext.get().modEventBus.register(PhoenixCommonEvents::class.java)
         PhoenixRecipes.register()
-        UNDER    .get().addStructure(PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG))
-        HEARTVOID.get().addStructure(PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG))
         UNDER    .get().addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)))
         HEARTVOID.get().addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)))
         UNDER    .get().addSpawn(EntityClassification.CREATURE, SpawnListEntry(CAUDA.get(), 15, 1, 3))
         HEARTVOID.get().addSpawn(EntityClassification.CREATURE, SpawnListEntry(TALPA.get(), 15, 1, 4))
         StructureHelper.addStructure(Biomes.END_HIGHLANDS, PhoenixFeatures.ERASED.get())
-        StructureHelper.addStructure(Biomes.END_HIGHLANDS, PhoenixFeatures.CORN.get())
+        StructureHelper.addStructure(HEARTVOID.get(), PhoenixFeatures.ERASED.get())
 
         for (biome in Registry.BIOME)
         {

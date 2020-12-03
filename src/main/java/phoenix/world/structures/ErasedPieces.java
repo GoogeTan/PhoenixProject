@@ -1,6 +1,6 @@
 package phoenix.world.structures;
 
-import com.google.common.collect.ImmutableMap;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundNBT;
@@ -22,43 +22,23 @@ import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import net.minecraft.world.storage.loot.LootTables;
+import phoenix.init.PhoenixLootTables;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class ErasedPieces
 {
-    private static final ResourceLocation top_location = new ResourceLocation("phoenix:corn/corn");
-    private static final ResourceLocation mid_location = new ResourceLocation("igloo/middle");
-    private static final ResourceLocation bot_location = new ResourceLocation("igloo/bottom");
-    private static final Map<ResourceLocation, BlockPos> pieces_to_offset =
-            ImmutableMap.of(
-                    top_location, new BlockPos(3, 5, 5),
-                    mid_location, new BlockPos(1, 3, 1),
-                    bot_location, new BlockPos(3, 6, 7));
+    private static final ResourceLocation top_location = new ResourceLocation("phoenix:remains/house");
 
-    private static final Map<ResourceLocation, BlockPos> offsets =
-            ImmutableMap.of(
-                    top_location, BlockPos.ZERO,
-                    mid_location, new BlockPos(2, -3, 4),
-                    bot_location, new BlockPos(0, -3, -2));
-
+    private static final BlockPos center_offset = new BlockPos(3, 5, 5);
+    private static final BlockPos offset = new BlockPos(0, -4, 0);
 
     public static void init(TemplateManager manager, BlockPos pos, Rotation rotation, List<StructurePiece> pieces, Random rand)
     {
-        if (rand.nextDouble() < 0.5D)
-        {
-            int i = rand.nextInt(8) + 4;
-            pieces.add(new ErasedPieces.Piece(manager, bot_location, pos, rotation, i * 3));
-
-            for (int j = 0; j < i - 1; ++j)
-            {
-                pieces.add(new ErasedPieces.Piece(manager, mid_location, pos, rotation, j * 3));
-            }
-        }
-
         pieces.add(new ErasedPieces.Piece(manager, top_location, pos, rotation, 0));
     }
 
@@ -69,10 +49,9 @@ public class ErasedPieces
 
         public Piece(TemplateManager manager, ResourceLocation location, BlockPos pos, Rotation rotation, int y_offset)
         {
-            super(IStructurePieceType.IGLU, 0);
+            super(PhoenixLootTables.REMAINS_HOUSE_PIECES, 0);
             this.current_piece = location;
-            BlockPos blockpos = ErasedPieces.offsets.get(location);
-            this.templatePosition = pos.add(blockpos.getX(), blockpos.getY() - y_offset, blockpos.getZ());
+            this.templatePosition = pos.add(offset.getX(), offset.getY() - y_offset, offset.getZ());
             this.rotation = rotation;
             this.makeSetup(manager);
         }
@@ -88,7 +67,7 @@ public class ErasedPieces
         private void makeSetup(TemplateManager manager)
         {
             Template template = manager.getTemplateDefaulted(this.current_piece);
-            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(rotation).setMirror(Mirror.NONE).setCenterOffset(ErasedPieces.pieces_to_offset.get(current_piece)).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
+            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(rotation).setMirror(Mirror.NONE).setCenterOffset(center_offset).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
             this.setup(template, this.templatePosition, placementsettings);
         }
 
@@ -104,7 +83,7 @@ public class ErasedPieces
         }
 
         @Override
-        protected void handleDataMarker(   String function,    BlockPos pos,    IWorld worldIn,    Random rand,    MutableBoundingBox sbb)
+        protected void handleDataMarker(String function, BlockPos pos, IWorld worldIn, Random rand, MutableBoundingBox sbb)
         {
             if ("chest".equals(function))
             {
@@ -112,9 +91,8 @@ public class ErasedPieces
                 TileEntity tileentity = worldIn.getTileEntity(pos.down());
                 if (tileentity instanceof ChestTileEntity)
                 {
-                    ((ChestTileEntity) tileentity).setLootTable(LootTables.CHESTS_IGLOO_CHEST, rand.nextLong());
+                    ((ChestTileEntity) tileentity).setLootTable(PhoenixLootTables.REMAINS_HOUSE, rand.nextLong());
                 }
-
             }
         }
 
@@ -125,13 +103,13 @@ public class ErasedPieces
         public boolean create(IWorld worldIn,    ChunkGenerator<?> chunkGeneratorIn,    Random randomIn,
                                  MutableBoundingBox mutableBoundingBoxIn,    ChunkPos chunkPosIn)
         {
-            PlacementSettings settings = (new PlacementSettings())
+            PlacementSettings settings = new PlacementSettings()
                                                 .setRotation(rotation)
                                                 .setMirror(Mirror.NONE)
-                                                .setCenterOffset(ErasedPieces.pieces_to_offset.get(current_piece))
+                                                .setCenterOffset(center_offset)
                                                 .addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
 
-            BlockPos blockpos = ErasedPieces.offsets.get(current_piece);
+            BlockPos blockpos = offset;
             BlockPos blockpos1 = this.templatePosition.add(Template.transformedBlockPos(settings, new BlockPos(3 - blockpos.getX(), 0, -blockpos.getZ())));
             int height = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, blockpos1.getX(), blockpos1.getZ());
             BlockPos blockpos2 = this.templatePosition;

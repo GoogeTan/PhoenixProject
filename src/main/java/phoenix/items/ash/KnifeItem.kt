@@ -72,7 +72,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
         if(block == Blocks.TNT && EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, item) > 0)
         {
             WorldUtils.destroyBlock(world, pos, false, owner, item)
-            world.createExplosion(knife, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 4F, true, Explosion.Mode.BREAK)
+            world.createExplosion(knife, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 5F, true, Explosion.Mode.BREAK)
 
             return false
         }
@@ -116,8 +116,8 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
 
     companion object
     {
-        var breakableBlocks: Set<Block> = ImmutableSet.of(Blocks.SPONGE, Blocks.VINE, Blocks.SEA_PICKLE, Blocks.WET_SPONGE, Blocks.GRASS, Blocks.TALL_GRASS, Blocks.SUGAR_CANE)
-        var breakableBlocksTypes: Set<Tag<Block>> = ImmutableSet.of(Tags.Blocks.GLASS, Tags.Blocks.STAINED_GLASS_PANES)
-        var allowedEnchantments: Set<Enchantment> = ImmutableSet.of(Enchantments.POWER, QUICK_CHARGE, Enchantments.MENDING, Enchantments.FLAME, Enchantments.SILK_TOUCH, Enchantments.UNBREAKING)
+        var breakableBlocks      : Set<Block>       = ImmutableSet.of(Blocks.SPONGE, Blocks.VINE, Blocks.SEA_PICKLE, Blocks.WET_SPONGE, Blocks.GRASS, Blocks.TALL_GRASS, Blocks.SUGAR_CANE)
+        var breakableBlocksTypes : Set<Tag<Block>>  = ImmutableSet.of(Tags.Blocks.GLASS, Tags.Blocks.STAINED_GLASS_PANES)
+        var allowedEnchantments  : Set<Enchantment> = ImmutableSet.of(Enchantments.POWER, QUICK_CHARGE, Enchantments.MENDING, Enchantments.FLAME, Enchantments.SILK_TOUCH, Enchantments.UNBREAKING)
     }
 }

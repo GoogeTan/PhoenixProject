@@ -1,16 +1,15 @@
 package phoenix.init.events
 
-import net.minecraft.block.BlockRenderType
-import net.minecraft.block.BlockState
+import net.minecraft.entity.player.ServerPlayerEntity
+import net.minecraft.network.play.server.SSpawnParticlePacket
 import net.minecraft.particles.ParticleTypes
-import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.MathHelper
-import net.minecraft.util.math.Vec3d
 import net.minecraft.world.dimension.DimensionType
+import net.minecraft.world.server.ServerWorld
 import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.fml.network.NetworkHooks
 import phoenix.Phoenix
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncStagePacket
@@ -23,24 +22,11 @@ object PhoenixEvents
     @SubscribeEvent
     fun onPlay(event: PlayerEvent.Clone)
     {
-        val world = event.player.world
+        val world = event.player.world as ServerWorld
         val player = event.player
-        if (!world.isRemote)
-        {
-            val i = MathHelper.floor(player.posX)
-            val j = MathHelper.floor(player.posY - 0.2f.toDouble())
-            val k = MathHelper.floor(player.posZ)
-            val blockpos = BlockPos(i, j, k)
-            val blockstate: BlockState = world.getBlockState(blockpos)
-            if (!blockstate.addRunningEffects(world, blockpos, player)) if (blockstate.renderType != BlockRenderType.INVISIBLE)
-            {
-                val vec3d: Vec3d = player.motion
-                world.addParticle(ParticleTypes.EFFECT, player.posX + (world.rand.nextFloat().toDouble() - 0.5) * player.getSize(player.pose).width.toDouble(), player.posY + 0.1, player.posZ + (world.rand.nextFloat().toDouble() - 0.5) * player.getSize(player.pose).width.toDouble(), vec3d.x * -4.0, 1.5, vec3d.z * -4.0)
 
-                //world.addParticle(PhoenixParticleData(ParticleTypes.EFFECT), player.getPosX() + (world.rand.nextFloat().toDouble() - 0.5) * player.getSize(player.pose).width.toDouble(), player.getPosY() + 0.1, player.getPosZ() + (world.rand.nextFloat() as Double - 0.5) * player.getSize(player.pose).width as Double, vec3d.x * -4.0, 1.5, vec3d.z * -4.0)
-            }
-        }
-
+        world.spawnParticle(ParticleTypes.BUBBLE, player.posX, player.posY, player.posZ, 5, 0.0, 1.0, 0.0, 1.0)
+        world.spawnParticle(ParticleTypes.BUBBLE, player.posX, player.posY, player.posZ, 5, 0.0, 1.0, 0.0, 1.0)
     }
 
     @JvmStatic

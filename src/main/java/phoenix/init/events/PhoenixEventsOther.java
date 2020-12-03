@@ -30,7 +30,6 @@ public class PhoenixEventsOther
         if(!event.world.isRemote)
         {
             if(!tasks.isEmpty())
-                Phoenix.getLOGGER().error(tasks);
             if (event.phase == TickEvent.Phase.END)
                 for (int i = 0; i < tasks.size(); ++i)
                 {

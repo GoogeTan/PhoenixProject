@@ -25,7 +25,6 @@ class UnderBiome : Biome(GenerationUtils.deafultSettingsForEnd(Builders.UNDER, B
     override fun decorate(stage: GenerationStage.Decoration, chunkGenerator: ChunkGenerator<out GenerationSettings?>, worldIn: IWorld, seed: Long, random: SharedSeedRandom, pos: BlockPos)
     {
         super.decorate(stage, chunkGenerator, worldIn, seed, random, pos)
-        Phoenix.LOGGER.error(pos)
         if (random.nextBoolean())
         {
             val position = getDownHeight(worldIn, pos.add(random.nextInt(15), 0, random.nextInt(15)), 30)
