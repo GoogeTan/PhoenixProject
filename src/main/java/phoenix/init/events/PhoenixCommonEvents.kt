@@ -35,7 +35,7 @@ object PhoenixCommonEvents
 {
     @SubscribeEvent
     @JvmStatic
-    fun onRegisterItems(event: Register<Item?>)
+    fun onRegisterItems(event: Register<Item>)
     {
         val registry = event.registry
         BLOCKS.entries.stream()

@@ -112,12 +112,12 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
 
     override fun isEnchantable(stack: ItemStack) = true
 
-    override fun canApplyAtEnchantingTable(stack: ItemStack, enchantment: Enchantment) = allowedEnchantments.contains(enchantment)
+    override fun canApplyAtEnchantingTable(stack: ItemStack, enchantment: Enchantment) = allowedEnchantments.contains(enchantment) || enchantment == PhoenixEnchantments.TELEPORTATION.get()
 
     companion object
     {
         var breakableBlocks: Set<Block> = ImmutableSet.of(Blocks.SPONGE, Blocks.VINE, Blocks.SEA_PICKLE, Blocks.WET_SPONGE, Blocks.GRASS, Blocks.TALL_GRASS, Blocks.SUGAR_CANE)
         var breakableBlocksTypes: Set<Tag<Block>> = ImmutableSet.of(Tags.Blocks.GLASS, Tags.Blocks.STAINED_GLASS_PANES)
-        var allowedEnchantments: Set<Enchantment> = ImmutableSet.of(Enchantments.POWER, QUICK_CHARGE, Enchantments.MENDING, Enchantments.FLAME, Enchantments.SILK_TOUCH, Enchantments.UNBREAKING, PhoenixEnchantments.TELEPORTATION.get())
+        var allowedEnchantments: Set<Enchantment> = ImmutableSet.of(Enchantments.POWER, QUICK_CHARGE, Enchantments.MENDING, Enchantments.FLAME, Enchantments.SILK_TOUCH, Enchantments.UNBREAKING)
     }
 }

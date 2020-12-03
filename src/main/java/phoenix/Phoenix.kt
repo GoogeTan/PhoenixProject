@@ -24,6 +24,7 @@ class Phoenix
 {
     init
     {
+        PhoenixEnchantments.register()
         PhoenixBiomes.register()
         PhoenixBlocks.register()
         PhoenixTiles.register()
@@ -32,7 +33,6 @@ class Phoenix
         PhoenixItems.register()
         PhoenixContainers.register()
         PhoenixRecipeSerializers.register()
-        PhoenixEnchantments.register()
         val specPair = ForgeConfigSpec.Builder().configure { builder: ForgeConfigSpec.Builder -> Common(builder) }
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, specPair.right)
         PhoenixConfiguration.COMMON_CONFIG = specPair.left

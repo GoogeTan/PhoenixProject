@@ -23,10 +23,6 @@ description='''End is an empty, almost boring place. In the beginning it will. B
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
     # Here's another dependency
-[[dependencies.phoenix]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.15.2]"
-    ordering="NONE"
-    side="BOTH"
+
+
 
