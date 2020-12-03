@@ -22,6 +22,7 @@ import net.minecraft.world.World
 import net.minecraftforge.common.Tags
 import phoenix.Phoenix
 import phoenix.enity.KnifeEntity
+import phoenix.init.PhoenixEnchantments
 import phoenix.init.events.PhoenixEventsOther.addTask
 import phoenix.utils.WorldUtils
 
@@ -38,7 +39,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
         player.cooldownTracker.setCooldown(this, coolDown)
         if (!world.isRemote)
         {
-            val knife = KnifeEntity(world, player, EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, itemstack) == 0)
+            val knife = KnifeEntity(world, player, true)
             knife.knife = itemstack
             knife.shoot(player, player.rotationPitch, player.rotationYaw, 0.0f, 2f, 0.3f)
             world.addEntity(knife)
@@ -59,7 +60,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
         return ActionResult(ActionResultType.SUCCESS, itemstack)
     }
 
-    fun onHitBlock(world: World, owner: LivingEntity?, pos: BlockPos, knife: KnifeEntity, item: ItemStack): Boolean
+    fun onHitBlock(world: World, owner: LivingEntity, pos: BlockPos, knife: KnifeEntity, item: ItemStack): Boolean
     {
         var shouldBroke = false
         val block = world.getBlockState(pos).block
@@ -80,15 +81,31 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
             WorldUtils.destroyBlock(world, pos, true, owner, item)
             knife.knife.attemptDamageItem(1, world.rand, null)
         }
+
+        if(EnchantmentHelper.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get(), item) > 0)
+        {
+            owner.setPositionAndUpdate(pos.up().x.toDouble(), pos.up().y.toDouble(), pos.up().z.toDouble())
+            owner.fallDistance = 0.0f
+            if (owner is PlayerEntity)
+                owner.addItemStackToInventory(item)
+            return false
+        }
+
         return !(block !== Blocks.GRASS_BLOCK && block !== Blocks.SNOW && block.isIn(Tags.Blocks.SAND))
     }
 
-    fun onHitEntity(world: World, owner: LivingEntity?, knife: KnifeEntity, hitted: Entity, knifeItem: ItemStack): Boolean
+    fun onHitEntity(world: World, owner: LivingEntity, knife: KnifeEntity, hitted: Entity, knifeItem: ItemStack): Boolean
     {
         val powerLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, knifeItem)
         val damage = damage + powerLevel.toDouble() * 0.6
         if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, knifeItem) > 0 && hitted.type !== EntityType.SNOW_GOLEM) hitted.setFire(100)
         hitted.attackEntityFrom(DamageSource.causeThrownDamage(knife, knife.thrower), damage.toFloat())
+        Phoenix.LOGGER.error(EnchantmentHelper.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get(), knifeItem))
+        if(EnchantmentHelper.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get(), knifeItem) > 0)
+        {
+            owner.setPositionAndUpdate(hitted.posX, hitted.posY, hitted.posZ)
+            owner.fallDistance = 0.0f
+        }
 
         return hitted.type !== EntityType.SNOW_GOLEM && hitted.type !== EntityType.END_CRYSTAL && hitted.type !== EntityType.PANDA
     }
