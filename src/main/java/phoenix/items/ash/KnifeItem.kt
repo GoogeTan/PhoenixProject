@@ -39,7 +39,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
         player.cooldownTracker.setCooldown(this, coolDown)
         if (!world.isRemote)
         {
-            val knife = KnifeEntity(world, player, true)
+            val knife = KnifeEntity(world, player, EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, itemstack) != 0)
             knife.knife = itemstack
             knife.shoot(player, player.rotationPitch, player.rotationYaw, 0.0f, 2f, 0.3f)
             world.addEntity(knife)
@@ -118,6 +118,6 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
     {
         var breakableBlocks: Set<Block> = ImmutableSet.of(Blocks.SPONGE, Blocks.VINE, Blocks.SEA_PICKLE, Blocks.WET_SPONGE, Blocks.GRASS, Blocks.TALL_GRASS, Blocks.SUGAR_CANE)
         var breakableBlocksTypes: Set<Tag<Block>> = ImmutableSet.of(Tags.Blocks.GLASS, Tags.Blocks.STAINED_GLASS_PANES)
-        var allowedEnchantments: Set<Enchantment> = ImmutableSet.of(Enchantments.POWER, QUICK_CHARGE, Enchantments.MENDING, Enchantments.FLAME, Enchantments.SILK_TOUCH, Enchantments.UNBREAKING)
+        var allowedEnchantments: Set<Enchantment> = ImmutableSet.of(Enchantments.POWER, QUICK_CHARGE, Enchantments.MENDING, Enchantments.FLAME, Enchantments.SILK_TOUCH, Enchantments.UNBREAKING, PhoenixEnchantments.TELEPORTATION.get())
     }
 }
