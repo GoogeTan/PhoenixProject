@@ -17,9 +17,9 @@ object PhoenixEntities
 {
     private val ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Phoenix.MOD_ID)!!
     @JvmStatic
-    val TALPA = ENTITIES.register("talpa")
+    val TALPA : RegistryObject<EntityType<TalpaEntity>> = ENTITIES.register("talpa")
     {
-        EntityType.Builder.create({ type: EntityType<TalpaEntity?>?, worldIn: World? -> TalpaEntity(type, worldIn) }, EntityClassification.CREATURE)
+        EntityType.Builder.create({ type: EntityType<TalpaEntity>, worldIn: World -> TalpaEntity(type, worldIn) }, EntityClassification.CREATURE)
                 .size(0.5f, 0.5f)
                 .setTrackingRange(80)
                 .setUpdateInterval(3)
@@ -27,9 +27,9 @@ object PhoenixEntities
                 .build(ResourceLocation(Phoenix.MOD_ID, "talpa").toString())
     }!!
     @JvmStatic
-    val CAUDA = ENTITIES.register("cauda")
+    val CAUDA : RegistryObject<EntityType<CaudaEntity>> = ENTITIES.register("cauda")
     {
-        EntityType.Builder.create({ type: EntityType<CaudaEntity?>?, worldIn: World? -> CaudaEntity(type, worldIn!!) }, EntityClassification.CREATURE)
+        EntityType.Builder.create({ type: EntityType<CaudaEntity>, worldIn: World? -> CaudaEntity(type, worldIn!!) }, EntityClassification.CREATURE)
                 .size(0.9f, 0.5f)
                 .setTrackingRange(80)
                 .setUpdateInterval(3)
