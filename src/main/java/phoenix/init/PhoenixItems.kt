@@ -21,15 +21,15 @@ object PhoenixItems
 {
     private val ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Phoenix.MOD_ID)
 
-    val GUIDE                          = ITEMS.register("diary") { ItemDiary() }!!
+    val GUIDE                          = ITEMS.register("diary", ::ItemDiary)!!
 
-    val HIGH_QUALITY_CLAY_ITEM         = ITEMS.register("high_quality_clay") { HighQualityClayItem() }!!
+    val HIGH_QUALITY_CLAY_ITEM         = ITEMS.register("high_quality_clay", ::HighQualityClayItem)!!
 
     val CRUCIBLE                       = ITEMS.register("crucible", basicItem())!!
-    val CRUCIBLE_WITH_IRON_ORE         = ITEMS.register("crucible_with_iron_ore") { CrucibleItem() }!!
-    val CRUCIBLE_WITH_IRON             = ITEMS.register("crucible_with_iron") { CrucibleItem() }!!
-    val CRUCIBLE_WITH_GOLD_ORE         = ITEMS.register("crucible_with_gold_ore") { CrucibleItem() }!!
-    val CRUCIBLE_WITH_GOLD             = ITEMS.register("crucible_with_gold") { CrucibleItem() }!!
+    val CRUCIBLE_WITH_IRON_ORE         = ITEMS.register("crucible_with_iron_ore", ::CrucibleItem)!!
+    val CRUCIBLE_WITH_IRON             = ITEMS.register("crucible_with_iron",     ::CrucibleItem)!!
+    val CRUCIBLE_WITH_GOLD_ORE         = ITEMS.register("crucible_with_gold_ore", ::CrucibleItem)!!
+    val CRUCIBLE_WITH_GOLD             = ITEMS.register("crucible_with_gold",     ::CrucibleItem)!!
 
     val STEEL_INGOT                    = ITEMS.register("steel_ingot",     basicItem())!!
     val ZIRCONIUM_INGOT                = ITEMS.register("zirconium_ingot", basicItem())!!

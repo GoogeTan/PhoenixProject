@@ -43,13 +43,13 @@ object PhoenixClientEvents
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.PIPE.get(), RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.TANK.get(), RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.TEXT_BLOCK.get(), RenderType.getCutoutMipped())
-        RenderingRegistry.registerEntityRenderingHandler(TALPA.get())  { renderManager: EntityRendererManager -> TalpaRenderer(renderManager) }
-        RenderingRegistry.registerEntityRenderingHandler(CAUDA.get())  { renderManager: EntityRendererManager -> CaudaRenderer(renderManager) }
-        RenderingRegistry.registerEntityRenderingHandler(KNIFE.get())  { renderManagerIn: EntityRendererManager -> KnifeRenderer(renderManagerIn) }
-        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.PIPE.get()) { rendererDispatcherIn: TileEntityRendererDispatcher -> PipeRender(rendererDispatcherIn) }
-        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK.get()) { rendererDispatcherIn: TileEntityRendererDispatcher -> TankRenderer(rendererDispatcherIn) }
-        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.OVEN.get()) { rendererDispatcherIn: TileEntityRendererDispatcher -> OvenRenderer(rendererDispatcherIn) }
-        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TEXT.get()) { dis: TileEntityRendererDispatcher -> TextRenderer(dis) }
+        RenderingRegistry.registerEntityRenderingHandler(TALPA.get(), ::TalpaRenderer)
+        RenderingRegistry.registerEntityRenderingHandler(CAUDA.get(), ::CaudaRenderer)
+        RenderingRegistry.registerEntityRenderingHandler(KNIFE.get(), ::KnifeRenderer)
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.PIPE.get(), ::PipeRender)
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK.get(), ::TankRenderer)
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.OVEN.get(), ::OvenRenderer)
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TEXT.get(), ::TextRenderer)
 
         // регистрация цветных блоков
         for (block in BLOCKS.entries)

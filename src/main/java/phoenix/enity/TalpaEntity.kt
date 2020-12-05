@@ -15,7 +15,7 @@ import net.minecraft.world.World
 import phoenix.init.PhoenixEntities
 
 
-class TalpaEntity(type: EntityType<TalpaEntity?>?, worldIn: World?) : AnimalEntity(type, worldIn)
+class TalpaEntity(type: EntityType<TalpaEntity>, worldIn: World) : AnimalEntity(type, worldIn)
 {
     val boundOrigin: BlockPos? = null
 
@@ -76,7 +76,7 @@ class TalpaEntity(type: EntityType<TalpaEntity?>?, worldIn: World?) : AnimalEnti
 
     companion object
     {
-        fun create(worldIn: World?): TalpaEntity
+        fun create(worldIn: World): TalpaEntity
         {
             return TalpaEntity(PhoenixEntities.TALPA.get(), worldIn)
         }

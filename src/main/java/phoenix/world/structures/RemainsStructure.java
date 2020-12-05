@@ -1,5 +1,6 @@
 package phoenix.world.structures;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
@@ -11,9 +12,13 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
-public class ErasedStructure extends ScatteredStructure<NoFeatureConfig>
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+public class RemainsStructure extends ScatteredStructure<NoFeatureConfig>
 {
-    public ErasedStructure()
+    public RemainsStructure()
     {
         super(NoFeatureConfig::deserialize);
     }
@@ -21,7 +26,7 @@ public class ErasedStructure extends ScatteredStructure<NoFeatureConfig>
     @Override
     public String getStructureName()
     {
-        return "erasedcity";
+        return "Remains";
     }
 
     @Override

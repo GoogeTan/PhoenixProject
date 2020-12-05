@@ -19,22 +19,17 @@ object PhoenixBlocks
     @JvmStatic
     val BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Phoenix.MOD_ID)!!
 
-    val UPDATER           = BLOCKS.register("updater")           { UpdaterBlock()         }!!
-    @JvmStatic
-    val PIPE              = BLOCKS.register("pipe")              { PipeBlock()            }!!
-    @JvmStatic
-    val TANK              = BLOCKS.register("tank")              { TankBlock()            }!!
-    val FERTILE_END_STONE = BLOCKS.register("fertile_end_stone") { FertileEndStoneBlock() }!!
-    val KIKIN_STEAM       = BLOCKS.register("kikin_stem")        { KikinStemBlock()       }!!
-    val KIKIN_FRUIT       = BLOCKS.register("kikin_fruit")       { KikiNFruitBlock()      }!!
-    val ANTI_AIR          = BLOCKS.register("anti_air")          { AntiAirBlock()         }!!
-    val POTTERY_BARREL    = BLOCKS.register("pottery_barrel")    { PotteryBarrelBlock()   }!!
-    val END_STONE_COLUMN  = BLOCKS.register("end_stone_column")  { EndStoneColumnBlock()  }!!
-    @JvmStatic
-    val OVEN              = BLOCKS.register("oven")              { OvenBlock()            }!!
-    @JvmStatic
-    val ZIRCONIUM         = BLOCKS.register("zirconium_ore")     { ZirconiumOreBlock()    }!!
-    @JvmStatic
+    val UPDATER           = BLOCKS.register("updater",           ::UpdaterBlock)!!
+    val PIPE              = BLOCKS.register("pipe",              ::PipeBlock)!!
+    val TANK              = BLOCKS.register("tank",              ::TankBlock)!!
+    val FERTILE_END_STONE = BLOCKS.register("fertile_end_stone", ::FertileEndStoneBlock)!!
+    val KIKIN_STEAM       = BLOCKS.register("kikin_stem",        ::KikinStemBlock)!!
+    val KIKIN_FRUIT       = BLOCKS.register("kikin_fruit",       ::KikiNFruitBlock)!!
+    val ANTI_AIR          = BLOCKS.register("anti_air",          ::AntiAirBlock)!!
+    val POTTERY_BARREL    = BLOCKS.register("pottery_barrel",    ::PotteryBarrelBlock)!!
+    val END_STONE_COLUMN  = BLOCKS.register("end_stone_column",  ::EndStoneColumnBlock)!!
+    val OVEN              = BLOCKS.register("oven",              ::OvenBlock)!!
+    val ZIRCONIUM         = BLOCKS.register("zirconium_ore",     ::ZirconiumOreBlock)!!
     val TEXT_BLOCK        = BLOCKS.register("block_with_text", AnonimBlock.create(Material.ROCK))!!
 
     fun register()
