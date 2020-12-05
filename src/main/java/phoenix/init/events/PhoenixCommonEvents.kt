@@ -1,17 +1,17 @@
 package phoenix.init.events
 
-import com.google.common.collect.ImmutableSet
 import net.minecraft.block.Block
 import net.minecraft.block.FlowingFluidBlock
-import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityClassification
-import net.minecraft.entity.EntityType
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.util.registry.Registry
-import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.Biome.SpawnListEntry
 import net.minecraft.world.biome.Biomes
+import net.minecraft.world.gen.GenerationStage
+import net.minecraft.world.gen.feature.IFeatureConfig
+import net.minecraft.world.gen.placement.IPlacementConfig
+import net.minecraft.world.gen.placement.Placement
 import net.minecraftforge.event.RegistryEvent.Register
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.RegistryObject
@@ -29,7 +29,6 @@ import phoenix.init.PhoenixFeatures
 import phoenix.init.PhoenixRecipes
 import phoenix.network.NetworkHandler
 import phoenix.utils.block.INonItem
-import java.util.function.Predicate
 
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 object PhoenixCommonEvents
@@ -58,36 +57,19 @@ object PhoenixCommonEvents
         NetworkHandler.init()
         FMLJavaModLoadingContext.get().modEventBus.register(PhoenixCommonEvents::class.java)
         PhoenixRecipes.register()
+        UNDER    .get().addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)))
+        HEARTVOID.get().addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PhoenixFeatures.ERASED.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)))
+        UNDER    .get().addSpawn(EntityClassification.CREATURE, SpawnListEntry(CAUDA.get(), 15, 1, 3))
+        HEARTVOID.get().addSpawn(EntityClassification.CREATURE, SpawnListEntry(TALPA.get(), 15, 1, 4))
         StructureHelper.addStructure(Biomes.END_HIGHLANDS, PhoenixFeatures.ERASED.get())
         StructureHelper.addStructure(HEARTVOID.get(), PhoenixFeatures.ERASED.get())
-        addEntityToBiome(endBiomes, EntityClassification.CREATURE, TALPA.get(), 10, 1..3)
-        addEntityToBiome(endBiomes, EntityClassification.CREATURE, CAUDA.get(), 10, 1..3)
-        
+
         for (biome in Registry.BIOME)
-            if (!endBiomes.contains(biome))
+        {
+            if (biome !== Biomes.END_BARRENS && biome !== Biomes.END_HIGHLANDS && biome !== Biomes.END_MIDLANDS && biome !== Biomes.THE_END && biome !== Biomes.SMALL_END_ISLANDS && biome !== UNDER.get() && biome !== HEARTVOID.get())
+            {
                 StructureHelper.addZirconiumOre(biome)
+            }
+        }
     }
-
-    fun <T : Entity> addEntityToBiome(biome : Biome, classification : EntityClassification, entity : EntityType<T>, weight : Int, b : Int, c : Int)
-    {
-        biome.addSpawn(classification, SpawnListEntry(entity, weight, b, c))
-    }
-
-    private fun <T : Entity> addEntityToBiome(biome : Biome, classification : EntityClassification, entity : EntityType<T>, weight : Int, count : IntRange)
-    {
-        biome.addSpawn(classification, SpawnListEntry(entity, weight, count.first, count.last))
-    }
-
-    private fun <T : Entity> addEntityToBiome(biomes : Collection<Biome>, classification : EntityClassification, entity : EntityType<T>, weight : Int, count : IntRange)
-    {
-        for(biome in biomes)
-            biome.addSpawn(classification, SpawnListEntry(entity, weight, count.first, count.last))
-    }
-
-    private val endBiomes : ImmutableSet<Biome> = ImmutableSet.of(Biomes.END_HIGHLANDS, Biomes.END_MIDLANDS, HEARTVOID.get(), UNDER.get(), Biomes.SMALL_END_ISLANDS, Biomes.THE_END, Biomes.END_BARRENS)
-}
-
-private operator fun Biome.component1(): Biome
-{
-    return this
 }
