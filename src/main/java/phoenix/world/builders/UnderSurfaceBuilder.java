@@ -8,9 +8,11 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Random;
 import java.util.function.Function;
 
+@ParametersAreNonnullByDefault
 public class UnderSurfaceBuilder extends SurfaceBuilder<AdvansedSurfaceBuilderConfig>
 {
 
@@ -32,27 +34,27 @@ public class UnderSurfaceBuilder extends SurfaceBuilder<AdvansedSurfaceBuilderCo
     {
         BlockState top_block = top;
         BlockState middle_block = middle;
-        BlockPos.Mutable currect_pos = new BlockPos.Mutable();
+        BlockPos.Mutable current_pos = new BlockPos.Mutable();
         int i = -1;
         int noise_height = (int) (noise / 3.0D + 3.0D + random.nextDouble() * 0.25D);
-        int currect_x = x & 15;
-        int currect_z = z & 15;
+        int current_x = x & 15;
+        int current_z = z & 15;
 
         for (int y = startHeight; y >= 0; --y)
         {
-            currect_pos.setPos(currect_x, y, currect_z);
-            BlockState currect_state = chunkIn.getBlockState(currect_pos);
-            if (currect_state.isAir())
+            current_pos.setPos(current_x, y, current_z);
+            BlockState current_state = chunkIn.getBlockState(current_pos);
+            if (current_state.isAir())
             {
                 i = -1;
             }
-            else if (currect_state.getBlock() == defaultBlock.getBlock())
+            else if (current_state.getBlock() == defaultBlock.getBlock())
             {
                 if(y < 30 + random.nextInt(5))
                 {
-                    if(currect_state.getBlock() == Blocks.END_STONE)
+                    if(current_state.getBlock() == Blocks.END_STONE)
                     {
-                        chunkIn.setBlockState(currect_pos, under, false);
+                        chunkIn.setBlockState(current_pos, under, false);
                     }
                 }
                 else if (i == -1)
@@ -64,12 +66,12 @@ public class UnderSurfaceBuilder extends SurfaceBuilder<AdvansedSurfaceBuilderCo
                     }
 
                     i = noise_height;
-                    chunkIn.setBlockState(currect_pos, top_block, false);
+                    chunkIn.setBlockState(current_pos, top_block, false);
                 }
                 else if (i > 0)
                 {
                     --i;
-                    chunkIn.setBlockState(currect_pos, middle_block, false);
+                    chunkIn.setBlockState(current_pos, middle_block, false);
                 }
             }
         }

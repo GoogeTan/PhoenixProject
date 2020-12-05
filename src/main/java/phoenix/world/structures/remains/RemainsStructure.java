@@ -1,4 +1,4 @@
-package phoenix.world.structures;
+package phoenix.world.structures.remains;
 
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.util.Rotation;
@@ -54,13 +54,14 @@ public class RemainsStructure extends ScatteredStructure<NoFeatureConfig>
             super(structure, chunkPosX, chunkPosZ, mbb, references, seed);
         }
 
-        public void init(   ChunkGenerator<?> generator,    TemplateManager templateManagerIn, int chunkX, int chunkZ,    Biome biomeIn)
+        public void init(ChunkGenerator<?> generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn)
         {
             int i = chunkX * 16;
             int j = chunkZ * 16;
+
             BlockPos blockpos = new BlockPos(i, 90, j);
             Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
-            ErasedPieces.init(templateManagerIn, blockpos, rotation, this.components, this.rand);
+            RemainsPieces.init(generator, templateManagerIn, blockpos, rotation, this.components, this.rand);
             this.recalculateStructureSize();
         }
     }

@@ -8,7 +8,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import phoenix.Phoenix;
-import phoenix.world.structures.RemainsStructure;
+import phoenix.world.structures.remains.RemainsStructure;
 import phoenix.world.structures.corn.CornStructure;
 
 public class PhoenixFeatures

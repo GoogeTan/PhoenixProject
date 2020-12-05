@@ -1,4 +1,4 @@
-package phoenix.world.structures;
+package phoenix.world.structures.remains;
 
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.BlockState;
@@ -23,23 +23,70 @@ import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import phoenix.init.PhoenixLootTables;
+import phoenix.world.BlockPosUtils;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class ErasedPieces
+public class RemainsPieces
 {
-    private static final ResourceLocation top_location = new ResourceLocation("phoenix:remains/house");
+    private static final ResourceLocation house = new ResourceLocation("phoenix:remains/house");
+    private static final ResourceLocation bed = new ResourceLocation("phoenix:remains/bed");
+    private static final ResourceLocation baricade = new ResourceLocation("phoenix:remains/baricade");
 
     private static final BlockPos center_offset = new BlockPos(3, 5, 5);
     private static final BlockPos offset = new BlockPos(0, -4, 0);
 
-    public static void init(TemplateManager manager, BlockPos pos, Rotation rotation, List<StructurePiece> pieces, Random rand)
+    public static void init(ChunkGenerator<?> generator, TemplateManager manager, BlockPos pos, Rotation rotation, List<StructurePiece> pieces, Random rand)
     {
-        pieces.add(new ErasedPieces.Piece(manager, top_location, pos, rotation, 0));
+        ArrayList<BlockPos> poses = new ArrayList<>();
+        if(rand.nextInt(5) == 0)
+        {
+            int x = pos.getX() + rand.nextInt(40) - 20, z = pos.getZ() + rand.nextInt(40) - 20;
+            int i = 0;
+            while (BlockPosUtils.isNear(new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE), z), poses, 10) && i < 20)
+            {
+                x = pos.getX() + rand.nextInt(50) - 25;
+                z = pos.getZ() + rand.nextInt(50) - 25;
+                i++;
+            }
+            BlockPos res = new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE), z);
+            pieces.add(new RemainsPieces.Piece(manager, bed, res, rotation, 0));
+            poses.add(res);
+
+        }
+        if(rand.nextInt(5) == 0)
+        {
+            int x = pos.getX() + rand.nextInt(40) - 20, z = pos.getZ() + rand.nextInt(40) - 20;
+            int i = 0;
+            while (BlockPosUtils.isNear(new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE), z), poses, 10) && i < 10)
+            {
+                x = pos.getX() + rand.nextInt(50) - 25;
+                z = pos.getZ() + rand.nextInt(50) - 25;
+                i++;
+            }
+            BlockPos res = new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE), z);
+            pieces.add(new RemainsPieces.Piece(manager, bed, res, rotation, 0));
+            poses.add(res);
+        }
+        if(rand.nextInt(5) == 0)
+        {
+            int x = pos.getX() + rand.nextInt(40) - 20, z = pos.getZ() + rand.nextInt(40) - 20;
+            int i = 0;
+            while (BlockPosUtils.isNear(new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE), z), poses, 10) && i < 10)
+            {
+                x = pos.getX() + rand.nextInt(50) - 25;
+                z = pos.getZ() + rand.nextInt(50) - 25;
+                i++;
+            }
+            BlockPos res = new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE), z);
+            pieces.add(new RemainsPieces.Piece(manager, bed, res, rotation, 0));
+            poses.add(res);
+        }
     }
 
     public static class Piece extends TemplateStructurePiece
@@ -75,7 +122,7 @@ public class ErasedPieces
          * (abstract) Helper method to read subclass data from NBT
          */
         @Override
-        protected void readAdditional(   CompoundNBT tagCompound)
+        protected void readAdditional(CompoundNBT tagCompound)
         {
             super.readAdditional(tagCompound);
             tagCompound.putString("Template", this.current_piece.toString());
@@ -115,17 +162,6 @@ public class ErasedPieces
             BlockPos blockpos2 = this.templatePosition;
             this.templatePosition = this.templatePosition.add(0, height - 90 - 1, 0);
             boolean flag = super.create(worldIn, chunkGeneratorIn, randomIn, mutableBoundingBoxIn, chunkPosIn);
-
-            if (current_piece.equals(ErasedPieces.top_location))
-            {
-                BlockPos blockpos3 = this.templatePosition.add(Template.transformedBlockPos(settings, new BlockPos(3, 0, 5)));
-                BlockState blockstate = worldIn.getBlockState(blockpos3.down());
-                if (!blockstate.isAir() && blockstate.getBlock() != Blocks.LADDER)
-                {
-                    worldIn.setBlockState(blockpos3, Blocks.SNOW_BLOCK.getDefaultState(), 3);
-                }
-            }
-
             this.templatePosition = blockpos2;
             return flag;
         }
