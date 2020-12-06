@@ -24,21 +24,24 @@ import phoenix.world.genlayers.*
 import java.util.function.LongFunction
 
 
-class NewEndBiomeProvider(settings: EndBiomeProviderSettings, worldIn: ServerWorld) : BiomeProvider(biomes)
+class NewEndBiomeProvider(var settings: EndBiomeProviderSettings, worldIn: ServerWorld) : BiomeProvider(biomes)
 {
-    private val genLayer: Layer
+    private lateinit var genLayer: Layer
     private val generator: SimplexNoiseGenerator
-    private val random: SharedSeedRandom
-    private val world: World
+    private val random: SharedSeedRandom = SharedSeedRandom(settings.seed)
+    private val world: ServerWorld = worldIn
+
     init
     {
-        world = worldIn;
-        this.genLayer = createLayer(settings.seed, worldIn)
-        random = SharedSeedRandom(settings.getSeed());
         this.random.skip(17292);
-        this.generator = SimplexNoiseGenerator(this.random);
+        this.generator = SimplexNoiseGenerator(this.random)
+        initBiomeLayer()
     }
 
+    fun initBiomeLayer()
+    {
+        this.genLayer = createLayer(settings.seed, world)
+    }
 
     override fun getNoiseBiome(x: Int, y: Int, z: Int): Biome
     {
@@ -81,7 +84,7 @@ class NewEndBiomeProvider(settings: EndBiomeProviderSettings, worldIn: ServerWor
         return Layer(factory)
     }
 
-    fun <T : IArea?, C : IExtendedNoiseRandom<T>> getLayersApply(worldIn: ServerWorld?, context: LongFunction<C>): IAreaFactory<T>
+    private fun <T : IArea?, C : IExtendedNoiseRandom<T>> getLayersApply(worldIn: ServerWorld?, context: LongFunction<C>): IAreaFactory<T>
     {
         var phoenixBiomes = ParentLayer(this).apply(context.apply(1L))
         var vanilaBiomes = ParentLayer(this).apply(context.apply(1L))
@@ -94,12 +97,12 @@ class NewEndBiomeProvider(settings: EndBiomeProviderSettings, worldIn: ServerWor
         {
             ignored.printStackTrace()
         }
-        Phoenix.LOGGER.error(stage)
-        //if (stage >= 1)
-        //{
+        Phoenix.LOGGER.error(this.javaClass + stage)
+        if (stage >= 1)
+        {
             phoenixBiomes = UnderLayer.INSTANCE.apply(context.apply(200L), phoenixBiomes)
             phoenixBiomes = HeartVoidLayer.INSTANCE.apply(context.apply(200L), phoenixBiomes)
-        //}
+        }
 
         for (i in 0..PhoenixConfiguration.COMMON_CONFIG.BIOME_SIZE.get())
         {
@@ -108,7 +111,7 @@ class NewEndBiomeProvider(settings: EndBiomeProviderSettings, worldIn: ServerWor
         return UnificationLayer.INSTANCE.apply(context.apply(200L), phoenixBiomes, vanilaBiomes)
     }
 
-    fun <T : IArea?, C : IExtendedNoiseRandom<T>?> getBiomeLayer(parentLayer: IAreaFactory<T>, contextFactory: LongFunction<C>): IAreaFactory<T>
+    private fun <T : IArea?, C : IExtendedNoiseRandom<T>> getBiomeLayer(parentLayer: IAreaFactory<T>, contextFactory: LongFunction<C>): IAreaFactory<T>
     {
         var parentLayer = parentLayer
         parentLayer = EndBiomeLayer().apply(contextFactory.apply(200L), parentLayer)

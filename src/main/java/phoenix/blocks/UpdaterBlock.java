@@ -14,7 +14,10 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import phoenix.init.PhoenixSounds;
+import phoenix.world.EndDimension;
+import phoenix.world.NewEndBiomeProvider;
 import phoenix.world.StageManager;
 
 import javax.annotation.Nonnull;
@@ -28,15 +31,14 @@ public class UpdaterBlock extends Block
         super(Block.Properties.create(Material.ROCK).lightValue(5).hardnessAndResistance(-1));
     }
 
-
     @Nonnull
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        if(!worldIn.isRemote)
+        if(!worldIn.isRemote && worldIn.getDimension().getType() == DimensionType.THE_END)
         {
             worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), PhoenixSounds.CHANGE_STAGE, SoundCategory.BLOCKS, 1, 1, true);
-            StageManager.addPart();
+            StageManager.addPart(((EndDimension)worldIn.getDimension()).biomeProvider);
             for (PlayerEntity entity : worldIn.getPlayers())
             {
                 entity.sendStatusMessage(new TranslationTextComponent("phoenix.message.newstage"), false);

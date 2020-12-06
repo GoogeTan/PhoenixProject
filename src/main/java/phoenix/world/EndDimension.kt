@@ -20,14 +20,15 @@ open class EndDimension(worldIn: World, typeIn: DimensionType) : Dimension(world
 {
     private val spawn = BlockPos(100, 50, 0)
     private val dragonFightManager: CustomDragonFightManager? = if (worldIn is ServerWorld) CustomDragonFightManager(worldIn, worldIn.worldInfo.getDimensionData(typeIn).getCompound("DragonFight"), this) else null
-
+    public lateinit var biomeProvider : NewEndBiomeProvider;
     override fun createChunkGenerator(): EndChunkGenerator
     {
         val settings = EndGenerationSettings()
         settings.defaultBlock = Blocks.END_STONE.defaultState
         settings.defaultFluid = Blocks.AIR.defaultState
         settings.spawnPos = this.spawnCoordinate
-        return EndChunkGenerator(world, NewEndBiomeProvider(EndBiomeProviderSettings(world.worldInfo), (world as ServerWorld)), settings)
+        biomeProvider = NewEndBiomeProvider(EndBiomeProviderSettings(world.worldInfo), (world as ServerWorld))
+        return EndChunkGenerator(world, biomeProvider, settings)
     }
 
     override fun calculateCelestialAngle(worldTime: Long, partialTicks: Float) = 0.0f

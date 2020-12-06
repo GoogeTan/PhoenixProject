@@ -17,13 +17,10 @@ object PhoenixSounds
         CHANGE_STAGE = registerSound("change_stage")
     }
 
-    private fun registerSound(key: String): SoundEvent
-    {
-        return Registry.register(Registry.SOUND_EVENT, key, SoundEvent(ResourceLocation(Phoenix.MOD_ID, key)))
-    }
+    private fun registerSound(key: String) = Registry.register(Registry.SOUND_EVENT, key, SoundEvent(ResourceLocation(Phoenix.MOD_ID, key)))
 
     @SubscribeEvent
-    fun resister(event: RegistryEvent.Register<SoundEvent>): Unit
+    fun resister(event: RegistryEvent.Register<SoundEvent>)
     {
         event.registry.register(CHANGE_STAGE)
     }

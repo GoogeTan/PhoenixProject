@@ -45,6 +45,12 @@ public class StageManager
         data.putInt("stage", stage);
     }
 
+    public static void setStage(int stage, NewEndBiomeProvider provider)
+    {
+        data.putInt("stage", stage);
+        provider.initBiomeLayer();
+    }
+
     public static void setPart(int part)
     {
         data.putInt("part", part);
@@ -55,12 +61,27 @@ public class StageManager
         setStage(Math.min(getStage() + 1, 3));
     }
 
+    public static void addStage(NewEndBiomeProvider provider)
+    {
+        setStage(Math.min(getStage() + 1, 3), provider);
+    }
+
     public static void addPart()
     {
         setPart(getPart() + 1);
         if(data.getInt("part") >= 3)
         {
             addStage();
+            setPart(0);
+        }
+    }
+
+    public static void addPart(NewEndBiomeProvider provider)
+    {
+        setPart(getPart() + 1);
+        if(data.getInt("part") >= 3)
+        {
+            addStage(provider);
             setPart(0);
         }
     }
