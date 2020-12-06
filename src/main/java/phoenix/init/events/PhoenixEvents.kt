@@ -38,6 +38,7 @@ object PhoenixEvents
             Phoenix.LOGGER.error("Phoenix is starting saving")
             val nbt = event.world.worldInfo.getDimensionData(DimensionType.THE_END)
             StageManager.write(nbt)
+            Phoenix.LOGGER.error("${this.javaClass} ${StageManager.getStage()} ${StageManager.getPart()}")
             event.world.worldInfo.setDimensionData(DimensionType.THE_END, nbt)
             Phoenix.LOGGER.error("Phoenix has ended saving")
         }
