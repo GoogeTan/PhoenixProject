@@ -14,13 +14,12 @@ import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.IFeatureConfig
 import net.minecraft.world.gen.placement.IPlacementConfig
 import net.minecraft.world.gen.placement.Placement
-import phoenix.Phoenix
 import phoenix.init.PhoenixBlocks
 import phoenix.utils.GenerationUtils
 import phoenix.world.builders.Builders
 
 
-class UnderBiome : Biome(GenerationUtils.deafultSettingsForEnd(Builders.UNDER, Builders.UNDER_CONFIG))
+class UnderBiome : Biome(GenerationUtils.defaultSettingsForEnd(Builders.UNDER, Builders.UNDER_CONFIG))
 {
     override fun decorate(stage: GenerationStage.Decoration, chunkGenerator: ChunkGenerator<out GenerationSettings?>, worldIn: IWorld, seed: Long, random: SharedSeedRandom, pos: BlockPos)
     {

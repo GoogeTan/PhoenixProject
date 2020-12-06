@@ -9,7 +9,7 @@ public class GenerationUtils<T extends ISurfaceBuilderConfig>
     /*
      * Создает классический конфиг для биома в краю.
      */
-    public static <T extends ISurfaceBuilderConfig> Biome.Builder deafultSettingsForEnd(SurfaceBuilder<T> surfaceBuilderIn, T surfaceBuilderConfigIn)
+    public static <T extends ISurfaceBuilderConfig> Biome.Builder defaultSettingsForEnd(SurfaceBuilder<T> surfaceBuilderIn, T surfaceBuilderConfigIn)
     {
         return (new Biome.Builder()).surfaceBuilder(surfaceBuilderIn, surfaceBuilderConfigIn)
                 .precipitation(Biome.RainType.NONE)

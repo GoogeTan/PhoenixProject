@@ -1,10 +1,11 @@
 package phoenix.world
 
+import com.google.common.collect.ImmutableBiMap
 import com.google.common.collect.ImmutableList
+import com.google.common.collect.ImmutableMap
 import com.google.common.collect.ImmutableSet
 import net.minecraft.util.SharedSeedRandom
 import net.minecraft.util.math.MathHelper
-import net.minecraft.world.World
 import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.Biomes
 import net.minecraft.world.biome.provider.BiomeProvider
@@ -14,12 +15,15 @@ import net.minecraft.world.gen.LazyAreaLayerContext
 import net.minecraft.world.gen.SimplexNoiseGenerator
 import net.minecraft.world.gen.area.IArea
 import net.minecraft.world.gen.area.IAreaFactory
+import net.minecraft.world.gen.feature.Feature
+import net.minecraft.world.gen.feature.structure.Structure
 import net.minecraft.world.gen.layer.Layer
 import net.minecraft.world.gen.layer.ZoomLayer
 import net.minecraft.world.server.ServerWorld
 import phoenix.Phoenix
 import phoenix.init.PhoenixBiomes
 import phoenix.init.PhoenixConfiguration
+import phoenix.init.PhoenixFeatures
 import phoenix.world.genlayers.*
 import java.util.function.LongFunction
 
@@ -97,7 +101,7 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings, worldIn: Serve
         {
             ignored.printStackTrace()
         }
-        Phoenix.LOGGER.error(this.javaClass + stage)
+        Phoenix.LOGGER.error(this.javaClass.toString() + " " +  stage)
         if (stage >= 1)
         {
             phoenixBiomes = UnderLayer.INSTANCE.apply(context.apply(200L), phoenixBiomes)
@@ -122,4 +126,18 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings, worldIn: Serve
     {
         private val biomes: Set<Biome> = ImmutableSet.of(Biomes.THE_END, Biomes.END_HIGHLANDS, Biomes.END_MIDLANDS, Biomes.SMALL_END_ISLANDS, Biomes.END_BARRENS, PhoenixBiomes.UNDER.get(), PhoenixBiomes.HEARTVOID.get())
     }
+
+    override fun hasStructure(structureIn: Structure<*>): Boolean
+    {
+        return if(structureToStage.containsKey(structureIn))
+        {
+            StageManager.getStage() >= structureToStage[structureIn] ?: 10
+        }
+        else
+        {
+            super.hasStructure(structureIn)
+        }
+    }
+
+    var structureToStage : Map<Structure<*>, Int> = ImmutableBiMap.of(PhoenixFeatures.REMAINS.get(), 1)
 }

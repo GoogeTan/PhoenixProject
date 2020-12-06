@@ -15,7 +15,7 @@ public class PhoenixFeatures
 {
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Phoenix.MOD_ID);
 
-    public static final RegistryObject<Structure<NoFeatureConfig>> ERASED = FEATURES.register("remains", RemainsStructure::new);
+    public static final RegistryObject<Structure<NoFeatureConfig>> REMAINS = FEATURES.register("remains", RemainsStructure::new);
     public static final RegistryObject<Structure<NoFeatureConfig>> CORN   = FEATURES.register("corn",     CornStructure::new);
 
 

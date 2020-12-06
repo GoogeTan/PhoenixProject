@@ -68,4 +68,6 @@ open class EndDimension(worldIn: World, typeIn: DimensionType) : Dimension(world
     {
         dragonFightManager?.tick()
     }
+
+
 }
