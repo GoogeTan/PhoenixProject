@@ -11,6 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
@@ -24,8 +25,10 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import phoenix.Phoenix;
 import phoenix.tile.redo.PipeTile;
 import phoenix.utils.block.BlockWithTile;
+import phoenix.utils.block.ICustomGroup;
 import phoenix.utils.pipe.FluidGraphSaveData;
 import phoenix.utils.pipe.IFluidPipe;
 
@@ -35,7 +38,7 @@ import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class PipeBlock extends BlockWithTile implements IWaterLoggable
+public class PipeBlock extends BlockWithTile implements IWaterLoggable, ICustomGroup
 {
     public static final BooleanProperty UP    = BooleanProperty.create("up");
     public static final BooleanProperty DOWN  = BooleanProperty.create("down");
@@ -137,5 +140,11 @@ public class PipeBlock extends BlockWithTile implements IWaterLoggable
             FluidGraphSaveData.get((ServerWorld) worldIn).addBlock((ServerWorld) worldIn, pos, false, false);
         }
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+    }
+
+    @Override
+    public ItemGroup getTab()
+    {
+        return Phoenix.getREDO();
     }
 }

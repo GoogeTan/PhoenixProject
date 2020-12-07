@@ -24,7 +24,7 @@ public class StructureHelper
     public static void addZirconiumOre(Biome biome)
     {
         biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
-                Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, PhoenixBlocks.getZIRCONIUM().get().getDefaultState(), 4))
+                Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, PhoenixBlocks.INSTANCE.getZIRCONIUM().get().getDefaultState(), 4))
                         .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(20, 0, 0, 64))));
     }
 }

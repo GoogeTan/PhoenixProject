@@ -12,7 +12,7 @@ import net.minecraftforge.fml.network.NetworkHooks
 import phoenix.Phoenix
 import phoenix.init.PhoenixContainers
 
-class ItemDiary : Item(Properties().rarity(Rarity.EPIC).group(Phoenix.PHOENIX).maxStackSize(1))
+class ItemDiary : Item(Properties().rarity(Rarity.EPIC).group(Phoenix.ASH).maxStackSize(1))
 {
     override fun onItemRightClick(worldIn: World, playerIn: PlayerEntity, handIn: Hand): ActionResult<ItemStack>
     {

@@ -1,16 +1,23 @@
 package phoenix
 
-import net.minecraft.block.Blocks
-import net.minecraft.item.BlockItem
-import net.minecraft.item.ItemGroup
-import net.minecraft.item.ItemStack
-import net.minecraft.item.ToolItem
+import net.minecraft.block.Block
+import net.minecraft.item.*
+import net.minecraft.util.IItemProvider
 import net.minecraft.util.NonNullList
-import java.util.*
+import net.minecraftforge.fml.RegistryObject
 
-class PhoenixGroup(name: String) : ItemGroup(name)
+class PhoenixGroup : ItemGroup
 {
-    override fun createIcon() = ItemStack(Blocks.END_PORTAL_FRAME)
+    var item : () -> IItemProvider
+    constructor(name: String, item: IItemProvider) : super(name)
+    {
+       this.item = {item}
+    }
+    constructor(name: String, item: RegistryObject<Block>) : super(name)
+    {
+        this.item = item::get
+    }
+    override fun createIcon() = ItemStack(item.invoke())
     override fun hasSearchBar() = true
 
     override fun fill(items: NonNullList<ItemStack>)

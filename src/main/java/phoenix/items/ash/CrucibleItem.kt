@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack
 import phoenix.Phoenix
 import phoenix.init.PhoenixItems
 
-class CrucibleItem : Item(Properties().group(Phoenix.PHOENIX).maxStackSize(1).containerItem(PhoenixItems.CRUCIBLE.get()))
+class CrucibleItem : Item(Properties().group(Phoenix.ASH).maxStackSize(1).containerItem(PhoenixItems.CRUCIBLE.get()))
 {
     override fun hasContainerItem(): Boolean
     {

@@ -12,6 +12,7 @@ import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.IItemTier
+import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.item.ToolItem
 import net.minecraft.tags.Tag
@@ -26,7 +27,7 @@ import phoenix.init.PhoenixEnchantments
 import phoenix.init.events.PhoenixEventsOther.addTask
 import phoenix.utils.WorldUtils
 
-class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, maxUsages: Int) : ToolItem(attackDamageIn, attackSpeedIn, tier, breakableBlocks, Properties().group(Phoenix.PHOENIX).maxDamage(maxUsages))
+class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, maxUsages: Int, group : ItemGroup) : ToolItem(attackDamageIn, attackSpeedIn, tier, breakableBlocks, Properties().group(group).maxDamage(maxUsages))
 {
     val damage: Float = attackDamageIn + tier.attackDamage
 

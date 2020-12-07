@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import phoenix.Phoenix
-import phoenix.Phoenix.Companion.PHOENIX
+import phoenix.Phoenix.Companion.ASH
 import phoenix.init.PhoenixBiomes.HEARTVOID
 import phoenix.init.PhoenixBiomes.UNDER
 import phoenix.init.PhoenixBlocks.BLOCKS
@@ -28,6 +28,7 @@ import phoenix.init.PhoenixEntities.TALPA
 import phoenix.init.PhoenixFeatures
 import phoenix.init.PhoenixRecipes
 import phoenix.network.NetworkHandler
+import phoenix.utils.block.ICustomGroup
 import phoenix.utils.block.INonItem
 
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
@@ -43,7 +44,8 @@ object PhoenixCommonEvents
                 .filter { block: Block -> block !is INonItem }
                 .filter { block: Block -> block !is FlowingFluidBlock }
                 .forEach { block: Block ->
-                    val prop = Item.Properties().group(PHOENIX)
+                    val tab = if(block is ICustomGroup) block.tab else ASH
+                    val prop = Item.Properties().group(tab)
                     val blockItem = BlockItem(block, prop)
                     blockItem.registryName = block.registryName
                     registry.register(blockItem)

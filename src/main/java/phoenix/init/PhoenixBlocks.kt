@@ -1,9 +1,12 @@
 package phoenix.init
 
+import net.minecraft.block.Block
 import net.minecraft.block.material.Material
+import net.minecraftforge.fml.RegistryObject
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.ForgeRegistries
+import net.minecraftforge.registries.RegistryBuilder
 import phoenix.Phoenix
 import phoenix.blocks.AntiAirBlock
 import phoenix.blocks.UpdaterBlock
@@ -19,20 +22,19 @@ object PhoenixBlocks
     @JvmStatic
     val BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Phoenix.MOD_ID)!!
 
-    val UPDATER           = BLOCKS.register("updater",           ::UpdaterBlock)!!
-    val PIPE              = BLOCKS.register("pipe",              ::PipeBlock)!!
-    val TANK              = BLOCKS.register("tank",              ::TankBlock)!!
-    val FERTILE_END_STONE = BLOCKS.register("fertile_end_stone", ::FertileEndStoneBlock)!!
-    val KIKIN_STEAM       = BLOCKS.register("kikin_stem",        ::KikinStemBlock)!!
-    val KIKIN_FRUIT       = BLOCKS.register("kikin_fruit",       ::KikiNFruitBlock)!!
-    val ANTI_AIR          = BLOCKS.register("anti_air",          ::AntiAirBlock)!!
-    val POTTERY_BARREL    = BLOCKS.register("pottery_barrel",    ::PotteryBarrelBlock)!!
-    val END_STONE_COLUMN  = BLOCKS.register("end_stone_column",  ::EndStoneColumnBlock)!!
-    val OVEN              = BLOCKS.register("oven",              ::OvenBlock)!!
-    val SETA              = BLOCKS.register("seta",              ::SetaBlock)!!
-    @JvmStatic
-    val ZIRCONIUM         = BLOCKS.register("zirconium_ore",     ::ZirconiumOreBlock)!!
-    val TEXT_BLOCK        = BLOCKS.register("block_with_text", AnonimBlock.create(Material.ROCK))!!
+    val UPDATER          : RegistryObject<Block> = BLOCKS.register("updater",           ::UpdaterBlock)!!
+    val PIPE             : RegistryObject<Block> = BLOCKS.register("pipe",              ::PipeBlock)!!
+    val TANK             : RegistryObject<Block> = BLOCKS.register("tank",              ::TankBlock)!!
+    val FERTILE_END_STONE: RegistryObject<Block> = BLOCKS.register("fertile_end_stone", ::FertileEndStoneBlock)!!
+    val KIKIN_STEAM      : RegistryObject<Block> = BLOCKS.register("kikin_stem",        ::KikinStemBlock)!!
+    val KIKIN_FRUIT      : RegistryObject<Block> = BLOCKS.register("kikin_fruit",       ::KikiNFruitBlock)!!
+    val ANTI_AIR         : RegistryObject<Block> = BLOCKS.register("anti_air",          ::AntiAirBlock)!!
+    val POTTERY_BARREL   : RegistryObject<Block> = BLOCKS.register("pottery_barrel",    ::PotteryBarrelBlock)!!
+    val END_STONE_COLUMN : RegistryObject<Block> = BLOCKS.register("end_stone_column",  ::EndStoneColumnBlock)!!
+    val OVEN             : RegistryObject<Block> = BLOCKS.register("oven",              ::OvenBlock)!!
+    val SETA             : RegistryObject<Block> = BLOCKS.register("seta",              ::SetaBlock)!!
+    val ZIRCONIUM        : RegistryObject<Block> = BLOCKS.register("zirconium_ore",     ::ZirconiumOreBlock)!!
+    val TEXT_BLOCK       : RegistryObject<Block> = BLOCKS.register("block_with_text",   AnonimBlock.create(Material.ROCK))!!
 
     fun register()
     {

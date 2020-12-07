@@ -1,6 +1,7 @@
 package phoenix
 
 import com.mojang.datafixers.Dynamic
+import net.minecraft.block.Blocks
 import net.minecraft.item.ItemGroup
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.World
@@ -45,9 +46,11 @@ class Phoenix
         @JvmStatic
         val LOGGER = LogManager.getLogger()
         @JvmStatic
-        val PHOENIX: ItemGroup = PhoenixGroup(MOD_ID)
+        val ASH: ItemGroup = PhoenixGroup("$MOD_ID:ash", Blocks.END_PORTAL_FRAME)
         @JvmStatic
-        public var customEndSpike = register("new_end_spike", CustomEndSpike { d: Dynamic<*> -> EndSpikeFeatureConfig.deserialize(d) })
+        val REDO: ItemGroup = PhoenixGroup("$MOD_ID:redo", PhoenixBlocks.UPDATER)
+        @JvmStatic
+        var customEndSpike = register("new_end_spike", CustomEndSpike { d: Dynamic<*> -> EndSpikeFeatureConfig.deserialize(d) })
         init
         {
             DimensionType.THE_END = DimensionType.register("the_end", DimensionType(2, "_end", "DIM1", { world: World, type: DimensionType -> EndDimension(world, type) }, false, FuzzedBiomeMagnifier.INSTANCE))

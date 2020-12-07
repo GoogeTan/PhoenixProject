@@ -15,12 +15,14 @@ import net.minecraft.world.IWorldReader
 import net.minecraft.world.World
 import net.minecraft.world.server.ServerWorld
 import net.minecraftforge.common.ForgeHooks
+import phoenix.Phoenix
 import phoenix.blocks.redo.KikinStemBlock.Companion.makeConnections
 import phoenix.init.PhoenixBlocks
+import phoenix.utils.block.ICustomGroup
 import java.util.*
 
 
-class KikiNFruitBlock : Block(Properties.create(Material.PLANTS, MaterialColor.BLUE_TERRACOTTA).tickRandomly().hardnessAndResistance(0.4f).sound(SoundType.WOOD).notSolid())
+class KikiNFruitBlock : Block(Properties.create(Material.PLANTS, MaterialColor.BLUE_TERRACOTTA).tickRandomly().hardnessAndResistance(0.4f).sound(SoundType.WOOD).notSolid()), ICustomGroup
 {
     override fun tick(blockstate: BlockState, worldIn: ServerWorld, pos: BlockPos, rand: Random)
     {
@@ -183,4 +185,6 @@ class KikiNFruitBlock : Block(Properties.create(Material.PLANTS, MaterialColor.B
             return true
         }
     }
+
+    override fun getTab() = Phoenix.REDO
 }

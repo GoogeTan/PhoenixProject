@@ -5,14 +5,17 @@ import net.minecraft.block.BlockState
 import net.minecraft.block.ChorusPlantBlock
 import net.minecraft.block.SixWayBlock
 import net.minecraft.block.material.Material
+import net.minecraft.item.ItemGroup
 import net.minecraft.util.Direction
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.IWorld
 import net.minecraft.world.IWorldReader
+import phoenix.Phoenix.Companion.REDO
 import phoenix.init.PhoenixBlocks
+import phoenix.utils.block.ICustomGroup
 
-class KikinStemBlock : ChorusPlantBlock(Properties.create(Material.ROCK).notSolid())
+class KikinStemBlock : ChorusPlantBlock(Properties.create(Material.ROCK).notSolid()), ICustomGroup
 {
     override fun makeConnections(reader: IBlockReader, pos: BlockPos): BlockState = makeConnections(reader, defaultState, pos)
 
@@ -78,5 +81,7 @@ class KikinStemBlock : ChorusPlantBlock(Properties.create(Material.ROCK).notSoli
             return block === PhoenixBlocks.KIKIN_STEAM.get() || block === PhoenixBlocks.KIKIN_FRUIT.get() || block === PhoenixBlocks.FERTILE_END_STONE.get()
         }
     }
+
+    override fun getTab() = REDO
 }
 

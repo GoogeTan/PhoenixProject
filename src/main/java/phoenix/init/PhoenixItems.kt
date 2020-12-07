@@ -9,7 +9,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
-import phoenix.Phoenix.Companion.PHOENIX
+import phoenix.Phoenix.Companion.ASH
 import phoenix.items.ItemDiary
 import phoenix.items.ash.CrucibleItem
 import phoenix.items.ash.HighQualityClayItem
@@ -54,13 +54,13 @@ object PhoenixItems
     val STEEl_FORM_PICKAXE_HEAD_ROASTED= ITEMS.register("steel_form_pickaxe_head_roasted",form(STEEl_FORM_PICKAXE_HEAD))!!
     val STEEl_FORM_AXE_BLADE_ROASTED   = ITEMS.register("steel_form_axe_blade_roasted",   form(STEEl_FORM_AXE_BLADE))!!
 
-    val ZIRCONIUM_AXE                  = ITEMS.register("ceramic_zirconium_axe")     { AxeItem    (PhoenixTiers.ZIRCONIUM_TIER, 9.0f, -3.2f, Item.Properties().group(PHOENIX)) }!!
-    val ZIRCONIUM_PICKAXE              = ITEMS.register("ceramic_zirconium_pickaxe") { PickaxeItem(PhoenixTiers.ZIRCONIUM_TIER, 0, -1f, Item.Properties().group(PHOENIX)) }!!
-    val ZIRCONIUM_SWORD                = ITEMS.register("ceramic_zirconium_sword")   { SwordItem  (PhoenixTiers.ZIRCONIUM_TIER, 2, -1f, Item.Properties().group(PHOENIX)) }!!
-    val ZIRCONIUM_KNIFE                = ITEMS.register("ceramic_zirconium_knife")   { KnifeItem  (PhoenixTiers.ZIRCONIUM_TIER, 3f, -10f, PhoenixConfiguration.COMMON_CONFIG.gameMode.get().maxKnifeUsages) }!!
+    val ZIRCONIUM_AXE                  = ITEMS.register("ceramic_zirconium_axe")     { AxeItem    (PhoenixTiers.ZIRCONIUM_TIER, 9.0f, -3.2f, Item.Properties().group(ASH)) }!!
+    val ZIRCONIUM_PICKAXE              = ITEMS.register("ceramic_zirconium_pickaxe") { PickaxeItem(PhoenixTiers.ZIRCONIUM_TIER, 0, -1f, Item.Properties().group(ASH)) }!!
+    val ZIRCONIUM_SWORD                = ITEMS.register("ceramic_zirconium_sword")   { SwordItem  (PhoenixTiers.ZIRCONIUM_TIER, 2, -1f, Item.Properties().group(ASH)) }!!
+    val ZIRCONIUM_KNIFE                = ITEMS.register("ceramic_zirconium_knife")   { KnifeItem  (PhoenixTiers.ZIRCONIUM_TIER, 3f, -10f, PhoenixConfiguration.COMMON_CONFIG.gameMode.get().maxKnifeUsages, ASH) }!!
 
     fun register() = ITEMS.register(FMLJavaModLoadingContext.get().modEventBus)
 
-    private fun basicItem() =  Supplier { Item(Item.Properties().group(PHOENIX)) }
-    private fun form(contains: RegistryObject<Item>) = Supplier { Item(Item.Properties().group(PHOENIX).containerItem(contains.get())) }
+    private fun basicItem() =  Supplier { Item(Item.Properties().group(ASH)) }
+    private fun form(contains: RegistryObject<Item>) = Supplier { Item(Item.Properties().group(ASH).containerItem(contains.get())) }
 }

@@ -12,7 +12,7 @@ import phoenix.Phoenix
 import phoenix.utils.StringUtils
 
 
-class HighQualityClayItem : Item(Properties().maxStackSize(1).group(Phoenix.PHOENIX))
+class HighQualityClayItem : Item(Properties().maxStackSize(1).group(Phoenix.ASH))
 {
     override fun onCreated(stack: ItemStack, worldIn: World, playerIn: PlayerEntity)
     {

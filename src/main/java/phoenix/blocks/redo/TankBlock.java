@@ -7,6 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BucketItem;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntity;
@@ -21,15 +22,17 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import phoenix.Phoenix;
 import phoenix.tile.redo.TankTile;
 import phoenix.utils.block.BlockWithTile;
+import phoenix.utils.block.ICustomGroup;
 import phoenix.utils.pipe.FluidGraphSaveData;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class TankBlock extends BlockWithTile
+public class TankBlock extends BlockWithTile implements ICustomGroup
 {
     public TankBlock()
     {
@@ -71,5 +74,11 @@ public class TankBlock extends BlockWithTile
         if(!worldIn.isRemote)
             FluidGraphSaveData.get((ServerWorld) worldIn).addBlock((ServerWorld) worldIn, pos, true, true);
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+    }
+
+    @Override
+    public ItemGroup getTab()
+    {
+        return Phoenix.getREDO();
     }
 }
