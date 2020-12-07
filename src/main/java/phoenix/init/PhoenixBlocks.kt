@@ -29,6 +29,7 @@ object PhoenixBlocks
     val POTTERY_BARREL    = BLOCKS.register("pottery_barrel",    ::PotteryBarrelBlock)!!
     val END_STONE_COLUMN  = BLOCKS.register("end_stone_column",  ::EndStoneColumnBlock)!!
     val OVEN              = BLOCKS.register("oven",              ::OvenBlock)!!
+    val SETA              = BLOCKS.register("seta",              ::SetaBlock)!!
     @JvmStatic
     val ZIRCONIUM         = BLOCKS.register("zirconium_ore",     ::ZirconiumOreBlock)!!
     val TEXT_BLOCK        = BLOCKS.register("block_with_text", AnonimBlock.create(Material.ROCK))!!

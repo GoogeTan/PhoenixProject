@@ -21,17 +21,17 @@ import phoenix.world.builders.Builders
 
 class UnderBiome : Biome(GenerationUtils.defaultSettingsForEnd(Builders.UNDER, Builders.UNDER_CONFIG))
 {
-    override fun decorate(stage: GenerationStage.Decoration, chunkGenerator: ChunkGenerator<out GenerationSettings?>, worldIn: IWorld, seed: Long, random: SharedSeedRandom, pos: BlockPos)
+    override fun decorate(stage: GenerationStage.Decoration, chunkGenerator: ChunkGenerator<out GenerationSettings>, worldIn: IWorld, seed: Long, random: SharedSeedRandom, pos: BlockPos)
     {
         super.decorate(stage, chunkGenerator, worldIn, seed, random, pos)
-        if (random.nextBoolean())
+        if (random.nextInt(5) == 0)
         {
             val position = getDownHeight(worldIn, pos.add(random.nextInt(15), 0, random.nextInt(15)), 30)
             if (worldIn.getBlockState(position.up()).block == PhoenixBlocks.FERTILE_END_STONE.get())
             {
                 worldIn.setBlockState(position, PhoenixBlocks.KIKIN_FRUIT.get().defaultState, 2)
             }
-            else if (worldIn.getBlockState(position).block == PhoenixBlocks.FERTILE_END_STONE.get())
+            if (worldIn.getBlockState(position.down()).block == PhoenixBlocks.FERTILE_END_STONE.get())
             {
                 worldIn.setBlockState(position.down(), PhoenixBlocks.KIKIN_FRUIT.get().defaultState, 2)
             }
@@ -42,11 +42,11 @@ class UnderBiome : Biome(GenerationUtils.defaultSettingsForEnd(Builders.UNDER, B
     {
         fun getDownHeight(worldIn: IWorld, pos: BlockPos, max: Int): BlockPos
         {
-            for (i in 0..max - 1)
+            for (i in 0 until max)
             {
                 if (!worldIn.isAirBlock(pos.add(0, i, 0))) return pos.add(0, i, 0)
             }
-            return pos.add(0, 0, 0)
+            return pos
         }
     }
 

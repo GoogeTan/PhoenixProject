@@ -12,8 +12,10 @@ import phoenix.world.builders.Builders
 object PhoenixBiomes
 {
     @JvmStatic val BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, Phoenix.MOD_ID)
-    @JvmStatic val UNDER = BIOMES.register<Biome>("under", ::UnderBiome)
-    @JvmStatic val HEARTVOID = BIOMES.register("heart_void") { HeartVoidBiome() }
+
+    @JvmStatic val UNDER     = BIOMES.register("under", ::UnderBiome)
+    @JvmStatic val HEARTVOID = BIOMES.register("heart_void", ::HeartVoidBiome)
+
     fun register()
     {
         BIOMES.register(FMLJavaModLoadingContext.get().modEventBus)

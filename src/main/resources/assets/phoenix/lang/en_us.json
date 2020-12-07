@@ -68,5 +68,7 @@
 
   "phoenix.message.newstage": "Welcome to the new stage!",
   "phoenix.message.speare":"Uses combat system from 1.8",
-  "phoenix.jei.category.oven": "Oven"
+  "phoenix.jei.category.oven": "Oven",
+  "enchantment.phoenix.teleportation": "Teleportation"
+
 }

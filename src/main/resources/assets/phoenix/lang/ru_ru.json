@@ -68,5 +68,7 @@
   "item.phoenix.": "",
   "item.phoenix.zirconium_blade": "Zirconium blade",
   "item.phoenix.zirconium_bayonet": "Zirconium bayonet",
-  "item.phoenix.absolutespeedsword": "Sword of absolute speed"
+  "item.phoenix.absolutespeedsword": "Sword of absolute speed",
+
+  "enchantment.phoenix.teleportation": "Телепортация"
 }
