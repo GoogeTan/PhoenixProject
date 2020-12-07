@@ -46,9 +46,9 @@ class Phoenix
         @JvmStatic
         val LOGGER = LogManager.getLogger()
         @JvmStatic
-        val ASH: ItemGroup = PhoenixGroup("$MOD_ID:ash", Blocks.END_PORTAL_FRAME)
+        val ASH: ItemGroup = PhoenixGroup("$MOD_ID.ash", Blocks.END_PORTAL_FRAME)
         @JvmStatic
-        val REDO: ItemGroup = PhoenixGroup("$MOD_ID:redo", PhoenixBlocks.UPDATER)
+        val REDO: ItemGroup = PhoenixGroup("$MOD_ID.redo", PhoenixBlocks.UPDATER)
         @JvmStatic
         var customEndSpike = register("new_end_spike", CustomEndSpike { d: Dynamic<*> -> EndSpikeFeatureConfig.deserialize(d) })
         init

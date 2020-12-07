@@ -4,7 +4,8 @@
   "language.code": "en_us",
   "author": "WildTan",
 
-  "itemGroup.phoenix": "Project Phoenix",
+  "itemGroup.phoenix.ash": "Project Phoenix: Ash",
+  "itemGroup.phoenix.redo": "Project Phoenix: Redo",
 
   "item.phoenix.high_quality_clay": "High quality clay",
   "item.phoenix.diary": "Diary",

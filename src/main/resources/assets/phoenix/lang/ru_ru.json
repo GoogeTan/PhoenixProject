@@ -4,7 +4,8 @@
   "language.code": "ru_ru",
   "author": "WildTan",
 
-  "itemGroup.phoenix": "Проект Феникс",
+  "itemGroup.phoenix.ash": "Проект Феникс: Пепел",
+  "itemGroup.phoenix.redo": "Проект Феникс: Правки",
 
   "item.phoenix.high_quality_clay": "Высококачественная глина",
   "item.phoenix.diary": "Дневник",
