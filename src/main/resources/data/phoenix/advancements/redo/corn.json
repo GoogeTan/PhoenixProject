@@ -1,5 +1,5 @@
 {
-  "parent": "phoenix:ash/root",
+  "parent": "phoenix:ash/zirconium_ingot",
   "display":
   {
     "icon":
@@ -23,7 +23,7 @@
     "in_city": {
       "trigger": "minecraft:location",
       "conditions": {
-        "feature": "corn"
+        "feature": "remains"
       }
     }
   }
