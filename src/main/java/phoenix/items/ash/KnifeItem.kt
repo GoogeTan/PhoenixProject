@@ -101,7 +101,6 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
         val damage = damage + powerLevel.toDouble() * 0.6
         if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, knifeItem) > 0 && hitted.type !== EntityType.SNOW_GOLEM) hitted.setFire(100)
         hitted.attackEntityFrom(DamageSource.causeThrownDamage(knife, knife.thrower), damage.toFloat())
-        Phoenix.LOGGER.error(EnchantmentHelper.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get(), knifeItem))
         if(EnchantmentHelper.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get(), knifeItem) > 0)
         {
             owner.setPositionAndUpdate(hitted.posX, hitted.posY, hitted.posZ)

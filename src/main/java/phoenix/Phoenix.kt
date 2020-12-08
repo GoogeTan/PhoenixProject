@@ -44,7 +44,7 @@ class Phoenix
     {
         const val MOD_ID = "phoenix"
         @JvmStatic
-        val LOGGER = LogManager.getLogger()
+        val LOGGER = LogManager.getLogger()!!
         @JvmStatic
         val ASH: ItemGroup = PhoenixGroup("$MOD_ID.ash", Blocks.END_PORTAL_FRAME)
         @JvmStatic

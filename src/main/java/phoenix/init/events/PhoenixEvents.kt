@@ -13,6 +13,7 @@ import net.minecraftforge.fml.network.NetworkHooks
 import phoenix.Phoenix
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncStagePacket
+import phoenix.utils.LogManager
 import phoenix.world.StageManager
 
 @Mod.EventBusSubscriber
@@ -35,12 +36,12 @@ object PhoenixEvents
     {
         if(!event.world.isRemote)
         {
-            Phoenix.LOGGER.error("Phoenix is starting saving")
+            LogManager.error(this, "Phoenix is starting saving")
             val nbt = event.world.worldInfo.getDimensionData(DimensionType.THE_END)
             StageManager.write(nbt)
-            Phoenix.LOGGER.error("${this.javaClass} ${StageManager.getStage()} ${StageManager.getPart()}")
+            LogManager.error(this, "${StageManager.getStage()} ${StageManager.getPart()}")
             event.world.worldInfo.setDimensionData(DimensionType.THE_END, nbt)
-            Phoenix.LOGGER.error("Phoenix has ended saving")
+            LogManager.error(this, "Phoenix has ended saving")
         }
     }
 
@@ -50,12 +51,12 @@ object PhoenixEvents
     {
         if(!event.world.isRemote)
         {
-            Phoenix.LOGGER.error("Phoenix is starting loading")
+            LogManager.error(this, "Phoenix is starting loading")
             val nbt = event.world.worldInfo.getDimensionData(DimensionType.THE_END)
             StageManager.read(nbt)
-            Phoenix.LOGGER.error("${this.javaClass} ${StageManager.getStage()} ${StageManager.getPart()}")
+            LogManager.error(this, "${StageManager.getStage()} ${StageManager.getPart()}")
             NetworkHandler.sendToAll(SyncStagePacket(StageManager.getStage(), StageManager.getPart()))
-            Phoenix.LOGGER.error("Phoenix has ended loading")
+            LogManager.error(this, "Phoenix has ended loading")
         }
     }
 }

@@ -18,7 +18,6 @@ public class PhoenixFeatures
     public static final RegistryObject<Structure<NoFeatureConfig>> REMAINS = FEATURES.register("remains", RemainsStructure::new);
     public static final RegistryObject<Structure<NoFeatureConfig>> CORN   = FEATURES.register("corn",     CornStructure::new);
 
-
     public static void register()
     {
         FEATURES.register(FMLJavaModLoadingContext.get().getModEventBus());

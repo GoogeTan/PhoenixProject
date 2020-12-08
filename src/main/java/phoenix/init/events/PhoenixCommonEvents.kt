@@ -38,7 +38,6 @@ object PhoenixCommonEvents
     @JvmStatic
     fun onRegisterItems(event: Register<Item>)
     {
-        val registry = event.registry
         BLOCKS.entries.stream()
                 .map { obj: RegistryObject<Block> -> obj.get() }
                 .filter { block: Block -> block !is INonItem }
@@ -48,7 +47,7 @@ object PhoenixCommonEvents
                     val prop = Item.Properties().group(tab)
                     val blockItem = BlockItem(block, prop)
                     blockItem.registryName = block.registryName
-                    registry.register(blockItem)
+                    event.registry.register(blockItem)
                 }
     }
 
@@ -59,13 +58,11 @@ object PhoenixCommonEvents
         NetworkHandler.init()
         FMLJavaModLoadingContext.get().modEventBus.register(PhoenixCommonEvents::class.java)
         PhoenixRecipes.register()
-        UNDER    .get().addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PhoenixFeatures.REMAINS.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)))
-        HEARTVOID.get().addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PhoenixFeatures.REMAINS.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)))
         UNDER    .get().addSpawn(EntityClassification.CREATURE, SpawnListEntry(CAUDA.get(), 15, 1, 3))
         HEARTVOID.get().addSpawn(EntityClassification.CREATURE, SpawnListEntry(TALPA.get(), 15, 1, 4))
         StructureHelper.addStructure(Biomes.END_HIGHLANDS, PhoenixFeatures.REMAINS.get())
         StructureHelper.addStructure(HEARTVOID.get(), PhoenixFeatures.REMAINS.get())
-
+        StructureHelper.addStructure(UNDER.get(), PhoenixFeatures.REMAINS.get())
         for (biome in Registry.BIOME)
         {
             if (biome !== Biomes.END_BARRENS && biome !== Biomes.END_HIGHLANDS && biome !== Biomes.END_MIDLANDS && biome !== Biomes.THE_END && biome !== Biomes.SMALL_END_ISLANDS && biome !== UNDER.get() && biome !== HEARTVOID.get())
@@ -74,4 +71,5 @@ object PhoenixCommonEvents
             }
         }
     }
+
 }
