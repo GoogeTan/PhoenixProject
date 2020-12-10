@@ -16,10 +16,12 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldWriter;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.feature.Feature;
 import phoenix.Phoenix;
+import phoenix.init.PhoenixBlocks;
 import phoenix.world.StageManager;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -67,48 +69,84 @@ public class CustomEndSpike extends Feature<CustomEndSpikeConfig>
      */
     private void placeSpike(IWorld worldIn, Random rand, CustomEndSpikeConfig config, EndSpike spike)
     {
-        int i = spike.getRadius();
+        int radius = spike.getRadius();
 
-        for (BlockPos blockpos : BlockPos.getAllInBoxMutable(new BlockPos(spike.getCenterX() - i, 0, spike.getCenterZ() - i), new BlockPos(spike.getCenterX() + i, spike.getHeight() + 10, spike.getCenterZ() + i)))
+        for (BlockPos blockpos : BlockPos.getAllInBoxMutable(new BlockPos(spike.getCenterX() - radius, 0, spike.getCenterZ() - radius), new BlockPos(spike.getCenterX() + radius, spike.getHeight() + 10, spike.getCenterZ() + radius)))
         {
-            if (blockpos.distanceSq(spike.getCenterX(), blockpos.getY(), spike.getCenterZ(), false) <= (double) (i * i + 1) && blockpos.getY() < spike.getHeight())
+            if (blockpos.distanceSq(spike.getCenterX(), blockpos.getY(), spike.getCenterZ(), false) <= (double) (radius * radius + 1) && blockpos.getY() < spike.getHeight())
             {
                 this.setBlockState(worldIn, blockpos, Blocks.OBSIDIAN.getDefaultState());
-            } else if (blockpos.getY() > 65)
+            }
+            else if (blockpos.getY() > 65)
             {
                 this.setBlockState(worldIn, blockpos, Blocks.AIR.getDefaultState());
             }
         }
-
-        if (spike.isGuarded() || StageManager.getStage() > 0)
+        StageManager.getStageEnum().createTower(this, worldIn, spike);
+        /*
+        switch (StageManager.getStage())
         {
-            BlockPos.Mutable pos = new BlockPos.Mutable();
-
-            for (int k = -2; k <= 2; ++k)
-            {
-                for (int l = -2; l <= 2; ++l)
+            case 0:
+                if (spike.isGuarded())
                 {
-                    for (int i1 = 0; i1 <= 3; ++i1)
+                    BlockPos.Mutable pos = new BlockPos.Mutable();
+
+                    for (int k = -2; k <= 2; ++k)
                     {
-                        boolean isRight = MathHelper.abs(k) == 2;
-                        boolean ifLeft = MathHelper.abs(l) == 2;
-                        boolean isTop = i1 == 3;
-                        if (isRight || ifLeft || isTop)
+                        for (int l = -2; l <= 2; ++l)
                         {
-                            boolean isNorth = k == -2 || k == 2 || isTop;
-                            boolean flag4 = l == -2 || l == 2 || isTop;
-                            BlockState blockstate = Blocks.IRON_BARS.getDefaultState()
-                                    .with(PaneBlock.NORTH, isNorth && l != -2)
-                                    .with(PaneBlock.SOUTH, isNorth && l != 2)
-                                    .with(PaneBlock.WEST, flag4 && k != -2)
-                                    .with(PaneBlock.EAST, flag4 && k != 2);
-                            this.setBlockState(worldIn, pos.setPos(spike.getCenterX() + k, spike.getHeight() + i1, spike.getCenterZ() + l), blockstate);
+                            for (int i1 = 0; i1 <= 3; ++i1)
+                            {
+                                boolean isRight = MathHelper.abs(k) == 2;
+                                boolean ifLeft = MathHelper.abs(l) == 2;
+                                boolean isTop = i1 == 3;
+                                if (isRight || ifLeft || isTop)
+                                {
+                                    boolean isNorth = k == -2 || k == 2 || isTop;
+                                    boolean flag4 = l == -2 || l == 2 || isTop;
+                                    BlockState blockstate = Blocks.IRON_BARS.getDefaultState()
+                                            .with(PaneBlock.NORTH, isNorth && l != -2)
+                                            .with(PaneBlock.SOUTH, isNorth && l != 2)
+                                            .with(PaneBlock.WEST, flag4 && k != -2)
+                                            .with(PaneBlock.EAST, flag4 && k != 2);
+                                    this.setBlockState(worldIn, pos.setPos(spike.getCenterX() + k, spike.getHeight() + i1, spike.getCenterZ() + l), blockstate);
+                                }
+                            }
+                        }
+                    }
+                }
+            default:
+            {
+                BlockPos.Mutable pos = new BlockPos.Mutable();
+
+                for (int k = -2; k <= 2; ++k)
+                {
+                    for (int l = -2; l <= 2; ++l)
+                    {
+                        for (int i1 = 0; i1 <= 3; ++i1)
+                        {
+                            boolean isRight = MathHelper.abs(k) == 2;
+                            boolean ifLeft = MathHelper.abs(l) == 2;
+                            boolean isTop = i1 == 3;
+                            if (isRight || ifLeft || isTop)
+                            {
+                                boolean isNorth = k == -2 || k == 2 || isTop;
+                                boolean flag4 = l == -2 || l == 2 || isTop;
+                                BlockState blockstate = PhoenixBlocks.INSTANCE.getARMORED_GLASS().get().getDefaultState()
+                                        .with(PaneBlock.NORTH, isNorth && l != -2)
+                                        .with(PaneBlock.SOUTH, isNorth && l != 2)
+                                        .with(PaneBlock.WEST, flag4 && k != -2)
+                                        .with(PaneBlock.EAST, flag4 && k != 2);
+                                this.setBlockState(worldIn, pos.setPos(spike.getCenterX() + k, spike.getHeight() + i1, spike.getCenterZ() + l), blockstate);
+                            }
                         }
                     }
                 }
             }
-        }
 
+
+        }
+         */
         EnderCrystalEntity crystal = EntityType.END_CRYSTAL.create(worldIn.getWorld());
         crystal.setBeamTarget(config.getCrystalBeamTarget());
         crystal.setInvulnerable(config.isCrystalInvulnerable());
@@ -209,5 +247,9 @@ public class CustomEndSpike extends Feature<CustomEndSpikeConfig>
 
             return res;
         }
+    }
+
+    public void setBlockState(IWorldWriter worldIn, BlockPos pos, BlockState state) {
+        worldIn.setBlockState(pos, state, 3);
     }
 }

@@ -59,6 +59,4 @@ class AnonimBlock(properties: Properties) : Block(properties), ICustomGroup
         fun create(material: Material, entityClass: Class<TileEntity>, itemGroup: ItemGroup)   = Supplier { AnonimBlock(Properties.create(material), entityClass, itemGroup) }
         fun create(properties: Properties, itemGroup: ItemGroup)   = Supplier { AnonimBlock(properties, itemGroup) }
     }
-
-
 }

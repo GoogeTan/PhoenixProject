@@ -44,17 +44,11 @@ class Phoenix
         val ASH: ItemGroup = PhoenixGroup("$MOD_ID.ash", Blocks.END_PORTAL_FRAME)
         @JvmStatic
         val REDO: ItemGroup = PhoenixGroup("$MOD_ID.redo", PhoenixBlocks.UPDATER)
-        //@JvmStatic
-        //var customEndSpike = register("new_end_spike", CustomEndSpike())
+        
         init
         {
             DimensionType.THE_END = DimensionType.register("the_end", DimensionType(2, "_end", "DIM1", ::EndDimension, false, FuzzedBiomeMagnifier.INSTANCE))
             PhoenixLootTables.init()
-
-            //Feature.END_SPIKE = customEndSpike
-            //EndSpikeFeature.LOADING_CACHE = CacheBuilder.newBuilder().expireAfterWrite(5L, TimeUnit.MINUTES).build(CustomEndSpike.EndSpikeCacheLoader())
         }
-
-        fun <C : IFeatureConfig, F : Feature<C>> register(key: String, value: F) = Registry.register<Feature<*>>(Registry.FEATURE, key, value) as F
     }
 }
