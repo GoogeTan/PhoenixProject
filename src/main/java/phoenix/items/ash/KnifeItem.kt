@@ -21,7 +21,6 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.Explosion
 import net.minecraft.world.World
 import net.minecraftforge.common.Tags
-import phoenix.Phoenix
 import phoenix.enity.KnifeEntity
 import phoenix.init.PhoenixEnchantments
 import phoenix.init.events.PhoenixEventsOther.addTask

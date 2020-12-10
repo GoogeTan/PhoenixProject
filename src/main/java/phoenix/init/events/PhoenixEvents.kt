@@ -1,7 +1,5 @@
 package phoenix.init.events
 
-import net.minecraft.entity.player.ServerPlayerEntity
-import net.minecraft.network.play.server.SSpawnParticlePacket
 import net.minecraft.particles.ParticleTypes
 import net.minecraft.world.dimension.DimensionType
 import net.minecraft.world.server.ServerWorld
@@ -9,8 +7,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
-import net.minecraftforge.fml.network.NetworkHooks
-import phoenix.Phoenix
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncStagePacket
 import phoenix.utils.LogManager

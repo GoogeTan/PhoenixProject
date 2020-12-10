@@ -6,7 +6,6 @@ import net.minecraftforge.fml.RegistryObject
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.ForgeRegistries
-import net.minecraftforge.registries.RegistryBuilder
 import phoenix.Phoenix
 import phoenix.blocks.AntiAirBlock
 import phoenix.blocks.UpdaterBlock

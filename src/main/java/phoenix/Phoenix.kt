@@ -1,13 +1,10 @@
 package phoenix
 
-import com.mojang.datafixers.Dynamic
 import net.minecraft.block.Blocks
 import net.minecraft.item.ItemGroup
 import net.minecraft.util.registry.Registry
-import net.minecraft.world.World
 import net.minecraft.world.biome.FuzzedBiomeMagnifier
 import net.minecraft.world.dimension.DimensionType
-import net.minecraft.world.gen.feature.EndSpikeFeatureConfig
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.IFeatureConfig
 import net.minecraftforge.common.ForgeConfigSpec
@@ -18,7 +15,6 @@ import org.apache.logging.log4j.LogManager
 import phoenix.init.*
 import phoenix.init.PhoenixConfiguration.Common
 import phoenix.world.EndDimension
-import phoenix.world.structures.CustomEndSpike
 
 @Mod(Phoenix.MOD_ID)
 class Phoenix
@@ -34,11 +30,10 @@ class Phoenix
         PhoenixItems.register()
         PhoenixContainers.register()
         PhoenixRecipeSerializers.register()
-        val specPair = ForgeConfigSpec.Builder().configure { builder: ForgeConfigSpec.Builder -> Common(builder) }
+        val specPair = ForgeConfigSpec.Builder().configure(::Common)
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, specPair.right)
         PhoenixConfiguration.COMMON_CONFIG = specPair.left
     }
-
 
     companion object
     {
@@ -49,19 +44,17 @@ class Phoenix
         val ASH: ItemGroup = PhoenixGroup("$MOD_ID.ash", Blocks.END_PORTAL_FRAME)
         @JvmStatic
         val REDO: ItemGroup = PhoenixGroup("$MOD_ID.redo", PhoenixBlocks.UPDATER)
-        @JvmStatic
-        var customEndSpike = register("new_end_spike", CustomEndSpike { d: Dynamic<*> -> EndSpikeFeatureConfig.deserialize(d) })
+        //@JvmStatic
+        //var customEndSpike = register("new_end_spike", CustomEndSpike())
         init
         {
-            DimensionType.THE_END = DimensionType.register("the_end", DimensionType(2, "_end", "DIM1", { world: World, type: DimensionType -> EndDimension(world, type) }, false, FuzzedBiomeMagnifier.INSTANCE))
-            //Feature.END_SPIKE = register("new_end_spike", CustomEndSpike { d: Dynamic<*> -> EndSpikeFeatureConfig.deserialize(d) })
-            PhoenixSounds.init()
+            DimensionType.THE_END = DimensionType.register("the_end", DimensionType(2, "_end", "DIM1", ::EndDimension, false, FuzzedBiomeMagnifier.INSTANCE))
             PhoenixLootTables.init()
+
+            //Feature.END_SPIKE = customEndSpike
+            //EndSpikeFeature.LOADING_CACHE = CacheBuilder.newBuilder().expireAfterWrite(5L, TimeUnit.MINUTES).build(CustomEndSpike.EndSpikeCacheLoader())
         }
 
-        fun <C : IFeatureConfig, F : Feature<C>> register(key: String, value : F): F
-        {
-            return Registry.register<Feature<*>>(Registry.FEATURE, key, value) as F
-        }
+        fun <C : IFeatureConfig, F : Feature<C>> register(key: String, value: F) = Registry.register<Feature<*>>(Registry.FEATURE, key, value) as F
     }
 }

@@ -8,10 +8,6 @@ import net.minecraft.item.Item
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.biome.Biome.SpawnListEntry
 import net.minecraft.world.biome.Biomes
-import net.minecraft.world.gen.GenerationStage
-import net.minecraft.world.gen.feature.IFeatureConfig
-import net.minecraft.world.gen.placement.IPlacementConfig
-import net.minecraft.world.gen.placement.Placement
 import net.minecraftforge.event.RegistryEvent.Register
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.RegistryObject
@@ -55,6 +51,9 @@ object PhoenixCommonEvents
     @JvmStatic
     fun init(event: FMLCommonSetupEvent)
     {
+        //Feature.END_SPIKE = Phoenix.customEndSpike
+        //EndSpikeFeature.LOADING_CACHE = CacheBuilder.newBuilder().expireAfterWrite(5L, TimeUnit.MINUTES).build(CustomEndSpike.EndSpikeCacheLoader())
+
         NetworkHandler.init()
         FMLJavaModLoadingContext.get().modEventBus.register(PhoenixCommonEvents::class.java)
         PhoenixRecipes.register()

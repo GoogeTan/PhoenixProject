@@ -7,8 +7,9 @@ import net.minecraft.util.math.ChunkPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import net.minecraft.world.biome.provider.EndBiomeProviderSettings
-import net.minecraft.world.dimension.Dimension
 import net.minecraft.world.dimension.DimensionType
+import net.minecraft.world.dimension.EndDimension
+import net.minecraft.world.end.DragonFightManager
 import net.minecraft.world.gen.EndChunkGenerator
 import net.minecraft.world.gen.EndGenerationSettings
 import net.minecraft.world.server.ServerWorld
@@ -16,11 +17,10 @@ import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import java.util.*
 
-open class EndDimension(worldIn: World, typeIn: DimensionType) : Dimension(worldIn, typeIn, 0.0f)
+class EndDimension(worldIn: World, typeIn: DimensionType) : EndDimension(worldIn, typeIn)
 {
     private val spawn = BlockPos(100, 50, 0)
-    private val dragonFightManager: CustomDragonFightManager? = if (worldIn is ServerWorld) CustomDragonFightManager(worldIn, worldIn.worldInfo.getDimensionData(typeIn).getCompound("DragonFight"), this) else null
-    public lateinit var biomeProvider : NewEndBiomeProvider;
+    lateinit var biomeProvider : NewEndBiomeProvider
     override fun createChunkGenerator(): EndChunkGenerator
     {
         val settings = EndGenerationSettings()
@@ -29,6 +29,11 @@ open class EndDimension(worldIn: World, typeIn: DimensionType) : Dimension(world
         settings.spawnPos = this.spawnCoordinate
         biomeProvider = NewEndBiomeProvider(EndBiomeProviderSettings(world.worldInfo), (world as ServerWorld))
         return EndChunkGenerator(world, biomeProvider, settings)
+    }
+
+    init
+    {
+        this.dragonFightManager = if (worldIn is ServerWorld) CustomDragonFightManager(worldIn, worldIn.worldInfo.getDimensionData(typeIn).getCompound("DragonFight"), this) else null
     }
 
     override fun calculateCelestialAngle(worldTime: Long, partialTicks: Float) = 0.0f
@@ -68,6 +73,4 @@ open class EndDimension(worldIn: World, typeIn: DimensionType) : Dimension(world
     {
         dragonFightManager?.tick()
     }
-
-
 }

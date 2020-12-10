@@ -10,7 +10,6 @@ import phoenix.tile.ash.OvenTile
 import phoenix.tile.ash.PotteryBarrelTile
 import phoenix.tile.redo.PipeTile
 import phoenix.tile.redo.TankTile
-import com.mojang.datafixers.types.Type
 
 object PhoenixTiles
 {
