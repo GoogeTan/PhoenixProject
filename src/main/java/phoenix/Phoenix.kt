@@ -1,6 +1,7 @@
 package phoenix
 
 import net.minecraft.block.Blocks
+import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemGroup
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.biome.FuzzedBiomeMagnifier
@@ -8,6 +9,7 @@ import net.minecraft.world.dimension.DimensionType
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.IFeatureConfig
 import net.minecraftforge.common.ForgeConfigSpec
+import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig
@@ -43,8 +45,8 @@ class Phoenix
         @JvmStatic
         val ASH: ItemGroup = PhoenixGroup("$MOD_ID.ash", Blocks.END_PORTAL_FRAME)
         @JvmStatic
-        val REDO: ItemGroup = PhoenixGroup("$MOD_ID.redo", PhoenixBlocks.UPDATER)
-        
+        val REDO: ItemGroup = PhoenixGroup("$MOD_ID.redo",Blocks.END_PORTAL_FRAME) //PhoenixBlocks.UPDATER)
+
         init
         {
             DimensionType.THE_END = DimensionType.register("the_end", DimensionType(2, "_end", "DIM1", ::EndDimension, false, FuzzedBiomeMagnifier.INSTANCE))

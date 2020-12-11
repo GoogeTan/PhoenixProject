@@ -36,7 +36,7 @@ public class OvenRecipe extends AbstractCookingRecipe
     @Override
     public IRecipeSerializer<OvenRecipe> getSerializer()
     {
-        return PhoenixRecipeSerializers.OVEN.get();
+        return PhoenixRecipeSerializers.getOVEN().get();
     }
 
     public Ingredient getIngredient()

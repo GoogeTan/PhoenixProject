@@ -1,5 +1,6 @@
 package phoenix.init.events
 
+import com.google.common.collect.ImmutableList
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderTypeLookup
@@ -43,7 +44,8 @@ object PhoenixClientEvents
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.OVEN.get(), RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.PIPE.get(), RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.TANK.get(), RenderType.getCutoutMipped())
-        RenderTypeLookup.setRenderLayer(PhoenixBlocks.TEXT_BLOCK.get(), RenderType.getCutoutMipped())
+        RenderTypeLookup.setRenderLayer(PhoenixBlocks.ARMORED_GLASS.get(), RenderType.getCutoutMipped())
+        RenderTypeLookup.setRenderLayer(PhoenixBlocks.TEXT_BLOCK.get(),    RenderType.getCutoutMipped())
         RenderingRegistry.registerEntityRenderingHandler(TALPA.get(), ::TalpaRenderer)
         RenderingRegistry.registerEntityRenderingHandler(CAUDA.get(), ::CaudaRenderer)
         RenderingRegistry.registerEntityRenderingHandler(KNIFE.get(), ::KnifeRenderer)
@@ -62,5 +64,6 @@ object PhoenixClientEvents
                 if (colorBlock.itemColor != null) Minecraft.getInstance().itemColors.register(colorBlock.itemColor, block.get())
             }
         }
+
     }
 }

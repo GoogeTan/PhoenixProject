@@ -155,13 +155,7 @@ public class StageManager
                                 boolean isTop = i1 == 3;
                                 if (isRight || ifLeft || isTop)
                                 {
-                                    boolean isNorth = k == -2 || k == 2 || isTop;
-                                    boolean flag4 = l == -2 || l == 2 || isTop;
-                                    BlockState blockstate = PhoenixBlocks.INSTANCE.getARMORED_GLASS().get().getDefaultState()
-                                            .with(PaneBlock.NORTH, isNorth && l != -2)
-                                            .with(PaneBlock.SOUTH, isNorth && l != 2)
-                                            .with(PaneBlock.WEST, flag4 && k != -2)
-                                            .with(PaneBlock.EAST, flag4 && k != 2);
+                                    BlockState blockstate = PhoenixBlocks.INSTANCE.getARMORED_GLASS().get().getDefaultState();
                                     future.setBlockState(world, pos.setPos(spike.getCenterX() + k, spike.getHeight() + i1, spike.getCenterZ() + l), blockstate);
                                 }
                             }

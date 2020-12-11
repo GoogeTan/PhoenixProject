@@ -167,6 +167,7 @@ object NetworkHandler
             {
                 LogicalSide.CLIENT -> this.client(packet.clientPlayer())
                 LogicalSide.SERVER -> this.server(ctx.sender)
+                null -> this.server(ctx.sender)
             }
             ctx.packetHandled = true
         }

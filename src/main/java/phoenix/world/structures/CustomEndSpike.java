@@ -9,7 +9,6 @@ import com.mojang.datafixers.Dynamic;
 import com.mojang.datafixers.types.DynamicOps;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.PaneBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.EnderCrystalEntity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -21,7 +20,6 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.feature.Feature;
 import phoenix.Phoenix;
-import phoenix.init.PhoenixBlocks;
 import phoenix.world.StageManager;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -83,76 +81,17 @@ public class CustomEndSpike extends Feature<CustomEndSpikeConfig>
             }
         }
         StageManager.getStageEnum().createTower(this, worldIn, spike);
-        /*
-        switch (StageManager.getStage())
-        {
-            case 0:
-                if (spike.isGuarded())
-                {
-                    BlockPos.Mutable pos = new BlockPos.Mutable();
 
-                    for (int k = -2; k <= 2; ++k)
-                    {
-                        for (int l = -2; l <= 2; ++l)
-                        {
-                            for (int i1 = 0; i1 <= 3; ++i1)
-                            {
-                                boolean isRight = MathHelper.abs(k) == 2;
-                                boolean ifLeft = MathHelper.abs(l) == 2;
-                                boolean isTop = i1 == 3;
-                                if (isRight || ifLeft || isTop)
-                                {
-                                    boolean isNorth = k == -2 || k == 2 || isTop;
-                                    boolean flag4 = l == -2 || l == 2 || isTop;
-                                    BlockState blockstate = Blocks.IRON_BARS.getDefaultState()
-                                            .with(PaneBlock.NORTH, isNorth && l != -2)
-                                            .with(PaneBlock.SOUTH, isNorth && l != 2)
-                                            .with(PaneBlock.WEST, flag4 && k != -2)
-                                            .with(PaneBlock.EAST, flag4 && k != 2);
-                                    this.setBlockState(worldIn, pos.setPos(spike.getCenterX() + k, spike.getHeight() + i1, spike.getCenterZ() + l), blockstate);
-                                }
-                            }
-                        }
-                    }
-                }
-            default:
-            {
-                BlockPos.Mutable pos = new BlockPos.Mutable();
-
-                for (int k = -2; k <= 2; ++k)
-                {
-                    for (int l = -2; l <= 2; ++l)
-                    {
-                        for (int i1 = 0; i1 <= 3; ++i1)
-                        {
-                            boolean isRight = MathHelper.abs(k) == 2;
-                            boolean ifLeft = MathHelper.abs(l) == 2;
-                            boolean isTop = i1 == 3;
-                            if (isRight || ifLeft || isTop)
-                            {
-                                boolean isNorth = k == -2 || k == 2 || isTop;
-                                boolean flag4 = l == -2 || l == 2 || isTop;
-                                BlockState blockstate = PhoenixBlocks.INSTANCE.getARMORED_GLASS().get().getDefaultState()
-                                        .with(PaneBlock.NORTH, isNorth && l != -2)
-                                        .with(PaneBlock.SOUTH, isNorth && l != 2)
-                                        .with(PaneBlock.WEST, flag4 && k != -2)
-                                        .with(PaneBlock.EAST, flag4 && k != 2);
-                                this.setBlockState(worldIn, pos.setPos(spike.getCenterX() + k, spike.getHeight() + i1, spike.getCenterZ() + l), blockstate);
-                            }
-                        }
-                    }
-                }
-            }
-
-
-        }
-         */
         EnderCrystalEntity crystal = EntityType.END_CRYSTAL.create(worldIn.getWorld());
-        crystal.setBeamTarget(config.getCrystalBeamTarget());
-        crystal.setInvulnerable(config.isCrystalInvulnerable());
-        crystal.setLocationAndAngles((float) spike.getCenterX() + 0.5F, spike.getHeight() + 1, (float) spike.getCenterZ() + 0.5F, rand.nextFloat() * 360.0F, 0.0F);
-        worldIn.addEntity(crystal);
-        this.setBlockState(worldIn, new BlockPos(spike.getCenterX(), spike.getHeight(), spike.getCenterZ()), Blocks.BEDROCK.getDefaultState());
+        if(crystal != null)
+        {
+            crystal.setBeamTarget(config.getCrystalBeamTarget());
+            crystal.setInvulnerable(config.isCrystalInvulnerable());
+            crystal.setLocationAndAngles((float) spike.getCenterX() + 0.5F, spike.getHeight() + 1, (float) spike.getCenterZ() + 0.5F, rand.nextFloat() * 360.0F, 0.0F);
+            worldIn.addEntity(crystal);
+
+            this.setBlockState(worldIn, new BlockPos(spike.getCenterX(), spike.getHeight(), spike.getCenterZ()), Blocks.BEDROCK.getDefaultState());
+        }
     }
 
     public static class EndSpike
@@ -201,7 +140,7 @@ public class CustomEndSpike extends Feature<CustomEndSpikeConfig>
             return this.topBoundingBox;
         }
 
-        public <T> Dynamic<T> func_214749_a(DynamicOps<T> ops) {
+        public <T> Dynamic<T> serialise(DynamicOps<T> ops) {
             ImmutableMap.Builder<T, T> builder = ImmutableMap.builder();
             builder.put(ops.createString("centerX"), ops.createInt(this.centerX));
             builder.put(ops.createString("centerZ"), ops.createInt(this.centerZ));
@@ -234,15 +173,15 @@ public class CustomEndSpike extends Feature<CustomEndSpikeConfig>
             Collections.shuffle(list, new Random(seed));
             List<EndSpike> res = Lists.newArrayList();
 
-            for (int i = 0; i < 10; ++i)
+            for (int i = 0; i < list.size(); ++i)
             {
-                int j = MathHelper.floor(42.0D * Math.cos(2.0D * (-Math.PI + (Math.PI / 10D) * (double) i)));
-                int k = MathHelper.floor(42.0D * Math.sin(2.0D * (-Math.PI + (Math.PI / 10D) * (double) i)));
-                int l = list.get(i);
-                int i1 = 2 + l / 3;
-                int j1 = 76 + l * 3;
-                boolean flag = l == 1 || l == 2;
-                res.add(new EndSpike(j, k, i1, j1, flag));
+                int centerX = MathHelper.floor(42.0D * Math.cos(2.0D * (-Math.PI + (Math.PI / 10D) * (double) i)));
+                int centerZ = MathHelper.floor(42.0D * Math.sin(2.0D * (-Math.PI + (Math.PI / 10D) * (double) i)));
+                int current = list.get(i);
+                int radius = 2 + current / 3;
+                int height = 76 + current * 3;
+                boolean ifGuarded = current == 1 || current == 2;
+                res.add(new EndSpike(centerX, centerZ, radius, height, ifGuarded));
             }
 
             return res;

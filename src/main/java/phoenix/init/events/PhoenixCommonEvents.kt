@@ -51,9 +51,6 @@ object PhoenixCommonEvents
     @JvmStatic
     fun init(event: FMLCommonSetupEvent)
     {
-        //Feature.END_SPIKE = Phoenix.customEndSpike
-        //EndSpikeFeature.LOADING_CACHE = CacheBuilder.newBuilder().expireAfterWrite(5L, TimeUnit.MINUTES).build(CustomEndSpike.EndSpikeCacheLoader())
-
         NetworkHandler.init()
         FMLJavaModLoadingContext.get().modEventBus.register(PhoenixCommonEvents::class.java)
         PhoenixRecipes.register()
