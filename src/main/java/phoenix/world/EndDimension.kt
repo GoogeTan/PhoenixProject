@@ -73,4 +73,9 @@ class EndDimension(worldIn: World, typeIn: DimensionType) : EndDimension(worldIn
     {
         dragonFightManager?.tick()
     }
+
+    override fun getDragonFightManager(): CustomDragonFightManager
+    {
+        return dragonFightManager as CustomDragonFightManager
+    }
 }

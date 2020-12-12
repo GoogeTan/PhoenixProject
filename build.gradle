@@ -5,10 +5,16 @@ buildscript {
         jcenter()
         mavenCentral()
         maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+        maven {
+            name = 'sponge'
+            url = 'https://repo.spongepowered.org/maven'
+        }
     }
+
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
     }
 }
 
@@ -84,8 +90,11 @@ repositories
         url = "modmaven.k-4u.nl"
     }
     maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
-    mavenCentral()
     jcenter()
+    maven {
+        name = 'sponge'
+        url = 'http://repo.spongepowered.org/maven'
+    }
 }
 
 
@@ -93,8 +102,11 @@ dependencies
 {
     minecraft 'net.minecraftforge:forge:1.15.2-31.2.47'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compileOnly "org.spongepowered:mixin:${mixin_version}-SNAPSHOT"
+    runtimeOnly "org.spongepowered:mixin:${mixin_version}-SNAPSHOT"
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.20-M1"
 }
 
 compileKotlin {
@@ -120,4 +132,19 @@ jar {
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
+}
+
+sourceSets {
+    main {
+        ext.refMap = 'mixins.phoenix.refmap.json'
+    }
+}
+
+jar {
+    manifest.attributes(
+            'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+            'MixinConfigs': 'mixins.phoenix.json', // Файлы наших миксинов
+            'FMLCorePluginContainsFMLMod': 'true',         // Говорим, что наш джарник еще и мод
+            'ForceLoadAsMod': 'true',                      // Точно точно мод
+    )
 }

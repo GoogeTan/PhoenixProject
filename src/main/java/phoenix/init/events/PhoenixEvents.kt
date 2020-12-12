@@ -16,6 +16,7 @@ import phoenix.utils.capablity.IChapterReader
 import phoenix.utils.capablity.PlayerChapterReader
 import phoenix.utils.capablity.SaveHandler
 import phoenix.world.StageManager
+import java.lang.Exception
 
 @Mod.EventBusSubscriber
 object PhoenixEvents
@@ -37,12 +38,12 @@ object PhoenixEvents
     {
         if(!event.world.isRemote)
         {
-            LogManager.error(this, "Phoenix is starting saving")
+            LogManager.log(this, "Phoenix is starting saving")
             val nbt = event.world.worldInfo.getDimensionData(DimensionType.THE_END)
             StageManager.write(nbt)
-            LogManager.error(this, "${StageManager.getStage()} ${StageManager.getPart()}")
+            LogManager.log(this, "${StageManager.getStage()} ${StageManager.getPart()}")
             event.world.worldInfo.setDimensionData(DimensionType.THE_END, nbt)
-            LogManager.error(this, "Phoenix has ended saving")
+            LogManager.log(this, "Phoenix has ended saving")
         }
     }
 
@@ -52,19 +53,26 @@ object PhoenixEvents
     {
         if(!event.world.isRemote)
         {
-            LogManager.error(this, "Phoenix is starting loading")
+            LogManager.log(this, "Phoenix is starting loading")
             val nbt = event.world.worldInfo.getDimensionData(DimensionType.THE_END)
             StageManager.read(nbt)
-            LogManager.error(this, "${StageManager.getStage()} ${StageManager.getPart()}")
+            LogManager.log(this, "${StageManager.getStage()} ${StageManager.getPart()}")
             NetworkHandler.sendToAll(SyncStagePacket(StageManager.getStage(), StageManager.getPart()))
-            LogManager.error(this, "Phoenix has ended loading")
+            LogManager.log(this, "Phoenix has ended loading")
         }
     }
 
     @JvmStatic
     @SubscribeEvent
-    fun onJoin(event: CapabilityManager): Unit
+    fun onJoin(event: CapabilityManager)
     {
-        event.register(IChapterReader::class.java, SaveHandler(), ::PlayerChapterReader)
+        try
+        {
+            event.register(IChapterReader::class.java, SaveHandler(), ::PlayerChapterReader)
+        }
+        catch (e : Exception)
+        {
+            LogManager.error(this, e)
+        }
     }
 }

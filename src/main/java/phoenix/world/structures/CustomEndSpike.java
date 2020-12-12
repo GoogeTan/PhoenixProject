@@ -43,7 +43,6 @@ public class CustomEndSpike extends Feature<CustomEndSpikeConfig>
     @Override
     public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, CustomEndSpikeConfig config)
     {
-        Phoenix.getLOGGER().error("fu..!");
         List<EndSpike> list = config.getSpikes();
         if (list.isEmpty())
             list = generateSpikes(worldIn);

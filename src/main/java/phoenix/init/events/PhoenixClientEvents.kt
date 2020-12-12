@@ -1,9 +1,12 @@
 package phoenix.init.events
 
 import com.google.common.collect.ImmutableList
+import net.minecraft.block.Blocks
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderTypeLookup
+import net.minecraft.client.util.RecipeBookCategories
+import net.minecraft.item.ItemStack
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -27,7 +30,9 @@ import phoenix.init.PhoenixEntities.KNIFE
 import phoenix.init.PhoenixEntities.TALPA
 import phoenix.init.PhoenixRenderTypes
 import phoenix.init.PhoenixTiles
+import phoenix.integration.minecraft.BookCategories
 import phoenix.network.NetworkHandler
+import phoenix.utils.LogManager
 import phoenix.utils.block.IColoredBlock
 
 @OnlyIn(Dist.CLIENT)
