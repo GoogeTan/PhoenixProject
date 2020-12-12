@@ -2,7 +2,6 @@ package phoenix.world
 
 import com.google.common.collect.ImmutableBiMap
 import com.google.common.collect.ImmutableList
-import com.google.common.collect.ImmutableMap
 import com.google.common.collect.ImmutableSet
 import net.minecraft.util.SharedSeedRandom
 import net.minecraft.util.math.MathHelper
@@ -15,7 +14,6 @@ import net.minecraft.world.gen.LazyAreaLayerContext
 import net.minecraft.world.gen.SimplexNoiseGenerator
 import net.minecraft.world.gen.area.IArea
 import net.minecraft.world.gen.area.IAreaFactory
-import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.structure.Structure
 import net.minecraft.world.gen.layer.Layer
 import net.minecraft.world.gen.layer.ZoomLayer

@@ -8,10 +8,6 @@ import net.minecraft.item.Item
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.biome.Biome.SpawnListEntry
 import net.minecraft.world.biome.Biomes
-import net.minecraft.world.gen.GenerationStage
-import net.minecraft.world.gen.feature.IFeatureConfig
-import net.minecraft.world.gen.placement.IPlacementConfig
-import net.minecraft.world.gen.placement.Placement
 import net.minecraftforge.event.RegistryEvent.Register
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.RegistryObject

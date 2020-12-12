@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import phoenix.init.PhoenixSounds;
 import phoenix.world.EndDimension;
-import phoenix.world.NewEndBiomeProvider;
 import phoenix.world.StageManager;
 
 import javax.annotation.Nonnull;
@@ -37,7 +36,7 @@ public class UpdaterBlock extends Block
     {
         if(!worldIn.isRemote && worldIn.getDimension().getType() == DimensionType.THE_END)
         {
-            worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), PhoenixSounds.CHANGE_STAGE, SoundCategory.BLOCKS, 1, 1, true);
+            worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), PhoenixSounds.INSTANCE.getCHANGE_STAGE(), SoundCategory.BLOCKS, 1, 1, true);
             StageManager.addPart(((EndDimension)worldIn.getDimension()).biomeProvider);
             for (PlayerEntity entity : worldIn.getPlayers())
             {

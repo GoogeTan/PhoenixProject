@@ -4,7 +4,6 @@ import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.IGrowable
 import net.minecraft.block.material.Material
-import net.minecraft.item.ItemGroup
 import net.minecraft.state.StateContainer
 import net.minecraft.state.properties.BlockStateProperties.AGE_0_3
 import net.minecraft.util.math.BlockPos

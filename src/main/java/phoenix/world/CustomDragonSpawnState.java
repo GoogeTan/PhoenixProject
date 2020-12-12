@@ -4,10 +4,12 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.item.EnderCrystalEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
-import net.minecraft.world.gen.feature.EndSpikeFeature;
-import net.minecraft.world.gen.feature.EndSpikeFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.end.DragonSpawnState;
 import net.minecraft.world.server.ServerWorld;
+import phoenix.Phoenix;
+import phoenix.init.PhoenixFeatures;
+import phoenix.world.structures.CustomEndSpike;
+import phoenix.world.structures.CustomEndSpikeConfig;
 
 import java.util.List;
 import java.util.Random;
@@ -15,36 +17,36 @@ import java.util.Random;
 public enum  CustomDragonSpawnState
 {
     START
-            {
-                public void process(ServerWorld world, CustomDragonFightManager manager, List<EnderCrystalEntity> list, int ticks, BlockPos pos)
-                {
-                    BlockPos center = new BlockPos(0, 128, 0);
+    {
+        public void process(ServerWorld world, CustomDragonFightManager manager, List<EnderCrystalEntity> list, int ticks, BlockPos pos)
+        {
+            BlockPos center = new BlockPos(0, 128, 0);
 
-                    for (EnderCrystalEntity entity : list)
-                    {
+            Phoenix.getLOGGER().error((list == null) + " is null");
+            if(list != null)
+                for (EnderCrystalEntity entity : list)
+                    if(entity != null)
                         entity.setBeamTarget(center);
-                    }
 
-                    manager.setRespawnState(PREPARING_TO_SUMMON_PILLARS);
-                }
-            },
+            manager.setRespawnState(DragonSpawnState.PREPARING_TO_SUMMON_PILLARS);
+        }
+    },
     PREPARING_TO_SUMMON_PILLARS
+    {
+        public void process(ServerWorld world, CustomDragonFightManager manager, List<EnderCrystalEntity> list, int ticks, BlockPos pos)
+        {
+            if (ticks < 100)
             {
-                public void process(ServerWorld world, CustomDragonFightManager manager, List<EnderCrystalEntity> list, int ticks, BlockPos pos)
+                if (ticks == 0 || ticks == 50 || ticks == 51 || ticks == 52 || ticks >= 95)
                 {
-                    if (ticks < 100)
-                    {
-                        if (ticks == 0 || ticks == 50 || ticks == 51 || ticks == 52 || ticks >= 95)
-                        {
-                            world.playEvent(3001, new BlockPos(0, 128, 0), 0);
-                        }
-                    } else
-                    {
-                        manager.setRespawnState(SUMMONING_PILLARS);
-                    }
-
+                    world.playEvent(3001, new BlockPos(0, 128, 0), 0);
                 }
-            },
+            } else
+                {
+                    manager.setRespawnState(DragonSpawnState.SUMMONING_PILLARS);
+                }
+        }
+    },
     SUMMONING_PILLARS
             {
                 public void process(ServerWorld world, CustomDragonFightManager manager, List<EnderCrystalEntity> list, int ticks, BlockPos pos)
@@ -53,11 +55,11 @@ public enum  CustomDragonSpawnState
                     boolean isPrevEnd = ticks % 40 == 39;
                     if (isEnd || isPrevEnd)
                     {
-                        List<EndSpikeFeature.EndSpike> spikes = EndSpikeFeature.generateSpikes(world);
+                        List<CustomEndSpike.EndSpike> spikes = CustomEndSpike.generateSpikes(world);
                         int currentSpike = ticks / 40;
                         if (currentSpike < spikes.size())
                         {
-                            EndSpikeFeature.EndSpike spike = spikes.get(currentSpike);
+                            CustomEndSpike.EndSpike spike = spikes.get(currentSpike);
                             if (isEnd)
                             {
                                 for (EnderCrystalEntity crystalEntity : list)
@@ -74,12 +76,12 @@ public enum  CustomDragonSpawnState
                                 }
 
                                 world.createExplosion(null, (float) spike.getCenterX() + 0.5F, spike.getHeight(), (float) spike.getCenterZ() + 0.5F, 5.0F, Explosion.Mode.DESTROY);
-                                EndSpikeFeatureConfig config = new EndSpikeFeatureConfig(true, ImmutableList.of(spike), new BlockPos(0, 128, 0));
-                                Feature.END_SPIKE.withConfiguration(config).place(world, world.getChunkProvider().getChunkGenerator(), new Random(), new BlockPos(spike.getCenterX(), 45, spike.getCenterZ()));
+                                CustomEndSpikeConfig config = new CustomEndSpikeConfig(true, ImmutableList.of(spike), new BlockPos(0, 128, 0));
+                                PhoenixFeatures.END_SPIKE.get().withConfiguration(config).place(world, world.getChunkProvider().getChunkGenerator(), new Random(), new BlockPos(spike.getCenterX(), 45, spike.getCenterZ()));
                             }
                         } else if (isEnd)
                         {
-                            manager.setRespawnState(SUMMONING_DRAGON);
+                            manager.setRespawnState(DragonSpawnState.SUMMONING_DRAGON);
                         }
                     }
                 }
@@ -90,7 +92,7 @@ public enum  CustomDragonSpawnState
                 {
                     if (ticks >= 100)
                     {
-                        manager.setRespawnState(END);
+                        manager.setRespawnState(DragonSpawnState.END);
                         manager.resetSpikeCrystals();
 
                         for (EnderCrystalEntity enderCrystalEntity : list)
@@ -122,10 +124,6 @@ public enum  CustomDragonSpawnState
                 {
                 }
             };
-
-    private CustomDragonSpawnState()
-    {
-    }
 
     public abstract void process(ServerWorld var1, CustomDragonFightManager var2, List<EnderCrystalEntity> var3, int var4, BlockPos var5);
 }

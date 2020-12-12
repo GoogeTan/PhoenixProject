@@ -1,6 +1,5 @@
 package phoenix.world;
 
-import jdk.nashorn.internal.ir.Block;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.Collection;
