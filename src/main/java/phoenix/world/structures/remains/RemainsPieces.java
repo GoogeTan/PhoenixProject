@@ -1,7 +1,7 @@
 package phoenix.world.structures.remains;
 
+import com.google.common.collect.ImmutableList;
 import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ChestTileEntity;
@@ -36,7 +36,10 @@ public class RemainsPieces
 {
     private static final ResourceLocation house = new ResourceLocation("phoenix:remains/house");
     private static final ResourceLocation bed = new ResourceLocation("phoenix:remains/bed");
-    private static final ResourceLocation baricade = new ResourceLocation("phoenix:remains/baricade");
+    private static final ResourceLocation barricade = new ResourceLocation("phoenix:remains/barricade");
+    private static final ResourceLocation well = new ResourceLocation("phoenix:remains/well");
+
+    private static final List<ResourceLocation> allPieces = ImmutableList.of(house, bed, barricade, well);
 
     private static final BlockPos center_offset = new BlockPos(3, 5, 5);
     private static final BlockPos offset = new BlockPos(0, -4, 0);
@@ -44,47 +47,18 @@ public class RemainsPieces
     public static void init(ChunkGenerator<?> generator, TemplateManager manager, BlockPos pos, Rotation rotation, List<StructurePiece> pieces, Random rand)
     {
         ArrayList<BlockPos> poses = new ArrayList<>();
-        if(rand.nextInt(5) == 0)
+        for (int j = 0; j < 3 + rand.nextInt(3); j++)
         {
             int x = pos.getX() + rand.nextInt(40) - 20, z = pos.getZ() + rand.nextInt(40) - 20;
             int i = 0;
-            while (BlockPosUtils.isNear(new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE), z), poses, 10) && i < 20)
+            while (BlockPosUtils.isNear(new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG), z), poses, 10) && i < 20)
             {
                 x = pos.getX() + rand.nextInt(50) - 25;
                 z = pos.getZ() + rand.nextInt(50) - 25;
                 i++;
             }
-            BlockPos res = new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE), z);
-            pieces.add(new RemainsPieces.Piece(manager, bed, res, rotation, 0));
-            poses.add(res);
-
-        }
-        if(rand.nextInt(5) == 0)
-        {
-            int x = pos.getX() + rand.nextInt(40) - 20, z = pos.getZ() + rand.nextInt(40) - 20;
-            int i = 0;
-            while (BlockPosUtils.isNear(new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE), z), poses, 10) && i < 10)
-            {
-                x = pos.getX() + rand.nextInt(50) - 25;
-                z = pos.getZ() + rand.nextInt(50) - 25;
-                i++;
-            }
-            BlockPos res = new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE), z);
-            pieces.add(new RemainsPieces.Piece(manager, bed, res, rotation, 0));
-            poses.add(res);
-        }
-        if(rand.nextInt(5) == 0)
-        {
-            int x = pos.getX() + rand.nextInt(40) - 20, z = pos.getZ() + rand.nextInt(40) - 20;
-            int i = 0;
-            while (BlockPosUtils.isNear(new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE), z), poses, 10) && i < 10)
-            {
-                x = pos.getX() + rand.nextInt(50) - 25;
-                z = pos.getZ() + rand.nextInt(50) - 25;
-                i++;
-            }
-            BlockPos res = new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE), z);
-            pieces.add(new RemainsPieces.Piece(manager, bed, res, rotation, 0));
+            BlockPos res = new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG), z);
+            pieces.add(new RemainsPieces.Piece(manager, allPieces.get(rand.nextInt(allPieces.size())), res, rotation, 0));
             poses.add(res);
         }
     }

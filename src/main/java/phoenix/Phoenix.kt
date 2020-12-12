@@ -11,12 +11,16 @@ import net.minecraft.world.gen.feature.EndSpikeFeatureConfig
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.IFeatureConfig
 import net.minecraftforge.common.ForgeConfigSpec
+import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.common.capabilities.CapabilityInject
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig
+import net.minecraftforge.items.IItemHandler
 import org.apache.logging.log4j.LogManager
 import phoenix.init.*
 import phoenix.init.PhoenixConfiguration.Common
+import phoenix.utils.capablity.IChapterReader
 import phoenix.world.EndDimension
 import phoenix.world.structures.CustomEndSpike
 
@@ -42,6 +46,8 @@ class Phoenix
 
     companion object
     {
+        @CapabilityInject(IChapterReader::class)
+        lateinit var ITEM_HANDLER_CAPABILITY: Capability<IChapterReader>
         const val MOD_ID = "phoenix"
         @JvmStatic
         val LOGGER = LogManager.getLogger()!!
@@ -59,7 +65,7 @@ class Phoenix
             PhoenixLootTables.init()
         }
 
-        fun <C : IFeatureConfig, F : Feature<C>> register(key: String, value : F): F
+        fun <C : IFeatureConfig, F : Feature<C>> register(key: String, value: F): F
         {
             return Registry.register<Feature<*>>(Registry.FEATURE, key, value) as F
         }

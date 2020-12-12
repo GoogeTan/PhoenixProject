@@ -1,10 +1,13 @@
 package phoenix.init.events
 
+import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.network.play.server.SSpawnParticlePacket
 import net.minecraft.particles.ParticleTypes
 import net.minecraft.world.dimension.DimensionType
 import net.minecraft.world.server.ServerWorld
+import net.minecraftforge.common.capabilities.CapabilityManager
+import net.minecraftforge.event.entity.EntityJoinWorldEvent
 import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -14,6 +17,9 @@ import phoenix.Phoenix
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncStagePacket
 import phoenix.utils.LogManager
+import phoenix.utils.capablity.IChapterReader
+import phoenix.utils.capablity.PlayerChapterReader
+import phoenix.utils.capablity.SaveHandler
 import phoenix.world.StageManager
 
 @Mod.EventBusSubscriber
@@ -58,5 +64,12 @@ object PhoenixEvents
             NetworkHandler.sendToAll(SyncStagePacket(StageManager.getStage(), StageManager.getPart()))
             LogManager.error(this, "Phoenix has ended loading")
         }
+    }
+
+    @JvmStatic
+    @SubscribeEvent
+    fun onJoin(event: CapabilityManager): Unit
+    {
+        event.register(IChapterReader::class.java, SaveHandler(), ::PlayerChapterReader)
     }
 }
