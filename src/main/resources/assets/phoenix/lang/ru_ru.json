@@ -57,13 +57,19 @@
   "item.phoenix.bucket_with_clay": "Ведро с глиной",
   "item.absolutespeedsword.name": "Меч абсолютной скорости",
 
-  "advancements.phoenix.ash.title": "Проект Феникс: пепел",
+  "advancements.phoenix.ash.title": "Пепел",
   "advancements.phoenix.ash.title.description": "И тут начинается история",
   "advancements.phoenix.ash.corn.tile": "Потерянный храм снова найден...",
   "advancements.phoenix.ash.corn.description": "Найдите дрейний храм",
 
   "advancements.phoenix.zirconium_ingot": "Цирконевый слиток",
   "advancements.phoenix.zirconium_ingot.description": "Выплавите слиток циркония",
+
+  "advancements.phoenix.oven": "И очередная ненужная печка",
+  "advancements.phoenix.oven.description": "Создайте печку",
+
+  "advancements.phoenix.steel_ingot": "Темный слиток",
+  "advancements.phoenix.steel_ingot.description": "Создайте сталь",
 
   "phoenix.message.newstage": "Достингута новая стадия: ",
   "phoenix.message.speare":"Использует систему боя из 1.8",

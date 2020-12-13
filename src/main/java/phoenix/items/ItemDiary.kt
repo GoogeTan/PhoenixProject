@@ -18,8 +18,6 @@ class ItemDiary : Item(Properties().rarity(Rarity.EPIC).group(Phoenix.ASH).maxSt
 {
     override fun onItemRightClick(worldIn: World, playerIn: PlayerEntity, handIn: Hand): ActionResult<ItemStack>
     {
-        if(playerIn.getCapability(Phoenix.ITEM_HANDLER_CAPABILITY).orElse(PlayerChapterReader()).getOpenedChapters().isEmpty())
-            playerIn.getCapability(Phoenix.ITEM_HANDLER_CAPABILITY).orElse(PlayerChapterReader()).addChapter(0, Date(124, 1, 13))
         if (playerIn is ServerPlayerEntity)
         {
             val container = PhoenixContainers.GUIDE.get().create(0, playerIn.inventory)

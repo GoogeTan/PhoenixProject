@@ -1,14 +1,14 @@
 {
-  "parent": "phoenix:ash/oven",
+  "parent": "phoenix:ash/root",
   "display": {
     "icon": {
-      "item": "phoenix:zirconium_ingot"
+      "item": "phoenix:oven"
     },
     "title": {
-      "translate": "advancements.phoenix.zirconium_ingot"
+      "translate": "advancements.phoenix.oven"
     },
     "description": {
-      "translate": "advancements.phoenix.zirconium_ingot.description"
+      "translate": "advancements.phoenix.oven.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -16,13 +16,13 @@
     "hidden": false
   },
   "criteria": {
-    "zirconium_ingot":
+    "oven":
     {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "phoenix:zirconium_ingot"
+            "item": "phoenix:oven"
           }
         ]
       }
@@ -30,7 +30,7 @@
   },
   "requirements": [
     [
-      "zirconium_ingot"
+      "oven"
     ]
   ]
 }

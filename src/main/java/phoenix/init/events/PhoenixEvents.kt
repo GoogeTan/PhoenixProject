@@ -62,8 +62,8 @@ object PhoenixEvents
         }
     }
 
-    @JvmStatic
-    @SubscribeEvent
+    //@JvmStatic
+    //@SubscribeEvent
     fun onJoin(event: CapabilityManager)
     {
         try

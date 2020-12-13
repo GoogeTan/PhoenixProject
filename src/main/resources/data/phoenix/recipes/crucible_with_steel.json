@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "phoenix:crucible_with_iron_ore"
   },
-  "result": "phoenix:crucible_with_iron",
+  "result": "phoenix:crucible_with_steel",
   "experience": 0.6,
   "cookingtime": 200
 }

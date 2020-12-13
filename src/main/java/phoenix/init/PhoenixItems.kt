@@ -27,7 +27,7 @@ object PhoenixItems
 
     val CRUCIBLE                       = ITEMS.register("crucible", basicItem())!!
     val CRUCIBLE_WITH_IRON_ORE         = ITEMS.register("crucible_with_iron_ore", ::CrucibleItem)!!
-    val CRUCIBLE_WITH_IRON             = ITEMS.register("crucible_with_iron",     ::CrucibleItem)!!
+    val CRUCIBLE_WITH_IRON             = ITEMS.register("crucible_with_steel",     ::CrucibleItem)!!
     val CRUCIBLE_WITH_GOLD_ORE         = ITEMS.register("crucible_with_gold_ore", ::CrucibleItem)!!
     val CRUCIBLE_WITH_GOLD             = ITEMS.register("crucible_with_gold",     ::CrucibleItem)!!
 

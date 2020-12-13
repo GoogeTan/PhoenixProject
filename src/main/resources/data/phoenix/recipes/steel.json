@@ -3,11 +3,11 @@
   "ingredients":
   [
     {
-      "item": "phoenix:crucible_with_iron"
+      "item": "phoenix:crucible_with_steel"
     }
   ],
   "result": {
-    "item": "minecraft:iron_ingot",
+    "item": "minecraft:steel_ingot",
     "count": 1
   }
 }

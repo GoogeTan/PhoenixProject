@@ -41,7 +41,7 @@ object PhoenixClientEvents
 {
     @SubscribeEvent
     @JvmStatic
-    fun onClientSetup(event: FMLClientSetupEvent?)
+    fun onClientSetup(event: FMLClientSetupEvent)
     {
         NetworkHandler.init()
         PhoenixRenderTypes.init()
@@ -56,7 +56,7 @@ object PhoenixClientEvents
         RenderingRegistry.registerEntityRenderingHandler(KNIFE.get(), ::KnifeRenderer)
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.PIPE.get(), ::PipeRender)
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK.get(), ::TankRenderer)
-        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.OVEN.get(), ::OvenRenderer)
+        //ClientRegistry.bindTileEntityRenderer(PhoenixTiles.OVEN.get(), ::OvenRenderer)
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TEXT.get(), ::TextRenderer)
 
         // регистрация цветных блоков
