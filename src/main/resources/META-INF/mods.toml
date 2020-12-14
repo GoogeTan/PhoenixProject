@@ -2,7 +2,7 @@ modLoader="javafml" #mandatory
 loaderVersion="[31,)"
 [[mods]] #mandatory
 modId="phoenix" #mandatory
-version="${file.jarVersion}" #mandatory
+version="ASH-0.1B" #mandatory
 displayName="Project Phoenix" #mandatory
 displayURL="https://www.curseforge.com/minecraft/mc-mods/phoenix-project"
 #logoFile="Phoenix.png" #optional

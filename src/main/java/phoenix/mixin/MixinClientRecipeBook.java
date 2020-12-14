@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import phoenix.Phoenix;
 import phoenix.integration.minecraft.BookCategories;
 import phoenix.recipes.OvenRecipe;
 

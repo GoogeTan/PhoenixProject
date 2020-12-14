@@ -9,7 +9,6 @@ import net.minecraft.world.World
 import net.minecraft.world.biome.provider.EndBiomeProviderSettings
 import net.minecraft.world.dimension.DimensionType
 import net.minecraft.world.dimension.EndDimension
-import net.minecraft.world.end.DragonFightManager
 import net.minecraft.world.gen.EndChunkGenerator
 import net.minecraft.world.gen.EndGenerationSettings
 import net.minecraft.world.server.ServerWorld

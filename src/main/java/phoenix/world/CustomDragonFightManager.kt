@@ -1,7 +1,6 @@
 package phoenix.world
 
 import net.minecraft.block.Blocks
-import net.minecraft.entity.boss.dragon.EnderDragonEntity
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.util.Unit
 import net.minecraft.util.math.ChunkPos

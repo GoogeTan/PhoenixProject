@@ -24,26 +24,27 @@ import net.minecraftforge.common.Tags
 import phoenix.enity.KnifeEntity
 import phoenix.init.PhoenixEnchantments
 import phoenix.init.events.PhoenixEventsOther.addTask
-import phoenix.utils.WorldUtils
+import phoenix.utils.destroyBlock
+import phoenix.utils.getEnchantmentLevel
 
 class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, maxUsages: Int, group : ItemGroup) : ToolItem(attackDamageIn, attackSpeedIn, tier, breakableBlocks, Properties().group(group).maxDamage(maxUsages))
 {
-    val damage: Float = attackDamageIn + tier.attackDamage
+    private val damage: Float = attackDamageIn + tier.attackDamage
 
     override fun onItemRightClick(world: World, player: PlayerEntity, hand: Hand): ActionResult<ItemStack>
     {
-        val itemstack = player.getHeldItem(hand)
+        val stack = player.getHeldItem(hand)
         world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5f, 0.4f / (random.nextFloat() * 0.4f + 0.8f))
         var coolDown = 10
-        coolDown -= (1.5 * EnchantmentHelper.getEnchantmentLevel(QUICK_CHARGE, itemstack)).toInt()
+        coolDown -= (1.5 * stack.getEnchantmentLevel(QUICK_CHARGE)).toInt()
         player.cooldownTracker.setCooldown(this, coolDown)
         if (!world.isRemote)
         {
-            val knife = KnifeEntity(world, player, EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, itemstack) != 0)
-            knife.knife = itemstack
+            val knife = KnifeEntity(world, player, stack.getEnchantmentLevel(Enchantments.INFINITY) == 0)
+            knife.knife = stack
             knife.shoot(player, player.rotationPitch, player.rotationYaw, 0.0f, 2f, 0.3f)
             world.addEntity(knife)
-            val count = EnchantmentHelper.getEnchantmentLevel(Enchantments.MULTISHOT, itemstack)
+            val count = stack.getEnchantmentLevel(Enchantments.MULTISHOT)
             for (i in 1..count)
             {
                 addTask(10 * i)
@@ -53,11 +54,11 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
                     world.addEntity(knife2)
                 }
             }
-            if(EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, itemstack) == 0)
+            if(stack.getEnchantmentLevel(Enchantments.INFINITY) == 0)
                 player.setHeldItem(hand, ItemStack.EMPTY)
         }
 
-        return ActionResult(ActionResultType.SUCCESS, itemstack)
+        return ActionResult(ActionResultType.SUCCESS, stack)
     }
 
     fun onHitBlock(world: World, owner: LivingEntity, pos: BlockPos, knife: KnifeEntity, item: ItemStack): Boolean
@@ -69,20 +70,20 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
             shouldBroke = true
             break
         }
-        if(block == Blocks.TNT && EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, item) > 0)
+        if(block == Blocks.TNT && item.getEnchantmentLevel(Enchantments.FLAME) > 0)
         {
-            WorldUtils.destroyBlock(world, pos, false, owner, item)
+            world.destroyBlock(pos, false, owner, item)
             world.createExplosion(knife, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 5F, true, Explosion.Mode.BREAK)
 
             return false
         }
         else if (breakableBlocks.contains(world.getBlockState(pos).block) || shouldBroke)
         {
-            WorldUtils.destroyBlock(world, pos, true, owner, item)
+            world.destroyBlock(pos, true, owner, item)
             knife.knife.attemptDamageItem(1, world.rand, null)
         }
 
-        if(EnchantmentHelper.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get(), item) > 0)
+        if(item.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get()) > 0)
         {
             owner.setPositionAndUpdate(pos.up().x.toDouble(), pos.up().y.toDouble(), pos.up().z.toDouble())
             owner.fallDistance = 0.0f
@@ -96,11 +97,11 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
 
     fun onHitEntity(world: World, owner: LivingEntity, knife: KnifeEntity, hitted: Entity, knifeItem: ItemStack): Boolean
     {
-        val powerLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, knifeItem)
+        val powerLevel = knifeItem.getEnchantmentLevel(Enchantments.POWER)
         val damage = damage + powerLevel.toDouble() * 0.6
-        if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, knifeItem) > 0 && hitted.type !== EntityType.SNOW_GOLEM) hitted.setFire(100)
-        hitted.attackEntityFrom(DamageSource.causeThrownDamage(knife, knife.thrower), damage.toFloat())
-        if(EnchantmentHelper.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get(), knifeItem) > 0)
+        if (knifeItem.getEnchantmentLevel(Enchantments.FLAME) > 0 && hitted.type !== EntityType.SNOW_GOLEM) hitted.setFire(100)
+            hitted.attackEntityFrom(DamageSource.causeThrownDamage(knife, knife.thrower), damage.toFloat())
+        if(knifeItem.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get()) > 0)
         {
             owner.setPositionAndUpdate(hitted.posX, hitted.posY, hitted.posZ)
             owner.fallDistance = 0.0f

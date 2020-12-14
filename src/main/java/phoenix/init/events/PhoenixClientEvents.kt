@@ -1,12 +1,8 @@
 package phoenix.init.events
 
-import com.google.common.collect.ImmutableList
-import net.minecraft.block.Blocks
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderTypeLookup
-import net.minecraft.client.util.RecipeBookCategories
-import net.minecraft.item.ItemStack
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -15,7 +11,6 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import phoenix.Phoenix
-import phoenix.client.render.OvenRenderer
 import phoenix.client.render.PipeRender
 import phoenix.client.render.TankRenderer
 import phoenix.client.render.TextRenderer
@@ -30,9 +25,7 @@ import phoenix.init.PhoenixEntities.KNIFE
 import phoenix.init.PhoenixEntities.TALPA
 import phoenix.init.PhoenixRenderTypes
 import phoenix.init.PhoenixTiles
-import phoenix.integration.minecraft.BookCategories
 import phoenix.network.NetworkHandler
-import phoenix.utils.LogManager
 import phoenix.utils.block.IColoredBlock
 
 @OnlyIn(Dist.CLIENT)

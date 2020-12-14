@@ -3,11 +3,14 @@ package phoenix.init.events
 import net.minecraft.block.Block
 import net.minecraft.block.FlowingFluidBlock
 import net.minecraft.entity.EntityClassification
+import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
+import net.minecraft.util.ResourceLocation
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.biome.Biome.SpawnListEntry
 import net.minecraft.world.biome.Biomes
+import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.RegistryEvent.Register
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.RegistryObject
@@ -26,6 +29,7 @@ import phoenix.init.PhoenixRecipes
 import phoenix.network.NetworkHandler
 import phoenix.utils.block.ICustomGroup
 import phoenix.utils.block.INonItem
+import phoenix.utils.capablity.CapabilityProvider
 
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 object PhoenixCommonEvents
@@ -66,6 +70,13 @@ object PhoenixCommonEvents
                 StructureHelper.addZirconiumOre(biome)
             }
         }
+    }
+
+    @SubscribeEvent
+    @JvmStatic
+    fun capa(event: AttachCapabilitiesEvent<PlayerEntity>)
+    {
+        event.addCapability(ResourceLocation(Phoenix.MOD_ID, "chapter_reader"), CapabilityProvider())
     }
 
 }

@@ -113,7 +113,6 @@ public class PipeBlock extends BlockWithTile implements IWaterLoggable, ICustomG
         return BlockRenderType.INVISIBLE;
     }
 
-      
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {

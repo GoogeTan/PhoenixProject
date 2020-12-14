@@ -2,7 +2,6 @@ package phoenix.enity.dragon
 
 import net.minecraft.entity.boss.dragon.phase.IPhase
 import org.apache.logging.log4j.LogManager
-import phoenix.enity.dragon.PhaseType
 
 class CustomPhaseManager(private val dragon: EnderDragonEntity)
 {

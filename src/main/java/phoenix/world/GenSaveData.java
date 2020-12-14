@@ -16,7 +16,7 @@ public class GenSaveData extends WorldSavedData
         this.data.putBoolean("iscorngened", false);
     }
 
-    //Этj второй конструктор, на всякий. А первый нужен для того, чтобы ничего не упало)
+    //Это второй конструктор, на всякий. А первый нужен для того, чтобы ничего не упало)
     public GenSaveData(String s)
     {
         super(s);

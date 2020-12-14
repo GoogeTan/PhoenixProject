@@ -7,7 +7,7 @@ import net.minecraft.util.math.Vec3d
 import phoenix.init.PhoenixBlocks
 import phoenix.utils.entity.AbstractFlyingEntity
 import phoenix.utils.entity.ThreeDimensionsMovingGoal
-import phoenix.world.BlockPosUtils
+import phoenix.utils.BlockPosUtils
 
 class EatingChorusGoal(entityIn: AbstractFlyingEntity?) : ThreeDimensionsMovingGoal(entityIn)
 {

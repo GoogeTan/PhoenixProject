@@ -22,12 +22,14 @@ import net.minecraftforge.fml.network.NetworkHooks
 import phoenix.init.PhoenixEntities
 import phoenix.init.PhoenixItems
 import phoenix.items.ash.KnifeItem
+import phoenix.utils.getEnchantmentLevel
+import java.util.logging.LogManager
 
 
 class KnifeEntity : ThrowableEntity
 {
     var knife = ItemStack(PhoenixItems.ZIRCONIUM_KNIFE.get())
-    var isReal = false;
+    var isReal = true
     constructor(type: EntityType<KnifeEntity>, worldIn: World) : super(type, worldIn)
     constructor(worldIn: World, owner: LivingEntity, isReal: Boolean) : super(PhoenixEntities.KNIFE.get(), owner, worldIn)
     {
@@ -67,7 +69,7 @@ class KnifeEntity : ThrowableEntity
                {
                    dropItem = dropItem && (knife.item as KnifeItem).onHitEntity(world, owner, this, (result as EntityRayTraceResult).entity, knife)
                    knife.attemptDamageItem(1, rand, null)
-                   if (EnchantmentHelper.getEnchantmentLevel(Enchantments.LOYALTY, knife) > 0 && owner is PlayerEntity && isReal)
+                   if (knife.getEnchantmentLevel(Enchantments.LOYALTY) > 0 && owner is PlayerEntity && isReal)
                        (owner as PlayerEntity).addItemStackToInventory(knife)
                    else if (dropItem) world.addEntity(ItemEntity(world, posX, posY, posZ, knife))
 
@@ -80,13 +82,15 @@ class KnifeEntity : ThrowableEntity
                    if(block.block !== Blocks.GRASS || block.block !== Blocks.TALL_GRASS)
                    {
                        knife.attemptDamageItem(1, rand, null)
-                       if (EnchantmentHelper.getEnchantmentLevel(Enchantments.LOYALTY, knife) > 0 && owner is PlayerEntity && isReal)
+                       if (knife.getEnchantmentLevel(Enchantments.LOYALTY) > 0 && owner is PlayerEntity && isReal)
                            (owner as PlayerEntity).addItemStackToInventory(knife)
                        else if (dropItem)
                            world.addEntity(ItemEntity(world, posX, posY, posZ, knife))
+                       phoenix.utils.LogManager.error(this, "$dropItem $isReal")
                        onKillCommand()
                    }
                }
+                else -> {}
             }
         }
     }

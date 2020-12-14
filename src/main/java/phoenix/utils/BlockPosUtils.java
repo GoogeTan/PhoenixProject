@@ -1,4 +1,4 @@
-package phoenix.world;
+package phoenix.utils;
 
 import net.minecraft.util.math.BlockPos;
 

@@ -19,7 +19,6 @@ import net.minecraft.world.IWorldWriter;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.feature.Feature;
-import phoenix.Phoenix;
 import phoenix.world.StageManager;
 
 import javax.annotation.ParametersAreNonnullByDefault;

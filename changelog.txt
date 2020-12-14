@@ -1,0 +1,17 @@
+Added:
+  Seta block
+  Oven block
+  Pottery barrel
+  Zirconium ore
+  Armored glass block
+  Crusible items
+  Zirconium ingot
+  Steel ingot
+  Knife tool type
+  JEI integration
+  Teleportation enchantment
+  Added some sounds
+Removed:
+   Kikin blocks
+
+

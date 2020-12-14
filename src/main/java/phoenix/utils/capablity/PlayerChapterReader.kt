@@ -13,6 +13,7 @@ class PlayerChapterReader : IChapterReader
     override fun getOpenedChapters() = chapters
     override fun addChapter(id: Int, date: Date) = chapters.add(Pair(id, date))
 }
+
 class SaveHandler : IStorage<IChapterReader>
 {
     override fun writeNBT(capability: Capability<IChapterReader>, instance: IChapterReader, side: Direction): INBT

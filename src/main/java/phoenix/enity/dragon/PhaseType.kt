@@ -1,7 +1,6 @@
 package phoenix.enity.dragon
 
 import net.minecraft.entity.boss.dragon.phase.*
-import java.lang.Error
 import java.lang.reflect.Constructor
 import java.util.*
 

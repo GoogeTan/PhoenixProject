@@ -21,32 +21,13 @@ class ArmoredGlassBlock : AbstractGlassBlock(
         ToolType.PICKAXE).sound(SoundType.GLASS)), ICustomGroup
 {
     override fun getTab() = Phoenix.REDO
-
-    override fun getShape(
-        state: BlockState,
-        worldIn: IBlockReader,
-        pos: BlockPos,
-        context: ISelectionContext
-                                    ): VoxelShape
-    {
-        return VoxelShapes.fullCube();
-    }
-
-    override fun getCollisionShape(
-        state: BlockState,
-        worldIn: IBlockReader,
-        pos: BlockPos,
-        context: ISelectionContext
-                                  ): VoxelShape
-    {
-        return VoxelShapes.fullCube();
-    }
-
+    override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape = VoxelShapes.fullCube()
+    override fun getCollisionShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape =  VoxelShapes.fullCube();
 
     override fun getDrops(state: BlockState, builder: LootContext.Builder): MutableList<ItemStack>
     {
         val res = ArrayList<ItemStack>()
         res.add(ItemStack(PhoenixBlocks.ARMORED_GLASS.get()));
-        return res;
+        return res
     }
 }

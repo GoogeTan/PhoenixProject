@@ -15,7 +15,6 @@ import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
@@ -23,7 +22,7 @@ import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import phoenix.init.PhoenixLootTables;
-import phoenix.world.BlockPosUtils;
+import phoenix.utils.BlockPosUtils;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
@@ -70,7 +69,7 @@ public class RemainsPieces
 
         public Piece(TemplateManager manager, ResourceLocation location, BlockPos pos, Rotation rotation, int y_offset)
         {
-            super(PhoenixLootTables.REMAINS_HOUSE_PIECES, 0);
+            super(PhoenixLootTables.REMAINS_PIECES, 0);
             this.current_piece = location;
             this.templatePosition = pos.add(offset.getX(), offset.getY() - y_offset, offset.getZ());
             this.rotation = rotation;
@@ -79,7 +78,7 @@ public class RemainsPieces
 
         public Piece(TemplateManager manager, CompoundNBT nbt)
         {
-            super(IStructurePieceType.IGLU, nbt);
+            super(PhoenixLootTables.REMAINS_PIECES, nbt);
             this.current_piece = new ResourceLocation(nbt.getString("Template"));
             this.rotation = Rotation.valueOf(nbt.getString("Rot"));
             this.makeSetup(manager);
@@ -112,7 +111,7 @@ public class RemainsPieces
                 TileEntity tileentity = worldIn.getTileEntity(pos.down());
                 if (tileentity instanceof ChestTileEntity)
                 {
-                    ((ChestTileEntity) tileentity).setLootTable(PhoenixLootTables.REMAINS_HOUSE, rand.nextLong());
+                    ((ChestTileEntity) tileentity).setLootTable(PhoenixLootTables.REMAINS, rand.nextLong());
                 }
             }
         }

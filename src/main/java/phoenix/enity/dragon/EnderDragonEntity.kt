@@ -3,7 +3,6 @@ package phoenix.enity.dragon
 import net.minecraft.block.material.Material
 import net.minecraft.entity.*
 import net.minecraft.entity.EntityType
-import phoenix.enity.dragon.PhaseType
 import net.minecraft.entity.item.EnderCrystalEntity
 import net.minecraft.entity.item.ExperienceOrbEntity
 import net.minecraft.entity.monster.IMob
@@ -25,7 +24,6 @@ import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.GameRules
 import net.minecraft.world.World
-import phoenix.world.EndDimension
 import net.minecraft.world.gen.Heightmap
 import net.minecraft.world.gen.feature.EndPodiumFeature
 import net.minecraftforge.api.distmarker.Dist
@@ -33,6 +31,7 @@ import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.common.ForgeHooks
 import org.apache.logging.log4j.LogManager
 import phoenix.world.CustomDragonFightManager
+import phoenix.world.EndDimension
 import java.util.*
 import kotlin.math.pow
 

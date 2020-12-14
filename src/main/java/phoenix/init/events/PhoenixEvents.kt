@@ -4,7 +4,6 @@ import net.minecraft.particles.ParticleTypes
 import net.minecraft.world.dimension.DimensionType
 import net.minecraft.world.server.ServerWorld
 import net.minecraftforge.common.capabilities.CapabilityManager
-import net.minecraftforge.event.entity.EntityJoinWorldEvent
 import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -16,7 +15,6 @@ import phoenix.utils.capablity.IChapterReader
 import phoenix.utils.capablity.PlayerChapterReader
 import phoenix.utils.capablity.SaveHandler
 import phoenix.world.StageManager
-import java.lang.Exception
 
 @Mod.EventBusSubscriber
 object PhoenixEvents

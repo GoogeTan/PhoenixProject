@@ -6,7 +6,6 @@ import net.minecraft.entity.Pose
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.network.IPacket
 import net.minecraft.util.DamageSource
-import phoenix.enity.dragon.EnderDragonEntity
 
 class EnderDragonPartEntity(dragon: EnderDragonEntity, p_i50232_2_: String, p_i50232_3_: Float, p_i50232_4_: Float) :
     Entity(dragon.type, dragon.world)

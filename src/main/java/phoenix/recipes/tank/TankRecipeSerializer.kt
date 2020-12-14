@@ -8,19 +8,22 @@ import net.minecraft.network.PacketBuffer
 import net.minecraft.util.JSONUtils
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.registries.ForgeRegistryEntry
-import phoenix.utils.SerializeUtils
+import phoenix.utils.getFloat
+import phoenix.utils.getInt
+import phoenix.utils.getString
+import phoenix.utils.readItemStack
 
 class TankRecipeSerializer : IRecipeSerializer<TankRecipe>, ForgeRegistryEntry<IRecipeSerializer<*>>()
 {
     override fun read(id: ResourceLocation, json: JsonObject): TankRecipe
     {
-        val group = JSONUtils.getString(json, "group", "")
+        val group = json.getString("group", "")
         if (!json.has("input")) throw JsonSyntaxException("Missing result, expected to find a string or object")
         if (!json.has("result")) throw JsonSyntaxException("Missing result, expected to find a string or object")
-        val input:  ItemStack = SerializeUtils.readItemStack(json, "input")
-        val result: ItemStack = SerializeUtils.readItemStack(json, "result")
-        val exp = JSONUtils.getFloat(json, "experience", 0.0f)
-        val cookingTime = JSONUtils.getInt(json, "cookingtime")
+        val input:  ItemStack = json.readItemStack("input")
+        val result: ItemStack = json.readItemStack("result")
+        val exp = json.getFloat("experience", 0.0f)
+        val cookingTime = json.getInt("cookingtime")
         return TankRecipe(id, group, input, result, exp, cookingTime)
     }
 

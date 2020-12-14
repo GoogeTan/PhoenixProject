@@ -36,7 +36,6 @@ public class DiaryContainer extends Container implements INamedContainerProvider
         this.page = page;
     }
 
-
     public DiaryContainer setName(ITextComponent nameIn)
     {
         this.name = nameIn;
@@ -59,10 +58,11 @@ public class DiaryContainer extends Container implements INamedContainerProvider
         return new StringTextComponent(name.getFormattedText() + "'s Diary");
     }
 
-      
     @Override
     public Container createMenu(int id, PlayerInventory inventory, PlayerEntity entity)
     {
         return this;
     }
+
+
 }
