@@ -2,12 +2,14 @@ package phoenix.init.events
 
 import net.minecraft.block.Block
 import net.minecraft.block.FlowingFluidBlock
+import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityClassification
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.registry.Registry
+import net.minecraft.util.text.NBTTextComponent
 import net.minecraft.world.biome.Biome.SpawnListEntry
 import net.minecraft.world.biome.Biomes
 import net.minecraftforge.event.AttachCapabilitiesEvent
@@ -30,6 +32,14 @@ import phoenix.network.NetworkHandler
 import phoenix.utils.block.ICustomGroup
 import phoenix.utils.block.INonItem
 import phoenix.utils.capablity.CapabilityProvider
+import net.minecraft.util.text.NBTTextComponent.Storage
+
+import net.minecraftforge.common.capabilities.CapabilityManager
+import phoenix.utils.LogManager
+import phoenix.utils.capablity.IChapterReader
+import phoenix.utils.capablity.PlayerChapterReader
+import phoenix.utils.capablity.SaveHandler
+
 
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 object PhoenixCommonEvents
@@ -70,13 +80,16 @@ object PhoenixCommonEvents
                 StructureHelper.addZirconiumOre(biome)
             }
         }
+
+        CapabilityManager.INSTANCE.register(IChapterReader::class.java, SaveHandler(), ::PlayerChapterReader)
     }
 
     @SubscribeEvent
     @JvmStatic
-    fun capa(event: AttachCapabilitiesEvent<PlayerEntity>)
+    fun capa(event: AttachCapabilitiesEvent<Entity>)
     {
-        event.addCapability(ResourceLocation(Phoenix.MOD_ID, "chapter_reader"), CapabilityProvider())
+        if(event.`object` is PlayerEntity)
+         event.addCapability(ResourceLocation(Phoenix.MOD_ID, "chapter_reader"), CapabilityProvider())
+        LogManager.error(this, event.capabilities.toString())
     }
-
 }

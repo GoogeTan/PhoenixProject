@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Other
 {
-    public static List<RecipeBookCategories> getRecipeBookCategories(RecipeBookContainer<?> container, CallbackInfoReturnable<List<RecipeBookCategories>> cir)
+    public static List<RecipeBookCategories> getRecipeBookCategories(RecipeBookContainer<?> container)
     {
         if (!(container instanceof WorkbenchContainer) && !(container instanceof PlayerContainer))
         {

@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet
 import net.minecraft.block.Block
 import net.minecraft.block.Blocks
 import net.minecraft.enchantment.Enchantment
-import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.enchantment.Enchantments
 import net.minecraft.enchantment.Enchantments.QUICK_CHARGE
 import net.minecraft.entity.Entity
@@ -87,20 +86,19 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
         {
             owner.setPositionAndUpdate(pos.up().x.toDouble(), pos.up().y.toDouble(), pos.up().z.toDouble())
             owner.fallDistance = 0.0f
-            if (owner is PlayerEntity)
-                owner.addItemStackToInventory(item)
-            return false
         }
 
-        return !(block !== Blocks.GRASS_BLOCK && block !== Blocks.SNOW && block.isIn(Tags.Blocks.SAND))
+        return !(block !== Blocks.SNOW && block.isIn(Tags.Blocks.SAND))
     }
 
     fun onHitEntity(world: World, owner: LivingEntity, knife: KnifeEntity, hitted: Entity, knifeItem: ItemStack): Boolean
     {
         val powerLevel = knifeItem.getEnchantmentLevel(Enchantments.POWER)
         val damage = damage + powerLevel.toDouble() * 0.6
-        if (knifeItem.getEnchantmentLevel(Enchantments.FLAME) > 0 && hitted.type !== EntityType.SNOW_GOLEM) hitted.setFire(100)
-            hitted.attackEntityFrom(DamageSource.causeThrownDamage(knife, knife.thrower), damage.toFloat())
+        if (knifeItem.getEnchantmentLevel(Enchantments.FLAME) > 0 && hitted.type !== EntityType.SNOW_GOLEM)
+            hitted.setFire(100)
+
+        hitted.attackEntityFrom(DamageSource.causeThrownDamage(knife, knife.thrower), damage.toFloat())
         if(knifeItem.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get()) > 0)
         {
             owner.setPositionAndUpdate(hitted.posX, hitted.posY, hitted.posZ)
@@ -116,7 +114,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
 
     companion object
     {
-        var breakableBlocks      : Set<Block>       = ImmutableSet.of(Blocks.SPONGE, Blocks.VINE, Blocks.SEA_PICKLE, Blocks.WET_SPONGE, Blocks.GRASS, Blocks.TALL_GRASS, Blocks.SUGAR_CANE)
+        var breakableBlocks      : Set<Block>       = ImmutableSet.of(Blocks.SPONGE, Blocks.VINE, Blocks.SEA_PICKLE, Blocks.WET_SPONGE, Blocks.GRASS, Blocks.TALL_GRASS, Blocks.SUGAR_CANE, Blocks.TALL_SEAGRASS)
         var breakableBlocksTypes : Set<Tag<Block>>  = ImmutableSet.of(Tags.Blocks.GLASS, Tags.Blocks.STAINED_GLASS_PANES)
         var allowedEnchantments  : Set<Enchantment> = ImmutableSet.of(Enchantments.POWER, QUICK_CHARGE, Enchantments.MENDING, Enchantments.FLAME, Enchantments.SILK_TOUCH, Enchantments.UNBREAKING)
     }

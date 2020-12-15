@@ -19,6 +19,7 @@ import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.fml.network.NetworkHooks
+import phoenix.init.PhoenixEnchantments
 import phoenix.init.PhoenixEntities
 import phoenix.init.PhoenixItems
 import phoenix.items.ash.KnifeItem
@@ -83,6 +84,8 @@ class KnifeEntity : ThrowableEntity
                    {
                        knife.attemptDamageItem(1, rand, null)
                        if (knife.getEnchantmentLevel(Enchantments.LOYALTY) > 0 && owner is PlayerEntity && isReal)
+                           (owner as PlayerEntity).addItemStackToInventory(knife)
+                       else if (knife.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get()) > 0)
                            (owner as PlayerEntity).addItemStackToInventory(knife)
                        else if (dropItem)
                            world.addEntity(ItemEntity(world, posX, posY, posZ, knife))

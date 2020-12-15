@@ -1,16 +1,22 @@
 package phoenix.init.events
 
+import net.minecraft.entity.Entity
+import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.particles.ParticleTypes
+import net.minecraft.util.ResourceLocation
 import net.minecraft.world.dimension.DimensionType
 import net.minecraft.world.server.ServerWorld
 import net.minecraftforge.common.capabilities.CapabilityManager
+import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
+import phoenix.Phoenix
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncStagePacket
 import phoenix.utils.LogManager
+import phoenix.utils.capablity.CapabilityProvider
 import phoenix.utils.capablity.IChapterReader
 import phoenix.utils.capablity.PlayerChapterReader
 import phoenix.utils.capablity.SaveHandler
@@ -60,17 +66,14 @@ object PhoenixEvents
         }
     }
 
-    //@JvmStatic
-    //@SubscribeEvent
-    fun onJoin(event: CapabilityManager)
+    @SubscribeEvent
+    @JvmStatic
+    fun capa(event: AttachCapabilitiesEvent<Entity>)
     {
-        try
+        if(event.`object` is PlayerEntity)
         {
-            event.register(IChapterReader::class.java, SaveHandler(), ::PlayerChapterReader)
-        }
-        catch (e : Exception)
-        {
-            LogManager.error(this, e)
+            event.addCapability(ResourceLocation(Phoenix.MOD_ID, "chapter_reader"), CapabilityProvider())
+            LogManager.error(this, event.capabilities.toString())
         }
     }
 }

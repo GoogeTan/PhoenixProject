@@ -20,7 +20,7 @@ public abstract class MixinRecipeBookContainer
        Object o = this;
        if(o instanceof RecipeBookContainer)
        {
-           cir.setReturnValue(Other.getRecipeBookCategories((RecipeBookContainer) o, cir));
+           cir.setReturnValue(Other.getRecipeBookCategories((RecipeBookContainer) o));
            Phoenix.getLOGGER().error(cir.getReturnValue());
        }
     }
