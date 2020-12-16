@@ -25,8 +25,6 @@ object PhoenixBlocks
     val PIPE             : RegistryObject<Block> = BLOCKS.register("pipe",              ::PipeBlock)!!
     val TANK             : RegistryObject<Block> = BLOCKS.register("tank",              ::TankBlock)!!
     val FERTILE_END_STONE: RegistryObject<Block> = BLOCKS.register("fertile_end_stone", ::FertileEndStoneBlock)!!
-    val KIKIN_STEAM      : RegistryObject<Block> = BLOCKS.register("kikin_stem",        ::KikinStemBlock)!!
-    val KIKIN_FRUIT      : RegistryObject<Block> = BLOCKS.register("kikin_fruit",       ::KikiNFruitBlock)!!
     val ANTI_AIR         : RegistryObject<Block> = BLOCKS.register("anti_air",          ::AntiAirBlock)!!
     val POTTERY_BARREL   : RegistryObject<Block> = BLOCKS.register("pottery_barrel",    ::PotteryBarrelBlock)!!
     val END_STONE_COLUMN : RegistryObject<Block> = BLOCKS.register("end_stone_column",  ::EndStoneColumnBlock)!!
