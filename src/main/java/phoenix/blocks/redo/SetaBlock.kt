@@ -5,8 +5,6 @@ import net.minecraft.block.material.Material
 import net.minecraft.fluid.Fluids
 import net.minecraft.fluid.IFluidState
 import net.minecraft.state.StateContainer
-import net.minecraft.state.properties.BambooLeaves
-import net.minecraft.state.properties.BlockStateProperties
 import net.minecraft.state.properties.BlockStateProperties.AGE_0_3
 import net.minecraft.state.properties.BlockStateProperties.WATERLOGGED
 import net.minecraft.util.math.BlockPos
@@ -20,6 +18,7 @@ import net.minecraftforge.common.ToolType
 import phoenix.Phoenix
 import phoenix.init.PhoenixBlocks
 import phoenix.utils.block.ICustomGroup
+import phoenix.utils.getDownHeight
 import java.util.*
 
 class SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandomly().harvestTool(ToolType.SHOVEL).lightValue(5)), IGrowable, ICustomGroup, IWaterLoggable
@@ -53,7 +52,9 @@ class SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandom
 
     override fun tick(state: BlockState, worldIn: ServerWorld, pos: BlockPos, rand: Random)
     {
-        if(worldIn.rand.nextInt(100) == 0 && canGrow(worldIn, pos, state, false))
+        if(!isValidPosition(state, worldIn, pos))
+            worldIn.destroyBlock(pos, true)
+        if(worldIn.rand.nextInt(10) == 0 && canGrow(worldIn, pos, state, false))
             grow(worldIn, rand, pos, state)
     }
 
@@ -63,10 +64,15 @@ class SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandom
     override fun grow(worldIn: ServerWorld, rand: Random, pos: BlockPos, state: BlockState)
     {
         val age = state[AGE_0_3]
-        if(age != 3)
+        if(age < 3)
             worldIn.setBlockState(pos, state.with(AGE_0_3, age + 1))
+        if(age >= 2)// && rand.nextInt(10) == 0)
+        {
+            val pos2 = worldIn.getDownHeight(pos.add(rand.nextInt(2) - 1, 0, rand.nextInt(2) - 1), 45)
+            if(isValidPosition(PhoenixBlocks.SETA.get().defaultState, worldIn, pos2) && pos != pos2 && worldIn.getBlockState(pos2).block == Blocks.AIR)
+                 worldIn.setBlockState(pos2, PhoenixBlocks.SETA.get().defaultState, 2)
+        }
     }
-
 
     override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape = SHAPE
 
@@ -74,7 +80,7 @@ class SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandom
 
     override fun neighborChanged(state: BlockState, worldIn: World, pos: BlockPos, blockIn: Block, fromPos: BlockPos, isMoving: Boolean)
     {
-        worldIn.setBlockState(pos, defaultState.with(WATERLOGGED, worldIn.getFluidState(pos).fluid === Fluids.WATER))
+        worldIn.setBlockState(pos, state.with(WATERLOGGED, worldIn.getFluidState(pos).fluid === Fluids.WATER))
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving)
     }
 
