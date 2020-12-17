@@ -11,6 +11,7 @@ import net.minecraft.util.JSONUtils
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.registry.Registry
+import net.minecraft.world.IWorld
 import net.minecraft.world.World
 
 fun World.destroyBlock(pos : BlockPos, shouldDrop : Boolean, entity : Entity?, stack : ItemStack) : Boolean
@@ -45,3 +46,13 @@ fun JsonObject.readItemStack(nameIn: String): ItemStack
 }
 
 fun ItemStack.getEnchantmentLevel(enchantment: Enchantment) = EnchantmentHelper.getEnchantmentLevel(enchantment, this)
+
+fun IWorld.getDownHeight(pos : BlockPos, max: Int): BlockPos
+{
+    val pos2 = BlockPos(pos.x, 0, pos.z)
+    for (i in 0 until max)
+    {
+        if (!this.isAirBlock(pos2.add(0, i, 0))) return pos2.add(0, i - 1, 0)
+    }
+    return pos
+}

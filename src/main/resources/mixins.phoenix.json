@@ -4,8 +4,6 @@
   "package": "phoenix.mixin",
   "refmap": "mixins.phoenix.refmap.json",
   "mixins": [
-    "MixinClientRecipeBook",
-    "MixinRecipeBookContainer",
     "MixinEntityPlayer"
   ],
   "client": [

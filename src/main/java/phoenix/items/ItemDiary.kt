@@ -11,9 +11,8 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.network.NetworkHooks
 import phoenix.Phoenix
 import phoenix.init.PhoenixContainers
-import phoenix.utils.capablity.Date
-import phoenix.utils.capablity.IChapterReader
-import phoenix.utils.capablity.PlayerChapterReader
+import phoenix.mixin.MixinEntityPlayer
+import phoenix.utils.LogManager
 
 class ItemDiary : Item(Properties().rarity(Rarity.EPIC).group(Phoenix.ASH).maxStackSize(1))
 {
@@ -21,11 +20,14 @@ class ItemDiary : Item(Properties().rarity(Rarity.EPIC).group(Phoenix.ASH).maxSt
     {
         val reader = playerIn.getCapability(Phoenix.CHAPTER_CAPA)
         println(reader.isPresent)
+        LogManager.error(this, (playerIn as MixinEntityPlayer).getOpenedChapters().toString())
+        
         if (playerIn is ServerPlayerEntity)
         {
             val container = PhoenixContainers.GUIDE.get().create(0, playerIn.inventory)
             NetworkHooks.openGui(playerIn, container)
         }
+
         return super.onItemRightClick(worldIn, playerIn, handIn)
     }
 }
