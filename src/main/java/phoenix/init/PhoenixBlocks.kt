@@ -31,7 +31,7 @@ object PhoenixBlocks
     val OVEN             : RegistryObject<Block> = BLOCKS.register("oven",              ::OvenBlock)!!
     val SETA             : RegistryObject<Block> = BLOCKS.register("seta",              ::SetaBlock)!!
     val ZIRCONIUM        : RegistryObject<Block> = BLOCKS.register("zirconium_ore",     ::ZirconiumOreBlock)!!
-    val TEXT_BLOCK       : RegistryObject<Block> = BLOCKS.register("block_with_text",   AnonimBlock.create(Material.ROCK))!!
+    //val TEXT_BLOCK       : RegistryObject<Block> = BLOCKS.register("block_with_text",   AnonimBlock.create(Material.ROCK))!!
     val ARMORED_GLASS    : RegistryObject<Block> = BLOCKS.register("armored_glass",     ::ArmoredGlassBlock)!!
 
     fun register()

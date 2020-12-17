@@ -19,7 +19,7 @@ object PhoenixTiles
     @JvmStatic val PIPE           = TILE_ENTITIES.register("pipe")           { TileEntityType.Builder.create({ PipeTile() }, PhoenixBlocks.PIPE.get()).build(null) }!!
     @JvmStatic val POTTERY_BARREL = TILE_ENTITIES.register("pottery_barrel") { TileEntityType.Builder.create({ PotteryBarrelTile() }, PhoenixBlocks.POTTERY_BARREL.get()).build(null) }!!
     @JvmStatic val OVEN           = TILE_ENTITIES.register("oven")           { TileEntityType.Builder.create({ OvenTile() }, PhoenixBlocks.OVEN.get()).build(null) }!!
-    @JvmStatic val TEXT           = TILE_ENTITIES.register("text")           { TileEntityType.Builder.create({ TextTile() }, PhoenixBlocks.TEXT_BLOCK.get()).build(null) }!!
+    //@JvmStatic val TEXT           = TILE_ENTITIES.register("text")           { TileEntityType.Builder.create({ TextTile() }, PhoenixBlocks.TEXT_BLOCK.get()).build(null) }!!
 
     @JvmStatic fun register() = TILE_ENTITIES.register(FMLJavaModLoadingContext.get().modEventBus)
 }

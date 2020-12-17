@@ -53,6 +53,7 @@
   "block.phoenix.end_stone_column": "Коллонна из эндерняка",
   "block.phoenix.oven": "Печь",
   "block.phoenix.zirconium_ore": "Руда циркония",
+  "block.phoenix.armored_glass": "Укреплённое стекло",
 
   "entity.Uterus.name": "Короначервиус",
 
@@ -62,8 +63,11 @@
 
   "advancements.phoenix.ash.title": "Пепел",
   "advancements.phoenix.ash.title.description": "И тут начинается история",
-  "advancements.phoenix.ash.corn.tile": "Потерянный храм снова найден...",
+  "advancements.phoenix.ash.corn.tile": "Потерянный храм снова найден",
   "advancements.phoenix.ash.corn.description": "Найдите дрейний храм",
+
+  "advancements.phoenix.crucible": "Крепкая чаша",
+  "advancements.phoenix.crucible.description": "Сделайте тигель",
 
   "advancements.phoenix.zirconium_ingot": "Цирконевый слиток",
   "advancements.phoenix.zirconium_ingot.description": "Выплавите слиток циркония",

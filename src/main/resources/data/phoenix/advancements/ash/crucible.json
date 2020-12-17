@@ -1,14 +1,14 @@
 {
-  "parent": "phoenix:ash/crucible",
+  "parent": "phoenix:ash/root",
   "display": {
     "icon": {
-      "item": "phoenix:oven"
+      "item": "phoenix:crucible"
     },
     "title": {
-      "translate": "advancements.phoenix.oven"
+      "translate": "advancements.phoenix.crucible"
     },
     "description": {
-      "translate": "advancements.phoenix.oven.description"
+      "translate": "advancements.phoenix.crucible.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -16,13 +16,13 @@
     "hidden": false
   },
   "criteria": {
-    "oven":
+    "crucible":
     {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "phoenix:oven"
+            "item": "phoenix:crucible"
           }
         ]
       }
@@ -30,7 +30,7 @@
   },
   "requirements": [
     [
-      "oven"
+      "crucible"
     ]
   ]
 }

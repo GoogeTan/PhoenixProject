@@ -1,4 +1,5 @@
 {
+	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "phoenix:blocks/crucible",
 		"particle": "phoenix:blocks/crucible"
@@ -86,6 +87,11 @@
 		"ground": {
 			"translation": [0, 10.25, 0],
 			"scale": [1.5, 1.5, 1.5]
+		},
+		"gui": {
+			"rotation": [26, 45, 0],
+			"translation": [0, 10, 0],
+			"scale": [2, 2, 2]
 		},
 		"head": {
 			"translation": [0, 0.25, -5.75]
