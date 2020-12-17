@@ -28,7 +28,7 @@ public class OvenRecipe extends AbstractCookingRecipe
         }
     }
 
-    public static HashMap<Item, OvenRecipe> getRecipes_from_inputs()
+    public static HashMap<Item, OvenRecipe> getRecipesFromInputs()
     {
         return recipes_from_inputs;
     }

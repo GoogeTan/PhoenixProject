@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " # ",
+    "Z#Z",
     "XYX",
     " Y "
   ],
@@ -14,6 +14,9 @@
     },
     "Y": {
       "item": "phoenix:zirconium_ingot"
+    },
+    "Z": {
+      "item": "minecraft:nautilus_shell"
     }
   },
   "result": {

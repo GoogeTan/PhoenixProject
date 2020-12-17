@@ -1,0 +1,36 @@
+{
+  "parent": "phoenix:ash/form",
+  "display": {
+    "icon": {
+      "item": "phoenix:steel_form_knife_blade_full"
+    },
+    "title": {
+      "translate": "advancements.phoenix.fulling"
+    },
+    "description": {
+      "translate": "advancements.phoenix.fulling.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "steel_form_knife_blade_full":
+    {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "phoenix:steel_form_knife_blade_full"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "steel_form_knife_blade_full"
+    ]
+  ]
+}

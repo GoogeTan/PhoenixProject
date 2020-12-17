@@ -35,13 +35,16 @@ class PhoenixGroup(name: String) : ItemGroup(name)
             else if (i1.item is ToolItem)    f = 1
             else if (i1.item is BlockItem)   f = 6
 
-            if (i2.item is ArmorItem)        s = 2
-            else if (i2.item is SwordItem)   s = 3
-            else if (i2.item is AxeItem)     s = 4
-            else if (i2.item is PickaxeItem) s = 5
-            else if (i2.item is ToolItem)    s = 6
-            else if (i2.item is BlockItem)   s = 7
-            return Integer.compare(f, s)
+            when (i2.item)
+            {
+                is ArmorItem   -> s = 2
+                is SwordItem   -> s = 3
+                is AxeItem     -> s = 4
+                is PickaxeItem -> s = 5
+                is ToolItem    -> s = 6
+                is BlockItem   -> s = 7
+            }
+            return f.compareTo(s)
         }
     }
 }

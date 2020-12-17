@@ -1,0 +1,36 @@
+{
+  "parent": "phoenix:ash/zirconium_ingot",
+  "display": {
+    "icon": {
+      "item": "phoenix:high_quality_clay"
+    },
+    "title": {
+      "translate": "advancements.phoenix.clay"
+    },
+    "description": {
+      "translate": "advancements.phoenix.clay.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "high_quality_clay":
+    {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "phoenix:high_quality_clay"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "high_quality_clay"
+    ]
+  ]
+}

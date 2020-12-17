@@ -1,19 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "XXX",
-    "YYY",
+    "XZX",
+    "ZYY",
     " # "
   ],
   "key": {
     "#": {
-      "item": "phoenix:steel_form_sword_blade"
+      "item": "phoenix:steel_form_pickaxe_head"
     },
     "X": {
       "item": "phoenix:high_quality_clay"
     },
     "Y": {
       "item": "phoenix:zirconium_ingot"
+    },
+    "Z": {
+      "item": "minecraft:nautilus_shell"
     }
   },
   "result": {

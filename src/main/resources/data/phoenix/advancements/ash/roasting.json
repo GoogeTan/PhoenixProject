@@ -1,0 +1,36 @@
+{
+  "parent": "phoenix:ash/fulling",
+  "display": {
+    "icon": {
+      "item": "phoenix:steel_form_knife_blade_roasted"
+    },
+    "title": {
+      "translate": "advancements.phoenix.roasted"
+    },
+    "description": {
+      "translate": "advancements.phoenix.roasted.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "steel_form_knife_blade_roasted":
+    {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "phoenix:steel_form_knife_blade_roasted"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "steel_form_knife_blade_roasted"
+    ]
+  ]
+}

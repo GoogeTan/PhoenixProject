@@ -34,6 +34,9 @@
   "item.phoenix.ceramic_zirconium_pickaxe": "Циркониево-кирамическая кирка",
   "item.phoenix.ceramic_zirconium_sword": "Циркониево-кирамический мечь",
   "item.phoenix.ceramic_zirconium_knife": "Циркониево-кирамический нож",
+  "item.phoenix.steel_axe": "Стальной топор",
+  "item.phoenix.steel_pickaxe": "Стальная кирка",
+  "item.phoenix.steel_sword": "Стальной мечь",
 
   "block.phoenix.fragileblock": "Хрупкий блок",
   "block.phoenix.updater": "Это \"Улучшатор\", но поидее ты не должен этого видеть...",
@@ -65,11 +68,26 @@
   "advancements.phoenix.zirconium_ingot": "Цирконевый слиток",
   "advancements.phoenix.zirconium_ingot.description": "Выплавите слиток циркония",
 
+  "advancements.phoenix.steel_tools": "Для галочки",
+  "advancements.phoenix.steel_tools.description": "Сделайте все инструмены из стали",
+
   "advancements.phoenix.oven": "И очередная ненужная печка",
   "advancements.phoenix.oven.description": "Создайте печку",
 
   "advancements.phoenix.steel_ingot": "Темный слиток",
   "advancements.phoenix.steel_ingot.description": "Создайте сталь",
+
+  "advancements.phoenix.clay": "Пытки в чистом виде!",
+  "advancements.phoenix.clay.description": "Создайте высококачественную глину",
+
+  "advancements.phoenix.form": "Формочка :)",
+  "advancements.phoenix.form.description": "Создайте стальную форму",
+
+  "advancements.phoenix.fulling": "Трамбуем",
+  "advancements.phoenix.fulling.description": "Заполните стальную форму",
+
+  "advancements.phoenix.roasted": "Переворачиваем",
+  "advancements.phoenix.roasted.description": "Испеките стальную форму",
 
   "phoenix.message.newstage": "Достингута новая стадия: ",
   "phoenix.message.speare":"Использует систему боя из 1.8",

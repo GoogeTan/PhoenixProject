@@ -19,26 +19,26 @@ import phoenix.utils.block.BlockWithTile
 
 class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid())
 {
-    override fun onBlockActivated(state: BlockState?, worldIn: World, pos: BlockPos, playerIn: PlayerEntity, handIn: Hand, hit: BlockRayTraceResult): ActionResultType
+    override fun onBlockActivated(state: BlockState, worldIn: World, pos: BlockPos, playerIn: PlayerEntity, handIn: Hand, hit: BlockRayTraceResult): ActionResultType
     {
         if (!worldIn.isRemote && !playerIn.isSneaking)
         {
             val tile = worldIn.getTileEntity(pos) as OvenTile
-            val itemstack: ItemStack = playerIn.getHeldItem(handIn)
+            val stack: ItemStack = playerIn.getHeldItem(handIn)
 
             val list = tile.outOtherItems()
             for (i in list)
                 playerIn.addItemStackToInventory(i)
-            if (OvenRecipe.getRecipes_from_inputs()[itemstack.item] != null)
+            if (OvenRecipe.recipes_from_inputs[stack.item] != null)
             {
-                if(tile.addItem(itemstack))
+                if(tile.addItem(stack))
                 {
                     playerIn.setHeldItem(handIn, ItemStack.EMPTY)
                 }
             }
-            else if (itemstack.item != Items.LAVA_BUCKET)
+            else if (stack.item != Items.LAVA_BUCKET)
             {
-                tile.burnTime += ForgeHooks.getBurnTime(itemstack)
+                tile.burnTime += ForgeHooks.getBurnTime(stack)
                 playerIn.getHeldItem(handIn).shrink(1)
             }
             return ActionResultType.SUCCESS

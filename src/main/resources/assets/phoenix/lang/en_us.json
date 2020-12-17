@@ -40,7 +40,9 @@
   "item.phoenix.ceramic_zirconium_pickaxe": "Zirconium-based ceramic pickaxe",
   "item.phoenix.ceramic_zirconium_sword": "Zirconium-based ceramic sword",
   "item.phoenix.ceramic_zirconium_knife": "Zirconium-based ceramic knife",
-
+  "item.phoenix.steel_axe": "Steel axe",
+  "item.phoenix.steel_pickaxe": "Steel pickaxe",
+  "item.phoenix.steel_sword": "Steel sword",
 
   "block.phoenix.fragileblock": "Fragile Block",
   "block.phoenix.updater": "Updater",

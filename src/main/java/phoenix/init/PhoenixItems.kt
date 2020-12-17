@@ -20,7 +20,7 @@ object PhoenixItems
     val GUIDE                          = ITEMS.register("diary", ::ItemDiary)!!
 
     val HIGH_QUALITY_CLAY_ITEM         = ITEMS.register("high_quality_clay", ::HighQualityClayItem)!!
-    val COOKED_SETA                    = ITEMS.register("cooked_seta", basicFood(Food.Builder().hunger(6).saturation(3f).fastToEat().build()))!!
+    val COOKED_SETA                    = ITEMS.register("cooked_seta", basicFood(Food.Builder().hunger(6).saturation(3f).fastToEat().build(), Phoenix.REDO))!!
 
 
     val CRUCIBLE                       = ITEMS.register("crucible", basicItem())!!
@@ -57,9 +57,14 @@ object PhoenixItems
     val ZIRCONIUM_SWORD                = ITEMS.register("ceramic_zirconium_sword")   { SwordItem  (PhoenixTiers.ZIRCONIUM_TIER, 2, -0.5f, Item.Properties().group(ASH)) }!!
     val ZIRCONIUM_KNIFE                = ITEMS.register("ceramic_zirconium_knife")   { KnifeItem  (PhoenixTiers.ZIRCONIUM_TIER, 3f, -10f, PhoenixConfiguration.COMMON_CONFIG.gameMode.get().maxKnifeUsages, ASH) }!!
 
+    val STEEL_AXE                  = ITEMS.register("steel_axe")     { AxeItem    (PhoenixTiers.STEEL_TIER, 5.0f, -2f, Item.Properties().group(ASH)) }!!
+    val STEEL_PICKAXE              = ITEMS.register("steel_pickaxe") { PickaxeItem(PhoenixTiers.STEEL_TIER, 0, -2f, Item.Properties().group(ASH)) }!!
+    val STEEL_SWORD                = ITEMS.register("steel_sword")   { SwordItem  (PhoenixTiers.STEEL_TIER, 2, -2f, Item.Properties().group(ASH)) }!!
+
     fun register() = ITEMS.register(FMLJavaModLoadingContext.get().modEventBus)
 
     private fun basicItem() =  Supplier { Item(Item.Properties().group(ASH)) }
     private fun basicFood(food: Food) =  Supplier { Item(Item.Properties().group(ASH).food(food)) }
+    private fun basicFood(food: Food, group : ItemGroup) =  Supplier { Item(Item.Properties().group(group).food(food)) }
     private fun form(contains: RegistryObject<Item>) = Supplier { Item(Item.Properties().group(ASH).containerItem(contains.get())) }
 }
