@@ -101,7 +101,7 @@ final class EnderDragonEntity(type: EntityType<out EnderDragonEntity>, worldIn: 
     }
 
     /**
-     * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
+     * Called frequently so the entity can update its STATE every tick as required. For example, zombies and skeletons
      * use this to react to sunlight and start to burn.
      */
     override fun livingTick()
@@ -400,7 +400,7 @@ final class EnderDragonEntity(type: EntityType<out EnderDragonEntity>, worldIn: 
     }
 
     /**
-     * Updates the state of the enderdragon's current endercrystal.
+     * Updates the STATE of the enderdragon's current endercrystal.
      */
     private fun updateDragonEnderCrystal()
     {

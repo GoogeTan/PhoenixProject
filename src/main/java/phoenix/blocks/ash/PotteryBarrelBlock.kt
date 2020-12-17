@@ -161,7 +161,7 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO)), IC
     companion object
     {
         val SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), VoxelShapes.or(makeCuboidShape(0.0, 0.0, 4.0, 16.0, 3.0, 12.0), makeCuboidShape(4.0, 0.0, 0.0, 12.0, 3.0, 16.0), makeCuboidShape(2.0, 0.0, 2.0, 14.0, 3.0, 14.0), makeCuboidShape(2.0, 4.0, 2.0, 14.0, 16.0, 14.0)), IBooleanFunction.ONLY_FIRST)
-        val state: IntegerProperty = IntegerProperty.create("state", 0, 2)
+        val state: IntegerProperty = IntegerProperty.create("STATE", 0, 2)
     }
 
     init
