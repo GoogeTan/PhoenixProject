@@ -5,10 +5,10 @@ import net.minecraft.block.material.Material
 import net.minecraft.fluid.Fluids
 import net.minecraft.fluid.IFluidState
 import net.minecraft.state.StateContainer
-import net.minecraft.state.properties.BambooLeaves
-import net.minecraft.state.properties.BlockStateProperties
 import net.minecraft.state.properties.BlockStateProperties.AGE_0_3
 import net.minecraft.state.properties.BlockStateProperties.WATERLOGGED
+import net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING
+import net.minecraft.util.Direction
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.shapes.ISelectionContext
 import net.minecraft.util.math.shapes.VoxelShape
@@ -28,13 +28,17 @@ class SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandom
 
     init
     {
-        defaultState = this.stateContainer.baseState.with(AGE_0_3, 0).with(WATERLOGGED, false)
+        defaultState = this.stateContainer.baseState
+                .with(AGE_0_3, 0)
+                .with(WATERLOGGED, false)
+                .with(HORIZONTAL_FACING, Direction.EAST)
     }
 
     override fun fillStateContainer(builder: StateContainer.Builder<Block, BlockState>)
     {
         builder.add(AGE_0_3)
         builder.add(WATERLOGGED)
+        builder.add(HORIZONTAL_FACING)
         super.fillStateContainer(builder)
     }
 
@@ -74,7 +78,7 @@ class SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandom
 
     override fun neighborChanged(state: BlockState, worldIn: World, pos: BlockPos, blockIn: Block, fromPos: BlockPos, isMoving: Boolean)
     {
-        worldIn.setBlockState(pos, defaultState.with(WATERLOGGED, worldIn.getFluidState(pos).fluid === Fluids.WATER))
+        worldIn.setBlockState(pos, state.with(WATERLOGGED, worldIn.getFluidState(pos).fluid === Fluids.WATER))
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving)
     }
 
