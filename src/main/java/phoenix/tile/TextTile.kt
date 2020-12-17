@@ -8,7 +8,7 @@ import phoenix.init.PhoenixTiles
 
 class TextTile : TileEntity(PhoenixTiles.OVEN.get())
 {
-    var text : ITextComponent = StringTextComponent("Just Lick a Eva mark 06")
+    var text : ITextComponent = StringTextComponent("Just Like a Eva mark 06")
 
     override fun read(nbt: CompoundNBT)
     {

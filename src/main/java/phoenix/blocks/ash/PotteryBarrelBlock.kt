@@ -64,12 +64,7 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO)), IC
         assert(worldIn.getTileEntity(pos) == null)
         val countOfJumps = (worldIn.getTileEntity(pos) as PotteryBarrelTile?)!!.jumpsCount
         val itemStack = player.getHeldItem(handIn)
-        if (player.activeItemStack == ItemStack(Items.AIR))
-        {
-            if (state.get(Companion.state) == 2) setState(worldIn, pos, state, 3) else if (state.get(Companion.state) == 3) setState(worldIn, pos, state, 2)
-            return ActionResultType.SUCCESS
-        }
-        return if (state.get(Companion.state) != 3) //!state.get(isClose))
+        return if (state.get(Companion.state) != 3)
         {
             val stateInt = state.get(Companion.state)
             val item = itemStack.item
@@ -88,46 +83,17 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO)), IC
                     }
                     ActionResultType.SUCCESS
                 }
-                item === Items.BUCKET       ->
+                item === Items.AIR       ->
                 {
-                    if (stateInt >= 0 && !worldIn.isRemote)
+                    if (!worldIn.isRemote)
                     {
-                        itemStack.shrink(1)
-                        val quality = sqrt(countOfJumps.toDouble()) / sqrt(200.0)
-                        if (itemStack.isEmpty)
+                        if (stateInt >= 2 && countOfJumps > 40)
                         {
-                            if (stateInt >= 2)
-                            {
-                                val stackToAdd = ItemStack(PhoenixItems.HIGH_QUALITY_CLAY_ITEM.get())
-                                if (stackToAdd.tag == null) stackToAdd.tag = CompoundNBT()
-                                stackToAdd.tag!!.putDouble("quality", quality) //тут значение в %. От 0 до 1
-                                player.setHeldItem(handIn, stackToAdd)
-                            }
-                            else
-                            {
-                                player.setHeldItem(handIn, ItemStack(Items.WATER_BUCKET))
-                            }
+                            player.setHeldItem(handIn, ItemStack(PhoenixItems.HIGH_QUALITY_CLAY_ITEM.get()))
+                            setState(worldIn, pos, state, 0)
+                            //worldIn.playSound(null, pos, SoundEvents.CL, SoundCategory.BLOCKS, 1.0f, 1.0f)
+                            (worldIn.getTileEntity(pos) as PotteryBarrelTile?)?.nullifyJumpsCount()
                         }
-                        else
-                        {
-                            if (stateInt >= 2)
-                            {
-                                val stackToAdd = ItemStack(PhoenixItems.HIGH_QUALITY_CLAY_ITEM.get())
-                                if (stackToAdd.tag == null) stackToAdd.tag = CompoundNBT()
-                                stackToAdd.tag!!.putDouble("quality", quality) //тут значение в %. От 0 до 1
-                                if (!player.inventory.addItemStackToInventory(stackToAdd)) player.dropItem(stackToAdd, false)
-                            }
-                            else
-                            {
-                                if (!player.inventory.addItemStackToInventory(ItemStack(Items.WATER_BUCKET))) player.dropItem(ItemStack(Items.WATER_BUCKET), false)
-                            }
-                        }
-                        setState(worldIn, pos, state, 0)
-                        worldIn.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0f, 1.0f)
-                        try
-                        {
-                            (worldIn.getTileEntity(pos) as PotteryBarrelTile?)!!.nullifyJumpsCount()
-                        } catch (ignored: Exception) {}
                     }
                     ActionResultType.SUCCESS
                 }
@@ -136,8 +102,22 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO)), IC
                     if (stateInt == 1 && !worldIn.isRemote)
                     {
                         if (!player.abilities.isCreativeMode) itemStack.shrink(1)
-                        setState(worldIn, pos, state, 2)
+                        (worldIn.getTileEntity(pos) as PotteryBarrelTile).setInventorySlotContents(0, ItemStack(Items.CLAY))
                         worldIn.playSound(null, pos, SoundEvents.BLOCK_SAND_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f)
+                    }
+                    ActionResultType.SUCCESS
+                }
+                item === Items.BUCKET       ->
+                {
+                    if (stateInt == 1 && !worldIn.isRemote)
+                    {
+                        if (!player.abilities.isCreativeMode)
+                        {
+                            itemStack.shrink(1)
+                            player.addItemStackToInventory(ItemStack(Items.WATER_BUCKET))
+                        }
+                        setState(worldIn, pos, state, 0)
+                        worldIn.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0f, 1.0f)
                     }
                     ActionResultType.SUCCESS
                 }
@@ -181,7 +161,7 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO)), IC
     companion object
     {
         val SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), VoxelShapes.or(makeCuboidShape(0.0, 0.0, 4.0, 16.0, 3.0, 12.0), makeCuboidShape(4.0, 0.0, 0.0, 12.0, 3.0, 16.0), makeCuboidShape(2.0, 0.0, 2.0, 14.0, 3.0, 14.0), makeCuboidShape(2.0, 4.0, 2.0, 14.0, 16.0, 14.0)), IBooleanFunction.ONLY_FIRST)
-        val state = IntegerProperty.create("state", 0, 2)
+        val state: IntegerProperty = IntegerProperty.create("state", 0, 2)
     }
 
     init

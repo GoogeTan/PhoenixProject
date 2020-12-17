@@ -19,7 +19,7 @@ class PhoenixGroup : ItemGroup
     }
 
     override fun createIcon() = ItemStack(item.invoke())
-    override fun hasSearchBar() = true
+    override fun hasSearchBar() = false
 
     override fun fill(items: NonNullList<ItemStack>)
     {

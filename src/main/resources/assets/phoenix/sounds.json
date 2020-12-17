@@ -9,5 +9,16 @@
 				"stream": false
 			}
 		]
+	},
+	"put_to_barrel":
+	{
+		"category": "block",
+		"sounds":
+		[
+			{
+				"name": "phoenix:put_to_barrel",
+				"stream": false
+			}
+		]
 	}
 }
