@@ -8,6 +8,7 @@ import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.util.NonNullList
+import phoenix.init.PhoenixItems
 import phoenix.init.PhoenixTiles
 import phoenix.recipes.OvenRecipe.recipes_from_inputs
 import phoenix.utils.block.PhoenixTile
@@ -33,7 +34,7 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity
         val res = ArrayList<ItemStack>()
         for (i in 0 until inventory.size)
         {
-            if(!recipes_from_inputs.contains(inventory[i].item))
+            if(!recipes_from_inputs.contains(inventory[i].item) || inventory[i].item == PhoenixItems.COOKED_SETA)
             {
                 res.add(inventory[i].copy())
                 inventory[i] = ItemStack.EMPTY

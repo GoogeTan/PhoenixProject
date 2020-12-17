@@ -13,6 +13,8 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.IWorld
 import net.minecraft.world.World
+import java.util.*
+import kotlin.math.roundToInt
 
 fun World.destroyBlock(pos : BlockPos, shouldDrop : Boolean, entity : Entity?, stack : ItemStack) : Boolean
 {
@@ -56,3 +58,4 @@ fun IWorld.getDownHeight(pos : BlockPos, max: Int): BlockPos
     }
     return pos
 }
+fun Random.nextInt(min : Int, max : Int) = (min - 0.5 + this.nextDouble() * (max - min + 1)).roundToInt()

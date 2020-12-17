@@ -1,9 +1,6 @@
 package phoenix.init
 
-import net.minecraft.item.AxeItem
-import net.minecraft.item.Item
-import net.minecraft.item.PickaxeItem
-import net.minecraft.item.SwordItem
+import net.minecraft.item.*
 import net.minecraftforge.fml.RegistryObject
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import net.minecraftforge.registries.DeferredRegister
@@ -16,7 +13,6 @@ import phoenix.items.ash.HighQualityClayItem
 import phoenix.items.ash.KnifeItem
 import java.util.function.Supplier
 
-
 object PhoenixItems
 {
     private val ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Phoenix.MOD_ID)
@@ -24,6 +20,8 @@ object PhoenixItems
     val GUIDE                          = ITEMS.register("diary", ::ItemDiary)!!
 
     val HIGH_QUALITY_CLAY_ITEM         = ITEMS.register("high_quality_clay", ::HighQualityClayItem)!!
+    val COOKED_SETA                    = ITEMS.register("cooked_seta", basicFood(Food.Builder().hunger(6).saturation(3f).fastToEat().build()))!!
+
 
     val CRUCIBLE                       = ITEMS.register("crucible", basicItem())!!
     val CRUCIBLE_WITH_IRON_ORE         = ITEMS.register("crucible_with_iron_ore", ::CrucibleItem)!!
@@ -62,5 +60,6 @@ object PhoenixItems
     fun register() = ITEMS.register(FMLJavaModLoadingContext.get().modEventBus)
 
     private fun basicItem() =  Supplier { Item(Item.Properties().group(ASH)) }
+    private fun basicFood(food: Food) =  Supplier { Item(Item.Properties().group(ASH).food(food)) }
     private fun form(contains: RegistryObject<Item>) = Supplier { Item(Item.Properties().group(ASH).containerItem(contains.get())) }
 }

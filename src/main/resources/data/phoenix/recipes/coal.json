@@ -1,0 +1,9 @@
+{
+  "type": "phoenix:oven_recipe",
+  "ingredient": {
+    "item": "phoenix:cooked_seta"
+  },
+  "result": "minecraft:charcoal",
+  "experience": 0.4,
+  "cookingtime": 200
+}

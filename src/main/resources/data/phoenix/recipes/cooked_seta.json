@@ -1,0 +1,9 @@
+{
+  "type": "phoenix:oven_recipe",
+  "ingredient": {
+    "item": "phoenix:seta"
+  },
+  "result": "phoenix:cooked_seta",
+  "experience": 0.4,
+  "cookingtime": 200
+}
