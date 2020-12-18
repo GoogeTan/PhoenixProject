@@ -76,6 +76,7 @@ public class PotteryBarrelTile extends PhoenixTile implements IInventory, ITicka
     {
         jumpsCount = 0;
     }
+
     private ItemStack inventory = ItemStack.EMPTY;
 
     @Override

@@ -18,7 +18,10 @@ import kotlin.math.sqrt
 
 class ElectricBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO))
 {
-    val STATE = IntegerProperty.create("STATE", 0, 2)
+    companion object
+    {
+        val STATE = IntegerProperty.create("state", 0, 2)
+    }
     override fun fillStateContainer(builder: StateContainer.Builder<Block, BlockState>)
     {
         builder.add(STATE)
@@ -28,23 +31,26 @@ class ElectricBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO))
         state: BlockState,
         worldIn: World,
         pos: BlockPos,
-        blockIn: Block?,
-        fromPos: BlockPos?,
+        blockIn: Block,
+        fromPos: BlockPos,
         isMoving: Boolean
     )
     {
         if (!worldIn.isRemote)
         {
-            if(worldIn.getBlockState(fromPos)[POWER_0_15] > 0)
+            if(worldIn.getBlockState(fromPos).has(POWER_0_15))
             {
-                try
+                if (worldIn.getStrongPower(fromPos) > 0 && worldIn.getBlockState(pos)[STATE] == 2)
                 {
-                    (worldIn.getTileEntity(pos) as PotteryBarrelTile).incrementJumpsCount()
-                } catch (e: Exception)
-                {
-                    LogManager.error(this, "Can not increment jump count at $pos")
-                }
+                    try
+                    {
+                        (worldIn.getTileEntity(pos) as PotteryBarrelTile).incrementJumpsCount()
+                    } catch (e: Exception)
+                    {
+                        LogManager.error(this, "Can not increment jump count at $pos")
+                    }
 
+                }
             }
         }
     }
@@ -60,10 +66,9 @@ class ElectricBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO))
         try
         {
             countOfJumps = (worldIn.getTileEntity(pos) as PotteryBarrelTile).jumpsCount
-        } catch (ignored: Exception)
-        {
-        }
-        return (sqrt(countOfJumps.toDouble()) / sqrt(1000.0) * 15).toInt()
+        } catch (ignored: Exception) { }
+
+        return 15.coerceAtMost((countOfJumps / 40.0 * 15).toInt())
     }
 
     override fun createTileEntity(state: BlockState, world: IBlockReader) = PotteryBarrelTile()

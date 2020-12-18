@@ -1,5 +1,7 @@
 package phoenix.tile.ash
 
+import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.nbt.CompoundNBT
@@ -11,15 +13,16 @@ import net.minecraft.util.NonNullList
 import phoenix.init.PhoenixItems
 import phoenix.init.PhoenixTiles
 import phoenix.recipes.OvenRecipe.recipes_from_inputs
+import phoenix.utils.BlockPosUtils
 import phoenix.utils.block.PhoenixTile
 import java.lang.Integer.max
 import java.lang.Integer.min
 
-class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity
+class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, IInventory
 {
     var timers = IntArray(4)
     var burnTime = 0
-    val maxBurnTime = 20 * 60
+    private val maxBurnTime = 20 * 60
     val inventory: NonNullList<ItemStack> = NonNullList.withSize(4, ItemStack.EMPTY)
     init
     {
@@ -153,4 +156,30 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity
             burnTime = buf.readInt()
         }
     }
+
+    override fun clear() = inventory.clear()
+    override fun getSizeInventory() = inventory.size
+    override fun isEmpty() = inventory.isEmpty()
+    override fun getStackInSlot(index: Int) = inventory[index]
+    override fun isUsableByPlayer(player: PlayerEntity) = BlockPosUtils.distanceTo(player.position, pos) < 20
+
+    override fun decrStackSize(index: Int, count: Int): ItemStack
+    {
+        inventory[index].shrink(count);
+        return inventory[index]
+    }
+
+    override fun removeStackFromSlot(index: Int): ItemStack
+    {
+        val tmp = inventory[index];
+        inventory[index] = ItemStack.EMPTY
+        return tmp
+    }
+
+    override fun setInventorySlotContents(index: Int, stack: ItemStack)
+    {
+        inventory[index] = stack
+    }
+
+
 }
