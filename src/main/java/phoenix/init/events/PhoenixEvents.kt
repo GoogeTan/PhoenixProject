@@ -1,18 +1,32 @@
 package phoenix.init.events
 
+import com.google.common.collect.ImmutableList
 import net.minecraft.entity.Entity
+import net.minecraft.entity.merchant.villager.VillagerProfession
+import net.minecraft.entity.merchant.villager.VillagerTrades
 import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.item.ItemStack
+import net.minecraft.item.Items
+import net.minecraft.item.MerchantOffer
 import net.minecraft.particles.ParticleTypes
 import net.minecraft.util.ResourceLocation
 import net.minecraft.world.dimension.DimensionType
 import net.minecraft.world.server.ServerWorld
+import net.minecraft.world.storage.loot.ItemLootEntry
+import net.minecraft.world.storage.loot.LootPool
+import net.minecraft.world.storage.loot.LootTables
 import net.minecraftforge.common.capabilities.CapabilityManager
 import net.minecraftforge.event.AttachCapabilitiesEvent
+import net.minecraftforge.event.LootTableLoadEvent
 import net.minecraftforge.event.entity.player.PlayerEvent
+import net.minecraftforge.event.village.VillagerTradesEvent
+import net.minecraftforge.event.village.WandererTradesEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import phoenix.Phoenix
+import phoenix.init.PhoenixBlocks
+import phoenix.init.PhoenixItems
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncStagePacket
 import phoenix.utils.LogManager
@@ -21,6 +35,7 @@ import phoenix.utils.capablity.IChapterReader
 import phoenix.utils.capablity.PlayerChapterReader
 import phoenix.utils.capablity.SaveHandler
 import phoenix.world.StageManager
+import java.util.*
 
 @Mod.EventBusSubscriber
 object PhoenixEvents
@@ -74,6 +89,52 @@ object PhoenixEvents
         {
             event.addCapability(ResourceLocation(Phoenix.MOD_ID, "chapter_reader"), CapabilityProvider())
             LogManager.error(this, event.capabilities.toString())
+        }
+    }
+
+    @SubscribeEvent
+    @JvmStatic
+    fun trades(event: VillagerTradesEvent)
+    {
+        if(event.type == VillagerProfession.TOOLSMITH)
+        {
+            event.trades[1] =
+                ImmutableList.of(VillagerTrades.ITrade { _: Entity, _: Random ->
+                    MerchantOffer(
+                        ItemStack(Items.EMERALD, 8), ItemStack(
+                            PhoenixItems.STEEL_AXE.get()
+                        ), 7, 1, 0.1f
+                    )
+                })
+        }
+        else if(event.type == VillagerProfession.WEAPONSMITH)
+        {
+            event.trades[1] =
+                ImmutableList.of(VillagerTrades.ITrade { _: Entity, _: Random ->
+                    MerchantOffer(
+                        ItemStack(Items.EMERALD, 8), ItemStack(
+                            PhoenixItems.STEEL_SWORD.get()
+                        ), 7, 1, 0.1f
+                    )
+                })
+        }
+    }
+
+    @SubscribeEvent
+    @JvmStatic
+    fun trades(event: WandererTradesEvent)
+    {
+        event.rareTrades.add(VillagerTrades.ITrade { _: Entity, _: Random -> MerchantOffer(ItemStack(Items.EMERALD, 14), ItemStack(PhoenixBlocks.SETA.get()), 7, 1, 0.1f) })
+        event.rareTrades.add(VillagerTrades.ITrade { _: Entity, _: Random -> MerchantOffer(ItemStack(Items.EMERALD, 24), ItemStack(PhoenixItems.GOLDEN_SETA.get(), 4), 7, 1, 0.1f) })
+    }
+
+    @SubscribeEvent
+    @JvmStatic
+    fun capa(event: LootTableLoadEvent)
+    {
+        if(event.name == LootTables.CHESTS_JUNGLE_TEMPLE)
+        {
+            event.table.addPool(LootPool.builder().addEntry(ItemLootEntry.builder(PhoenixItems.ZIRCONIUM_INGOT.get()).weight(2)).build())
         }
     }
 }

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "phoenix:seta"
+    },
+    "X": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "result": {
+    "item": "phoenix:golden_seta"
+  }
+}

@@ -20,8 +20,8 @@ object PhoenixItems
     val GUIDE                          = ITEMS.register("diary", ::ItemDiary)!!
 
     val HIGH_QUALITY_CLAY_ITEM         = ITEMS.register("high_quality_clay", ::HighQualityClayItem)!!
-    val COOKED_SETA                    = ITEMS.register("cooked_seta", basicFood(Food.Builder().hunger(6).saturation(3f).fastToEat().build(), Phoenix.REDO))!!
-
+    val COOKED_SETA                    = ITEMS.register("cooked_seta", basicFood(Food.Builder().hunger(6).saturation(3f).fastToEat().build(), ItemGroup.FOOD))!!
+    val GOLDEN_SETA                    = ITEMS.register("golden_seta", basicFood(Food.Builder().hunger(7).saturation(4f).fastToEat().build(), ItemGroup.FOOD))!!
 
     val CRUCIBLE                       = ITEMS.register("crucible", basicItem())!!
     val CRUCIBLE_WITH_IRON_ORE         = ITEMS.register("crucible_with_iron_ore", ::CrucibleItem)!!
