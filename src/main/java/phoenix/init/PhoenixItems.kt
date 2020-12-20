@@ -1,5 +1,7 @@
 package phoenix.init
 
+import net.minecraft.entity.Entity
+import net.minecraft.inventory.EquipmentSlotType
 import net.minecraft.item.*
 import net.minecraftforge.fml.RegistryObject
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
@@ -12,6 +14,10 @@ import phoenix.items.ash.CrucibleItem
 import phoenix.items.ash.HighQualityClayItem
 import phoenix.items.ash.KnifeItem
 import java.util.function.Supplier
+import net.minecraft.item.ItemStack
+
+
+
 
 object PhoenixItems
 {
@@ -57,9 +63,14 @@ object PhoenixItems
     val ZIRCONIUM_SWORD                = ITEMS.register("ceramic_zirconium_sword")   { SwordItem  (PhoenixTiers.ZIRCONIUM_TIER, 2, -0.5f, Item.Properties().group(ASH)) }!!
     val ZIRCONIUM_KNIFE                = ITEMS.register("ceramic_zirconium_knife")   { KnifeItem  (PhoenixTiers.ZIRCONIUM_TIER, 3f, -10f, PhoenixConfiguration.COMMON_CONFIG.gameMode.get().maxKnifeUsages, ASH) }!!
 
-    val STEEL_AXE                  = ITEMS.register("steel_axe")     { AxeItem    (PhoenixTiers.STEEL_TIER, 5.0f, -2f, Item.Properties().group(ASH)) }!!
-    val STEEL_PICKAXE              = ITEMS.register("steel_pickaxe") { PickaxeItem(PhoenixTiers.STEEL_TIER, 0, -2f, Item.Properties().group(ASH)) }!!
-    val STEEL_SWORD                = ITEMS.register("steel_sword")   { SwordItem  (PhoenixTiers.STEEL_TIER, 2, -2f, Item.Properties().group(ASH)) }!!
+    val STEEL_AXE                      = ITEMS.register("steel_axe")     { AxeItem    (PhoenixTiers.STEEL_TIER, 5.0f, -2f, Item.Properties().group(ASH)) }!!
+    val STEEL_PICKAXE                  = ITEMS.register("steel_pickaxe") { PickaxeItem(PhoenixTiers.STEEL_TIER, 0, -2f, Item.Properties().group(ASH)) }!!
+    val STEEL_SWORD                    = ITEMS.register("steel_sword")   { SwordItem  (PhoenixTiers.STEEL_TIER, 2, -2f, Item.Properties().group(ASH)) }!!
+
+    val STEEL_ARMOR_HEAD               = ITEMS.register("steel_armor_head")      { SteelArmorItem(EquipmentSlotType.HEAD, Item.Properties().group(ASH)) }!!
+    val STEEL_ARMOR_CHES               = ITEMS.register("steel_armor_chestplate"){ SteelArmorItem(EquipmentSlotType.CHEST, Item.Properties().group(ASH)) }!!
+    val STEEL_ARMOR_LEGG               = ITEMS.register("steel_armor_leggings")  { SteelArmorItem(EquipmentSlotType.LEGS, Item.Properties().group(ASH)) }!!
+    val STEEL_ARMOR_BUTS               = ITEMS.register("steel_armor_boots")     { SteelArmorItem(EquipmentSlotType.FEET, Item.Properties().group(ASH)) }!!
 
     fun register() = ITEMS.register(FMLJavaModLoadingContext.get().modEventBus)
 
@@ -67,4 +78,25 @@ object PhoenixItems
     private fun basicFood(food: Food) =  Supplier { Item(Item.Properties().group(ASH).food(food)) }
     private fun basicFood(food: Food, group : ItemGroup) =  Supplier { Item(Item.Properties().group(group).food(food)) }
     private fun form(contains: RegistryObject<Item>) = Supplier { Item(Item.Properties().group(ASH).containerItem(contains.get())) }
+}
+
+class SteelArmorItem(slot: EquipmentSlotType, builder: Properties) : ArmorItem(PhoenixArmorMaterials.STEEL, slot, builder)
+{
+    override fun getArmorTexture(
+        itemstack: ItemStack?,
+        entity: Entity?,
+        slot: EquipmentSlotType,
+        layer: String?
+    ): String
+    {
+        return if (slot == EquipmentSlotType.LEGS)
+        {
+            Phoenix.MOD_ID + ":textures/models/armor/steel_layer_2.png"
+        } else
+        {
+            Phoenix.MOD_ID + ":textures/models/armor/steel_layer_1.png"
+        }
+    }
+
+
 }
