@@ -16,9 +16,6 @@ import phoenix.items.ash.KnifeItem
 import java.util.function.Supplier
 import net.minecraft.item.ItemStack
 
-
-
-
 object PhoenixItems
 {
     private val ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Phoenix.MOD_ID)
@@ -68,7 +65,7 @@ object PhoenixItems
     val STEEL_SWORD                    = ITEMS.register("steel_sword")   { SwordItem  (PhoenixTiers.STEEL_TIER, 2, -2f, Item.Properties().group(ASH)) }!!
 
     val STEEL_ARMOR_HEAD               = ITEMS.register("steel_armor_head")      { SteelArmorItem(EquipmentSlotType.HEAD, Item.Properties().group(ASH)) }!!
-    val STEEL_ARMOR_CHES               = ITEMS.register("steel_armor_chestplate"){ SteelArmorItem(EquipmentSlotType.CHEST, Item.Properties().group(ASH)) }!!
+    val STEEL_ARMOR_CHES               = ITEMS.register("steel_armor_chestplate"){ SteelArmorItem(EquipmentSlotType.CHEST,Item.Properties().group(ASH)) }!!
     val STEEL_ARMOR_LEGG               = ITEMS.register("steel_armor_leggings")  { SteelArmorItem(EquipmentSlotType.LEGS, Item.Properties().group(ASH)) }!!
     val STEEL_ARMOR_BUTS               = ITEMS.register("steel_armor_boots")     { SteelArmorItem(EquipmentSlotType.FEET, Item.Properties().group(ASH)) }!!
 
