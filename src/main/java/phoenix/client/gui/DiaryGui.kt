@@ -6,15 +6,19 @@ import net.minecraft.client.gui.widget.Widget
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.text.ITextComponent
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
 import phoenix.Phoenix
+import phoenix.client.gui.diaryPages.Chapters
 import phoenix.client.gui.diaryPages.DiaryBook
 import phoenix.client.gui.diaryPages.elements.DiaryChapter
 import phoenix.client.gui.diaryPages.elements.ImageElement
+import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement
 import phoenix.containers.DiaryContainer
 import phoenix.utils.DiaryUtils
 import phoenix.utils.RenderUtils
 import phoenix.utils.TextureUtils
-
+import phoenix.utils.capablity.IChapterReader
 
 class DiaryGui(screenContainer: DiaryContainer, inv: PlayerInventory, titleIn: ITextComponent) : ContainerScreen<DiaryContainer>(screenContainer, inv, titleIn)
 {
@@ -29,72 +33,16 @@ class DiaryGui(screenContainer: DiaryContainer, inv: PlayerInventory, titleIn: I
         addButton(InvisibleButton(guiLeft - 40, guiTop, ySize, { book-- }, true))
         addButton(InvisibleButton(guiLeft + xSize - 10, guiTop, ySize, { book++ }, true))
         book = DiaryBook(xSize - 30, ySize, Minecraft.getInstance().fontRenderer)
-        var par = ArrayList(DiaryUtils.toElements(Minecraft.getInstance().fontRenderer, (xSize - 40) / 2,
-                "Друг мой, друг мой," +
-                        "Я очень и очень болен.  " +
-                        "Сам не знаю, откуда взялась эта боль." +
-                        "То ли ветер свистит " +
-                        "Над пустым и безлюдным полем, " +
-                        "То ль, как рощу в сентябрь, " +
-                        "Осыпает мозги алкоголь. " +
-                        "Голова моя машет ушами, " +
-                        "Как крыльями птица. " +
-                        "Ей на шее ноги " +
-                        "Маячить больше невмочь. " +
-                        "Черный человек, " +
-                        "Черный, черный, " +
-                        "Черный человек " +
-                        "На кровать ко мне садится, " +
-                        "Черный человек " +
-                        "Спать не дает мне всю ночь. " +
-                        "Черный человек " +
-                        "Водит пальцем по мерзкой книге " +
-                        "И, гнусавя надо мной, " +
-                        "Как над усопшим монах, " +
-                        "Читает мне жизнь " +
-                        "Какого-то прохвоста и забулдыги, " +
-                        "Нагоняя на душу тоску и страх. " +
-                        "Черный человек, " +
-                        "Черный, черный! " +
-                        "«Слушай, слушай, — " +
-                        "Бормочет он мне, — " +
-                        "В книге много прекраснейших " +
-                        "Мыслей и планов. " +
-                        "Этот человек " +
-                        "Проживал в стране " +
-                        "Самых отвратительных " +
-                        "Громил и шарлатанов. " +
-                        "В декабре в той стране " +
-                        "Снег до дьявола чист, " +
-                        "И метели заводят "))
-        //par.add(ImageElement(DIARY_TEXTURE, xSize - 30 - 40, ySize - 30));
-        book.add(DiaryChapter(xSize - 30, ySize - 50, par))
-        par = ArrayList(DiaryUtils.toElements(Minecraft.getInstance().fontRenderer, (xSize - 40) / 2,
-                "Веселые прялки. " +
-                        "Был человек тот авантюрист, " +
-                        "Но самой высокой " +
-                        "И лучшей марки. " +
-                        "Был он изящен, " +
-                        "К тому ж поэт, " +
-                        "Хоть с небольшой, " +
-                        "Но ухватистой силою, " +
-                        "И какую-то женщину, " +
-                        "Сорока с лишним лет, " +
-                        "Называл скверной девочкой " +
-                        "И своею милою. " +
-                        "Счастье, — говорил он, — " +
-                        "Есть ловкость ума и рук. " +
-                        "Все неловкие души " +
-                        "За несчастных всегда известны. " +
-                        "Это ничего, " +
-                        "Что много мук " +
-                        "Приносят изломанные " +
-                        "И лживые жесты. " +
-                        "В житейскую стынь, " +
-                        "При тяжелых утратах "))
-        //book.add(DiaryChapter(xSize - 30, ySize - 50, par))
-        val d = TextureUtils.getTextureSize(DIARY_TEXTURE)
-        book.add(DiaryChapter(xSize - 30, ySize - 50, ImageElement(DIARY_TEXTURE, d.key, d.value)))
+        val player = Minecraft.getInstance().player;
+        val chapters = (player as IChapterReader).getOpenedChapters()
+        for (i in chapters)
+        {
+            val ch = Chapters.values()[i.first];
+            val els = DiaryUtils.makeParagraph(font, xSize, ch.getText())
+            els.add(RightAlignedTextElement(i.second.toString()))
+            book.add(DiaryChapter(xSize, ySize, els))
+        }
+
     }
 
     override fun drawGuiContainerBackgroundLayer(partialTicks: Float, mouseX: Int, mouseY: Int)

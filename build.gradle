@@ -21,7 +21,6 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'kotlin'
 
-
 version = modVersion
 group = modGroup
 archivesBaseName = modBaseName

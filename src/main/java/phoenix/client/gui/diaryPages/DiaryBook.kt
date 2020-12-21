@@ -30,19 +30,22 @@ class DiaryBook(val xSize: Int, val ySizeIn: Int, renderer: FontRenderer)
 
     fun render(gui: ContainerScreen<DiaryContainer>, renderer: FontRenderer, xSize: Int, ySize: Int, x: Int, y: Int, depth: Int)
     {
-        var page = openedChapters[currentChapter].currentPage1
-        var sum = 0
-        for (element in page)
+        if(openedChapters.size < currentChapter)
         {
-            element.render(gui, renderer, xSize, ySize, x, y + sum * (font.FONT_HEIGHT + 2), depth)
-            sum += element.getHeight(xSize, ySize)
-        }
-        page = openedChapters[currentChapter].currentPage2
-        sum = 0
-        for (element in page)
-        {
-            element.render(gui, renderer, xSize, ySize, x + xSize / 2 - 10, y + sum * (font.FONT_HEIGHT + 2), depth)
-            sum += element.getHeight(xSize, ySize)
+            var page = openedChapters[currentChapter].currentPage1
+            var sum = 0
+            for (element in page)
+            {
+                element.render(gui, renderer, xSize, ySize, x, y + sum * (font.FONT_HEIGHT + 2), depth)
+                sum += element.getHeight(xSize, ySize)
+            }
+            page = openedChapters[currentChapter].currentPage2
+            sum = 0
+            for (element in page)
+            {
+                element.render(gui, renderer, xSize, ySize, x + xSize / 2 - 10, y + sum * (font.FONT_HEIGHT + 2), depth)
+                sum += element.getHeight(xSize, ySize)
+            }
         }
     }
 

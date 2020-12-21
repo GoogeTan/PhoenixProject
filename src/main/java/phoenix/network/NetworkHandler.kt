@@ -31,6 +31,7 @@ object NetworkHandler
     fun init()
     {
         registerPacket(SyncStagePacket().javaClass)
+        registerPacket(SyncBookPacket(ArrayList()))
     }
 
     /**
@@ -144,6 +145,22 @@ object NetworkHandler
         {
             val packet = clazz.newInstance()
             CHANNEL.registerMessage(id++.toInt(), clazz, packet::encode, packet::decode, packet::handlePacket)
+        }
+        catch (e: InstantiationException)
+        {
+            e.printStackTrace()
+        }
+        catch (e: IllegalAccessException)
+        {
+            e.printStackTrace()
+        }
+    }
+
+    private fun registerPacket(packet: Packet)
+    {
+        try
+        {
+            CHANNEL.registerMessage(id++.toInt(), packet.javaClass, packet::encode, packet::decode, packet::handlePacket)
         }
         catch (e: InstantiationException)
         {

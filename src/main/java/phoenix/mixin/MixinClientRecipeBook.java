@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import phoenix.integration.minecraft.BookCategories;
 import phoenix.recipes.OvenRecipe;
+import phoenix.utils.LogManager;
 
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,7 @@ public class MixinClientRecipeBook
             this.func_216767_a(BookCategories.INSTANCE.getMECHANISMS(), recipelist);
         }
         cir.setReturnValue(recipelist);
+        LogManager.error(this, recipelist.toString());
     }
 
     @Inject(method = "getCategory", at = @At("RETURN"), cancellable = true)

@@ -13,15 +13,12 @@ import phoenix.Phoenix
 import phoenix.init.PhoenixContainers
 import phoenix.mixin.MixinEntityPlayer
 import phoenix.utils.LogManager
+import phoenix.utils.capablity.IChapterReader
 
 class ItemDiary : Item(Properties().rarity(Rarity.EPIC).group(Phoenix.ASH).maxStackSize(1))
 {
     override fun onItemRightClick(worldIn: World, playerIn: PlayerEntity, handIn: Hand): ActionResult<ItemStack>
     {
-        val reader = playerIn.getCapability(Phoenix.CHAPTER_CAPA)
-        println(reader.isPresent)
-        LogManager.error(this, (playerIn as MixinEntityPlayer).getOpenedChapters().toString())
-        
         if (playerIn is ServerPlayerEntity)
         {
             val container = PhoenixContainers.GUIDE.get().create(0, playerIn.inventory)

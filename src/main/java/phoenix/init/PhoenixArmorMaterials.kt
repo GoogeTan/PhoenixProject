@@ -15,8 +15,7 @@ enum class PhoenixArmorMaterials(
     private val nameIn: String,
     private val tough: Float) : IArmorMaterial
 {
-    STEEL(20f, arrayOf(2, 5, 6, 4), 12, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ({ Ingredient.fromItems(PhoenixItems.STEEL_INGOT.get())}), "steel", 0f),
-    ZIRCONIUM_CERAMIC(25f, arrayOf(3, 6, 6, 3), 20, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, ({ Ingredient.fromItems()}), "zirconium_ceramic", 2f);
+    STEEL(20f, arrayOf(2, 5, 6, 4), 12, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ({ Ingredient.fromItems(PhoenixItems.STEEL_INGOT.get())}), "steel", 0f);
 
     private val maxDamage = intArrayOf(13, 15, 16, 11)
 
@@ -26,5 +25,5 @@ enum class PhoenixArmorMaterials(
     override fun getSoundEvent()                                     = sound
     override fun getRepairMaterial()                                 = repair.invoke()
     override fun getName()                                           = nameIn
-    override fun getToughness()                                         = tough
+    override fun getToughness()                                      = tough
 }

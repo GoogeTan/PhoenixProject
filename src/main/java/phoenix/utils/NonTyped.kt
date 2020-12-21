@@ -7,12 +7,14 @@ import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.ShapedRecipe
+import net.minecraft.network.PacketBuffer
 import net.minecraft.util.JSONUtils
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.IWorld
 import net.minecraft.world.World
+import phoenix.utils.capablity.Date
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -59,3 +61,19 @@ fun IWorld.getDownHeight(pos : BlockPos, max: Int): BlockPos
     return pos
 }
 fun Random.nextInt(min : Int, max : Int) = (min - 0.5 + this.nextDouble() * (max - min + 1)).roundToInt()
+
+fun PacketBuffer.writeDate(date : Date)
+{
+    this.writeInt(date.minute)
+    this.writeInt(date.day)
+    this.writeInt(date.year)
+}
+
+fun PacketBuffer.readDate() : Date
+{
+    val res = Date(0, 0, 0)
+    res.minute = readInt()
+    res.day = readInt()
+    res.year = readInt()
+    return res;
+}

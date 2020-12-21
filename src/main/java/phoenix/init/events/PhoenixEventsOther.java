@@ -2,6 +2,8 @@ package phoenix.init.events;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuScreen;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -17,7 +19,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.Level;
 import phoenix.Phoenix;
+import phoenix.network.NetworkHandler;
+import phoenix.network.SyncBookPacket;
 import phoenix.utils.Truple;
+import phoenix.utils.capablity.IChapterReader;
 import phoenix.world.GenSaveData;
 
 import java.util.ArrayList;
@@ -74,6 +79,10 @@ public class PhoenixEventsOther
             {
                 Phoenix.getLOGGER().error("Corn was not genned ^(. template is null... I think it is bad.");
             }
+        }
+        if(!event.getWorld().isRemote && event.getEntity()instanceof ServerPlayerEntity)
+        {
+            NetworkHandler.INSTANCE.sendTo(new SyncBookPacket(((IChapterReader)event.getEntity()).getOpenedChapters()), (ServerPlayerEntity) event.getEntity());
         }
     }
 
