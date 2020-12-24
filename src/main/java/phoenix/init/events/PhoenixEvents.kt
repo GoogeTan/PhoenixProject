@@ -42,13 +42,15 @@ object PhoenixEvents
 {
     @JvmStatic
     @SubscribeEvent
-    fun onPlay(event: PlayerEvent.Clone)
+    fun onPlay(event: PlayerEvent.PlayerRespawnEvent)
     {
-        val world = event.player.world as ServerWorld
-        val player = event.player
-
-        world.spawnParticle(ParticleTypes.BUBBLE, player.posX, player.posY, player.posZ, 5, 0.0, 1.0, 0.0, 1.0)
-        world.spawnParticle(ParticleTypes.BUBBLE, player.posX, player.posY, player.posZ, 5, 0.0, 1.0, 0.0, 1.0)
+        if(!event.player.world.isRemote)
+        {
+            val world = event.player.world as ServerWorld
+            val player = event.player
+            LogManager.log(this, "Particles!!!")
+            world.spawnParticle(ParticleTypes.PORTAL, player.posX, player.posY, player.posZ, 32, 0.1, 2.0, 0.1, 0.5);
+        }
     }
 
     @JvmStatic

@@ -5,12 +5,42 @@ import net.minecraft.client.particle.Particle
 import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
+import net.minecraft.particles.ParticleType
 
-@OnlyIn(Dist.CLIENT)
-class PhoenixBornFactory : IParticleFactory<PhoenixParticleData>
+import net.minecraft.client.particle.IAnimatedSprite
+
+import net.minecraft.client.world.ClientWorld
+import net.minecraft.particles.IParticleData
+import org.omg.IOP.Codec
+import javax.annotation.Nullable
+
+class PhoenixBornFactory(private val sprites: IAnimatedSprite) : IParticleFactory<PhoenixParticleData>
 {
-    override fun makeParticle(typeIn: PhoenixParticleData, worldIn: World, x: Double, y: Double, z: Double, xSpeed: Double, ySpeed: Double, zSpeed: Double): Particle
+    @Nullable
+    override fun makeParticle(
+        typeIn: PhoenixParticleData,
+        worldIn: World,
+        x: Double,
+        y: Double,
+        z: Double,
+        xSpeed: Double,
+        ySpeed: Double,
+        zSpeed: Double
+    ): Particle
     {
-        return PhoenixBornParticle(worldIn, x, y, z)
+        val newParticle = PhoenixBornParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed,
+            typeIn.getTint(), typeIn.getDiameter(), typeIn.getLifeTime(),
+            sprites
+        )
+        newParticle.selectSpriteRandomly(sprites)
+        return newParticle
+    }
+
+    class PhoenixBornType : ParticleType<PhoenixParticleData>(false, PhoenixParticleData.DESERIALIZER)
+    {
+        override fun getDeserializer(): IParticleData.IDeserializer<PhoenixParticleData>
+        {
+            return PhoenixParticleData.DESERIALIZER
+        }
     }
 }
