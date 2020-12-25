@@ -181,5 +181,6 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, IInv
         inventory[index] = stack
     }
 
-
+    operator fun get(i : Int) = getStackInSlot(i)
+    operator fun set(i : Int, stack: ItemStack) = setInventorySlotContents(i, stack)
 }

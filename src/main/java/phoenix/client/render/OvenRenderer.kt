@@ -1,23 +1,47 @@
 package phoenix.client.render
 
 import com.mojang.blaze3d.matrix.MatrixStack
-import com.mojang.blaze3d.vertex.IVertexBuilder
+import net.minecraft.block.AbstractFurnaceBlock
+import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.IRenderTypeBuffer
-import net.minecraft.client.renderer.Quaternion
+import net.minecraft.client.renderer.Vector3f
+import net.minecraft.client.renderer.model.ItemCameraTransforms
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher
-import phoenix.client.models.block.OvenModel
-import phoenix.init.PhoenixRenderTypes
+import net.minecraft.item.ItemStack
+import net.minecraft.util.Direction
 import phoenix.tile.ash.OvenTile
 
 class OvenRenderer(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEntityRenderer<OvenTile>(rendererDispatcherIn)
 {
-    var model = OvenModel()
     override fun render(te: OvenTile, partialTicks: Float, matrixStackIn: MatrixStack, bufferIn: IRenderTypeBuffer, combinedLightIn: Int, combinedOverlayIn: Int)
     {
-        val builder: IVertexBuilder = bufferIn.getBuffer(PhoenixRenderTypes.OVEN)
-        matrixStackIn.rotate(Quaternion(180F, 0F, 0F, true))
-        matrixStackIn.translate(0.5, -1.5, -0.5)
-        model.render(matrixStackIn, builder, combinedLightIn, combinedOverlayIn, 0.5F, 0.5F, 0.5F, 0.5F)
+        val direction: Direction = te.blockState[AbstractFurnaceBlock.FACING]
+        matrixStackIn.translate(0.0, 1.0, 0.0)
+        for (i in 0 until te.inventory.size)
+        {
+            val stack: ItemStack = te.inventory[i]
+            if (stack != ItemStack.EMPTY)
+            {
+                matrixStackIn.push()
+                matrixStackIn.translate(0.5, 0.44921875, 0.5)
+                val direction1 = Direction.byHorizontalIndex((i + direction.horizontalIndex) % 4)
+                val dirAngle = -direction1.horizontalAngle
+                matrixStackIn.rotate(Vector3f.YP.rotationDegrees(dirAngle))
+                //matrixStackIn.rotate(Vector3f.XP.rotationDegrees(90.0f))
+                //matrixStackIn.translate(-0.3125, -0.3125, 0.0)
+                matrixStackIn.translate(-0.15, -0.3125, 0.15)
+                matrixStackIn.scale(0.7f, 0.7f, 0.7f)
+                Minecraft.getInstance().getItemRenderer().renderItem(
+                    stack,
+                    ItemCameraTransforms.TransformType.FIXED,
+                    combinedLightIn,
+                    combinedOverlayIn,
+                    matrixStackIn,
+                    bufferIn
+                )
+                matrixStackIn.pop()
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import phoenix.Phoenix
+import phoenix.client.render.OvenRenderer
 import phoenix.client.render.PipeRender
 import phoenix.client.render.TankRenderer
 import phoenix.client.render.TextRenderer
@@ -49,15 +50,15 @@ object PhoenixClientEvents
         RenderingRegistry.registerEntityRenderingHandler(KNIFE.get(), ::KnifeRenderer)
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.PIPE.get(), ::PipeRender)
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK.get(), ::TankRenderer)
-        //ClientRegistry.bindTileEntityRenderer(PhoenixTiles.OVEN.get(), ::OvenRenderer)
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.OVEN.get(), ::OvenRenderer)
         //ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TEXT.get(), ::TextRenderer)
 
         // регистрация цветных блоков
         for (block in BLOCKS.entries)
         {
-            if (block.get() is IColoredBlock)
+            val colorBlock = block.get()
+            if (colorBlock is IColoredBlock)
             {
-                val colorBlock = block.get() as IColoredBlock
                 if (colorBlock.blockColor != null) Minecraft.getInstance().blockColors.register(colorBlock.blockColor, block.get())
                 if (colorBlock.itemColor != null) Minecraft.getInstance().itemColors.register(colorBlock.itemColor, block.get())
             }

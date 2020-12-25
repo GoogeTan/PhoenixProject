@@ -43,7 +43,7 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO)), IC
 
     override fun fillStateContainer(builder: StateContainer.Builder<Block, BlockState>)
     {
-        builder.add(PotteryBarrelBlock.state)
+        builder.add(state)
     }
 
     override fun onFallenUpon(worldIn: World, @Nonnull pos: BlockPos, entityIn: Entity, fallDistance: Float)

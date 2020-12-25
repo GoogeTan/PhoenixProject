@@ -49,7 +49,7 @@ object PhoenixEvents
             val world = event.player.world as ServerWorld
             val player = event.player
             LogManager.log(this, "Particles!!!")
-            world.spawnParticle(ParticleTypes.PORTAL, player.posX, player.posY, player.posZ, 32, 0.1, 2.0, 0.1, 0.5);
+            world.spawnParticle(ParticleTypes.PORTAL, player.posX, player.posY, player.posZ, 32, 0.1, 2.0, 0.1, 0.5)
         }
     }
 

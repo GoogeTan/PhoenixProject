@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": {  "model": "phoenix:block/furnace" }
+    "": {  "model": "phoenix:block/oven" }
   }
 }
