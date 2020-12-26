@@ -22,7 +22,6 @@ import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.common.ForgeHooks
 import phoenix.recipes.OvenRecipe
 import phoenix.tile.ash.OvenTile
-import phoenix.utils.LogManager
 import phoenix.utils.block.BlockWithTile
 import java.util.*
 

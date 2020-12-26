@@ -12,7 +12,6 @@ import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.client.event.GuiOpenEvent;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -20,11 +19,8 @@ import org.apache.logging.log4j.Level;
 import phoenix.Phoenix;
 import phoenix.network.NetworkHandler;
 import phoenix.network.SyncBookPacket;
-import phoenix.utils.Tuple;
 import phoenix.utils.capablity.IChapterReader;
 import phoenix.world.GenSaveData;
-
-import java.util.ArrayList;
 
 @Mod.EventBusSubscriber
 public class PhoenixEventsOther

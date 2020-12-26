@@ -1,6 +1,5 @@
 package phoenix.tile.ash
 
-import javafx.util.Pair
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
@@ -13,14 +12,11 @@ import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.ChunkPos
 import net.minecraft.world.server.ServerWorld
-import net.minecraftforge.fml.network.PacketDistributor
 import phoenix.containers.ash.OvenContainer
 import phoenix.init.PhoenixItems
 import phoenix.init.PhoenixTiles
-import phoenix.network.NetworkHandler
 import phoenix.recipes.OvenRecipe.recipes_from_inputs
 import phoenix.utils.BlockPosUtils
-import phoenix.utils.LogManager
 import phoenix.utils.block.PhoenixTile
 import java.lang.Integer.max
 import java.lang.Integer.min

@@ -1,28 +1,20 @@
-modLoader="javafml" #mandatory
+modLoader="javafml"
 loaderVersion="[31,)"
-[[mods]] #mandatory
-modId="phoenix" #mandatory
-version="ASH-0.1B" #mandatory
-displayName="Project Phoenix" #mandatory
+[[mods]]
+modId="phoenix"
+version="ASH-0.1B"
+displayName="Project Phoenix"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/phoenix-project"
-#logoFile="Phoenix.png" #optional
-credits="Hohserg, Krokodil, Liahim, Landex and you, for help me" #optional
-authors="WildTan" #optional
-# The description text for the mod (multi line!) (#mandatory)
+credits="Hohserg, Krokodil, Liahim, Landex and you, for help me"
+authors="WildTan"
 description='''End is an empty, almost boring place. In the beginning it will. But then everything will change. In the end, biomes, mobs, dungeons, bosses, plants, words(if you can find it) will appear. Let the story begin!'''
-# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.phoenix]] #optional
-    # the modid of the dependency
-    modId="forge" #mandatory
-    # Does this dependency have to exist - if not, ordering below must be specified
-    mandatory=true #mandatory
-    # The version range of the dependency
-    versionRange="[31,)" #mandatory
-    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+logoFile="icon.png"
+[[dependencies.phoenix]]
+    modId="forge"
+    mandatory=true
+    versionRange="[31,)"
     ordering="NONE"
-    # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
-    # Here's another dependency
 
 
 
