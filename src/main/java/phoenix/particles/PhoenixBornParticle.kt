@@ -1,13 +1,9 @@
 package phoenix.particles
 
+import net.minecraft.client.particle.IAnimatedSprite
 import net.minecraft.client.particle.IParticleRenderType
 import net.minecraft.client.particle.SpriteTexturedParticle
 import net.minecraft.world.World
-import net.minecraft.client.particle.IAnimatedSprite
-
-import net.minecraft.client.renderer.LightTexture
-
-import net.minecraft.client.world.ClientWorld
 import java.awt.Color
 
 class PhoenixBornParticle(

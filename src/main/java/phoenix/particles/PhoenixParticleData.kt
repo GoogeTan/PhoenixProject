@@ -3,17 +3,13 @@ package phoenix.particles
 import com.mojang.brigadier.StringReader
 import net.minecraft.network.PacketBuffer
 import net.minecraft.particles.IParticleData
-import net.minecraft.particles.ParticleType
-import net.minecraft.util.registry.Registry
-import phoenix.init.PhoenixParticles
-import net.minecraft.util.math.MathHelper
-
-import javax.annotation.Nonnull
-
-import com.mojang.brigadier.exceptions.CommandSyntaxException
 import net.minecraft.particles.IParticleData.IDeserializer
+import net.minecraft.particles.ParticleType
+import net.minecraft.util.math.MathHelper
+import phoenix.init.PhoenixParticles
 import java.awt.Color
 import java.util.*
+import javax.annotation.Nonnull
 
 private fun constrainDiameterToValidRange(diameter: Double): Double
 {

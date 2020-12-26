@@ -14,7 +14,6 @@ import phoenix.tile.ash.PotteryBarrelTile
 import phoenix.utils.LogManager
 import phoenix.utils.block.BlockWithTile
 import javax.annotation.ParametersAreNonnullByDefault
-import kotlin.math.sqrt
 
 class ElectricBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO))
 {

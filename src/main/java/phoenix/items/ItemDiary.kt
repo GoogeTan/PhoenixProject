@@ -11,9 +11,6 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.network.NetworkHooks
 import phoenix.Phoenix
 import phoenix.init.PhoenixContainers
-import phoenix.mixin.MixinEntityPlayer
-import phoenix.utils.LogManager
-import phoenix.utils.capablity.IChapterReader
 
 class ItemDiary : Item(Properties().rarity(Rarity.EPIC).group(Phoenix.ASH).maxStackSize(1))
 {

@@ -3,6 +3,8 @@ package phoenix.world.biomes
 import net.minecraft.entity.EntityClassification
 import net.minecraft.entity.EntityType
 import net.minecraft.state.properties.BlockStateProperties
+import net.minecraft.state.properties.BlockStateProperties.AGE_0_3
+import net.minecraft.util.Direction
 import net.minecraft.util.SharedSeedRandom
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IWorld
@@ -17,11 +19,9 @@ import net.minecraft.world.gen.placement.IPlacementConfig
 import net.minecraft.world.gen.placement.Placement
 import phoenix.init.PhoenixBlocks
 import phoenix.utils.GenerationUtils
-import phoenix.world.builders.Builders
-import net.minecraft.state.properties.BlockStateProperties.AGE_0_3
-import net.minecraft.util.Direction
 import phoenix.utils.LogManager
 import phoenix.utils.getDownHeight
+import phoenix.world.builders.Builders
 
 class UnderBiome : Biome(GenerationUtils.defaultSettingsForEnd(Builders.UNDER, Builders.UNDER_CONFIG))
 {

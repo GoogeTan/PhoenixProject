@@ -1,62 +1,48 @@
 package phoenix.utils.entity;
 
+import net.minecraft.entity.FlyingEntity;
 import net.minecraft.entity.ai.controller.MovementController;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class ThreeDimensionsMoveHelperController extends MovementController
 {
-    private float speedFactor = 0.1F;
-    AbstractFlyingEntity entity;
+    private final FlyingEntity parentEntity;
+    private int courseChangeCooldown;
 
-    public ThreeDimensionsMoveHelperController(AbstractFlyingEntity entityIn)
-    {
-        super(entityIn);
-        entity = entityIn;
+    public ThreeDimensionsMoveHelperController(FlyingEntity ghast) {
+        super(ghast);
+        this.parentEntity = ghast;
     }
 
-    public void tick()
-    {
-        if (entity.collidedHorizontally)
-        {
-            entity.rotationYaw += 180.0F;
-            this.speedFactor = 0.1F;
+    public void tick() {
+        if (this.action == MovementController.Action.MOVE_TO) {
+            if (this.courseChangeCooldown-- <= 0) {
+                this.courseChangeCooldown += this.parentEntity.getRNG().nextInt(5) + 2;
+                Vec3d vec3d = new Vec3d(this.posX - this.parentEntity.getPosX(), this.posY - this.parentEntity.getPosY(), this.posZ - this.parentEntity.getPosZ());
+                double d0 = vec3d.length();
+                vec3d = vec3d.normalize();
+                if (this.func_220673_a(vec3d, MathHelper.ceil(d0))) {
+                    this.parentEntity.setMotion(this.parentEntity.getMotion().add(vec3d.scale(0.1D)));
+                } else {
+                    this.action = MovementController.Action.WAIT;
+                }
+            }
+
+        }
+    }
+
+    private boolean func_220673_a(Vec3d p_220673_1_, int p_220673_2_) {
+        AxisAlignedBB axisalignedbb = this.parentEntity.getBoundingBox();
+
+        for(int i = 1; i < p_220673_2_; ++i) {
+            axisalignedbb = axisalignedbb.offset(p_220673_1_);
+            if (!this.parentEntity.world.hasNoCollisions(this.parentEntity, axisalignedbb)) {
+                return false;
+            }
         }
 
-        float realX = (float) (entity.orbitOffset.x - entity.getPosX());
-        float realY = (float) (entity.orbitOffset.y - entity.getPosY());
-        float realZ = (float) (entity.orbitOffset.z - entity.getPosZ());
-
-        double movingHorizontalVLength = MathHelper.sqrt(realX * realX + realZ * realZ);
-        double coefficient = 1.0D - (double) MathHelper.abs(realY * 0.7F) / movingHorizontalVLength;
-        realX = (float) ((double) realX * coefficient);
-        realZ = (float) ((double) realZ * coefficient);
-
-        movingHorizontalVLength = MathHelper.sqrt(realX * realX + realZ * realZ);
-        double movingVLength = MathHelper.sqrt(realX * realX + realZ * realZ + realY * realY);
-
-        float rotationYaw = entity.rotationYaw;
-        float rotationYawAngle = (float) MathHelper.atan2(realZ, realX);
-        float rotationYaw2 = MathHelper.wrapDegrees(entity.rotationYaw + 90.0F);
-
-        float f6 = MathHelper.wrapDegrees(rotationYawAngle * (180F / (float) Math.PI));
-        entity.rotationYaw = MathHelper.approachDegrees(rotationYaw2, f6, 4.0F) - 90.0F;
-        entity.renderYawOffset = entity.rotationYaw;
-        if (MathHelper.degreesDifferenceAbs(rotationYaw, entity.rotationYaw) < 3.0F)
-        {
-            this.speedFactor = MathHelper.approach(this.speedFactor, 1.8F, 0.005F * (1.8F / this.speedFactor));
-        } else
-        {
-            this.speedFactor = MathHelper.approach(this.speedFactor, 0.2F, 0.025F);
-        }
-
-        float f7 = (float) (-(MathHelper.atan2(-realY, movingHorizontalVLength) * (double) (180F / (float) Math.PI)));
-        entity.rotationPitch = f7;
-        float f8 = entity.rotationYaw + 90.0F;
-        double d3 = (double) (this.speedFactor * MathHelper.cos(f8 * ((float) Math.PI / 180F))) * Math.abs((double) realX / movingVLength);
-        double d4 = (double) (this.speedFactor * MathHelper.sin(f8 * ((float) Math.PI / 180F))) * Math.abs((double) realZ / movingVLength);
-        double d5 = (double) (this.speedFactor * MathHelper.sin(f7 * ((float) Math.PI / 180F))) * Math.abs((double) realY / movingVLength);
-        Vec3d vec3d = entity.getMotion();
-        entity.setMotion(vec3d.add((new Vec3d(d3, d5, d4)).subtract(vec3d).scale(0.2D)));
+        return true;
     }
 }

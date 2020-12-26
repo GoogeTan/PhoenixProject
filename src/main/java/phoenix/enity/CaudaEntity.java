@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import phoenix.enity.tasks.OrbitPoint2Goal;
+import phoenix.enity.tasks.OrbitPointGoal;
 import phoenix.utils.entity.AbstractFlyingEntity;
 import phoenix.utils.entity.ThreeDimensionsLookHelperController;
 import phoenix.utils.entity.ThreeDimensionsMoveHelperController;
@@ -38,7 +38,7 @@ public class CaudaEntity extends AbstractFlyingEntity
     {
         //this.goalSelector.addGoal  (1, new PickAttackGoal(this));
         //this.goalSelector.addGoal  (2, new SweepAttackGoal(this));
-        this.goalSelector.addGoal  (1, new OrbitPoint2Goal(this));
+        this.goalSelector.addGoal  (1, new OrbitPointGoal(this));
         //this.goalSelector.addGoal  (2, new OrbitPointGoal(this));
         //this.targetSelector.addGoal(1, new AttackPlayerGoal(this));
     }
@@ -121,6 +121,7 @@ public class CaudaEntity extends AbstractFlyingEntity
             {
                 orbitPosition = getPosition();
             }
+            moveController.setMoveTo(orbitPosition.getX(), orbitPosition.getY(), orbitPosition.getZ(), 10);
         }
     }
 

@@ -3,7 +3,6 @@ package phoenix.utils;
 import com.google.common.collect.Lists;
 import net.minecraft.client.util.RecipeBookCategories;
 import net.minecraft.inventory.container.*;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import phoenix.integration.minecraft.BookCategories;
 
 import java.util.List;

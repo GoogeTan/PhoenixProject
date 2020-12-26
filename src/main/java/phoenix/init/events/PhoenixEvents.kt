@@ -15,9 +15,10 @@ import net.minecraft.world.server.ServerWorld
 import net.minecraft.world.storage.loot.ItemLootEntry
 import net.minecraft.world.storage.loot.LootPool
 import net.minecraft.world.storage.loot.LootTables
-import net.minecraftforge.common.capabilities.CapabilityManager
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.LootTableLoadEvent
+import net.minecraftforge.event.TickEvent
+import net.minecraftforge.event.TickEvent.WorldTickEvent
 import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.event.village.VillagerTradesEvent
 import net.minecraftforge.event.village.WandererTradesEvent
@@ -30,10 +31,8 @@ import phoenix.init.PhoenixItems
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncStagePacket
 import phoenix.utils.LogManager
+import phoenix.utils.Tuple
 import phoenix.utils.capablity.CapabilityProvider
-import phoenix.utils.capablity.IChapterReader
-import phoenix.utils.capablity.PlayerChapterReader
-import phoenix.utils.capablity.SaveHandler
 import phoenix.world.StageManager
 import java.util.*
 
@@ -138,5 +137,38 @@ object PhoenixEvents
         {
             event.table.addPool(LootPool.builder().addEntry(ItemLootEntry.builder(PhoenixItems.ZIRCONIUM_INGOT.get()).weight(2)).build())
         }
+    }
+
+    var tasks = ArrayList<Tuple<Int, Int, Runnable>>()
+
+    @JvmStatic
+    @SubscribeEvent
+    fun deferredTasks(event: WorldTickEvent)
+    {
+        if (!event.world.isRemote)
+        {
+            LogManager.error(this, "11")
+            if (tasks.isNotEmpty()) if (event.phase == TickEvent.Phase.END)
+            {
+                var i = 0
+                while (i < tasks.size)
+                {
+                    val current = tasks[i]
+                    current.first++
+                    if (current.first >= current.second)
+                    {
+                        current.third.run()
+                        tasks.removeAt(i)
+                        i--
+                    }
+                    ++i
+                }
+            }
+        }
+    }
+
+    fun addTask(time: Int, r: Runnable)
+    {
+        tasks.add(Tuple(0, time, r))
     }
 }

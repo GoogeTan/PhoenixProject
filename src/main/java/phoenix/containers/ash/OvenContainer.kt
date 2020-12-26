@@ -1,0 +1,36 @@
+package phoenix.containers.ash
+
+import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.inventory.Inventory
+import net.minecraft.inventory.container.Container
+import net.minecraft.inventory.container.Slot
+import net.minecraft.item.ItemStack
+import phoenix.init.PhoenixContainers
+
+
+class OvenContainer(id : Int) : Container(PhoenixContainers.GUIDE.get(), id)
+{
+    var inventory = Inventory(4)
+    val toUpd = ArrayList<Int>()
+    override fun canInteractWith(playerIn: PlayerEntity) = true
+    init
+    {
+        addSlot(Slot(inventory, 0, 60, 60))
+        addSlot(Slot(inventory, 1, 100, 60))
+        addSlot(Slot(inventory, 2, 60, 100))
+        addSlot(Slot(inventory, 3, 100, 100))
+    }
+
+    override fun detectAndSendChanges()
+    {
+        super.detectAndSendChanges()
+    }
+
+    var size = inventorySlots.size
+    operator fun get(int : Int): ItemStack = getSlot(int).stack
+    operator fun set(int : Int, stack : ItemStack)
+    {
+        getSlot(int).putStack(stack)
+        toUpd.add(int)
+    }
+}

@@ -23,7 +23,6 @@ import phoenix.utils.block.ICustomGroup
 import phoenix.utils.getDownHeight
 import phoenix.utils.nextInt
 import java.util.*
-import kotlin.math.roundToInt
 
 class SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandomly().harvestTool(ToolType.SHOVEL).lightValue(5)), IGrowable, ICustomGroup
 {

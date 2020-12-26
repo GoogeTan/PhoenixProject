@@ -2,7 +2,6 @@ package phoenix.init.events;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuScreen;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -21,7 +20,7 @@ import org.apache.logging.log4j.Level;
 import phoenix.Phoenix;
 import phoenix.network.NetworkHandler;
 import phoenix.network.SyncBookPacket;
-import phoenix.utils.Truple;
+import phoenix.utils.Tuple;
 import phoenix.utils.capablity.IChapterReader;
 import phoenix.world.GenSaveData;
 
@@ -30,34 +29,6 @@ import java.util.ArrayList;
 @Mod.EventBusSubscriber
 public class PhoenixEventsOther
 {
-    public static ArrayList<Truple<Integer, Integer, Runnable>> tasks = new ArrayList<>();
-
-    @SubscribeEvent
-    public static void deferredTasks(TickEvent.WorldTickEvent event)
-    {
-        if(!event.world.isRemote)
-        {
-            if(!tasks.isEmpty())
-            if (event.phase == TickEvent.Phase.END)
-                for (int i = 0; i < tasks.size(); ++i)
-                {
-                    Truple<Integer, Integer, Runnable> current = tasks.get(i);
-                    current.first++;
-                    if (current.first >= current.second)
-                    {
-                        current.third.run();
-                        tasks.remove(i);
-                        i--;
-                    }
-                }
-        }
-    }
-
-    public static void addTask(int time, Runnable r)
-    {
-        tasks.add(new Truple<>(0, time, r));
-    }
-
     @SubscribeEvent
     public static void cornGen(EntityJoinWorldEvent event)
     {

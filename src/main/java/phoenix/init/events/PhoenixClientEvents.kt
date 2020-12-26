@@ -14,7 +14,6 @@ import phoenix.Phoenix
 import phoenix.client.render.OvenRenderer
 import phoenix.client.render.PipeRender
 import phoenix.client.render.TankRenderer
-import phoenix.client.render.TextRenderer
 import phoenix.client.render.entity.CaudaRenderer
 import phoenix.client.render.entity.KnifeRenderer
 import phoenix.client.render.entity.TalpaRenderer

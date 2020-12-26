@@ -6,18 +6,14 @@ import net.minecraft.client.gui.widget.Widget
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.text.ITextComponent
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
 import phoenix.Phoenix
 import phoenix.client.gui.diaryPages.Chapters
 import phoenix.client.gui.diaryPages.DiaryBook
 import phoenix.client.gui.diaryPages.elements.DiaryChapter
-import phoenix.client.gui.diaryPages.elements.ImageElement
 import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement
 import phoenix.containers.DiaryContainer
 import phoenix.utils.DiaryUtils
 import phoenix.utils.RenderUtils
-import phoenix.utils.TextureUtils
 import phoenix.utils.capablity.IChapterReader
 
 class DiaryGui(screenContainer: DiaryContainer, inv: PlayerInventory, titleIn: ITextComponent) : ContainerScreen<DiaryContainer>(screenContainer, inv, titleIn)

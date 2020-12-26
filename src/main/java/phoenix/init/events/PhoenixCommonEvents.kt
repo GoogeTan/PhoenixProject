@@ -1,13 +1,12 @@
 package phoenix.init.events
 
-import com.google.common.collect.ImmutableList
 import net.minecraft.block.Block
 import net.minecraft.block.FlowingFluidBlock
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityClassification
-import net.minecraft.entity.merchant.villager.VillagerProfession
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.item.*
+import net.minecraft.item.BlockItem
+import net.minecraft.item.Item
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.biome.Biome.SpawnListEntry
@@ -15,7 +14,6 @@ import net.minecraft.world.biome.Biomes
 import net.minecraftforge.common.capabilities.CapabilityManager
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.RegistryEvent.Register
-import net.minecraftforge.event.village.VillagerTradesEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.RegistryObject
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
@@ -29,7 +27,6 @@ import phoenix.init.PhoenixBlocks.BLOCKS
 import phoenix.init.PhoenixEntities.CAUDA
 import phoenix.init.PhoenixEntities.TALPA
 import phoenix.init.PhoenixFeatures
-import phoenix.init.PhoenixItems
 import phoenix.init.PhoenixRecipes
 import phoenix.network.NetworkHandler
 import phoenix.utils.LogManager
@@ -39,10 +36,6 @@ import phoenix.utils.capablity.CapabilityProvider
 import phoenix.utils.capablity.IChapterReader
 import phoenix.utils.capablity.PlayerChapterReader
 import phoenix.utils.capablity.SaveHandler
-import java.util.*
-import net.minecraft.entity.merchant.villager.VillagerTrades.*;
-import net.minecraft.world.storage.loot.*
-import net.minecraftforge.event.LootTableLoadEvent
 
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 object PhoenixCommonEvents

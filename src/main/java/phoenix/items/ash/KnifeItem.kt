@@ -22,7 +22,7 @@ import net.minecraft.world.World
 import net.minecraftforge.common.Tags
 import phoenix.enity.KnifeEntity
 import phoenix.init.PhoenixEnchantments
-import phoenix.init.events.PhoenixEventsOther.addTask
+import phoenix.init.events.PhoenixEvents.addTask
 import phoenix.utils.destroyBlock
 import phoenix.utils.getEnchantmentLevel
 
@@ -91,7 +91,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
         return !(block !== Blocks.SNOW && block.isIn(Tags.Blocks.SAND))
     }
 
-    fun onHitEntity(world: World, owner: LivingEntity, knife: KnifeEntity, hitted: Entity, knifeItem: ItemStack): Boolean
+    fun onHitEntity(world : World, owner : LivingEntity, knife : KnifeEntity, hitted : Entity, knifeItem : ItemStack): Boolean
     {
         val powerLevel = knifeItem.getEnchantmentLevel(Enchantments.POWER)
         val damage = damage + powerLevel.toDouble() * 0.6

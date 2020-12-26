@@ -24,7 +24,6 @@ import phoenix.init.PhoenixEntities
 import phoenix.init.PhoenixItems
 import phoenix.items.ash.KnifeItem
 import phoenix.utils.getEnchantmentLevel
-import java.util.logging.LogManager
 
 
 class KnifeEntity : ThrowableEntity

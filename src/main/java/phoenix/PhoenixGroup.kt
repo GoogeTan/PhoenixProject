@@ -1,7 +1,10 @@
 package phoenix
 
 import net.minecraft.block.Block
-import net.minecraft.item.*
+import net.minecraft.item.BlockItem
+import net.minecraft.item.ItemGroup
+import net.minecraft.item.ItemStack
+import net.minecraft.item.ToolItem
 import net.minecraft.util.IItemProvider
 import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.RegistryObject

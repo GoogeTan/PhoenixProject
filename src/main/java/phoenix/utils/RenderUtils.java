@@ -22,6 +22,7 @@ public class RenderUtils
         blit(x, y, 0, 0, sizeX, sizeY);
         RenderSystem.scaled(1 / scale, 1 / scale, 1 / scale);//возвращаем старый скейл, чтоб тект был нормальным
     }
+
     public static void drawRectScalable
             (ResourceLocation texture,
              int x, int y,

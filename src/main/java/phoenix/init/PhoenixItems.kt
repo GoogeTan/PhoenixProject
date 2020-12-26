@@ -14,7 +14,6 @@ import phoenix.items.ash.CrucibleItem
 import phoenix.items.ash.HighQualityClayItem
 import phoenix.items.ash.KnifeItem
 import java.util.function.Supplier
-import net.minecraft.item.ItemStack
 
 object PhoenixItems
 {

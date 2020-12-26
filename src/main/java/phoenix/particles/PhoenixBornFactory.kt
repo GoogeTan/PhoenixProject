@@ -1,17 +1,11 @@
 package phoenix.particles
 
+import net.minecraft.client.particle.IAnimatedSprite
 import net.minecraft.client.particle.IParticleFactory
 import net.minecraft.client.particle.Particle
-import net.minecraft.world.World
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
-import net.minecraft.particles.ParticleType
-
-import net.minecraft.client.particle.IAnimatedSprite
-
-import net.minecraft.client.world.ClientWorld
 import net.minecraft.particles.IParticleData
-import org.omg.IOP.Codec
+import net.minecraft.particles.ParticleType
+import net.minecraft.world.World
 import javax.annotation.Nullable
 
 class PhoenixBornFactory(private val sprites: IAnimatedSprite) : IParticleFactory<PhoenixParticleData>
