@@ -31,6 +31,7 @@ class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid())
     {
         defaultState = stateContainer.baseState.with(AbstractFurnaceBlock.FACING, Direction.NORTH)
     }
+
     override fun onBlockActivated(state: BlockState, worldIn: World, pos: BlockPos, playerIn: PlayerEntity, handIn: Hand, hit: BlockRayTraceResult): ActionResultType
     {
         if (!worldIn.isRemote && !playerIn.isSneaking)
