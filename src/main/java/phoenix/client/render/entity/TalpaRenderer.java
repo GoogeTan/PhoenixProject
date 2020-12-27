@@ -14,7 +14,6 @@ public class TalpaRenderer extends MobRenderer<TalpaEntity, TalpaModel>
         super(renderManager, new TalpaModel(), 0.5F);
     }
 
-      
     @Override
     public ResourceLocation getEntityTexture(TalpaEntity entity)
     {

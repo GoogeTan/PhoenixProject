@@ -45,8 +45,6 @@ public class CaudaRenderer extends MobRenderer<CaudaEntity, Cauda2Model<CaudaEnt
         int size = entity.getCaudaSize();
         float scale = 1.0F + 0.25F * (float)size;
         matrixStackIn.scale(scale, scale, scale);
-        //matrixStackIn.translate(0.0D, 1.3125D, 0.1875D);
-        //matrixStackIn.rotate(new Quaternion(0, 90,0, true));
     }
 }
 
