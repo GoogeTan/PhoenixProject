@@ -2,7 +2,7 @@ package phoenix.utils.pipe
 
 class FluidSaveData
 {
-    var gp = ArrayList<ArrayList<Integer>>()
-    var parents = ArrayList<ArrayList<Integer>>()
+    var gp = ArrayList<ArrayList<Int>>()
+    var parents = ArrayList<ArrayList<Int>>()
 
 }
