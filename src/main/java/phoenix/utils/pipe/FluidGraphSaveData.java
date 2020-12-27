@@ -40,8 +40,6 @@ public class FluidGraphSaveData extends WorldSavedData
         updateData();
     }
 
-
-    //Эт второй конструктор, на всякий. А первый нужен для того, чтобы ничего не упало)
     public FluidGraphSaveData(String s)
     {
         super(s);

@@ -81,7 +81,6 @@ class TankTile : PhoenixTile(PhoenixTiles.TANK.get()), IFluidMechanism, ITickabl
         var color = 100000000;
         for (i in neighbors)
         {
-
             color = min(colorTmp[i].toInt(), color)
         }
         colorTmp.add(Integer(color))
