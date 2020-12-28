@@ -64,6 +64,7 @@ class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid())
     {
         builder.add(AbstractFurnaceBlock.FACING)
     }
+
     override fun getStateForPlacement(context: BlockItemUseContext) = defaultState.with(AbstractFurnaceBlock.FACING, context.placementHorizontalFacing.opposite)
     override fun getRenderType(state: BlockState) = BlockRenderType.MODEL
     override fun createTileEntity(state: BlockState, world: IBlockReader): TileEntity = OvenTile()
