@@ -26,7 +26,7 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, IInv
     var timers = IntArray(4)
     var burnTime = 0
     private val maxBurnTime = 20 * 60
-    var inventory = OvenContainer(1015)
+    var inventory = OvenContainer()
 
     init
     {
@@ -39,6 +39,7 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, IInv
     fun outOtherItems() : List<ItemStack>
     {
         val res = ArrayList<ItemStack>()
+        var has = false
         for (i in 0..3)
         {
             if(!recipes_from_inputs.contains(inventory[i].item) || inventory[i].item == PhoenixItems.COOKED_SETA)
@@ -46,8 +47,11 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, IInv
                 res.add(inventory[i].copy())
                 inventory[i] = ItemStack.EMPTY
                 timers[i] = 0
+                has = true
             }
         }
+        if(has)
+            NetworkHandler.
         return res
     }
 

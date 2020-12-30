@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack
 import phoenix.init.PhoenixContainers
 
 
-class OvenContainer(id : Int) : Container(PhoenixContainers.GUIDE.get(), id)
+class OvenContainer : Container(PhoenixContainers.GUIDE.get(), 1015)
 {
     var inventory = Inventory(4)
     val toUpd = ArrayList<Int>()

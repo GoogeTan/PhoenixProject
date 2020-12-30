@@ -32,6 +32,7 @@ object NetworkHandler
     {
         registerPacket(SyncStagePacket().javaClass)
         registerPacket(SyncBookPacket(ArrayList()))
+        registerPacket(SyncOvenPacket::class.javaClass)
     }
 
     /**
