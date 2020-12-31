@@ -147,7 +147,6 @@ object PhoenixEvents
     {
         if (!event.world.isRemote)
         {
-            LogManager.error(this, "11")
             if (tasks.isNotEmpty()) if (event.phase == TickEvent.Phase.END)
             {
                 var i = 0

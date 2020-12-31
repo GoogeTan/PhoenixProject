@@ -12,9 +12,12 @@ import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.ChunkPos
 import net.minecraft.world.server.ServerWorld
+import net.minecraftforge.fml.network.PacketDistributor
 import phoenix.containers.ash.OvenContainer
 import phoenix.init.PhoenixItems
 import phoenix.init.PhoenixTiles
+import phoenix.network.NetworkHandler
+import phoenix.network.SyncOvenPacket
 import phoenix.recipes.OvenRecipe.recipes_from_inputs
 import phoenix.utils.BlockPosUtils
 import phoenix.utils.block.PhoenixTile
@@ -51,7 +54,7 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, IInv
             }
         }
         if(has)
-            NetworkHandler.
+            NetworkHandler.sendToAll(SyncOvenPacket(this))
         return res
     }
 
@@ -75,6 +78,7 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, IInv
             {
                 inventory[i] = stack
                 timers[i] = 0
+                NetworkHandler.sendToAll(SyncOvenPacket(this))
                 return true
             }
         return false
@@ -87,6 +91,7 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, IInv
             burnTime--
             burnTime = min(maxBurnTime, burnTime)
             burnTime = max(0, burnTime)
+            var has = false
             for (i in 0..3)
             {
                 val current = inventory[i]
@@ -98,12 +103,13 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, IInv
                     if (timers[i] >= cookTime)
                     {
                         inventory[i] = recipe.result
+                        has = true
                         timers[i] = 0
                     }
                 }
             }
-            val smth = (world as ServerWorld).chunkProvider.func_217213_a(ChunkPos(pos.x / 16, pos.z / 16).asLong())
-            smth?.sendTileEntity(world, pos)
+            if(has)
+                NetworkHandler.sendToAll(SyncOvenPacket(this))
         }
     }
 

@@ -2,6 +2,7 @@ package phoenix.utils;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.text.LanguageMap;
+import net.minecraft.util.text.TextFormatting;
 
 import java.util.ArrayList;
 
@@ -55,5 +56,19 @@ public class StringUtils
     public static void drawRightAlignedString(FontRenderer font, String string, int x, int y, int colour)
     {
         font.drawStringWithShadow(string, (float)(x - font.getStringWidth(string)), (float)y, colour);
+    }
+
+    static TextFormatting[] rainbow = {TextFormatting.RED, TextFormatting.YELLOW, TextFormatting.GREEN, TextFormatting.BLUE, TextFormatting.DARK_BLUE, TextFormatting.DARK_PURPLE};
+
+    public static String rainbowColor(String string)
+    {
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < string.length(); i++)
+        {
+            if(string.charAt(i) != ' ' && string.charAt(i) != '\n')
+                s.append(rainbow[i % rainbow.length]);
+            s.append(string.charAt(i));
+        }
+        return s.toString();
     }
 }

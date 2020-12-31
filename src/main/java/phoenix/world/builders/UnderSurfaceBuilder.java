@@ -13,10 +13,10 @@ import java.util.Random;
 import java.util.function.Function;
 
 @ParametersAreNonnullByDefault
-public class UnderSurfaceBuilder extends SurfaceBuilder<AdvansedSurfaceBuilderConfig>
+public class UnderSurfaceBuilder extends SurfaceBuilder<AdvancedSurfaceBuilderConfig>
 {
 
-    public UnderSurfaceBuilder(Function<Dynamic<?>, ? extends AdvansedSurfaceBuilderConfig> function)
+    public UnderSurfaceBuilder(Function<Dynamic<?>, ? extends AdvancedSurfaceBuilderConfig> function)
     {
         super(function);
     }
@@ -24,7 +24,7 @@ public class UnderSurfaceBuilder extends SurfaceBuilder<AdvansedSurfaceBuilderCo
 
     @Override
     public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise,
-                             BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, AdvansedSurfaceBuilderConfig config)
+                             BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, AdvancedSurfaceBuilderConfig config)
     {
         this.buildSurface(random, chunkIn, x, z, startHeight, noise, defaultBlock, config.getTop(), config.getUnder(), config.getAdvanced());
     }

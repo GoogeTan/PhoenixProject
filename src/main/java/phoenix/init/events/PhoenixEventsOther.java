@@ -2,9 +2,11 @@ package phoenix.init.events;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuScreen;
+import net.minecraft.client.util.Splashes;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
@@ -19,8 +21,11 @@ import org.apache.logging.log4j.Level;
 import phoenix.Phoenix;
 import phoenix.network.NetworkHandler;
 import phoenix.network.SyncBookPacket;
+import phoenix.utils.StringUtils;
 import phoenix.utils.capablity.IChapterReader;
 import phoenix.world.GenSaveData;
+
+import java.util.ArrayList;
 
 @Mod.EventBusSubscriber
 public class PhoenixEventsOther
@@ -47,7 +52,7 @@ public class PhoenixEventsOther
                 Phoenix.getLOGGER().error("Corn was not genned ^(. template is null... I think it is bad.");
             }
         }
-        if(!event.getWorld().isRemote && event.getEntity()instanceof ServerPlayerEntity)
+        if(!event.getWorld().isRemote && event.getEntity() instanceof ServerPlayerEntity)
         {
             NetworkHandler.INSTANCE.sendTo(new SyncBookPacket(((IChapterReader)event.getEntity()).getOpenedChapters()), (ServerPlayerEntity) event.getEntity());
         }
@@ -58,11 +63,13 @@ public class PhoenixEventsOther
     {
         if(event.getGui() instanceof MainMenuScreen)
         {
-            Minecraft.getInstance().splashes.possibleSplashes.add("God is an artist, since there are so many colors in the world");
-            Minecraft.getInstance().splashes.possibleSplashes.add("The essence of life is that it changes itself");
-            Minecraft.getInstance().splashes.possibleSplashes.add("Project E.N.D.");
-            Minecraft.getInstance().splashes.possibleSplashes.add("Third child is ann angel!!");
-            Minecraft.getInstance().splashes.possibleSplashes.add("Sixth station is absent");
+            Splashes splashes = Minecraft.getInstance().splashes;
+            splashes.possibleSplashes.add(StringUtils.rainbowColor("God is an artist, since there are so many \n colors in the world"));
+            splashes.possibleSplashes.add(TextFormatting.RED + "The essence of life is that it changes itself");
+            splashes.possibleSplashes.add(TextFormatting.BLUE + "Bridge station is absent");
+            splashes.possibleSplashes.add(TextFormatting.DARK_BLUE + "Third child is ann angel!!");
+            splashes.possibleSplashes.add(TextFormatting.BLACK + "Project E.N.D.");
+            splashes.possibleSplashes.add(TextFormatting.BLACK + "Нож в печень, FX вечен!");
         }
     }
 }

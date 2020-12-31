@@ -19,14 +19,8 @@ import phoenix.tile.ash.OvenTile
 
 class OvenRenderer(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEntityRenderer<OvenTile>(rendererDispatcherIn), IContainerListener
 {
-    var isAdded = false
     override fun render(te: OvenTile, partialTicks: Float, matrixStackIn: MatrixStack, bufferIn: IRenderTypeBuffer, combinedLightIn: Int, combinedOverlayIn: Int)
     {
-        if (!isAdded)
-        {
-            te.inventory.addListener(this)
-            isAdded = true
-        }
         val direction: Direction = te.blockState[AbstractFurnaceBlock.FACING]
         matrixStackIn.translate(0.0, 1.0, 0.0)
         for (i in 0 until te.inventory.size)

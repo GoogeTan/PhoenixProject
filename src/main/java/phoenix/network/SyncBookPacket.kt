@@ -12,11 +12,15 @@ class SyncBookPacket(var list : List<Pair<Integer, Date>>): NetworkHandler.Packe
 {
     override fun encode(packet: NetworkHandler.Packet, buf: PacketBuffer)
     {
-        buf.writeInt(list.size)
-        for (i in list)
+        if(packet is SyncBookPacket)
         {
-            buf.writeInt(i.first.toInt())
-            buf.writeDate(i.second)
+            list = packet.list
+            buf.writeInt(list.size)
+            for (i in list)
+            {
+                buf.writeInt(i.first.toInt())
+                buf.writeDate(i.second)
+            }
         }
     }
 

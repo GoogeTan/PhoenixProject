@@ -11,7 +11,7 @@ import phoenix.init.PhoenixContainers
 class OvenContainer : Container(PhoenixContainers.GUIDE.get(), 1015)
 {
     var inventory = Inventory(4)
-    val toUpd = ArrayList<Int>()
+
     override fun canInteractWith(playerIn: PlayerEntity) = true
     init
     {
@@ -21,16 +21,7 @@ class OvenContainer : Container(PhoenixContainers.GUIDE.get(), 1015)
         addSlot(Slot(inventory, 3, 100, 100))
     }
 
-    override fun detectAndSendChanges()
-    {
-        super.detectAndSendChanges()
-    }
-
     var size = inventorySlots.size
     operator fun get(int : Int): ItemStack = getSlot(int).stack
-    operator fun set(int : Int, stack : ItemStack)
-    {
-        getSlot(int).putStack(stack)
-        toUpd.add(int)
-    }
+    operator fun set(int : Int, stack : ItemStack) = getSlot(int).putStack(stack)
 }

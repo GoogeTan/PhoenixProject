@@ -3,6 +3,7 @@ package phoenix.utils
 import org.apache.logging.log4j.Level
 import phoenix.Phoenix
 import phoenix.init.PhoenixConfiguration
+import java.util.*
 
 object LogManager
 {
@@ -30,5 +31,14 @@ object LogManager
     {
         if(message != null)
             Phoenix.LOGGER.error("Exception in class ${obj.javaClass.name}: " + message.toString())
+    }
+
+    @JvmStatic
+    fun errorObjects(obj : Any, vararg objects : Any)
+    {
+        var message = ""
+        for (i in objects)
+            message += " $i"
+        error(obj, message)
     }
 }

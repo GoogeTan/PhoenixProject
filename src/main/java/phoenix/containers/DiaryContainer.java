@@ -18,7 +18,7 @@ import java.util.ArrayList;
 @MethodsReturnNonnullByDefault
 public class DiaryContainer extends Container implements INamedContainerProvider
 {
-    ITextComponent name = new StringTextComponent("Steve");
+    ITextComponent name = new StringTextComponent("Zahara");
     ArrayList<ADiaryElement> allOpened;
     int page = 0;
     public DiaryContainer(int id)

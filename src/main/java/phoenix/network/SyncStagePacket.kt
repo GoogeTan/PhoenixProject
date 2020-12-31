@@ -10,8 +10,13 @@ class SyncStagePacket(var stage : Int, var part : Int) : NetworkHandler.Packet()
     constructor() : this(0, 0)
     override fun encode(packet: NetworkHandler.Packet, buf: PacketBuffer)
     {
-        buf.writeInt(stage)
-        buf.writeInt(part)
+        if (packet is SyncStagePacket)
+        {
+            stage = packet.stage
+            part = packet.part
+            buf.writeInt(stage)
+            buf.writeInt(part)
+        }
     }
 
     override fun decode(buf: PacketBuffer) = SyncStagePacket(buf.readInt(), buf.readInt())

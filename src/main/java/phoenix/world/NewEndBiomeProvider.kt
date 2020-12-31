@@ -116,7 +116,7 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings, worldIn: Serve
     private fun <T : IArea?, C : IExtendedNoiseRandom<T>> getBiomeLayer(parentLayer: IAreaFactory<T>, contextFactory: LongFunction<C>): IAreaFactory<T>
     {
         var parentLayer = parentLayer
-        parentLayer = EndBiomeLayer().apply(contextFactory.apply(200L), parentLayer)
+        parentLayer = EndBiomeLayer.apply(contextFactory.apply(200L), parentLayer)
         return parentLayer
     }
 
