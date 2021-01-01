@@ -3,7 +3,6 @@ package phoenix.utils
 import org.apache.logging.log4j.Level
 import phoenix.Phoenix
 import phoenix.init.PhoenixConfiguration
-import java.util.*
 
 object LogManager
 {

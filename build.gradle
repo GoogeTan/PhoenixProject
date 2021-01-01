@@ -99,7 +99,7 @@ repositories
 
 dependencies
 {
-    minecraft 'net.minecraftforge:forge:1.15.2-31.2.47'
+    minecraft 'net.minecraftforge:forge:1.15.2-31.2.47:userdev'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compileOnly "org.spongepowered:mixin:${mixin_version}-SNAPSHOT"
     runtimeOnly "org.spongepowered:mixin:${mixin_version}-SNAPSHOT"

@@ -26,7 +26,7 @@ class EndDimension(worldIn: World, typeIn: DimensionType) : EndDimension(worldIn
         settings.defaultBlock = Blocks.END_STONE.defaultState
         settings.defaultFluid = Blocks.AIR.defaultState
         settings.spawnPos = this.spawnCoordinate
-        biomeProvider = NewEndBiomeProvider(EndBiomeProviderSettings(world.worldInfo), (world as ServerWorld))
+        biomeProvider = NewEndBiomeProvider(EndBiomeProviderSettings(world.worldInfo))
         return EndChunkGenerator(world, biomeProvider, settings)
     }
 

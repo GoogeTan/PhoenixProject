@@ -66,16 +66,9 @@ public class OvenRecipe extends AbstractCookingRecipe
     public List<List<ItemStack>> getOutputs() {
         return ImmutableList.of(ImmutableList.of(getResult()));
     }
-
-
-    public String string()
+    
+    public String toString()
     {
-        return "OvenRecipe{" +
-                "ingredient=" + ingredient +
-                ", result=" + result +
-                ", cookTime=" + cookTime +
-                '}';
+        return "OvenRecipe{" + "ingredient=" + ingredient + ", result=" + result + ", cookTime=" + cookTime + '}';
     }
-
-
 }

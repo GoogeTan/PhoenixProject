@@ -25,8 +25,6 @@ import phoenix.utils.StringUtils;
 import phoenix.utils.capablity.IChapterReader;
 import phoenix.world.GenSaveData;
 
-import java.util.ArrayList;
-
 @Mod.EventBusSubscriber
 public class PhoenixEventsOther
 {

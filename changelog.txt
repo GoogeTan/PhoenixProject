@@ -5,7 +5,7 @@ Added:
   Pottery barrel
   Zirconium ore
   Armored glass block
-  Crusible items
+  Cruсible items
   Zirconium ingot
   Steel ingot
   Knife tool type

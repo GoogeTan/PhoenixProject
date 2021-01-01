@@ -14,8 +14,8 @@ import phoenix.recipes.OvenRecipe
 
 class OvenCategory(private val helper: IGuiHelper) : IRecipeCategory<OvenRecipe>
 {
-    private val background: IDrawable = helper.createDrawable(ResourceLocation(Phoenix.MOD_ID, "textures/gui/oven.png"), 0, 0, 100, 34)
-    override fun getUid        (): ResourceLocation      = ResourceLocation("phoenix", "oven")
+    private val background: IDrawable = helper.createDrawable(ResourceLocation(Phoenix.MOD_ID, "textures/gui/oven.png"), 0, 0, 64, 32)
+    override fun getUid        (): ResourceLocation      = ResourceLocation(Phoenix.MOD_ID, "oven")
     override fun getRecipeClass(): Class<out OvenRecipe> = OvenRecipe::class.java
     override fun getTitle      (): String                = "Oven"
     override fun getBackground (): IDrawable             = background
@@ -31,8 +31,8 @@ class OvenCategory(private val helper: IGuiHelper) : IRecipeCategory<OvenRecipe>
     override fun setRecipe(recipeLayout: IRecipeLayout, recipe: OvenRecipe, ingredients: IIngredients)
     {
         val guiItemStacks = recipeLayout.itemStacks
-        guiItemStacks.init(0, true, 8, 8)
-        guiItemStacks.init(1, false, 42, 8)
+        guiItemStacks.init(0, true, 6, 8)
+        guiItemStacks.init(1, false, 40, 8)
         guiItemStacks.set(ingredients)
     }
 }

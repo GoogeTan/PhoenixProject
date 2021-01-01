@@ -1,12 +1,12 @@
 package phoenix.utils.pipe;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.WorldSavedData;
+import phoenix.utils.SizedArrayList;
 import phoenix.utils.graph.GraphNode;
 
 import java.util.ArrayList;
@@ -137,26 +137,26 @@ public class FluidGraphSaveData extends WorldSavedData
     @Override
     public String toString()
     {
-        String res = "Fluid graph: \n";
+        StringBuilder res = new StringBuilder("Fluid graph: \n");
         for (int i = 0; i < graph.size(); ++i)
         {
-            res += i;
-            res += ": ";
+            res.append(i);
+            res.append(": ");
             for (int j : graph.get(i))
             {
-                res += j;
-                res += " ";
+                res.append(j);
+                res.append(" ");
             }
-            res += "\n";
+            res.append("\n");
         }
-        return res;
+        return res.toString();
     }
 
     public void updateData()
     {
         data.putInt("graph_size", graph.size());
         for (int i = 0; i < graph.size(); i++)
-            this.data.putIntArray("graph_part_" + i, ImmutableList.copyOf(graph.get(i)));
+            this.data.putIntArray("graph_part_" + i, SizedArrayList.copyOf(graph.get(i)));
     }
     //Этим мы получаем экземпляр данных для мира
       

@@ -15,7 +15,7 @@
     "age=2,facing=south":   { "model": "phoenix:block/seta_3", "x": 180, "z": 180 },
     "age=3,facing=south":   { "model": "phoenix:block/seta_4", "x": 180, "z": 180 },
 
-    "age=0,facing=west":   { "model": "phoenix:block/seta_1", "x": 180, "z": 270  },
+    "age=0,facing=west":   { "model": "phoenix:block/seta_1", "x": 180, "z": 270 },
     "age=1,facing=west":   { "model": "phoenix:block/seta_2", "x": 180, "z": 270 },
     "age=2,facing=west":   { "model": "phoenix:block/seta_3", "x": 180, "z": 270 },
     "age=3,facing=west":   { "model": "phoenix:block/seta_4", "x": 180, "z": 270 }

@@ -8,10 +8,8 @@ import net.minecraft.world.gen.layer.traits.IAreaTransformer2
 import phoenix.init.PhoenixBiomes
 
 
-enum class UnificationLayer : IAreaTransformer2
+object UnificationLayer : IAreaTransformer2
 {
-    INSTANCE;
-
     override fun apply(random: INoiseRandom, area1: IArea, area2: IArea, x: Int, z: Int): Int
     {
         val phoenix = area1.getValue(x, z)
@@ -25,22 +23,13 @@ enum class UnificationLayer : IAreaTransformer2
         }
     }
 
-    override fun getOffsetX(x: Int): Int
-    {
-        return x
-    }
+    override fun getOffsetX(x: Int) = x
+    override fun getOffsetZ(z: Int) = z
 
-    override fun getOffsetZ(z: Int): Int
-    {
-        return z
-    }
+    private val END_BARRENS: Int = Registry.BIOME.getId(Biomes.END_BARRENS)
+    private val THE_END: Int = Registry.BIOME.getId(Biomes.THE_END)
+    private val SMALL_END_ISLANDS: Int = Registry.BIOME.getId(Biomes.SMALL_END_ISLANDS)
+    private val UNDER: Int = Registry.BIOME.getId(PhoenixBiomes.UNDER.get())
+    private val HEART_VOID: Int = Registry.BIOME.getId(PhoenixBiomes.HEARTVOID.get())
 
-    companion object
-    {
-        private val END_BARRENS: Int = Registry.BIOME.getId(Biomes.END_BARRENS)
-        private val THE_END: Int = Registry.BIOME.getId(Biomes.THE_END)
-        private val SMALL_END_ISLANDS: Int = Registry.BIOME.getId(Biomes.SMALL_END_ISLANDS)
-        private val UNDER: Int = Registry.BIOME.getId(PhoenixBiomes.UNDER.get())
-        private val HEART_VOID: Int = Registry.BIOME.getId(PhoenixBiomes.HEARTVOID.get())
-    }
 }

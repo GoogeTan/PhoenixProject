@@ -10,9 +10,7 @@ import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.ChunkPos
-import net.minecraft.world.server.ServerWorld
-import net.minecraftforge.fml.network.PacketDistributor
+import phoenix.blocks.ash.OvenBlock
 import phoenix.containers.ash.OvenContainer
 import phoenix.init.PhoenixItems
 import phoenix.init.PhoenixTiles
@@ -110,6 +108,8 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, IInv
             }
             if(has)
                 NetworkHandler.sendToAll(SyncOvenPacket(this))
+            if(burnTime == 0)
+                world?.setBlockState(pos, world!!.getBlockState(pos).with(OvenBlock.WORKING, false))
         }
     }
 

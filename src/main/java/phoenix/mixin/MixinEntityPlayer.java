@@ -20,7 +20,7 @@ public class MixinEntityPlayer implements IChapterReader
     @Inject(method = "writeAdditional", at = @At("TAIL"))
     public void onWriteEntityToNBT(CompoundNBT nbt, CallbackInfo ci)
     {
-        LogManager.error(this, "++++++");
+        LogManager.error(this, "Player starts saving");
         nbt.putInt("count", chapters.size());
         for (int i = 0; i < chapters.size(); i++)
         {
@@ -30,12 +30,13 @@ public class MixinEntityPlayer implements IChapterReader
             nbt.putInt("chyear" + i, chapters.get(i).getSecond().getYear());
         }
         addChapter(0, new Date(1, 3 ,4));
+        LogManager.error(this, "Player ends saving");
     }
 
     @Inject(method = "readAdditional", at = @At("TAIL"))
     public void onReadEntityFromNBT(CompoundNBT nbt, CallbackInfo ci)
     {
-        LogManager.error(this, "++++++");
+        LogManager.error(this, "Player starts loading");
         int count = nbt.getInt("count");
         for (int i = 0; i < count; ++i)
         {
@@ -46,6 +47,7 @@ public class MixinEntityPlayer implements IChapterReader
             addChapter(id, new Date(min, day, year));
         }
         addChapter(0, new Date(1, 3 ,4));
+        LogManager.error(this, "Player ends loading");
     }
 
     public ArrayList<Pair<Integer, Date>> chapters = new ArrayList<>();

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ZZZ",
+    "ZXZ",
+    "Z Z"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:furnace"
+    },
+    "Z": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "result": {
+    "item": "phoenix:oven"
+  }
+}

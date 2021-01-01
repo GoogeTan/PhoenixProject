@@ -13,13 +13,11 @@ import static net.minecraft.client.renderer.RenderState.*;
 public class PhoenixRenderTypes
 {
     public static RenderType TANK;
-    public static RenderType OVEN;
     public static RenderType PIPE;
 
     public static void init()
     {
         TANK = initTexture(ResourseUtils.block("tank"), "tank");
-        OVEN = initTexture(ResourseUtils.block("oven"), "oven");
         PIPE = initTexture(ResourseUtils.block("pipe_"),  "pipe_");
     }
 

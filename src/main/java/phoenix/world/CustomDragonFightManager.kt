@@ -8,7 +8,7 @@ import net.minecraft.world.end.DragonSpawnState
 import net.minecraft.world.server.ServerWorld
 import net.minecraft.world.server.TicketType
 
-class CustomDragonFightManager(var world: ServerWorld, compound: CompoundNBT, dim: EndDimension) : DragonFightManager(world, compound, dim)
+class CustomDragonFightManager(world: ServerWorld, compound: CompoundNBT, dim: EndDimension) : DragonFightManager(world, compound, dim)
 {
     override fun tick()
     {

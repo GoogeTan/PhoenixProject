@@ -18,20 +18,19 @@ import net.minecraft.world.gen.feature.structure.Structure
 import net.minecraft.world.gen.layer.Layer
 import net.minecraft.world.gen.layer.ZoomLayer
 import net.minecraft.world.server.ServerWorld
-import phoenix.Phoenix
 import phoenix.init.PhoenixBiomes
 import phoenix.init.PhoenixConfiguration
 import phoenix.init.PhoenixFeatures
+import phoenix.utils.LogManager
 import phoenix.world.genlayers.*
 import java.util.function.LongFunction
 
 
-class NewEndBiomeProvider(var settings: EndBiomeProviderSettings, worldIn: ServerWorld) : BiomeProvider(biomes)
+class NewEndBiomeProvider(var settings: EndBiomeProviderSettings) : BiomeProvider(biomes)
 {
     private lateinit var genLayer: Layer
     private val generator: SimplexNoiseGenerator
     private val random: SharedSeedRandom = SharedSeedRandom(settings.seed)
-    private val world: ServerWorld = worldIn
 
     init
     {
@@ -42,13 +41,10 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings, worldIn: Serve
 
     fun initBiomeLayer()
     {
-        this.genLayer = createLayer(settings.seed, world)
+        this.genLayer = createLayer(settings.seed)
     }
 
-    override fun getNoiseBiome(x: Int, y: Int, z: Int): Biome
-    {
-        return genLayer.func_215738_a(x, z)
-    }
+    override fun getNoiseBiome(x: Int, y: Int, z: Int): Biome = genLayer.func_215738_a(x, z)
 
     override fun func_222365_c(x: Int, z: Int): Float
     {
@@ -78,42 +74,36 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings, worldIn: Serve
         return result
     }
 
-    override fun getBiomesToSpawnIn() = ImmutableList.copyOf(Companion.biomes)
+    override fun getBiomesToSpawnIn() : List<Biome> = ImmutableList.copyOf(Companion.biomes)
 
-    private fun createLayer(seed: Long, world: ServerWorld?): Layer
+    private fun createLayer(seed: Long): Layer
     {
-        val factory = getLayersApply(world) { seedModifierIn: Long -> LazyAreaLayerContext(25, seed, seedModifierIn) }
+        val factory = getLayersApply { seedModifierIn: Long -> LazyAreaLayerContext(25, seed, seedModifierIn) }
         return Layer(factory)
     }
 
-    private fun <T : IArea?, C : IExtendedNoiseRandom<T>> getLayersApply(worldIn: ServerWorld?, context: LongFunction<C>): IAreaFactory<T>
+    private fun <T : IArea, C : IExtendedNoiseRandom<T>> getLayersApply(context: LongFunction<C>): IAreaFactory<T>
     {
         var phoenixBiomes = ParentLayer(this).apply(context.apply(1L))
         var vanilaBiomes = ParentLayer(this).apply(context.apply(1L))
         vanilaBiomes = getBiomeLayer(vanilaBiomes, context)
-        var stage = 2
-        try
-        {
-            stage = StageManager.getStage()
-        } catch (ignored: Exception)
-        {
-            ignored.printStackTrace()
-        }
-        Phoenix.LOGGER.error(this.javaClass.toString() + " " +  stage)
+        val stage = StageManager.getStage()
+
+        LogManager.log(this, stage.toString())
+
         if (stage >= 1)
         {
-            phoenixBiomes = UnderLayer.INSTANCE.apply(context.apply(200L), phoenixBiomes)
-            phoenixBiomes = HeartVoidLayer.INSTANCE.apply(context.apply(200L), phoenixBiomes)
+            phoenixBiomes = UnderLayer.apply(context.apply(200L), phoenixBiomes)
+            phoenixBiomes = HeartVoidLayer.apply(context.apply(200L), phoenixBiomes)
         }
 
         for (i in 0..PhoenixConfiguration.COMMON_CONFIG.BIOME_SIZE.get())
-        {
             phoenixBiomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenixBiomes)
-        }
-        return UnificationLayer.INSTANCE.apply(context.apply(200L), phoenixBiomes, vanilaBiomes)
+
+        return UnificationLayer.apply(context.apply(200L), phoenixBiomes, vanilaBiomes)
     }
 
-    private fun <T : IArea?, C : IExtendedNoiseRandom<T>> getBiomeLayer(parentLayer: IAreaFactory<T>, contextFactory: LongFunction<C>): IAreaFactory<T>
+    private fun <T : IArea, C : IExtendedNoiseRandom<T>> getBiomeLayer(parentLayer: IAreaFactory<T>, contextFactory: LongFunction<C>): IAreaFactory<T>
     {
         var parentLayer = parentLayer
         parentLayer = EndBiomeLayer.apply(contextFactory.apply(200L), parentLayer)

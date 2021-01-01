@@ -2,10 +2,9 @@ package phoenix.network
 
 import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
-import net.minecraft.item.ItemStack
 import net.minecraft.network.PacketBuffer
-import net.minecraft.util.NonNullList
 import net.minecraft.util.math.BlockPos
+import phoenix.blocks.ash.OvenBlock
 import phoenix.containers.ash.OvenContainer
 import phoenix.tile.ash.OvenTile
 import phoenix.utils.LogManager
@@ -57,6 +56,7 @@ class SyncOvenPacket(var timers: IntArray, var burnTime : Int, var container: Ov
             tile.burnTime = burnTime
             tile.inventory = container
             tile.timers = timers
+            world.setBlockState(pos, world.getBlockState(pos).with(OvenBlock.WORKING, tile.burnTime > 0))
         }
     }
 

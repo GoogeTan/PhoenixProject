@@ -25,8 +25,10 @@ import phoenix.init.PhoenixEntities.KNIFE
 import phoenix.init.PhoenixEntities.TALPA
 import phoenix.init.PhoenixRenderTypes
 import phoenix.init.PhoenixTiles
+import phoenix.integration.minecraft.PhoenixRecipeBookCategories
 import phoenix.network.NetworkHandler
 import phoenix.utils.block.IColoredBlock
+import java.util.logging.LogManager
 
 @OnlyIn(Dist.CLIENT)
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
@@ -62,6 +64,6 @@ object PhoenixClientEvents
                 if (colorBlock.itemColor != null) Minecraft.getInstance().itemColors.register(colorBlock.itemColor, block.get())
             }
         }
-
+        phoenix.utils.LogManager.log(this, PhoenixRecipeBookCategories.OVEN.name)
     }
 }

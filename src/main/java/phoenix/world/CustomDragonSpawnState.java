@@ -12,6 +12,7 @@ import phoenix.world.structures.CustomEndSpike;
 import phoenix.world.structures.CustomEndSpikeConfig;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public enum  CustomDragonSpawnState
@@ -21,13 +22,14 @@ public enum  CustomDragonSpawnState
         public void process(ServerWorld world, CustomDragonFightManager manager, List<EnderCrystalEntity> list, int ticks, BlockPos pos)
         {
             BlockPos center = new BlockPos(0, 128, 0);
-
-            Phoenix.getLOGGER().error((list == null) + " is null");
+            if(list != null)
+                list.stream().filter(Objects::nonNull).forEach(enderCrystalEntity -> enderCrystalEntity.setBeamTarget(center));
+            /*
             if(list != null)
                 for (EnderCrystalEntity entity : list)
                     if(entity != null)
                         entity.setBeamTarget(center);
-
+             */
             manager.setRespawnState(DragonSpawnState.PREPARING_TO_SUMMON_PILLARS);
         }
     },
@@ -62,18 +64,13 @@ public enum  CustomDragonSpawnState
                             CustomEndSpike.EndSpike spike = spikes.get(currentSpike);
                             if (isEnd)
                             {
-                                for (EnderCrystalEntity crystalEntity : list)
-                                {
-                                    crystalEntity.setBeamTarget(new BlockPos(spike.getCenterX(), spike.getHeight() + 1, spike.getCenterZ()));
-                                }
+                                list.forEach(enderCrystalEntity -> enderCrystalEntity.setBeamTarget(new BlockPos(spike.getCenterX(), spike.getHeight() + 1, spike.getCenterZ())));
                             } else
                             {
-                                for (BlockPos pos1 : BlockPos.getAllInBoxMutable(
+                                BlockPos.getAllInBoxMutable(
                                         new BlockPos(spike.getCenterX() - 10, spike.getHeight() - 10, spike.getCenterZ() - 10),
-                                        new BlockPos(spike.getCenterX() + 10, spike.getHeight() + 10, spike.getCenterZ() + 10)))
-                                {
-                                    world.removeBlock(pos1, false);
-                                }
+                                        new BlockPos(spike.getCenterX() + 10, spike.getHeight() + 10, spike.getCenterZ() + 10))
+                                                .forEach(blockPos -> world.removeBlock(blockPos, false));
 
                                 world.createExplosion(null, (float) spike.getCenterX() + 0.5F, spike.getHeight(), (float) spike.getCenterZ() + 0.5F, 5.0F, Explosion.Mode.DESTROY);
                                 CustomEndSpikeConfig config = new CustomEndSpikeConfig(true, ImmutableList.of(spike), new BlockPos(0, 128, 0));

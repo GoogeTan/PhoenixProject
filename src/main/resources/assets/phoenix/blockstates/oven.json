@@ -1,5 +1,15 @@
 {
   "variants": {
-    "": {  "model": "phoenix:block/oven" }
+    "working=false,facing=north": {  "model": "phoenix:block/oven", "z": 0 },
+    "working=true,facing=north" : {  "model": "phoenix:block/oven_work", "z": 0 },
+
+    "working=false,facing=east": {  "model": "phoenix:block/oven", "z": 90 },
+    "working=true,facing=east" : {  "model": "phoenix:block/oven_work", "z": 90 },
+
+    "working=false,facing=south": {  "model": "phoenix:block/oven", "z": 180 },
+    "working=true,facing=south" : {  "model": "phoenix:block/oven_work", "z": 180 },
+
+    "working=false,facing=west": {  "model": "phoenix:block/oven", "z": 270 },
+    "working=true,facing=west" : {  "model": "phoenix:block/oven_work", "z": 270 }
   }
 }
