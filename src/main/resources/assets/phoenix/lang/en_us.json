@@ -35,7 +35,7 @@
   "item.phoenix.steel_form_knife_blade_roasted": "Processed knife blade blank",
   "item.phoenix.steel_form_sword_blade_roasted": "Processed sword blade blank",
   "item.phoenix.steel_form_pickaxe_head_roasted": "Processed pickaxe head blank",
-  "item.phoenix.steel_form_axe_blade_roasted": "Processed axr blade blank",
+  "item.phoenix.steel_form_axe_blade_roasted": "Processed axe blade blank",
   "item.phoenix.ceramic_zirconium_axe": "Zirconium-based ceramic axe",
   "item.phoenix.ceramic_zirconium_pickaxe": "Zirconium-based ceramic pickaxe",
   "item.phoenix.ceramic_zirconium_sword": "Zirconium-based ceramic sword",
@@ -69,8 +69,33 @@
   "advancements.phoenix.ash.corn.tile": "Freude",
   "advancements.phoenix.ash.corn.description": "-How did you get brought to the past ignis monastery? “I took him for a End city.” Easy to confuse.",
 
-  "advancements.phoenix.zirconium_ingot": "Zirconium ingot",
-  "advancements.phoenix.zirconium_ingot.description": "Make zirconium ingot",
+
+  "advancements.phoenix.crucible": "Крепкая чаша",
+  "advancements.phoenix.crucible.description": "Сделайте тигель",
+
+  "advancements.phoenix.zirconium_ingot": "Цирконевый слиток",
+  "advancements.phoenix.zirconium_ingot.description": "Выплавите слиток циркония",
+
+  "advancements.phoenix.steel_tools": "Для галочки",
+  "advancements.phoenix.steel_tools.description": "Сделайте все инструмены из стали",
+
+  "advancements.phoenix.oven": "И очередная ненужная печка",
+  "advancements.phoenix.oven.description": "Создайте печку",
+
+  "advancements.phoenix.steel_ingot": "Темный слиток",
+  "advancements.phoenix.steel_ingot.description": "Создайте сталь",
+
+  "advancements.phoenix.clay": "Пытки в чистом виде!",
+  "advancements.phoenix.clay.description": "Создайте высококачественную глину",
+
+  "advancements.phoenix.form": "Формочка :)",
+  "advancements.phoenix.form.description": "Создайте стальную форму",
+
+  "advancements.phoenix.fulling": "Трамбуем",
+  "advancements.phoenix.fulling.description": "Заполните стальную форму",
+
+  "advancements.phoenix.roasted": "Переворачиваем",
+  "advancements.phoenix.roasted.description": "Испеките стальную форму",
 
   "phoenix.message.newstage": "Welcome to the new stage!",
   "phoenix.message.speare":"Uses combat system from 1.8",

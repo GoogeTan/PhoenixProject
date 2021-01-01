@@ -25,16 +25,19 @@ import net.minecraft.util.text.StringTextComponent
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.ILightReader
 import net.minecraft.world.World
+import net.minecraft.world.storage.loot.LootContext
 import phoenix.init.PhoenixItems
 import phoenix.tile.ash.PotteryBarrelTile
+import phoenix.utils.SizedArrayList
 import phoenix.utils.block.BlockWithTile
 import phoenix.utils.block.IColoredBlock
 import javax.annotation.Nonnull
 import javax.annotation.ParametersAreNonnullByDefault
+import kotlin.math.min
 import kotlin.math.sqrt
 
 
-class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO)), IColoredBlock
+class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO).hardnessAndResistance(4.0f)), IColoredBlock
 {
     @Nonnull
     @ParametersAreNonnullByDefault
@@ -51,7 +54,6 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO)), IC
         if (pos.y < entityIn.posY && state.get(Companion.state) == 2 && worldIn.getTileEntity(pos) != null)
         {
             (worldIn.getTileEntity(pos) as PotteryBarrelTile?)!!.incrementJumpsCount()
-            if (!worldIn.isRemote) entityIn.sendMessage(StringTextComponent((worldIn.getTileEntity(pos) as PotteryBarrelTile?)!!.jumpsCount.toString() + " "))
         }
         super.onFallenUpon(worldIn, pos, entityIn, fallDistance)
     }
@@ -86,11 +88,10 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO)), IC
                 {
                     if (!worldIn.isRemote)
                     {
-                        if (stateInt >= 2 && countOfJumps > 40)
+                        if (stateInt >= 2 && countOfJumps > 20)
                         {
-                            player.setHeldItem(handIn, ItemStack(PhoenixItems.HIGH_QUALITY_CLAY_ITEM.get()))
+                            player.setHeldItem(handIn, ItemStack(PhoenixItems.HIGH_QUALITY_CLAY_ITEM.get(), min(countOfJumps / 20, 3)))
                             setState(worldIn, pos, state, 0)
-                            //worldIn.playSound(null, pos, SoundEvents.CL, SoundCategory.BLOCKS, 1.0f, 1.0f)
                             (worldIn.getTileEntity(pos) as PotteryBarrelTile?)?.nullifyJumpsCount()
                         }
                     }
@@ -149,13 +150,14 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO)), IC
         } catch (ignored: Exception)
         {
         }
-        return (sqrt(countOfJumps.toDouble()) / sqrt(1000.0) * 15).toInt()
+        return (sqrt(countOfJumps.toDouble()) / sqrt(20.0) * 15).toInt()
     }
 
     override fun createTileEntity(state: BlockState, world: IBlockReader) = PotteryBarrelTile()
 
     override fun getBlockColor() = IBlockColor { _: BlockState, _: ILightReader?, _: BlockPos?, _: Int -> Material.WATER.color.colorValue }
     override fun getItemColor() = IItemColor { _: ItemStack, _: Int -> Material.WATER.color.colorValue }
+    override fun getDrops(state: BlockState, builder: LootContext.Builder) = SizedArrayList.of(ItemStack(this))
 
     companion object
     {

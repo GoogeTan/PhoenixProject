@@ -22,7 +22,6 @@ class SyncOvenPacket(var timers: IntArray, var burnTime : Int, var container: Ov
             container = packet.container
             burnTime = packet.burnTime
             timers = packet.timers
-            LogManager.errorObjects(this, packet.pos)
             buf.writeItemStack(packet.container[0])
             buf.writeItemStack(packet.container[1])
             buf.writeItemStack(packet.container[2])

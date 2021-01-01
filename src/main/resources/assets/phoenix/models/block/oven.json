@@ -1,14 +1,12 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "block/cube_all",
 	"textures": {
 		"1": "block/cauldron_inner",
 		"2": "block/furnace_top",
 		"8": "block/observer_side",
 		"9": "block/furnace_side",
 		"10": "block/stone",
-		"particle": "block/cauldron_inner",
-		"all": "phoenix:blocks/none"
+		"particle": "block/cauldron_inner"
 	},
 	"elements": [
 		{
@@ -575,7 +573,7 @@
 			"to": [14, 2, 15],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 10]},
 			"faces": {
-				"north": {"uv": [0, 0, 12, 2], "texture": "#10	"},
+				"north": {"uv": [0, 0, 12, 2], "texture": "#10"},
 				"east": {"uv": [0, 0, 10, 2], "texture": "#10"},
 				"south": {"uv": [0, 0, 12, 2], "texture": "#10"},
 				"west": {"uv": [0, 0, 10, 2], "texture": "#10"},

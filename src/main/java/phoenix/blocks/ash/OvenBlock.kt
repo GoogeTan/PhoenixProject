@@ -39,6 +39,7 @@ class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hard
         val WORKING : BooleanProperty = BooleanProperty.create("working")
         val SHAPE   : VoxelShape      = Block.makeCuboidShape(0.0, 0.0, 0.0, 16.0, 32.0, 16.0)
     }
+
     init
     {
         defaultState = stateContainer.baseState.with(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH).with(WORKING, false)
@@ -81,9 +82,6 @@ class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hard
     override fun getStateForPlacement(context: BlockItemUseContext) = defaultState.with(BlockStateProperties.HORIZONTAL_FACING, context.placementHorizontalFacing.opposite)
     override fun getRenderType(state: BlockState) = BlockRenderType.MODEL
     override fun createTileEntity(state: BlockState, world: IBlockReader): TileEntity = OvenTile()
-    override fun rotate(state: BlockState, rot: Rotation)    = state.with(BlockStateProperties.HORIZONTAL_FACING, rot.rotate(state[BlockStateProperties.HORIZONTAL_FACING]))
-    override fun mirror(state: BlockState, mirrorIn: Mirror) = state.rotate(mirrorIn.toRotation(state[BlockStateProperties.HORIZONTAL_FACING]))
-
 
     @OnlyIn(Dist.CLIENT)
     override fun animateTick(stateIn: BlockState, worldIn: World, pos: BlockPos, rand: Random)
@@ -108,7 +106,7 @@ class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hard
             worldIn.addParticle(ParticleTypes.SMOKE, d0 + d5, d1 + d6, d2 + d7, 0.0, 0.0, 0.0)
 
             for (i in 0..2)
-                worldIn.addParticle(ParticleTypes.FLAME, pos.x + rand.nextDouble() / 0.6 + 0.1, pos.y + rand.nextDouble() / 0.6 + 0.1, pos.z + rand.nextDouble() / 0.8 + 0.1, 0.0, 0.005, 0.0)
+                worldIn.addParticle(ParticleTypes.FLAME, pos.x + rand.nextDouble() * 0.6 + 0.1, pos.y + rand.nextDouble() * 0.6 + 0.1, pos.z + rand.nextDouble() / 0.8 + 0.1, 0.0, 0.005, 0.0)
         }
     }
 

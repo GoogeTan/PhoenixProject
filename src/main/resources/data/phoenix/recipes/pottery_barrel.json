@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "Z Z",
+    "Z Z",
+    "ZZZ"
+  ],
+  "key": {
+    "Z": {
+      "item": "minecraft:oak_planks"
+    }
+  },
+  "result": {
+    "item": "phoenix:pottery_barrel"
+  }
+}

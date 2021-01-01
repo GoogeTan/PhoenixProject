@@ -4,9 +4,12 @@ import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.material.Material
 import net.minecraft.item.ItemGroup
+import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.world.IBlockReader
+import net.minecraft.world.storage.loot.LootContext
 import phoenix.Phoenix
+import phoenix.utils.SizedArrayList
 import java.util.function.Supplier
 
 
@@ -47,6 +50,8 @@ class AnonimBlock(properties: Properties) : Block(properties), ICustomGroup
             null
         }
     }
+
+    override fun getDrops(state: BlockState, builder: LootContext.Builder) = SizedArrayList.of(ItemStack(this))
 
     override fun getTab() = group
 

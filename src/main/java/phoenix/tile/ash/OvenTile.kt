@@ -84,7 +84,7 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, IInv
 
     override fun tick()
     {
-        if(!world!!.isRemote)
+        if(!world!!.isRemote && world != null)
         {
             burnTime--
             burnTime = min(maxBurnTime, burnTime)
@@ -107,9 +107,9 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, IInv
                 }
             }
             if(has)
-                NetworkHandler.sendToAll(SyncOvenPacket(this))
+                NetworkHandler.sendToDim(SyncOvenPacket(this), world!!.dimension.type)
             if(burnTime == 0)
-                world?.setBlockState(pos, world!!.getBlockState(pos).with(OvenBlock.WORKING, false))
+                world!!.setBlockState(pos, world!!.getBlockState(pos).with(OvenBlock.WORKING, false))
         }
     }
 

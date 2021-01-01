@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "block/cube_all",
 	"textures": {
 		"1": "block/cauldron_inner",
 		"2": "block/furnace_top",
@@ -11,8 +10,7 @@
 		"9": "block/furnace_side",
 		"10": "block/stone",
 		"11": "phoenix:blocks/oak_log_top",
-		"particle": "block/cauldron_inner",
-		"all": "phoenix:blocks/none"
+		"particle": "block/cauldron_inner"
 	},
 	"elements": [
 		{
