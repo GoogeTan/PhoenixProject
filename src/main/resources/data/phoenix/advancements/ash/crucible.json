@@ -1,5 +1,5 @@
 {
-  "parent": "phoenix:ash/root",
+  "parent": "phoenix:ash/clay",
   "display": {
     "icon": {
       "item": "phoenix:crucible"

@@ -1,5 +1,5 @@
 {
-  "parent": "phoenix:ash/zirconium_ingot",
+  "parent": "phoenix:ash/root",
   "display": {
     "icon": {
       "item": "phoenix:high_quality_clay"

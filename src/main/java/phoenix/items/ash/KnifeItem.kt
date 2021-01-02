@@ -60,7 +60,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
         return ActionResult(ActionResultType.SUCCESS, stack)
     }
 
-    fun onHitBlock(world: World, owner: LivingEntity, pos: BlockPos, knife: KnifeEntity, item: ItemStack): Boolean
+    fun onHitBlock(world: World, owner: LivingEntity?, pos: BlockPos, knife: KnifeEntity, item: ItemStack): Boolean
     {
         var shouldBroke = false
         val block = world.getBlockState(pos).block
@@ -82,7 +82,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
             knife.knife.attemptDamageItem(1, world.rand, null)
         }
 
-        if(item.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get()) > 0)
+        if(item.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get()) > 0 && owner != null)
         {
             owner.setPositionAndUpdate(pos.up().x.toDouble(), pos.up().y.toDouble(), pos.up().z.toDouble())
             owner.fallDistance = 0.0f
@@ -91,7 +91,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
         return !(block !== Blocks.SNOW && block.isIn(Tags.Blocks.SAND))
     }
 
-    fun onHitEntity(world : World, owner : LivingEntity, knife : KnifeEntity, hitted : Entity, knifeItem : ItemStack): Boolean
+    fun onHitEntity(world : World, owner : LivingEntity?, knife : KnifeEntity, hitted : Entity, knifeItem : ItemStack): Boolean
     {
         val powerLevel = knifeItem.getEnchantmentLevel(Enchantments.POWER)
         val damage = damage + powerLevel.toDouble() * 0.6
@@ -99,7 +99,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
             hitted.setFire(100)
 
         hitted.attackEntityFrom(DamageSource.causeThrownDamage(knife, knife.thrower), damage.toFloat())
-        if(knifeItem.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get()) > 0)
+        if(knifeItem.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get()) > 0 && owner != null)
         {
             owner.setPositionAndUpdate(hitted.posX, hitted.posY, hitted.posZ)
             owner.fallDistance = 0.0f

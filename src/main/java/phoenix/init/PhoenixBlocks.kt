@@ -17,8 +17,8 @@ object PhoenixBlocks
     val BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Phoenix.MOD_ID)!!
 
     val UPDATER          : RegistryObject<Block> = BLOCKS.register("updater",           ::UpdaterBlock)!!
-    val PIPE             : RegistryObject<Block> = BLOCKS.register("pipe",              ::PipeBlock)!!
-    val TANK             : RegistryObject<Block> = BLOCKS.register("tank",              ::TankBlock)!!
+    //val PIPE             : RegistryObject<Block> = BLOCKS.register("pipe",              ::PipeBlock)!!
+    //val TANK             : RegistryObject<Block> = BLOCKS.register("tank",              ::TankBlock)!!
     val FERTILE_END_STONE: RegistryObject<Block> = BLOCKS.register("fertile_end_stone", ::FertileEndStoneBlock)!!
     val ANTI_AIR         : RegistryObject<Block> = BLOCKS.register("anti_air",          ::AntiAirBlock)!!
     val POTTERY_BARREL   : RegistryObject<Block> = BLOCKS.register("pottery_barrel",    ::PotteryBarrelBlock)!!

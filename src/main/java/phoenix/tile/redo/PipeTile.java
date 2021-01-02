@@ -21,7 +21,7 @@ public class PipeTile extends PhoenixTile implements IFluidPipe
 
     public PipeTile()
     {
-        super(PhoenixTiles.getPIPE().get());
+        super(PhoenixTiles.getOVEN().get());
     }
 
     @Override

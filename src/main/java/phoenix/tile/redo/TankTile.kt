@@ -25,9 +25,9 @@ import phoenix.utils.pipe.IFluidMechanism
 import java.util.*
 import kotlin.math.min
 
-class TankTile : PhoenixTile(PhoenixTiles.TANK.get()), IFluidMechanism, ITickableTileEntity
+class TankTile : PhoenixTile(PhoenixTiles.OVEN.get()), IFluidMechanism, ITickableTileEntity
 {
-    private var stack = ItemStack.EMPTY;
+    private var stack = ItemStack.EMPTY
     private var numberInGraph = 0
     var tank = FluidTank(FluidAttributes.BUCKET_VOLUME * 5)
     private val holder = LazyOptional.of<IFluidHandler> { tank }

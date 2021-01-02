@@ -62,9 +62,16 @@ class SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandom
             worldIn.setBlockState(pos, state.with(AGE_0_3, age + 1))
         if(age >= 2)
         {
-            val pos2 = worldIn.getDownHeight(pos.add(rand.nextInt(-1, 1), 0, rand.nextInt(-1, 1)), 45)
-            if(isValidPosition(PhoenixBlocks.SETA.get().defaultState, worldIn, pos2) && pos != pos2 && worldIn.getBlockState(pos2).block == Blocks.AIR)
-                 worldIn.setBlockState(pos2, PhoenixBlocks.SETA.get().defaultState.with(HORIZONTAL_FACING, Direction.Plane.HORIZONTAL.random(rand)), 2)
+            var pos2 = BlockPos.ZERO
+            for (x in -1..1)
+                for (y in -1..1)
+                    for (z in -1..1)
+                        if(isValidPosition(worldIn.getBlockState(pos.add(x,y,z)), worldIn, pos.add(x, y, z)) && worldIn.isAirBlock(pos.add(x, y, z)) && pos.add(x, y, z) != pos)
+                            pos2 = pos.add(x, y, z)
+            if(pos != pos2 && pos2 != BlockPos.ZERO)
+            {
+                worldIn.setBlockState(pos2, PhoenixBlocks.SETA.get().defaultState.with(HORIZONTAL_FACING, Direction.Plane.HORIZONTAL.random(rand)), 2)
+            }
         }
     }
 
