@@ -12,13 +12,13 @@
   },
 
   "criteria": {
-    "diary":
+    "non":
     {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "phoenix:diary"
+            "item": "minecraft:air"
           }
         ]
       }
@@ -26,7 +26,7 @@
   },
   "requirements": [
     [
-      "diary"
+      "non"
     ]
   ]
 }

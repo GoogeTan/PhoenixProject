@@ -1,4 +1,4 @@
-package phoenix.mixin
+package phoenix.utils
 
 interface IChapterReader
 {
