@@ -2,8 +2,8 @@
   "display":
   {
     "icon":  {  "item": "minecraft:end_portal_frame"            },
-    "title": {  "translate": "advancements.phoenix.ash.title"   },
-    "description": { "translate": "advancements.phoenix.ash.title.description"   },
+    "title": {  "translate": "advancements.phoenix.ash.ash.title"   },
+    "description": { "translate": "advancements.phoenix.ash.ash.title.description"   },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": false,

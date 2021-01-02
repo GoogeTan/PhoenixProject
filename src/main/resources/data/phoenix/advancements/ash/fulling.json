@@ -5,10 +5,10 @@
       "item": "phoenix:steel_form_knife_blade_full"
     },
     "title": {
-      "translate": "advancements.phoenix.fulling"
+      "translate": "advancements.phoenix.ash.fulling"
     },
     "description": {
-      "translate": "advancements.phoenix.fulling.description"
+      "translate": "advancements.phoenix.ash.fulling.description"
     },
     "frame": "task",
     "show_toast": true,

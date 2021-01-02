@@ -5,10 +5,10 @@
       "item": "phoenix:steel_form_knife_blade_roasted"
     },
     "title": {
-      "translate": "advancements.phoenix.roasted"
+      "translate": "advancements.phoenix.ash.roasted"
     },
     "description": {
-      "translate": "advancements.phoenix.roasted.description"
+      "translate": "advancements.phoenix.ash.roasted.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -41,7 +41,7 @@
     [
       "steel_form_knife_blade_roasted",
       "steel_form_sword_blade_roasted",
-      "steel_form_pickaxe_head_roasted  ",
+      "steel_form_pickaxe_head_roasted",
       "steel_form_axe_blade_roasted"
     ]
   ]

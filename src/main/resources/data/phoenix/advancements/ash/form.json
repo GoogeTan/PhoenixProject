@@ -5,10 +5,10 @@
       "item": "phoenix:steel_form_knife_blade"
     },
     "title": {
-      "translate": "advancements.phoenix.form"
+      "translate": "advancements.phoenix.ash.form"
     },
     "description": {
-      "translate": "advancements.phoenix.form.description"
+      "translate": "advancements.phoenix.ash.form.description"
     },
     "frame": "task",
     "show_toast": true,

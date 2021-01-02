@@ -2,6 +2,7 @@ package phoenix.enity
 
 import net.minecraft.entity.*
 import net.minecraft.entity.ai.goal.*
+import net.minecraft.entity.item.ItemEntity
 import net.minecraft.entity.monster.AbstractRaiderEntity
 import net.minecraft.entity.passive.AnimalEntity
 import net.minecraft.entity.player.PlayerEntity
@@ -31,30 +32,12 @@ class TalpaEntity(type: EntityType<TalpaEntity>, worldIn: World) : AnimalEntity(
         getAttribute(SharedMonsterAttributes.MAX_HEALTH).baseValue = 14.0
     }
 
-    override fun isInvulnerableTo(source: DamageSource): Boolean
-    {
-        return super.isInvulnerableTo(source) || source === DamageSource.IN_WALL
-    }
-
-    override fun getMaxFallHeight(): Int
-    {
-        return 7
-    }
-
-    override fun getSize(poseIn: Pose): EntitySize
-    {
-        return EntitySize(0.6f, 0.6f, false)
-    }
-
-    override fun getCollisionBox(entityIn: Entity): AxisAlignedBB?
-    {
-        return if (isEntityInsideOpaqueBlock) null else super.getCollisionBox(entityIn)
-    }
-
-    override fun canSpawn(worldIn: IWorld, spawnReasonIn: SpawnReason): Boolean
-    {
-        return this.position.y > 10 && this.position.y < 50 && super.canSpawn(worldIn, spawnReasonIn)
-    }
+    override fun isInvulnerableTo(source: DamageSource) = super.isInvulnerableTo(source) || source === DamageSource.IN_WALL
+    override fun getMaxFallHeight() = 7
+    override fun getSize(poseIn: Pose) = EntitySize(0.6f, 0.6f, false)
+    override fun getCollisionBox(entityIn: Entity): AxisAlignedBB? = if (isEntityInsideOpaqueBlock) null else super.getCollisionBox(entityIn)
+    override fun createChild(ageable: AgeableEntity): AgeableEntity = TalpaEntity(PhoenixEntities.TALPA.get(), ageable.world)
+    override fun canSpawn(worldIn: IWorld, spawnReasonIn: SpawnReason) = this.position.y in 11..49 && super.canSpawn(worldIn, spawnReasonIn)
 
     override fun registerGoals()
     {
@@ -69,16 +52,5 @@ class TalpaEntity(type: EntityType<TalpaEntity>, worldIn: World) : AnimalEntity(
         targetSelector.addGoal(6, NearestAttackableTargetGoal(this, PlayerEntity::class.java, true))
     }
 
-    override fun createChild(ageable: AgeableEntity): AgeableEntity?
-    {
-        return create(ageable.world)
-    }
 
-    companion object
-    {
-        fun create(worldIn: World): TalpaEntity
-        {
-            return TalpaEntity(PhoenixEntities.TALPA.get(), worldIn)
-        }
-    }
 }

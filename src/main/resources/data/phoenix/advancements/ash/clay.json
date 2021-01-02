@@ -5,10 +5,10 @@
       "item": "phoenix:high_quality_clay"
     },
     "title": {
-      "translate": "advancements.phoenix.clay"
+      "translate": "advancements.phoenix.ash.clay"
     },
     "description": {
-      "translate": "advancements.phoenix.clay.description"
+      "translate": "advancements.phoenix.ash.clay.description"
     },
     "frame": "task",
     "show_toast": true,

@@ -24,7 +24,6 @@ import phoenix.Phoenix.Companion.ASH
 import phoenix.init.PhoenixBiomes.HEARTVOID
 import phoenix.init.PhoenixBiomes.UNDER
 import phoenix.init.PhoenixBlocks.BLOCKS
-import phoenix.init.PhoenixEntities.CAUDA
 import phoenix.init.PhoenixEntities.TALPA
 import phoenix.init.PhoenixFeatures
 import phoenix.init.PhoenixRecipes
@@ -64,7 +63,7 @@ object PhoenixCommonEvents
         NetworkHandler.init()
         FMLJavaModLoadingContext.get().modEventBus.register(PhoenixCommonEvents::class.java)
         PhoenixRecipes.register()
-        UNDER    .get().addSpawn(EntityClassification.CREATURE, SpawnListEntry(CAUDA.get(), 15, 1, 3))
+        //UNDER    .get().addSpawn(EntityClassification.CREATURE, SpawnListEntry(CAUDA.get(), 15, 1, 3))
         HEARTVOID.get().addSpawn(EntityClassification.CREATURE, SpawnListEntry(TALPA.get(), 15, 1, 4))
         StructureHelper.addStructure(Biomes.END_HIGHLANDS, PhoenixFeatures.REMAINS.get())
         StructureHelper.addStructure(HEARTVOID.get(), PhoenixFeatures.REMAINS.get())

@@ -1,9 +1,9 @@
 {
   "display":
   {
-    "icon":  {  "item": "phoenix:seta"            },
-    "title": {  "translate": "advancements.phoenix.redo.title"   },
-    "description": { "translate": "advancements.phoenix.redo.title.description"   },
+    "icon":  {  "item": "phoenix:end_stone_column" },
+    "title": {  "translate": "advancements.phoenix.redo.root.title"   },
+    "description": { "translate": "advancements.phoenix.redo.root.title.description"   },
     "frame": "goal",
     "show_toast": true,
     "announce_to_chat": false,

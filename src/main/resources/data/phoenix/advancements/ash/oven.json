@@ -5,10 +5,10 @@
       "item": "phoenix:oven"
     },
     "title": {
-      "translate": "advancements.phoenix.oven"
+      "translate": "advancements.phoenix.ash.oven"
     },
     "description": {
-      "translate": "advancements.phoenix.oven.description"
+      "translate": "advancements.phoenix.ash.oven.description"
     },
     "frame": "task",
     "show_toast": true,

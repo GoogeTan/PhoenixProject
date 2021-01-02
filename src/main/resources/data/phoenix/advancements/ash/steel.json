@@ -5,10 +5,10 @@
       "item": "phoenix:steel_ingot"
     },
     "title": {
-      "translate": "advancements.phoenix.steel_ingot"
+      "translate": "advancements.phoenix.ash.steel_ingot"
     },
     "description": {
-      "translate": "advancements.phoenix.steel_ingot.description"
+      "translate": "advancements.phoenix.ash.steel_ingot.description"
     },
     "frame": "task",
     "show_toast": true,

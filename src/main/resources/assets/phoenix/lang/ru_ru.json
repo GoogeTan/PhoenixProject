@@ -57,49 +57,48 @@
   "block.phoenix.zirconium_ore": "Руда циркония",
   "block.phoenix.armored_glass": "Укреплённое стекло",
 
-  "entity.Uterus.name": "Короначервиус",
-
-  "phoenix.quality": "Качество:",
-  "item.phoenix.bucket_with_clay": "Ведро с глиной",
-  "item.absolutespeedsword.name": "Меч абсолютной скорости",
-
-  "advancements.phoenix.ash.title": "Пепел",
-  "advancements.phoenix.ash.title.description": "И тут начинается история",
+  "advancements.phoenix.ash.ash.title": "Пепел",
+  "advancements.phoenix.ash.ash.title.description": "И тут начинается история",
   "advancements.phoenix.ash.corn.tile": "Потерянный храм снова найден",
   "advancements.phoenix.ash.corn.description": "Найдите дрейний храм",
 
-  "advancements.phoenix.crucible": "Крепкая чаша",
-  "advancements.phoenix.crucible.description": "Сделайте тигель",
+  "advancements.phoenix.ash.crucible": "Крепкая чаша",
+  "advancements.phoenix.ash.crucible.description": "Сделайте тигель",
 
-  "advancements.phoenix.zirconium_ingot": "Цирконевый слиток",
-  "advancements.phoenix.zirconium_ingot.description": "Выплавите слиток циркония",
+  "advancements.phoenix.ash.zirconium_ingot": "Циркониевый слиток",
+  "advancements.phoenix.ash.zirconium_ingot.description": "Выплавите слиток циркония",
 
-  "advancements.phoenix.steel_tools": "Для галочки",
-  "advancements.phoenix.steel_tools.description": "Сделайте все инструмены из стали",
+  "advancements.phoenix.ash.steel_tools": "Для галочки",
+  "advancements.phoenix.ash.steel_tools.description": "Сделайте все инструменты из стали",
 
-  "advancements.phoenix.oven": "И очередная ненужная печка",
-  "advancements.phoenix.oven.description": "Создайте печку",
+  "advancements.phoenix.ash.oven": "И очередная ненужная печка",
+  "advancements.phoenix.ash.oven.description": "Создайте печку",
 
-  "advancements.phoenix.steel_ingot": "Темный слиток",
-  "advancements.phoenix.steel_ingot.description": "Создайте сталь",
+  "advancements.phoenix.ash.steel_ingot": "Темный слиток",
+  "advancements.phoenix.ash.steel_ingot.description": "Создайте сталь",
 
-  "advancements.phoenix.clay": "Пытки в чистом виде!",
-  "advancements.phoenix.clay.description": "Создайте высококачественную глину",
+  "advancements.phoenix.ash.clay": "Пытки в чистом виде!",
+  "advancements.phoenix.ash.clay.description": "Создайте высококачественную глину",
 
-  "advancements.phoenix.form": "Формочка :)",
-  "advancements.phoenix.form.description": "Создайте стальную форму",
+  "advancements.phoenix.ash.form": "Формочка :)",
+  "advancements.phoenix.ash.form.description": "Создайте стальную форму",
 
-  "advancements.phoenix.fulling": "Трамбуем",
-  "advancements.phoenix.fulling.description": "Заполните стальную форму",
+  "advancements.phoenix.ash.fulling": "Трамбуем",
+  "advancements.phoenix.ash.fulling.description": "Заполните стальную форму",
 
-  "advancements.phoenix.roasted": "Переворачиваем",
-  "advancements.phoenix.roasted.description": "Испеките стальную форму",
+  "advancements.phoenix.ash.roasted": "Переворачиваем",
+  "advancements.phoenix.ash.roasted.description": "Испеките стальную форму",
+
+  "advancements.phoenix.redo.root.title": "Правки",
+  "advancements.phoenix.redo.root.title.description": "Ну, теперь здесь будет интереснее :>",
+
+  "advancements.phoenix.redo.seta": "Почему бы не наестся странными грибами?",
+  "advancements.phoenix.redo.seta.description": "Найдите сету",
 
   "phoenix.message.newstage": "Достингута новая стадия: ",
   "phoenix.message.speare":"Использует систему боя из 1.8",
   "phoenix.jei.category.oven": "Печь",
 
-  "item.phoenix.": "",
   "item.phoenix.zirconium_blade": "Zirconium blade",
   "item.phoenix.zirconium_bayonet": "Zirconium bayonet",
   "item.phoenix.absolutespeedsword": "Sword of absolute speed",

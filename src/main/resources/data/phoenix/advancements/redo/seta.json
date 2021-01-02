@@ -1,14 +1,14 @@
 {
-  "parent": "phoenix:ash/root",
+  "parent": "phoenix:ash/zirconium_ingot",
   "display": {
     "icon": {
-      "item": "phoenix:crucible"
+      "item": "phoenix:seta"
     },
     "title": {
-      "translate": "advancements.phoenix.ash.crucible"
+      "translate": "advancements.phoenix.redo.seta"
     },
     "description": {
-      "translate": "advancements.phoenix.ash.crucible.description"
+      "translate": "advancements.phoenix.redo.seta.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -16,13 +16,13 @@
     "hidden": false
   },
   "criteria": {
-    "crucible":
+    "seta":
     {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "phoenix:crucible"
+            "item": "phoenix:seta"
           }
         ]
       }
@@ -30,7 +30,7 @@
   },
   "requirements": [
     [
-      "crucible"
+      "seta"
     ]
   ]
 }

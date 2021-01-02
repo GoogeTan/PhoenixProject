@@ -26,6 +26,7 @@ object PhoenixEntities
                 .setShouldReceiveVelocityUpdates(true)
                 .build(ResourceLocation(Phoenix.MOD_ID, "talpa").toString())
     }!!
+    /*
     @JvmStatic
     val CAUDA = ENTITIES.register("cauda")
     {
@@ -36,6 +37,7 @@ object PhoenixEntities
                 .setShouldReceiveVelocityUpdates(true)
                 .build(ResourceLocation(Phoenix.MOD_ID, "cauda").toString())
     }!!
+     */
     @JvmStatic
     val KNIFE: RegistryObject<EntityType<KnifeEntity>> = ENTITIES.register("zirconium_knife")
     {

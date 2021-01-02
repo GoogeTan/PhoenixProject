@@ -5,10 +5,10 @@
       "item": "phoenix:zirconium_ingot"
     },
     "title": {
-      "translate": "advancements.phoenix.zirconium_ingot"
+      "translate": "advancements.phoenix.ash.zirconium_ingot"
     },
     "description": {
-      "translate": "advancements.phoenix.zirconium_ingot.description"
+      "translate": "advancements.phoenix.ash.zirconium_ingot.description"
     },
     "frame": "task",
     "show_toast": true,

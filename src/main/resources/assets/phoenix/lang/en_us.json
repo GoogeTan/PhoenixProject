@@ -11,13 +11,12 @@
   "item.phoenix.diary": "Diary",
   "item.phoenix.crucible": "Crucible",
   "item.phoenix.crucible_with_iron_ore": "Crucible with iron ore",
-  "item.phoenix.crucible_with_iron": "Crucible with iron",
+  "item.phoenix.crucible_with_steel": "Crucible with steel",
   "item.phoenix.crucible_with_gold_ore": "Crucible with gold ore",
   "item.phoenix.crucible_with_gold": "Crucible with gold",
   "item.phoenix.zirconium_blade": "Zirconium blade",
   "item.phoenix.zirconium_bayonet": "Zirconium bayonet",
   "item.phoenix.zirconium_butt": "Zirconium butt",
-  "item.phoenix.ceramic_zirconium_knife": "Ceramic zirconium knife",
   "item.phoenix.bucket_with_clay": "Bucket with clay",
   "item.phoenix.absolutespeedsword": "Sword of absolute speed",
   "item.phoenix.zirconium_sword_blade": "Zirconium-based ceramic sword blade",
@@ -59,10 +58,7 @@
   "block.phoenix.end_stone_column": "End stone column",
   "block.phoenix.oven": "Oven",
   "block.phoenix.zirconium_ore": "Zirconium ore",
-
-  "entity.Uterus.name": "Coronoworm",
-
-  "phoenix.quality": "Quality:",
+  "block.phoenix.armored_glass": "Armored glass",
 
   "advancements.phoenix.ash.title": "Project Phoenix: ash",
   "advancements.phoenix.ash.title.description": "End of the start or start of the end?",
@@ -70,36 +66,40 @@
   "advancements.phoenix.ash.corn.description": "-How did you get brought to the past ignis monastery? “I took him for a End city.” Easy to confuse.",
 
 
-  "advancements.phoenix.crucible": "Крепкая чаша",
-  "advancements.phoenix.crucible.description": "Сделайте тигель",
+  "advancements.phoenix.ash.crucible": "Strong bowl",
+  "advancements.phoenix.ash.crucible.description": "Make a crucible",
 
-  "advancements.phoenix.zirconium_ingot": "Цирконевый слиток",
-  "advancements.phoenix.zirconium_ingot.description": "Выплавите слиток циркония",
+  "advancements.phoenix.ash.zirconium_ingot": "Zirconium ingot",
+  "advancements.phoenix.ash.zirconium_ingot.description": "Smelt a zirconium ingot",
 
-  "advancements.phoenix.steel_tools": "Для галочки",
-  "advancements.phoenix.steel_tools.description": "Сделайте все инструмены из стали",
+  "advancements.phoenix.ash.steel_tools": "For check",
+  "advancements.phoenix.ash.steel_tools.description": "Make all the tools out of steel  ",
 
-  "advancements.phoenix.oven": "И очередная ненужная печка",
-  "advancements.phoenix.oven.description": "Создайте печку",
+  "advancements.phoenix.ash.oven": "And another unnecessary oven",
+  "advancements.phoenix.ash.oven.description": "Make a oven",
 
-  "advancements.phoenix.steel_ingot": "Темный слиток",
-  "advancements.phoenix.steel_ingot.description": "Создайте сталь",
+  "advancements.phoenix.ash.steel_ingot": "Dark ingot",
+  "advancements.phoenix.ash.steel_ingot.description": "Create a steel ingot",
 
-  "advancements.phoenix.clay": "Пытки в чистом виде!",
-  "advancements.phoenix.clay.description": "Создайте высококачественную глину",
+  "advancements.phoenix.ash.clay": "Pure torture!",
+  "advancements.phoenix.ash.clay.description": "Create high quality clay",
 
-  "advancements.phoenix.form": "Формочка :)",
-  "advancements.phoenix.form.description": "Создайте стальную форму",
+  "advancements.phoenix.ash.form": "Form",
+  "advancements.phoenix.ash.form.description": "Create a steel form",
 
-  "advancements.phoenix.fulling": "Трамбуем",
-  "advancements.phoenix.fulling.description": "Заполните стальную форму",
+  "advancements.phoenix.ash.fulling": "Ram",
+  "advancements.phoenix.ash.fulling.description": "Fill a steel form",
 
-  "advancements.phoenix.roasted": "Переворачиваем",
-  "advancements.phoenix.roasted.description": "Испеките стальную форму",
+  "advancements.phoenix.ash.roasted": "Turn over",
+  "advancements.phoenix.ash.roasted.description": "Bake steel form",
+
+  "advancements.phoenix.redo.root.title": "Redo",
+  "advancements.phoenix.redo.root.title.description": "Ohhh... It becomes move interesting :>",
+  "advancements.phoenix.redo.seta": "Why not eat some strange mushrooms?",
+  "advancements.phoenix.redo.seta.description": "Find some seta",
 
   "phoenix.message.newstage": "Welcome to the new stage!",
-  "phoenix.message.speare":"Uses combat system from 1.8",
   "phoenix.jei.category.oven": "Oven",
-  "enchantment.phoenix.teleportation": "Teleportation"
 
+  "enchantment.phoenix.teleportation": "Teleportation"
 }
