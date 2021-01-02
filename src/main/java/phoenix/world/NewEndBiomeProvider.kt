@@ -17,7 +17,6 @@ import net.minecraft.world.gen.area.IAreaFactory
 import net.minecraft.world.gen.feature.structure.Structure
 import net.minecraft.world.gen.layer.Layer
 import net.minecraft.world.gen.layer.ZoomLayer
-import net.minecraft.world.server.ServerWorld
 import phoenix.init.PhoenixBiomes
 import phoenix.init.PhoenixConfiguration
 import phoenix.init.PhoenixFeatures

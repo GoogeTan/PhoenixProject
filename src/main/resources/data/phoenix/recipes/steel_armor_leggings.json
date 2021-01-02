@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ZZZ",
+    "Z Z",
+    "Z Z"
+  ],
+  "key": {
+    "Z": {
+      "item": "phoenix:steel_ingot"
+    }
+  },
+  "result": {
+    "item": "phoenix:steel_armor_leggings"
+  }
+}

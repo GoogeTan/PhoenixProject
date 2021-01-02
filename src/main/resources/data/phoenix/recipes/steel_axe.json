@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ZZ ",
+    "ZX ",
+    " X "
+  ],
+  "key": {
+    "Z": { "item": "phoenix:steel_ingot"},
+    "X": { "item": "minecraft:stick"    }
+  },
+  "result": {
+    "item": "phoenix:steel_axe"
+  }
+}

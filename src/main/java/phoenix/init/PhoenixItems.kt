@@ -93,6 +93,4 @@ class SteelArmorItem(slot: EquipmentSlotType, builder: Properties) : ArmorItem(P
             Phoenix.MOD_ID + ":textures/models/armor/steel_layer_1.png"
         }
     }
-
-
 }

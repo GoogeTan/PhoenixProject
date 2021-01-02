@@ -6,7 +6,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.end.DragonSpawnState;
 import net.minecraft.world.server.ServerWorld;
-import phoenix.Phoenix;
 import phoenix.init.PhoenixFeatures;
 import phoenix.world.structures.CustomEndSpike;
 import phoenix.world.structures.CustomEndSpikeConfig;

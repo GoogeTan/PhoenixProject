@@ -51,10 +51,8 @@
     }
   },
   "requirements": [
-    [
-      "steel_axe",
-      "steel_pickaxe",
-      "steel_sword"
-    ]
+    [ "steel_axe"    ],
+    [ "steel_pickaxe"],
+    [ "steel_sword"  ]
   ]
 }

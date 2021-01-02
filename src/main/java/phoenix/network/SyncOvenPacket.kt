@@ -7,7 +7,6 @@ import net.minecraft.util.math.BlockPos
 import phoenix.blocks.ash.OvenBlock
 import phoenix.containers.ash.OvenContainer
 import phoenix.tile.ash.OvenTile
-import phoenix.utils.LogManager
 
 class SyncOvenPacket(var timers: IntArray, var burnTime : Int, var container: OvenContainer, var pos: BlockPos) : NetworkHandler.Packet()
 {

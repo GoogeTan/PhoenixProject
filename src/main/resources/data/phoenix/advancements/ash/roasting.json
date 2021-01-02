@@ -19,18 +19,30 @@
     "steel_form_knife_blade_roasted":
     {
       "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "phoenix:steel_form_knife_blade_roasted"
-          }
-        ]
-      }
+      "conditions": { "items": [{"item": "phoenix:steel_form_knife_blade_roasted"}]}
+    },
+    "steel_form_sword_blade_roasted":
+    {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{"item": "phoenix:steel_form_sword_blade_roasted"}]}
+    },
+    "steel_form_pickaxe_head_roasted":
+    {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{"item": "phoenix:steel_form_pickaxe_head_roasted"}]}
+    },
+    "steel_form_axe_blade_roasted":
+    {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{"item": "phoenix:steel_form_axe_blade_roasted"}]}
     }
   },
   "requirements": [
     [
-      "steel_form_knife_blade_roasted"
+      "steel_form_knife_blade_roasted",
+      "steel_form_sword_blade_roasted",
+      "steel_form_pickaxe_head_roasted  ",
+      "steel_form_axe_blade_roasted"
     ]
   ]
 }

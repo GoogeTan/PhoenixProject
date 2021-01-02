@@ -16,21 +16,33 @@
     "hidden": false
   },
   "criteria": {
-    "high_quality_clay":
+    "steel_form_knife_blade":
     {
       "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "phoenix:zirconium_pickaxe_head"
-          }
-        ]
-      }
+      "conditions": { "items": [ { "item": "phoenix:steel_form_knife_blade" } ] }
+    },
+    "steel_form_sword_blade":
+    {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [ { "item": "phoenix:steel_form_sword_blade" } ] }
+    },
+    "steel_form_pickaxe_head":
+    {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [ { "item": "phoenix:steel_form_pickaxe_head" } ] }
+    },
+    "steel_form_axe_blade":
+    {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [ { "item": "phoenix:steel_form_axe_blade" } ] }
     }
   },
   "requirements": [
     [
-      "high_quality_clay"
+      "steel_form_knife_blade",
+      "steel_form_sword_blade",
+      "steel_form_pickaxe_head",
+      "steel_form_axe_blade"
     ]
   ]
 }

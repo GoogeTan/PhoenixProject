@@ -26,6 +26,8 @@ import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.common.ToolType
 import phoenix.init.PhoenixBlocks
+import phoenix.network.NetworkHandler
+import phoenix.network.SyncOvenPacket
 import phoenix.recipes.OvenRecipe
 import phoenix.tile.ash.OvenTile
 import phoenix.utils.SizedArrayList
@@ -59,8 +61,9 @@ class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hard
             {
                 if(tile.addItem(stack))
                 {
-                    playerIn.setHeldItem(handIn, ItemStack.EMPTY)
+                    playerIn.getHeldItem(handIn).shrink(1)
                 }
+                NetworkHandler.sendToAll(SyncOvenPacket(tile))
             }
             else if (stack.item != Items.LAVA_BUCKET && ForgeHooks.getBurnTime(stack) > 0)
             {

@@ -74,9 +74,8 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, IInv
         for (i in 0..3)
             if(inventory[i].item == Items.AIR)
             {
-                inventory[i] = stack
+                inventory[i] = ItemStack(stack.item)
                 timers[i] = 0
-                NetworkHandler.sendToAll(SyncOvenPacket(this))
                 return true
             }
         return false
@@ -86,30 +85,33 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, IInv
     {
         if(!world!!.isRemote && world != null)
         {
-            burnTime--
-            burnTime = min(maxBurnTime, burnTime)
-            burnTime = max(0, burnTime)
-            var has = false
-            for (i in 0..3)
+            if(burnTime > 0)
             {
-                val current = inventory[i]
-                if (recipes_from_inputs.contains(current.item))
+                burnTime--
+                burnTime = min(maxBurnTime, burnTime)
+                burnTime = max(0, burnTime)
+                var has = false
+                for (i in 0..3)
                 {
-                    val recipe = recipes_from_inputs[current.item]!!
-                    val cookTime: Int = recipe.cookTime
-                    timers[i]++
-                    if (timers[i] >= cookTime)
+                    val current = inventory[i]
+                    if (recipes_from_inputs.contains(current.item))
                     {
-                        inventory[i] = recipe.result
-                        has = true
-                        timers[i] = 0
+                        val recipe = recipes_from_inputs[current.item]!!
+                        val cookTime: Int = recipe.cookTime
+                        timers[i]++
+                        if (timers[i] >= cookTime)
+                        {
+                            inventory[i] = recipe.result
+                            has = true
+                            timers[i] = 0
+                        }
                     }
                 }
+                if (has)
+                    NetworkHandler.sendToDim(SyncOvenPacket(this), world!!.dimension.type)
+                if (burnTime == 0)
+                    world!!.setBlockState(pos, world!!.getBlockState(pos).with(OvenBlock.WORKING, false))
             }
-            if(has)
-                NetworkHandler.sendToDim(SyncOvenPacket(this), world!!.dimension.type)
-            if(burnTime == 0)
-                world!!.setBlockState(pos, world!!.getBlockState(pos).with(OvenBlock.WORKING, false))
         }
     }
 

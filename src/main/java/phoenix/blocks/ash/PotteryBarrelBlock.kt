@@ -21,7 +21,6 @@ import net.minecraft.util.math.shapes.IBooleanFunction
 import net.minecraft.util.math.shapes.ISelectionContext
 import net.minecraft.util.math.shapes.VoxelShape
 import net.minecraft.util.math.shapes.VoxelShapes
-import net.minecraft.util.text.StringTextComponent
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.ILightReader
 import net.minecraft.world.World
@@ -101,7 +100,7 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO).hard
                 {
                     if (stateInt == 1 && !worldIn.isRemote)
                     {
-                        if (!player.abilities.isCreativeMode) itemStack.shrink(1)
+                        itemStack.shrink(1)
                         (worldIn.getTileEntity(pos) as PotteryBarrelTile).setInventorySlotContents(0, ItemStack(Items.CLAY))
                         worldIn.playSound(null, pos, SoundEvents.BLOCK_SAND_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f)
                     }

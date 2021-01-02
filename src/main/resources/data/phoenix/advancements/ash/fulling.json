@@ -19,18 +19,30 @@
     "steel_form_knife_blade_full":
     {
       "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "phoenix:steel_form_knife_blade_full"
-          }
-        ]
-      }
+      "conditions": { "items": [ { "item": "phoenix:steel_form_knife_blade_full" } ] }
+    },
+    "steel_form_sword_blade_full":
+    {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [ { "item": "phoenix:steel_form_sword_blade_full" } ] }
+    },
+    "steel_form_pickaxe_head_full":
+    {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [ { "item": "phoenix:steel_form_pickaxe_head_full" } ] }
+    },
+    "steel_form_axe_blade_full":
+    {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [ { "item": "phoenix:steel_form_axe_blade_full" } ] }
     }
   },
   "requirements": [
     [
-      "steel_form_knife_blade_full"
+      "steel_form_knife_blade_full",
+      "steel_form_sword_blade_full",
+      "steel_form_pickaxe_head_full",
+      "steel_form_axe_blade_full"
     ]
   ]
 }

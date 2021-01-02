@@ -1,0 +1,29 @@
+{
+  "display":
+  {
+    "icon":  {  "item": "phoenix:seta"            },
+    "title": {  "translate": "advancements.phoenix.redo.title"   },
+    "description": { "translate": "advancements.phoenix.redo.title.description"   },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "phoenix:textures/blocks/end_stone_column_top.png"
+  },
+
+  "criteria": {
+    "change_stage":
+    {
+      "trigger": "phoenix:change_stage",
+      "conditions": {
+        "sold": 0,
+        "snew": 1
+      }
+    }
+  },
+  "requirements": [
+    [
+      "change_stage"
+    ]
+  ]
+}

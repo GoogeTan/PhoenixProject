@@ -6,7 +6,6 @@ import com.google.common.collect.Maps;
 import net.minecraft.client.gui.recipebook.RecipeList;
 import net.minecraft.client.util.ClientRecipeBook;
 import net.minecraft.client.util.RecipeBookCategories;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.crafting.IRecipe;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -15,6 +16,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import phoenix.init.PhoenixSounds;
+import phoenix.init.PhoenixTriggers;
 import phoenix.world.EndDimension;
 import phoenix.world.StageManager;
 
@@ -35,6 +37,7 @@ public class UpdaterBlock extends Block
     {
         if(!worldIn.isRemote && worldIn.getDimension().getType() == DimensionType.THE_END)
         {
+            int stageOld = StageManager.getStage();
             worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), PhoenixSounds.INSTANCE.getCHANGE_STAGE(), SoundCategory.BLOCKS, 1, 1, true);
             StageManager.addPart(((EndDimension)worldIn.getDimension()).biomeProvider);
             for (PlayerEntity entity : worldIn.getPlayers())
@@ -42,7 +45,9 @@ public class UpdaterBlock extends Block
                 entity.sendStatusMessage(new TranslationTextComponent("phoenix.message.newstage"), false);
                 entity.sendStatusMessage(new StringTextComponent((StageManager.getStage() + 1) + " " + (StageManager.getPart() + 1) + " "), false);
             }
+            PhoenixTriggers.INSTANCE.getCHANGE_STAGE().test((ServerPlayerEntity) player, stageOld, StageManager.getStage());
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
