@@ -26,6 +26,6 @@ public class PhoenixContainers
     @OnlyIn(Dist.CLIENT)
     public static void registerScreens()
     {
-        ScreenManager.registerFactory(GUIDE.get(), DiaryGui::new);
+        //ScreenManager.registerFactory(GUIDE.get(), DiaryGui::new);
     }
 }

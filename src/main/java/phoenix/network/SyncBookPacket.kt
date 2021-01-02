@@ -3,8 +3,8 @@ package phoenix.network
 import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.network.PacketBuffer
-import phoenix.utils.capablity.Date
-import phoenix.utils.capablity.IChapterReader
+import phoenix.mixin.Date
+import phoenix.mixin.IChapterReader
 import phoenix.utils.readDate
 import phoenix.utils.writeDate
 

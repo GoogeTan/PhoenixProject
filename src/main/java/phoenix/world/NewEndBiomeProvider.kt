@@ -126,5 +126,5 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings) : BiomeProvide
         }
     }
 
-    var structureToStage : Map<Structure<*>, Int> = ImmutableBiMap.of(PhoenixFeatures.REMAINS.get(), 1)
+    var structureToStage : Map<Structure<*>, Int> = ImmutableBiMap.of()//PhoenixFeatures.REMAINS.get(), 1)
 }

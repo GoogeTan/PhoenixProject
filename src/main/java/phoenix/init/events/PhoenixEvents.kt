@@ -32,7 +32,6 @@ import phoenix.network.NetworkHandler
 import phoenix.network.SyncStagePacket
 import phoenix.utils.LogManager
 import phoenix.utils.Tuple
-import phoenix.utils.capablity.CapabilityProvider
 import phoenix.world.StageManager
 import java.util.*
 
@@ -79,17 +78,6 @@ object PhoenixEvents
             LogManager.log(this, "${StageManager.getStage()} ${StageManager.getPart()}")
             NetworkHandler.sendToAll(SyncStagePacket(StageManager.getStage(), StageManager.getPart()))
             LogManager.log(this, "Phoenix has ended loading")
-        }
-    }
-
-    @SubscribeEvent
-    @JvmStatic
-    fun capa(event: AttachCapabilitiesEvent<Entity>)
-    {
-        if(event.`object` is PlayerEntity)
-        {
-            event.addCapability(ResourceLocation(Phoenix.MOD_ID, "chapter_reader"), CapabilityProvider())
-            LogManager.error(this, event.capabilities.toString())
         }
     }
 
@@ -169,5 +157,20 @@ object PhoenixEvents
     fun addTask(time: Int, r: Runnable)
     {
         tasks.add(Tuple(0, time, r))
+    }
+
+    @JvmStatic
+    @SubscribeEvent
+    fun onSave(event: PlayerEvent.PlayerChangedDimensionEvent)
+    {
+        if(!event.player.world.isRemote)
+        {
+            LogManager.log(this, "Phoenix is starting saving")
+            val nbt = event.player.world.worldInfo.getDimensionData(DimensionType.THE_END)
+            StageManager.write(nbt)
+            LogManager.log(this, "${StageManager.getStage()} ${StageManager.getPart()}")
+            event.player.world.worldInfo.setDimensionData(DimensionType.THE_END, nbt)
+            LogManager.log(this, "Phoenix has ended saving")
+        }
     }
 }

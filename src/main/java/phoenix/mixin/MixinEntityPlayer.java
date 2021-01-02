@@ -8,8 +8,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import phoenix.utils.LogManager;
-import phoenix.utils.capablity.Date;
-import phoenix.utils.capablity.IChapterReader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +18,7 @@ public class MixinEntityPlayer implements IChapterReader
     @Inject(method = "writeAdditional", at = @At("TAIL"))
     public void onWriteEntityToNBT(CompoundNBT nbt, CallbackInfo ci)
     {
-        LogManager.error(this, "Player starts saving");
+        LogManager.log(this, "Player starts saving");
         nbt.putInt("count", chapters.size());
         for (int i = 0; i < chapters.size(); i++)
         {
@@ -30,13 +28,13 @@ public class MixinEntityPlayer implements IChapterReader
             nbt.putInt("chyear" + i, chapters.get(i).getSecond().getYear());
         }
         addChapter(0, new Date(1, 3 ,4));
-        LogManager.error(this, "Player ends saving");
+        LogManager.log(this, "Player ends saving");
     }
 
     @Inject(method = "readAdditional", at = @At("TAIL"))
     public void onReadEntityFromNBT(CompoundNBT nbt, CallbackInfo ci)
     {
-        LogManager.error(this, "Player starts loading");
+        LogManager.log(this, "Player starts loading");
         int count = nbt.getInt("count");
         for (int i = 0; i < count; ++i)
         {

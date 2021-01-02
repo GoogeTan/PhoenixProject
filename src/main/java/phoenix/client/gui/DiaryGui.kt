@@ -12,9 +12,9 @@ import phoenix.client.gui.diaryPages.DiaryBook
 import phoenix.client.gui.diaryPages.elements.DiaryChapter
 import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement
 import phoenix.containers.DiaryContainer
+import phoenix.mixin.IChapterReader
 import phoenix.utils.DiaryUtils
 import phoenix.utils.RenderUtils
-import phoenix.utils.capablity.IChapterReader
 
 class DiaryGui(screenContainer: DiaryContainer, inv: PlayerInventory, titleIn: ITextComponent) : ContainerScreen<DiaryContainer>(screenContainer, inv, titleIn)
 {

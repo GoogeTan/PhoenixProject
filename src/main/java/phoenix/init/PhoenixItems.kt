@@ -18,7 +18,7 @@ object PhoenixItems
 {
     private val ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Phoenix.MOD_ID)
 
-    val GUIDE                          = ITEMS.register("diary", ::ItemDiary)!!
+    //val GUIDE                          = ITEMS.register("diary", ::ItemDiary)!!
 
     val HIGH_QUALITY_CLAY_ITEM         = ITEMS.register("high_quality_clay", basicItem(Item.Properties().maxStackSize(16).group(ASH)))!!
     val COOKED_SETA                    = ITEMS.register("cooked_seta", basicFood(Food.Builder().hunger(6).saturation(3f).fastToEat().build(), ItemGroup.FOOD))!!

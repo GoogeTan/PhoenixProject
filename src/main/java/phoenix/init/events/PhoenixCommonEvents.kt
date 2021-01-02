@@ -2,17 +2,13 @@ package phoenix.init.events
 
 import net.minecraft.block.Block
 import net.minecraft.block.FlowingFluidBlock
-import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityClassification
-import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
-import net.minecraft.util.ResourceLocation
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.biome.Biome.SpawnListEntry
 import net.minecraft.world.biome.Biomes
 import net.minecraftforge.common.capabilities.CapabilityManager
-import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.RegistryEvent.Register
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.RegistryObject
@@ -28,13 +24,8 @@ import phoenix.init.PhoenixEntities.TALPA
 import phoenix.init.PhoenixFeatures
 import phoenix.init.PhoenixRecipes
 import phoenix.network.NetworkHandler
-import phoenix.utils.LogManager
 import phoenix.utils.block.ICustomGroup
 import phoenix.utils.block.INonItem
-import phoenix.utils.capablity.CapabilityProvider
-import phoenix.utils.capablity.IChapterReader
-import phoenix.utils.capablity.PlayerChapterReader
-import phoenix.utils.capablity.SaveHandler
 
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 object PhoenixCommonEvents
@@ -65,9 +56,9 @@ object PhoenixCommonEvents
         PhoenixRecipes.register()
         //UNDER    .get().addSpawn(EntityClassification.CREATURE, SpawnListEntry(CAUDA.get(), 15, 1, 3))
         HEARTVOID.get().addSpawn(EntityClassification.CREATURE, SpawnListEntry(TALPA.get(), 15, 1, 4))
-        StructureHelper.addStructure(Biomes.END_HIGHLANDS, PhoenixFeatures.REMAINS.get())
-        StructureHelper.addStructure(HEARTVOID.get(), PhoenixFeatures.REMAINS.get())
-        StructureHelper.addStructure(UNDER.get(), PhoenixFeatures.REMAINS.get())
+        //StructureHelper.addStructure(Biomes.END_HIGHLANDS, PhoenixFeatures.REMAINS.get())
+        //StructureHelper.addStructure(HEARTVOID.get(), PhoenixFeatures.REMAINS.get())
+        //StructureHelper.addStructure(UNDER.get(), PhoenixFeatures.REMAINS.get())
         for (biome in Registry.BIOME)
         {
             if (biome !== Biomes.END_BARRENS && biome !== Biomes.END_HIGHLANDS && biome !== Biomes.END_MIDLANDS && biome !== Biomes.THE_END && biome !== Biomes.SMALL_END_ISLANDS && biome !== UNDER.get() && biome !== HEARTVOID.get())
@@ -75,15 +66,5 @@ object PhoenixCommonEvents
                 StructureHelper.addZirconiumOre(biome)
             }
         }
-        CapabilityManager.INSTANCE.register(IChapterReader::class.java, SaveHandler(), ::PlayerChapterReader)
-    }
-
-    @SubscribeEvent
-    @JvmStatic
-    fun capa(event: AttachCapabilitiesEvent<Entity>)
-    {
-        if(event.`object` is PlayerEntity)
-         event.addCapability(ResourceLocation(Phoenix.MOD_ID, "chapter_reader"), CapabilityProvider())
-        LogManager.error(this, event.capabilities.toString())
     }
 }

@@ -22,7 +22,7 @@ object PhoenixBlocks
     val FERTILE_END_STONE: RegistryObject<Block> = BLOCKS.register("fertile_end_stone", ::FertileEndStoneBlock)!!
     val ANTI_AIR         : RegistryObject<Block> = BLOCKS.register("anti_air",          ::AntiAirBlock)!!
     val POTTERY_BARREL   : RegistryObject<Block> = BLOCKS.register("pottery_barrel",    ::PotteryBarrelBlock)!!
-    val ELECTRIC_BARREL  : RegistryObject<Block> = BLOCKS.register("electric_barrel",   ::ElectricBarrelBlock)!!
+    //val ELECTRIC_BARREL  : RegistryObject<Block> = BLOCKS.register("electric_barrel",   ::ElectricBarrelBlock)!!
     val END_STONE_COLUMN : RegistryObject<Block> = BLOCKS.register("end_stone_column",  ::EndStoneColumnBlock)!!
     val OVEN             : RegistryObject<Block> = BLOCKS.register("oven",              ::OvenBlock)!!
     val SETA             : RegistryObject<Block> = BLOCKS.register("seta",              ::SetaBlock)!!

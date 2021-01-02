@@ -88,7 +88,6 @@ class KnifeEntity : ThrowableEntity
                            (owner as PlayerEntity).addItemStackToInventory(knife)
                        else if (dropItem)
                            world.addEntity(ItemEntity(world, posX, posY, posZ, knife))
-                       phoenix.utils.LogManager.error(this, "$dropItem $isReal")
                        onKillCommand()
                    }
                }

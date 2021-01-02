@@ -13,7 +13,6 @@ import net.minecraftforge.fml.config.ModConfig
 import org.apache.logging.log4j.LogManager
 import phoenix.init.*
 import phoenix.init.PhoenixConfiguration.Common
-import phoenix.utils.capablity.IChapterReader
 import phoenix.world.EndDimension
 
 @Mod(Phoenix.MOD_ID)
@@ -38,8 +37,6 @@ class Phoenix
 
     companion object
     {
-        @CapabilityInject(IChapterReader::class)
-        lateinit var CHAPTER_CAPA: Capability<IChapterReader>
         const val MOD_ID = "phoenix"
         @JvmStatic
         val LOGGER = LogManager.getLogger()!!

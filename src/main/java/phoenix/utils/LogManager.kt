@@ -7,7 +7,7 @@ import phoenix.init.PhoenixConfiguration
 object LogManager
 {
     @JvmStatic
-    fun log(obj : Any, message : String) : Unit
+    fun log(obj : Any, message : String)
     {
         if(PhoenixConfiguration.COMMON_CONFIG.debug.get())
         {

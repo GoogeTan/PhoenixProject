@@ -46,7 +46,7 @@ class ElectricBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO))
                         (worldIn.getTileEntity(pos) as PotteryBarrelTile).incrementJumpsCount()
                     } catch (e: Exception)
                     {
-                        LogManager.error(this, "Can not increment jump count at $pos")
+                        LogManager.log(this, "Can not increment jump count at $pos")
                     }
 
                 }

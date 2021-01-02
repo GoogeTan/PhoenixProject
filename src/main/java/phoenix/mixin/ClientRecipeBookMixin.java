@@ -42,7 +42,6 @@ public class ClientRecipeBookMixin
 
         if (list != null) {
             this.allRecipes.add(list);
-            LogManager.error(this, "recipe list");
             callback.setReturnValue(list);
         }
     }
@@ -60,7 +59,6 @@ public class ClientRecipeBookMixin
         if (recipe.getType() == PhoenixRecipes.OVEN) {
             return PhoenixRecipeBookCategories.OVEN;
         }
-
         return null;
     }
 
