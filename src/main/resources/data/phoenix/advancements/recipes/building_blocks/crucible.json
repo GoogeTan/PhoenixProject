@@ -1,0 +1,26 @@
+{
+  "parent": "phoenix:recipes/root",
+  "rewards": {
+    "recipes": [
+      "phoenix:crucible"
+    ]
+  },
+  "criteria": {
+    "has_clay": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [ { "item": "phoenix:high_quality_clay" } ] }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "phoenix:crucible"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_clay",
+      "has_the_recipe"
+    ]
+  ]
+}

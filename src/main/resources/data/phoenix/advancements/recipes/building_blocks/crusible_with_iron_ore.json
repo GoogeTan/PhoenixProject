@@ -1,0 +1,26 @@
+{
+  "parent": "phoenix:recipes/root",
+  "rewards": {
+    "recipes": [
+      "phoenix:crucible_with_iron_ore"
+    ]
+  },
+  "criteria": {
+    "has_ore": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [ { "item": "minecraft:iron_ore" } ] }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "phoenix:crucible_with_iron_ore"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_ore",
+      "has_the_recipe"
+    ]
+  ]
+}
