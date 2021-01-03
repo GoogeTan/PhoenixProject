@@ -25,7 +25,7 @@ import phoenix.utils.pipe.IFluidMechanism
 import java.util.*
 import kotlin.math.min
 
-class TankTile : PhoenixTile(PhoenixTiles.OVEN.get()), IFluidMechanism, ITickableTileEntity
+class TankTile : PhoenixTile<TankTile>(PhoenixTiles.TANK), IFluidMechanism, ITickableTileEntity
 {
     private var stack = ItemStack.EMPTY
     private var numberInGraph = 0
@@ -123,7 +123,7 @@ class TankTile : PhoenixTile(PhoenixTiles.OVEN.get()), IFluidMechanism, ITickabl
         return UpdatePacket(tank, stack, numberInGraph)
     }
 
-    override fun onDataPacket(net: NetworkManager?, pkt: SUpdateTileEntityPacket?)
+    override fun onDataPacket(net: NetworkManager, pkt: SUpdateTileEntityPacket)
     {
         val packet = pkt as UpdatePacket
         this.numberInGraph = packet.numberInGraph

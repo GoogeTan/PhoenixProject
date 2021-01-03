@@ -1,4 +1,4 @@
-package phoenix.blocks.ash
+package phoenix.blocks.redo
 
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState

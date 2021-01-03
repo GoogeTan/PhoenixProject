@@ -16,12 +16,12 @@ import phoenix.utils.block.PhoenixTile;
 
 import java.io.IOException;
 
-public class PotteryBarrelTile extends PhoenixTile implements IInventory, ITickableTileEntity
+public class PotteryBarrelTile extends PhoenixTile<PotteryBarrelTile> implements IInventory, ITickableTileEntity
 {
     public int jumpsCount = 0;
     public PotteryBarrelTile()
     {
-        super(PhoenixTiles.getPOTTERY_BARREL().get());
+        super(PhoenixTiles.getPOTTERY_BARREL());
     }
 
     @Override

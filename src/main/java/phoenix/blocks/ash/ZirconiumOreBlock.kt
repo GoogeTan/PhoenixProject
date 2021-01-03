@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.world.storage.loot.LootContext
 import net.minecraftforge.common.ToolType
 
-class ZirconiumOreBlock : OreBlock(Properties.create(Material.ROCK).hardnessAndResistance(3f).harvestTool(ToolType.PICKAXE))
+object ZirconiumOreBlock : OreBlock(Properties.create(Material.ROCK).hardnessAndResistance(3f).harvestTool(ToolType.PICKAXE))
 {
     override fun getDrops(state: BlockState, builder: LootContext.Builder): ImmutableList<ItemStack> = ImmutableList.of(ItemStack(this))
 }

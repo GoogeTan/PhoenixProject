@@ -24,9 +24,7 @@ object NetworkHandler
 {
     private val CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation(Phoenix.MOD_ID, "network"), { "2.0" }, { true }) { true }
-    /**
-     * В конструкторе мы будем регистрировать пакеты.
-     */
+
     @JvmStatic
     fun init()
     {
@@ -35,63 +33,17 @@ object NetworkHandler
         registerPacket(SyncOvenPacket().javaClass)
     }
 
-    /**
-     * Уникальный идентификатор пакета.
-     */
     private var id: Short = 0
 
-    /**
-     * Данный метод позволяет отправить наш пакет игроку. Пакет отсылается на КЛИЕНТ!
-     *
-     * @param packet - наш пакет
-     * @param player - игрок на сервере
-     */
-    fun sendTo(packet: Packet, player: ServerPlayerEntity)
-    {
-        CHANNEL.send(PacketDistributor.PLAYER.with { player }, packet)
-    }
+    fun sendTo(packet: Packet, player: ServerPlayerEntity) = CHANNEL.send(PacketDistributor.PLAYER.with { player }, packet)
 
-    /**
-     * Данный метод позволяет отправить наш пакет всем. Пакет отсылается на КЛИЕНТ!
-     *
-     * @param packet - наш пакет
-     */
-    fun sendToAll(packet: Packet)
-    {
-        CHANNEL.send(PacketDistributor.ALL.noArg(), packet)
-    }
+    fun sendToAll(packet: Packet) = CHANNEL.send(PacketDistributor.ALL.noArg(), packet)
 
-    /**
-     * Данный метод позволяет отправить наш пакет ближайшим игрокам. Пакет отсылается на КЛИЕНТ!
-     *
-     * @param packet - наш пакет
-     * @param point  - от которой начнётся отсылка пакетов до N радиуса
-     */
-    fun sendToNear(packet: Packet, point: TargetPoint)
-    {
-        CHANNEL.send(PacketDistributor.NEAR.with { point }, packet)
-    }
+    fun sendToNear(packet: Packet, point: TargetPoint) = CHANNEL.send(PacketDistributor.NEAR.with { point }, packet)
 
-    /**
-     * Данный метод позволяет отправить наш пакет на сервер.
-     *
-     * @param packet - наш пакет
-     */
-    fun sendToServer(packet: Packet)
-    {
-        CHANNEL.send(PacketDistributor.SERVER.noArg(), packet)
-    }
+    fun sendToServer(packet: Packet) = CHANNEL.send(PacketDistributor.SERVER.noArg(), packet)
 
-    /**
-     * Данный метод позволяет отправить наш пакет всем в измерении(dimension). Пакет отсылается на КЛИЕНТ!
-     *
-     * @param packet - наш пакет
-     * @param type   - тип измерения. Доступные в mc: {OVERWORLD, NETHER, THE_END}
-     */
-    fun sendToDim(packet: Packet, type: DimensionType)
-    {
-        CHANNEL.send(PacketDistributor.DIMENSION.with { type }, packet)
-    }
+    fun sendToDim(packet: Packet, type: DimensionType) = CHANNEL.send(PacketDistributor.DIMENSION.with { type }, packet)
 
     /**
      * Данный метод позволяет отправить наш пакет всем отслеживающим сущность. Пакет отсылается на КЛИЕНТ!
@@ -110,10 +62,7 @@ object NetworkHandler
      * @param packet - наш пакет
      * @param entity - сущность, которую нужно отправить отслеживающим
      */
-    fun sendToTrackingAndSelf(packet: Packet, entity: Entity)
-    {
-        CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with { entity }, packet)
-    }
+    fun sendToTrackingAndSelf(packet: Packet, entity: Entity) = CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with { entity }, packet)
 
     /**
      * Данный метод позволяет отправить наш пакет всем отслеживающим чанк. Пакет отсылается на КЛИЕНТ!
@@ -121,10 +70,7 @@ object NetworkHandler
      * @param packet - наш пакет
      * @param chunk  - чанк, который нужно отправить отслеживающим
      */
-    fun sendToTrackingChunk(packet: Packet?, chunk: Chunk)
-    {
-        CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with { chunk }, packet)
-    }
+    fun sendToTrackingChunk(packet: Packet, chunk: Chunk) = CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with { chunk }, packet)
 
     /**
      * Данный метод позволяет отправить наш пакет всем `менеджерам`. Пакет отсылается на КЛИЕНТ!
@@ -135,10 +81,7 @@ object NetworkHandler
      * @param packet   - наш пакет
      * @param managers - список менеджеров, которым нужно отправить пакет.
      */
-    fun sendToSeveralPlayers(packet: Packet, managers: List<NetworkManager>)
-    {
-        CHANNEL.send(PacketDistributor.NMLIST.with { managers }, packet)
-    }
+    fun sendToSeveralPlayers(packet: Packet, managers: List<NetworkManager>) = CHANNEL.send(PacketDistributor.NMLIST.with { managers }, packet)
 
     private fun registerPacket(clazz: Class<Packet>)
     {
@@ -173,10 +116,11 @@ object NetworkHandler
         }
     }
 
-    abstract class Packet()
+    abstract class Packet
     {
         abstract fun encode(packet: Packet, buf: PacketBuffer)
         abstract fun decode(buf: PacketBuffer): Packet
+
         fun handlePacket(packet: Packet, context: Supplier<NetworkEvent.Context>)
         {
             val ctx: NetworkEvent.Context = context.get()
@@ -190,7 +134,9 @@ object NetworkHandler
             ctx.packetHandled = true
         }
 
+        @OnlyIn(Dist.CLIENT)
         abstract fun client(player: ClientPlayerEntity?)
+        @OnlyIn(Dist.DEDICATED_SERVER)
         abstract fun server(player: ServerPlayerEntity?)
 
         @OnlyIn(Dist.CLIENT)

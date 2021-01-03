@@ -25,6 +25,7 @@ class SizedArrayList<T> : ArrayList<T>
     }
     companion object
     {
+        @JvmStatic
         fun<T> of(vararg tin : T) : SizedArrayList<T>
         {
             return if(tin.size > 0)
@@ -39,6 +40,7 @@ class SizedArrayList<T> : ArrayList<T>
             }
         }
 
+        @JvmStatic
         fun<T> copyOf(tin : Array<T>) : SizedArrayList<T>
         {
             return if(tin.size > 0)
@@ -53,6 +55,7 @@ class SizedArrayList<T> : ArrayList<T>
             }
         }
 
+        @JvmStatic
         fun<T> copyOf(tin : List<T>) : SizedArrayList<T>
         {
             return if(tin.size > 0)

@@ -24,7 +24,6 @@ import phoenix.utils.LogManager
 import phoenix.world.genlayers.*
 import java.util.function.LongFunction
 
-
 class NewEndBiomeProvider(var settings: EndBiomeProviderSettings) : BiomeProvider(biomes)
 {
     private lateinit var genLayer: Layer
@@ -118,7 +117,7 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings) : BiomeProvide
     {
         return if(structureToStage.containsKey(structureIn))
         {
-            StageManager.getStage() >= structureToStage[structureIn] ?: 10
+            StageManager.getStage() >= structureToStage[structureIn] ?: 10 && super.hasStructure(structureIn)
         }
         else
         {

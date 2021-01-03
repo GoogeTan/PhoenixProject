@@ -16,7 +16,7 @@ import phoenix.Phoenix
 import phoenix.init.PhoenixBlocks
 import phoenix.utils.block.ICustomGroup
 
-class ArmoredGlassBlock : AbstractGlassBlock(
+object ArmoredGlassBlock : AbstractGlassBlock(
     Properties.create(Material.GLASS).doesNotBlockMovement().hardnessAndResistance(20.0f).harvestLevel(3).harvestTool(
         ToolType.PICKAXE).sound(SoundType.GLASS)), ICustomGroup
 {

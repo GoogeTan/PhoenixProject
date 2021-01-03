@@ -23,6 +23,7 @@ import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import phoenix.init.PhoenixLootTables;
 import phoenix.utils.BlockPosUtils;
+import phoenix.utils.SizedArrayList;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
@@ -50,13 +51,13 @@ public class RemainsPieces
         {
             int x = pos.getX() + rand.nextInt(40) - 20, z = pos.getZ() + rand.nextInt(40) - 20;
             int i = 0;
-            while (BlockPosUtils.isNear(new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG), z), poses, 10) && i < 20)
+            while (BlockPosUtils.isNear(new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES), z), poses, 10) && i < 20)
             {
                 x = pos.getX() + rand.nextInt(50) - 25;
                 z = pos.getZ() + rand.nextInt(50) - 25;
                 i++;
             }
-            BlockPos res = new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG), z);
+            BlockPos res = new BlockPos(x, generator.getHeight(x, z, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES), z);
             pieces.add(new RemainsPieces.Piece(manager, allPieces.get(rand.nextInt(allPieces.size())), res, rotation, 0));
             poses.add(res);
         }

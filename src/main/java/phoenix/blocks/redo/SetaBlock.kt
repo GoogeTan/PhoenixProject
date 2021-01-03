@@ -24,7 +24,7 @@ import phoenix.utils.getDownHeight
 import phoenix.utils.nextInt
 import java.util.*
 
-class SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandomly().harvestTool(ToolType.SHOVEL).lightValue(5)), IGrowable, ICustomGroup
+object SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandomly().harvestTool(ToolType.SHOVEL).lightValue(5)), IGrowable, ICustomGroup
 {
     private val SHAPE: VoxelShape = makeCuboidShape(0.0, 12.0, 0.0, 16.0, 16.0, 16.0)
 

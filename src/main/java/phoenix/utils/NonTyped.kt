@@ -8,12 +8,17 @@ import net.minecraft.entity.Entity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.ShapedRecipe
 import net.minecraft.network.PacketBuffer
+import net.minecraft.tileentity.TileEntity
+import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.JSONUtils
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.IWorld
 import net.minecraft.world.World
+import net.minecraftforge.fml.RegistryObject
+import net.minecraftforge.registries.DeferredRegister
+import net.minecraftforge.registries.IForgeRegistryEntry
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -80,3 +85,9 @@ fun PacketBuffer.readDate() : Date
     res.year = readInt()
     return res;
 }
+
+fun<T : TileEntity> create(tile: T, block: Block) : () -> TileEntityType<T> = { TileEntityType.Builder.create({ tile }, block).build(null) }
+
+fun<T : TileEntity> create(tile: T, block: RegistryObject<Block>) : () -> TileEntityType<T> = { TileEntityType.Builder.create({ tile }, block.get()).build(null) }
+
+fun<T : IForgeRegistryEntry<T>> DeferredRegister<T>.registerValue(nameIn: String, value : T): RegistryObject<T> = this.register(nameIn) { value }
