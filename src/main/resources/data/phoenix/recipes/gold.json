@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    {
+      "item": "phoenix:crucible_with_gold"
+    }
+  ],
+  "result": {
+    "item": "minecraft:gold_ingot",
+    "count": 1
+  }
+}

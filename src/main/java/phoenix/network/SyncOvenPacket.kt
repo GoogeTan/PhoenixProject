@@ -54,7 +54,6 @@ class SyncOvenPacket(var timers: IntArray, var burnTime : Int, var container: Ov
             tile.burnTime = burnTime
             tile.inventory = container
             tile.timers = timers
-            world.setBlockState(pos, world.getBlockState(pos).with(OvenBlock.WORKING, tile.burnTime > 0))
         }
     }
 

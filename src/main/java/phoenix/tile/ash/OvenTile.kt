@@ -10,6 +10,7 @@ import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.util.math.BlockPos
+import net.minecraft.world.server.ServerWorld
 import phoenix.blocks.ash.OvenBlock
 import phoenix.containers.ash.OvenContainer
 import phoenix.init.PhoenixItems
@@ -90,27 +91,30 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN.get()), ITickableTileEntity, IInv
                 burnTime--
                 burnTime = min(maxBurnTime, burnTime)
                 burnTime = max(0, burnTime)
-                var has = false
-                for (i in 0..3)
+                if(world!!.getBlockState(pos)[OvenBlock.STATE] == 2)
                 {
-                    val current = inventory[i]
-                    if (recipes_from_inputs.contains(current.item))
+                    var has = false
+                    for (i in 0..3)
                     {
-                        val recipe = recipes_from_inputs[current.item]!!
-                        val cookTime: Int = recipe.cookTime
-                        timers[i]++
-                        if (timers[i] >= cookTime)
+                        val current = inventory[i]
+                        if (recipes_from_inputs.contains(current.item))
                         {
-                            inventory[i] = recipe.result
-                            has = true
-                            timers[i] = 0
+                            val recipe = recipes_from_inputs[current.item]!!
+                            val cookTime: Int = recipe.cookTime
+                            timers[i]++
+                            if (timers[i] >= cookTime)
+                            {
+                                inventory[i] = recipe.result
+                                has = true
+                                timers[i] = 0
+                            }
                         }
                     }
+                    if (has)
+                        NetworkHandler.sendToDim(SyncOvenPacket(this), world!!.dimension.type)
                 }
-                if (has)
-                    NetworkHandler.sendToDim(SyncOvenPacket(this), world!!.dimension.type)
                 if (burnTime == 0)
-                    world!!.setBlockState(pos, world!!.getBlockState(pos).with(OvenBlock.WORKING, false))
+                    world!!.setBlockState(pos, world!!.getBlockState(pos).with(OvenBlock.STATE, 0))
             }
         }
     }

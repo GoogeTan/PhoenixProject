@@ -3,13 +3,15 @@ package phoenix.blocks.ash
 import net.minecraft.block.Block
 import net.minecraft.block.BlockRenderType
 import net.minecraft.block.BlockState
+import net.minecraft.block.Blocks
 import net.minecraft.block.material.Material
+import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.BlockItemUseContext
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.particles.ParticleTypes
-import net.minecraft.state.BooleanProperty
+import net.minecraft.state.IntegerProperty
 import net.minecraft.state.StateContainer
 import net.minecraft.state.properties.BlockStateProperties
 import net.minecraft.tileentity.TileEntity
@@ -18,14 +20,15 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.BlockRayTraceResult
 import net.minecraft.util.math.shapes.ISelectionContext
 import net.minecraft.util.math.shapes.VoxelShape
+import net.minecraft.world.Explosion
 import net.minecraft.world.IBlockReader
+import net.minecraft.world.IWorld
 import net.minecraft.world.World
 import net.minecraft.world.storage.loot.LootContext
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.common.ToolType
-import phoenix.init.PhoenixBlocks
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncOvenPacket
 import phoenix.recipes.OvenRecipe
@@ -38,25 +41,22 @@ class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hard
 {
     companion object
     {
-        val WORKING : BooleanProperty = BooleanProperty.create("working")
+        val STATE : IntegerProperty = IntegerProperty.create("state", 0, 2)
         val SHAPE   : VoxelShape      = Block.makeCuboidShape(0.0, 0.0, 0.0, 16.0, 32.0, 16.0)
     }
 
     init
     {
-        defaultState = stateContainer.baseState.with(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH).with(WORKING, false)
+        defaultState = stateContainer.baseState.with(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH).with(STATE, 0)
     }
 
     override fun onBlockActivated(state: BlockState, worldIn: World, pos: BlockPos, playerIn: PlayerEntity, handIn: Hand, hit: BlockRayTraceResult) : ActionResultType
     {
-        if (!worldIn.isRemote && !playerIn.isSneaking)
+        if (!worldIn.isRemote)
         {
             val tile = worldIn.getTileEntity(pos) as OvenTile
             val stack: ItemStack = playerIn.getHeldItem(handIn)
 
-            val list = tile.outOtherItems()
-            for (i in list)
-                playerIn.addItemStackToInventory(i)
             if (OvenRecipe.recipes_from_inputs[stack.item] != null)
             {
                 if(tile.addItem(stack))
@@ -69,7 +69,19 @@ class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hard
             {
                 tile.burnTime += ForgeHooks.getBurnTime(stack)
                 playerIn.getHeldItem(handIn).shrink(1)
-                worldIn.setBlockState(pos, worldIn.getBlockState(pos).with(WORKING, true))
+                if(worldIn.getBlockState(pos)[STATE] == 0)
+                    worldIn.setBlockState(pos, worldIn.getBlockState(pos).with(STATE, 1))
+            }
+            else
+            {
+                if(worldIn.getBlockState(pos)[STATE] == 1)
+                    worldIn.setBlockState(pos, worldIn.getBlockState(pos).with(STATE, 2))
+                else if(worldIn.getBlockState(pos)[STATE] == 2)
+                {
+                    worldIn.setBlockState(pos, worldIn.getBlockState(pos).with(STATE, 1))
+                    for (i in tile.outOtherItems())
+                        playerIn.addItemStackToInventory(i)
+                }
             }
             return ActionResultType.SUCCESS
         }
@@ -77,9 +89,40 @@ class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hard
         return ActionResultType.PASS
     }
 
+    override fun onBlockPlacedBy(
+        worldIn: World,
+        pos: BlockPos,
+        state: BlockState,
+        placer: LivingEntity?,
+        stack: ItemStack
+    )
+    {
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack)
+        worldIn.setBlockState(pos.up(), Blocks.BARRIER.defaultState)
+    }
+
+    override fun onPlayerDestroy(worldIn: IWorld, pos: BlockPos, state: BlockState)
+    {
+        super.onPlayerDestroy(worldIn, pos, state)
+        worldIn.setBlockState(pos.up(), Blocks.AIR.defaultState, 2)
+    }
+
+    override fun onReplaced(state: BlockState, worldIn: World, pos: BlockPos, newState: BlockState, isMoving: Boolean)
+    {
+        super.onReplaced(state, worldIn, pos, newState, isMoving)
+        if(newState.block != this)
+            worldIn.setBlockState(pos.up(), Blocks.AIR.defaultState, 2)
+    }
+
+    override fun onBlockExploded(state: BlockState?, world: World, pos: BlockPos, explosion: Explosion?)
+    {
+        super.onBlockExploded(state, world, pos, explosion)
+        world.setBlockState(pos.up(), Blocks.AIR.defaultState, 2)
+    }
+
     override fun fillStateContainer(builder: StateContainer.Builder<Block, BlockState>)
     {
-        builder.add(BlockStateProperties.HORIZONTAL_FACING).add(WORKING)
+        builder.add(BlockStateProperties.HORIZONTAL_FACING).add(STATE)
     }
 
     override fun getStateForPlacement(context: BlockItemUseContext) = defaultState.with(BlockStateProperties.HORIZONTAL_FACING, context.placementHorizontalFacing.opposite)
@@ -113,7 +156,7 @@ class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hard
         }
     }
 
-    override fun getDrops(state: BlockState, builder: LootContext.Builder): List<ItemStack> = SizedArrayList.of(ItemStack(PhoenixBlocks.OVEN.get()))
+    override fun getDrops(state: BlockState, builder: LootContext.Builder): List<ItemStack> = SizedArrayList.of(ItemStack(this))
 
     override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext) = SHAPE
     override fun getCollisionShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext) = SHAPE
