@@ -1,5 +1,9 @@
 package phoenix.client.gui.diaryPages
 
+import phoenix.client.gui.diaryPages.elements.ADiaryElement
+import java.util.*
+import kotlin.collections.HashMap
+
 val idToChapter : HashMap<Int, Chapters> = HashMap()
 
 enum class Chapters(var id: Int, var type : ChapterType)
@@ -23,6 +27,15 @@ enum class Chapters(var id: Int, var type : ChapterType)
     };
 
     abstract fun getText(): String
+
+    fun getElements(): LinkedList<ADiaryElement>
+    {
+        val res = LinkedList<ADiaryElement>()
+
+
+
+        return res
+    }
 
     init
     {

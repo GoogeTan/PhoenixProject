@@ -31,7 +31,7 @@ class DiaryBook(var xSize: Int, var ySize: Int, renderer: FontRenderer)
 
     fun render(gui: ContainerScreen<DiaryContainer>, renderer: FontRenderer, xSize: Int, ySize: Int, x: Int, y: Int, depth: Int)
     {
-        if(openedChapters.size > currentChapter && currentChapter >= 0)
+        if(currentChapter < openedChapters.size && currentChapter >= 0)
         {
             var page = openedChapters[currentChapter].currentPage1
             var sum = 0

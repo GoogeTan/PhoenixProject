@@ -29,7 +29,7 @@ class DiaryChapter
     constructor(xSizeIn: Int, ySizeIn: Int, vararg elementsIn: ADiaryElement) : this(
         xSizeIn,
         ySizeIn,
-        ImmutableList.copyOf<ADiaryElement>(elementsIn)
+        ImmutableList.copyOf(elementsIn)
     )
     {
     }
@@ -42,7 +42,7 @@ class DiaryChapter
     {
     }
 
-    constructor(xSizeIn: Int, ySizeIn: Int, elementsIn: Collection<ADiaryElement>?)
+    constructor(xSizeIn: Int, ySizeIn: Int, elementsIn: Collection<ADiaryElement>)
     {
         font = Minecraft.getInstance().fontRenderer
         xSize = xSizeIn
@@ -50,9 +50,9 @@ class DiaryChapter
         add(elementsIn)
     }
 
-    fun add(elementsIn: Collection<ADiaryElement>?)
+    fun add(elementsIn: Collection<ADiaryElement>)
     {
-        elements.addAll(elementsIn!!)
+        elements.addAll(elementsIn)
         recalculateSizes()
     }
 
@@ -98,17 +98,13 @@ class DiaryChapter
     }
 
     val isLast: Boolean
-        get()
-        = end >= elements.size - 1 || end2 >= elements.size - 1
+        get() = end >= elements.size - 1 || end2 >= elements.size - 1
     val isFirst: Boolean
-        get()
-        = start <= 0
+        get() = start <= 0
     val currentPage1: ArrayList<ADiaryElement>
-        get()
-        = ArrayUtils.part(elements, start, end)
+        get() = ArrayUtils.part(elements, start, end)
     val currentPage2: ArrayList<ADiaryElement>
-        get()
-        = ArrayUtils.part(elements, end, end2)
+        get() = ArrayUtils.part(elements, end, end2)
 
     operator fun next()
     {
@@ -136,18 +132,20 @@ class DiaryChapter
             size = 0
             count = 0
             isEnded = false
-            var i = end
-            while (i < elements.size && !isEnded)
-            {
-                if (size + elements[i].getHeight(xSize, ySize) >= 14)
+            run {
+                var i = end
+                while (i < elements.size && !isEnded)
                 {
-                    isEnded = true
+                    if (size + elements[i].getHeight(xSize, ySize) >= 14)
+                    {
+                        isEnded = true
+                    }
+                    size += elements[i].getHeight(xSize, ySize)
+                    count++
+                    i++
                 }
-                size += elements[i].getHeight(xSize, ySize)
-                count++
-                i++
+                end2 = end + count + 1
             }
-            end2 = end + count + 1
         }
     }
 
@@ -179,20 +177,22 @@ class DiaryChapter
             size = 0
             count = 0
             isEnded = false
-            var i = end - 1
-            while (i >= 0 && !isEnded)
-            {
-                if ((size + elements[i].getHeight(xSize, ySize)) * font.FONT_HEIGHT >= ySize - 30)
+            run {
+                var i = end - 1
+                while (i >= 0 && !isEnded)
                 {
-                    isEnded = true
-                } else
-                {
-                    size += elements[i].getHeight(xSize, ySize)
-                    count++
+                    if ((size + elements[i].getHeight(xSize, ySize)) * font.FONT_HEIGHT >= ySize - 30)
+                    {
+                        isEnded = true
+                    } else
+                    {
+                        size += elements[i].getHeight(xSize, ySize)
+                        count++
+                    }
+                    --i
                 }
-                --i
+                start = end - count - 1
             }
-            start = end - count - 1
         }
     }
 
