@@ -16,7 +16,7 @@ public class PhoenixContainers
 {
     private static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Phoenix.MOD_ID);
 
-    public static final RegistryObject<ContainerType<DiaryContainer>> GUIDE   = CONTAINERS.register("diary", DiaryContainer::fromNetwork);
+    public static final RegistryObject<ContainerType<DiaryContainer>> GUIDE = CONTAINERS.register("diary", DiaryContainer::fromNetwork);
 
     public static void register()
     {
@@ -26,6 +26,6 @@ public class PhoenixContainers
     @OnlyIn(Dist.CLIENT)
     public static void registerScreens()
     {
-        //ScreenManager.registerFactory(GUIDE.get(), DiaryGui::new);
+        ScreenManager.registerFactory(GUIDE.get(), DiaryGui::new);
     }
 }

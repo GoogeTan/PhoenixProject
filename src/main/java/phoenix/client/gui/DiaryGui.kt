@@ -18,7 +18,7 @@ import phoenix.utils.RenderUtils
 
 class DiaryGui(screenContainer: DiaryContainer, inv: PlayerInventory, titleIn: ITextComponent) : ContainerScreen<DiaryContainer>(screenContainer, inv, titleIn)
 {
-    private val DIARY_TEXTURE = ResourceLocation(Phoenix.MOD_ID, "textures/gui/diary_container.png")
+    //private val DIARY_TEXTURE = ResourceLocation(Phoenix.MOD_ID, "textures/gui/diary_container.png")
     private val DIARY = ResourceLocation(Phoenix.MOD_ID, "textures/gui/diary_2.png")
     private lateinit var book: DiaryBook
     val container: DiaryContainer = screenContainer
@@ -34,11 +34,10 @@ class DiaryGui(screenContainer: DiaryContainer, inv: PlayerInventory, titleIn: I
         for (i in chapters)
         {
             val ch = Chapters.values()[i.m];
-            val els = DiaryUtils.makeParagraph(font, xSize, ch.getText())
+            val els = DiaryUtils.makeParagraph(font, xSize - 30, ch.getText())
             els.add(RightAlignedTextElement(i.v.toString()))
-            book.add(DiaryChapter(xSize, ySize, els))
+            book.add(DiaryChapter(xSize - 30, ySize, els))
         }
-
     }
 
     override fun drawGuiContainerBackgroundLayer(partialTicks: Float, mouseX: Int, mouseY: Int)

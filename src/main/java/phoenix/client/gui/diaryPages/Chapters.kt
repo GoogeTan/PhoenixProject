@@ -1,32 +1,36 @@
 package phoenix.client.gui.diaryPages
 
-enum class Chapters(var idIn: Int)
-{
-    FIRST_DAY(0)
-    {
-        override fun getText() = "И вот я решил писать дневник. Теперь здесь будут записи о ключевых событиях в моей жизни, заметки и идеи." +
-                    "Ну что еще тут написать? Пока все."
+val idToChapter : HashMap<Int, Chapters> = HashMap()
 
-        override fun getType() = ChapterType.THOUGHT
+enum class Chapters(var id: Int, var type : ChapterType)
+{
+    FIRST_DAY(0, ChapterType.THOUGHT)
+    {
+        override fun getText() =
+            "И вот я решил писать дневник. Теперь здесь будут записи о ключевых событиях в моей жизни, заметки и идеи." +
+                    "Ну что еще тут написать? Пока все."
     },
-    STEEL(1)
+    STEEL(1, ChapterType.THOUGHT)
     {
         override fun getText() = "Интересно, железо достаточно хрупко, но что если выплавлять его вместе с другими " +
-                "материалами? Для этого мне понадобится тара... Думаю горшок из глины подойдет."
-        override fun getType() = ChapterType.THOUGHT
+                "материалами? Для этого мне понадобится тара... Думаю горшок из качественной глины подойдет."
     },
-    OVEN(2)
+    OVEN(2, ChapterType.THOUGHT)
     {
         override fun getText() = "Как оказалось, использовать обычную глину не выйдет. Мне нужна более чистая." +
                 "Чтоб ее отчистить мне пригодится бочка и вода. А вот из нее буду делать горшок. Назову то тигелем."
-        override fun getType() = ChapterType.THOUGHT
+
     };
-    val id = idIn
-    abstract fun getText() : String
-    abstract fun getType() : ChapterType
+
+    abstract fun getText(): String
+
+    init
+    {
+        idToChapter[id] = this
+    }
 }
 
 enum class ChapterType
 {
-    THOUGHT, GLOBAL;
+    THOUGHT, CHAPTER;
 }
