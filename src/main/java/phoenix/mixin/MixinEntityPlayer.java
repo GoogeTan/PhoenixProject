@@ -50,7 +50,14 @@ public class MixinEntityPlayer implements IChapterReader
     }
 
     public ArrayList<Pair<Integer, Date>> chapters = new ArrayList<>();
-    public boolean addChapter(int id, @NotNull Date date) { return chapters.add(new Pair<>(date, id)); }
+    public boolean addChapter(int id, @NotNull Date date)
+    {
+        Pair<Integer, Date> toAdd = new Pair<>(date, id);
+        if(!chapters.contains(toAdd))
+            return chapters.add(toAdd);
+        else
+            return false;
+    }
     @NotNull
     public ArrayList<Pair<Integer, Date>> getOpenedChapters() { return chapters; }
 }
