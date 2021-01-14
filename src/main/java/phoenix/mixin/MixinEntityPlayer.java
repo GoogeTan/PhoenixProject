@@ -1,5 +1,6 @@
 package phoenix.mixin;
 
+import org.jetbrains.annotations.NotNull;
 import phoenix.utils.Pair;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -25,11 +26,10 @@ public class MixinEntityPlayer implements IChapterReader
         for (int i = 0; i < chapters.size(); i++)
         {
             nbt.putInt("chid" + i, chapters.get(i).getM());
-            nbt.putInt("chmin" + i, chapters.get(i).getV().getMinute());
-            nbt.putInt("chday" + i, chapters.get(i).getV().getDay());
-            nbt.putInt("chyear" + i, chapters.get(i).getV().getYear());
+            nbt.putLong("chmin" + i, chapters.get(i).getV().getMinute());
+            nbt.putLong("chday" + i, chapters.get(i).getV().getDay());
+            nbt.putLong("chyear" + i, chapters.get(i).getV().getYear());
         }
-        addChapter(0, new Date(1, 3 ,4));
         LogManager.log(this, "Player ends saving");
     }
 
@@ -41,16 +41,16 @@ public class MixinEntityPlayer implements IChapterReader
         for (int i = 0; i < count; ++i)
         {
             int id   = nbt.getInt("chid$i");
-            int min  = nbt.getInt("chmin$i");
-            int day  = nbt.getInt("chday$i");
-            int year = nbt.getInt("chyear$i");
+            long min  = nbt.getLong("chmin$i");
+            long day  = nbt.getLong("chday$i");
+            long year = nbt.getLong("chyear$i");
             addChapter(id, new Date(min, day, year));
         }
-        addChapter(0, new Date(1, 3 ,4));
         LogManager.error(this, "Player ends loading");
     }
 
     public ArrayList<Pair<Integer, Date>> chapters = new ArrayList<>();
-    public boolean addChapter(int id, Date date) { return chapters.add(new Pair<>(date, id)); }
-    public List<Pair<Integer, Date>> getOpenedChapters() { return chapters; }
+    public boolean addChapter(int id, @NotNull Date date) { return chapters.add(new Pair<>(date, id)); }
+    @NotNull
+    public ArrayList<Pair<Integer, Date>> getOpenedChapters() { return chapters; }
 }

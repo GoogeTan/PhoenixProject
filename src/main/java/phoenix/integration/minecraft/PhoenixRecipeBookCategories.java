@@ -12,5 +12,4 @@ public class PhoenixRecipeBookCategories
             "MECHANISMS", new Class[]{ItemStack[].class}, (Object) new ItemStack[]{new ItemStack(Items.COMPARATOR)});
     public static final RecipeBookCategories OVEN = EnumUtil.addEnum(RecipeBookCategories.class,
             "OVEN", new Class[]{ItemStack[].class}, (Object) new ItemStack[]{new ItemStack(PhoenixBlocks.INSTANCE.getOVEN().get())});
-
 }

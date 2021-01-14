@@ -11,25 +11,25 @@ object LogManager
     {
         if(PhoenixConfiguration.COMMON_CONFIG.debug.get())
         {
-            Phoenix.LOGGER.error("${obj.javaClass} " + message)
+            Phoenix.LOGGER.error("<${obj.javaClass.lastName()}> " + message)
         }
         else
         {
-            Phoenix.LOGGER.log(Level.DEBUG, "${obj.javaClass} " + message)
+            Phoenix.LOGGER.log(Level.DEBUG, "<${obj.javaClass.lastName()}> " + message)
         }
     }
 
     @JvmStatic
     fun error(obj : Any, message : String?)
     {
-        Phoenix.LOGGER.error("${obj.javaClass} " + (message ?: ""))
+        Phoenix.LOGGER.error("<${obj.javaClass.lastName()}> " + (message ?: ""))
     }
 
     @JvmStatic
     fun error(obj : Any, message : Exception?)
     {
         if(message != null)
-            Phoenix.LOGGER.error("Exception in class ${obj.javaClass.name}: " + message.toString())
+            Phoenix.LOGGER.error("Exception in class <${obj.javaClass.lastName()}>: " + message.toString())
     }
 
     @JvmStatic
@@ -40,4 +40,7 @@ object LogManager
             message += " $i"
         error(obj, message)
     }
+
+
+    private fun<T> Class<T>.lastName() = this.canonicalName.split(".").last()
 }

@@ -9,7 +9,7 @@ import phoenix.utils.readDate
 import phoenix.utils.writeDate
 import phoenix.utils.Pair
 
-class SyncBookPacket(var list : List<phoenix.utils.Pair<Integer, Date>>): NetworkHandler.Packet()
+class SyncBookPacket(var list : List<Pair<Integer, Date>>): NetworkHandler.Packet()
 {
     override fun encode(packet: NetworkHandler.Packet, buf: PacketBuffer)
     {
@@ -27,14 +27,14 @@ class SyncBookPacket(var list : List<phoenix.utils.Pair<Integer, Date>>): Networ
 
     override fun decode(buf: PacketBuffer): NetworkHandler.Packet
     {
-        val res = ArrayList<phoenix.utils.Pair<Integer, Date>>()
+        val res = ArrayList<Pair<Integer, Date>>()
 
         val count = buf.readInt()
         for (i in 0 until count)
         {
             val id = buf.readInt()
             val date = buf.readDate()
-            res.add(phoenix.utils.Pair<Integer, Date>(date, Integer(id)))
+            res.add(Pair(date, Integer(id)))
         }
 
         return SyncBookPacket(res)

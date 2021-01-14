@@ -7,6 +7,7 @@ import net.minecraft.block.Blocks
 import net.minecraft.block.material.Material
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.item.BlockItemUseContext
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
@@ -29,12 +30,17 @@ import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.common.ToolType
+import phoenix.client.gui.diaryPages.Chapters
 import phoenix.network.NetworkHandler
+import phoenix.network.SyncBookPacket
 import phoenix.network.SyncOvenPacket
 import phoenix.recipes.OvenRecipe
 import phoenix.tile.ash.OvenTile
+import phoenix.utils.IChapterReader
 import phoenix.utils.SizedArrayList
+import phoenix.utils.addChapter
 import phoenix.utils.block.BlockWithTile
+import phoenix.utils.getDate
 import java.util.*
 
 class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hardnessAndResistance(10f).harvestTool(ToolType.PICKAXE))
@@ -79,8 +85,11 @@ class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hard
                 else if(worldIn.getBlockState(pos)[STATE] == 2)
                 {
                     worldIn.setBlockState(pos, worldIn.getBlockState(pos).with(STATE, 1))
-                    for (i in tile.outOtherItems())
+                    val items = tile.outOtherItems()
+                    for (i in items)
                         playerIn.addItemStackToInventory(i)
+                    if(items.isNotEmpty() && playerIn is ServerPlayerEntity)
+                        playerIn.addChapter(Chapters.STEEL)
                 }
             }
             return ActionResultType.SUCCESS

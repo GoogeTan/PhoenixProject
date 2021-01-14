@@ -2,9 +2,11 @@ package phoenix.utils
 
 import com.google.gson.JsonObject
 import net.minecraft.block.Block
+import net.minecraft.client.gui.FontRenderer
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
+import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.ShapedRecipe
 import net.minecraft.network.PacketBuffer
@@ -14,11 +16,16 @@ import net.minecraft.util.JSONUtils
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.registry.Registry
+import net.minecraft.util.text.ITextComponent
+import net.minecraft.world.BossInfo
 import net.minecraft.world.IWorld
 import net.minecraft.world.World
 import net.minecraftforge.fml.RegistryObject
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.IForgeRegistryEntry
+import phoenix.client.gui.diaryPages.Chapters
+import phoenix.network.NetworkHandler
+import phoenix.network.SyncBookPacket
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -72,17 +79,17 @@ fun Random.nextInt(min : Int, max : Int) = (min - 0.5 + this.nextDouble() * (max
 
 fun PacketBuffer.writeDate(date : Date)
 {
-    this.writeInt(date.minute)
-    this.writeInt(date.day)
-    this.writeInt(date.year)
+    this.writeLong(date.minute)
+    this.writeLong(date.day)
+    this.writeLong(date.year)
 }
 
 fun PacketBuffer.readDate() : Date
 {
     val res = Date(0, 0, 0)
-    res.minute = readInt()
-    res.day = readInt()
-    res.year = readInt()
+    res.minute = readLong()
+    res.day = readLong()
+    res.year = readLong()
     return res;
 }
 
@@ -91,3 +98,20 @@ fun<T : TileEntity> create(tile: T, block: Block) : () -> TileEntityType<T> = { 
 fun<T : TileEntity> create(tile: T, block: RegistryObject<Block>) : () -> TileEntityType<T> = { TileEntityType.Builder.create({ tile }, block.get()).build(null) }
 
 fun<T : IForgeRegistryEntry<T>> DeferredRegister<T>.registerValue(nameIn: String, value : T): RegistryObject<T> = this.register(nameIn) { value }
+
+fun FontRenderer.drawCenterAlignedString(string : ITextComponent, x : Float, y : Float)
+{
+    drawString(string.formattedText, x, y, BossInfo.Color.RED.ordinal)
+}
+
+fun World.getDate() = Date((2005 + dayTime) % 12000, ((2005 + dayTime) / 12000) % 319, ((2005 + dayTime) / 12000) / 319)
+
+
+fun ServerPlayerEntity.addChapter(chapter : Chapters)
+{
+    if(this is IChapterReader)
+    {
+        this.addChapter(Chapters.STEEL.id, world.getDate())
+        NetworkHandler.sendTo(SyncBookPacket(this.getOpenedChapters()), this)
+    }
+}

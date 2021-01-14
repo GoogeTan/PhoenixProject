@@ -9,12 +9,11 @@ import net.minecraft.util.text.ITextComponent
 import phoenix.Phoenix
 import phoenix.client.gui.diaryPages.Chapters
 import phoenix.client.gui.diaryPages.DiaryBook
-import phoenix.client.gui.diaryPages.elements.DiaryChapter
+import phoenix.client.gui.diaryPages.elements.ADiaryElement
 import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement
 import phoenix.containers.DiaryContainer
-import phoenix.utils.DiaryUtils
-import phoenix.utils.IChapterReader
-import phoenix.utils.RenderUtils
+import phoenix.utils.*
+import kotlin.collections.ArrayList
 
 class DiaryGui(screenContainer: DiaryContainer, inv: PlayerInventory, titleIn: ITextComponent) : ContainerScreen<DiaryContainer>(screenContainer, inv, titleIn)
 {
@@ -26,17 +25,24 @@ class DiaryGui(screenContainer: DiaryContainer, inv: PlayerInventory, titleIn: I
     override fun init()
     {
         super.init()
-        addButton(InvisibleButton(guiLeft - 40, guiTop, ySize, { book-- }, true))
-        addButton(InvisibleButton(guiLeft + xSize - 10, guiTop, ySize, { book++ }, true))
-        book = DiaryBook(xSize - 30, ySize, Minecraft.getInstance().fontRenderer)
+        addButton(InvisibleButton(guiLeft - 40, guiTop, (ySize * 1.3), { book.prev() }, true))
+        addButton(InvisibleButton(guiLeft + xSize - 10, guiTop, (ySize * 1.3), { book.next() }, true))
+        book = DiaryBook(xSize - 30, (ySize * 1.3), Minecraft.getInstance().fontRenderer)
         val player = Minecraft.getInstance().player;
-        val chapters = (player as IChapterReader).getOpenedChapters()
-        for (i in chapters)
+
+        if(player is IChapterReader)
         {
-            val ch = Chapters.values()[i.m];
-            val els = DiaryUtils.makeParagraph(font, xSize - 30, ch.getText())
-            els.add(RightAlignedTextElement(i.v.toString()))
-            book.add(DiaryChapter(xSize - 30, ySize, els))
+            val els = ArrayList<ADiaryElement>()
+            val chapters: ArrayList<Pair<Integer, Date>> = player.getOpenedChapters()
+
+            for (i in chapters)
+            {
+                val ch = Chapters.values()[i.m.toInt()]
+                els.addAll(DiaryUtils.makeParagraph(font, xSize - 30, ch.getText()))
+                els.add(RightAlignedTextElement(i.v.toString()))
+            }
+
+            book.add(els)
         }
     }
 

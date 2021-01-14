@@ -2,68 +2,77 @@ package phoenix.client.gui.diaryPages
 
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
-import phoenix.client.gui.diaryPages.elements.DiaryChapter
+import phoenix.client.gui.diaryPages.elements.ADiaryElement
+import phoenix.client.gui.diaryPages.elements.DiaryPage
 import phoenix.containers.DiaryContainer
 import phoenix.utils.LogManager
+import phoenix.utils.SizedArrayList
 import java.util.*
 
 
-class DiaryBook(var xSize: Int, var ySize: Int, renderer: FontRenderer)
+class DiaryBook(private val xSize: Int, private val ySize: Double, private val font: FontRenderer)
 {
-    private val openedChapters = LinkedList<DiaryChapter>()
-    private var currentChapter = 0
-    val font: FontRenderer = renderer
+    private val pages = LinkedList<DiaryPage>()
+    private var page = 0
 
-    private fun next()
+    fun add(elements: kotlin.collections.ArrayList<ADiaryElement>)
     {
-        if (!openedChapters[currentChapter].isLast) openedChapters[currentChapter].next()
-        else if(openedChapters.size > currentChapter + 1) currentChapter++
+        var i = 0
+        while (i in 0 until elements.size)
+        {
+            if(pages.size == 0)
+                pages.add(DiaryPage())
+            while (i < elements.size && pages.last.tryAdd(elements[i], xSize, ySize))
+            {
+                i++
+
+            }
+            pages.add(DiaryPage())
+        }
     }
 
-    private fun prev()
+    fun add(element: ADiaryElement)
     {
-        if (!openedChapters[currentChapter].isFirst) openedChapters[currentChapter].prev()
-        else if(currentChapter - 1 >= 0) currentChapter--;
+        add(SizedArrayList(1, element))
     }
-
-    fun add(elements: Collection<DiaryChapter>) = openedChapters.addAll(elements)
-    fun add(elements: DiaryChapter) = openedChapters.add(elements)
 
     fun render(gui: ContainerScreen<DiaryContainer>, renderer: FontRenderer, xSize: Int, ySize: Int, x: Int, y: Int, depth: Int)
     {
-        if(currentChapter < openedChapters.size && currentChapter >= 0)
-        {
-            var page = openedChapters[currentChapter].currentPage1
-            var sum = 0
-            for (element in page)
-            {
-                element.render(gui, renderer, xSize, ySize, x, y + sum * (font.FONT_HEIGHT + 2), depth)
-                sum += element.getHeight(xSize, ySize)
-            }
-            page = openedChapters[currentChapter].currentPage2
-            sum = 0
-            for (element in page)
-            {
-                element.render(gui, renderer, xSize, ySize, x + xSize / 2 - 10, y + sum * (font.FONT_HEIGHT + 2), depth)
-                sum += element.getHeight(xSize, ySize)
-            }
-        }
-        else
-        {
-            LogManager.error(this, "current chapter= $currentChapter + ${openedChapters.size}")
-        }
+        currentPage1.render(gui, font, xSize, ySize, x, y, depth)
+        currentPage2.render(gui, renderer, xSize, ySize, x + xSize / 2 - 10, y, depth)
     }
 
 
-    operator fun inc() : DiaryBook
+    val isLast: Boolean
+        get() = page + 1 >= pages.size - 1
+    val isFirst: Boolean
+        get() = page <= 0
+    private val currentPage1: DiaryPage
+        get() = pages[page]
+    private val currentPage2: DiaryPage
+        get() = if(page + 1 < pages.size) pages[page + 1] else DiaryPage()
+
+
+    fun next()
     {
-        next()
-        return this
+        println(pages.size)
+        if (!isLast)
+        {
+            page += 2;
+        }
     }
 
-    operator fun dec() : DiaryBook
+    fun prev()
     {
-        prev()
-        return this
+        println(pages.size)
+        if (!isFirst)
+        {
+            page -= 2
+        }
+    }
+
+    fun toFirst()
+    {
+        page = 0
     }
 }

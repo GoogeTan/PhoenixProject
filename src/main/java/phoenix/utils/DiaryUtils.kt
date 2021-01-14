@@ -4,14 +4,10 @@ import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.gui.RenderComponentsUtil
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.text.ITextComponent
 import net.minecraft.util.text.StringTextComponent
 import org.apache.commons.lang3.tuple.Pair
 import phoenix.client.gui.diaryPages.Chapters
-import phoenix.client.gui.diaryPages.elements.ADiaryElement
-import phoenix.client.gui.diaryPages.elements.ImageElement
-import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement
-import phoenix.client.gui.diaryPages.elements.TextElement
+import phoenix.client.gui.diaryPages.elements.*
 import phoenix.utils.exeptions.BookException
 import java.lang.StringBuilder
 import java.util.ArrayList
@@ -43,27 +39,28 @@ object DiaryUtils
                 words.add("[break]")
             }
         }
-        var number_of_words = 0
-        while (number_of_words < words.size)
+        var numberOfWords = 0
+        while (numberOfWords < words.size)
         {
-            var string_to_add = "" //строка которую будем добавлять
-            var next_word = words[number_of_words]
-            while (font.getStringWidth("$string_to_add $next_word") < xSize / 2 - 30) //пока меньше ширины страницы
+            var stringToAdd = "" //строка которую будем добавлять
+            var nextWord = words[numberOfWords]
+            while (font.getStringWidth("$stringToAdd $nextWord") < xSize / 2 - 30) //пока меньше ширины страницы
             {
-                if (words[number_of_words] == "\\n" || words[number_of_words] == "[break]")
+                if (words[numberOfWords] == "\\n" || words[numberOfWords] == "[break]")
                 {
-                    res.add(TextElement(string_to_add))
-                    string_to_add = ""
+                    if(stringToAdd.isNotEmpty())
+                        res.add(TextElement(stringToAdd))
+                    stringToAdd = ""
                 } else
                 {
-                    string_to_add += "$next_word " //добавляем слово
+                    stringToAdd += "$nextWord " //добавляем слово
                 }
-                ++number_of_words
-                next_word = if (number_of_words < words.size) words[number_of_words] else break
+                ++numberOfWords
+                nextWord = if (numberOfWords < words.size) words[numberOfWords] else break
             }
-            res.add(TextElement(string_to_add)) //добавляем строку
+            if(stringToAdd.isNotEmpty())
+                res.add(TextElement(stringToAdd)) //добавляем строку
         }
-        res.add(TextElement("")) //после каждого параграфа перенос
         return res
     }
 
@@ -122,6 +119,26 @@ object DiaryUtils
                 for (component in components) res.add(TextElement(component))
                 tmp = StringBuilder()
             }
+        }
+        return res
+    }
+
+
+    @JvmStatic
+    fun pagesFrom(font: FontRenderer, xSize: Int, ySize: Int, text: Array<out Chapters>): ArrayList<DiaryPage>
+    {
+        val elements = toElements(font, xSize, text)
+        val res = ArrayList<DiaryPage>()
+        var currentPage = DiaryPage()
+        var i = 0
+        while (i in 0 until elements.size)
+        {
+            while (i in 0 until elements.size && currentPage.tryAdd(elements[i], xSize, ySize.toDouble()))
+            {
+                i++
+            }
+            res.add(currentPage)
+            currentPage = DiaryPage()
         }
         return res
     }

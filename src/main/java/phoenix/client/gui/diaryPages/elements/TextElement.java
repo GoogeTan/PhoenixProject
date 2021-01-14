@@ -10,11 +10,11 @@ import phoenix.containers.DiaryContainer;
 
 public class TextElement extends ADiaryElement
 {
-    ITextComponent text = new StringTextComponent("");
+    ITextComponent text;
     Integer color = TextFormatting.BLACK.getColor();
-    public TextElement(String text)
+    public TextElement(String textIn)
     {
-        this.text = new StringTextComponent(text);
+        this.text = new StringTextComponent(textIn);
     }
 
     public TextElement(ITextComponent text)

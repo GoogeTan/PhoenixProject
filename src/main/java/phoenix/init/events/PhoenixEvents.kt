@@ -60,7 +60,7 @@ object PhoenixEvents
             LogManager.log(this, "Phoenix is starting saving")
             val nbt = event.world.worldInfo.getDimensionData(DimensionType.THE_END)
             StageManager.write(nbt)
-            LogManager.log(this, "${StageManager.getStage()} ${StageManager.getPart()}")
+            LogManager.log(this, "Stage = ${StageManager.getStage() + 1} Part = ${StageManager.getPart()}")
             event.world.worldInfo.setDimensionData(DimensionType.THE_END, nbt)
             LogManager.log(this, "Phoenix has ended saving")
         }
@@ -75,7 +75,7 @@ object PhoenixEvents
             LogManager.log(this, "Phoenix is starting loading")
             val nbt = event.world.worldInfo.getDimensionData(DimensionType.THE_END)
             StageManager.read(nbt)
-            LogManager.log(this, "${StageManager.getStage()} ${StageManager.getPart()}")
+            LogManager.log(this, "Stage = ${StageManager.getStage() + 1} Part = ${StageManager.getPart()}")
             NetworkHandler.sendToAll(SyncStagePacket(StageManager.getStage(), StageManager.getPart()))
             LogManager.log(this, "Phoenix has ended loading")
         }
@@ -168,7 +168,7 @@ object PhoenixEvents
             LogManager.log(this, "Phoenix is starting saving")
             val nbt = event.player.world.worldInfo.getDimensionData(DimensionType.THE_END)
             StageManager.write(nbt)
-            LogManager.log(this, "${StageManager.getStage()} ${StageManager.getPart()}")
+            LogManager.log(this, "Stage = ${StageManager.getStage() + 1} Part = ${StageManager.getPart()}")
             event.player.world.worldInfo.setDimensionData(DimensionType.THE_END, nbt)
             LogManager.log(this, "Phoenix has ended saving")
         }
