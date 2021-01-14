@@ -50,6 +50,8 @@ public class MixinEntityPlayer implements IChapterReader
     }
 
     public ArrayList<Pair<Integer, Date>> chapters = new ArrayList<>();
+
+    @Deprecated//Use addChapter(Chapters)
     public boolean addChapter(int id, @NotNull Date date)
     {
         Pair<Integer, Date> toAdd = new Pair<>(date, id);
@@ -58,6 +60,7 @@ public class MixinEntityPlayer implements IChapterReader
         else
             return false;
     }
+
     @NotNull
     public ArrayList<Pair<Integer, Date>> getOpenedChapters() { return chapters; }
 }
