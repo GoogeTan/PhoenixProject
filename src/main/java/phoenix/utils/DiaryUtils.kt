@@ -43,7 +43,7 @@ object DiaryUtils
         {
             var stringToAdd = "" //строка которую будем добавлять
             var nextWord = words[numberOfWords]
-            while (font.getStringWidth("$stringToAdd $nextWord") < xSize / 2 - 30) //пока меньше ширины страницы
+            while (font.getStringWidth("$stringToAdd $nextWord") < xSize - 30) //пока меньше ширины страницы
             {
                 if (words[numberOfWords] == "\\n" || words[numberOfWords] == "[break]")
                 {

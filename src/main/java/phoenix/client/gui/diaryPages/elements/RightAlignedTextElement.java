@@ -19,7 +19,7 @@ public class RightAlignedTextElement extends TextElement
     @Override
     public void render(ContainerScreen<DiaryContainer> gui, FontRenderer font, int xSize, int ySize, int x, int y, int depth)
     {
-        super.render(gui, font, xSize, ySize, x + xSize / 2 - 25 - font.getStringWidth(text.getFormattedText()), y, depth);
+        super.render(gui, font, xSize, ySize, x + xSize - 25 - font.getStringWidth(text.getFormattedText()), y, depth);
     }
 
     @Override

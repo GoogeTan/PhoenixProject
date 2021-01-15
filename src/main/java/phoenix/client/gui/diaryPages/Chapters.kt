@@ -39,7 +39,7 @@ enum class Chapters(var id: Int, var type : ChapterType)
 
     init
     {
-        idToChapter[id] = this
+        idToChapter.put(id, this)
     }
 }
 

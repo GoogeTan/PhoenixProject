@@ -50,7 +50,7 @@ public class PhoenixEventsOther
                 Phoenix.getLOGGER().error("Corn was not genned ^(. template is null... I think it is bad.");
             }
         }
-        if(!event.getWorld().isRemote && event.getEntity() instanceof ServerPlayerEntity)
+        if(!event.getWorld().isRemote && event.getEntity() instanceof ServerPlayerEntity && event.getEntity() instanceof IChapterReader)
         {
             NetworkHandler.INSTANCE.sendTo(new SyncBookPacket(((IChapterReader)event.getEntity()).getOpenedChapters()), (ServerPlayerEntity) event.getEntity());
         }
@@ -70,7 +70,7 @@ public class PhoenixEventsOther
             splashes.possibleSplashes.add(TextFormatting.GOLD + "Project E.N.D."); // Reference to: Phoenix project's old name
             splashes.possibleSplashes.add(TextFormatting.BLACK + "Нож в печень, FX вечен!"); // Reference to: AMD FX series
             splashes.possibleSplashes.add(TextFormatting.AQUA + "Still, the first enemy of human is itself."); // Reference to: Neon Genesis Evangelion
-            splashes.possibleSplashes.add(TextFormatting.WHITE + "The hands of the clock cannot be turned back. But it is in our power to move them forward!"); // Reference to: Neon Genesis Evangelion
+            splashes.possibleSplashes.add(TextFormatting.WHITE + "The hands of the clock cannot be turned back. \n But it is in our power to move them forward!"); // Reference to: Neon Genesis Evangelion
         }
     }
 }

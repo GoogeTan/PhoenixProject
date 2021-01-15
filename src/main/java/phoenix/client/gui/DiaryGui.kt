@@ -13,6 +13,8 @@ import phoenix.client.gui.diaryPages.elements.ADiaryElement
 import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement
 import phoenix.containers.DiaryContainer
 import phoenix.utils.*
+import phoenix.utils.Date
+import java.util.*
 
 class DiaryGui(screenContainer: DiaryContainer, inv: PlayerInventory, titleIn: ITextComponent) : ContainerScreen<DiaryContainer>(screenContainer, inv, titleIn)
 {
@@ -24,8 +26,8 @@ class DiaryGui(screenContainer: DiaryContainer, inv: PlayerInventory, titleIn: I
     override fun init()
     {
         super.init()
-        addButton(InvisibleButton(guiLeft - 40, guiTop, (ySize * 1.3), { book.prev() }, true))
-        addButton(InvisibleButton(guiLeft + xSize - 10, guiTop, (ySize * 1.3), { book.next() }, true))
+        addButton(InvisibleButton(guiLeft - 40, guiTop, (ySize * 1.8), { book.prev() }, true))
+        addButton(InvisibleButton(guiLeft + xSize - 10, guiTop, (ySize * 1.8), { book.next() }, true))
         book = DiaryBook(xSize - 30, (ySize * 1.8), Minecraft.getInstance().fontRenderer)
         val player = Minecraft.getInstance().player;
 
@@ -37,7 +39,7 @@ class DiaryGui(screenContainer: DiaryContainer, inv: PlayerInventory, titleIn: I
             for (i in chapters)
             {
                 val ch = Chapters.values()[i.m.toInt()]
-                els.addAll(DiaryUtils.makeParagraph(font, xSize - 30, ch.getText()))
+                els.addAll(DiaryUtils.makeParagraph(font, xSize / 2 - 15, ch.getText()))
                 els.add(RightAlignedTextElement(i.v.toString()))
             }
 

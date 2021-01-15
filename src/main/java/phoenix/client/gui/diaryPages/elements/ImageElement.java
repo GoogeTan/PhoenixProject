@@ -49,7 +49,7 @@ public class ImageElement extends ADiaryElement
     @Override
     public void render(ContainerScreen<DiaryContainer> gui, FontRenderer renderer, int xSize, int ySize, int x, int y, int depth)
     {
-        double scale = scale(xSize / 2, ySize / 2);
+        double scale = scale(xSize, ySize);
         RenderSystem.pushMatrix();
         RenderSystem.scaled(scale, scale, scale);
         Minecraft.getInstance().getTextureManager().bindTexture(img);

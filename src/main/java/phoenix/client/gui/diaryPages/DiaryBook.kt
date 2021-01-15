@@ -37,7 +37,7 @@ class DiaryBook(private val xSize: Int, private val ySize: Double, private val f
     fun render(gui: ContainerScreen<DiaryContainer>, renderer: FontRenderer, xSize: Int, ySize: Int, x: Int, y: Int, depth: Int)
     {
         currentPage1.render(gui, font, xSize, ySize, x, y, depth)
-        currentPage2.render(gui, renderer, xSize, ySize, x + xSize / 2 - 10, y, depth)
+        currentPage2.render(gui, renderer, xSize, ySize, x + xSize / 2, y, depth)
     }
 
 
