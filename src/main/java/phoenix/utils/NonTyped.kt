@@ -103,9 +103,10 @@ fun FontRenderer.drawCenterAlignedString(string : ITextComponent, x : Float, y :
 {
     drawString(string.formattedText, x, y, BossInfo.Color.RED.ordinal)
 }
-
-fun World.getDate() = Date((2005 + dayTime) % 12000, ((2005 + dayTime) / 12000) % 319, ((2005 + dayTime) / 12000) / 319)
-
+private const val daysAYear = 319
+private const val dayLength = 12000
+private const val secondLength = 12000
+fun World.getDate() = Date((795 + dayTime) % dayLength / secondLength, (gameTime + 2005) % daysAYear, (gameTime + 2005) / daysAYear)
 
 fun ServerPlayerEntity.addChapter(chapter : Chapters)
 {

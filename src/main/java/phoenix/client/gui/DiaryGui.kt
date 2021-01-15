@@ -26,7 +26,7 @@ class DiaryGui(screenContainer: DiaryContainer, inv: PlayerInventory, titleIn: I
         super.init()
         addButton(InvisibleButton(guiLeft - 40, guiTop, (ySize * 1.3), { book.prev() }, true))
         addButton(InvisibleButton(guiLeft + xSize - 10, guiTop, (ySize * 1.3), { book.next() }, true))
-        book = DiaryBook(xSize - 30, (ySize * 1.3), Minecraft.getInstance().fontRenderer)
+        book = DiaryBook(xSize - 30, (ySize * 1.8), Minecraft.getInstance().fontRenderer)
         val player = Minecraft.getInstance().player;
 
         if(player is IChapterReader)

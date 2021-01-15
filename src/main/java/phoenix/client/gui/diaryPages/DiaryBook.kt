@@ -24,7 +24,6 @@ class DiaryBook(private val xSize: Int, private val ySize: Double, private val f
             while (i < elements.size && pages.last.tryAdd(elements[i], xSize, ySize))
             {
                 i++
-
             }
             pages.add(DiaryPage())
         }
@@ -47,9 +46,9 @@ class DiaryBook(private val xSize: Int, private val ySize: Double, private val f
     val isFirst: Boolean
         get() = page <= 0
     private val currentPage1: DiaryPage
-        get() = pages[page]
+        get() = if(page in 0 until pages.size) pages[page] else DiaryPage()
     private val currentPage2: DiaryPage
-        get() = if(page + 1 < pages.size) pages[page + 1] else DiaryPage()
+        get() = if(page + 1 in 0 until pages.size) pages[page + 1] else DiaryPage()
 
 
     fun next()

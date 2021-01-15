@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList
 import net.minecraft.entity.Entity
 import net.minecraft.entity.merchant.villager.VillagerProfession
 import net.minecraft.entity.merchant.villager.VillagerTrades
+import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.item.MerchantOffer
@@ -21,13 +22,17 @@ import net.minecraftforge.event.village.VillagerTradesEvent
 import net.minecraftforge.event.village.WandererTradesEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
+import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.common.Mod
+import phoenix.client.gui.diaryPages.Chapters
 import phoenix.init.PhoenixBlocks
 import phoenix.init.PhoenixItems
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncStagePacket
+import phoenix.utils.IChapterReader
 import phoenix.utils.LogManager
 import phoenix.utils.Tuple
+import phoenix.utils.addChapter
 import phoenix.world.StageManager
 import java.util.*
 
@@ -167,6 +172,28 @@ object PhoenixEvents
             LogManager.log(this, "Stage = ${StageManager.getStage() + 1} Part = ${StageManager.getPart()}")
             event.player.world.worldInfo.setDimensionData(DimensionType.THE_END, nbt)
             LogManager.log(this, "Phoenix has ended saving")
+        }
+    }
+
+    var time = 0
+    @JvmStatic
+    @SubscribeEvent
+    fun playerTick(event: TickEvent.PlayerTickEvent)
+    {
+        if(!event.player.world.isRemote && time % 20 == 0 && event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END)
+        {
+            val player = event.player as ServerPlayerEntity
+            if(player is IChapterReader)
+            {
+                time++
+                for (i in player.inventory.mainInventory)
+                {
+                    if (i.item === Items.IRON_INGOT)
+                    {
+                        player.addChapter(Chapters.STEEL)
+                    }
+                }
+            }
         }
     }
 }
