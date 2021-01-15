@@ -13,7 +13,6 @@ import phoenix.client.gui.diaryPages.elements.ADiaryElement
 import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement
 import phoenix.containers.DiaryContainer
 import phoenix.utils.*
-import kotlin.collections.ArrayList
 
 class DiaryGui(screenContainer: DiaryContainer, inv: PlayerInventory, titleIn: ITextComponent) : ContainerScreen<DiaryContainer>(screenContainer, inv, titleIn)
 {

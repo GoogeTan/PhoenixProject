@@ -23,7 +23,6 @@ import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import phoenix.init.PhoenixLootTables;
 import phoenix.utils.BlockPosUtils;
-import phoenix.utils.SizedArrayList;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;

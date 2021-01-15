@@ -19,9 +19,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.Level;
 import phoenix.Phoenix;
-import phoenix.utils.IChapterReader;
 import phoenix.network.NetworkHandler;
 import phoenix.network.SyncBookPacket;
+import phoenix.utils.IChapterReader;
 import phoenix.utils.StringUtils;
 import phoenix.world.GenSaveData;
 

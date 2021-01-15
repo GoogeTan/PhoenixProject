@@ -4,7 +4,6 @@ import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.math.BlockPos
-import phoenix.blocks.ash.OvenBlock
 import phoenix.containers.ash.OvenContainer
 import phoenix.tile.ash.OvenTile
 

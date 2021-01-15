@@ -8,7 +8,10 @@ import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
 import phoenix.blocks.AntiAirBlock
 import phoenix.blocks.UpdaterBlock
-import phoenix.blocks.ash.*
+import phoenix.blocks.ash.EndStoneColumnBlock
+import phoenix.blocks.ash.OvenBlock
+import phoenix.blocks.ash.PotteryBarrelBlock
+import phoenix.blocks.ash.ZirconiumOreBlock
 import phoenix.blocks.redo.*
 
 object PhoenixBlocks

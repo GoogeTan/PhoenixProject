@@ -5,8 +5,6 @@ import net.minecraft.item.ItemGroup
 import net.minecraft.world.biome.FuzzedBiomeMagnifier
 import net.minecraft.world.dimension.DimensionType
 import net.minecraftforge.common.ForgeConfigSpec
-import net.minecraftforge.common.capabilities.Capability
-import net.minecraftforge.common.capabilities.CapabilityInject
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig

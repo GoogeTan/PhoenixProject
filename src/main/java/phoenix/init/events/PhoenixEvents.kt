@@ -4,18 +4,15 @@ import com.google.common.collect.ImmutableList
 import net.minecraft.entity.Entity
 import net.minecraft.entity.merchant.villager.VillagerProfession
 import net.minecraft.entity.merchant.villager.VillagerTrades
-import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.item.MerchantOffer
 import net.minecraft.particles.ParticleTypes
-import net.minecraft.util.ResourceLocation
 import net.minecraft.world.dimension.DimensionType
 import net.minecraft.world.server.ServerWorld
 import net.minecraft.world.storage.loot.ItemLootEntry
 import net.minecraft.world.storage.loot.LootPool
 import net.minecraft.world.storage.loot.LootTables
-import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.LootTableLoadEvent
 import net.minecraftforge.event.TickEvent
 import net.minecraftforge.event.TickEvent.WorldTickEvent
@@ -25,7 +22,6 @@ import net.minecraftforge.event.village.WandererTradesEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
-import phoenix.Phoenix
 import phoenix.init.PhoenixBlocks
 import phoenix.init.PhoenixItems
 import phoenix.network.NetworkHandler

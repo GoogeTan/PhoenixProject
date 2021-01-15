@@ -5,7 +5,6 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen
 import phoenix.client.gui.diaryPages.elements.ADiaryElement
 import phoenix.client.gui.diaryPages.elements.DiaryPage
 import phoenix.containers.DiaryContainer
-import phoenix.utils.LogManager
 import phoenix.utils.SizedArrayList
 import java.util.*
 

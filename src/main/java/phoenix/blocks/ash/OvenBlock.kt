@@ -32,15 +32,12 @@ import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.common.ToolType
 import phoenix.client.gui.diaryPages.Chapters
 import phoenix.network.NetworkHandler
-import phoenix.network.SyncBookPacket
 import phoenix.network.SyncOvenPacket
 import phoenix.recipes.OvenRecipe
 import phoenix.tile.ash.OvenTile
-import phoenix.utils.IChapterReader
 import phoenix.utils.SizedArrayList
 import phoenix.utils.addChapter
 import phoenix.utils.block.BlockWithTile
-import phoenix.utils.getDate
 import java.util.*
 
 class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hardnessAndResistance(10f).harvestTool(ToolType.PICKAXE))

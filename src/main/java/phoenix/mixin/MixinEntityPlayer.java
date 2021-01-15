@@ -1,9 +1,8 @@
 package phoenix.mixin;
 
-import org.jetbrains.annotations.NotNull;
-import phoenix.utils.Pair;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -11,9 +10,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import phoenix.utils.Date;
 import phoenix.utils.IChapterReader;
 import phoenix.utils.LogManager;
+import phoenix.utils.Pair;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Mixin(PlayerEntity.class)
 public class MixinEntityPlayer implements IChapterReader
@@ -40,13 +39,13 @@ public class MixinEntityPlayer implements IChapterReader
         int count = nbt.getInt("count");
         for (int i = 0; i < count; ++i)
         {
-            int id   = nbt.getInt("chid$i");
-            long min  = nbt.getLong("chmin$i");
-            long day  = nbt.getLong("chday$i");
-            long year = nbt.getLong("chyear$i");
+            int id   = nbt.getInt("chid" + i);
+            long min  = nbt.getLong("chmin" + i);
+            long day  = nbt.getLong("chday" + i);
+            long year = nbt.getLong("chyear" + i);
             addChapter(id, new Date(min, day, year));
         }
-        LogManager.error(this, "Player ends loading");
+        LogManager.log(this, "Player ends loading");
     }
 
     public ArrayList<Pair<Integer, Date>> chapters = new ArrayList<>();

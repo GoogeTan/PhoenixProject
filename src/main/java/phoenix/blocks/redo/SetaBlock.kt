@@ -2,7 +2,6 @@ package phoenix.blocks.redo
 
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
-import net.minecraft.block.Blocks
 import net.minecraft.block.IGrowable
 import net.minecraft.block.material.Material
 import net.minecraft.state.StateContainer
@@ -20,8 +19,6 @@ import net.minecraftforge.common.ToolType
 import phoenix.Phoenix
 import phoenix.init.PhoenixBlocks
 import phoenix.utils.block.ICustomGroup
-import phoenix.utils.getDownHeight
-import phoenix.utils.nextInt
 import java.util.*
 
 object SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandomly().harvestTool(ToolType.SHOVEL).lightValue(5)), IGrowable, ICustomGroup

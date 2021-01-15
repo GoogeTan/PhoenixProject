@@ -18,7 +18,6 @@ import net.minecraft.world.gen.feature.structure.Structure
 import net.minecraft.world.gen.placement.CountRangeConfig
 import net.minecraft.world.gen.placement.IPlacementConfig
 import net.minecraft.world.gen.placement.Placement
-import net.minecraftforge.common.capabilities.CapabilityManager
 import net.minecraftforge.event.RegistryEvent.Register
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.RegistryObject
@@ -29,7 +28,6 @@ import phoenix.Phoenix
 import phoenix.Phoenix.Companion.ASH
 import phoenix.init.PhoenixBiomes.HEARTVOID
 import phoenix.init.PhoenixBiomes.UNDER
-import phoenix.init.PhoenixBlocks
 import phoenix.init.PhoenixBlocks.BLOCKS
 import phoenix.init.PhoenixBlocks.ZIRCONIUM
 import phoenix.init.PhoenixEntities.TALPA

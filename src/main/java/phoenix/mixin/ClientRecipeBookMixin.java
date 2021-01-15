@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import phoenix.init.PhoenixRecipes;
 import phoenix.integration.minecraft.PhoenixRecipeBookCategories;
-import phoenix.utils.LogManager;
 
 import java.util.List;
 import java.util.Map;
