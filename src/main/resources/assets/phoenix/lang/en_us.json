@@ -11,9 +11,17 @@
   "item.phoenix.diary": "Diary",
   "item.phoenix.crucible": "Crucible",
   "item.phoenix.crucible_with_iron_ore": "Crucible with iron ore",
+  "item.phoenix.iron_ore_with_coal": "Iron ore with coal",
+  "item.phoenix.iron_with_coal": "Iron with coal",
   "item.phoenix.crucible_with_steel": "Crucible with steel",
   "item.phoenix.crucible_with_gold_ore": "Crucible with gold ore",
   "item.phoenix.crucible_with_gold": "Crucible with gold",
+  "item.phoenix.zirconium_ingot": "Zirconium ingot",
+  "item.phoenix.steel_ingot": "Steel ingot",
+  "item.phoenix.steel_armor_head": "Zirconium-based ceramic axe",
+  "item.phoenix.steel_armor_chestplate": "Zirconium-based ceramic pickaxe",
+  "item.phoenix.steel_armor_leggings": "Zirconium-based ceramic sword",
+  "item.phoenix.steel_armor_boots": "Zirconium-based ceramic knife",
   "item.phoenix.zirconium_blade": "Zirconium blade",
   "item.phoenix.zirconium_bayonet": "Zirconium bayonet",
   "item.phoenix.zirconium_butt": "Zirconium butt",
@@ -26,6 +34,7 @@
   "item.phoenix.steel_form_knife_blade": "Form knife blade",
   "item.phoenix.steel_form_sword_blade": "Form sword blade",
   "item.phoenix.steel_form_pickaxe_head": "Form pickaxe head",
+  "item.phoenix.steel_form_butt": "Form butt",
   "item.phoenix.steel_form_axe_blade": "Form axe blade",
   "item.phoenix.steel_form_knife_blade_full": "Full form knife blade",
   "item.phoenix.steel_form_sword_blade_full": "Full form sword blade",
@@ -61,8 +70,9 @@
   "block.phoenix.armored_glass": "Armored glass",
   "block.phoenix.seta": "Seta",
 
-  "advancements.phoenix.ash.title": "Project Phoenix: ash",
-  "advancements.phoenix.ash.title.description": "End of the start or start of the end?",
+
+  "advancements.phoenix.ash.ash.title": "Ash",
+  "advancements.phoenix.ash.ash.title.description": "End of the start or start of the end?",
   "advancements.phoenix.ash.corn.tile": "Freude",
   "advancements.phoenix.ash.corn.description": "-How did you get brought to the past ignis monastery? “I took him for a End city.” Easy to confuse.",
 
@@ -99,7 +109,7 @@
   "advancements.phoenix.redo.seta": "Why not eat some strange mushrooms?",
   "advancements.phoenix.redo.seta.description": "Find some seta",
 
-  "phoenix.message.newstage": "Welcome to the new stage!",
+  "phoenix.message.speare": "Использует систему боя из 1.8",
   "phoenix.jei.category.oven": "Oven",
 
   "enchantment.phoenix.teleportation": "Teleportation"
