@@ -1,9 +1,5 @@
 package phoenix.client.gui.diaryPages
 
-import phoenix.client.gui.diaryPages.elements.ADiaryElement
-import java.util.*
-import kotlin.collections.HashMap
-
 val idToChapter : HashMap<Int, Chapters> = HashMap()
 
 enum class Chapters(var id: Int, var type : ChapterType)
@@ -17,29 +13,25 @@ enum class Chapters(var id: Int, var type : ChapterType)
     STEEL(1, ChapterType.THOUGHT)
     {
         override fun getText() = "Интересно, железо достаточно хрупко, но что если выплавлять его вместе с другими " +
-                "материалами? Для этого мне понадобится тара... Думаю горшок из качественной глины подойдет."
+                "материалами? Но для этого мне понадобится тара... Думаю горшок из качественной глины подойдет."
     },
-    OVEN(2, ChapterType.THOUGHT)
+    CLAY(2, ChapterType.THOUGHT)
     {
-        override fun getText() = "Как оказалось, использовать обычную глину не выйдет. Мне нужна более чистая и однородная." +
-                "Чтоб ее отчистить мне пригодится бочка и вода. А вот из нее буду делать горшок. Назову то тигелем."
-
+        override fun getText() = "Как оказалось, использовать обычную глину не выйдет. Результат годится только цветы растить. " +
+                "Нужна более чистая и однородная глина... Чтоб ее отчистить мне пригодится бочка и вода. А вот из нее буду делать " +
+                "горшок. Назову это тигелем."
+    },
+    OVEN(3, ChapterType.THOUGHT)
+    {
+        override fun getText() = "В обыкновенной печи не хватит температур, для взаимодействия железа и угля... " +
+                "Нужно придумать печку потеплее"
     };
 
     abstract fun getText(): String
 
-    fun getElements(): LinkedList<ADiaryElement>
-    {
-        val res = LinkedList<ADiaryElement>()
-
-
-
-        return res
-    }
-
     init
     {
-        idToChapter.put(id, this)
+        idToChapter[id] = this
     }
 }
 

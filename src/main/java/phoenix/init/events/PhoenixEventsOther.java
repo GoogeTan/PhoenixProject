@@ -63,7 +63,6 @@ public class PhoenixEventsOther
     {
         if(event.getGui() instanceof MainMenuScreen)
         {
-            Minecraft.getInstance().splashes.possibleSplashes = new ArrayList<>();
             Splashes splashes = Minecraft.getInstance().splashes;
 
             splashes.possibleSplashes.add(StringUtils.rainbowColor("God is an artist, since there are so many \n colors in the world"));//Reference to: Beautiful mind

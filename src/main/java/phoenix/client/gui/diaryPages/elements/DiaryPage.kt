@@ -13,7 +13,7 @@ class DiaryPage(val elements : ArrayList<ADiaryElement>)
         for (el in elements)
             sum += el.getHeight(sizeX, sizeY)
 
-        return sum < 14
+        return sum < 18
     }
 
 
@@ -23,11 +23,12 @@ class DiaryPage(val elements : ArrayList<ADiaryElement>)
         for (el in elements)
             sum += el.getHeight(sizeX, sizeY.toInt())
 
-        return if (sum + element.getHeight(sizeX, sizeY.toInt()) < 14)
+        return if (sum + element.getHeight(sizeX, sizeY.toInt()) < 18)
         {
             elements.add(element)
             true
-        } else
+        }
+        else
         {
             false
         }

@@ -30,8 +30,10 @@ object PhoenixItems
     val CRUCIBLE_WITH_GOLD_ORE         = ITEMS.register("crucible_with_gold_ore", ::CrucibleItem)!!
     val CRUCIBLE_WITH_GOLD             = ITEMS.register("crucible_with_gold",     ::CrucibleItem)!!
 
-    val STEEL_INGOT                    = ITEMS.register("steel_ingot",     basicItem())!!
-    val ZIRCONIUM_INGOT                = ITEMS.register("zirconium_ingot", basicItem())!!
+    val IRON_ORE_WITH_COAL             = ITEMS.register("iron_ore_with_coal", basicItem())!!
+    val IRON_WITH_COAL                 = ITEMS.register("iron_with_coal",     basicItem())!!
+    val STEEL_INGOT                    = ITEMS.register("steel_ingot",        basicItem())!!
+    val ZIRCONIUM_INGOT                = ITEMS.register("zirconium_ingot",    basicItem())!!
 
     val ZIRCONIUM_SWORD_BLADE          = ITEMS.register("zirconium_sword_blade", basicItem())!!
     val ZIRCONIUM_KNIFE_BLADE          = ITEMS.register("zirconium_knife_blade", basicItem())!!

@@ -6,11 +6,11 @@
       "item": "phoenix:crucible"
     },
     {
-      "item": "phoenix:iron_ore_with_coal"
+      "item": "phoenix:iron_with_coal"
     }
   ],
   "result": {
     "item": "phoenix:crucible_with_iron_ore",
-    "count": 2
+    "count": 1
   }
 }
