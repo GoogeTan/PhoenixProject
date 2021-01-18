@@ -61,8 +61,8 @@ object PhoenixItems
     val ZIRCONIUM_KNIFE                = ITEMS.register("ceramic_zirconium_knife")   { KnifeItem  (PhoenixTiers.ZIRCONIUM_TIER, 3f, -10f, PhoenixConfiguration.COMMON_CONFIG.gameMode.get().maxKnifeUsages, ASH) }!!
 
     val STEEL_AXE                      = ITEMS.register("steel_axe")     { AxeItem    (PhoenixTiers.STEEL_TIER, 5.0f, -2f, Item.Properties().group(ASH)) }!!
-    val STEEL_PICKAXE                  = ITEMS.register("steel_pickaxe") { PickaxeItem(PhoenixTiers.STEEL_TIER, 0, -2f, Item.Properties().group(ASH)) }!!
-    val STEEL_SWORD                    = ITEMS.register("steel_sword")   { SwordItem  (PhoenixTiers.STEEL_TIER, 2, -2f, Item.Properties().group(ASH)) }!!
+    val STEEL_PICKAXE                  = ITEMS.register("steel_pickaxe") { PickaxeItem(PhoenixTiers.STEEL_TIER, 0,    -2f, Item.Properties().group(ASH)) }!!
+    val STEEL_SWORD                    = ITEMS.register("steel_sword")   { SwordItem  (PhoenixTiers.STEEL_TIER, 2,    -2f, Item.Properties().group(ASH)) }!!
 
     val STEEL_ARMOR_HEAD               = ITEMS.register("steel_armor_head")      { SteelArmorItem(EquipmentSlotType.HEAD, Item.Properties().group(ASH)) }!!
     val STEEL_ARMOR_CHES               = ITEMS.register("steel_armor_chestplate"){ SteelArmorItem(EquipmentSlotType.CHEST,Item.Properties().group(ASH)) }!!
@@ -71,20 +71,20 @@ object PhoenixItems
 
     fun register() = ITEMS.register(FMLJavaModLoadingContext.get().modEventBus)
 
-    private fun basicItem() =  Supplier { Item(Item.Properties().group(ASH)) }
-    private fun basicItem(prop : Item.Properties) =  Supplier { Item(prop) }
-    private fun basicFood(food: Food) =  Supplier { Item(Item.Properties().group(ASH).food(food)) }
-    private fun basicFood(food: Food, group : ItemGroup) =  Supplier { Item(Item.Properties().group(group).food(food)) }
-    private fun form(contains: RegistryObject<Item>) = Supplier { Item(Item.Properties().group(ASH).containerItem(contains.get())) }
+    private fun basicItem()                             : () -> Item  = { Item(Item.Properties().group(ASH))                               }
+    private fun basicItem(prop : Item.Properties)       : () -> Item  = { Item(prop)                                                       }
+    private fun basicFood(food: Food)                   : () -> Item  = { Item(Item.Properties().group(ASH).food(food))                    }
+    private fun basicFood(food: Food, group : ItemGroup): () -> Item  = { Item(Item.Properties().group(group).food(food))                  }
+    private fun form(contains: RegistryObject<Item>)    : () -> Item  = { Item(Item.Properties().group(ASH).containerItem(contains.get())) }
 }
 
 class SteelArmorItem(slot: EquipmentSlotType, builder: Properties) : ArmorItem(PhoenixArmorMaterials.STEEL, slot, builder)
 {
     override fun getArmorTexture(
-        itemstack: ItemStack?,
-        entity: Entity?,
+        itemstack: ItemStack,
+        entity: Entity,
         slot: EquipmentSlotType,
-        layer: String?
+        layer: String
     ): String
     {
         return if (slot == EquipmentSlotType.LEGS)

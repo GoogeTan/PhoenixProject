@@ -13,6 +13,13 @@ import phoenix.blocks.ash.OvenBlock
 import phoenix.blocks.ash.PotteryBarrelBlock
 import phoenix.blocks.ash.ZirconiumOreBlock
 import phoenix.blocks.redo.*
+import phoenix.utils.block.INonTab
+
+import net.minecraft.block.FlowingFluidBlock
+import net.minecraft.block.material.Material
+import net.minecraft.fluid.FlowingFluid
+import java.util.function.Supplier
+
 
 object PhoenixBlocks
 {
@@ -33,8 +40,12 @@ object PhoenixBlocks
     //val TEXT_BLOCK       : RegistryObject<Block> = BLOCKS.register("block_with_text",   AnonimBlock.create(Material.ROCK))!!
     val ARMORED_GLASS    : RegistryObject<Block> = BLOCKS.register("armored_glass")     { ArmoredGlassBlock }!!
 
+    val LIQUID_LAPIZ     : RegistryObject<Block> = BLOCKS.register("armored_glass")     { FluidBlock(PhoenixFluids.LAPIZ_SOURCE::get) }!!
+
     fun register()
     {
         BLOCKS.register(FMLJavaModLoadingContext.get().modEventBus)
     }
 }
+
+class FluidBlock(fluid : () -> FlowingFluid) : FlowingFluidBlock(fluid, Properties.create(Material.WATER).doesNotBlockMovement().lightValue(15).hardnessAndResistance(100.0f).noDrops()), INonTab
