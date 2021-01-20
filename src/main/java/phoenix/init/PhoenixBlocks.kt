@@ -19,6 +19,21 @@ import net.minecraft.block.FlowingFluidBlock
 import net.minecraft.block.material.Material
 import net.minecraft.fluid.FlowingFluid
 import java.util.function.Supplier
+import net.minecraft.fluid.IFluidState
+
+import net.minecraft.fluid.Fluid
+import net.minecraft.item.Rarity
+
+import net.minecraft.state.StateContainer
+
+import net.minecraft.world.IWorldReader
+
+import net.minecraftforge.fluids.FluidAttributes
+
+import net.minecraft.util.ResourceLocation
+
+import net.minecraftforge.fluids.ForgeFlowingFluid
+import phoenix.blocks.FragileBlock
 
 
 object PhoenixBlocks
@@ -39,8 +54,7 @@ object PhoenixBlocks
     val ZIRCONIUM        : RegistryObject<Block> = BLOCKS.register("zirconium_ore")     { ZirconiumOreBlock }!!
     //val TEXT_BLOCK       : RegistryObject<Block> = BLOCKS.register("block_with_text",   AnonimBlock.create(Material.ROCK))!!
     val ARMORED_GLASS    : RegistryObject<Block> = BLOCKS.register("armored_glass")     { ArmoredGlassBlock }!!
-
-    val LIQUID_LAPIZ     : RegistryObject<Block> = BLOCKS.register("armored_glass")     { FluidBlock(PhoenixFluids.LAPIZ_SOURCE::get) }!!
+    val FRAGILE_GLASS    : RegistryObject<Block> = BLOCKS.register("fragile_block")     { FragileBlock }!!
 
     fun register()
     {
