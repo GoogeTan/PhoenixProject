@@ -66,14 +66,15 @@ public class PhoenixEventsOther
             Splashes splashes = Minecraft.getInstance().splashes;
 
             splashes.possibleSplashes.add(StringUtils.rainbowColor("God is an artist, since there are so many \n colors in the world"));//Reference to: Beautiful mind
-            splashes.possibleSplashes.add(TextFormatting.RED + "The essence of life is that it changes itself");//Reference to: Evangelion-3.33 you can(not) redo
-            splashes.possibleSplashes.add(TextFormatting.BLUE + "Bridge station is absent");//Reference to: Dovecote in a yellow glade
-            splashes.possibleSplashes.add(TextFormatting.GRAY + "You can be wind... be forever."); //Reference to: Dovecote in a yellow glade
+            splashes.possibleSplashes.add(TextFormatting.RED   + "The essence of life is that it changes itself");//Reference to: Evangelion-3.33 you can(not) redo
+            splashes.possibleSplashes.add(TextFormatting.BLUE  + "Bridge station is absent");//Reference to: Dovecote in a yellow glade
+            splashes.possibleSplashes.add(TextFormatting.GRAY  + "You can be wind... be forever."); //Reference to: Dovecote in a yellow glade
             splashes.possibleSplashes.add(TextFormatting.DARK_BLUE + "Third child is ann angel!!");//Reference to: Neon Genesis Evangelion
-            splashes.possibleSplashes.add(TextFormatting.GOLD + "Project E.N.D."); // Reference to: Phoenix project's old name
+            splashes.possibleSplashes.add(TextFormatting.GOLD  + "Project E.N.D."); // Reference to: Phoenix project's old name
             splashes.possibleSplashes.add(TextFormatting.BLACK + "Нож в печень, FX вечен!"); // Reference to: AMD FX series
-            splashes.possibleSplashes.add(TextFormatting.AQUA + "Still, the first enemy of human is itself."); // Reference to: Neon Genesis Evangelion
+            splashes.possibleSplashes.add(TextFormatting.AQUA  + "Still, the first enemy of human is itself."); // Reference to: Neon Genesis Evangelion
             splashes.possibleSplashes.add(TextFormatting.WHITE + "The hands of the clock cannot be turned back. \n" + TextFormatting.WHITE + "But it is in our power to move them forward!"); // Reference to: Neon Genesis Evangelion
+            splashes.possibleSplashes.add(TextFormatting.RED   + "Where are the fixes, Lebowski?"); // Reference to: The Big Lebowski
         }
     }
 }
