@@ -53,12 +53,12 @@ public class PipeBlock extends BlockWithTile implements IWaterLoggable, ICustomG
     {
         super(Properties.create(Material.WOOD).notSolid());
         this.setDefaultState(this.stateContainer.getBaseState()
-                .with(NORTH, Boolean.valueOf(false))
-                .with(EAST,  Boolean.valueOf(false))
-                .with(SOUTH, Boolean.valueOf(false))
-                .with(WEST,  Boolean.valueOf(false))
-                .with(UP,    Boolean.valueOf(false))
-                .with(DOWN,  Boolean.valueOf(false))
+                .with(NORTH, Boolean.FALSE)
+                .with(EAST,  Boolean.FALSE)
+                .with(SOUTH, Boolean.FALSE)
+                .with(WEST,  Boolean.FALSE)
+                .with(UP,    Boolean.FALSE)
+                .with(DOWN,  Boolean.FALSE)
                 .with(WATERLOGGED, Boolean.FALSE));
     }
 

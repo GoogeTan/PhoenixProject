@@ -54,7 +54,7 @@ object PhoenixBlocks
     val ZIRCONIUM        : RegistryObject<Block> = BLOCKS.register("zirconium_ore")     { ZirconiumOreBlock }!!
     //val TEXT_BLOCK       : RegistryObject<Block> = BLOCKS.register("block_with_text",   AnonimBlock.create(Material.ROCK))!!
     val ARMORED_GLASS    : RegistryObject<Block> = BLOCKS.register("armored_glass")     { ArmoredGlassBlock }!!
-    val FRAGILE_GLASS    : RegistryObject<Block> = BLOCKS.register("fragile_block")     { FragileBlock }!!
+    val FRAGILE_BLOCK    : RegistryObject<Block> = BLOCKS.register("fragile_block", ::FragileBlock)!!
 
     fun register()
     {

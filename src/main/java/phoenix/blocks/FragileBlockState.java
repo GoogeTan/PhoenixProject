@@ -4,52 +4,34 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
+import net.minecraft.state.properties.DoorHingeSide;
+import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
 import phoenix.utils.LogManager;
 
 import java.lang.reflect.Method;
 
+import static net.minecraft.block.DoorBlock.HALF;
+import static net.minecraft.block.DoorBlock.HINGE;
+
 public enum FragileBlockState implements IStringSerializable
 {
-    END_STONE("end_stone", Blocks.END_STONE)
-            {
-                @Override
-                boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face)
-                {
-                    return false;
-                }
+    END_STONE("end_stone", Blocks.END_STONE),
+    DOOR("door", Blocks.DARK_OAK_DOOR)
+    {
+        @Override
+        public void applyStates(BlockState state)
+        {
+            state.with(HINGE, DoorHingeSide.LEFT).with(HALF, DoubleBlockHalf.LOWER);
+        }
+    };
 
-                @Override
-                int getLightValue(BlockState state)
-                {
-                    return 0;
-                }
-            };
     String name;
     public Block block;
-    public static Method fillStateContainer = null;
     FragileBlockState(String name, Block blockIn)
     {
         this.name = name;
         block = blockIn;
-    }
-
-    public static void init()
-    {
-        for (Method m : Blocks.class.getDeclaredMethods())
-        {
-            try
-            {
-                m.invoke(Blocks.AIR, new StateContainer.Builder<Block, BlockState>(Blocks.AIR));
-                fillStateContainer = m;
-                LogManager.error("yes", "YES!!!");
-                return;
-            }
-            catch (Exception ignored) {}
-        }
     }
 
     @Override
@@ -57,20 +39,37 @@ public enum FragileBlockState implements IStringSerializable
     {
         return name;
     }
-    abstract boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face);
-    abstract int getLightValue(BlockState state);
 
-    public void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        if(fillStateContainer != null)
+    public void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
+    {
+        try
+        {
+            Method fillStateContainer = block.getClass().getMethod("func_206840_a", builder.getClass());
+            fillStateContainer.invoke(block, builder);
+        } catch (Exception e)
         {
             try
             {
+                Method fillStateContainer = block.getClass().getMethod("func_207184_a", builder.getClass());
                 fillStateContainer.invoke(block, builder);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                LogManager.error(this, e);
+                try
+                {
+                    Method fillStateContainer = block.getClass().getMethod("a", builder.getClass());
+                    fillStateContainer.invoke(block, builder);
+                }
+                catch (Exception exe)
+                {
+                    LogManager.error(this, e);
+                    LogManager.error(this, ex);
+                    LogManager.error(this, exe);
+                    System.exit(0);
+                }
             }
         }
     }
+
+    public void applyStates(BlockState state){}
 }
