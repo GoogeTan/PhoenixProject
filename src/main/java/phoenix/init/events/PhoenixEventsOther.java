@@ -22,6 +22,7 @@ import phoenix.Phoenix;
 import phoenix.network.NetworkHandler;
 import phoenix.network.SyncBookPacket;
 import phoenix.utils.IChapterReader;
+import phoenix.utils.LogManager;
 import phoenix.utils.StringUtils;
 import phoenix.world.GenSaveData;
 
@@ -45,11 +46,11 @@ public class PhoenixEventsOther
                 template.addBlocksToWorld(world, new BlockPos(-1000, 100, 1000), new PlacementSettings());
                 template.addBlocksToWorld(world, new BlockPos(1000, 100, -1000), new PlacementSettings());
                 template.addBlocksToWorld(world, new BlockPos(-1000, 100, -1000), new PlacementSettings());
-                Phoenix.getLOGGER().log(Level.DEBUG,"Corn genned ^)");
+                LogManager.log("<Other events> ", "Corn genned ^)");
             }
             else
             {
-                Phoenix.getLOGGER().error("Corn was not genned ^(. template is null... I think it is bad.");
+                LogManager.error("<Other events> ", "Corn was not genned ^(. template is null... I it is very bad think.");
             }
         }
         if(!event.getWorld().isRemote && event.getEntity() instanceof ServerPlayerEntity && event.getEntity() instanceof IChapterReader)

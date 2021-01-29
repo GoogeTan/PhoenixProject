@@ -12,9 +12,10 @@ import net.minecraftforge.fml.RegistryObject
 class PhoenixGroup : ItemGroup
 {
     var item : () -> IItemProvider
+
     constructor(name: String, item: IItemProvider) : super(name)
     {
-       this.item = {item}
+       this.item = { item }
     }
     constructor(name: String, item: RegistryObject<Block>) : super(name)
     {
