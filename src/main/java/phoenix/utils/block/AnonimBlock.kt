@@ -9,9 +9,9 @@ import net.minecraft.tileentity.TileEntity
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.storage.loot.LootContext
 import phoenix.Phoenix
+import phoenix.utils.LogManager
 import phoenix.utils.SizedArrayList
 import java.util.function.Supplier
-
 
 class AnonimBlock(properties: Properties) : Block(properties), ICustomGroup
 {
@@ -46,7 +46,7 @@ class AnonimBlock(properties: Properties) : Block(properties), ICustomGroup
         }
         catch (e: Exception)
         {
-            Phoenix.LOGGER.error("Can not init tile: $tile")
+            LogManager.error(this, "Can not init tile: $tile")
             null
         }
     }
