@@ -35,13 +35,13 @@ public class PhoenixEventsOther
     public static void cornGen(EntityJoinWorldEvent event)
     {
         World world = event.getWorld();
-        if(!world.isRemote && world.dimension.getType() == DimensionType.THE_END && !GenSaveData.get((ServerWorld) world).isCornGenned())
+        if(!world.isRemote && world.dimension.getType() == DimensionType.THE_END && !GenSaveData.Companion.get((ServerWorld) world).isCornGenned())
         {
             TemplateManager manager = ((ServerWorld) world).getStructureTemplateManager();
             Template template = manager.getTemplate(new ResourceLocation("phoenix:corn/corn"));
             if(template != null)
             {
-                GenSaveData.get((ServerWorld) world).setCornGenned();
+                GenSaveData.Companion.get((ServerWorld) world).setCornGenned();
                 template.addBlocksToWorld(world, new BlockPos(1000, 100, 1000), new PlacementSettings());
                 template.addBlocksToWorld(world, new BlockPos(-1000, 100, 1000), new PlacementSettings());
                 template.addBlocksToWorld(world, new BlockPos(1000, 100, -1000), new PlacementSettings());
@@ -66,7 +66,7 @@ public class PhoenixEventsOther
         {
             Splashes splashes = Minecraft.getInstance().splashes;
 
-            splashes.possibleSplashes.add(StringUtils.rainbowColor("God is an artist, since there are so many \n colors in the world"));//Reference to: Beautiful mind
+            splashes.possibleSplashes.add(StringUtils.INSTANCE.rainbowColor("God is an artist, since there are so many \n colors in the world"));//Reference to: Beautiful mind
             splashes.possibleSplashes.add(TextFormatting.RED   + "The essence of life is that it changes itself");//Reference to: Evangelion-3.33 you can(not) redo
             splashes.possibleSplashes.add(TextFormatting.BLUE  + "Bridge station is absent");//Reference to: Dovecote in a yellow glade
             splashes.possibleSplashes.add(TextFormatting.GRAY  + "You can be wind... be forever."); //Reference to: Dovecote in a yellow glade

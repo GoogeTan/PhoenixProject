@@ -18,6 +18,7 @@ import phoenix.network.NetworkHandler
 import phoenix.network.SyncOvenPacket
 import phoenix.recipes.OvenRecipe.recipes_from_inputs
 import phoenix.utils.BlockPosUtils
+import phoenix.utils.BlockPosUtils.minus
 import phoenix.utils.block.PhoenixTile
 import java.lang.Integer.max
 import java.lang.Integer.min
@@ -192,7 +193,7 @@ class OvenTile : PhoenixTile<OvenTile>(PhoenixTiles.OVEN.get()), ITickableTileEn
     override fun getSizeInventory() = inventory.size
     override fun isEmpty() = inventory.inventory.isEmpty()
     override fun getStackInSlot(index: Int): ItemStack = inventory[index]
-    override fun isUsableByPlayer(player: PlayerEntity) = BlockPosUtils.distanceTo(player.position, pos) < 20
+    override fun isUsableByPlayer(player: PlayerEntity) = player.position - pos < 20
 
     override fun decrStackSize(index: Int, count: Int): ItemStack
     {

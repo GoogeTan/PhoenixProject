@@ -73,7 +73,7 @@ public enum  CustomDragonSpawnState
 
                                 world.createExplosion(null, (float) spike.getCenterX() + 0.5F, spike.getHeight(), (float) spike.getCenterZ() + 0.5F, 5.0F, Explosion.Mode.DESTROY);
                                 CustomEndSpikeConfig config = new CustomEndSpikeConfig(true, ImmutableList.of(spike), new BlockPos(0, 128, 0));
-                                PhoenixFeatures.END_SPIKE.get().withConfiguration(config).place(world, world.getChunkProvider().getChunkGenerator(), new Random(), new BlockPos(spike.getCenterX(), 45, spike.getCenterZ()));
+                                PhoenixFeatures.INSTANCE.getEND_SPIKE().get().withConfiguration(config).place(world, world.getChunkProvider().getChunkGenerator(), new Random(), new BlockPos(spike.getCenterX(), 45, spike.getCenterZ()));
                             }
                         } else if (isEnd)
                         {

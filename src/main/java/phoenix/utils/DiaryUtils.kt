@@ -15,28 +15,25 @@ import java.util.*
 object DiaryUtils
 {
     //принимает ключи параграфоф
-    fun makeParagraphFromTranslate(xSizeIn: Int, font: FontRenderer, vararg keys: String?): ArrayList<ADiaryElement>
+    fun makeParagraphFromTranslate(xSizeIn: Int, font: FontRenderer, vararg keys: String): ArrayList<ADiaryElement>
     {
         return makeParagraph(font, xSizeIn, StringUtils.translateAll(*keys))
     }
 
-    fun makeParagraph(font: FontRenderer, xSize: Int, text: ArrayList<String?>): ArrayList<ADiaryElement>
+    fun makeParagraph(font: FontRenderer, xSize: Int, text: ArrayList<String>): ArrayList<ADiaryElement>
     {
         return makeParagraph(font, xSize, *text.toTypedArray())
     }
 
-    fun makeParagraph(font: FontRenderer, xSize: Int, vararg text: String?): ArrayList<ADiaryElement>
+    fun makeParagraph(font: FontRenderer, xSize: Int, vararg text: String): ArrayList<ADiaryElement>
     {
         val res = ArrayList<ADiaryElement>()
         val words: MutableList<String> = ArrayList()
         for (current in text)  //проходим по всем параграфам
         {
-            if (current != null)
-            {
-                words.addAll(StringUtils.stringToWords(current))
-                //words.addAll(ImmutableList.copyOf(current.split(" ")));
-                words.add("[break]")
-            }
+            words.addAll(StringUtils.stringToWords(current))
+            //words.addAll(ImmutableList.copyOf(current.split(" ")));
+            words.add("[break]")
         }
         var numberOfWords = 0
         while (numberOfWords < words.size)

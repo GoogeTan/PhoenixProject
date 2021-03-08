@@ -11,6 +11,7 @@ import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
 import phoenix.enity.KnifeEntity
 import phoenix.enity.TalpaEntity
+import phoenix.enity.boss.DragonRedoStageEntity
 
 object PhoenixEntities
 {
@@ -37,6 +38,7 @@ object PhoenixEntities
                 .build(ResourceLocation(Phoenix.MOD_ID, "cauda").toString())
     }!!
      */
+
     @JvmStatic
     val KNIFE: RegistryObject<EntityType<KnifeEntity>> = ENTITIES.register("zirconium_knife")
     {
@@ -46,6 +48,15 @@ object PhoenixEntities
                 .setUpdateInterval(1)
                 .setShouldReceiveVelocityUpdates(true)
                 .build(ResourceLocation(Phoenix.MOD_ID, "zirconium_knife").toString())
+    }!!
+
+    @JvmStatic
+    val DRAGON_REDO_STAGE: RegistryObject<EntityType<DragonRedoStageEntity>> = ENTITIES.register("dragon_redo_stage")
+    {
+        EntityType.Builder.create(::DragonRedoStageEntity, EntityClassification.MONSTER)
+            .immuneToFire()
+            .size(16.0f, 8.0f)
+            .build(ResourceLocation(Phoenix.MOD_ID, "dragon_redo_stage").toString())
     }!!
 
     fun register()

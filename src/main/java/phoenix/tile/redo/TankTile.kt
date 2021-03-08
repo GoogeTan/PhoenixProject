@@ -17,6 +17,8 @@ import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.fluids.capability.templates.FluidTank
 import phoenix.init.PhoenixTiles
 import phoenix.utils.SerializeUtils
+import phoenix.utils.SerializeUtils.readTank
+import phoenix.utils.SerializeUtils.writeToBuf
 import phoenix.utils.block.PhoenixTile
 import phoenix.utils.graph.GraphNode
 import phoenix.utils.graph.MGraphNode
@@ -147,7 +149,7 @@ class TankTile : PhoenixTile<TankTile>(PhoenixTiles.TANK), IFluidMechanism, ITic
         override fun writePacketData(buf: PacketBuffer)
         {
             super.writePacketData(buf)
-            SerializeUtils.writeToBuf(tank, buf)
+            buf.writeToBuf(tank)
             buf.writeItemStack(stack)
             buf.writeInt(numberInGraph)
         }
@@ -155,7 +157,7 @@ class TankTile : PhoenixTile<TankTile>(PhoenixTiles.TANK), IFluidMechanism, ITic
         override fun readPacketData(buf: PacketBuffer)
         {
             super.readPacketData(buf)
-            tank = SerializeUtils.readTank(buf)
+            tank = buf.readTank()
             stack = buf.readItemStack()
             numberInGraph = buf.readInt()
         }

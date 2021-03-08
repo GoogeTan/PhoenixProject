@@ -27,6 +27,6 @@ class DiaryContainer(id: Int) : Container(PhoenixContainers.GUIDE.get(), id), IN
 
     companion object
     {
-        fun fromNetwork(): ContainerType<DiaryContainer> = ContainerType { id: Int, player: PlayerInventory? -> DiaryContainer(id) }
+        fun fromNetwork(): ContainerType<DiaryContainer> = ContainerType { id: Int, _: PlayerInventory? -> DiaryContainer(id) }
     }
 }

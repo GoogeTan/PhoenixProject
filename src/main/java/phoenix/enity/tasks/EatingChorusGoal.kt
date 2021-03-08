@@ -6,6 +6,7 @@ import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec3d
 import phoenix.init.PhoenixBlocks
 import phoenix.utils.BlockPosUtils
+import phoenix.utils.BlockPosUtils.minus
 import phoenix.utils.entity.AbstractFlyingEntity
 import phoenix.utils.entity.ThreeDimensionsMovingGoal
 
@@ -37,7 +38,7 @@ class EatingChorusGoal(entityIn: AbstractFlyingEntity?) : ThreeDimensionsMovingG
     override fun tick()
     {
         super.tick()
-        if (BlockPosUtils.distanceTo(entity.orbitPosition, entity.position) <= 1)
+        if (entity.orbitPosition - entity.position <= 1)
         {
             entity.world.setBlockState(entity.orbitPosition, Blocks.AIR.defaultState)
         }
