@@ -28,7 +28,7 @@ public enum  CustomDragonSpawnState
                 for (EnderCrystalEntity entity : list)
                     if(entity != null)
                         entity.setBeamTarget(center);
-             */
+            */
             manager.setRespawnState(DragonSpawnState.PREPARING_TO_SUMMON_PILLARS);
         }
     },
