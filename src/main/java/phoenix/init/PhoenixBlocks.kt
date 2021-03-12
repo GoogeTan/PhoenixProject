@@ -1,6 +1,9 @@
 package phoenix.init
 
 import net.minecraft.block.Block
+import net.minecraft.block.FlowingFluidBlock
+import net.minecraft.block.material.Material
+import net.minecraft.fluid.FlowingFluid
 import net.minecraftforge.fml.RegistryObject
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import net.minecraftforge.registries.DeferredRegister
@@ -13,28 +16,9 @@ import phoenix.blocks.ash.OvenBlock
 import phoenix.blocks.ash.PotteryBarrelBlock
 import phoenix.blocks.ash.ZirconiumOreBlock
 import phoenix.blocks.redo.*
+import phoenix.tile.TextTile
+import phoenix.utils.block.AnonimBlock
 import phoenix.utils.block.INonTab
-
-import net.minecraft.block.FlowingFluidBlock
-import net.minecraft.block.material.Material
-import net.minecraft.fluid.FlowingFluid
-import java.util.function.Supplier
-import net.minecraft.fluid.IFluidState
-
-import net.minecraft.fluid.Fluid
-import net.minecraft.item.Rarity
-
-import net.minecraft.state.StateContainer
-
-import net.minecraft.world.IWorldReader
-
-import net.minecraftforge.fluids.FluidAttributes
-
-import net.minecraft.util.ResourceLocation
-
-import net.minecraftforge.fluids.ForgeFlowingFluid
-import phoenix.blocks.FragileBlock
-
 
 object PhoenixBlocks
 {
@@ -52,14 +36,11 @@ object PhoenixBlocks
     val OVEN             : RegistryObject<Block> = BLOCKS.register("oven",              ::OvenBlock           )!!
     val SETA             : RegistryObject<Block> = BLOCKS.register("seta")              { SetaBlock }!!
     val ZIRCONIUM        : RegistryObject<Block> = BLOCKS.register("zirconium_ore")     { ZirconiumOreBlock }!!
-    //val TEXT_BLOCK       : RegistryObject<Block> = BLOCKS.register("block_with_text",   AnonimBlock.create(Material.ROCK))!!
+    val TEXT_BLOCK       : RegistryObject<Block> = BLOCKS.register("block_with_text", AnonimBlock.create(Material.ROCK, ::TextTile, Phoenix.REDO))!!
     val ARMORED_GLASS    : RegistryObject<Block> = BLOCKS.register("armored_glass")     { ArmoredGlassBlock }!!
-    val FRAGILE_BLOCK    : RegistryObject<Block> = BLOCKS.register("fragile_block", ::FragileBlock)!!
+    //val FRAGILE_BLOCK    : RegistryObject<Block> = BLOCKS.register("fragile_block", ::FragileBlock)!!
 
-    fun register()
-    {
-        BLOCKS.register(FMLJavaModLoadingContext.get().modEventBus)
-    }
+    fun register() = BLOCKS.register(FMLJavaModLoadingContext.get().modEventBus)
 }
 
 class FluidBlock(fluid : () -> FlowingFluid) : FlowingFluidBlock(fluid, Properties.create(Material.WATER).doesNotBlockMovement().lightValue(15).hardnessAndResistance(100.0f).noDrops()), INonTab

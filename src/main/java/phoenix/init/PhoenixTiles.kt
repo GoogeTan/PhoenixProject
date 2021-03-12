@@ -5,6 +5,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
+import phoenix.tile.TextTile
 import phoenix.tile.ash.OvenTile
 import phoenix.tile.ash.PotteryBarrelTile
 import phoenix.tile.redo.ElectricBarrelTile
@@ -21,8 +22,7 @@ object PhoenixTiles
     @JvmStatic val OVEN           = TILE_ENTITIES.register("oven")           { TileEntityType.Builder.create({ OvenTile() }, PhoenixBlocks.OVEN.get()).build(null) }!!
     @JvmStatic val ELECTRIC_BARREL = TILE_ENTITIES.register("_barrel") { TileEntityType.Builder.create({ ElectricBarrelTile() }, PhoenixBlocks.POTTERY_BARREL.get()).build(null) }!!
 
-
-    //@JvmStatic val TEXT           = TILE_ENTITIES.register("text")           { TileEntityType.Builder.create({ TextTile() }, PhoenixBlocks.TEXT_BLOCK.get()).build(null) }!!
+    @JvmStatic val TEXT           = TILE_ENTITIES.register("text")           { TileEntityType.Builder.create(::TextTile, PhoenixBlocks.TEXT_BLOCK.get()).build(null) }!!
 
     @JvmStatic fun register() = TILE_ENTITIES.register(FMLJavaModLoadingContext.get().modEventBus)
 }

@@ -10,9 +10,7 @@ import net.minecraft.network.NetworkManager
 import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
-import phoenix.blocks.ash.PotteryBarrelBlock
 import phoenix.blocks.ash.PotteryBarrelBlock.Companion.state
-import phoenix.init.PhoenixTiles
 import phoenix.init.PhoenixTiles.POTTERY_BARREL
 import phoenix.utils.block.PhoenixTile
 import java.io.IOException

@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import phoenix.Phoenix
 import phoenix.client.render.OvenRenderer
+import phoenix.client.render.TextRenderer
 import phoenix.client.render.entity.KnifeRenderer
 import phoenix.client.render.entity.TalpaRenderer
 import phoenix.init.PhoenixBlocks
@@ -41,14 +42,14 @@ object PhoenixClientEvents
         //RenderTypeLookup.setRenderLayer(PhoenixBlocks.PIPE.get(), RenderType.getCutoutMipped())
         //RenderTypeLookup.setRenderLayer(PhoenixBlocks.TANK.get(), RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.ARMORED_GLASS.get(), RenderType.getCutoutMipped())
-        //RenderTypeLookup.setRenderLayer(PhoenixBlocks.TEXT_BLOCK.get(),    RenderType.getCutoutMipped())
+        RenderTypeLookup.setRenderLayer(PhoenixBlocks.TEXT_BLOCK.get(),    RenderType.getCutoutMipped())
         RenderingRegistry.registerEntityRenderingHandler(TALPA.get(), ::TalpaRenderer)
         //RenderingRegistry.registerEntityRenderingHandler(CAUDA.get(), ::CaudaRenderer)
         RenderingRegistry.registerEntityRenderingHandler(KNIFE.get(), ::KnifeRenderer)
         //ClientRegistry.bindTileEntityRenderer(PhoenixTiles.PIPE.get(), ::PipeRender)
         //ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK.get(), ::TankRenderer)
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.OVEN.get(), ::OvenRenderer)
-        //ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TEXT.get(), ::TextRenderer)
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TEXT.get(), ::TextRenderer)
 
         // регистрация цветных блоков
         for (block in BLOCKS.entries)

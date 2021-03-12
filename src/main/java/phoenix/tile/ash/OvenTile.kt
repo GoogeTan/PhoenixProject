@@ -16,7 +16,7 @@ import phoenix.init.PhoenixItems
 import phoenix.init.PhoenixTiles
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncOvenPacket
-import phoenix.recipes.OvenRecipe.recipes_from_inputs
+import phoenix.recipes.OvenRecipe.Companion.recipesFromInputs
 import phoenix.utils.BlockPosUtils
 import phoenix.utils.BlockPosUtils.minus
 import phoenix.utils.block.PhoenixTile
@@ -44,7 +44,7 @@ class OvenTile : PhoenixTile<OvenTile>(PhoenixTiles.OVEN.get()), ITickableTileEn
         var has = false
         for (i in 0..3)
         {
-            if(!recipes_from_inputs.contains(inventory[i].item) || inventory[i].item == PhoenixItems.COOKED_SETA)
+            if(!recipesFromInputs.contains(inventory[i].item) || inventory[i].item == PhoenixItems.COOKED_SETA)
             {
                 res.add(inventory[i].copy())
                 inventory[i] = ItemStack.EMPTY
@@ -62,7 +62,7 @@ class OvenTile : PhoenixTile<OvenTile>(PhoenixTiles.OVEN.get()), ITickableTileEn
         val res = ArrayList<ItemStack>()
         for (i in 0..3)
         {
-            if(!recipes_from_inputs.contains(inventory[i].item))
+            if(!recipesFromInputs.contains(inventory[i].item))
             {
                 res.add(inventory[i]);
             }
@@ -97,9 +97,9 @@ class OvenTile : PhoenixTile<OvenTile>(PhoenixTiles.OVEN.get()), ITickableTileEn
                     for (i in 0..3)
                     {
                         val current = inventory[i]
-                        if (recipes_from_inputs.contains(current.item))
+                        if (recipesFromInputs.contains(current.item))
                         {
-                            val recipe = recipes_from_inputs[current.item]!!
+                            val recipe = recipesFromInputs[current.item]!!
                             val cookTime: Int = recipe.cookTime
                             timers[i]++
                             if (timers[i] >= cookTime)
@@ -160,11 +160,7 @@ class OvenTile : PhoenixTile<OvenTile>(PhoenixTiles.OVEN.get()), ITickableTileEn
     }
 
 
-    class UpdatePacket(var timers: IntArray, var burnTime : Int, var container: OvenContainer, pos: BlockPos) : SUpdateTileEntityPacket(
-        pos,
-        32,
-        CompoundNBT()
-    )
+    class UpdatePacket(var timers: IntArray, var burnTime : Int, var container: OvenContainer, pos: BlockPos) : SUpdateTileEntityPacket(pos, 32, CompoundNBT())
     {
         override fun writePacketData(buf: PacketBuffer)
         {
@@ -191,13 +187,13 @@ class OvenTile : PhoenixTile<OvenTile>(PhoenixTiles.OVEN.get()), ITickableTileEn
 
     override fun clear() = inventory.inventory.clear()
     override fun getSizeInventory() = inventory.size
-    override fun isEmpty() = inventory.inventory.isEmpty()
+    override fun isEmpty() = inventory.inventory.isEmpty
     override fun getStackInSlot(index: Int): ItemStack = inventory[index]
     override fun isUsableByPlayer(player: PlayerEntity) = player.position - pos < 20
 
     override fun decrStackSize(index: Int, count: Int): ItemStack
     {
-        inventory[index].shrink(count);
+        inventory[index].shrink(count)
         return inventory[index]
     }
 

@@ -9,18 +9,12 @@ import net.minecraft.util.IItemProvider
 import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.RegistryObject
 
-class PhoenixGroup : ItemGroup
+class PhoenixGroup(name: String, private val item: () -> IItemProvider) : ItemGroup(name)
 {
-    var item : () -> IItemProvider
 
-    constructor(name: String, item: IItemProvider) : super(name)
-    {
-       this.item = { item }
-    }
-    constructor(name: String, item: RegistryObject<Block>) : super(name)
-    {
-        this.item = item::get
-    }
+    constructor(name: String, item: IItemProvider) : this(name, {item})
+
+    constructor(name: String, item: RegistryObject<Block>) : this(name, item::get)
 
     override fun createIcon() = ItemStack(item.invoke())
     override fun hasSearchBar() = false

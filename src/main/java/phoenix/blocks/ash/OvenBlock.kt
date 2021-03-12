@@ -60,7 +60,7 @@ class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hard
             val tile = worldIn.getTileEntity(pos) as OvenTile
             val stack: ItemStack = playerIn.getHeldItem(handIn)
 
-            if (OvenRecipe.recipes_from_inputs[stack.item] != null)
+            if (OvenRecipe.recipesFromInputs[stack.item] != null)
             {
                 if(tile.addItem(stack))
                 {

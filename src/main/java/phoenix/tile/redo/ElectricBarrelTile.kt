@@ -1,66 +1,143 @@
 package phoenix.tile.redo
 
-import com.mojang.datafixers.util.Pair
+import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.inventory.IInventory
+import net.minecraft.inventory.InventoryHelper
+import net.minecraft.item.ItemStack
+import net.minecraft.item.Items
+import net.minecraft.nbt.CompoundNBT
 import net.minecraft.network.NetworkManager
+import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
-import net.minecraft.world.server.ServerWorld
-import net.minecraftforge.fluids.capability.templates.FluidTank
+import phoenix.blocks.ash.PotteryBarrelBlock
 import phoenix.init.PhoenixTiles
 import phoenix.utils.block.PhoenixTile
-import phoenix.utils.graph.GraphNode
-import phoenix.utils.pipe.IFluidMechanism
-import java.util.*
+import java.io.IOException
 
-class ElectricBarrelTile : PhoenixTile<ElectricBarrelTile>(PhoenixTiles.ELECTRIC_BARREL.get()), ITickableTileEntity, IFluidMechanism
+class ElectricBarrelTile : PhoenixTile<ElectricBarrelTile>(PhoenixTiles.ELECTRIC_BARREL), IInventory, ITickableTileEntity
 {
+    var jumpsCount = 0
     override fun tick()
     {
-        TODO("Not yet implemented")
+        if (!inventory.isEmpty)
+        {
+            if (inventory.item === Items.CLAY)
+            {
+                if (world!!.getBlockState(pos).get(PotteryBarrelBlock.state) == 1)
+                {
+                    world!!.setBlockState(pos, world!!.getBlockState(pos).with(PotteryBarrelBlock.state, 2))
+                }
+            } else if (inventory.item === Items.WATER_BUCKET)
+            {
+                if (world!!.getBlockState(pos).get(PotteryBarrelBlock.state) == 0)
+                {
+                    world!!.setBlockState(pos, world!!.getBlockState(pos).with(PotteryBarrelBlock.state, 1))
+                }
+            } else
+            {
+                InventoryHelper.spawnItemStack(
+                    world,
+                    pos.x.toDouble(),
+                    (pos.y + 1).toDouble(),
+                    pos.z.toDouble(),
+                    inventory
+                )
+                inventory = ItemStack.EMPTY
+            }
+        }
     }
 
-    override fun getNumberInGraph(): Int
+    override fun read(compound: CompoundNBT)
     {
-        TODO("Not yet implemented")
+        super.read(compound)
+        jumpsCount = compound.getInt("jumpscount")
     }
 
-    override fun setNumberInGraph(number_in_graph: Int)
+    override fun write(compound: CompoundNBT): CompoundNBT
     {
-        TODO("Not yet implemented")
+        compound.putInt("jumpscount", jumpsCount)
+        return super.write(compound)
     }
 
-    override fun getInput(): FluidTank
+    fun incrementJumpsCount()
     {
-        TODO("Not yet implemented")
+        jumpsCount++
+        jumpsCount = Math.min(jumpsCount, 200)
     }
 
-    override fun getOutput(): FluidTank
+    fun nullifyJumpsCount()
     {
-        TODO("Not yet implemented")
+        jumpsCount = 0
     }
 
-    override fun removeMechanismByIndex(index: Int)
-    {
-        TODO("Not yet implemented")
-    }
-
-    override fun addMechanismByIndex(world: ServerWorld?, index: Int)
-    {
-        TODO("Not yet implemented")
-    }
-
-    override fun getConnectedMechanisms(numberInGraph: Int): Pair<ArrayList<GraphNode>, ArrayList<GraphNode>>
-    {
-        TODO("Not yet implemented")
-    }
-
+    private var inventory = ItemStack.EMPTY
     override fun getUpdatePacket(): SUpdateTileEntityPacket
     {
-        TODO("Not yet implemented")
+        return UpdatePacket(jumpsCount)
     }
 
     override fun onDataPacket(net: NetworkManager, pkt: SUpdateTileEntityPacket)
     {
-        TODO("Not yet implemented")
+        jumpsCount = (pkt as UpdatePacket).jumpsCount
+    }
+
+    override fun getSizeInventory(): Int
+    {
+        return 1
+    }
+
+    override fun isEmpty(): Boolean
+    {
+        return inventory.isEmpty
+    }
+
+    override fun getStackInSlot(index: Int): ItemStack
+    {
+        return inventory
+    }
+
+    override fun decrStackSize(index: Int, count: Int): ItemStack
+    {
+        val stack = inventory.copy()
+        stack.shrink(count)
+        return stack
+    }
+
+    override fun removeStackFromSlot(index: Int): ItemStack
+    {
+        return ItemStack.EMPTY.also { inventory = it }
+    }
+
+    override fun setInventorySlotContents(index: Int, stack: ItemStack)
+    {
+        inventory = stack
+    }
+
+    override fun isUsableByPlayer(player: PlayerEntity): Boolean
+    {
+        return true
+    }
+
+    override fun clear()
+    {
+        inventory = ItemStack.EMPTY
+    }
+
+    internal class UpdatePacket(var jumpsCount: Int) : SUpdateTileEntityPacket()
+    {
+        @Throws(IOException::class)
+        override fun readPacketData(buf: PacketBuffer)
+        {
+            super.readPacketData(buf)
+            jumpsCount = buf.readInt()
+        }
+
+        @Throws(IOException::class)
+        override fun writePacketData(buf: PacketBuffer)
+        {
+            super.writePacketData(buf)
+            buf.writeInt(jumpsCount)
+        }
     }
 }

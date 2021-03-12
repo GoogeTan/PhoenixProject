@@ -13,55 +13,29 @@ import phoenix.utils.LogManager
 import phoenix.utils.SizedArrayList
 import java.util.function.Supplier
 
-class AnonimBlock(properties: Properties) : Block(properties), ICustomGroup
+class AnonimBlock(properties: Properties, val tile : () -> TileEntity? = {null}, val itemGroup : ItemGroup = Phoenix.ASH) : Block(properties), ICustomGroup
 {
-    var tile: Class<TileEntity>? = null
-    var group : ItemGroup = Phoenix.ASH
-    constructor(properties: Properties, classIn: Class<TileEntity>) : this(properties)
-    {
-        tile = classIn
-    }
-
-    constructor(properties: Properties, classIn: Class<TileEntity>, itemGroup: ItemGroup) : this(properties)
-    {
-        tile = classIn
-        group = itemGroup
-    }
-
-    constructor(properties: Properties, itemGroup: ItemGroup) : this(properties)
-    {
-        group = itemGroup
-    }
-
-    override fun hasTileEntity(state: BlockState): Boolean
-    {
-        return tile != null
-    }
+    override fun hasTileEntity(state: BlockState): Boolean = tile.invoke() != null
 
     override fun createTileEntity(state: BlockState, world: IBlockReader): TileEntity?
     {
-        return try
-        {
-            tile!!.newInstance()
-        }
-        catch (e: Exception)
-        {
+        val res = tile.invoke()
+        if (res == null)
             LogManager.error(this, "Can not init tile: $tile")
-            null
-        }
+        return res
     }
 
     override fun getDrops(state: BlockState, builder: LootContext.Builder) = SizedArrayList.of(ItemStack(this))
 
-    override fun getTab() = group
+    override fun getTab() = itemGroup
 
     companion object
     {
         fun create(properties: Properties)                               = Supplier { AnonimBlock(properties) }
         fun create(material: Material)                                   = Supplier { AnonimBlock(Properties.create(material)) }
-        fun create(material: Material, entityClass: Class<TileEntity>)   = Supplier { AnonimBlock(Properties.create(material), entityClass) }
-        fun create(properties: Properties, classIn: Class<TileEntity>)   = Supplier { AnonimBlock(properties, classIn) }
-        fun create(material: Material, entityClass: Class<TileEntity>, itemGroup: ItemGroup)   = Supplier { AnonimBlock(Properties.create(material), entityClass, itemGroup) }
-        fun create(properties: Properties, itemGroup: ItemGroup)   = Supplier { AnonimBlock(properties, itemGroup) }
+        fun create(material: Material, entityClass: () -> TileEntity)   = Supplier { AnonimBlock(Properties.create(material), entityClass) }
+        fun create(properties: Properties, classIn: () -> TileEntity)   = Supplier { AnonimBlock(properties, classIn) }
+        fun create(material: Material, entityClass: () -> TileEntity, itemGroup: ItemGroup)   = Supplier { AnonimBlock(Properties.create(material), entityClass, itemGroup) }
+        fun create(properties: Properties, itemGroup: ItemGroup)   = Supplier { AnonimBlock(properties, itemGroup = itemGroup) }
     }
 }

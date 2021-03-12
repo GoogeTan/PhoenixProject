@@ -8,9 +8,6 @@ import net.minecraftforge.common.ForgeConfigSpec
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig
-import org.apache.logging.log4j.LogManager
-import phoenix.blocks.FragileBlock
-import phoenix.blocks.FragileBlockState
 import phoenix.init.*
 import phoenix.init.PhoenixConfiguration.Common
 import phoenix.world.EndDimension
@@ -33,7 +30,6 @@ class Phoenix
         val specPair = ForgeConfigSpec.Builder().configure(::Common)
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, specPair.right)
         PhoenixConfiguration.COMMON_CONFIG = specPair.left
-        FragileBlock.STATE
     }
 
     companion object
@@ -42,7 +38,7 @@ class Phoenix
         @JvmStatic
         val ASH: ItemGroup = PhoenixGroup("$MOD_ID.ash", Blocks.END_PORTAL_FRAME)
         @JvmStatic
-        val REDO: ItemGroup = PhoenixGroup("$MOD_ID.redo", PhoenixBlocks.UPDATER)
+        val REDO: ItemGroup = PhoenixGroup("$MOD_ID.redo", Blocks.END_PORTAL_FRAME)
 
         init
         {

@@ -116,3 +116,8 @@ fun ServerPlayerEntity.addChapter(chapter : Chapters)
         NetworkHandler.sendTo(SyncBookPacket(this.getOpenedChapters()), this)
     }
 }
+
+fun <T : TileEntity> IWorld.getTileAt(pos: BlockPos): T?
+{
+    return getTileEntity(pos) as? T
+}
