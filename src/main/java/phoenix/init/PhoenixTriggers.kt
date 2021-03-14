@@ -5,7 +5,11 @@ import phoenix.advancements.ChangeStageTrigger
 
 object PhoenixTriggers
 {
-    val CHANGE_STAGE = CriteriaTriggers.register(ChangeStageTrigger())
+    lateinit var CHANGE_STAGE : ChangeStageTrigger
 
-    fun register(){}
+    fun register()
+    {
+        if(!this::CHANGE_STAGE.isInitialized)
+            CHANGE_STAGE = CriteriaTriggers.register(ChangeStageTrigger)
+    }
 }

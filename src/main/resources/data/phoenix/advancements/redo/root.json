@@ -12,18 +12,17 @@
   },
 
   "criteria": {
-    "change_stage":
+    "achieve_stage":
     {
-      "trigger": "phoenix:change_stage",
+      "trigger": "phoenix:achieve_stage",
       "conditions": {
-        "sold": 0,
-        "snew": 1
+        "stage": 1
       }
     }
   },
   "requirements": [
     [
-      "change_stage"
+      "achieve_stage"
     ]
   ]
 }

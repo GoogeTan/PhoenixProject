@@ -37,7 +37,6 @@ public class UpdaterBlock extends Block
     {
         if(!worldIn.isRemote && worldIn.getDimension().getType() == DimensionType.THE_END)
         {
-            int stageOld = StageManager.getStage();
             worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), PhoenixSounds.INSTANCE.getCHANGE_STAGE(), SoundCategory.BLOCKS, 1, 1, true);
             StageManager.addPart(((EndDimension)worldIn.getDimension()).biomeProvider);
             for (PlayerEntity entity : worldIn.getPlayers())
@@ -45,9 +44,8 @@ public class UpdaterBlock extends Block
                 entity.sendStatusMessage(new TranslationTextComponent("phoenix.message.newstage"), false);
                 entity.sendStatusMessage(new StringTextComponent((StageManager.getStage() + 1) + " " + (StageManager.getPart() + 1) + " "), false);
             }
-            PhoenixTriggers.INSTANCE.getCHANGE_STAGE().test((ServerPlayerEntity) player, stageOld, StageManager.getStage());
+            PhoenixTriggers.INSTANCE.getCHANGE_STAGE().test((ServerPlayerEntity) player, StageManager.getStage());
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }

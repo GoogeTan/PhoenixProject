@@ -1,6 +1,5 @@
 package phoenix.init
 
-import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.RenderState
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.texture.SimpleTexture
@@ -11,6 +10,7 @@ import net.minecraftforge.api.distmarker.OnlyIn
 import org.lwjgl.opengl.GL11
 import phoenix.utils.ResourseUtils.block
 import phoenix.utils.ResourseUtils.key
+import phoenix.utils.mc
 
 @OnlyIn(Dist.CLIENT)
 object PhoenixRenderTypes
@@ -26,7 +26,7 @@ object PhoenixRenderTypes
 
     private fun initTexture(path: ResourceLocation, name: String): RenderType
     {
-        Minecraft.getInstance().getTextureManager().loadTexture(path, SimpleTexture(path))
+        mc.getTextureManager().loadTexture(path, SimpleTexture(path))
         return createType(name,
             RenderType.State.getBuilder()
                 .shadeModel(RenderState.SHADE_ENABLED)

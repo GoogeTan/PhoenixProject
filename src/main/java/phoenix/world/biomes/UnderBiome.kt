@@ -19,7 +19,6 @@ import net.minecraft.world.gen.placement.IPlacementConfig
 import net.minecraft.world.gen.placement.Placement
 import phoenix.init.PhoenixBlocks
 import phoenix.utils.GenerationUtils
-import phoenix.utils.LogManager
 import phoenix.utils.getDownHeight
 import phoenix.world.builders.Builders
 
@@ -38,7 +37,6 @@ class UnderBiome : Biome(GenerationUtils.defaultSettingsForEnd(Builders.UNDER, B
         if (random.nextInt(3) == 0)
         {
             var position = worldIn.getDownHeight(pos.add(random.nextInt(15), 0, random.nextInt(15)), 50)
-            LogManager.log(this, position.toString())
             if(position.y > 2)
             {
                 worldIn.setBlockState(position, PhoenixBlocks.SETA.get().defaultState.with(AGE_0_3, random.nextInt(3)), 2)

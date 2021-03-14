@@ -2,6 +2,8 @@ package phoenix.utils
 
 import com.google.gson.JsonObject
 import net.minecraft.block.Block
+import net.minecraft.client.Minecraft
+import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
@@ -20,6 +22,8 @@ import net.minecraft.util.text.ITextComponent
 import net.minecraft.world.BossInfo
 import net.minecraft.world.IWorld
 import net.minecraft.world.World
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.fml.RegistryObject
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.IForgeRegistryEntry
@@ -121,3 +125,17 @@ fun <T : TileEntity> IWorld.getTileAt(pos: BlockPos): T?
 {
     return getTileEntity(pos) as? T
 }
+
+fun JsonObject.addProp( property : String,  value : Number) : JsonObject
+{
+    this.addProperty(property, value)
+    return this
+}
+
+
+val mc : Minecraft
+        @OnlyIn(Dist.CLIENT)
+        get() = Minecraft.getInstance()
+val clientPlayer : ClientPlayerEntity?
+        @OnlyIn(Dist.CLIENT)
+        get() = mc.player

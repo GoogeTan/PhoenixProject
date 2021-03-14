@@ -1,6 +1,5 @@
 package phoenix.recipes
 
-import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonSyntaxException
 import net.minecraft.item.ItemStack

@@ -18,7 +18,7 @@ object RenderUtils
     fun drawWithScale(texture: ResourceLocation, sizeX: Int, sizeY: Int, x: Int, y: Int, scale: Float)
     {
         RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f)
-        Minecraft.getInstance().getTextureManager().bindTexture(texture)
+        mc.getTextureManager().bindTexture(texture)
         RenderSystem.scaled(scale.toDouble(), scale.toDouble(), scale.toDouble()) //увеличиваем картинку
         blit(x, y, 0f, 0f, sizeX, sizeY)
         RenderSystem.scaled(
@@ -35,7 +35,7 @@ object RenderUtils
         depth: Int
     )
     {
-        Minecraft.getInstance().getTextureManager().bindTexture(texture)
+        mc.getTextureManager().bindTexture(texture)
         val d = getTextureSize(texture)
         RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f)
         var scale = maxSizeX / d.key
@@ -62,7 +62,7 @@ object RenderUtils
     )
     {
         RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f)
-        Minecraft.getInstance().getTextureManager().bindTexture(texture)
+        mc.getTextureManager().bindTexture(texture)
         blit(x, y, blitOffset, 0f, 0f, sizeX, sizeY, textureSizeX, textureSizeY)
     }
 

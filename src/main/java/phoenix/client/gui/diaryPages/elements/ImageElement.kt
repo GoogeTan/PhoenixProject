@@ -1,13 +1,13 @@
 package phoenix.client.gui.diaryPages.elements
 
 import com.mojang.blaze3d.systems.RenderSystem
-import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.util.ResourceLocation
 import phoenix.containers.DiaryContainer
 import phoenix.utils.RenderUtils.drawRectScalable
+import phoenix.utils.mc
 import kotlin.math.ceil
 
 class ImageElement(val img: ResourceLocation, var w: Int, var h: Int) : ADiaryElement()
@@ -49,7 +49,7 @@ class ImageElement(val img: ResourceLocation, var w: Int, var h: Int) : ADiaryEl
         val scale = scale(xSize, ySize)
         RenderSystem.pushMatrix()
         RenderSystem.scaled(scale, scale, scale)
-        Minecraft.getInstance().getTextureManager().bindTexture(img)
+        mc.getTextureManager().bindTexture(img)
         drawRectScalable(img, x + 15, y + 15, xSize.toDouble(), ySize.toDouble(), depth)
         RenderSystem.scaled(1 / scale, 1 / scale, 1 / scale)
         RenderSystem.popMatrix()

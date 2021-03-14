@@ -11,7 +11,6 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
 import phoenix.tile.ash.PotteryBarrelTile
-import phoenix.utils.LogManager
 import phoenix.utils.getTileAt
 
 class ElectricBarrelBlock : ContainerBlock(Properties.create(Material.BAMBOO))

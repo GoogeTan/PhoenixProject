@@ -1,7 +1,6 @@
 package phoenix.enity.tasks
 
 import net.minecraft.entity.EntityPredicate
-import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.ai.goal.Goal
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.gen.Heightmap

@@ -1,13 +1,8 @@
 package phoenix.init
 
-import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.ScreenManager
-import net.minecraft.client.gui.ScreenManager.IScreenFactory
-import net.minecraft.inventory.container.ContainerType
-import net.minecraft.util.text.ITextComponent
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
-import net.minecraftforge.fml.RegistryObject
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.ForgeRegistries

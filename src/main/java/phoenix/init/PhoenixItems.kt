@@ -12,7 +12,6 @@ import phoenix.Phoenix.Companion.ASH
 import phoenix.items.ItemDiary
 import phoenix.items.ash.CrucibleItem
 import phoenix.items.ash.KnifeItem
-import java.util.function.Supplier
 
 object PhoenixItems
 {

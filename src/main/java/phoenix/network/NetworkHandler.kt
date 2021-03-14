@@ -1,6 +1,5 @@
 package phoenix.network
 
-import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.ServerPlayerEntity
@@ -17,6 +16,7 @@ import net.minecraftforge.fml.network.NetworkRegistry
 import net.minecraftforge.fml.network.PacketDistributor
 import net.minecraftforge.fml.network.PacketDistributor.TargetPoint
 import phoenix.Phoenix
+import phoenix.utils.clientPlayer
 import java.util.function.Supplier
 
 
@@ -127,9 +127,9 @@ object NetworkHandler
 
             when (ctx.direction.receptionSide)
             {
-                LogicalSide.CLIENT -> this.client(packet.clientPlayer())
+                LogicalSide.CLIENT -> this.client(clientPlayer)
                 LogicalSide.SERVER -> this.server(ctx.sender)
-                null -> this.server(ctx.sender)
+                null               -> this.server(ctx.sender)
             }
             ctx.packetHandled = true
         }
@@ -138,8 +138,5 @@ object NetworkHandler
         abstract fun client(player: ClientPlayerEntity?)
         @OnlyIn(Dist.DEDICATED_SERVER)
         abstract fun server(player: ServerPlayerEntity?)
-
-        @OnlyIn(Dist.CLIENT)
-        private fun clientPlayer() = Minecraft.getInstance().player
     }
 }

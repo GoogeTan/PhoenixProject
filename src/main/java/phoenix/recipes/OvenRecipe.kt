@@ -7,7 +7,6 @@ import net.minecraft.item.crafting.AbstractCookingRecipe
 import net.minecraft.item.crafting.IRecipeSerializer
 import net.minecraft.item.crafting.Ingredient
 import net.minecraft.util.ResourceLocation
-import phoenix.init.PhoenixRecipeSerializers
 import phoenix.init.PhoenixRecipeSerializers.OVEN
 import phoenix.init.PhoenixRecipes
 

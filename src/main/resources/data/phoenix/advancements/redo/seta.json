@@ -1,5 +1,5 @@
 {
-  "parent": "phoenix:ash/zirconium_ingot",
+  "parent": "phoenix:redo/root",
   "display": {
     "icon": {
       "item": "phoenix:seta"

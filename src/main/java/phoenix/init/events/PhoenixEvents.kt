@@ -9,7 +9,10 @@ import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.item.MerchantOffer
 import net.minecraft.particles.ParticleTypes
+import net.minecraft.util.ResourceLocation
+import net.minecraft.util.math.BlockPos
 import net.minecraft.world.dimension.DimensionType
+import net.minecraft.world.gen.feature.template.PlacementSettings
 import net.minecraft.world.server.ServerWorld
 import net.minecraft.world.storage.loot.ItemLootEntry
 import net.minecraft.world.storage.loot.LootPool
@@ -17,6 +20,7 @@ import net.minecraft.world.storage.loot.LootTables
 import net.minecraftforge.event.LootTableLoadEvent
 import net.minecraftforge.event.TickEvent
 import net.minecraftforge.event.TickEvent.WorldTickEvent
+import net.minecraftforge.event.entity.EntityJoinWorldEvent
 import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.event.village.VillagerTradesEvent
 import net.minecraftforge.event.village.WandererTradesEvent
@@ -28,13 +32,21 @@ import phoenix.client.gui.diaryPages.Chapters
 import phoenix.init.PhoenixBlocks
 import phoenix.init.PhoenixItems
 import phoenix.network.NetworkHandler
+import phoenix.network.NetworkHandler.sendTo
+import phoenix.network.SyncBookPacket
 import phoenix.network.SyncStagePacket
 import phoenix.utils.IChapterReader
 import phoenix.utils.LogManager
+import phoenix.utils.LogManager.error
+import phoenix.utils.LogManager.log
 import phoenix.utils.Tuple
 import phoenix.utils.addChapter
+import phoenix.world.GenSaveData
 import phoenix.world.StageManager
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.isNotEmpty
+import kotlin.collections.set
 
 @Mod.EventBusSubscriber
 object PhoenixEvents
@@ -58,12 +70,9 @@ object PhoenixEvents
     {
         if(!event.world.isRemote)
         {
-            LogManager.log(this, "Phoenix is starting saving")
             val nbt = event.world.worldInfo.getDimensionData(DimensionType.THE_END)
             StageManager.write(nbt)
-            LogManager.log(this, "Stage = ${StageManager.getStage() + 1} Part = ${StageManager.getPart()}")
             event.world.worldInfo.setDimensionData(DimensionType.THE_END, nbt)
-            LogManager.log(this, "Phoenix has ended saving")
         }
     }
 
@@ -73,12 +82,9 @@ object PhoenixEvents
     {
         if(!event.world.isRemote)
         {
-            LogManager.log(this, "Phoenix is starting loading")
             val nbt = event.world.worldInfo.getDimensionData(DimensionType.THE_END)
             StageManager.read(nbt)
-            LogManager.log(this, "Stage = ${StageManager.getStage() + 1} Part = ${StageManager.getPart()}")
             NetworkHandler.sendToAll(SyncStagePacket(StageManager.getStage(), StageManager.getPart()))
-            LogManager.log(this, "Phoenix has ended loading")
         }
     }
 
@@ -194,6 +200,35 @@ object PhoenixEvents
                     }
                 }
             }
+        }
+    }
+
+    @JvmStatic
+    @SubscribeEvent
+    fun cornGen(event: EntityJoinWorldEvent)
+    {
+        val world = event.world
+        val entity = event.entity
+        if (!world.isRemote && world is ServerWorld && world.dimension.type === DimensionType.THE_END && !GenSaveData[world].isCornGenned)
+        {
+            val template =  world.structureTemplateManager.getTemplate(ResourceLocation("phoenix:corn/corn"))
+            if (template != null)
+            {
+                GenSaveData[world].setCornGenned()
+                template.addBlocksToWorld(world, BlockPos(1000, 100, 1000), PlacementSettings())
+                template.addBlocksToWorld(world, BlockPos(-1000, 100, 1000), PlacementSettings())
+                template.addBlocksToWorld(world, BlockPos(1000, 100, -1000), PlacementSettings())
+                template.addBlocksToWorld(world, BlockPos(-1000, 100, -1000), PlacementSettings())
+                log("<Other events> ", "Corn genned ^)")
+            }
+            else
+            {
+                error("<Other events> ", "Corn was not genned ^(. template is null... I it is very bad think.")
+            }
+        }
+        if (!event.world.isRemote && entity is ServerPlayerEntity && entity is IChapterReader)
+        {
+            sendTo(SyncBookPacket(entity.getOpenedChapters()), entity)
         }
     }
 }

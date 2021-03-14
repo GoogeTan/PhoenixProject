@@ -5,13 +5,13 @@ import mezz.jei.api.JeiPlugin
 import mezz.jei.api.registration.IRecipeCatalystRegistration
 import mezz.jei.api.registration.IRecipeCategoryRegistration
 import mezz.jei.api.registration.IRecipeRegistration
-import net.minecraft.client.Minecraft
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
 import net.minecraft.util.ResourceLocation
 import phoenix.init.PhoenixBlocks
 import phoenix.init.PhoenixRecipes
+import phoenix.utils.mc
 
 @JeiPlugin
 class PhoenixJEIPlugin : IModPlugin
@@ -31,8 +31,8 @@ class PhoenixJEIPlugin : IModPlugin
 
     override fun registerRecipes(register: IRecipeRegistration)
     {
-        assert(Minecraft.getInstance().world != null)
-        val manager = Minecraft.getInstance().world!!.recipeManager
+        assert(mc.world != null)
+        val manager = mc.world!!.recipeManager
         // oven
         val ovenRecipes: Collection<IRecipe<IInventory>> = manager.getRecipes(PhoenixRecipes.OVEN).values
         register.addRecipes(ovenRecipes, ovenCategory.uid)

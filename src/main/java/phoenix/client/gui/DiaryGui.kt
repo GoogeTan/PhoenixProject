@@ -1,6 +1,5 @@
 package phoenix.client.gui
 
-import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
 import net.minecraft.client.gui.widget.Widget
 import net.minecraft.entity.player.PlayerInventory
@@ -28,8 +27,8 @@ class DiaryGui(screenContainer: DiaryContainer, inv: PlayerInventory, titleIn: I
         super.init()
         addButton(InvisibleButton(guiLeft - 40, guiTop, (ySize * 1.8), { book.prev() }, true))
         addButton(InvisibleButton(guiLeft + xSize - 10, guiTop, (ySize * 1.8), { book.next() }, true))
-        book = DiaryBook(xSize - 30, (ySize * 1.8), Minecraft.getInstance().fontRenderer)
-        val player = Minecraft.getInstance().player;
+        book = DiaryBook(xSize - 30, (ySize * 1.8), mc.fontRenderer)
+        val player = clientPlayer
 
         if(player is IChapterReader)
         {

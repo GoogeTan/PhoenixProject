@@ -3,6 +3,7 @@ package phoenix.init.events
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderTypeLookup
+import net.minecraft.util.text.TextFormatting.*
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -22,10 +23,10 @@ import phoenix.init.PhoenixEntities.KNIFE
 import phoenix.init.PhoenixEntities.TALPA
 import phoenix.init.PhoenixRenderTypes
 import phoenix.init.PhoenixTiles
-import phoenix.integration.minecraft.PhoenixRecipeBookCategories
 import phoenix.network.NetworkHandler
-import phoenix.utils.LogManager
+import phoenix.utils.StringUtils
 import phoenix.utils.block.IColoredBlock
+import phoenix.utils.mc
 
 @OnlyIn(Dist.CLIENT)
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
@@ -57,10 +58,21 @@ object PhoenixClientEvents
             val colorBlock = block.get()
             if (colorBlock is IColoredBlock)
             {
-                if (colorBlock.blockColor != null) Minecraft.getInstance().blockColors.register(colorBlock.blockColor, block.get())
-                if (colorBlock.itemColor != null) Minecraft.getInstance().itemColors.register(colorBlock.itemColor, block.get())
+                if (colorBlock.blockColor != null) mc.blockColors.register(colorBlock.blockColor, block.get())
+                if (colorBlock.itemColor != null) mc.itemColors.register(colorBlock.itemColor, block.get())
             }
         }
-        LogManager.log(this, PhoenixRecipeBookCategories.OVEN.name)
+
+        val splashes = mc.splashes
+        splashes.possibleSplashes.add(StringUtils.rainbowColor("God is an artist, since there are so many \n colors in the world")) //Reference to: Beautiful mind
+        splashes.possibleSplashes.add("$RED The essence of life is that it changes itself") //Reference to: Evangelion-3.33 you can(not) redo
+        splashes.possibleSplashes.add("$BLUE Bridge station is absent") //Reference to: Dovecote in a yellow glade
+        splashes.possibleSplashes.add("$GRAY You can be wind... be forever.") //Reference to: Dovecote in a yellow glade
+        splashes.possibleSplashes.add("$DARK_BLUE Third child is an angel!!") //Reference to: Neon Genesis Evangelion
+        splashes.possibleSplashes.add("$GOLD Project E.N.D.") // Reference to: Phoenix project's old name
+        splashes.possibleSplashes.add("$BLACK Нож в печень, FX вечен!") // Reference to: AMD FX series
+        splashes.possibleSplashes.add("$AQUA Still, the first enemy of human is itself.") // Reference to: Neon Genesis Evangelion
+        splashes.possibleSplashes.add("$WHITE The hands of the clock cannot be turned back.$WHITE But it is in our power to move them forward!") // Reference to: Neon Genesis Evangelion
+        splashes.possibleSplashes.add("$RED Where are the fixes, Lebowski?") // Reference to: The Big Lebowski
     }
 }
