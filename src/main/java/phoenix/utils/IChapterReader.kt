@@ -5,7 +5,7 @@ import java.util.*
 
 interface IChapterReader
 {
-    fun getOpenedChapters() : ArrayList<Pair<Integer, Date>>
+    fun getOpenedChapters() : ArrayList<Pair<Int, Date>>
     //Use ServerPlayerEntity.addChapter(Chapters)
     fun addChapter(id : Int, date: Date) : Boolean
     fun hasChapter(id: Int) : Boolean

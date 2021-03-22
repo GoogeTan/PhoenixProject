@@ -71,7 +71,6 @@ object PhoenixClientEvents
         splashes.possibleSplashes.add("$GRAY You can be wind... be forever.") //Reference to: Dovecote in a yellow glade
         splashes.possibleSplashes.add("$DARK_BLUE Third child is an angel!!") //Reference to: Neon Genesis Evangelion
         splashes.possibleSplashes.add("$GOLD Project E.N.D.") // Reference to: Phoenix project's old name
-        splashes.possibleSplashes.add("$BLACK Нож в печень, FX вечен!") // Reference to: AMD FX series
         splashes.possibleSplashes.add("$AQUA Still, the first enemy of human is itself.") // Reference to: Neon Genesis Evangelion
         splashes.possibleSplashes.add("$WHITE The hands of the clock cannot be turned back.$WHITE But it is in our power to move them forward!") // Reference to: Neon Genesis Evangelion
         splashes.possibleSplashes.add("$RED Where are the fixes, Lebowski?") // Reference to: The Big Lebowski

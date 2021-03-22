@@ -1,6 +1,5 @@
 package phoenix.utils
 
-import javafx.util.Pair
 import net.minecraft.client.Minecraft
 import net.minecraft.util.ResourceLocation
 import org.lwjgl.opengl.GL11

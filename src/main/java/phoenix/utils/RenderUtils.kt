@@ -40,14 +40,14 @@ object RenderUtils
         mc.getTextureManager().bindTexture(texture)
         val d = getTextureSize(texture)
         RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f)
-        var scale = maxSizeX / d.key
-        var sizeX = (d.key * scale).toInt()
-        var sizeY = (d.value * scale).toInt()
+        var scale = maxSizeX / d.first
+        var sizeX = (d.first * scale).toInt()
+        var sizeY = (d.second * scale).toInt()
         if (maxSizeY < sizeY)
         {
             scale *= maxSizeY / sizeY
-            sizeY = (d.key * scale).toInt()
-            sizeX = (d.value * scale).toInt()
+            sizeY = (d.first * scale).toInt()
+            sizeX = (d.second * scale).toInt()
         }
         blit(x, y, depth, 0f, 0f, sizeX, sizeY, sizeX, sizeY)
     }
@@ -61,8 +61,8 @@ object RenderUtils
         var vec = Vec2(width.toDouble(), height.toDouble())
         vec.toUnit()
         vec *= sqrt(maxSizeX * maxSizeX + maxSizeY * maxSizeY)
-        var sizeX = vec.x.toInt()
-        var sizeY = vec.y.toInt()
+        val sizeX = vec.x.toInt()
+        val sizeY = vec.y.toInt()
         blit(x, y, depth, 0f, 0f, sizeX, sizeY, sizeX, sizeY)
     }
 

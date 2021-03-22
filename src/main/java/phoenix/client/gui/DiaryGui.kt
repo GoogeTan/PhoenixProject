@@ -33,13 +33,13 @@ class DiaryGui(screenContainer: DiaryContainer, inv: PlayerInventory, titleIn: I
         if(player is IChapterReader)
         {
             val els = ArrayList<ADiaryElement>()
-            val chapters: ArrayList<Pair<Integer, Date>> = player.getOpenedChapters()
+            val chapters: ArrayList<Pair<Int, Date>> = player.getOpenedChapters()
 
             for (i in chapters)
             {
-                val ch = Chapters.values()[i.m.toInt()]
+                val ch = Chapters.values()[i.first.toInt()]
                 els.addAll(DiaryUtils.makeParagraph(font, xSize / 2 - 15, ch.getText()))
-                els.add(RightAlignedTextElement(i.v.toString()))
+                els.add(RightAlignedTextElement(i.second.toString()))
             }
 
             book.add(els)

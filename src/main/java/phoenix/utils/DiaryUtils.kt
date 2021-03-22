@@ -152,7 +152,7 @@ object DiaryUtils
     fun readImageElement(nbt: CompoundNBT, maxSizeX: Int, maxSizeY: Int): ImageElement
     {
         val d = TextureUtils.getTextureSize(ResourceLocation(nbt.getString("res")))
-        return ImageElement(TextureLocation(nbt.getString("res")), d.key, d.value)
+        return ImageElement(TextureLocation(nbt.getString("res")), d.first, d.second)
     }
 
     fun read(nbt: CompoundNBT): ADiaryElement?
