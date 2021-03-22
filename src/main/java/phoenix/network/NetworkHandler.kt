@@ -6,10 +6,12 @@ import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.network.NetworkManager
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.ResourceLocation
+import net.minecraft.util.math.BlockPos
 import net.minecraft.world.chunk.Chunk
 import net.minecraft.world.dimension.DimensionType
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
+import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.network.NetworkEvent
 import net.minecraftforge.fml.network.NetworkRegistry
@@ -31,6 +33,7 @@ object NetworkHandler
         registerPacket(SyncStagePacket().javaClass)
         registerPacket(SyncBookPacket(ArrayList()))
         registerPacket(SyncOvenPacket().javaClass)
+        registerPacket(SyncFluidThinkPacket(FluidStack.EMPTY, BlockPos.ZERO))
     }
 
     private var id: Short = 0
@@ -85,35 +88,13 @@ object NetworkHandler
 
     private fun registerPacket(clazz: Class<Packet>)
     {
-        try
-        {
-            val packet = clazz.newInstance()
-            CHANNEL.registerMessage(id++.toInt(), clazz, packet::encode, packet::decode, packet::handlePacket)
-        }
-        catch (e: InstantiationException)
-        {
-            e.printStackTrace()
-        }
-        catch (e: IllegalAccessException)
-        {
-            e.printStackTrace()
-        }
+        val packet = clazz.newInstance()
+        CHANNEL.registerMessage(id++.toInt(), clazz, packet::encode, packet::decode, packet::handlePacket)
     }
 
     private fun registerPacket(packet: Packet)
     {
-        try
-        {
-            CHANNEL.registerMessage(id++.toInt(), packet.javaClass, packet::encode, packet::decode, packet::handlePacket)
-        }
-        catch (e: InstantiationException)
-        {
-            e.printStackTrace()
-        }
-        catch (e: IllegalAccessException)
-        {
-            e.printStackTrace()
-        }
+        CHANNEL.registerMessage(id++.toInt(), packet.javaClass, packet::encode, packet::decode, packet::handlePacket)
     }
 
     abstract class Packet

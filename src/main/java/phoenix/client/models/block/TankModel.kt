@@ -16,13 +16,12 @@ import phoenix.tile.redo.TankTile
 import phoenix.utils.RenderUtils.refreshDrawing
 import java.util.function.Function
 
-
-class TankModel(var tileTank: TankTile) : Model(Function { PhoenixRenderTypes.TANK })
+class TankModel(var tileTank : TankTile) : Model(Function { PhoenixRenderTypes.TANK })
 {
     var TEXTURE_FLUID: ResourceLocation? = null
     var MATERIAL_FLUID: Material? = null
     var fluid = ModelRenderer(this, 0, 0)
-    var block = ModelRenderer(this, 0, 0)
+    val block = ModelRenderer(this, 0, 0)
 
     override fun render(
         matrixStackIn: MatrixStack,
@@ -44,7 +43,7 @@ class TankModel(var tileTank: TankTile) : Model(Function { PhoenixRenderTypes.TA
         matrixStackIn.push()
         TEXTURE_FLUID = try
         {
-            tileTank.input.fluid.fluid.attributes.stillTexture
+            tileTank.tank.fluid.fluid.attributes.stillTexture
         } catch (e: Exception)
         {
             null
@@ -73,16 +72,7 @@ class TankModel(var tileTank: TankTile) : Model(Function { PhoenixRenderTypes.TA
                 } else
                 {
                     val watercolor = tileTank.world!!.getBiome(tileTank.pos).getWaterColor()
-                    fluid.render(
-                        matrixStackIn,
-                        fluidBuilder,
-                        packedLightIn,
-                        packedOverlayIn,
-                        watercolor / 10000 / 100f,
-                        watercolor / 100 % 100 / 100f,
-                        1.0f,
-                        0.7f
-                    )
+                    fluid.render(matrixStackIn, fluidBuilder, packedLightIn, packedOverlayIn, watercolor / 10000 / 100f, watercolor / 100 % 100 / 100f, 1.0f, 0.7f)
                 }
             }
         }
@@ -92,19 +82,11 @@ class TankModel(var tileTank: TankTile) : Model(Function { PhoenixRenderTypes.TA
         matrixStackIn.pop()
     }
 
-    companion object
-    {
-        val TEXTURE = Material(
-            AtlasTexture.LOCATION_BLOCKS_TEXTURE,
-            ResourceLocation("block/tank")
-        )
-    }
-
     init
     {
-        fluid.setRotationPoint(0f, 0f, 0f)
-        fluid.addBox(2f, 2f, 2f, 12f, (12 * tileTank.input.fluidAmount / tileTank.input.capacity).toFloat(), 12f)
         block.setRotationPoint(0f, 0f, 0f)
         block.addBox(0f, 0f, 0f, 16f, 16f, 16f)
+        fluid.setRotationPoint(0f, 0f, 0f)
+        fluid.addBox(2f, 2f, 2f, 12f, (12 * tileTank.tank.fluidAmount / tileTank.tank.capacity).toFloat(), 12f)
     }
 }

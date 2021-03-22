@@ -13,7 +13,7 @@ import net.minecraft.world.World
 import phoenix.tile.ash.PotteryBarrelTile
 import phoenix.utils.getTileAt
 
-class ElectricBarrelBlock : ContainerBlock(Properties.create(Material.BAMBOO))
+class ElectricBarrelBlock : ContainerBlock(Properties.create(Material.BAMBOO).hardnessAndResistance(5.0f))
 {
     companion object
     {

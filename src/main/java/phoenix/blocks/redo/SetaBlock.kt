@@ -4,6 +4,8 @@ import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.IGrowable
 import net.minecraft.block.material.Material
+import net.minecraft.item.ItemGroup
+import net.minecraft.item.ItemStack
 import net.minecraft.state.StateContainer
 import net.minecraft.state.properties.BlockStateProperties.AGE_0_3
 import net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING
@@ -15,13 +17,15 @@ import net.minecraft.world.IBlockReader
 import net.minecraft.world.IWorldReader
 import net.minecraft.world.World
 import net.minecraft.world.server.ServerWorld
+import net.minecraft.world.storage.loot.LootContext
 import net.minecraftforge.common.ToolType
+import net.minecraftforge.common.capabilities.CapabilityManager
 import phoenix.Phoenix
 import phoenix.init.PhoenixBlocks
 import phoenix.utils.block.ICustomGroup
 import java.util.*
 
-object SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandomly().harvestTool(ToolType.SHOVEL).lightValue(5)), IGrowable, ICustomGroup
+object SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandomly().lightValue(5).hardnessAndResistance(3.0f)), IGrowable, ICustomGroup
 {
     private val SHAPE: VoxelShape = makeCuboidShape(0.0, 12.0, 0.0, 16.0, 16.0, 16.0)
 
@@ -60,11 +64,16 @@ object SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRando
         if(age >= 2)
         {
             var pos2 = BlockPos.ZERO
+            val current = BlockPos.Mutable(pos)
             for (x in -1..1)
                 for (y in -1..1)
                     for (z in -1..1)
-                        if(isValidPosition(worldIn.getBlockState(pos.add(x,y,z)), worldIn, pos.add(x, y, z)) && worldIn.isAirBlock(pos.add(x, y, z)) && pos.add(x, y, z) != pos)
-                            pos2 = pos.add(x, y, z)
+                    {
+                        current.setPos(pos.x + x, pos.y + y, pos.z + z)
+                        if (worldIn.isAirBlock(current) && current != pos && isValidPosition(worldIn.getBlockState(current), worldIn, current))
+                            if(pos2 == BlockPos.ZERO || rand.nextBoolean())
+                                pos2 = current.toImmutable()
+                    }
             if(pos != pos2 && pos2 != BlockPos.ZERO)
             {
                 worldIn.setBlockState(pos2, PhoenixBlocks.SETA.get().defaultState.with(HORIZONTAL_FACING, Direction.Plane.HORIZONTAL.random(rand)), 2)
@@ -74,5 +83,8 @@ object SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRando
 
     override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape = SHAPE
 
-    override fun getTab() = Phoenix.REDO
+    override val tab: ItemGroup
+        get() = Phoenix.REDO
+
+    override fun getDrops(state: BlockState, builder: LootContext.Builder) = listOf(ItemStack(this, state[AGE_0_3] + 1))
 }

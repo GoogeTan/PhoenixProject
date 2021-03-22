@@ -1,71 +1,89 @@
 package phoenix.tile.redo
 
-import net.minecraft.block.BlockState
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.network.NetworkManager
 import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
+import net.minecraft.tileentity.ITickableTileEntity
+import net.minecraft.util.Direction
+import net.minecraftforge.fluids.FluidStack
+import net.minecraftforge.fluids.capability.templates.FluidTank
 import phoenix.init.PhoenixTiles.PIPE
+import phoenix.tile.IFluidThing
 import phoenix.utils.block.PhoenixTile
-import phoenix.utils.pipe.IFluidPipe
-import java.io.IOException
+import phoenix.utils.getTileAt
+import kotlin.math.abs
 
-class PipeTile : PhoenixTile<PipeTile>(PIPE.get()), IFluidPipe
+class PipeTile(maxCapacity : Int) : PhoenixTile<PipeTile>(PIPE.get()), ITickableTileEntity, IFluidThing
 {
-    var number_in_graph = 0
-    override fun getNumberInGraph(): Int
-    {
-        return number_in_graph
-    }
+    override var tank = FluidTank(maxCapacity * 1000)
+    override val throughput: Int = 1 * 1000
+    override var needSync: Boolean = false
 
-    override fun setNumberInGraph(number_in_graph: Int)
-    {
-        this.number_in_graph = number_in_graph
-    }
-
-    override fun getBlockState(): BlockState
-    {
-        return world!!.getBlockState(pos)
-    }
+    constructor() : this(1)
 
     override fun read(tag: CompoundNBT)
     {
         super.read(tag)
-        number_in_graph = tag.getInt("number_in_graph")
+        tank.readFromNBT(tag.getCompound("tank"))
     }
 
-    override fun write(tag: CompoundNBT): CompoundNBT
+    override fun write(tagIn: CompoundNBT): CompoundNBT
     {
-        var tag = tag
-        tag = super.write(tag)
-        tag.putInt("number_in_graph", number_in_graph)
+        val tag = super.write(tagIn)
+        tag.put("tank", tank.writeToNBT(CompoundNBT()))
         return tag
     }
 
-    override fun getUpdatePacket(): SUpdateTileEntityPacket
-    {
-        return UpdatePacket(number_in_graph)
-    }
+    override fun getUpdatePacket(): SUpdateTileEntityPacket = UpdatePacket()
 
     override fun onDataPacket(net: NetworkManager, pkt: SUpdateTileEntityPacket)
     {
-        number_in_graph = (pkt as UpdatePacket).numberInGraph
     }
 
-    internal class UpdatePacket(var numberInGraph: Int) : SUpdateTileEntityPacket()
+    override fun tick()
     {
-        @Throws(IOException::class)
+        val world = world
+        if(world != null)
+        {
+            if(!tank.isEmpty)
+            {
+                for (i in Direction.values())
+                {
+                    val tile = world.getTileAt<IFluidThing>(pos.offset(i))
+                    if (tile != null)
+                    {
+                        if(tile.tank.isEmpty)
+                            tile.tank.fluid = FluidStack(tank.fluid.fluid, 0)
+
+                        if (tile.tank.fluid.fluid == this.tank.fluid.fluid && abs(tile.getPercent() - this.getPercent()) > 0.001)
+                        {
+                            val all = tile.tank.fluidAmount + this.tank.fluidAmount
+                            tile.tank.fluid.amount = tile.tank.capacity * all / (tile.tank.capacity + this.tank.capacity)
+                            this.tank.fluid.amount = all - tile.tank.fluid.amount
+                            if(tile is TankTile)
+                            {
+                                tile.needSync = true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    inner class UpdatePacket : SUpdateTileEntityPacket()
+    {
         override fun readPacketData(buf: PacketBuffer)
         {
-            numberInGraph = buf.readInt()
             super.readPacketData(buf)
+            //buf.writeFluidStack(tank.fluid)
         }
 
-        @Throws(IOException::class)
         override fun writePacketData(buf: PacketBuffer)
         {
-            buf.writeInt(numberInGraph)
             super.writePacketData(buf)
+            //tank.fluid = buf.readFluidStack()
         }
     }
 }

@@ -4,6 +4,7 @@ import net.minecraft.block.AbstractGlassBlock
 import net.minecraft.block.BlockState
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
+import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.shapes.ISelectionContext
@@ -20,7 +21,6 @@ object ArmoredGlassBlock : AbstractGlassBlock(
     Properties.create(Material.GLASS).doesNotBlockMovement().hardnessAndResistance(20.0f).harvestLevel(3).harvestTool(
         ToolType.PICKAXE).sound(SoundType.GLASS)), ICustomGroup
 {
-    override fun getTab() = Phoenix.REDO
     override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape = VoxelShapes.fullCube()
     override fun getCollisionShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape =  VoxelShapes.fullCube();
 
@@ -30,4 +30,7 @@ object ArmoredGlassBlock : AbstractGlassBlock(
         res.add(ItemStack(PhoenixBlocks.ARMORED_GLASS.get()));
         return res
     }
+
+    override val tab: ItemGroup
+        get() = Phoenix.REDO
 }

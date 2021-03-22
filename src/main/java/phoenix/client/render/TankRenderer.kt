@@ -10,7 +10,7 @@ import phoenix.tile.redo.TankTile
 class TankRenderer(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEntityRenderer<TankTile>(rendererDispatcherIn)
 {
     override fun render(
-        te: TankTile?,
+        te: TankTile,
         partialTicks: Float,
         matrixStackIn: MatrixStack,
         bufferIn: IRenderTypeBuffer,
@@ -18,7 +18,6 @@ class TankRenderer(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEnt
         combinedOverlayIn: Int
     )
     {
-        if(te != null)
-            TankModel(te).render(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn)
+        TankModel(te).render(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn)
     }
 }

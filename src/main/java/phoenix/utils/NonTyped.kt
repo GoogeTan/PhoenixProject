@@ -5,9 +5,11 @@ import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.client.gui.FontRenderer
+import net.minecraft.client.world.ClientWorld
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
+import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.ShapedRecipe
@@ -19,6 +21,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.registry.Registry
 import net.minecraft.util.text.ITextComponent
+import net.minecraft.util.text.StringTextComponent
 import net.minecraft.world.BossInfo
 import net.minecraft.world.IWorld
 import net.minecraft.world.World
@@ -121,7 +124,7 @@ fun ServerPlayerEntity.addChapter(chapter : Chapters)
     }
 }
 
-fun <T : TileEntity> IWorld.getTileAt(pos: BlockPos): T?
+fun <T> IWorld.getTileAt(pos: BlockPos): T?
 {
     return getTileEntity(pos) as? T
 }
@@ -139,3 +142,10 @@ val mc : Minecraft
 val clientPlayer : ClientPlayerEntity?
         @OnlyIn(Dist.CLIENT)
         get() = mc.player
+val clientWorld : ClientWorld?
+    @OnlyIn(Dist.CLIENT)
+    get() = mc.world
+
+fun PlayerEntity.sendMessage(text : String) = sendMessage(StringTextComponent(text))
+
+class BookException(message: String) : Exception(message)

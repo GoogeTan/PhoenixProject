@@ -56,18 +56,18 @@ public class ClientRecipeBookMixin
 
     private static RecipeBookCategories getRecipeCategory(IRecipe<?> recipe) {
         if (recipe.getType() == PhoenixRecipes.OVEN) {
-            return PhoenixRecipeBookCategories.OVEN;
+            return PhoenixRecipeBookCategories.INSTANCE.getOVEN();
         }
         return null;
     }
 
     private static RecipeList newRecipeList(RecipeBookCategories category, List<RecipeList> allRecipes, Map<RecipeBookCategories, List<RecipeList>> recsByCategory) {
-        if (category == PhoenixRecipeBookCategories.OVEN)
+        if (category == PhoenixRecipeBookCategories.INSTANCE.getOVEN())
         {
             RecipeList list = new RecipeList();
             allRecipes.add(list);
             recsByCategory.computeIfAbsent(category, cgr -> Lists.newArrayList()).add(list);
-            recsByCategory.computeIfAbsent(PhoenixRecipeBookCategories.OVEN, cgr -> Lists.newArrayList()).add(list);
+            recsByCategory.computeIfAbsent(PhoenixRecipeBookCategories.INSTANCE.getOVEN(), cgr -> Lists.newArrayList()).add(list);
             return list;
         }
 

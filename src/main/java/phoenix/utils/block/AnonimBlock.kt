@@ -27,7 +27,8 @@ class AnonimBlock(properties: Properties, val tile : () -> TileEntity? = {null},
 
     override fun getDrops(state: BlockState, builder: LootContext.Builder) = SizedArrayList.of(ItemStack(this))
 
-    override fun getTab() = itemGroup
+    override val tab: ItemGroup
+        get() = itemGroup
 
     companion object
     {

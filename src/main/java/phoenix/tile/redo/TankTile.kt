@@ -1,116 +1,74 @@
 package phoenix.tile.redo
 
-import com.mojang.datafixers.util.Pair
-import net.minecraft.item.ItemStack
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.network.NetworkManager
 import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.util.Direction
-import net.minecraft.world.server.ServerWorld
-import net.minecraftforge.common.capabilities.Capability
-import net.minecraftforge.common.util.LazyOptional
-import net.minecraftforge.fluids.FluidAttributes
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler
-import net.minecraftforge.fluids.capability.IFluidHandler
+import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.capability.templates.FluidTank
 import phoenix.init.PhoenixTiles
+import phoenix.network.NetworkHandler
+import phoenix.network.SyncFluidThinkPacket
+import phoenix.tile.IFluidThing
 import phoenix.utils.SerializeUtils.readTank
 import phoenix.utils.SerializeUtils.writeToBuf
 import phoenix.utils.block.PhoenixTile
-import phoenix.utils.graph.GraphNode
-import phoenix.utils.graph.MGraphNode
-import phoenix.utils.pipe.FluidGraphSaveData
-import phoenix.utils.pipe.IFluidMechanism
-import java.util.*
-import kotlin.math.min
+import phoenix.utils.getTileAt
+import kotlin.math.abs
 
-class TankTile : PhoenixTile<TankTile>(PhoenixTiles.TANK), IFluidMechanism, ITickableTileEntity
+class TankTile(capacity : Int) : PhoenixTile<TankTile>(PhoenixTiles.TANK), IFluidThing, ITickableTileEntity
 {
-    private var stack = ItemStack.EMPTY
-    private var numberInGraph = 0
-    var tank = FluidTank(FluidAttributes.BUCKET_VOLUME * 5)
-    private val holder = LazyOptional.of<IFluidHandler> { tank }
-    private var inputs  : ArrayList<MGraphNode>? = null
-    private var outputs : ArrayList<MGraphNode>? = null
-    private var colorTmp = ArrayList<Integer>()
+    constructor() : this(5)
+
+    override var tank: FluidTank = FluidTank(capacity * 1000)
+    override val throughput: Int = 1 * 1000
+    override var needSync: Boolean = false
 
     override fun tick()
     {
-    }
-
-    override fun getConnectedMechanisms(numberInGraph: Int): Pair<ArrayList<GraphNode>, ArrayList<GraphNode>>
-    {
-        if(world is ServerWorld)
+        val world = world
+        if(world != null && !world.isRemote)
         {
-            if(outputs == null || inputs == null)
+            if(!tank.isEmpty)
             {
-                outputs = ArrayList()
-                inputs = ArrayList()
-                colorTmp = ArrayList(FluidGraphSaveData.get(world as ServerWorld?).graph.size)
-                findMechanisms(numberInGraph, Integer(0), 25, ArrayList())
+                for (i in Direction.values())
+                {
+                    val tile = world.getTileAt<IFluidThing>(pos.offset(i))
+                    if (tile != null)
+                    {
+                        if(tile.tank.isEmpty)
+                            tile.tank.fluid = FluidStack(tank.fluid.fluid, 0)
+
+                        if (tile.tank.fluid.fluid == this.tank.fluid.fluid && abs(tile.getPercent() - this.getPercent()) > 0.001)
+                        {
+                            val all = tile.tank.fluidAmount + this.tank.fluidAmount
+                            tile.tank.fluid.amount = tile.tank.capacity * all / (tile.tank.capacity + this.tank.capacity)
+                            this.tank.fluid.amount = all - tile.tank.fluid.amount
+                            if(tile is TankTile)
+                            {
+                                tile.needSync = true
+                            }
+                            this.needSync = true
+                        }
+                    }
+                }
             }
+            if(needSync)
+                NetworkHandler.sendToAll(SyncFluidThinkPacket(tank.fluid, pos))
         }
-        return Pair.of(inputs?.clone() as ArrayList<GraphNode>, outputs?.clone() as ArrayList<GraphNode>)
-    }
-
-    /*
-     * It is simply BFS
-     */
-    private fun findMechanisms(v: Int, color: Integer, maxColor: Int, path: ArrayList<Int>)
-    {
-        val data = FluidGraphSaveData.get(world as ServerWorld?);
-        path.add(v)
-        colorTmp[v] = color
-        if (data.elements[v].isOutput) outputs?.add(MGraphNode(data.elements[v].world, data.elements[v].pos, color.toInt(), path, data.elements[v].isInput, data.elements[v].isOutput))
-        if (data.elements[v].isInput)   inputs?.add(MGraphNode(data.elements[v].world, data.elements[v].pos, color.toInt(), path, data.elements[v].isInput, data.elements[v].isOutput))
-        if (color < maxColor)
-            for (i in data.graph[v])
-                if (colorTmp[i].toInt() != 0) findMechanisms(i, Integer(color.toInt() + 1), maxColor, path)
-    }
-
-    override fun removeMechanismByIndex(index: Int)
-    {
-        TODO("Not yet implemented")
-    }
-
-    override fun addMechanismByIndex(world : ServerWorld, index: Int)
-    {
-
-        var neighbors = FluidGraphSaveData.get(world as ServerWorld?).graph[index]
-        var color = 100000000;
-        for (i in neighbors)
-        {
-            color = min(colorTmp[i].toInt(), color)
-        }
-        colorTmp.add(Integer(color))
-    }
-
-    override fun toString(): String
-    {
-        var s = "TankTile{ stack= ";
-        s += stack;
-        s += " number in graph = "
-        s += numberInGraph
-        s += " tank = "
-        s += tank
-        return s
     }
 
     override fun read(tag: CompoundNBT)
     {
         tank.readFromNBT(tag)
-        stack = ItemStack.read(tag)
-        numberInGraph = tag.getInt("number_in_graph")
         super.read(tag)
     }
 
     override fun write(tagIn: CompoundNBT): CompoundNBT
     {
         tank.writeToNBT(tagIn)
-        stack.write(tagIn)
-        tagIn.putInt("number_in_graph", numberInGraph)
         return super.write(tagIn)
     }
 
@@ -121,44 +79,27 @@ class TankTile : PhoenixTile<TankTile>(PhoenixTiles.TANK), IFluidMechanism, ITic
 
     override fun getUpdatePacket(): SUpdateTileEntityPacket
     {
-        return UpdatePacket(tank, stack, numberInGraph)
+        return UpdatePacket()
     }
 
     override fun onDataPacket(net: NetworkManager, pkt: SUpdateTileEntityPacket)
     {
-        val packet = pkt as UpdatePacket
-        this.numberInGraph = packet.numberInGraph
-        this.tank = packet.tank
-        this.stack = packet.stack
     }
 
-    override fun <T> getCapability(capability: Capability<T>, facing: Direction?): LazyOptional<T>
-    {
-        return if (capability === CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) holder.cast() else super.getCapability(capability, facing)
-    }
-
-    override fun getNumberInGraph(): Int = numberInGraph
-    override fun setNumberInGraph(number_in_graph: Int) { numberInGraph = number_in_graph }
-
-    override fun getInput (): FluidTank  = tank
-    override fun getOutput(): FluidTank  = tank
-
-    class UpdatePacket(var tank: FluidTank, var stack: ItemStack, var numberInGraph: Int) : SUpdateTileEntityPacket()
+    inner class UpdatePacket : SUpdateTileEntityPacket()
     {
         override fun writePacketData(buf: PacketBuffer)
         {
             super.writePacketData(buf)
             buf.writeToBuf(tank)
-            buf.writeItemStack(stack)
-            buf.writeInt(numberInGraph)
         }
 
         override fun readPacketData(buf: PacketBuffer)
         {
             super.readPacketData(buf)
             tank = buf.readTank()
-            stack = buf.readItemStack()
-            numberInGraph = buf.readInt()
         }
     }
+
+
 }

@@ -8,7 +8,7 @@ import phoenix.recipes.OvenRecipe
 
 object PhoenixRecipes
 {
-    lateinit var OVEN: IRecipeType<OvenRecipe>
+    lateinit var OVEN : IRecipeType<OvenRecipe>
 
     fun register()
     {
@@ -17,9 +17,6 @@ object PhoenixRecipes
 
     fun <T : IRecipe<*>> register(key: String): IRecipeType<T>
     {
-        return Registry.register(Registry.RECIPE_TYPE, ResourceLocation(key), object : IRecipeType<T>
-        {
-            override fun toString() = key
-        })
+        return Registry.register(Registry.RECIPE_TYPE, ResourceLocation(key), object : IRecipeType<T> { override fun toString() = key })
     }
 }

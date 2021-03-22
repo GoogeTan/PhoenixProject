@@ -27,6 +27,7 @@ class Phoenix
         PhoenixContainers.register()
         PhoenixRecipeSerializers.register()
         PhoenixTriggers.register()
+        PhoenixPotions.register()
         val specPair = ForgeConfigSpec.Builder().configure(::Common)
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, specPair.right)
         PhoenixConfiguration.COMMON_CONFIG = specPair.left
@@ -35,10 +36,9 @@ class Phoenix
     companion object
     {
         const val MOD_ID = "phoenix"
-        @JvmStatic
+
         val ASH: ItemGroup = PhoenixGroup("$MOD_ID.ash", Blocks.END_PORTAL_FRAME)
-        @JvmStatic
-        val REDO: ItemGroup = PhoenixGroup("$MOD_ID.redo", Blocks.END_PORTAL_FRAME)
+        val REDO: ItemGroup = PhoenixGroup("$MOD_ID.redo", PhoenixBlocks.SETA)
 
         init
         {

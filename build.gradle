@@ -92,7 +92,7 @@ repositories
     jcenter()
     maven {
         name = 'sponge'
-        url = 'http://repo.spongepowered.org/maven'
+        url = 'https://dist.creeper.host/Sponge/maven'
     }
 }
 

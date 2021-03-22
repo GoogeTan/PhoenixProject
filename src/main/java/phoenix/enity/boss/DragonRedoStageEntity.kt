@@ -1,16 +1,10 @@
 package phoenix.enity.boss
 
-import net.minecraft.entity.EntityType
-import net.minecraft.entity.boss.dragon.EnderDragonEntity
+import net.minecraft.entity.*
+import net.minecraft.entity.monster.IMob
+import net.minecraft.util.*
 import net.minecraft.world.World
-import phoenix.init.PhoenixEntities
 
-class DragonRedoStageEntity(type : EntityType<out DragonRedoStageEntity>, world: World) : EnderDragonEntity(type, world)
+class DragonRedoStageEntity(type: EntityType<out DragonRedoStageEntity>, worldIn: World) : AbstractEnderDragonEntity(type, worldIn)
 {
-    constructor(world: World) : this(PhoenixEntities.DRAGON_REDO_STAGE.get(), world)
-
-    init
-    {
-        
-    }
 }

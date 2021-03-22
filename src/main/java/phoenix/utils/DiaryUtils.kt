@@ -8,22 +8,17 @@ import net.minecraft.util.text.StringTextComponent
 import org.apache.commons.lang3.tuple.Pair
 import phoenix.client.gui.diaryPages.Chapters
 import phoenix.client.gui.diaryPages.elements.*
-import phoenix.utils.exeptions.BookException
 import java.util.*
-
 
 object DiaryUtils
 {
-    //принимает ключи параграфоф
+    //принимает ключи параграфов
     fun makeParagraphFromTranslate(xSizeIn: Int, font: FontRenderer, vararg keys: String): ArrayList<ADiaryElement>
     {
         return makeParagraph(font, xSizeIn, StringUtils.translateAll(*keys))
     }
 
-    fun makeParagraph(font: FontRenderer, xSize: Int, text: ArrayList<String>): ArrayList<ADiaryElement>
-    {
-        return makeParagraph(font, xSize, *text.toTypedArray())
-    }
+    fun makeParagraph(font: FontRenderer, xSize: Int, text: ArrayList<String>): ArrayList<ADiaryElement> = makeParagraph(font, xSize, *text.toTypedArray())
 
     fun makeParagraph(font: FontRenderer, xSize: Int, vararg text: String): ArrayList<ADiaryElement>
     {
@@ -157,15 +152,14 @@ object DiaryUtils
     fun readImageElement(nbt: CompoundNBT, maxSizeX: Int, maxSizeY: Int): ImageElement
     {
         val d = TextureUtils.getTextureSize(ResourceLocation(nbt.getString("res")))
-        return ImageElement(ResourceLocation(nbt.getString("res")), d.key, d.value)
+        return ImageElement(TextureLocation(nbt.getString("res")), d.key, d.value)
     }
 
     fun read(nbt: CompoundNBT): ADiaryElement?
     {
         return try
         {
-            val type = nbt.getString("type")
-            when (type)
+            when (nbt.getString("type"))
             {
                 "text"  ->
                 {
@@ -182,7 +176,7 @@ object DiaryUtils
                     val res = nbt.getString("res")
                     val maxSizeX = nbt.getInt("maxx")
                     val maxSizeY = nbt.getInt("maxy")
-                    ImageElement(ResourceLocation(res), maxSizeX, maxSizeY)
+                    ImageElement(TextureLocation(res), maxSizeX, maxSizeY)
                 }
                 else    ->
                 {

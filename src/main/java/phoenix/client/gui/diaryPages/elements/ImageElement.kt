@@ -4,13 +4,13 @@ import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
 import net.minecraft.nbt.CompoundNBT
-import net.minecraft.util.ResourceLocation
 import phoenix.containers.DiaryContainer
 import phoenix.utils.RenderUtils.drawRectScalable
+import phoenix.utils.TextureLocation
 import phoenix.utils.mc
 import kotlin.math.ceil
 
-class ImageElement(val img: ResourceLocation, var w: Int, var h: Int) : ADiaryElement()
+class ImageElement(private val img: TextureLocation, var w: Int, var h: Int) : ADiaryElement()
 {
     override fun getHeight(maxSizeXIn: Int, maxSizeYIn: Int): Int
     {

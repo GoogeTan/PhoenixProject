@@ -2,6 +2,7 @@ package phoenix.utils
 
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.IVertexBuilder
+import com.sun.javafx.geom.Vec2d
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.AbstractGui
 import net.minecraft.client.renderer.BufferBuilder
@@ -11,6 +12,7 @@ import net.minecraft.client.renderer.WorldVertexBufferUploader
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.ResourceLocation
 import phoenix.utils.TextureUtils.getTextureSize
+import kotlin.math.sqrt
 
 
 object RenderUtils
@@ -47,6 +49,20 @@ object RenderUtils
             sizeY = (d.key * scale).toInt()
             sizeX = (d.value * scale).toInt()
         }
+        blit(x, y, depth, 0f, 0f, sizeX, sizeY, sizeX, sizeY)
+    }
+
+    fun drawRectScalable(texture: TextureLocation, x: Int, y: Int, maxSizeX: Double, maxSizeY: Double, depth: Int)
+    {
+        texture.bind()
+        val width = texture.width
+        val height = texture.height
+        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f)
+        var vec = Vec2(width.toDouble(), height.toDouble())
+        vec.toUnit()
+        vec *= sqrt(maxSizeX * maxSizeX + maxSizeY * maxSizeY)
+        var sizeX = vec.x.toInt()
+        var sizeY = vec.y.toInt()
         blit(x, y, depth, 0f, 0f, sizeX, sizeY, sizeX, sizeY)
     }
 

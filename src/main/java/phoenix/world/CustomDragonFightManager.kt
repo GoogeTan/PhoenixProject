@@ -1,12 +1,16 @@
 package phoenix.world
 
+import net.minecraft.block.Blocks
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.util.Unit
 import net.minecraft.util.math.ChunkPos
 import net.minecraft.world.end.DragonFightManager
 import net.minecraft.world.end.DragonSpawnState
+import net.minecraft.world.gen.Heightmap
+import net.minecraft.world.gen.feature.EndPodiumFeature
 import net.minecraft.world.server.ServerWorld
 import net.minecraft.world.server.TicketType
+import phoenix.enity.boss.AbstractEnderDragonEntity
 
 class CustomDragonFightManager(world: ServerWorld, compound: CompoundNBT, dim: EndDimension) : DragonFightManager(world, compound, dim)
 {
@@ -60,6 +64,41 @@ class CustomDragonFightManager(world: ServerWorld, compound: CompoundNBT, dim: E
         } else
         {
             this.world.chunkProvider.releaseTicket(TicketType.DRAGON, ChunkPos(0, 0), 9, Unit.INSTANCE)
+        }
+    }
+
+    fun dragonUpdate(dragonIn: AbstractEnderDragonEntity)
+    {
+        if (dragonIn.uniqueID == dragonUniqueId)
+        {
+            bossInfo.percent = dragonIn.health / dragonIn.maxHealth
+            ticksSinceDragonSeen = 0
+            if (dragonIn.hasCustomName())
+            {
+                bossInfo.name = dragonIn.displayName
+            }
+        }
+    }
+
+    fun processDragonDeath(dragon: AbstractEnderDragonEntity)
+    {
+        if (dragon.uniqueID == dragonUniqueId)
+        {
+            bossInfo.percent = 0.0f
+            bossInfo.isVisible = false
+            generatePortal(true)
+            spawnNewGateway()
+            if (!previouslyKilled)
+            {
+                world.setBlockState(
+                    world.getHeight(
+                        Heightmap.Type.MOTION_BLOCKING,
+                        EndPodiumFeature.END_PODIUM_LOCATION
+                    ), Blocks.DRAGON_EGG.defaultState
+                )
+            }
+            previouslyKilled = true
+            dragonKilled = true
         }
     }
 }

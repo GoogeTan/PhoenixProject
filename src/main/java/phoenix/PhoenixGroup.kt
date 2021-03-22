@@ -11,7 +11,6 @@ import net.minecraftforge.fml.RegistryObject
 
 class PhoenixGroup(name: String, private val item: () -> IItemProvider) : ItemGroup(name)
 {
-
     constructor(name: String, item: IItemProvider) : this(name, {item})
 
     constructor(name: String, item: RegistryObject<Block>) : this(name, item::get)
@@ -22,10 +21,10 @@ class PhoenixGroup(name: String, private val item: () -> IItemProvider) : ItemGr
     override fun fill(items: NonNullList<ItemStack>)
     {
         super.fill(items)
-        items.sortWith(ItemStackComparator())
+        items.sortWith(ItemStackComparator)
     }
 
-    internal class ItemStackComparator : Comparator<ItemStack>
+    internal object ItemStackComparator : Comparator<ItemStack>
     {
         override fun compare(i1: ItemStack, i2: ItemStack): Int
         {
@@ -44,7 +43,7 @@ class PhoenixGroup(name: String, private val item: () -> IItemProvider) : ItemGr
             }
         }
 
-        fun getWeight(i1: ItemStack): Int
+        private fun getWeight(i1: ItemStack): Int
         {
             return when (i1.item)
             {

@@ -5,6 +5,7 @@ import net.minecraft.block.FlowingFluidBlock
 import net.minecraft.entity.EntityClassification
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
+import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.Biome.SpawnListEntry
@@ -18,6 +19,7 @@ import net.minecraft.world.gen.feature.structure.Structure
 import net.minecraft.world.gen.placement.CountRangeConfig
 import net.minecraft.world.gen.placement.IPlacementConfig
 import net.minecraft.world.gen.placement.Placement
+import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.RegistryEvent.Register
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.RegistryObject
@@ -34,6 +36,7 @@ import phoenix.init.PhoenixEntities.TALPA
 import phoenix.init.PhoenixFeatures
 import phoenix.init.PhoenixRecipes
 import phoenix.network.NetworkHandler
+import phoenix.tile.redo.PipeTile
 import phoenix.utils.block.ICustomGroup
 import phoenix.utils.block.INonItem
 
@@ -78,6 +81,17 @@ object PhoenixCommonEvents
         }
     }
 
+    @SubscribeEvent
+    @JvmStatic
+    fun attachEnergy(event : AttachCapabilitiesEvent<TileEntity>)
+    {
+        val value = event.`object`
+        if(value is PipeTile)
+        {
+            //event.addCapability(ResourseUtils.key("energy"), EnergyStorageProvider())
+        }
+    }
+
     private fun addStructure(biome: Biome, structure: Structure<NoFeatureConfig>)
     {
         biome.addStructure(structure.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG))
@@ -91,14 +105,7 @@ object PhoenixCommonEvents
     {
         biome.addFeature(
             GenerationStage.Decoration.UNDERGROUND_ORES,
-            Feature.ORE.withConfiguration(
-                OreFeatureConfig(
-                    OreFeatureConfig.FillerBlockType.NATURAL_STONE,
-                    ZIRCONIUM.get().defaultState,
-                    4
-                )
-            )
-                .withPlacement(Placement.COUNT_RANGE.configure(CountRangeConfig(20, 0, 0, 64)))
+            Feature.ORE.withConfiguration(OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ZIRCONIUM.get().defaultState, 4)).withPlacement(Placement.COUNT_RANGE.configure(CountRangeConfig(20, 0, 0, 64)))
         )
     }
 }
