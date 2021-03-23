@@ -6,8 +6,8 @@ import net.minecraft.client.gui.widget.button.Button
 import net.minecraft.util.SoundEvents
 
 
-class InvisibleButton(xIn: Int, yIn: Int, height: Double, pressable: IPressable, private val playTurnSound: Boolean) :
-    Button(xIn, yIn, 40, height.toInt(), "", pressable)
+class InvisibleButton(xIn: Int, yIn: Int, height: Int, pressable: IPressable, private val playTurnSound: Boolean) :
+    Button(xIn, yIn, 40, height, "", pressable)
 {
     override fun renderButton(p1: Int, p2: Int, p3: Float)
     {

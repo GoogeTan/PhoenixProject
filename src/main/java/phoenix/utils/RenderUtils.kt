@@ -30,28 +30,6 @@ object RenderUtils
         ) //возвращаем старый скейл, чтоб тект был нормальным
     }
 
-    fun drawRectScalable(
-        texture: ResourceLocation,
-        x: Int, y: Int,
-        maxSizeX: Double, maxSizeY: Double,
-        depth: Int
-    )
-    {
-        mc.getTextureManager().bindTexture(texture)
-        val d = getTextureSize(texture)
-        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f)
-        var scale = maxSizeX / d.first
-        var sizeX = (d.first * scale).toInt()
-        var sizeY = (d.second * scale).toInt()
-        if (maxSizeY < sizeY)
-        {
-            scale *= maxSizeY / sizeY
-            sizeY = (d.first * scale).toInt()
-            sizeX = (d.second * scale).toInt()
-        }
-        blit(x, y, depth, 0f, 0f, sizeX, sizeY, sizeX, sizeY)
-    }
-
     fun drawRectScalable(texture: TextureLocation, x: Int, y: Int, maxSizeX: Double, maxSizeY: Double, depth: Int)
     {
         texture.bind()

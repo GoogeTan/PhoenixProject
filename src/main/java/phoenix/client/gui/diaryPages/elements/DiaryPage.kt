@@ -17,7 +17,7 @@ class DiaryPage(val elements : ArrayList<ADiaryElement>)
     }
 
 
-    fun tryAdd(element: ADiaryElement, sizeX: Int, sizeY: Double) : Boolean
+    fun tryAdd(element: ADiaryElement, sizeX: Int, sizeY: Int) : Boolean
     {
         var sum = 0;
         for (el in elements)

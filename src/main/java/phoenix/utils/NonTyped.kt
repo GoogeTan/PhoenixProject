@@ -118,7 +118,7 @@ fun ServerPlayerEntity.addChapter(chapter : Chapters)
 {
     if(this is IChapterReader)
     {
-        this.addChapter(Chapters.STEEL.id, world.getDate())
+        this.addChapter(chapter.id, world.getDate())
         NetworkHandler.sendTo(SyncBookPacket(this.getOpenedChapters()), this)
     }
 }

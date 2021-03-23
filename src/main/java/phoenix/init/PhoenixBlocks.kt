@@ -1,6 +1,5 @@
 package phoenix.init
 
-import com.google.common.collect.ImmutableList
 import net.minecraft.block.*
 import net.minecraft.block.material.Material
 import net.minecraft.fluid.FlowingFluid

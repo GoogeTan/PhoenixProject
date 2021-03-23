@@ -12,14 +12,6 @@ import java.util.*
 
 object DiaryUtils
 {
-    //принимает ключи параграфов
-    fun makeParagraphFromTranslate(xSizeIn: Int, font: FontRenderer, vararg keys: String): ArrayList<ADiaryElement>
-    {
-        return makeParagraph(font, xSizeIn, StringUtils.translateAll(*keys))
-    }
-
-    fun makeParagraph(font: FontRenderer, xSize: Int, text: ArrayList<String>): ArrayList<ADiaryElement> = makeParagraph(font, xSize, *text.toTypedArray())
-
     fun makeParagraph(font: FontRenderer, xSize: Int, vararg text: String): ArrayList<ADiaryElement>
     {
         val res = ArrayList<ADiaryElement>()
@@ -27,64 +19,39 @@ object DiaryUtils
         for (current in text)  //проходим по всем параграфам
         {
             words.addAll(StringUtils.stringToWords(current))
-            //words.addAll(ImmutableList.copyOf(current.split(" ")));
             words.add("[break]")
         }
+
         var numberOfWords = 0
         while (numberOfWords < words.size)
         {
             var stringToAdd = "" //строка которую будем добавлять
             var nextWord = words[numberOfWords]
-            while (font.getStringWidth("$stringToAdd $nextWord") < xSize - 30) //пока меньше ширины страницы
+
+            while (font.getStringWidth("$stringToAdd $nextWord") < xSize)
             {
-                if (words[numberOfWords] == "\\n" || words[numberOfWords] == "[break]")
+                if(nextWord != "[break]")
                 {
-                    if(stringToAdd.isNotEmpty())
-                        res.add(TextElement(stringToAdd))
-                    stringToAdd = ""
-                } else
-                {
-                    stringToAdd += "$nextWord " //добавляем слово
+                    stringToAdd += nextWord
+                    numberOfWords++
+                    if (numberOfWords < words.size)
+                        nextWord = words[numberOfWords]
+                    else
+                        break
                 }
-                ++numberOfWords
-                nextWord = if (numberOfWords < words.size) words[numberOfWords] else break
+                else
+                {
+                    res.add(TextElement(stringToAdd))
+                    stringToAdd = "";
+                }
             }
+
             if(stringToAdd.isNotEmpty())
                 res.add(TextElement(stringToAdd)) //добавляем строку
         }
+
         return res
     }
-
-
-    /*
-    fun toElements(font: FontRenderer, xSize: Int, vararg text: String): ArrayList<ADiaryElement>
-    {
-        val words: MutableList<String> = ArrayList()
-        for (current in text)  //проходим по всем параграфам
-        {
-            words.addAll(StringUtils.stringToWords(current))
-            //words.addAll(ImmutableList.copyOf(current.split(" ")));
-            words.add("[break]")
-        }
-        val res = ArrayList<ADiaryElement>()
-        var tmp = StringBuilder()
-        for (s in words)
-        {
-            if (s != "[break]" && s != "\\n")
-            {
-                tmp.append(" ").append(s)
-            } else
-            {
-                val components =
-                    RenderComponentsUtil.splitText(StringTextComponent(tmp.toString()), xSize, font, false, true)
-                for (component in components) res.add(TextElement(component))
-                tmp = StringBuilder()
-            }
-        }
-        return res
-    }
-
-     */
 
     @JvmStatic
     fun toElements(font: FontRenderer, xSize: Int, text: Array<out Chapters>): ArrayList<ADiaryElement>
@@ -124,7 +91,7 @@ object DiaryUtils
         var i = 0
         while (i in 0 until elements.size)
         {
-            while (i in 0 until elements.size && currentPage.tryAdd(elements[i], xSize, ySize.toDouble()))
+            while (i in 0 until elements.size && currentPage.tryAdd(elements[i], xSize, ySize))
             {
                 i++
             }

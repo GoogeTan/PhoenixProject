@@ -5,10 +5,9 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen
 import phoenix.client.gui.diaryPages.elements.ADiaryElement
 import phoenix.client.gui.diaryPages.elements.DiaryPage
 import phoenix.containers.DiaryContainer
-import phoenix.utils.SizedArrayList
 import java.util.*
 
-class DiaryBook(private val xSize: Int, private val ySize: Double, private val font: FontRenderer)
+class DiaryBook(private val xSize: Int, private val ySize: Int, private val font: FontRenderer)
 {
     private val pages = LinkedList<DiaryPage>()
     private var page = 0
@@ -28,18 +27,18 @@ class DiaryBook(private val xSize: Int, private val ySize: Double, private val f
         }
     }
 
-    fun add(element: ADiaryElement) = add(SizedArrayList(1, element))
+    fun add(element: ADiaryElement) = add(arrayListOf(element))
 
     fun render(gui: ContainerScreen<DiaryContainer>, renderer: FontRenderer, xSize: Int, ySize: Int, x: Int, y: Int, depth: Int)
     {
-        currentPage1.render(gui, font, xSize / 2, ySize, x, y, depth)
-        currentPage2.render(gui, renderer, xSize / 2, ySize, x + xSize / 2, y, depth)
+        leftPage.render(gui, font, xSize / 2, ySize, x, y, depth)
+        rightPage.render(gui, renderer, xSize / 2, ySize, x + xSize / 2, y, depth)
     }
 
     private val isLast : Boolean get() = page + 1 >= pages.size - 1
     private val isFirst: Boolean get() = page     <= 0
-    private val currentPage1: DiaryPage get() = if(page     in 0 until pages.size) pages[page]     else DiaryPage()
-    private val currentPage2: DiaryPage get() = if(page + 1 in 0 until pages.size) pages[page + 1] else DiaryPage()
+    private val leftPage: DiaryPage  get() = if(page     in 0 until pages.size) pages[page]     else DiaryPage()
+    private val rightPage: DiaryPage get() = if(page + 1 in 0 until pages.size) pages[page + 1] else DiaryPage()
 
     fun next() = if (!isLast)  page += 2 else page += 0
     fun prev() = if (!isFirst) page -= 2 else page += 0
