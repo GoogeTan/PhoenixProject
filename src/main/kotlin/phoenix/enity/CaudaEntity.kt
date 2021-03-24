@@ -23,7 +23,7 @@ class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) :
     {
         //this.goalSelector.addGoal  (1, new PickAttackGoal(this));
         //this.goalSelector.addGoal  (2, new SweepAttackGoal(this));
-        goalSelector.addGoal(1, OrbitPointGoal(this))
+        //goalSelector.addGoal(1, OrbitPointGoal(this))
         //this.goalSelector.addGoal  (2, new OrbitPointGoal(this));
         //this.targetSelector.addGoal(1, new AttackPlayerGoal(this));
     }
@@ -55,7 +55,7 @@ class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) :
             entity.renderYawOffset = entity.rotationYaw
         }
     }
-
+    /*
     override fun tick()
     {
         super.tick()
@@ -77,17 +77,18 @@ class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) :
         }
     }
 
+    init
+    {
+        moveController = ThreeDimensionsMoveHelperController(this)
+        lookController = ThreeDimensionsLookHelperController(this)
+    }
+    */
+
     @Nonnull
     override fun getSize(@Nonnull poseIn: Pose): EntitySize = super.getSize(poseIn).scale((super.getSize(poseIn).width + 0.2f * caudaSize.toFloat()) / super.getSize(poseIn).width)
 
     companion object
     {
         private val SIZE = EntityDataManager.createKey(PhantomEntity::class.java, DataSerializers.VARINT)
-    }
-
-    init
-    {
-        moveController = ThreeDimensionsMoveHelperController(this)
-        lookController = ThreeDimensionsLookHelperController(this)
     }
 }

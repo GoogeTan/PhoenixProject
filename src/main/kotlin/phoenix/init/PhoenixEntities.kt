@@ -9,6 +9,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
+import phoenix.enity.CaudaEntity
 import phoenix.enity.KnifeEntity
 import phoenix.enity.TalpaEntity
 import phoenix.enity.boss.AbstractEnderDragonEntity
@@ -21,30 +22,29 @@ object PhoenixEntities
 {
     private val ENTITIES = KDeferredRegister(ForgeRegistries.ENTITIES, Phoenix.MOD_ID)
 
-    val TALPA by ENTITIES.register("talpa")
+    val TALPA: EntityType<TalpaEntity> by ENTITIES.register("talpa")
     {
-        EntityType.Builder.create({ type: EntityType<TalpaEntity>, worldIn: World -> TalpaEntity(type, worldIn) }, EntityClassification.CREATURE)
+        EntityType.Builder.create(::TalpaEntity, EntityClassification.CREATURE)
                 .size(0.5f, 0.5f)
                 .setTrackingRange(80)
                 .setUpdateInterval(3)
                 .setShouldReceiveVelocityUpdates(true)
                 .build(ResourceLocation(Phoenix.MOD_ID, "talpa").toString())
     }
-    /*
-    val CAUDA = ENTITIES.register("cauda")
+
+    val CAUDA: EntityType<CaudaEntity> by ENTITIES.register("cauda")
     {
-        EntityType.Builder.create({ type: EntityType<CaudaEntity>, worldIn: World -> CaudaEntity(type, worldIn) }, EntityClassification.CREATURE)
+        EntityType.Builder.create(::CaudaEntity, EntityClassification.CREATURE)
                 .size(0.9f, 0.5f)
                 .setTrackingRange(80)
                 .setUpdateInterval(3)
                 .setShouldReceiveVelocityUpdates(true)
                 .build(ResourceLocation(Phoenix.MOD_ID, "cauda").toString())
     }
-     */
 
-    val KNIFE by ENTITIES.register("zirconium_knife")
+    val KNIFE: EntityType<KnifeEntity> by ENTITIES.register("zirconium_knife")
     {
-        EntityType.Builder.create({ type: EntityType<KnifeEntity>, worldIn: World -> KnifeEntity(type, worldIn) }, EntityClassification.MISC)
+        EntityType.Builder.create(::KnifeEntity, EntityClassification.MISC)
                 .size(0.1f, 0.1f)
                 .setTrackingRange(80)
                 .setUpdateInterval(1)
@@ -52,7 +52,7 @@ object PhoenixEntities
                 .build(ResourceLocation(Phoenix.MOD_ID, "zirconium_knife").toString())
     }
 
-    val DRAGON_ASH_STAGE by ENTITIES.register("dragon_ash_stage")
+    val DRAGON_ASH_STAGE: EntityType<DragonAshStageEntity> by ENTITIES.register("dragon_ash_stage")
     {
         EntityType.Builder.create(::DragonAshStageEntity, EntityClassification.MONSTER)
             .immuneToFire()
@@ -60,7 +60,7 @@ object PhoenixEntities
             .build(ResourceLocation(Phoenix.MOD_ID, "dragon_ash_stage").toString())
     }
 
-    val DRAGON_REDO_STAGE by ENTITIES.register("dragon_redo_stage")
+    val DRAGON_REDO_STAGE: EntityType<DragonRedoStageEntity> by ENTITIES.register("dragon_redo_stage")
     {
         EntityType.Builder.create(::DragonRedoStageEntity, EntityClassification.MONSTER)
             .immuneToFire()

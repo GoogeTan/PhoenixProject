@@ -10,7 +10,7 @@ import phoenix.init.PhoenixRenderTypes
 import java.util.function.Function
 
 
-class PipeModel(stateIn: BlockState) : Model(Function { PhoenixRenderTypes.PIPE })
+class PipeModel(stateIn: BlockState) : Model(Function { PhoenixRenderTypes.pipeTexture })
 {
     var base: ModelRenderer
     var n: ModelRenderer

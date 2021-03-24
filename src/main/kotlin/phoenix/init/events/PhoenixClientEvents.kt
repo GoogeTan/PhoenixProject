@@ -15,11 +15,13 @@ import phoenix.client.render.OvenRenderer
 import phoenix.client.render.PipeRender
 import phoenix.client.render.TankRenderer
 import phoenix.client.render.TextRenderer
+import phoenix.client.render.entity.CaudaRenderer
 import phoenix.client.render.entity.KnifeRenderer
 import phoenix.client.render.entity.TalpaRenderer
 import phoenix.init.PhoenixBlocks
 import phoenix.init.PhoenixBlocks.BLOCKS
 import phoenix.init.PhoenixContainers
+import phoenix.init.PhoenixEntities.CAUDA
 import phoenix.init.PhoenixEntities.KNIFE
 import phoenix.init.PhoenixEntities.TALPA
 import phoenix.init.PhoenixRenderTypes
@@ -45,7 +47,7 @@ object PhoenixClientEvents
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.ARMORED_GLASS, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.TEXT_BLOCK,    RenderType.getCutoutMipped())
         RenderingRegistry.registerEntityRenderingHandler(TALPA, ::TalpaRenderer)
-        //RenderingRegistry.registerEntityRenderingHandler(CAUDA, ::CaudaRenderer)
+        RenderingRegistry.registerEntityRenderingHandler(CAUDA, ::CaudaRenderer)
         RenderingRegistry.registerEntityRenderingHandler(KNIFE, ::KnifeRenderer)
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.PIPE, ::PipeRender)
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK, ::TankRenderer)

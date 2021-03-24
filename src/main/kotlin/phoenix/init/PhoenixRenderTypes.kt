@@ -15,13 +15,14 @@ import phoenix.utils.mc
 @OnlyIn(Dist.CLIENT)
 object PhoenixRenderTypes
 {
-    lateinit var TANK: RenderType
-    lateinit var PIPE: RenderType
+    lateinit var tankTexture : RenderType
+    lateinit var pipeTexture : RenderType
+    val          eyesTexture : RenderType = RenderType.getEyes(ResourceLocation("phoenix", "textures/entity/cauda/cauda_eyes.png"))
 
     fun init()
     {
-        TANK = initTexture(block("tank"), "tank")
-        PIPE = initTexture(block("pipe_"), "pipe_")
+        tankTexture = initTexture(block("tank"), "tank")
+        pipeTexture = initTexture(block("pipe_"), "pipe_")
     }
 
     private fun initTexture(path: ResourceLocation, name: String): RenderType

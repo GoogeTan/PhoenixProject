@@ -47,8 +47,6 @@ object PhoenixCommonEvents
                 }
     }
 
-    private val biomesToIgnore = hashSetOf(END_BARRENS, END_HIGHLANDS, END_MIDLANDS, THE_END, SMALL_END_ISLANDS, UNDER, HEARTVOID, THE_VOID, NETHER)
-
     @SubscribeEvent
     fun init(event: FMLCommonSetupEvent)
     {
@@ -59,7 +57,15 @@ object PhoenixCommonEvents
         END_HIGHLANDS.addStructure(PhoenixFeatures.REMAINS)
         HEARTVOID.addStructure(PhoenixFeatures.REMAINS)
         UNDER.addStructure(PhoenixFeatures.REMAINS)
-        Registry.BIOME.stream().filter { biome : Biome -> !biomesToIgnore.contains(biome) }.forEach { biome : Biome -> biome.addZirconiumOre() }
+
+        for (biome in Registry.BIOME)
+        {
+            if (biome !== END_BARRENS && biome !== END_HIGHLANDS && biome !== END_MIDLANDS && biome !== THE_END &&
+                    biome !== SMALL_END_ISLANDS && biome !== UNDER && biome !== HEARTVOID && biome !== THE_VOID && biome !== NETHER)
+            {
+                biome.addZirconiumOre()
+            }
+        }
     }
     /*
     @SubscribeEvent

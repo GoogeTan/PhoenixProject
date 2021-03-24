@@ -1,26 +1,33 @@
 package phoenix.client.render.entity
 
 import com.mojang.blaze3d.matrix.MatrixStack
+import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.Vector3f
 import net.minecraft.client.renderer.entity.EntityRendererManager
 import net.minecraft.client.renderer.entity.MobRenderer
+import net.minecraft.client.renderer.entity.layers.AbstractEyesLayer
 import net.minecraft.util.ResourceLocation
 import phoenix.Phoenix
-import phoenix.client.models.entity.Cauda2Model
-import phoenix.client.models.entity.CaudaEyesLayer
+import phoenix.client.models.entity.CaudaModel
 import phoenix.enity.CaudaEntity
+import phoenix.init.PhoenixRenderTypes
 import javax.annotation.Nonnull
 
-
-class CaudaRenderer(renderManager: EntityRendererManager) : MobRenderer<CaudaEntity, Cauda2Model<CaudaEntity>>(renderManager, Cauda2Model(), 1.5f)
+class CaudaRenderer(renderManager: EntityRendererManager) : MobRenderer<CaudaEntity, CaudaModel>(renderManager, CaudaModel(), 1f)
 {
     @Nonnull
     override fun getEntityTexture(entity: CaudaEntity): ResourceLocation
     {
-        return  ResourceLocation(Phoenix.MOD_ID, "textures/entity/cauda/" + if (entity.isChild) "cauda_child.png" else "cauda.png")
+        return ResourceLocation(Phoenix.MOD_ID, "textures/entity/cauda/" + if (entity.isChild) "cauda_child.png" else "texture.png")
     }
 
-    override fun applyRotations(entity: CaudaEntity, matrixStackIn: MatrixStack, ageInTicks: Float, rotationYaw: Float, partialTicks: Float)
+    override fun applyRotations(
+        entity: CaudaEntity,
+        matrixStackIn: MatrixStack,
+        ageInTicks: Float,
+        rotationYaw: Float,
+        partialTicks: Float
+    )
     {
         super.applyRotations(entity, matrixStackIn, ageInTicks, rotationYaw, partialTicks)
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(entity.rotationPitch))
@@ -28,14 +35,18 @@ class CaudaRenderer(renderManager: EntityRendererManager) : MobRenderer<CaudaEnt
 
     override fun preRenderCallback(entity: CaudaEntity, matrixStackIn: MatrixStack, partialTickTime: Float)
     {
-        val size = entity.caudaSize
-        val scale = 1.0f + 0.25f * size.toFloat()
+        val scale = if (entity.isChild) 0.75f else 3.0f
         matrixStackIn.scale(scale, scale, scale)
     }
 
     init
     {
-        addLayer(CaudaEyesLayer(this))
+        addLayer(CaudaEyesLayer())
+    }
+
+    inner class CaudaEyesLayer : AbstractEyesLayer<CaudaEntity, CaudaModel>(this@CaudaRenderer)
+    {
+        override fun getRenderType(): RenderType = PhoenixRenderTypes.eyesTexture
     }
 }
 

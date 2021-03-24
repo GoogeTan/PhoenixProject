@@ -24,9 +24,9 @@ class PipeRender(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEntit
     )
     {
         matrix.push()
-        val builder = buffer.getBuffer(PhoenixRenderTypes.PIPE)
+        val builder = buffer.getBuffer(PhoenixRenderTypes.pipeTexture)
         PipeModel(tile.blockState).render(matrix, builder, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f)
-        refreshDrawing(builder, PhoenixRenderTypes.PIPE)
+        refreshDrawing(builder, PhoenixRenderTypes.pipeTexture)
         matrix.pop()
     }
 

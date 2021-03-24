@@ -16,7 +16,7 @@ import phoenix.tile.redo.TankTile
 import phoenix.utils.RenderUtils.refreshDrawing
 import java.util.function.Function
 
-class TankModel(var tileTank : TankTile) : Model(Function { PhoenixRenderTypes.TANK })
+class TankModel(var tileTank : TankTile) : Model(Function { PhoenixRenderTypes.tankTexture })
 {
     var TEXTURE_FLUID: ResourceLocation? = null
     var MATERIAL_FLUID: Material? = null
@@ -76,9 +76,9 @@ class TankModel(var tileTank : TankTile) : Model(Function { PhoenixRenderTypes.T
                 }
             }
         }
-        val builder = buffer.getBuffer(PhoenixRenderTypes.TANK)
+        val builder = buffer.getBuffer(PhoenixRenderTypes.tankTexture)
         block.render(matrixStackIn, builder, packedLightIn, packedOverlayIn)
-        refreshDrawing(builder, PhoenixRenderTypes.TANK)
+        refreshDrawing(builder, PhoenixRenderTypes.tankTexture)
         matrixStackIn.pop()
     }
 
