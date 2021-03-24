@@ -91,8 +91,8 @@ repositories
     maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
     jcenter()
     maven {
-        name = 'sponge'
-        url = 'https://dist.creeper.host/Sponge/maven'
+        name = 'Kotlin for Forge'
+        url = 'https://thedarkcolour.github.io/KotlinForForge/'
     }
 }
 
@@ -101,11 +101,11 @@ dependencies
 {
     minecraft 'net.minecraftforge:forge:1.15.2-31.2.47:userdev'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    compileOnly "org.spongepowered:mixin:${mixin_version}-SNAPSHOT"
-    runtimeOnly "org.spongepowered:mixin:${mixin_version}-SNAPSHOT"
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.20-M1"
+    fg.deobf(implementation('thedarkcolour:kotlinforforge:1.6.2'))
+    compile fileTree("./lib/")
 }
 
 compileKotlin { kotlinOptions { jvmTarget = "1.8" } }
