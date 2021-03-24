@@ -110,7 +110,7 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings) : BiomeProvide
 
     companion object
     {
-        private val biomes: Set<Biome> = ImmutableSet.of(Biomes.THE_END, Biomes.END_HIGHLANDS, Biomes.END_MIDLANDS, Biomes.SMALL_END_ISLANDS, Biomes.END_BARRENS, PhoenixBiomes.UNDER.get(), PhoenixBiomes.HEARTVOID.get())
+        private val biomes: Set<Biome> = ImmutableSet.of(Biomes.THE_END, Biomes.END_HIGHLANDS, Biomes.END_MIDLANDS, Biomes.SMALL_END_ISLANDS, Biomes.END_BARRENS, PhoenixBiomes.UNDER, PhoenixBiomes.HEARTVOID)
     }
 
     override fun hasStructure(structureIn: Structure<*>): Boolean
@@ -122,5 +122,5 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings) : BiomeProvide
 
     }
 
-    var structureToStage : Map<Structure<*>, Int> = ImmutableBiMap.of(PhoenixFeatures.REMAINS.get(), 1)
+    var structureToStage : Map<Structure<*>, Int> = ImmutableBiMap.of(PhoenixFeatures.REMAINS, 1)
 }

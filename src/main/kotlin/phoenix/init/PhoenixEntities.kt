@@ -14,12 +14,14 @@ import phoenix.enity.TalpaEntity
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.DragonAshStageEntity
 import phoenix.enity.boss.DragonRedoStageEntity
+import thedarkcolour.kotlinforforge.forge.KDeferredRegister
+import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
 object PhoenixEntities
 {
-    private val ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Phoenix.MOD_ID)!!
-    @JvmStatic
-    val TALPA = ENTITIES.register("talpa")
+    private val ENTITIES = KDeferredRegister(ForgeRegistries.ENTITIES, Phoenix.MOD_ID)
+
+    val TALPA by ENTITIES.register("talpa")
     {
         EntityType.Builder.create({ type: EntityType<TalpaEntity>, worldIn: World -> TalpaEntity(type, worldIn) }, EntityClassification.CREATURE)
                 .size(0.5f, 0.5f)
@@ -29,7 +31,6 @@ object PhoenixEntities
                 .build(ResourceLocation(Phoenix.MOD_ID, "talpa").toString())
     }
     /*
-    @JvmStatic
     val CAUDA = ENTITIES.register("cauda")
     {
         EntityType.Builder.create({ type: EntityType<CaudaEntity>, worldIn: World -> CaudaEntity(type, worldIn) }, EntityClassification.CREATURE)
@@ -41,8 +42,7 @@ object PhoenixEntities
     }
      */
 
-    @JvmStatic
-    val KNIFE: RegistryObject<EntityType<KnifeEntity>> = ENTITIES.register("zirconium_knife")
+    val KNIFE by ENTITIES.register("zirconium_knife")
     {
         EntityType.Builder.create({ type: EntityType<KnifeEntity>, worldIn: World -> KnifeEntity(type, worldIn) }, EntityClassification.MISC)
                 .size(0.1f, 0.1f)
@@ -52,8 +52,7 @@ object PhoenixEntities
                 .build(ResourceLocation(Phoenix.MOD_ID, "zirconium_knife").toString())
     }
 
-    @JvmStatic
-    val DRAGON_ASH_STAGE: RegistryObject<EntityType<DragonAshStageEntity>> = ENTITIES.register("dragon_ash_stage")
+    val DRAGON_ASH_STAGE by ENTITIES.register("dragon_ash_stage")
     {
         EntityType.Builder.create(::DragonAshStageEntity, EntityClassification.MONSTER)
             .immuneToFire()
@@ -61,8 +60,7 @@ object PhoenixEntities
             .build(ResourceLocation(Phoenix.MOD_ID, "dragon_ash_stage").toString())
     }
 
-    @JvmStatic
-    val DRAGON_REDO_STAGE: RegistryObject<EntityType<DragonRedoStageEntity>> = ENTITIES.register("dragon_redo_stage")
+    val DRAGON_REDO_STAGE by ENTITIES.register("dragon_redo_stage")
     {
         EntityType.Builder.create(::DragonRedoStageEntity, EntityClassification.MONSTER)
             .immuneToFire()
@@ -70,5 +68,5 @@ object PhoenixEntities
             .build(ResourceLocation(Phoenix.MOD_ID, "dragon_redo_stage").toString())
     }
 
-    fun register() = ENTITIES.register(FMLJavaModLoadingContext.get().modEventBus)
+    fun register() = ENTITIES.register(MOD_BUS)
 }

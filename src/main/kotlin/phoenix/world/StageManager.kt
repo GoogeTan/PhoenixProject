@@ -134,7 +134,7 @@ object StageManager
                             val isTop = i1 == 3
                             if (isRight || ifLeft || isTop)
                             {
-                                val blockstate = ARMORED_GLASS.get().defaultState
+                                val blockstate = ARMORED_GLASS.defaultState
                                 future.setBlockState(
                                     world,
                                     pos.setPos(spike.centerX + k, spike.height + i1, spike.centerZ + l),

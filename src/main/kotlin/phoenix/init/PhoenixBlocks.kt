@@ -19,28 +19,29 @@ import phoenix.blocks.redo.*
 import phoenix.tile.TextTile
 import phoenix.utils.block.AnonimBlock
 import phoenix.utils.block.INonTab
+import thedarkcolour.kotlinforforge.forge.KDeferredRegister
+import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
 object PhoenixBlocks
 {
-    @JvmStatic
-    val BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Phoenix.MOD_ID)!!
+    val BLOCKS = KDeferredRegister(ForgeRegistries.BLOCKS, Phoenix.MOD_ID)
 
-    val UPDATER          : RegistryObject<Block> = BLOCKS.register("updater",           ::UpdaterBlock         )!!
-    val PIPE             : RegistryObject<Block> = BLOCKS.register("pipe",              ::PipeBlock            )!!
-    val TANK             : RegistryObject<Block> = BLOCKS.register("tank")              { TankBlock            }!!
-    val FERTILE_END_STONE: RegistryObject<Block> = BLOCKS.register("fertile_end_stone") { FertileEndStoneBlock }!!
-    val ANTI_AIR         : RegistryObject<Block> = BLOCKS.register("anti_air",          ::AntiAirBlock         )!!
-    val POTTERY_BARREL   : RegistryObject<Block> = BLOCKS.register("pottery_barrel",    ::PotteryBarrelBlock   )!!
-    val ELECTRIC_BARREL  : RegistryObject<Block> = BLOCKS.register("electric_barrel",   ::ElectricBarrelBlock  )!!
-    val END_STONE_COLUMN : RegistryObject<Block> = BLOCKS.register("end_stone_column")  { EndStoneColumnBlock  }!!
-    val OVEN             : RegistryObject<Block> = BLOCKS.register("oven",              ::OvenBlock            )!!
-    val SETA             : RegistryObject<Block> = BLOCKS.register("seta")              { SetaBlock            }!!
-    val ZIRCONIUM        : RegistryObject<Block> = BLOCKS.register("zirconium_ore")     { ZirconiumOreBlock    }!!
-    val TEXT_BLOCK       : RegistryObject<Block> = BLOCKS.register("block_with_text", AnonimBlock.create(Material.ROCK, ::TextTile, Phoenix.REDO))!!
-    val ARMORED_GLASS    : RegistryObject<Block> = BLOCKS.register("armored_glass")     { ArmoredGlassBlock    }!!
+    val UPDATER           by  BLOCKS.register("updater",           ::UpdaterBlock         )
+    val PIPE              by  BLOCKS.register("pipe",              ::PipeBlock            )
+    val TANK              by  BLOCKS.register("tank")              { TankBlock }
+    val FERTILE_END_STONE by  BLOCKS.register("fertile_end_stone") { FertileEndStoneBlock }
+    val ANTI_AIR          by  BLOCKS.register("anti_air",          ::AntiAirBlock         )
+    val POTTERY_BARREL    by  BLOCKS.register("pottery_barrel",    ::PotteryBarrelBlock   )
+    val ELECTRIC_BARREL   by  BLOCKS.register("electric_barrel",   ::ElectricBarrelBlock  )
+    val END_STONE_COLUMN  by  BLOCKS.register("end_stone_column")  { EndStoneColumnBlock  }
+    val OVEN              by  BLOCKS.register("oven",              ::OvenBlock            )
+    val SETA              by  BLOCKS.register("seta")              { SetaBlock            }
+    val ZIRCONIUM         by  BLOCKS.register("zirconium_ore")     { ZirconiumOreBlock    }
+    val TEXT_BLOCK        by  BLOCKS.register("block_with_text")   { AnonimBlock.create(Material.ROCK, ::TextTile, Phoenix.REDO) }
+    val ARMORED_GLASS     by  BLOCKS.register("armored_glass")     { ArmoredGlassBlock    }
     //val FRAGILE_BLOCK    : RegistryObject<Block> = BLOCKS.register("fragile_block", ::FragileBlock)!!
 
-    fun register() = BLOCKS.register(FMLJavaModLoadingContext.get().modEventBus)
+    fun register() = BLOCKS.register(MOD_BUS)
 }
 
 object ZirconiumOreBlock : OreBlock(Properties.create(Material.ROCK).hardnessAndResistance(3f).harvestTool(ToolType.PICKAXE))

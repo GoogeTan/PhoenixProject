@@ -29,7 +29,7 @@ object UnificationLayer : IAreaTransformer2
     private val END_BARRENS: Int = Registry.BIOME.getId(Biomes.END_BARRENS)
     private val THE_END: Int = Registry.BIOME.getId(Biomes.THE_END)
     private val SMALL_END_ISLANDS: Int = Registry.BIOME.getId(Biomes.SMALL_END_ISLANDS)
-    private val UNDER: Int = Registry.BIOME.getId(PhoenixBiomes.UNDER.get())
-    private val HEART_VOID: Int = Registry.BIOME.getId(PhoenixBiomes.HEARTVOID.get())
+    private val UNDER: Int = Registry.BIOME.getId(PhoenixBiomes.UNDER)
+    private val HEART_VOID: Int = Registry.BIOME.getId(PhoenixBiomes.HEARTVOID)
 
 }

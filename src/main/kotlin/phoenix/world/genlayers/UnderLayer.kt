@@ -9,6 +9,6 @@ object UnderLayer : ICastleTransformer
 {
     override fun apply(context: INoiseRandom, north: Int, west: Int, south: Int, east: Int, center: Int): Int
     {
-        return if (context.random(5) == 0) Registry.BIOME.getId(PhoenixBiomes.UNDER.get()) else center
+        return if (context.random(5) == 0) Registry.BIOME.getId(PhoenixBiomes.UNDER) else center
     }
 }

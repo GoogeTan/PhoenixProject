@@ -82,7 +82,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
             knife.knife.attemptDamageItem(1, world.rand, null)
         }
 
-        if(item.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get()) > 0 && owner != null)
+        if(item.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION) > 0 && owner != null)
         {
             owner.setPositionAndUpdate(pos.up().x.toDouble(), pos.up().y.toDouble(), pos.up().z.toDouble())
             owner.fallDistance = 0.0f
@@ -99,7 +99,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
             hitted.setFire(100)
 
         hitted.attackEntityFrom(DamageSource.causeThrownDamage(knife, knife.thrower), damage.toFloat())
-        if(knifeItem.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get()) > 0 && owner != null)
+        if(knifeItem.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION) > 0 && owner != null)
         {
             owner.setPositionAndUpdate(hitted.posX, hitted.posY, hitted.posZ)
             owner.fallDistance = 0.0f
@@ -110,7 +110,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
 
     override fun isEnchantable(stack: ItemStack) = true
 
-    override fun canApplyAtEnchantingTable(stack: ItemStack, enchantment: Enchantment) = allowedEnchantments.contains(enchantment) || enchantment == PhoenixEnchantments.TELEPORTATION.get()
+    override fun canApplyAtEnchantingTable(stack: ItemStack, enchantment: Enchantment) = allowedEnchantments.contains(enchantment) || enchantment == PhoenixEnchantments.TELEPORTATION
 
     companion object
     {

@@ -39,16 +39,16 @@ import phoenix.network.NetworkHandler
 import phoenix.tile.redo.PipeTile
 import phoenix.utils.block.ICustomGroup
 import phoenix.utils.block.INonItem
+import thedarkcolour.kotlinforforge.forge.ObjectHolderDelegate
 
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 object PhoenixCommonEvents
 {
     @SubscribeEvent
-    @JvmStatic
     fun onRegisterItems(event: Register<Item>)
     {
-        BLOCKS.entries.stream()
-                .map { obj: RegistryObject<Block> -> obj.get() }
+        BLOCKS.getEntries().stream()
+                .map { obj: ObjectHolderDelegate<out Block> -> obj.get() }
                 .filter { block: Block -> block !is INonItem }
                 .filter { block: Block -> block !is FlowingFluidBlock }
                 .forEach { block: Block ->
@@ -61,20 +61,18 @@ object PhoenixCommonEvents
     }
 
     @SubscribeEvent
-    @JvmStatic
     fun init(event: FMLCommonSetupEvent)
     {
         NetworkHandler.init()
-        FMLJavaModLoadingContext.get().modEventBus.register(PhoenixCommonEvents::class.java)
         PhoenixRecipes.register()
-        //UNDER    .get().addSpawn(EntityClassification.CREATURE, SpawnListEntry(CAUDA.get(), 15, 1, 3))
-        HEARTVOID.get().addSpawn(EntityClassification.CREATURE, SpawnListEntry(TALPA.get(), 15, 1, 4))
-        addStructure(Biomes.END_HIGHLANDS, PhoenixFeatures.REMAINS.get())
-        addStructure(HEARTVOID.get(), PhoenixFeatures.REMAINS.get())
-        addStructure(UNDER.get(), PhoenixFeatures.REMAINS.get())
+        //UNDER    .get().addSpawn(EntityClassification.CREATURE, SpawnListEntry(CAUDA, 15, 1, 3))
+        HEARTVOID.addSpawn(EntityClassification.CREATURE, SpawnListEntry(TALPA, 15, 1, 4))
+        addStructure(Biomes.END_HIGHLANDS, PhoenixFeatures.REMAINS)
+        addStructure(HEARTVOID, PhoenixFeatures.REMAINS)
+        addStructure(UNDER, PhoenixFeatures.REMAINS)
         for (biome in Registry.BIOME)
         {
-            if (biome !== Biomes.END_BARRENS && biome !== Biomes.END_HIGHLANDS && biome !== Biomes.END_MIDLANDS && biome !== Biomes.THE_END && biome !== Biomes.SMALL_END_ISLANDS && biome !== UNDER.get() && biome !== HEARTVOID.get())
+            if (biome !== Biomes.END_BARRENS && biome !== Biomes.END_HIGHLANDS && biome !== Biomes.END_MIDLANDS && biome !== Biomes.THE_END && biome !== Biomes.SMALL_END_ISLANDS && biome !== UNDER && biome !== HEARTVOID)
             {
                 addZirconiumOre(biome)
             }
@@ -82,7 +80,6 @@ object PhoenixCommonEvents
     }
 
     @SubscribeEvent
-    @JvmStatic
     fun attachEnergy(event : AttachCapabilitiesEvent<TileEntity>)
     {
         val value = event.`object`
@@ -105,7 +102,7 @@ object PhoenixCommonEvents
     {
         biome.addFeature(
             GenerationStage.Decoration.UNDERGROUND_ORES,
-            Feature.ORE.withConfiguration(OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ZIRCONIUM.get().defaultState, 4)).withPlacement(Placement.COUNT_RANGE.configure(CountRangeConfig(20, 0, 0, 64)))
+            Feature.ORE.withConfiguration(OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ZIRCONIUM.defaultState, 4)).withPlacement(Placement.COUNT_RANGE.configure(CountRangeConfig(20, 0, 0, 64)))
         )
     }
 }

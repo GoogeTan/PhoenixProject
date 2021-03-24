@@ -18,7 +18,7 @@ class ItemDiary : Item(Properties().rarity(Rarity.EPIC).group(Phoenix.ASH).maxSt
     {
         if (playerIn is ServerPlayerEntity)
         {
-            val container = PhoenixContainers.GUIDE.get().create(0, playerIn.inventory)
+            val container = PhoenixContainers.GUIDE.create(0, playerIn.inventory)
             NetworkHooks.openGui(playerIn, container)
         }
 

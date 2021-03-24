@@ -27,7 +27,6 @@ object NetworkHandler
     private val CHANNEL = NetworkRegistry.newSimpleChannel(
             ResourceLocation(Phoenix.MOD_ID, "network"), { "2.0" }, { true }) { true }
 
-    @JvmStatic
     fun init()
     {
         registerPacket(SyncStagePacket().javaClass)

@@ -28,12 +28,12 @@ import phoenix.utils.getEnchantmentLevel
 
 class KnifeEntity : ThrowableEntity
 {
-    var knife = ItemStack(PhoenixItems.ZIRCONIUM_KNIFE.get())
+    var knife = ItemStack(PhoenixItems.ZIRCONIUM_KNIFE)
     var isReal = true
     constructor(type: EntityType<KnifeEntity>, worldIn: World) : super(type, worldIn)
-    constructor(worldIn: World, owner: LivingEntity, isReal: Boolean) : super(PhoenixEntities.KNIFE.get(), owner, worldIn)
+    constructor(worldIn: World, owner: LivingEntity, isReal: Boolean) : super(PhoenixEntities.KNIFE, owner, worldIn)
     {
-        this.isReal = isReal;
+        this.isReal = isReal
     }
 
     override fun tick()
@@ -84,7 +84,7 @@ class KnifeEntity : ThrowableEntity
                        knife.attemptDamageItem(1, rand, null)
                        if (knife.getEnchantmentLevel(Enchantments.LOYALTY) > 0 && owner is PlayerEntity && isReal)
                            (owner as PlayerEntity).addItemStackToInventory(knife)
-                       else if (knife.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION.get()) > 0)
+                       else if (knife.getEnchantmentLevel(PhoenixEnchantments.TELEPORTATION) > 0)
                            (owner as PlayerEntity).addItemStackToInventory(knife)
                        else if (dropItem)
                            world.addEntity(ItemEntity(world, posX, posY, posZ, knife))

@@ -24,7 +24,7 @@ class TankRecipe(id: ResourceLocation, group: String, inputIn: ItemStack, result
 
     }
 
-    override fun getSerializer(): IRecipeSerializer<*>? = PhoenixRecipeSerializers.TANK.get()
+    override fun getSerializer(): IRecipeSerializer<*>? = PhoenixRecipeSerializers.TANK
     fun getIngredient(): Ingredient = ingredient
     fun getResult(): ItemStack = result
     fun getInput(): ItemStack = input

@@ -42,7 +42,7 @@ class PhoenixParticleData(tint: Color, diameter: Double, lifeTime: Int) : IParti
     fun getDiameter() = diameter
 
     @Nonnull
-    override fun getType(): ParticleType<*> = PhoenixParticles.PHOENIX_BORN.get()
+    override fun getType(): ParticleType<*> = PhoenixParticles.PHOENIX_BORN
 
     override fun write(buf: PacketBuffer)
     {

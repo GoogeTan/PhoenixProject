@@ -20,7 +20,7 @@ class OvenRecipe(
 ) :
     AbstractCookingRecipe(PhoenixRecipes.OVEN, idIn, groupIn, ingredientIn, resultIn, experienceIn, cookTimeIn)
 {
-    override fun getSerializer(): IRecipeSerializer<OvenRecipe> = OVEN.get()
+    override fun getSerializer(): IRecipeSerializer<OvenRecipe> = OVEN
 
     val ingredient: Ingredient
         get() = ingredient

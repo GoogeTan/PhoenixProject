@@ -9,5 +9,5 @@ import phoenix.utils.EnumUtil
 object PhoenixRecipeBookCategories
 {
     val MECHANISMS = EnumUtil.addEnum(RecipeBookCategories::class.java, "MECHANISMS", arrayOf<Class<*>>(Array<ItemStack>::class.java), arrayOf(ItemStack(Items.COMPARATOR)) as Any)
-    val OVEN       = EnumUtil.addEnum(RecipeBookCategories::class.java, "OVEN", arrayOf<Class<*>>(Array<ItemStack>::class.java), arrayOf(ItemStack(PhoenixBlocks.OVEN.get())) as Any)
+    val OVEN       = EnumUtil.addEnum(RecipeBookCategories::class.java, "OVEN", arrayOf<Class<*>>(Array<ItemStack>::class.java), arrayOf(ItemStack(PhoenixBlocks.OVEN)) as Any)
 }

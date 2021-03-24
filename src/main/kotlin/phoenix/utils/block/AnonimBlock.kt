@@ -36,7 +36,7 @@ class AnonimBlock(properties: Properties, val tile : () -> TileEntity? = {null},
         fun create(material: Material)                                   = Supplier { AnonimBlock(Properties.create(material)) }
         fun create(material: Material, entityClass: () -> TileEntity)   = Supplier { AnonimBlock(Properties.create(material), entityClass) }
         fun create(properties: Properties, classIn: () -> TileEntity)   = Supplier { AnonimBlock(properties, classIn) }
-        fun create(material: Material, entityClass: () -> TileEntity, itemGroup: ItemGroup)   = Supplier { AnonimBlock(Properties.create(material), entityClass, itemGroup) }
+        fun create(material: Material, entityClass: () -> TileEntity, itemGroup: ItemGroup)   = AnonimBlock(Properties.create(material), entityClass, itemGroup)
         fun create(properties: Properties, itemGroup: ItemGroup)   = Supplier { AnonimBlock(properties, itemGroup = itemGroup) }
     }
 }

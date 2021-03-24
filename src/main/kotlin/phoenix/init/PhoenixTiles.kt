@@ -11,18 +11,19 @@ import phoenix.tile.ash.PotteryBarrelTile
 import phoenix.tile.redo.ElectricBarrelTile
 import phoenix.tile.redo.PipeTile
 import phoenix.tile.redo.TankTile
+import thedarkcolour.kotlinforforge.forge.KDeferredRegister
+import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
 object PhoenixTiles
 {
-    @JvmStatic val TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Phoenix.MOD_ID)!!
+    val TILE_ENTITIES = KDeferredRegister(ForgeRegistries.TILE_ENTITIES, Phoenix.MOD_ID)
 
-    @JvmStatic val TANK           = TILE_ENTITIES.register("tank")           { TileEntityType.Builder.create(::TankTile, PhoenixBlocks.TANK.get()).build(null) }!!
-    @JvmStatic val PIPE           = TILE_ENTITIES.register("pipe")           { TileEntityType.Builder.create(::PipeTile, PhoenixBlocks.PIPE.get()).build(null) }!!
-    @JvmStatic val POTTERY_BARREL = TILE_ENTITIES.register("pottery_barrel") { TileEntityType.Builder.create(::PotteryBarrelTile, PhoenixBlocks.POTTERY_BARREL.get()).build(null) }!!
-    @JvmStatic val OVEN           = TILE_ENTITIES.register("oven")           { TileEntityType.Builder.create(::OvenTile, PhoenixBlocks.OVEN.get()).build(null) }!!
-    @JvmStatic val ELECTRIC_BARREL = TILE_ENTITIES.register("_barrel") { TileEntityType.Builder.create(::ElectricBarrelTile, PhoenixBlocks.POTTERY_BARREL.get()).build(null) }!!
+    val TANK            by TILE_ENTITIES.register("tank")           { TileEntityType.Builder.create(::TankTile, PhoenixBlocks.TANK).build(null) }
+    val PIPE            by TILE_ENTITIES.register("pipe")           { TileEntityType.Builder.create(::PipeTile, PhoenixBlocks.PIPE).build(null) }
+    val POTTERY_BARREL  by TILE_ENTITIES.register("pottery_barrel") { TileEntityType.Builder.create(::PotteryBarrelTile, PhoenixBlocks.POTTERY_BARREL).build(null) }
+    val OVEN            by TILE_ENTITIES.register("oven")           { TileEntityType.Builder.create(::OvenTile, PhoenixBlocks.OVEN).build(null) }
+    val ELECTRIC_BARREL by TILE_ENTITIES.register("_barrel")        { TileEntityType.Builder.create(::ElectricBarrelTile, PhoenixBlocks.POTTERY_BARREL).build(null) }
+    val TEXT            by TILE_ENTITIES.register("text")           { TileEntityType.Builder.create(::TextTile, PhoenixBlocks.TEXT_BLOCK).build(null) }
 
-    @JvmStatic val TEXT           = TILE_ENTITIES.register("text")           { TileEntityType.Builder.create(::TextTile, PhoenixBlocks.TEXT_BLOCK.get()).build(null) }!!
-
-    @JvmStatic fun register() = TILE_ENTITIES.register(FMLJavaModLoadingContext.get().modEventBus)
+    fun register() = TILE_ENTITIES.register(MOD_BUS)
 }

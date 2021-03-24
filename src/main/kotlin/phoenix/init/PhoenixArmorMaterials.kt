@@ -15,7 +15,7 @@ enum class PhoenixArmorMaterials(
     private val nameIn: String,
     private val tough: Float) : IArmorMaterial
 {
-    STEEL(20f, arrayOf(2, 5, 6, 4), 12, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ({ Ingredient.fromItems(PhoenixItems.STEEL_INGOT.get())}), "steel", 0f);
+    STEEL(20f, arrayOf(2, 5, 6, 4), 12, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ({ Ingredient.fromItems(PhoenixItems.STEEL_INGOT)}), "steel", 0f);
 
     private val maxDamage = intArrayOf(13, 15, 16, 11)
 

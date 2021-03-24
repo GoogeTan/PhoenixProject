@@ -14,7 +14,7 @@ import phoenix.utils.block.PhoenixTile
 import phoenix.utils.getTileAt
 import kotlin.math.abs
 
-class PipeTile(maxCapacity : Int) : PhoenixTile<PipeTile>(PIPE.get()), ITickableTileEntity, IFluidThing
+class PipeTile(maxCapacity : Int) : PhoenixTile<PipeTile>(PIPE), ITickableTileEntity, IFluidThing
 {
     override var tank = FluidTank(maxCapacity * 1000)
     override val throughput: Int = 1 * 1000

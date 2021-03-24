@@ -13,7 +13,6 @@ object PhoenixSounds
     var CHANGE_STAGE: SoundEvent = SoundEvent(ResourceLocation("change_stage"))
 
     @SubscribeEvent
-    @JvmStatic
     fun resister(event: RegistryEvent.Register<SoundEvent>)
     {
         CHANGE_STAGE.registryName = ResourceLocation("change_stage")

@@ -34,33 +34,31 @@ import phoenix.utils.mc
 object PhoenixClientEvents
 {
     @SubscribeEvent
-    @JvmStatic
     fun onClientSetup(event: FMLClientSetupEvent)
     {
         NetworkHandler.init()
         PhoenixRenderTypes.init()
         PhoenixContainers.registerScreens()
-        RenderTypeLookup.setRenderLayer(PhoenixBlocks.OVEN.get(), RenderType.getCutoutMipped())
-        RenderTypeLookup.setRenderLayer(PhoenixBlocks.PIPE.get(), RenderType.getCutoutMipped())
-        RenderTypeLookup.setRenderLayer(PhoenixBlocks.TANK.get(), RenderType.getCutoutMipped())
-        RenderTypeLookup.setRenderLayer(PhoenixBlocks.ARMORED_GLASS.get(), RenderType.getCutoutMipped())
-        RenderTypeLookup.setRenderLayer(PhoenixBlocks.TEXT_BLOCK.get(),    RenderType.getCutoutMipped())
-        RenderingRegistry.registerEntityRenderingHandler(TALPA.get(), ::TalpaRenderer)
-        //RenderingRegistry.registerEntityRenderingHandler(CAUDA.get(), ::CaudaRenderer)
-        RenderingRegistry.registerEntityRenderingHandler(KNIFE.get(), ::KnifeRenderer)
-        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.PIPE.get(), ::PipeRender)
-        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK.get(), ::TankRenderer)
-        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.OVEN.get(), ::OvenRenderer)
-        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TEXT.get(), ::TextRenderer)
+        RenderTypeLookup.setRenderLayer(PhoenixBlocks.OVEN, RenderType.getCutoutMipped())
+        RenderTypeLookup.setRenderLayer(PhoenixBlocks.PIPE, RenderType.getCutoutMipped())
+        RenderTypeLookup.setRenderLayer(PhoenixBlocks.TANK, RenderType.getCutoutMipped())
+        RenderTypeLookup.setRenderLayer(PhoenixBlocks.ARMORED_GLASS, RenderType.getCutoutMipped())
+        RenderTypeLookup.setRenderLayer(PhoenixBlocks.TEXT_BLOCK,    RenderType.getCutoutMipped())
+        RenderingRegistry.registerEntityRenderingHandler(TALPA, ::TalpaRenderer)
+        //RenderingRegistry.registerEntityRenderingHandler(CAUDA, ::CaudaRenderer)
+        RenderingRegistry.registerEntityRenderingHandler(KNIFE, ::KnifeRenderer)
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.PIPE, ::PipeRender)
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK, ::TankRenderer)
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.OVEN, ::OvenRenderer)
+        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TEXT, ::TextRenderer)
 
         // регистрация цветных блоков
-        for (block in BLOCKS.entries)
+        for (block in BLOCKS.getEntries())
         {
-            val colorBlock = block.get()
-            if (colorBlock is IColoredBlock)
+            if (block is IColoredBlock)
             {
-                if (colorBlock.getBlockColor() != null) mc.blockColors.register(colorBlock.getBlockColor()!!, block.get())
-                if (colorBlock.getItemColor()  != null) mc.itemColors.register(colorBlock.getItemColor()!!, block.get())
+                if (block.getBlockColor() != null) mc.blockColors.register(block.getBlockColor()!!, block.get())
+                if (block.getItemColor() != null) mc.itemColors.register(block.getItemColor()!!, block.get())
             }
         }
 

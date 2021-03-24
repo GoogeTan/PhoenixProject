@@ -8,13 +8,15 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
+import thedarkcolour.kotlinforforge.forge.KDeferredRegister
+import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
 object PhoenixPotions
 {
-    private val POTIONS = DeferredRegister.create(ForgeRegistries.POTION_TYPES, Phoenix.MOD_ID)!!
+    val POTIONS = KDeferredRegister(ForgeRegistries.POTION_TYPES, Phoenix.MOD_ID)
 
-    val LEVITATION       : RegistryObject<Potion> = POTIONS.register("levitation")      { Potion(EffectInstance(Effects.LEVITATION, 1800)) }!!
-    val LONG_LEVITATION  : RegistryObject<Potion> = POTIONS.register("long_levitation") { Potion(EffectInstance(Effects.LEVITATION, 3600)) }!!
+    val LEVITATION       by POTIONS.register("levitation")      { Potion(EffectInstance(Effects.LEVITATION, 1800)) }
+    val LONG_LEVITATION  by POTIONS.register("long_levitation") { Potion(EffectInstance(Effects.LEVITATION, 3600)) }
 
-    fun register() = POTIONS.register(FMLJavaModLoadingContext.get().modEventBus)
+    fun register() = POTIONS.register(MOD_BUS)
 }

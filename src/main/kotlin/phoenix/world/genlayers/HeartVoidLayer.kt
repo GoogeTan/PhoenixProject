@@ -7,7 +7,7 @@ import phoenix.init.PhoenixBiomes
 
 object HeartVoidLayer : ICastleTransformer
 {
-    var HEART_VOID_ID = Registry.BIOME.getId(PhoenixBiomes.HEARTVOID.get());
+    var HEART_VOID_ID = Registry.BIOME.getId(PhoenixBiomes.HEARTVOID)
     override fun apply(context: INoiseRandom, north: Int, west: Int, south: Int, east: Int, center: Int)
     = if (context.random(5) == 3 || isCurrect(north, west, east, south)) HEART_VOID_ID else center
 

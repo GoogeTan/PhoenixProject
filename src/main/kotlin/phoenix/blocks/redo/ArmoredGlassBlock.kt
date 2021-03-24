@@ -27,7 +27,7 @@ object ArmoredGlassBlock : AbstractGlassBlock(
     override fun getDrops(state: BlockState, builder: LootContext.Builder): MutableList<ItemStack>
     {
         val res = ArrayList<ItemStack>()
-        res.add(ItemStack(PhoenixBlocks.ARMORED_GLASS.get()));
+        res.add(ItemStack(PhoenixBlocks.ARMORED_GLASS))
         return res
     }
 

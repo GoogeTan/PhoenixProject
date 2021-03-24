@@ -20,7 +20,7 @@ class PotionBrewingMixin
     private fun init(ci: CallbackInfo)
     {
         error("PotionBrewingMixin", "Mixed!")
-        PotionBrewing.addMix(Potions.MUNDANE, GOLDEN_SETA.get(), LEVITATION.get())
-        PotionBrewing.addMix(LEVITATION.get(), Items.REDSTONE, LONG_LEVITATION.get())
+        PotionBrewing.addMix(Potions.MUNDANE, GOLDEN_SETA, LEVITATION)
+        PotionBrewing.addMix(LEVITATION, Items.REDSTONE, LONG_LEVITATION)
     }
 }

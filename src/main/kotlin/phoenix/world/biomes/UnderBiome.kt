@@ -39,14 +39,14 @@ class UnderBiome : Biome(GenerationUtils.defaultSettingsForEnd(Builders.UNDER, B
             var position = worldIn.getDownHeight(pos.add(random.nextInt(15), 0, random.nextInt(15)), 50)
             if(position.y > 2)
             {
-                worldIn.setBlockState(position, PhoenixBlocks.SETA.get().defaultState.with(AGE_0_3, random.nextInt(3)), 2)
+                worldIn.setBlockState(position, PhoenixBlocks.SETA.defaultState.with(AGE_0_3, random.nextInt(3)), 2)
                 if (random.nextInt(3) == 0)
                 {
                     position = worldIn.getDownHeight(position.add(random.nextInt(1) - 2, 0, random.nextInt(1) - 2), 30)
                     if(position.y > 2)
                         worldIn.setBlockState   (
                             position,
-                            PhoenixBlocks.SETA.get().defaultState
+                            PhoenixBlocks.SETA.defaultState
                             .with(AGE_0_3, random.nextInt(3))
                             .with(BlockStateProperties.HORIZONTAL_FACING, Direction.Plane.HORIZONTAL.random(random)), 2)
                 }

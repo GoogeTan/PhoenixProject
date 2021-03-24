@@ -9,18 +9,20 @@ import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
 import phoenix.client.gui.DiaryGui
 import phoenix.containers.DiaryContainer
+import thedarkcolour.kotlinforforge.forge.KDeferredRegister
+import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
 object PhoenixContainers
 {
-    private val CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Phoenix.MOD_ID)
+    private val CONTAINERS = KDeferredRegister(ForgeRegistries.CONTAINERS, Phoenix.MOD_ID)
 
-    val GUIDE = CONTAINERS.register("diary") { DiaryContainer.fromNetwork() }
+    val GUIDE by CONTAINERS.register("diary") { DiaryContainer.fromNetwork() }
 
-    fun register() = CONTAINERS.register(FMLJavaModLoadingContext.get().modEventBus)
+    fun register() = CONTAINERS.register(MOD_BUS)
 
     @OnlyIn(Dist.CLIENT)
     fun registerScreens()
     {
-        ScreenManager.registerFactory(GUIDE.get(), ::DiaryGui)
+        ScreenManager.registerFactory(GUIDE, ::DiaryGui)
     }
 }

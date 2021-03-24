@@ -51,7 +51,6 @@ import kotlin.collections.set
 @Mod.EventBusSubscriber
 object PhoenixEvents
 {
-    @JvmStatic
     @SubscribeEvent
     fun onPlay(event: PlayerEvent.PlayerRespawnEvent)
     {
@@ -64,7 +63,6 @@ object PhoenixEvents
         }
     }
 
-    @JvmStatic
     @SubscribeEvent
     fun onSave(event: WorldEvent.Save)
     {
@@ -76,7 +74,6 @@ object PhoenixEvents
         }
     }
 
-    @JvmStatic
     @SubscribeEvent
     fun onLoad(event: WorldEvent.Load)
     {
@@ -89,7 +86,6 @@ object PhoenixEvents
     }
 
     @SubscribeEvent
-    @JvmStatic
     fun trades(event: VillagerTradesEvent)
     {
         if(event.type == VillagerProfession.TOOLSMITH)
@@ -98,7 +94,7 @@ object PhoenixEvents
                 ImmutableList.of(VillagerTrades.ITrade { _: Entity, _: Random ->
                     MerchantOffer(
                         ItemStack(Items.EMERALD, 8), ItemStack(
-                            PhoenixItems.STEEL_AXE.get()
+                            PhoenixItems.STEEL_AXE
                         ), 7, 1, 0.1f
                     )
                 })
@@ -109,7 +105,7 @@ object PhoenixEvents
                 ImmutableList.of(VillagerTrades.ITrade { _: Entity, _: Random ->
                     MerchantOffer(
                         ItemStack(Items.EMERALD, 8), ItemStack(
-                            PhoenixItems.STEEL_SWORD.get()
+                            PhoenixItems.STEEL_SWORD
                         ), 7, 1, 0.1f
                     )
                 })
@@ -117,26 +113,23 @@ object PhoenixEvents
     }
 
     @SubscribeEvent
-    @JvmStatic
     fun trades(event: WandererTradesEvent)
     {
-        event.rareTrades.add(VillagerTrades.ITrade { _: Entity, _: Random -> MerchantOffer(ItemStack(Items.EMERALD, 14), ItemStack(PhoenixBlocks.SETA.get()), 7, 1, 0.1f) })
-        event.rareTrades.add(VillagerTrades.ITrade { _: Entity, _: Random -> MerchantOffer(ItemStack(Items.EMERALD, 24), ItemStack(PhoenixItems.GOLDEN_SETA.get(), 4), 7, 1, 0.1f) })
+        event.rareTrades.add(VillagerTrades.ITrade { _: Entity, _: Random -> MerchantOffer(ItemStack(Items.EMERALD, 14), ItemStack(PhoenixBlocks.SETA), 7, 1, 0.1f) })
+        event.rareTrades.add(VillagerTrades.ITrade { _: Entity, _: Random -> MerchantOffer(ItemStack(Items.EMERALD, 24), ItemStack(PhoenixItems.GOLDEN_SETA, 4), 7, 1, 0.1f) })
     }
 
     @SubscribeEvent
-    @JvmStatic
     fun capa(event: LootTableLoadEvent)
     {
         if(event.name == LootTables.CHESTS_JUNGLE_TEMPLE)
         {
-            event.table.addPool(LootPool.builder().addEntry(ItemLootEntry.builder(PhoenixItems.ZIRCONIUM_INGOT.get()).weight(2)).build())
+            event.table.addPool(LootPool.builder().addEntry(ItemLootEntry.builder(PhoenixItems.ZIRCONIUM_INGOT).weight(2)).build())
         }
     }
 
     var tasks = ArrayList<Tuple<Int, Int, Runnable>>()
 
-    @JvmStatic
     @SubscribeEvent
     fun deferredTasks(event: WorldTickEvent)
     {
@@ -166,23 +159,22 @@ object PhoenixEvents
         tasks.add(Tuple(0, time, r))
     }
 
-    @JvmStatic
     @SubscribeEvent
     fun onSave(event: PlayerEvent.PlayerChangedDimensionEvent)
     {
         if(!event.player.world.isRemote)
         {
-            LogManager.log(this, "Phoenix is starting saving")
+            log(this, "Phoenix is starting saving")
             val nbt = event.player.world.worldInfo.getDimensionData(DimensionType.THE_END)
             StageManager.write(nbt)
-            LogManager.log(this, "Stage = ${StageManager.stage + 1} Part = ${StageManager.stage}")
+            log(this, "Stage = ${StageManager.stage + 1} Part = ${StageManager.stage}")
             event.player.world.worldInfo.setDimensionData(DimensionType.THE_END, nbt)
-            LogManager.log(this, "Phoenix has ended saving")
+            log(this, "Phoenix has ended saving")
         }
     }
 
     var time = 0
-    @JvmStatic
+
     @SubscribeEvent
     fun playerTick(event: TickEvent.PlayerTickEvent)
     {
@@ -203,7 +195,6 @@ object PhoenixEvents
         }
     }
 
-    @JvmStatic
     @SubscribeEvent
     fun cornGen(event: EntityJoinWorldEvent)
     {

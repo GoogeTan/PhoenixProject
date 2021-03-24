@@ -41,7 +41,7 @@ class OrbitPoint2Goal(entity: AbstractFlyingEntity) : ThreeDimensionsMovingGoal(
                 MathHelper.floor(entity.posZ + distance)
         ))
         {
-            if (entity.world.getBlockState(current).block === Blocks.CHORUS_FLOWER || entity.world.getBlockState(current).block === PhoenixBlocks.FERTILE_END_STONE.get())
+            if (entity.world.getBlockState(current).block === Blocks.CHORUS_FLOWER || entity.world.getBlockState(current).block === PhoenixBlocks.FERTILE_END_STONE)
             {
                 entity.orbitPosition = current
                 posX = current.x.toFloat()

@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack
 import phoenix.init.PhoenixContainers
 
 
-class OvenContainer : Container(PhoenixContainers.GUIDE.get(), 1015)
+class OvenContainer : Container(PhoenixContainers.GUIDE, 1015)
 {
     var inventory = Inventory(4)
 

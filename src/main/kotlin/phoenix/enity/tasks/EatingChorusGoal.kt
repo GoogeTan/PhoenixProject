@@ -23,7 +23,7 @@ class EatingChorusGoal(entityIn: AbstractFlyingEntity) : ThreeDimensionsMovingGo
                 MathHelper.floor(entity.posZ + distance)
         ))
         {
-            if (entity.world.getBlockState(current).block === Blocks.CHORUS_FLOWER || entity.world.getBlockState(current).block === PhoenixBlocks.FERTILE_END_STONE.get())
+            if (entity.world.getBlockState(current).block === Blocks.CHORUS_FLOWER || entity.world.getBlockState(current).block === PhoenixBlocks.FERTILE_END_STONE)
             {
                 entity.orbitPosition = current
                 entity.orbitPosition = BlockPos(entity)

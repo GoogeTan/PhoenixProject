@@ -89,7 +89,7 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO).hard
                     {
                         if (stateInt >= 2 && countOfJumps > 20)
                         {
-                            player.setHeldItem(handIn, ItemStack(PhoenixItems.HIGH_QUALITY_CLAY_ITEM.get(), min(countOfJumps / 20, 3)))
+                            player.setHeldItem(handIn, ItemStack(PhoenixItems.HIGH_QUALITY_CLAY_ITEM, min(countOfJumps / 20, 3)))
                             setState(worldIn, pos, state, 0)
                             (worldIn.getTileEntity(pos) as PotteryBarrelTile?)?.nullifyJumpsCount()
                         }

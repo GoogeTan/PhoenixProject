@@ -31,7 +31,7 @@ class KnifeRenderer<T : KnifeEntity>(renderManagerIn: EntityRendererManager) : E
         matrixStackIn.scale(scale, scale, scale)
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90.0f))
         matrixStackIn.rotate(Vector3f.XN.rotationDegrees(90.0f))
-        itemRenderer.renderItem(ItemStack(ZIRCONIUM_KNIFE.get()), ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn)
+        itemRenderer.renderItem(ItemStack(ZIRCONIUM_KNIFE), ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn)
         matrixStackIn.pop()
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn)
     }

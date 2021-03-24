@@ -36,7 +36,7 @@ class OvenRenderer(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEnt
                 val dirAngle = -direction1.horizontalAngle
                 matrixStackIn.rotate(Vector3f.YP.rotationDegrees(dirAngle))
                 matrixStackIn.translate(-0.15, -0.3125, 0.15)
-                if (stack.item.containerItem == PhoenixItems.CRUCIBLE.get())
+                if (stack.item.containerItem == PhoenixItems.CRUCIBLE)
                 {
                     matrixStackIn.scale(0.7f, 0.7f, 0.7f)
                 }

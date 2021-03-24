@@ -9,7 +9,7 @@ import net.minecraft.util.text.ITextComponent
 import net.minecraft.util.text.StringTextComponent
 import phoenix.init.PhoenixContainers
 
-class DiaryContainer(id: Int) : Container(PhoenixContainers.GUIDE.get(), id), INamedContainerProvider
+class DiaryContainer(id: Int) : Container(PhoenixContainers.GUIDE, id), INamedContainerProvider
 {
     var name: ITextComponent = StringTextComponent("Zahara")
 

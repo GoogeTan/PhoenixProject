@@ -13,11 +13,6 @@ object Builders
     val HEARTVOID: SurfaceBuilder<SurfaceBuilderConfig> = SurfaceBuilder.register("heart", HeartVoidSurfaceBuilder { dynamic: Dynamic<*> -> SurfaceBuilderConfig.deserialize(dynamic) })
 
     //Конфиги для билдеров
-    val UNDER_CONFIG = AdvancedSurfaceBuilderConfig(
-        Blocks.END_STONE,
-        Blocks.END_STONE,
-        Blocks.END_STONE,
-        PhoenixBlocks.FERTILE_END_STONE.get()
-    )
+    val UNDER_CONFIG = AdvancedSurfaceBuilderConfig(Blocks.END_STONE, Blocks.END_STONE, Blocks.END_STONE, PhoenixBlocks.FERTILE_END_STONE)
     val HEARTVOID_CONFIG = SurfaceBuilderConfig(Blocks.END_STONE.defaultState, Blocks.END_STONE.defaultState, Blocks.END_STONE.defaultState)
 }

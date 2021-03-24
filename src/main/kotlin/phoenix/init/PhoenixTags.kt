@@ -12,13 +12,13 @@ object PhoenixTags
 {
     object Blocks
     {
-        @JvmStatic val MECHANISMS = tag("mechanisms")
+        val MECHANISMS = tag("mechanisms")
         private fun tag(name: String): Tag<Block> = BlockTags.Wrapper(ResourceLocation(Phoenix.MOD_ID, name))
     }
 
     object Items
     {
-        @JvmStatic val ZIRCONIUM_TOOL = tag("zirconium")
+        val ZIRCONIUM_TOOL = tag("zirconium")
 
         private fun tag(name: String): Tag<Item> = ItemTags.Wrapper(ResourceLocation(Phoenix.MOD_ID, name))
     }
