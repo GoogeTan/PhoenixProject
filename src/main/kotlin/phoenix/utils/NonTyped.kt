@@ -25,12 +25,23 @@ import net.minecraft.util.text.StringTextComponent
 import net.minecraft.world.BossInfo
 import net.minecraft.world.IWorld
 import net.minecraft.world.World
+import net.minecraft.world.biome.Biome
+import net.minecraft.world.gen.GenerationStage
+import net.minecraft.world.gen.feature.Feature
+import net.minecraft.world.gen.feature.IFeatureConfig
+import net.minecraft.world.gen.feature.NoFeatureConfig
+import net.minecraft.world.gen.feature.OreFeatureConfig
+import net.minecraft.world.gen.feature.structure.Structure
+import net.minecraft.world.gen.placement.CountRangeConfig
+import net.minecraft.world.gen.placement.IPlacementConfig
+import net.minecraft.world.gen.placement.Placement
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.fml.RegistryObject
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.IForgeRegistryEntry
 import phoenix.client.gui.diaryPages.Chapters
+import phoenix.init.PhoenixBlocks
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncBookPacket
 import java.util.*
@@ -148,3 +159,22 @@ val clientWorld : ClientWorld?
 fun PlayerEntity.sendMessage(text : String) = sendMessage(StringTextComponent(text))
 
 class BookException(message: String) : Exception(message)
+
+fun Biome.addStructure(structure: Structure<NoFeatureConfig>)
+{
+    addStructure(structure.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG))
+    addFeature(
+        GenerationStage.Decoration.SURFACE_STRUCTURES,
+        structure.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG)
+            .withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG))
+    )
+}
+
+fun Biome.addZirconiumOre()
+{
+    addFeature(
+        GenerationStage.Decoration.UNDERGROUND_ORES,
+        Feature.ORE.withConfiguration(OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, PhoenixBlocks.ZIRCONIUM.defaultState, 4)).withPlacement(
+            Placement.COUNT_RANGE.configure(CountRangeConfig(20, 0, 0, 64)))
+    )
+}
