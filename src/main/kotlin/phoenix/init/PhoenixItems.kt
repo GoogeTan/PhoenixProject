@@ -82,10 +82,10 @@ object PhoenixItems
 class SteelArmorItem(slot: EquipmentSlotType, builder: Properties) : ArmorItem(PhoenixArmorMaterials.STEEL, slot, builder)
 {
     override fun getArmorTexture(
-        itemstack: ItemStack,
-        entity: Entity,
-        slot: EquipmentSlotType,
-        layer: String
+        itemstack: ItemStack?,
+        entity: Entity?,
+        slot: EquipmentSlotType?,
+        layer: String?
     ): String
     {
         return if (slot == EquipmentSlotType.LEGS)

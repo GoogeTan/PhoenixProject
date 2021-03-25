@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.entity.layers.AbstractEyesLayer
 import net.minecraft.util.ResourceLocation
 import phoenix.Phoenix
 import phoenix.client.models.entity.CaudaModel
+import phoenix.client.render.SimpleEyesLayer
 import phoenix.enity.CaudaEntity
 import phoenix.init.PhoenixRenderTypes
 import javax.annotation.Nonnull
@@ -16,10 +17,7 @@ import javax.annotation.Nonnull
 class CaudaRenderer(renderManager: EntityRendererManager) : MobRenderer<CaudaEntity, CaudaModel>(renderManager, CaudaModel(), 1f)
 {
     @Nonnull
-    override fun getEntityTexture(entity: CaudaEntity): ResourceLocation
-    {
-        return ResourceLocation(Phoenix.MOD_ID, "textures/entity/cauda/" + if (entity.isChild) "cauda_child.png" else "texture.png")
-    }
+    override fun getEntityTexture(entity: CaudaEntity) = ResourceLocation(Phoenix.MOD_ID, "textures/entity/cauda/" + if (entity.isChild) "cauda_child.png" else "texture.png")
 
     override fun applyRotations(
         entity: CaudaEntity,
@@ -41,12 +39,7 @@ class CaudaRenderer(renderManager: EntityRendererManager) : MobRenderer<CaudaEnt
 
     init
     {
-        addLayer(CaudaEyesLayer())
-    }
-
-    inner class CaudaEyesLayer : AbstractEyesLayer<CaudaEntity, CaudaModel>(this@CaudaRenderer)
-    {
-        override fun getRenderType(): RenderType = PhoenixRenderTypes.eyesTexture
+        addLayer(SimpleEyesLayer(this, PhoenixRenderTypes.eyesTexture))
     }
 }
 
