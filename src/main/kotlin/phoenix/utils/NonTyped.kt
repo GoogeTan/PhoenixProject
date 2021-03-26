@@ -127,7 +127,7 @@ fun World.getDate() = Date((795 + dayTime) % dayLength / secondLength, (gameTime
 
 fun ServerPlayerEntity.addChapter(chapter : Chapters)
 {
-    if(this is IChapterReader)
+    if(this is IPhoenixPlayer)
     {
         this.addChapter(chapter.id, world.getDate())
         NetworkHandler.sendTo(SyncBookPacket(this.getOpenedChapters()), this)

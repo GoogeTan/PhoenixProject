@@ -38,7 +38,7 @@ class SyncBookPacket(var list : List<Pair<Int, Date>>): NetworkHandler.Packet()
 
     override fun client(player: ClientPlayerEntity?)
     {
-        if(player is IChapterReader)
+        if(player is IPhoenixPlayer)
         {
             for (i in list)
                 player.addChapter(i.first, i.second)

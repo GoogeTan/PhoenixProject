@@ -1,11 +1,7 @@
 package phoenix.client.gui
 
-import com.mojang.blaze3d.platform.GlStateManager
-import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
-import net.minecraft.client.gui.widget.Widget
-import net.minecraft.client.renderer.RenderHelper
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.util.text.ITextComponent
 import phoenix.Phoenix
@@ -15,7 +11,6 @@ import phoenix.client.gui.diaryPages.elements.ADiaryElement
 import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement
 import phoenix.containers.DiaryContainer
 import phoenix.utils.*
-import phoenix.utils.Date
 import phoenix.utils.DiaryUtils.makeParagraph
 import java.util.*
 
@@ -34,7 +29,7 @@ class DiaryGui(val container: DiaryContainer, inv: PlayerInventory, titleIn: ITe
 
         val player = clientPlayer
 
-        if(player is IChapterReader)
+        if(player is IPhoenixPlayer)
         {
            val els = ArrayList<ADiaryElement>()
            val chapters = player.getOpenedChapters()
@@ -55,7 +50,7 @@ class DiaryGui(val container: DiaryContainer, inv: PlayerInventory, titleIn: ITe
 
         val player = clientPlayer
 
-        if(player is IChapterReader)
+        if(player is IPhoenixPlayer)
         {
             val els = ArrayList<ADiaryElement>()
             val chapters = player.getOpenedChapters()

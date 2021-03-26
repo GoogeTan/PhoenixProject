@@ -1,22 +1,30 @@
 package phoenix.mixin
 
+import net.minecraft.entity.Entity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.nbt.CompoundNBT
 import org.spongepowered.asm.mixin.Mixin
+import org.spongepowered.asm.mixin.Shadow
 import org.spongepowered.asm.mixin.injection.At
 import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
 import phoenix.client.gui.diaryPages.Chapters
+import phoenix.enity.CaudaEntity
 import phoenix.utils.Date
-import phoenix.utils.IChapterReader
+import phoenix.utils.IPhoenixPlayer
 import phoenix.utils.LogManager.log
 import java.util.ArrayList
 
 @Mixin(PlayerEntity::class)
-class MixinEntityPlayer : IChapterReader
+abstract class MixinEntityPlayer : IPhoenixPlayer
 {
     private val chaptersSet: MutableSet<Int> = HashSet()
     var chapters = ArrayList<Pair<Int, Date>>()
+
+    @Shadow
+    abstract fun getRidingEntity(): Entity?
+
+
     @Inject(method = ["writeAdditional"], at = [At("TAIL")])
     fun onWriteEntityToNBT(nbt: CompoundNBT, ci: CallbackInfo?)
     {
@@ -74,4 +82,6 @@ class MixinEntityPlayer : IChapterReader
     {
         return hasChapter(ch.id)
     }
+
+    override fun isOnCauda(): Boolean = getRidingEntity() is CaudaEntity
 }

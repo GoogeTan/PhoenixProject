@@ -35,7 +35,7 @@ import phoenix.network.NetworkHandler
 import phoenix.network.NetworkHandler.sendTo
 import phoenix.network.SyncBookPacket
 import phoenix.network.SyncStagePacket
-import phoenix.utils.IChapterReader
+import phoenix.utils.IPhoenixPlayer
 import phoenix.utils.LogManager
 import phoenix.utils.LogManager.error
 import phoenix.utils.LogManager.log
@@ -181,7 +181,7 @@ object PhoenixEvents
         if(!event.player.world.isRemote && time % 20 == 0 && event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END)
         {
             val player = event.player as ServerPlayerEntity
-            if(player is IChapterReader)
+            if(player is IPhoenixPlayer)
             {
                 time++
                 for (i in player.inventory.mainInventory)
@@ -217,7 +217,7 @@ object PhoenixEvents
                 error("<Other events> ", "Corn was not genned ^(. template is null... I it is very bad think.")
             }
         }
-        if (!event.world.isRemote && entity is ServerPlayerEntity && entity is IChapterReader)
+        if (!event.world.isRemote && entity is ServerPlayerEntity && entity is IPhoenixPlayer)
         {
             sendTo(SyncBookPacket(entity.getOpenedChapters()), entity)
         }

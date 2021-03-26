@@ -28,6 +28,7 @@ class UpdaterBlock : Block(Properties.create(Material.ROCK).lightValue(5).hardne
     @Nonnull
     override fun onBlockActivated(state: BlockState, worldIn: World, pos: BlockPos, player: PlayerEntity, handIn: Hand, hit: BlockRayTraceResult): ActionResultType
     {
+        player.ridingEntity
         if (!worldIn.isRemote && worldIn.getDimension().type === DimensionType.THE_END)
         {
             worldIn.playSound(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), PhoenixSounds.CHANGE_STAGE, SoundCategory.BLOCKS, 1f, 1f, true)

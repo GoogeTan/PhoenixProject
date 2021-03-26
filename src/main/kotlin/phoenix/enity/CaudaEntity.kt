@@ -15,7 +15,6 @@ import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.IInventoryChangedListener
 import net.minecraft.inventory.Inventory
 import net.minecraft.item.ItemStack
-import net.minecraft.item.Items
 import net.minecraft.item.Items.*
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.network.datasync.DataSerializers
