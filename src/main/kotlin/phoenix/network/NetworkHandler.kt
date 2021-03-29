@@ -32,7 +32,7 @@ object NetworkHandler
         registerPacket(SyncStagePacket().javaClass)
         registerPacket(SyncBookPacket(ArrayList()))
         registerPacket(SyncOvenPacket().javaClass)
-        registerPacket(SyncFluidThinkPacket(FluidStack.EMPTY, BlockPos.ZERO))
+        registerPacket(SyncFluidThinkPacket(FluidStack.EMPTY, BlockPos.ZERO).javaClass)
     }
 
     private var id: Short = 0

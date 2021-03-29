@@ -6,6 +6,7 @@ import net.minecraft.network.PacketBuffer
 import net.minecraft.util.math.BlockPos
 import phoenix.containers.ash.OvenContainer
 import phoenix.tile.ash.OvenTile
+import phoenix.utils.getTileAt
 
 class SyncOvenPacket(var timers: IntArray, var burnTime : Int, var container: OvenContainer, var pos: BlockPos) : NetworkHandler.Packet()
 {
@@ -45,9 +46,8 @@ class SyncOvenPacket(var timers: IntArray, var burnTime : Int, var container: Ov
 
     override fun client(player: ClientPlayerEntity?)
     {
-
         val world = player!!.world
-        val tile = world.getTileEntity(pos) as OvenTile?
+        val tile = world.getTileAt<OvenTile>(pos)
         if(tile != null)
         {
             tile.burnTime = burnTime

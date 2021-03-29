@@ -11,7 +11,7 @@ import phoenix.utils.getTileAt
 import phoenix.utils.mc
 import phoenix.utils.sendMessage
 
-class SyncFluidThinkPacket(val fluid: FluidStack, val pos: BlockPos) : NetworkHandler.Packet()
+class SyncFluidThinkPacket(var fluid: FluidStack, var pos: BlockPos) : NetworkHandler.Packet()
 {
     constructor() : this(FluidStack.EMPTY, BlockPos.ZERO)
 
@@ -19,6 +19,8 @@ class SyncFluidThinkPacket(val fluid: FluidStack, val pos: BlockPos) : NetworkHa
     {
         if(packet is SyncFluidThinkPacket)
         {
+            fluid = packet.fluid
+            pos = packet.pos
             buf.writeFluidStack(fluid)
             buf.writeBlockPos(pos)
         }

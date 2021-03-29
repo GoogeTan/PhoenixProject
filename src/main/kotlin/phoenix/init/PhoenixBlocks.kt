@@ -28,7 +28,7 @@ object PhoenixBlocks
 
     val UPDATER           by  BLOCKS.register("updater",           ::UpdaterBlock         )
     val PIPE              by  BLOCKS.register("pipe",              ::PipeBlock            )
-    val TANK              by  BLOCKS.register("tank")              { TankBlock }
+    val TANK              by  BLOCKS.register("tank")              { TankBlock            }
     val FERTILE_END_STONE by  BLOCKS.register("fertile_end_stone") { FertileEndStoneBlock }
     val ANTI_AIR          by  BLOCKS.register("anti_air",          ::AntiAirBlock         )
     val POTTERY_BARREL    by  BLOCKS.register("pottery_barrel",    ::PotteryBarrelBlock   )
