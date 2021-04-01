@@ -1,5 +1,6 @@
 package phoenix.tile.redo
 
+import net.minecraft.fluid.Fluids
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.network.NetworkManager
 import net.minecraft.network.PacketBuffer
@@ -53,14 +54,12 @@ class PipeTile(maxCapacity : Int) : PhoenixTile<PipeTile>(PIPE), ITickableTileEn
                     val tile = world.getTileAt<IFluidThing>(pos.offset(i))
                     if (tile != null)
                     {
-                        if(tile.tank.isEmpty)
-                            tile.tank.fluid = FluidStack(tank.fluid.fluid, 0)
-
-                        if (tile.tank.fluid.fluid == this.tank.fluid.fluid && abs(tile.getPercent() - this.getPercent()) > 0.001)
+                        if ((tile.tank.fluid.fluid == this.tank.fluid.fluid  || tile.tank.fluid.fluid == Fluids.EMPTY) &&  tile.tank.fluidAmount != this.tank.fluidAmount)
                         {
+                            tile.tank.fluid = this.tank.fluid
                             val all = tile.tank.fluidAmount + this.tank.fluidAmount
-                            tile.tank.fluid.amount = tile.tank.capacity * all / (tile.tank.capacity + this.tank.capacity)
-                            this.tank.fluid.amount = all - tile.tank.fluid.amount
+                            tile.tank.fluid.amount = all / 2
+                            this.tank.fluid.amount = all / 2
                             if(tile is TankTile)
                             {
                                 tile.needSync = true

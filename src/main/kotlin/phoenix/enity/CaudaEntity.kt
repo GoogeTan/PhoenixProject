@@ -10,16 +10,22 @@ import net.minecraft.entity.ai.controller.MovementController
 import net.minecraft.entity.ai.goal.Goal
 import net.minecraft.entity.monster.IMob
 import net.minecraft.entity.passive.CatEntity
+import net.minecraft.entity.passive.horse.AbstractHorseEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.IInventoryChangedListener
 import net.minecraft.inventory.Inventory
 import net.minecraft.item.ItemStack
+import net.minecraft.item.Items
 import net.minecraft.item.Items.*
+import net.minecraft.item.SpawnEggItem
 import net.minecraft.nbt.CompoundNBT
+import net.minecraft.network.datasync.DataParameter
 import net.minecraft.network.datasync.DataSerializers
 import net.minecraft.network.datasync.EntityDataManager
+import net.minecraft.server.management.PreYggdrasilConverter
 import net.minecraft.util.EntityPredicates
+import net.minecraft.util.Hand
 import net.minecraft.util.SoundEvents
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
@@ -36,6 +42,8 @@ import kotlin.math.min
 
 private val SIZE      = EntityDataManager.createKey(CaudaEntity::class.java, DataSerializers.VARINT)
 private val EQUIPMENT = EntityDataManager.createKey(CaudaEntity::class.java, DataSerializers.VARINT)
+private val SADDLE    = EntityDataManager.createKey(CaudaEntity::class.java, DataSerializers.BOOLEAN)
+private val OWNER_UNIQUE_ID = EntityDataManager.createKey(CaudaEntity::class.java, DataSerializers.OPTIONAL_UNIQUE_ID)
 
 class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEntity(type, worldIn), IMob, IInventoryChangedListener
 {
@@ -43,6 +51,7 @@ class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEntity(
     private var orbitPosition = BlockPos.ZERO
     private var attackPhase = AttackPhase.CIRCLE
     private var chests : Inventory
+
 
     init
     {
@@ -65,7 +74,13 @@ class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEntity(
         super.registerData()
         dataManager.register(SIZE, 0)
         dataManager.register(EQUIPMENT, 0)
+        dataManager.register(OWNER_UNIQUE_ID, Optional.empty())
+        dataManager.register(SADDLE, false)
     }
+
+    fun setOwnerUniqueId(uniqueId: UUID?) = dataManager.set(OWNER_UNIQUE_ID, Optional.ofNullable(uniqueId))
+
+    fun getOwnerUniqueId(): UUID? = dataManager.get(OWNER_UNIQUE_ID).orElse(null)
 
     override fun canSpawn(worldIn: IWorld, spawnReasonIn: SpawnReason): Boolean = position.y in 9..81 && super.canSpawn(worldIn, spawnReasonIn)
 
@@ -107,8 +122,8 @@ class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEntity(
         val equipment = dataManager[EQUIPMENT]
         for (i in 0 until equipment)
             this.entityDropItem(ItemStack(Blocks.CHEST))
-        if(equipment > 4)
-            this.entityDropItem(ItemStack(SADDLE))
+        if(dataManager[SADDLE])
+            this.entityDropItem(ItemStack(Items.SADDLE))
 
         for (i in 0 until this.chests.sizeInventory)
         {
@@ -118,14 +133,98 @@ class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEntity(
         }
     }
 
+    override fun processInteract(player: PlayerEntity, hand: Hand): Boolean
+    {
+        val item = player.getHeldItem(hand).item
+        return if (item is SpawnEggItem)
+        {
+            super.processInteract(player, hand)
+        } else
+        {
+            if (this.isChild)
+            {
+                super.processInteract(player, hand)
+            } else
+            {
+                player.startRiding(this)
+                true
+            }
+        }
+    }
+
+    override fun travel(positionIn: Vec3d)
+    {
+        if (this.isAlive)
+        {
+            if (this.isBeingRidden && canBeSteered())
+            {
+                val controller = this.controllingPassenger as LivingEntity?
+                if(controller != null)
+                {
+                    rotationYaw = controller.rotationYaw
+                    prevRotationYaw = rotationYaw
+                    rotationPitch = controller.rotationPitch * 0.5f
+                    setRotation(rotationYaw, rotationPitch)
+                    renderYawOffset = rotationYaw
+                    rotationYawHead = renderYawOffset
+                    val moveStrafing = controller.moveStrafing * 0.5f
+                    val moveForward = controller.moveForward
+                    jumpMovementFactor = this.aiMoveSpeed * 0.1f
+                    if (canPassengerSteer())
+                    {
+                        this.aiMoveSpeed = getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).value.toFloat()
+                        super.travel(Vec3d(moveStrafing.toDouble(), positionIn.y, moveForward.toDouble()))
+                    } else if (controller is PlayerEntity)
+                    {
+                        motion = Vec3d.ZERO
+                    }
+                    prevLimbSwingAmount = limbSwingAmount
+                    val deltaX = posX - prevPosX
+                    val deltaZ = posZ - prevPosZ
+                    var speed = MathHelper.sqrt(deltaX * deltaX + deltaZ * deltaZ) * 4.0f
+                    if (speed > 1.0f)
+                    {
+                        speed = 1.0f
+                    }
+                    limbSwingAmount += (speed - limbSwingAmount) * 0.4f
+                    limbSwing += limbSwingAmount
+                }
+            } else
+            {
+                jumpMovementFactor = 0.02f
+                super.travel(positionIn)
+            }
+        }
+    }
+
+    override fun canBeLeashedTo(player: PlayerEntity?): Boolean = !this.leashed
+
+    override fun getControllingPassenger(): Entity? = if (passengers.isEmpty()) null else passengers[0]
+
     override fun readAdditional(compound: CompoundNBT)
     {
         super.readAdditional(compound)
+        val s: String = if (compound.contains("OwnerUUID", 8))
+        {
+            compound.getString("OwnerUUID")
+        } else
+        {
+            val s1 = compound.getString("Owner")
+            PreYggdrasilConverter.convertMobOwnerIfNeeded(this.server!!, s1)
+        }
+        if (s.isNotEmpty())
+        {
+            setOwnerUniqueId(UUID.fromString(s))
+        }
     }
 
     override fun writeAdditional(compound: CompoundNBT)
     {
         super.writeAdditional(compound)
+        if (getOwnerUniqueId() != null)
+        {
+            compound.putString("OwnerUUID", getOwnerUniqueId().toString())
+        }
     }
 
     internal enum class AttackPhase
