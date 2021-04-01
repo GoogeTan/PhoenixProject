@@ -131,6 +131,7 @@ fun ServerPlayerEntity.addChapter(chapter : Chapters)
     {
         this.addChapter(chapter.id, world.getDate())
         NetworkHandler.sendTo(SyncBookPacket(this.getOpenedChapters()), this)
+        sendMessage("Chapters ${getOpenedChapters()}")
     }
 }
 
