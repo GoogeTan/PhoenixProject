@@ -25,7 +25,7 @@ object PhoenixRenderTypes
         pipeTexture = initTexture(block("pipe_"), "pipe_")
     }
 
-    private fun initTexture(path: ResourceLocation, name: String): RenderType
+    fun initTexture(path: ResourceLocation, name: String): RenderType
     {
         mc.getTextureManager().loadTexture(path, SimpleTexture(path))
         return createType(name,

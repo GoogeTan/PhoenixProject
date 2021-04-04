@@ -58,7 +58,7 @@ private val EQUIPMENT = EntityDataManager.createKey(CaudaEntity::class.java, Dat
 private val SADDLE    = EntityDataManager.createKey(CaudaEntity::class.java, DataSerializers.BOOLEAN)
 private val OWNER_UNIQUE_ID = EntityDataManager.createKey(CaudaEntity::class.java, DataSerializers.OPTIONAL_UNIQUE_ID)
 
-class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEntity(type, worldIn), IMob, IInventoryChangedListener
+open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEntity(type, worldIn), IMob, IInventoryChangedListener
 {
     private var orbitOffset = Vec3d.ZERO
     private var orbitPosition = BlockPos.ZERO
@@ -74,6 +74,9 @@ class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEntity(
         get() = dataManager.get(OWNER_UNIQUE_ID).orElse(null)
         set(uniqueId) = dataManager.set(OWNER_UNIQUE_ID, Optional.ofNullable(uniqueId))
     private var itemHandler: LazyOptional<*>? = null
+
+    fun getArmorStack()  = chests.getStackInSlot(20)
+    fun getGreatcoatStack() = chests.getStackInSlot(21)
 
     init
     {

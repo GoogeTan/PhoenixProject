@@ -26,8 +26,8 @@ object PhoenixConfiguration
         }
     }
 
-    enum class GameMode(var maxKnifeUsages: Int)
+    enum class GameMode(val maxKnifeUsages: Int, val textureSuffix : String)
     {
-        normal(60), Liahim(16), hohserg(80);
+        normal(60, ""), Liahim(16, "_liahim"), hohserg(80, "_hohserg");
     }
 }
