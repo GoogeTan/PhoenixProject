@@ -45,7 +45,6 @@ import phoenix.world.GenSaveData
 import phoenix.world.StageManager
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.isNotEmpty
 import kotlin.collections.set
 
 @Mod.EventBusSubscriber

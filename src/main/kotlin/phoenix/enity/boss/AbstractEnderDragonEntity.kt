@@ -3,7 +3,6 @@ package phoenix.enity.boss
 import com.google.common.collect.Lists
 import net.minecraft.block.material.Material
 import net.minecraft.entity.*
-import phoenix.enity.boss.phase.PhaseType
 import net.minecraft.entity.item.EnderCrystalEntity
 import net.minecraft.entity.item.ExperienceOrbEntity
 import net.minecraft.entity.monster.IMob
@@ -32,6 +31,7 @@ import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.common.ForgeHooks
 import org.apache.logging.log4j.LogManager
 import phoenix.enity.boss.phase.AbstractPhaseManager
+import phoenix.enity.boss.phase.PhaseType
 import phoenix.world.CustomDragonFightManager
 import kotlin.math.max
 import kotlin.math.min

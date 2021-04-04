@@ -6,7 +6,6 @@ import net.minecraft.block.material.Material
 import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.world.storage.loot.LootContext
-import phoenix.Phoenix
 import phoenix.Phoenix.Companion.REDO
 import phoenix.utils.block.ICustomGroup
 

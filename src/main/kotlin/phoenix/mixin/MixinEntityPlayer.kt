@@ -13,7 +13,10 @@ import phoenix.enity.CaudaEntity
 import phoenix.utils.Date
 import phoenix.utils.IPhoenixPlayer
 import phoenix.utils.LogManager.log
-import java.util.ArrayList
+import java.util.*
+import kotlin.collections.HashSet
+import kotlin.collections.MutableSet
+import kotlin.collections.indices
 
 @Mixin(PlayerEntity::class)
 abstract class MixinEntityPlayer : IPhoenixPlayer

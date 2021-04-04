@@ -7,7 +7,6 @@ import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.util.Direction
-import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.capability.templates.FluidTank
 import phoenix.init.PhoenixTiles
 import phoenix.network.NetworkHandler
@@ -17,7 +16,6 @@ import phoenix.utils.SerializeUtils.readTank
 import phoenix.utils.SerializeUtils.writeToBuf
 import phoenix.utils.block.PhoenixTile
 import phoenix.utils.getTileAt
-import kotlin.math.abs
 
 class TankTile(capacity : Int) : PhoenixTile<TankTile>(PhoenixTiles.TANK), IFluidThing, ITickableTileEntity
 {

@@ -18,8 +18,6 @@ import net.minecraft.world.IWorldReader
 import net.minecraft.world.World
 import net.minecraft.world.server.ServerWorld
 import net.minecraft.world.storage.loot.LootContext
-import net.minecraftforge.common.ToolType
-import net.minecraftforge.common.capabilities.CapabilityManager
 import phoenix.Phoenix
 import phoenix.init.PhoenixBlocks
 import phoenix.utils.block.ICustomGroup

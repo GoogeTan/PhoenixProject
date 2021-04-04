@@ -5,7 +5,6 @@ import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
 import net.minecraft.world.gen.surfacebuilders.ISurfaceBuilderConfig
-import java.util.function.Function
 
 
 /*

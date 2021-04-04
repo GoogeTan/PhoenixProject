@@ -3,7 +3,10 @@ package phoenix.network
 import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.network.PacketBuffer
-import phoenix.utils.*
+import phoenix.utils.Date
+import phoenix.utils.IPhoenixPlayer
+import phoenix.utils.readDate
+import phoenix.utils.writeDate
 
 class SyncBookPacket(var list : List<Pair<Int, Date>>): NetworkHandler.Packet()
 {

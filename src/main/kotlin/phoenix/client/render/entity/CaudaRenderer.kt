@@ -1,11 +1,9 @@
 package phoenix.client.render.entity
 
 import com.mojang.blaze3d.matrix.MatrixStack
-import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.Vector3f
 import net.minecraft.client.renderer.entity.EntityRendererManager
 import net.minecraft.client.renderer.entity.MobRenderer
-import net.minecraft.client.renderer.entity.layers.AbstractEyesLayer
 import net.minecraft.util.ResourceLocation
 import phoenix.Phoenix
 import phoenix.client.models.entity.CaudaModel

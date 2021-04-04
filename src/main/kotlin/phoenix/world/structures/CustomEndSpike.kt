@@ -10,7 +10,6 @@ import com.mojang.datafixers.types.DynamicOps
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
 import net.minecraft.entity.EntityType
-import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.IWorld
@@ -21,7 +20,6 @@ import net.minecraft.world.gen.feature.Feature
 import phoenix.world.StageManager.stageEnum
 import java.util.*
 import java.util.concurrent.TimeUnit
-import java.util.function.Function
 import java.util.stream.Collectors
 import java.util.stream.IntStream
 import javax.annotation.ParametersAreNonnullByDefault

@@ -1,13 +1,12 @@
 package phoenix.utils
 
 import net.minecraft.client.gui.FontRenderer
-import net.minecraft.client.gui.RenderComponentsUtil
 import net.minecraft.nbt.CompoundNBT
-import net.minecraft.util.ResourceLocation
-import net.minecraft.util.text.StringTextComponent
 import org.apache.commons.lang3.tuple.Pair
-import phoenix.client.gui.diaryPages.Chapters
-import phoenix.client.gui.diaryPages.elements.*
+import phoenix.client.gui.diaryPages.elements.ADiaryElement
+import phoenix.client.gui.diaryPages.elements.ImageElement
+import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement
+import phoenix.client.gui.diaryPages.elements.TextElement
 import phoenix.utils.StringUtils.toWords
 import java.util.*
 

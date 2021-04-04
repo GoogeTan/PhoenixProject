@@ -1,14 +1,10 @@
 package phoenix.client.gui.diaryPages
 
-import com.mojang.blaze3d.platform.GlStateManager
-import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
 import phoenix.client.gui.diaryPages.elements.ADiaryElement
 import phoenix.client.gui.diaryPages.elements.DiaryPage
 import phoenix.containers.DiaryContainer
-import sun.java2d.pipe.RenderBuffer
-import sun.java2d.pipe.RenderingEngine
 import java.util.*
 
 class DiaryBook(private val xSize: Int, private val ySize: Int, private val font: FontRenderer)

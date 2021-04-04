@@ -6,7 +6,6 @@ import net.minecraft.entity.EntityClassification
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.util.registry.Registry
-import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.Biome.SpawnListEntry
 import net.minecraft.world.biome.Biomes.*
 import net.minecraftforge.event.RegistryEvent.Register
@@ -21,9 +20,9 @@ import phoenix.init.PhoenixBlocks.BLOCKS
 import phoenix.init.PhoenixEntities.TALPA
 import phoenix.init.PhoenixFeatures
 import phoenix.init.PhoenixRecipes
+import phoenix.network.NetworkHandler
 import phoenix.utils.addStructure
 import phoenix.utils.addZirconiumOre
-import phoenix.network.NetworkHandler
 import phoenix.utils.block.ICustomGroup
 import phoenix.utils.block.INonItem
 import thedarkcolour.kotlinforforge.forge.ObjectHolderDelegate

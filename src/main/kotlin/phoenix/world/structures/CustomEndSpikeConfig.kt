@@ -6,7 +6,6 @@ import com.mojang.datafixers.types.DynamicOps
 import mcp.MethodsReturnNonnullByDefault
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.gen.feature.IFeatureConfig
-import java.util.function.IntFunction
 import java.util.stream.IntStream
 import java.util.stream.Stream
 import javax.annotation.ParametersAreNonnullByDefault

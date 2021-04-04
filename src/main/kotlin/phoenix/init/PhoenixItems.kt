@@ -3,9 +3,6 @@ package phoenix.init
 import net.minecraft.entity.Entity
 import net.minecraft.inventory.EquipmentSlotType
 import net.minecraft.item.*
-import net.minecraftforge.fml.RegistryObject
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
-import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
 import phoenix.Phoenix.Companion.ASH

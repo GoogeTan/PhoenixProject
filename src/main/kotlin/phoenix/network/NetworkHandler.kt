@@ -24,8 +24,7 @@ import java.util.function.Supplier
 
 object NetworkHandler
 {
-    private val CHANNEL = NetworkRegistry.newSimpleChannel(
-            ResourceLocation(Phoenix.MOD_ID, "network"), { "2.0" }, { true }) { true }
+    private val CHANNEL = NetworkRegistry.newSimpleChannel(ResourceLocation(Phoenix.MOD_ID, "network"), { "2.0" }, { true }) { true }
 
     fun init()
     {
@@ -33,6 +32,7 @@ object NetworkHandler
         registerPacket(SyncBookPacket(ArrayList()))
         registerPacket(SyncOvenPacket().javaClass)
         registerPacket(SyncFluidThinkPacket(FluidStack.EMPTY, BlockPos.ZERO).javaClass)
+        registerPacket(OpenCaudaInventoryPacket(0).javaClass)
     }
 
     private var id: Short = 0

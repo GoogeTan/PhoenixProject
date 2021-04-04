@@ -3,16 +3,11 @@ package phoenix.init
 import net.minecraft.entity.EntityClassification
 import net.minecraft.entity.EntityType
 import net.minecraft.util.ResourceLocation
-import net.minecraft.world.World
-import net.minecraftforge.fml.RegistryObject
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
-import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
 import phoenix.enity.CaudaEntity
 import phoenix.enity.KnifeEntity
 import phoenix.enity.TalpaEntity
-import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.DragonAshStageEntity
 import phoenix.enity.boss.DragonRedoStageEntity
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister

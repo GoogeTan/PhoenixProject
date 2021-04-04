@@ -20,7 +20,6 @@ import net.minecraftforge.fluids.FluidAttributes
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.IFluidHandler
-import phoenix.Phoenix
 import phoenix.Phoenix.Companion.REDO
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncFluidThinkPacket

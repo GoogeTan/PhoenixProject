@@ -4,9 +4,9 @@
   "package": "phoenix.mixin",
   "refmap": "mixins.phoenix.refmap.json",
   "mixins": [
+    "FurnaceResultSlotMixin",
     "MixinEntityPlayer",
-    "PotionBrewingMixin",
-    "FurnaceResultSlotMixin"
+    "PotionBrewingMixin"
   ],
   "client": [
     "MixinMainMenuScreen"

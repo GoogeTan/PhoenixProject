@@ -1,8 +1,6 @@
 package phoenix.init
 
 import net.minecraft.world.biome.Biome
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
-import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
 import phoenix.utils.GenerationUtils

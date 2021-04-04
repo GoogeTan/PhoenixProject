@@ -7,13 +7,11 @@ import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.util.Direction
-import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.capability.templates.FluidTank
 import phoenix.init.PhoenixTiles.PIPE
 import phoenix.tile.IFluidThing
 import phoenix.utils.block.PhoenixTile
 import phoenix.utils.getTileAt
-import kotlin.math.abs
 
 class PipeTile(maxCapacity : Int) : PhoenixTile<PipeTile>(PIPE), ITickableTileEntity, IFluidThing
 {
