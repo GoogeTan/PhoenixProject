@@ -47,9 +47,9 @@ import phoenix.network.SyncBookPacket
 import java.util.*
 import kotlin.math.roundToInt
 
-data class Tuple<M, V, K>(var first : V, var second : M, var third : K)
+data class Tuple<V, M, K>(var first : V, var second : M, var third : K)
 
-fun World.destroyBlock(pos : BlockPos, shouldDrop : Boolean, entity : Entity?, stack : ItemStack) : Boolean
+inline fun World.destroyBlock(pos : BlockPos, shouldDrop : Boolean, entity : Entity?, stack : ItemStack) : Boolean
 {
     val state = this.getBlockState(pos)
     return if (state.isAir(this, pos))
@@ -67,11 +67,11 @@ fun World.destroyBlock(pos : BlockPos, shouldDrop : Boolean, entity : Entity?, s
     }
 }
 
-fun JsonObject.getFloat(nameIn: String, fallback : Float)           = JSONUtils.getFloat (this, nameIn, fallback)
-fun JsonObject.getInt(nameIn: String)                               = JSONUtils.getInt   (this, nameIn)
-fun JsonObject.getString(nameIn: String, fallback : String): String = JSONUtils.getString(this, nameIn, fallback)
+inline fun JsonObject.getFloat(nameIn: String, fallback : Float)           = JSONUtils.getFloat (this, nameIn, fallback)
+inline fun JsonObject.getInt(nameIn: String)                               = JSONUtils.getInt   (this, nameIn)
+inline fun JsonObject.getString(nameIn: String, fallback : String): String = JSONUtils.getString(this, nameIn, fallback)
 
-fun JsonObject.readItemStack(nameIn: String): ItemStack
+inline fun JsonObject.readItemStack(nameIn: String): ItemStack
 {
     return if (get(nameIn).isJsonObject) ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(this, nameIn)) else
     {
@@ -80,7 +80,7 @@ fun JsonObject.readItemStack(nameIn: String): ItemStack
     }
 }
 
-fun ItemStack.getEnchantmentLevel(enchantment: Enchantment) = EnchantmentHelper.getEnchantmentLevel(enchantment, this)
+inline fun ItemStack.getEnchantmentLevel(enchantment: Enchantment) = EnchantmentHelper.getEnchantmentLevel(enchantment, this)
 
 fun IWorld.getDownHeight(pos : BlockPos, max: Int): BlockPos
 {
@@ -92,7 +92,7 @@ fun IWorld.getDownHeight(pos : BlockPos, max: Int): BlockPos
     return pos
 }
 
-fun Random.nextInt(min : Int, max : Int) = (min - 0.5 + this.nextDouble() * (max - min + 1)).roundToInt()
+inline fun Random.nextInt(min : Int, max : Int) = (min - 0.5 + this.nextDouble() * (max - min + 1)).roundToInt()
 
 fun PacketBuffer.writeDate(date : Date)
 {
@@ -101,14 +101,7 @@ fun PacketBuffer.writeDate(date : Date)
     this.writeLong(date.year)
 }
 
-fun PacketBuffer.readDate() : Date
-{
-    val res = Date(0, 0, 0)
-    res.minute = readLong()
-    res.day = readLong()
-    res.year = readLong()
-    return res;
-}
+inline fun PacketBuffer.readDate() : Date = Date(readLong(), readLong(), readLong())
 
 fun<T : TileEntity> create(tile: T, block: Block) : () -> TileEntityType<T> = { TileEntityType.Builder.create({ tile }, block).build(null) }
 
