@@ -5,6 +5,7 @@ import net.minecraft.block.FlowingFluidBlock
 import net.minecraft.entity.EntityClassification
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
+import net.minecraft.tags.BlockTags
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.biome.Biome.SpawnListEntry
 import net.minecraft.world.biome.Biomes.*
@@ -18,7 +19,9 @@ import phoenix.Phoenix
 import phoenix.Phoenix.Companion.ASH
 import phoenix.init.PhoenixBiomes.HEARTVOID
 import phoenix.init.PhoenixBiomes.UNDER
+import phoenix.init.PhoenixBlocks
 import phoenix.init.PhoenixBlocks.BLOCKS
+import phoenix.init.PhoenixEntities.CAUDA
 import phoenix.init.PhoenixEntities.TALPA
 import phoenix.init.PhoenixFeatures
 import phoenix.init.PhoenixRecipes
@@ -53,7 +56,7 @@ object PhoenixCommonEvents
     {
         NetworkHandler.init()
         PhoenixRecipes.register()
-        //UNDER    .get().addSpawn(EntityClassification.CREATURE, SpawnListEntry(CAUDA, 15, 1, 3))
+        UNDER.addSpawn(EntityClassification.CREATURE, SpawnListEntry(CAUDA, 15, 1, 1))
         HEARTVOID.addSpawn(EntityClassification.CREATURE, SpawnListEntry(TALPA, 15, 1, 4))
         END_HIGHLANDS.addStructure(PhoenixFeatures.REMAINS)
         HEARTVOID.addStructure(PhoenixFeatures.REMAINS)
@@ -69,15 +72,4 @@ object PhoenixCommonEvents
             }
         }
     }
-    /*
-    @SubscribeEvent
-    fun attachEnergy(event : AttachCapabilitiesEvent<TileEntity>)
-    {
-        val value = event.`object`
-        if(value is PipeTile)
-        {
-            event.addCapability(ResourseUtils.key("energy"), EnergyStorageProvider())
-        }
-    }
-    */
 }

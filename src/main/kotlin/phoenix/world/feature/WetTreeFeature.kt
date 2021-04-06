@@ -1,7 +1,6 @@
 package phoenix.world.feature
 
 import com.mojang.datafixers.Dynamic
-import net.minecraft.block.Blocks
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IWorld
 import net.minecraft.world.gen.ChunkGenerator
@@ -9,7 +8,6 @@ import net.minecraft.world.gen.GenerationSettings
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.NoFeatureConfig
 import phoenix.init.PhoenixBlocks
-import java.lang.Math.abs
 import java.util.*
 import java.util.function.Function
 
@@ -32,11 +30,14 @@ class WetTreeFeature : Feature<NoFeatureConfig>(Function { dyn: Dynamic<*>? -> N
             else
                 startPos = startPos.down()
         startPos = startPos.up()
-        var prevPos = startPos
-        while (worldIn.isAirBlock(prevPos))
-            if(prevPos.y > 58) return false
+        var endPos = startPos
+        while (worldIn.isAirBlock(endPos))
+        {
+            if(endPos.y > 58)
+                return false
             else
-                prevPos = prevPos.up()
+                endPos = endPos.up()
+        }
         startPos = startPos.down()
         do
         {
@@ -47,7 +48,7 @@ class WetTreeFeature : Feature<NoFeatureConfig>(Function { dyn: Dynamic<*>? -> N
 
             startPos = startPos.up()
         }
-        while (worldIn.isAirBlock(startPos) && startPos.y <= prevPos.y)
+        while (worldIn.isAirBlock(startPos) && startPos.y <= endPos.y)
 
         return true
     }

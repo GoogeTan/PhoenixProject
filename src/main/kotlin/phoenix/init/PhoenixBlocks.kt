@@ -30,7 +30,7 @@ object PhoenixBlocks
     val PIPE              by  BLOCKS.register("pipe",              ::PipeBlock            )
     val TANK              by  BLOCKS.register("tank"             ) { TankBlock            }
     val FERTILE_END_STONE by  BLOCKS.register("fertile_end_stone") { FertileEndStoneBlock }
-    val ANTI_AIR: AirBlock by  BLOCKS.register("anti_air"        ) { object : AirBlock(Properties.create(Material.AIR).doesNotBlockMovement().noDrops().notSolid()), INonItem {} }
+    val ANTI_AIR: AirBlock by BLOCKS.register("anti_air"        ) { object : AirBlock(Properties.create(Material.AIR).doesNotBlockMovement().noDrops().notSolid()), INonItem {} }
     val POTTERY_BARREL    by  BLOCKS.register("pottery_barrel",    ::PotteryBarrelBlock   )
     val ELECTRIC_BARREL   by  BLOCKS.register("electric_barrel",   ::ElectricBarrelBlock  )
     val END_STONE_COLUMN  by  BLOCKS.register("end_stone_column" ) { RotatedPillarBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0f))  }
@@ -42,7 +42,6 @@ object PhoenixBlocks
     val WET_LOG           by  BLOCKS.register("wet_log"          ) { WetLogBlock   }
     val DIED_WET_LOG: RotatedPillarBlock by BLOCKS.register("died_wet_log"     ) { object : RotatedPillarBlock(Properties.create(Material.WOOD).hardnessAndResistance(3.0f)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
     val WET_PLANKS: Block by  BLOCKS.register("wet_planks") { object : Block(Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
-
 
     fun register() = BLOCKS.register(MOD_BUS)
 }
