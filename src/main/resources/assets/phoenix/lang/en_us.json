@@ -69,6 +69,10 @@
   "block.phoenix.zirconium_ore": "Zirconium ore",
   "block.phoenix.armored_glass": "Armored glass",
   "block.phoenix.seta": "Seta",
+  "block.phoenix.wet_log": "Wet log",
+  "block.phoenix.died_wet_log": "Died wet log",
+  "block.phoenix.block_with_text": "Block with text",
+  "block.phoenix.wet_planks": "Wet planks",
 
 
   "advancements.phoenix.ash.ash.title": "Ash",

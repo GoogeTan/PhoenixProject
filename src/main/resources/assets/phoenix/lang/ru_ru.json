@@ -63,6 +63,11 @@
   "block.phoenix.zirconium_ore": "Руда циркония",
   "block.phoenix.armored_glass": "Укреплённое стекло",
   "block.phoenix.seta": "Сета",
+  "block.phoenix.wet_log": "Мокрое бревно",
+  "block.phoenix.died_wet_log": "Мертвое мокрое бревно",
+  "block.phoenix.block_with_text": "Блок с надписями",
+  "block.phoenix.wet_planks": "Мокрые доски",
+
 
   "advancements.phoenix.ash.ash.title": "Пепел",
   "advancements.phoenix.ash.ash.title.description": "И тут начинается история",

@@ -2,7 +2,7 @@ modLoader="kotlinforforge"
 loaderVersion="[1.3,)"
 [[mods]]
 modId="phoenix"
-version="ASH-0.1.2B"
+version="REDO-0.0.0.1B"
 displayName="Project Phoenix"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/phoenix-project"
 credits="Hohserg, Krokodil, Liahim, Landex and you, for help me"

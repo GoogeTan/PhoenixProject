@@ -156,7 +156,7 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO).hard
 
     override fun getBlockColor() = IBlockColor { _: BlockState, _: ILightReader?, _: BlockPos?, _: Int -> Material.WATER.color.colorValue }
     override fun getItemColor() = IItemColor { _: ItemStack, _: Int -> Material.WATER.color.colorValue }
-    override fun getDrops(state: BlockState, builder: LootContext.Builder) = SizedArrayList.of(ItemStack(this))
+    override fun getDrops(state: BlockState, builder: LootContext.Builder) = listOf(ItemStack(this))
 
     companion object
     {

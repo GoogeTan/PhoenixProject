@@ -21,16 +21,7 @@ object ArmoredGlassBlock : AbstractGlassBlock(
     Properties.create(Material.GLASS).doesNotBlockMovement().hardnessAndResistance(20.0f).harvestLevel(3).harvestTool(
         ToolType.PICKAXE).sound(SoundType.GLASS)), ICustomGroup
 {
-    override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape = VoxelShapes.fullCube()
-    override fun getCollisionShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape =  VoxelShapes.fullCube();
+    override fun getDrops(state: BlockState, builder: LootContext.Builder): List<ItemStack> = listOf(ItemStack(PhoenixBlocks.ARMORED_GLASS))
 
-    override fun getDrops(state: BlockState, builder: LootContext.Builder): MutableList<ItemStack>
-    {
-        val res = ArrayList<ItemStack>()
-        res.add(ItemStack(PhoenixBlocks.ARMORED_GLASS))
-        return res
-    }
-
-    override val tab: ItemGroup
-        get() = Phoenix.REDO
+    override val tab: ItemGroup = Phoenix.REDO
 }

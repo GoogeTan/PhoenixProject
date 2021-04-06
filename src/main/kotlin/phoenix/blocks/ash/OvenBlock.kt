@@ -162,7 +162,7 @@ class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hard
         }
     }
 
-    override fun getDrops(state: BlockState, builder: LootContext.Builder): List<ItemStack> = SizedArrayList.of(ItemStack(this))
+    override fun getDrops(state: BlockState, builder: LootContext.Builder): List<ItemStack> = listOf(ItemStack(this))
 
     override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext) = SHAPE
     override fun getCollisionShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext) = SHAPE

@@ -14,9 +14,7 @@ object PhoenixBiomes
     val BIOMES = KDeferredRegister(ForgeRegistries.BIOMES, Phoenix.MOD_ID)
 
     val UNDER     by BIOMES.register("under", ::UnderBiome)
-    val HEARTVOID by BIOMES.register("heart_void", ::HeartVoidBiome)
+    val HEARTVOID by BIOMES.register("heart_void") { object : Biome(GenerationUtils.defaultSettingsForEnd(Builders.HEARTVOID, Builders.HEARTVOID_CONFIG)){} }
 
     fun register() =  BIOMES.register(MOD_BUS)
 }
-
-class HeartVoidBiome : Biome(GenerationUtils.defaultSettingsForEnd(Builders.HEARTVOID, Builders.HEARTVOID_CONFIG))
