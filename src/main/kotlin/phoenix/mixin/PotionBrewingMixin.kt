@@ -16,11 +16,15 @@ import phoenix.utils.LogManager.error
 @Mixin(PotionBrewing::class)
 class PotionBrewingMixin
 {
-    @Inject(method = ["init"], at = [At("TAIL")])
-    private fun init(ci: CallbackInfo)
+    private companion object
     {
-        error("PotionBrewingMixin", "Mixed!")
-        PotionBrewing.addMix(Potions.MUNDANE, GOLDEN_SETA, LEVITATION)
-        PotionBrewing.addMix(LEVITATION, Items.REDSTONE, LONG_LEVITATION)
+        @Inject(method = ["init"], at = [At("TAIL")])
+        @JvmStatic
+        private fun init(ci: CallbackInfo)
+        {
+            error("PotionBrewingMixin", "Mixed!")
+            PotionBrewing.addMix(Potions.MUNDANE, GOLDEN_SETA, LEVITATION)
+            PotionBrewing.addMix(LEVITATION, Items.REDSTONE, LONG_LEVITATION)
+        }
     }
 }

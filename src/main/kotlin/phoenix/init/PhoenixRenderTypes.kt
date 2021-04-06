@@ -18,7 +18,6 @@ object PhoenixRenderTypes
     lateinit var tankTexture : RenderType
     lateinit var pipeTexture : RenderType
     val          eyesTexture : RenderType = RenderType.getEyes(ResourceLocation("phoenix", "textures/entity/cauda/cauda_eyes.png"))
-
     fun init()
     {
         tankTexture = initTexture(block("tank"), "tank")
@@ -27,14 +26,17 @@ object PhoenixRenderTypes
 
     fun initTexture(path: ResourceLocation, name: String): RenderType
     {
-        mc.getTextureManager().loadTexture(path, SimpleTexture(path))
-        return createType(name,
+        //mc.getTextureManager().loadTexture(path, SimpleTexture(path))
+        return createType(
+            name,
             RenderType.State.getBuilder()
                 .shadeModel(RenderState.SHADE_ENABLED)
                 .lightmap(RenderState.LIGHTMAP_ENABLED)
                 .texture(RenderState.TextureState(path, false, false))
-                .alpha(RenderState.HALF_ALPHA).build(true))
+                .alpha(RenderState.HALF_ALPHA).build(true)
+        )
     }
 
+    @OnlyIn(Dist.CLIENT)
     private fun createType(name: String, state: RenderType.State) = RenderType.makeType(key(name).toString(), DefaultVertexFormats.POSITION_COLOR_TEX, GL11.GL_QUADS, 32768, false, false, state)
 }

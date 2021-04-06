@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y":  { "model": "phoenix:block/died_wet_log" },
+    "axis=z":   { "model": "phoenix:block/died_wet_log", "x": 90 },
+    "axis=x":   { "model": "phoenix:block/died_wet_log", "x": 90, "y": 90 }
+  }
+}

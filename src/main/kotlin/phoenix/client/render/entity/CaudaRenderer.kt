@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.entity.MobRenderer
 import net.minecraft.util.ResourceLocation
 import phoenix.Phoenix
 import phoenix.client.models.entity.CaudaModel
-import phoenix.client.render.SimpleEyesLayer
 import phoenix.enity.CaudaEntity
 import phoenix.init.PhoenixRenderTypes
 import javax.annotation.Nonnull
@@ -38,6 +37,7 @@ class CaudaRenderer(renderManager: EntityRendererManager) : MobRenderer<CaudaEnt
     init
     {
         addLayer(SimpleEyesLayer(this, PhoenixRenderTypes.eyesTexture))
+        addLayer(CaudaArmorLayer(this))
     }
 }
 

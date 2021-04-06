@@ -24,10 +24,6 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
     private val chaptersSet: MutableSet<Int> = HashSet()
     var chapters = ArrayList<Pair<Int, Date>>()
 
-    @Shadow
-    abstract fun getRidingEntity(): Entity?
-
-
     @Inject(method = ["writeAdditional"], at = [At("TAIL")])
     fun onWriteEntityToNBT(nbt: CompoundNBT, ci: CallbackInfo?)
     {
@@ -85,6 +81,4 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
     {
         return hasChapter(ch.id)
     }
-
-    override fun isOnCauda(): Boolean = getRidingEntity() is CaudaEntity
 }

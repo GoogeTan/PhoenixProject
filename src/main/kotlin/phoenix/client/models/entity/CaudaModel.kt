@@ -11,7 +11,7 @@ class CaudaModel : EntityModel<CaudaEntity>()
 {
     private val body    : ModelRenderer
     private val saddle  : ModelRenderer
-    private val head    : ModelRenderer
+    val head    : ModelRenderer
     private val jaw     : ModelRenderer
     private val wingLT  : ModelRenderer
     private val wingLT2 : ModelRenderer
