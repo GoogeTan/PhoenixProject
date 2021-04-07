@@ -1,15 +1,19 @@
 REDO-0.0.0.1B
- Fix:
+ Fixed:
   Remains generation
-  Blocks's hardness and resistance
+  Block's hardness and resistance
+  Block's drops
  Added:
   Wet log block
   Died wet log block
   Wet planks block
   Died wet planks block
   Wet tree generation
+  Tank block
+  Pipe block
   Cauda entity
   Cauda armor: ceramic and steel items
+  Beautiful soundtrack
 ASH-0.1.2.5B
   Fix localisation
   Fix seta growing

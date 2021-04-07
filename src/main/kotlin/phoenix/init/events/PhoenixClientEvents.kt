@@ -1,5 +1,6 @@
 package phoenix.init.events
 
+import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderTypeLookup
 import net.minecraft.util.text.TextFormatting.*
@@ -28,6 +29,7 @@ import phoenix.init.PhoenixEntities.TALPA
 import phoenix.init.PhoenixRenderTypes
 import phoenix.init.PhoenixTiles
 import phoenix.network.NetworkHandler
+import phoenix.other.MusicTicker
 import phoenix.utils.StringUtils
 import phoenix.utils.block.IColoredBlock
 import phoenix.utils.mc
@@ -76,10 +78,7 @@ object PhoenixClientEvents
         splashes.possibleSplashes.add("$AQUA Still, the first enemy of human is itself.") // Reference to: Neon Genesis Evangelion
         splashes.possibleSplashes.add("$WHITE The hands of the clock cannot be turned back.$WHITE But it is in our power to move them forward!") // Reference to: Neon Genesis Evangelion
         splashes.possibleSplashes.add("$RED Where are the fixes, Lebowski?") // Reference to: The Big Lebowski
-    }
 
-    fun playerEvent(event: RenderPlayerEvent.Pre)
-    {
-        event;
+        mc.musicTicker = MusicTicker(mc.musicTicker)
     }
 }

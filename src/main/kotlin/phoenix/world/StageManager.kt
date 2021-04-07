@@ -2,11 +2,13 @@ package phoenix.world
 
 import net.minecraft.block.Blocks
 import net.minecraft.block.PaneBlock
+import net.minecraft.client.audio.MusicTicker
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.IWorld
 import phoenix.init.PhoenixBlocks.ARMORED_GLASS
+import phoenix.utils.PhoenixMusicTracks
 import phoenix.world.structures.CustomEndSpike
 import kotlin.math.min
 
@@ -117,6 +119,8 @@ object StageManager
                     }
                 }
             }
+
+            override val music: MusicTicker.MusicType = MusicTicker.MusicType.END
         },
         REDO
         {
@@ -145,6 +149,7 @@ object StageManager
                     }
                 }
             }
+            override val music: MusicTicker.MusicType = PhoenixMusicTracks.REDO_MUSIC
         },
         REBIRTH
         {
@@ -152,6 +157,7 @@ object StageManager
             {
                 ASH.createTower(future, world, spike)
             }
+            override val music: MusicTicker.MusicType = REDO.music
         },
         AIR
         {
@@ -159,8 +165,10 @@ object StageManager
             {
                 ASH.createTower(future, world, spike)
             }
+            override val music: MusicTicker.MusicType = REBIRTH.music
         };
 
         abstract fun createTower(future: CustomEndSpike, world: IWorld, spike: CustomEndSpike.EndSpike)
+        abstract val music : MusicTicker.MusicType
     }
 }
