@@ -120,9 +120,6 @@ object RemainsPieces
             setup(template, templatePosition, placementsettings)
         }
 
-        /**
-         * (abstract) Helper method to read subclass data from NBT
-         */
         override fun readAdditional(tagCompound: CompoundNBT)
         {
             super.readAdditional(tagCompound)
@@ -143,9 +140,6 @@ object RemainsPieces
             }
         }
 
-        /**
-         * Create Structure Piece
-         */
         override fun create(worldIn: IWorld, chunkGeneratorIn: ChunkGenerator<*>, randomIn: Random, mutableBoundingBoxIn: MutableBoundingBox, chunkPosIn: ChunkPos): Boolean
         {
             return super.create(worldIn, chunkGeneratorIn, randomIn, mutableBoundingBoxIn, chunkPosIn)

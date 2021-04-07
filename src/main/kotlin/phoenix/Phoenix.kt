@@ -31,6 +31,7 @@ class Phoenix
         val specPair = ForgeConfigSpec.Builder().configure(::Common)
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, specPair.right)
         PhoenixConfiguration.COMMON_CONFIG = specPair.left
+        StaticInit.init()
     }
 
     companion object
