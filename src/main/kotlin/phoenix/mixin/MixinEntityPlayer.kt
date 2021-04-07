@@ -1,22 +1,16 @@
 package phoenix.mixin
 
-import net.minecraft.entity.Entity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.nbt.CompoundNBT
 import org.spongepowered.asm.mixin.Mixin
-import org.spongepowered.asm.mixin.Shadow
 import org.spongepowered.asm.mixin.injection.At
 import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
 import phoenix.client.gui.diaryPages.Chapters
-import phoenix.enity.CaudaEntity
 import phoenix.utils.Date
 import phoenix.utils.IPhoenixPlayer
-import phoenix.utils.LogManager.log
 import java.util.*
 import kotlin.collections.HashSet
-import kotlin.collections.MutableSet
-import kotlin.collections.indices
 
 @Mixin(PlayerEntity::class)
 abstract class MixinEntityPlayer : IPhoenixPlayer
@@ -27,7 +21,6 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
     @Inject(method = ["writeAdditional"], at = [At("TAIL")])
     fun onWriteEntityToNBT(nbt: CompoundNBT, ci: CallbackInfo?)
     {
-        log(this, "Player starts saving")
         nbt.putInt("count", chapters.size)
         for (i in chapters.indices)
         {
@@ -36,13 +29,11 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
             nbt.putLong("chday$i", chapters[i].second.day)
             nbt.putLong("chyear$i", chapters[i].second.year)
         }
-        log(this, "Player ends saving")
     }
 
     @Inject(method = ["readAdditional"], at = [At("TAIL")])
     fun onReadEntityFromNBT(nbt: CompoundNBT, ci: CallbackInfo?)
     {
-        log(this, "Player starts loading")
         val count = nbt.getInt("count")
         for (i in 0 until count)
         {
@@ -53,7 +44,6 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
             addChapter(id, Date(min, day, year))
         }
         if (chapters.isEmpty()) addChapter(0, Date(795 % 12000 / 100, 2005 % 319, 2005 / 319))
-        log(this, "Player ends loading")
     }
 
     @Deprecated("") //Use addChapter(Chapters)

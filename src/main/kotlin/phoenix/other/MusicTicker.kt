@@ -3,6 +3,7 @@ package phoenix.other
 import net.minecraft.client.audio.MusicTicker
 import net.minecraft.client.audio.MusicTicker.MusicType
 import net.minecraft.util.math.MathHelper
+import phoenix.utils.LogManager
 import phoenix.utils.mc
 import phoenix.world.StageManager
 import kotlin.math.min
@@ -20,9 +21,10 @@ class MusicTicker(old : MusicTicker) : MusicTicker(mc)
     override fun tick()
     {
         val music = getMusicType()
+        LogManager.error(this, music?.sound.toString())
         if (currentMusic != null)
         {
-            if (music.sound.name != currentMusic.soundLocation)
+            if (music!!.sound.name != currentMusic.soundLocation)
             {
                 client.getSoundHandler().stop(currentMusic)
                 timeUntilNextMusic = MathHelper.nextInt(random, 0, music.minDelay / 2)
@@ -37,16 +39,16 @@ class MusicTicker(old : MusicTicker) : MusicTicker(mc)
             }
         }
 
-        timeUntilNextMusic = min(timeUntilNextMusic, music.maxDelay)
+        timeUntilNextMusic = min(timeUntilNextMusic, music?.maxDelay?:24000)
         if (currentMusic == null && timeUntilNextMusic-- <= 0)
         {
             play(music)
         }
     }
 
-    private fun getMusicType() : MusicType
+    private fun getMusicType() : MusicType?
     {
-        val selector: MusicType = client.ambientMusicType
+        val selector: MusicType? = client.ambientMusicType
         return if(selector == MusicType.END) StageManager.stageEnum.music else selector
     }
 }
