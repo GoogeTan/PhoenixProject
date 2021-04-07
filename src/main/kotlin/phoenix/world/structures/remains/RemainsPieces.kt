@@ -138,7 +138,7 @@ object RemainsPieces
                 val tileentity = worldIn.getTileEntity(pos.down())
                 if (tileentity is ChestTileEntity)
                 {
-                    tileentity.setLootTable(PhoenixLootTables.REMAINS, rand.nextLong())
+                    tileentity.setLootTable(PhoenixLootTables.REMAINS_LOOTTABLE, rand.nextLong())
                 }
             }
         }

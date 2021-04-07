@@ -1,9 +1,21 @@
-0.1.2.5B
+REDO-0.0.0.1B
+ Fix:
+  Remains generation
+  Blocks's hardness and resistance
+ Added:
+  Wet log block
+  Died wet log block
+  Wet planks block
+  Died wet planks block
+  Wet tree generation
+  Cauda entity
+  Cauda armor: ceramic and steel items
+ASH-0.1.2.5B
   Fix localisation
   Fix seta growing
-0.1.2B
+ASH-0.1.2B
   Fix mixin loading
-0.1B
+ASH-0.1B
 Added:
   Seta block
   Oven block
