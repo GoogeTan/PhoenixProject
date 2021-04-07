@@ -16,12 +16,17 @@ import net.minecraftforge.common.ToolType
 import phoenix.Phoenix
 import phoenix.init.PhoenixBlocks
 import phoenix.utils.block.ICustomGroup
+import phoenix.utils.block.IRedoThink
 
 object ArmoredGlassBlock : AbstractGlassBlock(
     Properties.create(Material.GLASS).doesNotBlockMovement().hardnessAndResistance(20.0f).harvestLevel(3).harvestTool(
-        ToolType.PICKAXE).sound(SoundType.GLASS)), ICustomGroup
+        ToolType.PICKAXE).sound(SoundType.GLASS)), IRedoThink
 {
     override fun getDrops(state: BlockState, builder: LootContext.Builder): List<ItemStack> = listOf(ItemStack(PhoenixBlocks.ARMORED_GLASS))
 
-    override val tab: ItemGroup = Phoenix.REDO
+    override fun isNormalCube(state: BlockState?, worldIn: IBlockReader?, pos: BlockPos?): Boolean = true
+
+    override fun getCollisionShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape = VoxelShapes.fullCube()
+
+    override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape = VoxelShapes.fullCube()
 }

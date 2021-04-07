@@ -44,6 +44,7 @@ import phoenix.client.gui.diaryPages.Chapters
 import phoenix.init.PhoenixBlocks
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncBookPacket
+import java.lang.NullPointerException
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -99,6 +100,32 @@ fun PacketBuffer.writeDate(date : Date)
     this.writeLong(date.minute)
     this.writeLong(date.day)
     this.writeLong(date.year)
+}
+
+inline fun<T : Number> min(vararg vals : T) : T
+{
+    if(vals.isEmpty())
+        throw NullPointerException()
+    var res : T = vals[0]
+    for(i in vals)
+    {
+        if(i.toDouble() < res.toDouble())
+            res = i
+    }
+    return res
+}
+
+inline fun<T : Number> max(vararg vals : T) : T
+{
+    if(vals.isEmpty())
+        throw NullPointerException()
+    var res : T = vals[0]
+    for(i in vals)
+    {
+        if(i.toDouble() > res.toDouble())
+            res = i
+    }
+    return res
 }
 
 inline fun PacketBuffer.readDate() : Date = Date(readLong(), readLong(), readLong())

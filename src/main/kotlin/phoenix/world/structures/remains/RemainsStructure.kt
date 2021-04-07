@@ -15,12 +15,7 @@ import net.minecraft.world.gen.feature.template.TemplateManager
 import phoenix.world.structures.remains.RemainsPieces.init
 import java.util.function.Function
 
-class RemainsStructure :
-    ScatteredStructure<NoFeatureConfig>(Function { p_214639_0_: Dynamic<*> ->
-        NoFeatureConfig.deserialize(
-            p_214639_0_
-        )
-    })
+class RemainsStructure : ScatteredStructure<NoFeatureConfig>(Function { p_214639_0_: Dynamic<*> -> NoFeatureConfig.deserialize(p_214639_0_) })
 {
     override fun getStructureName(): String = "Remains"
 
@@ -28,10 +23,7 @@ class RemainsStructure :
 
     override fun getStartFactory(): IStartFactory
     {
-        return IStartFactory{
-                structure: Structure<*>, chunkPosX: Int, chunkPosZ: Int, mbb: MutableBoundingBox, references: Int, seed: Long ->
-            Start(structure, chunkPosX, chunkPosZ, mbb, references, seed)
-        }
+        return IStartFactory{ structure: Structure<*>, chunkPosX: Int, chunkPosZ: Int, mbb: MutableBoundingBox, references: Int, seed: Long -> Start(structure, chunkPosX, chunkPosZ, mbb, references, seed) }
     }
 
     override fun getSeedModifier(): Int = 14357618
@@ -48,7 +40,7 @@ class RemainsStructure :
         {
             val i = chunkX * 16
             val j = chunkZ * 16
-            val blockpos = BlockPos(i, 90, j)
+            val blockpos = BlockPos(i, RemainsPieces.getYPosForStructure(chunkX, chunkZ, generator) - 3, j)
             val rotation = Rotation.values()[rand.nextInt(Rotation.values().size)]
             init(generator, templateManagerIn, blockpos, rotation, components, rand)
             recalculateStructureSize()

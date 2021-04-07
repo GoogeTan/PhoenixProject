@@ -11,6 +11,7 @@ import net.minecraft.world.biome.Biome.SpawnListEntry
 import net.minecraft.world.biome.Biomes.*
 import net.minecraft.world.gen.GenerationStage
 import net.minecraft.world.gen.feature.IFeatureConfig
+import net.minecraftforge.common.data.ForgeBlockTagsProvider
 import net.minecraftforge.event.RegistryEvent.Register
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
@@ -59,9 +60,9 @@ object PhoenixCommonEvents
         UNDER.addSpawn(EntityClassification.CREATURE, SpawnListEntry(CAUDA, 15, 1, 1))
         HEARTVOID.addSpawn(EntityClassification.CREATURE, SpawnListEntry(TALPA, 15, 1, 4))
         END_HIGHLANDS.addStructure(PhoenixFeatures.REMAINS)
-        HEARTVOID.addStructure(PhoenixFeatures.REMAINS)
-        HEARTVOID.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, PhoenixFeatures.WET_TREE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG))
         UNDER.addStructure(PhoenixFeatures.REMAINS)
+        HEARTVOID.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, PhoenixFeatures.WET_TREE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG))
+
 
         for (biome in Registry.BIOME)
         {
