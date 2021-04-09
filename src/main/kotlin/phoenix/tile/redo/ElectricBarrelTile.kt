@@ -12,10 +12,11 @@ import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import phoenix.blocks.ash.PotteryBarrelBlock
 import phoenix.init.PhoenixTiles
+import phoenix.tile.ash.OvenTile
 import phoenix.utils.block.PhoenixTile
 import java.io.IOException
 
-class ElectricBarrelTile : PhoenixTile<ElectricBarrelTile>(PhoenixTiles.ELECTRIC_BARREL), IInventory, ITickableTileEntity
+class ElectricBarrelTile : PhoenixTile<OvenTile>(PhoenixTiles.OVEN), IInventory, ITickableTileEntity
 {
     var jumpsCount = 0
     override fun tick()
@@ -114,10 +115,7 @@ class ElectricBarrelTile : PhoenixTile<ElectricBarrelTile>(PhoenixTiles.ELECTRIC
         inventory = stack
     }
 
-    override fun isUsableByPlayer(player: PlayerEntity): Boolean
-    {
-        return true
-    }
+    override fun isUsableByPlayer(player: PlayerEntity) = true
 
     override fun clear()
     {
@@ -126,14 +124,12 @@ class ElectricBarrelTile : PhoenixTile<ElectricBarrelTile>(PhoenixTiles.ELECTRIC
 
     internal class UpdatePacket(var jumpsCount: Int) : SUpdateTileEntityPacket()
     {
-        @Throws(IOException::class)
         override fun readPacketData(buf: PacketBuffer)
         {
             super.readPacketData(buf)
             jumpsCount = buf.readInt()
         }
 
-        @Throws(IOException::class)
         override fun writePacketData(buf: PacketBuffer)
         {
             super.writePacketData(buf)
