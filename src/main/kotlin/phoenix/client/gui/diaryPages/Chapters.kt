@@ -1,41 +1,26 @@
 package phoenix.client.gui.diaryPages
 
+import net.minecraft.client.resources.I18n
+
 val idToChapter : HashMap<Int, Chapters> = HashMap()
 
-enum class Chapters(var id: Int, var type : ChapterType)
+enum class Chapters(var id: Int, var type : ChapterType, val chapterName : String)
 {
-    FIRST_DAY(0, ChapterType.THOUGHT)
-    {
-        override fun getText() =
-            "И вот я решил писать дневник. Теперь здесь будут записи о ключевых событиях в моей жизни, заметки и идеи." +
-                    "Ну что еще тут написать? Пока все."
-    },
-    STEEL(1, ChapterType.THOUGHT)
-    {
-        override fun getText() = "Интересно, железо достаточно хрупко, но что если выплавлять его вместе с другими " +
-                "материалами? Но для этого мне понадобится тара... Думаю горшок из качественной глины подойдет."
-    },
-    CLAY(2, ChapterType.THOUGHT)
-    {
-        override fun getText() = "Как оказалось, использовать обычную глину не выйдет. Результат годится только цветы растить. " +
-                "Нужна более чистая и однородная глина... Чтоб ее отчистить мне пригодится бочка и вода. А вот из нее буду делать " +
-                "горшок. Назову это тигелем."
-    },
-    OVEN(3, ChapterType.THOUGHT)
-    {
-        override fun getText() = "В обыкновенной печи не хватит температур, для взаимодействия железа и угля... " +
-                "Нужно придумать печку потеплее"
-    };
+    FIRST_DAY(0, ChapterType.THOUGHT, "at_start"),
+    STEEL(1, ChapterType.THOUGHT, "steel"),
+    CLAY(2, ChapterType.THOUGHT, "clay"),
+    OVEN(3, ChapterType.THOUGHT, "oven"),
+    REDO(4, ChapterType.THOUGHT, "redo");
 
-    abstract fun getText(): String
+    fun getText() : String = I18n.format("phoenix.book.$chapterName")
 
     init
     {
         idToChapter[id] = this
     }
-}
 
-enum class ChapterType
-{
-    THOUGHT, CHAPTER;
+    enum class ChapterType
+    {
+        THOUGHT, LIST;
+    }
 }
