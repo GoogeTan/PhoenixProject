@@ -48,7 +48,7 @@ object PhoenixClientEvents
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.PIPE, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.TANK, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.ARMORED_GLASS, RenderType.getCutoutMipped())
-        RenderTypeLookup.setRenderLayer(PhoenixBlocks.TEXT_BLOCK,    RenderType.getCutoutMipped())
+        //RenderTypeLookup.setRenderLayer(PhoenixBlocks.TEXT_BLOCK,    RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhoenixBlocks.WET_LOG, RenderType.getCutoutMipped())
         RenderingRegistry.registerEntityRenderingHandler(TALPA, ::TalpaRenderer)
         RenderingRegistry.registerEntityRenderingHandler(CAUDA, ::CaudaRenderer)
@@ -56,7 +56,7 @@ object PhoenixClientEvents
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.PIPE, ::PipeRender)
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK, ::TankRenderer)
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.OVEN, ::OvenRenderer)
-        ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TEXT, ::TextRenderer)
+        //ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TEXT, ::TextRenderer)
 
         // регистрация цветных блоков
         for (block in BLOCKS.getEntries())

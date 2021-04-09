@@ -51,6 +51,7 @@
   "item.phoenix.steel_axe": "Steel axe",
   "item.phoenix.steel_pickaxe": "Steel pickaxe",
   "item.phoenix.steel_sword": "Steel sword",
+  "item.phoenix.steel_cauda_armor": "Steel cauda armor",
 
   "block.phoenix.fragileblock": "Fragile Block",
   "block.phoenix.updater": "Updater",
@@ -110,8 +111,12 @@
 
   "advancements.phoenix.redo.root.title": "Redo",
   "advancements.phoenix.redo.root.title.description": "Ohhh... It becomes move interesting :>",
+
   "advancements.phoenix.redo.seta": "Why not eat some strange mushrooms?",
   "advancements.phoenix.redo.seta.description": "Find some seta",
+
+  "advancements.phoenix.redo.cauda": "Run the sky!",
+  "advancements.phoenix.redo.cauda.description": "Drive a cauda",
 
   "phoenix.message.speare": "Использует систему боя из 1.8",
   "phoenix.jei.category.oven": "Oven",

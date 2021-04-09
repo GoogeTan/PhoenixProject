@@ -32,12 +32,12 @@ object PhoenixBlocks
     val FERTILE_END_STONE by  BLOCKS.register("fertile_end_stone") { FertileEndStoneBlock }
     val ANTI_AIR: AirBlock by BLOCKS.register("anti_air"        ) { object : AirBlock(Properties.create(Material.AIR).doesNotBlockMovement().noDrops().notSolid()), INonItem {} }
     val POTTERY_BARREL    by  BLOCKS.register("pottery_barrel",    ::PotteryBarrelBlock   )
-    val ELECTRIC_BARREL   by  BLOCKS.register("electric_barrel",   ::ElectricBarrelBlock  )
+    //val ELECTRIC_BARREL   by  BLOCKS.register("electric_barrel",   ::ElectricBarrelBlock  )
     val END_STONE_COLUMN  by  BLOCKS.register("end_stone_column" ) { RotatedPillarBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0f))  }
     val OVEN              by  BLOCKS.register("oven",              ::OvenBlock            )
     val SETA              by  BLOCKS.register("seta"             ) { SetaBlock            }
     val ZIRCONIUM         by  BLOCKS.register("zirconium_ore"    ) { ZirconiumOreBlock    }
-    val TEXT_BLOCK        by  BLOCKS.register("block_with_text"  ) { AnonimBlock.create(Material.ROCK, ::TextTile, Phoenix.REDO) }
+    //val TEXT_BLOCK        by  BLOCKS.register("block_with_text"  ) { AnonimBlock.create(Material.ROCK, ::TextTile, Phoenix.REDO) }
     val ARMORED_GLASS     by  BLOCKS.register("armored_glass"    ) { ArmoredGlassBlock    }
     val WET_LOG           by  BLOCKS.register("wet_log"          ) { WetLogBlock   }
     val DIED_WET_LOG: RotatedPillarBlock by BLOCKS.register("died_wet_log"     ) { object : RotatedPillarBlock(Properties.create(Material.WOOD).hardnessAndResistance(3.0f)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }

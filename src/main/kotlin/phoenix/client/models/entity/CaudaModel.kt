@@ -11,7 +11,7 @@ class CaudaModel : EntityModel<CaudaEntity>()
 {
     private val body    : ModelRenderer
     private val saddle  : ModelRenderer
-    val head    : ModelRenderer
+    val head            : ModelRenderer
     private val jaw     : ModelRenderer
     private val wingLT  : ModelRenderer
     private val wingLT2 : ModelRenderer
@@ -30,23 +30,24 @@ class CaudaModel : EntityModel<CaudaEntity>()
     override fun setRotationAngles(entity: CaudaEntity, limbSwing: Float, limbSwingAmount: Float, ageInTicks: Float, netHeadYaw: Float, headPitch: Float)
     {
         val f = ((entity.entityId * 3).toFloat() + ageInTicks) * 0.13f
+        if(!entity.onGround)
+        {
+            this.wingLT.rotateAngleZ = MathHelper.cos(f) * 16.0f * (Math.PI.toFloat() / 180f) / 0.8f
+            this.wingLT2.rotateAngleZ = MathHelper.cos(f) * 16.0f * (Math.PI.toFloat() / 180f) / 0.8f
+            this.wingLT3.rotateAngleZ = MathHelper.cos(f) * 16.0f * (Math.PI.toFloat() / 180f) / 0.8f
+            this.wingRT.rotateAngleZ = -this.wingLT.rotateAngleZ
+            this.wingRT2.rotateAngleZ = -this.wingLT2.rotateAngleZ
+            this.wingRT3.rotateAngleZ = -this.wingLT3.rotateAngleZ
 
-        this.wingLT.rotateAngleZ  = MathHelper.cos(f) * 16.0f * (Math.PI.toFloat() / 180f) / 0.8f
-        this.wingLT2.rotateAngleZ = MathHelper.cos(f) * 16.0f * (Math.PI.toFloat() / 180f) / 0.8f
-        this.wingLT3.rotateAngleZ = MathHelper.cos(f) * 16.0f * (Math.PI.toFloat() / 180f) / 0.8f
-        this.wingRT.rotateAngleZ  = -this.wingLT. rotateAngleZ
-        this.wingRT2.rotateAngleZ = -this.wingLT2.rotateAngleZ
-        this.wingRT3.rotateAngleZ = -this.wingLT3.rotateAngleZ
-
-        this.wingLB.rotateAngleZ  = MathHelper.cos(f + Math.PI.toFloat() * 1.2f) * 16.0f * (Math.PI.toFloat() / 180f) / 0.8f
-        this.wingLB2.rotateAngleZ = MathHelper.cos(f + Math.PI.toFloat() * 1.2f) * 16.0f * (Math.PI.toFloat() / 180f) / 0.8f
-        this.wingLB3.rotateAngleZ = MathHelper.cos(f + Math.PI.toFloat() * 1.2f) * 16.0f * (Math.PI.toFloat() / 180f) / 0.8f
-        this.wingRB.rotateAngleZ  = -this.wingLB. rotateAngleZ
-        this.wingRB2.rotateAngleZ = -this.wingLB2.rotateAngleZ
-        this.wingRB3.rotateAngleZ = -this.wingLB3.rotateAngleZ
-
-        this.bags.showModel = true
-        this.saddle.showModel = true
+            this.wingLB.rotateAngleZ = MathHelper.cos(f + Math.PI.toFloat() * 1.2f) * 16.0f * (Math.PI.toFloat() / 180f) / 0.8f
+            this.wingLB2.rotateAngleZ = MathHelper.cos(f + Math.PI.toFloat() * 1.2f) * 16.0f * (Math.PI.toFloat() / 180f) / 0.8f
+            this.wingLB3.rotateAngleZ = MathHelper.cos(f + Math.PI.toFloat() * 1.2f) * 16.0f * (Math.PI.toFloat() / 180f) / 0.8f
+            this.wingRB.rotateAngleZ = -this.wingLB.rotateAngleZ
+            this.wingRB2.rotateAngleZ = -this.wingLB2.rotateAngleZ
+            this.wingRB3.rotateAngleZ = -this.wingLB3.rotateAngleZ
+        }
+        this.bags.showModel = entity.equipment
+        this.saddle.showModel = entity.saddled
     }
 
     override fun render

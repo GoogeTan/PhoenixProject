@@ -15,12 +15,14 @@ import kotlin.math.min
 object StageManager
 {
     private var data: CompoundNBT = CompoundNBT()
+
     fun read(nbt: CompoundNBT)
     {
         if (nbt.contains("stage_nbt"))
         {
             data = nbt.getCompound("stage_nbt")
-        } else
+        }
+        else
         {
             val compound = CompoundNBT()
             compound.putInt("stage", 0)
@@ -56,10 +58,7 @@ object StageManager
         stage = min(stage + 1, 3)
     }
 
-    fun addStage(provider: NewEndBiomeProvider)
-    {
-        setStage(min(stage + 1, 3), provider)
-    }
+    fun addStage(provider: NewEndBiomeProvider) = setStage(min(stage + 1, 3), provider)
 
     fun addPart()
     {

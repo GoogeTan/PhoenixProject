@@ -19,9 +19,9 @@ object PhoenixSounds
     {
         CHANGE_STAGE.registryName = ResourceLocation("change_stage")
         event.registry.register(CHANGE_STAGE)
-        REDO_MUSIC.registryName = ResourceLocation("redo_music")
+        REDO_MUSIC.registryName = ResourceLocation("phoenix", "redo_music")
         event.registry.register(REDO_MUSIC)
-        PUT_SMTH_TO_BARREL.registryName = ResourceLocation("put_smth_to_barrel")
+        PUT_SMTH_TO_BARREL.registryName = ResourceLocation("phoenix", "put_smth_to_barrel")
         event.registry.register(PUT_SMTH_TO_BARREL)
     }
 

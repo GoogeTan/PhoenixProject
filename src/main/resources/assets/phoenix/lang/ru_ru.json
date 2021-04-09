@@ -45,6 +45,7 @@
   "item.phoenix.steel_axe": "Стальной топор",
   "item.phoenix.steel_pickaxe": "Стальная кирка",
   "item.phoenix.steel_sword": "Стальной мечь",
+  "item.phoenix.steel_cauda_armor": "Стальная броня кауды",
 
   "block.phoenix.fragileblock": "Хрупкий блок",
   "block.phoenix.updater": "Это \"Улучшатор\", но поидее ты не должен этого видеть...",
@@ -106,6 +107,9 @@
 
   "advancements.phoenix.redo.seta": "Почему бы не наестся странными грибами?",
   "advancements.phoenix.redo.seta.description": "Найдите сету",
+
+  "advancements.phoenix.redo.cauda": "Прокатись по небу!",
+  "advancements.phoenix.redo.cauda.description": "Управляйте каудой",
 
   "phoenix.message.speare":"Использует систему боя из 1.8",
   "phoenix.jei.category.oven": "Печь",

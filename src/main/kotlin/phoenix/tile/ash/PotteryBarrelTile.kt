@@ -128,14 +128,12 @@ class PotteryBarrelTile : PhoenixTile<PotteryBarrelTile>(POTTERY_BARREL), IInven
 
     internal class UpdatePacket(var jumpsCount: Int) : SUpdateTileEntityPacket()
     {
-        @Throws(IOException::class)
         override fun readPacketData(buf: PacketBuffer)
         {
             super.readPacketData(buf)
             jumpsCount = buf.readInt()
         }
 
-        @Throws(IOException::class)
         override fun writePacketData(buf: PacketBuffer)
         {
             super.writePacketData(buf)

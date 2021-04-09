@@ -20,8 +20,8 @@ object PhoenixTiles
     val PIPE            by TILE_ENTITIES.register("pipe")           { TileEntityType.Builder.create(::PipeTile, PhoenixBlocks.PIPE).build(null) }
     val POTTERY_BARREL  by TILE_ENTITIES.register("pottery_barrel") { TileEntityType.Builder.create(::PotteryBarrelTile, PhoenixBlocks.POTTERY_BARREL).build(null) }
     val OVEN            by TILE_ENTITIES.register("oven")           { TileEntityType.Builder.create(::OvenTile, PhoenixBlocks.OVEN).build(null) }
-    val ELECTRIC_BARREL by TILE_ENTITIES.register("_barrel")        { TileEntityType.Builder.create(::ElectricBarrelTile, PhoenixBlocks.POTTERY_BARREL).build(null) }
-    val TEXT            by TILE_ENTITIES.register("text")           { TileEntityType.Builder.create(::TextTile, PhoenixBlocks.TEXT_BLOCK).build(null) }
+    //val ELECTRIC_BARREL by TILE_ENTITIES.register("_barrel")        { TileEntityType.Builder.create(::ElectricBarrelTile, PhoenixBlocks.POTTERY_BARREL).build(null) }
+    //val TEXT            by TILE_ENTITIES.register("text")           { TileEntityType.Builder.create(::TextTile, PhoenixBlocks.TEXT_BLOCK).build(null) }
 
     fun register() = TILE_ENTITIES.register(MOD_BUS)
 }

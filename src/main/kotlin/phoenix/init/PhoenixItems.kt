@@ -18,7 +18,7 @@ object PhoenixItems
 {
     private val ITEMS = KDeferredRegister(ForgeRegistries.ITEMS, MOD_ID)
 
-    val GUIDE                          by ITEMS.register("diary", ::DiaryItem)
+    //val GUIDE                          by ITEMS.register("diary", ::DiaryItem)
 
     val HIGH_QUALITY_CLAY_ITEM         by ITEMS.register("high_quality_clay", basicItem(Item.Properties().maxStackSize(16).group(ASH)))
     val COOKED_SETA                    by ITEMS.register("cooked_seta", basicFood(Food.Builder().hunger(3).saturation(1.0f).fastToEat().build(), ItemGroup.FOOD))!!
@@ -69,8 +69,8 @@ object PhoenixItems
     val STEEL_ARMOR_LEGG               by ITEMS.register("steel_armor_leggings")  { SteelArmorItem(EquipmentSlotType.LEGS, Item.Properties().group(ASH)) }
     val STEEL_ARMOR_BUTS               by ITEMS.register("steel_armor_boots")     { SteelArmorItem(EquipmentSlotType.FEET, Item.Properties().group(ASH)) }
 
-    val STEEL_CAUDA_ARMOR              by ITEMS.register("steel_cauda_armor")   { CaudaArmorItem(PhoenixCaudaArmorMaterials.STEEL)   }
-    val CERAMIC_CAUDA_ARMOR            by ITEMS.register("ceramic_cauda_armor") { CaudaArmorItem(PhoenixCaudaArmorMaterials.CERAMIC) }
+    val STEEL_CAUDA_ARMOR              by ITEMS.register("steel_cauda_armor")   { CaudaArmorItem(PhoenixCaudaArmorMaterials.STEEL) }
+    //val CERAMIC_CAUDA_ARMOR            by ITEMS.register("ceramic_cauda_armor") { CaudaArmorItem(PhoenixCaudaArmorMaterials.CERAMIC) }
 
     fun register() = ITEMS.register(MOD_BUS)
 }

@@ -21,7 +21,6 @@ class MusicTicker(old : MusicTicker) : MusicTicker(mc)
     override fun tick()
     {
         val music = getMusicType()
-        LogManager.error(this, music?.sound.toString())
         if (currentMusic != null)
         {
             if (music!!.sound.name != currentMusic.soundLocation)

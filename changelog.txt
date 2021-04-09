@@ -9,8 +9,6 @@ REDO-0.0.0.1B
   Wet planks block
   Died wet planks block
   Wet tree generation
-  Tank block
-  Pipe block
   Cauda entity
   Cauda armor: ceramic and steel items
   Beautiful soundtrack
