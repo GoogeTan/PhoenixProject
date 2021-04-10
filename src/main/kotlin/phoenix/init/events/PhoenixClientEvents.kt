@@ -1,12 +1,10 @@
 package phoenix.init.events
 
-import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderTypeLookup
 import net.minecraft.util.text.TextFormatting.*
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
-import net.minecraftforge.client.event.RenderPlayerEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.client.registry.RenderingRegistry
@@ -16,7 +14,6 @@ import phoenix.Phoenix
 import phoenix.client.render.OvenRenderer
 import phoenix.client.render.PipeRender
 import phoenix.client.render.TankRenderer
-import phoenix.client.render.TextRenderer
 import phoenix.client.render.entity.CaudaRenderer
 import phoenix.client.render.entity.KnifeRenderer
 import phoenix.client.render.entity.TalpaRenderer

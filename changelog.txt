@@ -12,6 +12,7 @@ REDO-0.0.0.1B
   Cauda entity
   Cauda armor: ceramic and steel items
   Beautiful soundtrack
+  Levetation potions recipes
 ASH-0.1.2.5B
   Fix localisation
   Fix seta growing

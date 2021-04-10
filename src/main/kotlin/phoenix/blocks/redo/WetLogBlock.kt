@@ -5,14 +5,17 @@ import net.minecraft.block.RotatedPillarBlock
 import net.minecraft.block.material.Material
 import net.minecraft.enchantment.Enchantments
 import net.minecraft.entity.item.ItemEntity
+import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry
 import phoenix.Phoenix
 import phoenix.init.PhoenixBlocks
 import phoenix.utils.block.ICustomGroup
 import phoenix.utils.getEnchantmentLevel
+import phoenix.utils.sendMessage
 
 object WetLogBlock : RotatedPillarBlock(Properties.create(Material.WOOD).hardnessAndResistance(3.0f)), ICustomGroup
 {
@@ -26,4 +29,9 @@ object WetLogBlock : RotatedPillarBlock(Properties.create(Material.WOOD).hardnes
     }
 
     override val tab: ItemGroup = Phoenix.REDO
+
+    override fun onBlockClicked(state: BlockState, worldIn: World, pos: BlockPos, player: PlayerEntity)
+    {
+        super.onBlockClicked(state, worldIn, pos, player)
+    }
 }
