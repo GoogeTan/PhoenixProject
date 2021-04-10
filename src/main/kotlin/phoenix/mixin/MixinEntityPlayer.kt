@@ -46,7 +46,7 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
         if (chapters.isEmpty()) addChapter(0, Date(795 % 12000 / 100, 2005 % 319, 2005 / 319))
     }
 
-    @Deprecated("") //Use addChapter(Chapters)
+    @Deprecated("Use phoenix.utils.addChapter(chapters : Chapters)") //Use addChapter(Chapters)
     override fun addChapter(id: Int, date: Date): Boolean
     {
         val toAdd = Pair(id, date)
@@ -57,18 +57,7 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
         } else false
     }
 
-    override fun getOpenedChapters(): ArrayList<Pair<Int, Date>>
-    {
-        return chapters
-    }
+    override fun getOpenedChapters(): ArrayList<Pair<Int, Date>> = chapters
 
-    override fun hasChapter(id: Int): Boolean
-    {
-        return chaptersSet.contains(id)
-    }
-
-    override fun hasChapter(ch: Chapters): Boolean
-    {
-        return hasChapter(ch.id)
-    }
+    override fun hasChapter(id: Int): Boolean = chaptersSet.contains(id)
 }
