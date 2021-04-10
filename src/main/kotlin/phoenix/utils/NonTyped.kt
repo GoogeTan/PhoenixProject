@@ -83,7 +83,7 @@ inline fun JsonObject.readItemStack(nameIn: String): ItemStack
 
 inline fun ItemStack.getEnchantmentLevel(enchantment: Enchantment) = EnchantmentHelper.getEnchantmentLevel(enchantment, this)
 
-fun IWorld.getDownHeight(pos : BlockPos, max: Int): BlockPos
+inline fun IWorld.getDownHeight(pos : BlockPos, max: Int): BlockPos
 {
     val pos2 = BlockPos(pos.x, 0, pos.z)
     for (i in 0 until max)
@@ -93,9 +93,11 @@ fun IWorld.getDownHeight(pos : BlockPos, max: Int): BlockPos
     return pos
 }
 
+inline fun Number?.toSymbol() = if(this == 0 || this == null) 0 else if(this.toDouble() > 0) 1 else 0
+
 inline fun Random.nextInt(min : Int, max : Int) = (min - 0.5 + this.nextDouble() * (max - min + 1)).roundToInt()
 
-fun PacketBuffer.writeDate(date : Date)
+inline fun PacketBuffer.writeDate(date : Date)
 {
     this.writeLong(date.minute)
     this.writeLong(date.day)
@@ -130,13 +132,13 @@ inline fun<T : Number> max(vararg vals : T) : T
 
 inline fun PacketBuffer.readDate() : Date = Date(readLong(), readLong(), readLong())
 
-fun<T : TileEntity> create(tile: T, block: Block) : () -> TileEntityType<T> = { TileEntityType.Builder.create({ tile }, block).build(null) }
+inline fun<T : TileEntity> create(tile: T, block: Block) : () -> TileEntityType<T> = { TileEntityType.Builder.create({ tile }, block).build(null) }
 
-fun<T : TileEntity> create(tile: T, block: RegistryObject<Block>) : () -> TileEntityType<T> = { TileEntityType.Builder.create({ tile }, block.get()).build(null) }
+inline fun<T : TileEntity> create(tile: T, block: RegistryObject<Block>) : () -> TileEntityType<T> = { TileEntityType.Builder.create({ tile }, block.get()).build(null) }
 
-fun<T : IForgeRegistryEntry<T>> DeferredRegister<T>.registerValue(nameIn: String, value : T): RegistryObject<T> = this.register(nameIn) { value }
+inline fun<T : IForgeRegistryEntry<T>> DeferredRegister<T>.registerValue(nameIn: String, value : T): RegistryObject<T> = this.register(nameIn) { value }
 
-fun FontRenderer.drawCenterAlignedString(string : ITextComponent, x : Float, y : Float)
+inline fun FontRenderer.drawCenterAlignedString(string : ITextComponent, x : Float, y : Float)
 {
     drawString(string.formattedText, x, y, BossInfo.Color.RED.ordinal)
 }
@@ -145,7 +147,7 @@ private const val dayLength = 12000
 private const val secondLength = 12000
 fun World.getDate() = Date((795 + dayTime) % dayLength / secondLength, (gameTime + 2005) % daysAYear, (gameTime + 2005) / daysAYear)
 
-fun ServerPlayerEntity.addChapter(chapter : Chapters)
+inline fun ServerPlayerEntity.addChapter(chapter : Chapters)
 {
     if(this is IPhoenixPlayer)
     {
@@ -155,12 +157,12 @@ fun ServerPlayerEntity.addChapter(chapter : Chapters)
     }
 }
 
-fun <T> IWorld.getTileAt(pos: BlockPos): T?
+inline fun <T> IWorld.getTileAt(pos: BlockPos): T?
 {
     return getTileEntity(pos) as? T
 }
 
-fun JsonObject.addProp( property : String,  value : Number) : JsonObject
+inline fun JsonObject.addProp( property : String,  value : Number) : JsonObject
 {
     this.addProperty(property, value)
     return this
@@ -168,20 +170,20 @@ fun JsonObject.addProp( property : String,  value : Number) : JsonObject
 
 
 val mc : Minecraft
-        @OnlyIn(Dist.CLIENT)
-        get() = Minecraft.getInstance()
+    @OnlyIn(Dist.CLIENT)
+    inline get() = Minecraft.getInstance()
 val clientPlayer : ClientPlayerEntity?
-        @OnlyIn(Dist.CLIENT)
-        get() = mc.player
+    @OnlyIn(Dist.CLIENT)
+    inline get() = mc.player
 val clientWorld : ClientWorld?
     @OnlyIn(Dist.CLIENT)
-    get() = mc.world
+    inline get() = mc.world
 
-fun PlayerEntity.sendMessage(text : String) = sendMessage(StringTextComponent(text))
+inline fun PlayerEntity.sendMessage(text : String) = sendMessage(StringTextComponent(text))
 
 class BookException(message: String) : Exception(message)
 
-fun Biome.addStructure(structure: Structure<NoFeatureConfig>)
+inline fun Biome.addStructure(structure: Structure<NoFeatureConfig>)
 {
     addStructure(structure.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG))
     addFeature(
@@ -191,7 +193,7 @@ fun Biome.addStructure(structure: Structure<NoFeatureConfig>)
     )
 }
 
-fun Biome.addZirconiumOre()
+inline fun Biome.addZirconiumOre()
 {
     addFeature(
         GenerationStage.Decoration.UNDERGROUND_ORES,
