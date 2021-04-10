@@ -9,7 +9,6 @@ import net.minecraft.entity.ai.controller.LookController
 import net.minecraft.entity.ai.controller.MovementController
 import net.minecraft.entity.ai.goal.Goal
 import net.minecraft.entity.monster.IMob
-import net.minecraft.entity.monster.PhantomEntity
 import net.minecraft.entity.passive.CatEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
@@ -47,7 +46,9 @@ import phoenix.init.CaudaArmorItem
 import phoenix.init.PhoenixContainers
 import phoenix.network.NetworkHandler
 import phoenix.network.OpenCaudaInventoryPacket
-import phoenix.utils.*
+import phoenix.utils.max
+import phoenix.utils.min
+import phoenix.utils.sendMessage
 import java.lang.Math.abs
 import java.util.*
 import javax.annotation.Nonnull
@@ -70,8 +71,6 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
     private var attackPhase = AttackPhase.CIRCLE
     fun getArmorStack()  = chests.getStackInSlot(20)
     fun getGreatcoatStack() = chests.getStackInSlot(21)
-
-    var nonmoveTime = 0
 
     init
     {
@@ -121,16 +120,6 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
             if (current > 0.0f && next <= 0.0f)
             {
                 world.playSound(posX, posY, posZ, SoundEvents.ENTITY_PHANTOM_FLAP, this.soundCategory, 0.95f + rand.nextFloat() * 0.05f, 0.95f + rand.nextFloat() * 0.05f, false)
-            }
-        }
-        else
-        {
-            if(controllingPassenger != null)
-                nonmoveTime = -200
-            if(nonmoveTime != 0 && controllingPassenger == null)
-            {
-                setPosition(prevPosX, prevPosY, prevPosZ)
-                nonmoveTime--
             }
         }
     }

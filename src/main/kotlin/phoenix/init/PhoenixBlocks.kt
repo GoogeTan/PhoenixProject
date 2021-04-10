@@ -27,8 +27,8 @@ object PhoenixBlocks
     val BLOCKS = KDeferredRegister(ForgeRegistries.BLOCKS, Phoenix.MOD_ID)
 
     val UPDATER           by  BLOCKS.register("updater"          ) { UpdaterBlock         }
-    val PIPE              by  BLOCKS.register("pipe",              ::PipeBlock            )
-    val TANK              by  BLOCKS.register("tank"             ) { TankBlock            }
+    //val PIPE              by  BLOCKS.register("pipe",              ::PipeBlock            )
+    //val TANK              by  BLOCKS.register("tank"             ) { TankBlock            }
     val FERTILE_END_STONE by  BLOCKS.register("fertile_end_stone") { FertileEndStoneBlock }
     val ANTI_AIR: AirBlock by BLOCKS.register("anti_air"        ) { object : AirBlock(Properties.create(Material.AIR).doesNotBlockMovement().noDrops().notSolid()), INonItem {} }
     val POTTERY_BARREL    by  BLOCKS.register("pottery_barrel",    ::PotteryBarrelBlock   )

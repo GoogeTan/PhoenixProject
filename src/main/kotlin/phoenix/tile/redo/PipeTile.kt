@@ -8,12 +8,13 @@ import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.util.Direction
 import net.minecraftforge.fluids.capability.templates.FluidTank
-import phoenix.init.PhoenixTiles.PIPE
+import phoenix.init.PhoenixTiles.OVEN
 import phoenix.tile.IFluidThing
+import phoenix.tile.ash.OvenTile
 import phoenix.utils.block.PhoenixTile
 import phoenix.utils.getTileAt
 
-class PipeTile(maxCapacity : Int) : PhoenixTile<PipeTile>(PIPE), ITickableTileEntity, IFluidThing
+class PipeTile(maxCapacity : Int) : PhoenixTile<OvenTile>(OVEN), ITickableTileEntity, IFluidThing
 {
     override var tank = FluidTank(maxCapacity * 1000)
     override val throughput: Int = 1 * 1000
