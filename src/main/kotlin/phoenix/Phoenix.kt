@@ -39,7 +39,7 @@ class Phoenix
         const val MOD_ID = "phoenix"
 
         val ASH : ItemGroup = PhoenixGroup("$MOD_ID.ash", Blocks.END_PORTAL_FRAME)
-        val REDO: ItemGroup = PhoenixGroup("$MOD_ID.redo", Blocks.END_PORTAL_FRAME)
+        val REDO: ItemGroup = PhoenixGroup("$MOD_ID.redo", PhoenixBlocks::SETA)
 
         init
         {
