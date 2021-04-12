@@ -51,8 +51,7 @@ class PhoenixBornParticle(
         setColor(tint!!.red / 255.0f, tint.green / 255.0f, tint.blue / 255.0f)
         setSize(diameter.toFloat(), diameter.toFloat())
         maxAge = lifeTime
-        val PARTICLE_SCALE_FOR_ONE_METRE = 0.5f
-        particleScale = PARTICLE_SCALE_FOR_ONE_METRE * diameter.toFloat()
+        particleScale = 0.5f * diameter.toFloat()
         val ALPHA_VALUE = 1.0f
         particleAlpha = ALPHA_VALUE
         motionX = velocityX

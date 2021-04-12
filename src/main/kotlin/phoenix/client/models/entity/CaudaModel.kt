@@ -47,7 +47,6 @@ class CaudaModel : EntityModel<CaudaEntity>()
             this.wingRB3.rotateAngleZ = -this.wingLB3.rotateAngleZ
         }
         this.bags.showModel = entity.equipment
-        this.saddle.showModel = entity.saddled
     }
 
     override fun render
@@ -69,7 +68,7 @@ class CaudaModel : EntityModel<CaudaEntity>()
         wingRT.render(matrixStack, buffer, packedLight, packedOverlay)
         wingRB.render(matrixStack, buffer, packedLight, packedOverlay)
         bags  .render(matrixStack, buffer, packedLight, packedOverlay)
-        saddle.render(matrixStack, buffer, packedLight, packedOverlay)
+        //saddle.render(matrixStack, buffer, packedLight, packedOverlay)
     }
 
     private fun setRotationAngle(modelRenderer: ModelRenderer, x: Float, y: Float, z: Float)
@@ -91,6 +90,7 @@ class CaudaModel : EntityModel<CaudaEntity>()
 
         saddle = ModelRenderer(this)
         saddle.setTextureOffset(52, 6).setRotationPoint(0.0F, 0.0F, 0.0F)
+        saddle.addBox(-1.0F, -4.0F, -1.0F, 8.0f, 2.0f, 12.0f)
 
         head = ModelRenderer(this)
         head.setRotationPoint(0.0f, 24.0f, 0.0f)

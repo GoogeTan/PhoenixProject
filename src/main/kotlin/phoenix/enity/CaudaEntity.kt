@@ -61,10 +61,10 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
     var chests : Inventory = Inventory(22)
     var saddled : Boolean
         get() = dataManager[SADDLE]
-        set(value) = dataManager.set(SADDLE, value)
+        private inline set(value) = dataManager.set(SADDLE, value)
     var equipment : Boolean
         get() = dataManager[EQUIPMENT]
-        set(value) = dataManager.set(EQUIPMENT, value)
+        private inline set(value) = dataManager.set(EQUIPMENT, value)
     private var itemHandler: LazyOptional<*>? = LazyOptional.of { InvWrapper(chests) }
     private var orbitOffset = Vec3d.ZERO
     private var orbitPosition = BlockPos.ZERO
@@ -77,6 +77,7 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
         experienceValue = 15
         moveController = MoveHelperController(this)
         lookController = LookHelperController(this)
+        saddled = true
     }
 
     override fun registerGoals()
@@ -98,7 +99,7 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
 
     override fun getStandingEyeHeight(@Nonnull poseIn: Pose, sizeIn: EntitySize): Float = sizeIn.height * 0.35f
 
-    override fun canAttack(@Nonnull typeIn: EntityType<*>) = true
+    override fun canAttack(@Nonnull typeIn: EntityType<*>) = false
 
     override fun remove(keepData: Boolean)
     {
@@ -219,12 +220,18 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
                     equipment = true
                     item.shrink(1)
                     player.setHeldItem(hand, item)
-                } else if (!saddled && item.item == Items.SADDLE)
+                }
+                else if (!saddled && item.item == Items.SADDLE)
                 {
                     saddled = true
                     item.shrink(1)
                     player.setHeldItem(hand, item)
-                } else if (player.isSneaking)
+                }
+                else if (!saddled && item.item == Items.NAME_TAG)
+                {
+                    item.interactWithEntity(player, this, hand)
+                }
+                else if (player.isSneaking)
                 {
                     player.openContainer = CaudaContainer(player.currentWindowId, player.inventory)
                     player.openContainer.addListener(player)

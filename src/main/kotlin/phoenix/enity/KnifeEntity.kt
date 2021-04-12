@@ -52,7 +52,6 @@ class KnifeEntity : ThrowableEntity
         {
             for (i in 0..7)
             {
-                //Появляются частицы лавы. В обычном майнкрафте они образуются на потолке, если сверху лава.
                 world.addParticle(ParticleTypes.RAIN, posX, posY, posZ, 0.0, 0.0, 0.0)
             }
         }
