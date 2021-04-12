@@ -23,7 +23,7 @@ import phoenix.init.PhoenixBlocks
 import phoenix.utils.block.ICustomGroup
 import java.util.*
 
-object SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandomly().lightValue(5).hardnessAndResistance(3.0f)), IGrowable, ICustomGroup
+object SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandomly().lightValue(5).hardnessAndResistance(1.0f)), IGrowable, ICustomGroup
 {
     private val SHAPE: VoxelShape = makeCuboidShape(0.0, 12.0, 0.0, 16.0, 16.0, 16.0)
 
@@ -81,8 +81,7 @@ object SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRando
 
     override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape = SHAPE
 
-    override val tab: ItemGroup
-        get() = Phoenix.REDO
+    override val tab = Phoenix.REDO
 
     override fun getDrops(state: BlockState, builder: LootContext.Builder) = listOf(ItemStack(this, state[AGE_0_3] + 1))
 }
