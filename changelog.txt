@@ -1,3 +1,8 @@
+REDO-0.0.0.2B
+ Fixed:
+  Cauda render
+  Cauda movement
+  Cauda inventory saving
 REDO-0.0.0.1B
  Fixed:
   Remains generation
