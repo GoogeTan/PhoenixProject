@@ -80,7 +80,7 @@ open class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDragonEnt
      * Returns a double[3] array with movement offsets, used to calculate trailing tail/neck positions. [0] = yaw offset,
      * [1] = y offset, [2] = unused, always 0. Parameters: buffer index offset, partial ticks.
      */
-    private fun getMovementOffsets(p_70974_1_: Int, p_70974_2_: Float): DoubleArray
+    fun getMovementOffsets(p_70974_1_: Int, p_70974_2_: Float): DoubleArray
     {
         var p_70974_2_ = p_70974_2_
         if (this.health <= 0.0f)

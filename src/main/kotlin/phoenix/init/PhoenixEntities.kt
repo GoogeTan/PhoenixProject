@@ -8,6 +8,8 @@ import phoenix.Phoenix
 import phoenix.enity.CaudaEntity
 import phoenix.enity.KnifeEntity
 import phoenix.enity.TalpaEntity
+import phoenix.enity.boss.DragonAshStageEntity
+import phoenix.enity.boss.DragonRedoStageEntity
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
@@ -44,7 +46,7 @@ object PhoenixEntities
                 .setShouldReceiveVelocityUpdates(true)
                 .build(ResourceLocation(Phoenix.MOD_ID, "zirconium_knife").toString())
     }
-    /*
+
     val DRAGON_ASH_STAGE: EntityType<DragonAshStageEntity> by ENTITIES.register("dragon_ash_stage")
     {
         EntityType.Builder.create(::DragonAshStageEntity, EntityClassification.MONSTER)
@@ -60,7 +62,6 @@ object PhoenixEntities
             .size(16.0f, 8.0f)
             .build(ResourceLocation(Phoenix.MOD_ID, "dragon_redo_stage").toString())
     }
-    */
 
     fun register() = ENTITIES.register(MOD_BUS)
 }
