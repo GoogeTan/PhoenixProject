@@ -16,9 +16,9 @@ import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
 
 
-class HoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
+open class HoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
-    var currentPath : Path? = null
+    protected var currentPath : Path? = null
 
     private var clockwise = false
 
@@ -112,7 +112,7 @@ class HoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
         navigateToNextPathNode()
     }
 
-    private fun strafePlayer(player: PlayerEntity)
+    protected open fun strafePlayer(player: PlayerEntity)
     {
         dragon.phaseManager.setPhase(PhaseType.STRAFE_PLAYER)
         dragon.phaseManager.getPhase<StrafePlayerPhase>(PhaseType.STRAFE_PLAYER)?.setTarget(player)

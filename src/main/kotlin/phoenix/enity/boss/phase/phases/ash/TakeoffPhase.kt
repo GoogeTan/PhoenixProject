@@ -9,11 +9,10 @@ import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
 
-
-class TakeoffPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
+open class TakeoffPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
-    private var firstTick = false
-    private var currentPath: Path? = null
+    protected var firstTick = false
+    protected var currentPath: Path? = null
     override var targetLocation: Vec3d? = null
 
     /**
@@ -24,9 +23,9 @@ class TakeoffPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
     {
         if (!firstTick && currentPath != null)
         {
-            val blockpos =
+            val pos =
                 dragon.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EndPodiumFeature.END_PODIUM_LOCATION)
-            if (!blockpos.withinDistance(dragon.positionVec, 10.0))
+            if (!pos.withinDistance(dragon.positionVec, 10.0))
             {
                 dragon.phaseManager.setPhase(PhaseType.HOLDING_PATTERN)
             }
@@ -47,7 +46,7 @@ class TakeoffPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
         targetLocation = null
     }
 
-    private fun findNewTarget()
+    protected fun findNewTarget()
     {
         val i = dragon.initPathPoints()
         val vec3d = dragon.getHeadLookVec(1.0f)

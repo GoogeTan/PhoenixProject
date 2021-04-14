@@ -2,7 +2,7 @@ package phoenix.enity.boss.phase
 
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.phases.ash.*
-import phoenix.enity.boss.phase.phases.redo.RedoStrafePlayerPhase
+import phoenix.enity.boss.phase.phases.redo.*
 import phoenix.utils.ArrayUtils.resize
 
 class PhaseType private constructor(private val id: Int, private val constructor: (AbstractEnderDragonEntity) -> IPhase, private val name: String)
@@ -17,7 +17,6 @@ class PhaseType private constructor(private val id: Int, private val constructor
     {
         private var phases = ArrayList<PhaseType?>()
         val HOLDING_PATTERN = create(::HoldingPatternPhase, "HoldingPattern")
-        val REDO_STRAFE_PLAYER = create(::RedoStrafePlayerPhase, "RedoStrafePlayer")
         val STRAFE_PLAYER = create(::StrafePlayerPhase, "StrafePlayer")
         val LANDING_APPROACH = create(::LandingApproachPhase, "LandingApproach")
         val LANDING = create(::LandingPhase, "Landing")
@@ -29,6 +28,11 @@ class PhaseType private constructor(private val id: Int, private val constructor
         val DYING = create(::DyingPhase, "Dying")
         val HOVER = create(::HoverPhase, "Hover")
 
+        val REDO_STRAFE_PLAYER = create(::RedoStrafePlayerPhase, "RedoStrafePlayer")
+        val REDO_HOLDING_PATTERN = create(::RedoHoldingPatternPhase, "RedoHoldingPattern")
+        val REDO_CHARGING_PLAYER = create(::RedoChargingPlayerPhase, "RedoChargingPlayer")
+        val REDO_TAKEOFF = create(::RedoTakeoffPhase, "RedoTakeoff")
+        val REDO_SITTING_FLAMING = create(::RedoFlamingSittingPhase, "SittingFlaming")
         /**
          * Gets a phase by its ID. If the phase is out of bounds (negative or beyond the end of the phase array), returns
          * [.HOLDING_PATTERN].

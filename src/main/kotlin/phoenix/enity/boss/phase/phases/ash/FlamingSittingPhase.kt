@@ -10,12 +10,11 @@ import net.minecraft.util.math.Vec3d
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 
-
-class FlamingSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPhase(dragonIn)
+open class FlamingSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPhase(dragonIn)
 {
-    private var flameTicks = 0
-    private var flameCount = 0
-    private var areaEffectCloud: AreaEffectCloudEntity? = null
+    protected var flameTicks = 0
+    protected var flameCount = 0
+    protected var areaEffectCloud: AreaEffectCloudEntity? = null
 
     /**
      * Generates particle effects appropriate to the phase (or sometimes sounds).

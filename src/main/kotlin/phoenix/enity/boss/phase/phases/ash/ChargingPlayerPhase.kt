@@ -7,10 +7,10 @@ import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
 
 
-class ChargingPlayerPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
+open class ChargingPlayerPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
     override var targetLocation: Vec3d? = null
-    private var timeSinceCharge = 0
+    protected var timeSinceCharge = 0
 
     /**
      * Gives the phase a chance to update its status.
@@ -56,6 +56,6 @@ class ChargingPlayerPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 
     companion object
     {
-        private val LOGGER = LogManager.getLogger()
+        val LOGGER = LogManager.getLogger()
     }
 }

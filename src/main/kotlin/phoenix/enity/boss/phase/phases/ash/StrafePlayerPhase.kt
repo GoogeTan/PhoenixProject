@@ -17,11 +17,11 @@ import kotlin.math.min
 
 open class StrafePlayerPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
-    private var fireballCharge = 0
-    private var currentPath: Path? = null
+    protected var fireballCharge = 0
+    protected var currentPath: Path? = null
     override var targetLocation: Vec3d? = null
-    private var attackTarget: LivingEntity? = null
-    private var holdingPatternClockwise = false
+    protected var attackTarget: LivingEntity? = null
+    protected var holdingPatternClockwise = false
     override val type: PhaseType = PhaseType.STRAFE_PLAYER
     /**
      * Gives the phase a chance to update its status.
@@ -102,7 +102,7 @@ open class StrafePlayerPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragon
         }
     }
 
-    private fun findNewTarget()
+    protected fun findNewTarget()
     {
         if (currentPath == null || currentPath!!.isFinished)
         {

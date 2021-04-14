@@ -10,6 +10,7 @@ import phoenix.enity.KnifeEntity
 import phoenix.enity.TalpaEntity
 import phoenix.enity.boss.DragonAshStageEntity
 import phoenix.enity.boss.DragonRedoStageEntity
+import phoenix.enity.boss.balls.ExplosiveBallEntity
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
@@ -53,6 +54,14 @@ object PhoenixEntities
             .immuneToFire()
             .size(16.0f, 8.0f)
             .build(ResourceLocation(Phoenix.MOD_ID, "dragon_ash_stage").toString())
+    }
+
+    val explosiveBall : EntityType<ExplosiveBallEntity> by ENTITIES.register("dragon_ash_stage")
+    {
+        EntityType.Builder.create(::ExplosiveBallEntity, EntityClassification.MONSTER)
+                .immuneToFire()
+                .size(16.0f, 8.0f)
+                .build(ResourceLocation(Phoenix.MOD_ID, "dragon_ash_stage").toString())
     }
 
     val DRAGON_REDO_STAGE: EntityType<DragonRedoStageEntity> by ENTITIES.register("dragon_redo_stage")
