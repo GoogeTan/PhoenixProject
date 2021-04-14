@@ -19,6 +19,7 @@ import java.io.IOException
 class ElectricBarrelTile : PhoenixTile<OvenTile>(PhoenixTiles.OVEN), IInventory, ITickableTileEntity
 {
     var jumpsCount = 0
+
     override fun tick()
     {
         if (!inventory.isEmpty)
@@ -37,13 +38,7 @@ class ElectricBarrelTile : PhoenixTile<OvenTile>(PhoenixTiles.OVEN), IInventory,
                 }
             } else
             {
-                InventoryHelper.spawnItemStack(
-                    world,
-                    pos.x.toDouble(),
-                    (pos.y + 1).toDouble(),
-                    pos.z.toDouble(),
-                    inventory
-                )
+                InventoryHelper.spawnItemStack(world, pos.x.toDouble(), (pos.y + 1).toDouble(), pos.z.toDouble(), inventory)
                 inventory = ItemStack.EMPTY
             }
         }
@@ -83,20 +78,11 @@ class ElectricBarrelTile : PhoenixTile<OvenTile>(PhoenixTiles.OVEN), IInventory,
         jumpsCount = (pkt as UpdatePacket).jumpsCount
     }
 
-    override fun getSizeInventory(): Int
-    {
-        return 1
-    }
+    override fun getSizeInventory(): Int = 1
 
-    override fun isEmpty(): Boolean
-    {
-        return inventory.isEmpty
-    }
+    override fun isEmpty(): Boolean = inventory.isEmpty
 
-    override fun getStackInSlot(index: Int): ItemStack
-    {
-        return inventory
-    }
+    override fun getStackInSlot(index: Int): ItemStack = inventory
 
     override fun decrStackSize(index: Int, count: Int): ItemStack
     {
@@ -105,10 +91,7 @@ class ElectricBarrelTile : PhoenixTile<OvenTile>(PhoenixTiles.OVEN), IInventory,
         return stack
     }
 
-    override fun removeStackFromSlot(index: Int): ItemStack
-    {
-        return ItemStack.EMPTY.also { inventory = it }
-    }
+    override fun removeStackFromSlot(index: Int): ItemStack = ItemStack.EMPTY.also { inventory = it }
 
     override fun setInventorySlotContents(index: Int, stack: ItemStack)
     {

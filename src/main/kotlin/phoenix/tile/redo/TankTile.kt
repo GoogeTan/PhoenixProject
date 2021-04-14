@@ -12,12 +12,13 @@ import phoenix.init.PhoenixTiles
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncFluidThinkPacket
 import phoenix.tile.IFluidThing
+import phoenix.tile.ash.OvenTile
 import phoenix.utils.SerializeUtils.readTank
 import phoenix.utils.SerializeUtils.writeToBuf
 import phoenix.utils.block.PhoenixTile
 import phoenix.utils.getTileAt
 
-class TankTile(capacity : Int) : PhoenixTile<TankTile>(PhoenixTiles.TANK), IFluidThing, ITickableTileEntity
+class TankTile(capacity : Int) : PhoenixTile<OvenTile>(PhoenixTiles.OVEN), IFluidThing, ITickableTileEntity
 {
     constructor() : this(5)
 

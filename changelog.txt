@@ -1,8 +1,14 @@
+REDO-0.0.0.2B
+ Fixed:
+  Cauda render
+  Cauda movement
+  Cauda inventory saving
 REDO-0.0.0.1B
  Fixed:
   Remains generation
   Block's hardness and resistance
   Block's drops
+  Missing translations
  Added:
   Wet log block
   Died wet log block
@@ -10,8 +16,9 @@ REDO-0.0.0.1B
   Died wet planks block
   Wet tree generation
   Cauda entity
-  Cauda armor: ceramic and steel items
+  Steel cauda armor item
   Beautiful soundtrack
+  Levitation potions recipes
 ASH-0.1.2.5B
   Fix localisation
   Fix seta growing
