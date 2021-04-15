@@ -5,13 +5,18 @@ import net.minecraft.entity.EntityType
 import net.minecraft.util.DamageSource
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import phoenix.utils.LogManager
 import phoenix.world.EndDimension
 
-class EnderCrystalEntity(type: EntityType<out EnderCrystalEntity>, world: World) : net.minecraft.entity.item.EnderCrystalEntity(
-    type,
-    world
-)
+class EnderCrystalEntity : net.minecraft.entity.item.EnderCrystalEntity
 {
+    constructor(type: EntityType<out EnderCrystalEntity>, world: World) : super(type, world)
+    {
+        LogManager.error(this, position.toString())
+    }
+
+    constructor(world: World, x: Double, y: Double, z: Double) : super(world, x, y, z)
+
     override fun tick()
     {
         ++innerRotation
@@ -29,9 +34,7 @@ class EnderCrystalEntity(type: EntityType<out EnderCrystalEntity>, world: World)
     {
         if (world.dimension is EndDimension)
         {
-            val enddimension = world.dimension as net.minecraft.world.dimension.EndDimension
-            val dragonfightmanager = enddimension.getDragonFightManager()
-            dragonfightmanager?.onCrystalDestroyed(this, source)
+            (world.dimension as EndDimension).dragonFightManager?.onCrystalDestroyed(this, source)
         }
     }
 }

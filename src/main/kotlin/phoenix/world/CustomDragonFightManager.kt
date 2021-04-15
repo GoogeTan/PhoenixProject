@@ -59,7 +59,6 @@ open class CustomDragonFightManager(
     var respawnState: CustomDragonSpawnState? = null
         set(state)
         {
-            checkNotNull(respawnState) { "Dragon respawn isn't in progress, can't skip ahead in the animation." }
             respawnStateTicks = 0
             if (state === CustomDragonSpawnState.END)
             {

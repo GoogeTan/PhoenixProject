@@ -2,7 +2,6 @@ package phoenix.mixin
 
 import net.minecraft.block.Blocks
 import net.minecraft.entity.Entity
-import net.minecraft.entity.item.EnderCrystalEntity
 import net.minecraft.item.EnderCrystalItem
 import net.minecraft.item.ItemUseContext
 import net.minecraft.util.ActionResultType
@@ -11,6 +10,7 @@ import org.spongepowered.asm.mixin.Mixin
 import org.spongepowered.asm.mixin.injection.At
 import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
+import phoenix.enity.EnderCrystalEntity
 import phoenix.world.EndDimension
 
 @Mixin(EnderCrystalItem::class)
