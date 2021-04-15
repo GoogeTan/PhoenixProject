@@ -1,13 +1,10 @@
 package phoenix.enity.boss.balls
 
-import net.minecraft.entity.AreaEffectCloudEntity
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.projectile.DamagingProjectileEntity
 import net.minecraft.particles.IParticleData
 import net.minecraft.particles.ParticleTypes
-import net.minecraft.potion.EffectInstance
-import net.minecraft.potion.Effects
 import net.minecraft.util.DamageSource
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.EntityRayTraceResult
