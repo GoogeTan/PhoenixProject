@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.IRenderTypeBuffer
 import net.minecraft.client.renderer.Matrix4f
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.Vector3f
-import net.minecraft.client.renderer.entity.EnderCrystalRenderer
 import net.minecraft.client.renderer.entity.EntityRenderer
 import net.minecraft.client.renderer.entity.EntityRendererManager
 import net.minecraft.client.renderer.entity.model.EntityModel
@@ -16,8 +15,10 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.MathHelper
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
+import phoenix.enity.EnderCrystalEntity
 import phoenix.enity.boss.DragonRedoStageEntity
 import java.util.*
+import kotlin.math.cos
 import kotlin.math.sin
 
 class RedoDragonRenderer(renderManagerIn: EntityRendererManager) :
@@ -151,7 +152,7 @@ class RedoDragonRenderer(renderManagerIn: EntityRendererManager) :
             )).toFloat()
             func_229059_a_(
                 f6,
-                f8 + EnderCrystalRenderer.func_229051_a_(entityIn.closestEnderCrystal, partialTicks),
+                f8 + func_229051_a_(entityIn.closestEnderCrystal!!, partialTicks),
                 f9,
                 partialTicks,
                 entityIn.ticksExisted,
@@ -293,10 +294,10 @@ class RedoDragonRenderer(renderManagerIn: EntityRendererManager) :
             body.rotateAngleZ = 0.0f
             body.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn)
             val f10 = f * (Math.PI.toFloat() * 2f)
-            leftProximalWing.rotateAngleX = 0.125f - Math.cos(f10.toDouble()).toFloat() * 0.2f
+            leftProximalWing.rotateAngleX = 0.125f - cos(f10.toDouble()).toFloat() * 0.2f
             leftProximalWing.rotateAngleY = -0.25f
-            leftProximalWing.rotateAngleZ = -(Math.sin(f10.toDouble()) + 0.125).toFloat() * 0.8f
-            leftDistalWing.rotateAngleZ = (Math.sin((f10 + 2.0f) as Double) + 0.5).toFloat() * 0.75f
+            leftProximalWing.rotateAngleZ = -(sin(f10.toDouble()) + 0.125).toFloat() * 0.8f
+            leftDistalWing.rotateAngleZ = (sin((f10 + 2.0f).toDouble()) + 0.5).toFloat() * 0.75f
             rightProximalWing.rotateAngleX = leftProximalWing.rotateAngleX
             rightProximalWing.rotateAngleY = -leftProximalWing.rotateAngleY
             rightProximalWing.rotateAngleZ = -leftProximalWing.rotateAngleZ
@@ -330,11 +331,11 @@ class RedoDragonRenderer(renderManagerIn: EntityRendererManager) :
                 spine.rotationPointY = f3
                 spine.rotationPointZ = f4
                 spine.rotationPointX = f2
-                f3 = (f3.toDouble() + Math.sin(spine.rotateAngleX.toDouble()) * 10.0).toFloat()
+                f3 = (f3.toDouble() + sin(spine.rotateAngleX.toDouble()) * 10.0).toFloat()
                 f4 =
-                    (f4.toDouble() - Math.cos(spine.rotateAngleY.toDouble()) * Math.cos(spine.rotateAngleX.toDouble()) * 10.0).toFloat()
+                    (f4.toDouble() - cos(spine.rotateAngleY.toDouble()) * cos(spine.rotateAngleX.toDouble()) * 10.0).toFloat()
                 f2 =
-                    (f2.toDouble() - Math.sin(spine.rotateAngleY.toDouble()) * Math.cos(spine.rotateAngleX.toDouble()) * 10.0).toFloat()
+                    (f2.toDouble() - sin(spine.rotateAngleY.toDouble()) * cos(spine.rotateAngleX.toDouble()) * 10.0).toFloat()
                 spine.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn)
             }
             matrixStackIn.pop()
@@ -581,5 +582,13 @@ class RedoDragonRenderer(renderManagerIn: EntityRendererManager) :
     init
     {
         shadowSize = 0.5f
+    }
+
+    inline fun func_229051_a_(entity: EnderCrystalEntity, delta: Float): Float
+    {
+        val f = entity.innerRotation.toFloat() + delta
+        var f1 = MathHelper.sin(f * 0.2f) / 2.0f + 0.5f
+        f1 = (f1 * f1 + f1) * 0.4f
+        return f1 - 1.4f
     }
 }

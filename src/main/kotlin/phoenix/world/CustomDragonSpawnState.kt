@@ -1,11 +1,10 @@
 package phoenix.world
 
 import com.google.common.collect.ImmutableList
-import net.minecraft.entity.item.EnderCrystalEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.Explosion
-import net.minecraft.world.end.DragonSpawnState
 import net.minecraft.world.server.ServerWorld
+import phoenix.enity.EnderCrystalEntity
 import phoenix.init.PhoenixFeatures.END_SPIKE
 import phoenix.world.structures.CustomEndSpike
 import phoenix.world.structures.CustomEndSpikeConfig
@@ -21,12 +20,7 @@ enum class CustomDragonSpawnState
         {
             val center = BlockPos(0, 128, 0)
             list.stream().filter { obj: EnderCrystalEntity? -> Objects.nonNull(obj) }?.forEach { enderCrystalEntity: EnderCrystalEntity? -> enderCrystalEntity?.beamTarget = center }
-            /*
-if(list != null)
-    for (EnderCrystalEntity entity : list)
-        if(entity != null)
-            entity.setBeamTarget(center);
-*/manager.setRespawnState(DragonSpawnState.PREPARING_TO_SUMMON_PILLARS)
+            manager.respawnState = PREPARING_TO_SUMMON_PILLARS
         }
     },
     PREPARING_TO_SUMMON_PILLARS
@@ -42,7 +36,7 @@ if(list != null)
             }
             else
             {
-                manager.setRespawnState(DragonSpawnState.SUMMONING_PILLARS)
+                manager.respawnState = SUMMONING_PILLARS
             }
         }
     },
@@ -76,7 +70,7 @@ if(list != null)
                 }
                 else if (isEnd)
                 {
-                    manager.setRespawnState(DragonSpawnState.SUMMONING_DRAGON)
+                    manager.respawnState = SUMMONING_DRAGON
                 }
             }
         }
@@ -89,7 +83,7 @@ if(list != null)
             {
                 ticks >= 100 ->
                 {
-                    manager.setRespawnState(DragonSpawnState.END)
+                    manager.respawnState = END
                     manager.resetSpikeCrystals()
                     for (enderCrystalEntity in list)
                     {

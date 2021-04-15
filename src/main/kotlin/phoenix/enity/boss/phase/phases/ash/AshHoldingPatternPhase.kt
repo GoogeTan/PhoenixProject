@@ -1,7 +1,6 @@
 package phoenix.enity.boss.phase.phases.ash
 
 import net.minecraft.entity.EntityPredicate
-import net.minecraft.entity.item.EnderCrystalEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.pathfinding.Path
 import net.minecraft.pathfinding.PathPoint
@@ -11,10 +10,10 @@ import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.gen.Heightmap
 import net.minecraft.world.gen.feature.EndPodiumFeature
+import phoenix.enity.EnderCrystalEntity
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
-
 
 open class AshHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {

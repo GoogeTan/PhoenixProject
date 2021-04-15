@@ -3,12 +3,15 @@ package phoenix.world
 import net.minecraft.block.Blocks
 import net.minecraft.block.PaneBlock
 import net.minecraft.client.audio.MusicTicker
+import net.minecraft.entity.EntityType
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.IWorld
+import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 import phoenix.init.PhoenixBlocks.ARMORED_GLASS
+import phoenix.init.PhoenixEntities
 import phoenix.utils.PhoenixMusicTracks
 import phoenix.world.structures.CustomEndSpike
 import kotlin.math.min
@@ -123,6 +126,7 @@ object StageManager
             override val music: MusicTicker.MusicType = MusicTicker.MusicType.END
             override val holdingPhase: PhaseType = PhaseType.ASH_HOLDING_PATTERN
             override val hoverPhase: PhaseType = PhaseType.ASH_HOVER
+            override val dragonType: EntityType<out AbstractEnderDragonEntity> = PhoenixEntities.DRAGON_ASH_STAGE
         },
         REDO
         {
@@ -154,6 +158,7 @@ object StageManager
             override val music: MusicTicker.MusicType = PhoenixMusicTracks.REDO_MUSIC
             override val holdingPhase: PhaseType = PhaseType.REDO_HOLDING_PATTERN
             override val hoverPhase: PhaseType = PhaseType.REDO_HOVER
+            override val dragonType: EntityType<out AbstractEnderDragonEntity> = PhoenixEntities.DRAGON_REDO_STAGE
         },
         REBIRTH
         {
@@ -164,6 +169,7 @@ object StageManager
             override val music: MusicTicker.MusicType = REDO.music
             override val holdingPhase: PhaseType = REDO.holdingPhase
             override val hoverPhase: PhaseType = REDO.hoverPhase
+            override val dragonType: EntityType<out AbstractEnderDragonEntity> = REDO.dragonType
         },
         AIR
         {
@@ -174,11 +180,13 @@ object StageManager
             override val music: MusicTicker.MusicType = REBIRTH.music
             override val holdingPhase: PhaseType = REBIRTH.holdingPhase
             override val hoverPhase: PhaseType = REBIRTH.hoverPhase
+            override val dragonType: EntityType<out AbstractEnderDragonEntity> = REBIRTH.dragonType
         };
 
         abstract fun createTower(future: CustomEndSpike, world: IWorld, spike: CustomEndSpike.EndSpike)
         abstract val music : MusicTicker.MusicType
         abstract val holdingPhase : PhaseType
         abstract val hoverPhase : PhaseType
+        abstract val dragonType : EntityType<out AbstractEnderDragonEntity>
     }
 }

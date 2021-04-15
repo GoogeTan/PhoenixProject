@@ -1,11 +1,10 @@
 package phoenix.enity.boss.phase
 
-import net.minecraft.entity.item.EnderCrystalEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.util.DamageSource
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
-
+import phoenix.enity.EnderCrystalEntity
 
 interface IPhase
 {

@@ -12,13 +12,9 @@ import net.minecraftforge.api.distmarker.OnlyIn
 import phoenix.enity.boss.balls.ExplosiveBallEntity
 
 @OnlyIn(Dist.CLIENT)
-class ExplosiveBallRenderer(renderManagerIn: EntityRendererManager?) :
-    EntityRenderer<ExplosiveBallEntity>(renderManagerIn)
+class ExplosiveBallRenderer(renderManagerIn: EntityRendererManager) : EntityRenderer<ExplosiveBallEntity>(renderManagerIn)
 {
-    override fun getBlockLight(entityIn: ExplosiveBallEntity, partialTicks: Float): Int
-    {
-        return 15
-    }
+    override fun getBlockLight(entityIn: ExplosiveBallEntity, partialTicks: Float): Int = 15
 
     override fun render(
         entityIn: ExplosiveBallEntity,

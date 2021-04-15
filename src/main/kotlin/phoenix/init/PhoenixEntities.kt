@@ -6,6 +6,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
 import phoenix.enity.CaudaEntity
+import phoenix.enity.EnderCrystalEntity
 import phoenix.enity.KnifeEntity
 import phoenix.enity.TalpaEntity
 import phoenix.enity.boss.DragonAshStageEntity
@@ -48,6 +49,14 @@ object PhoenixEntities
                 .build(ResourceLocation(Phoenix.MOD_ID, "zirconium_knife").toString())
     }
 
+    val ENDER_CRYSTAL: EntityType<EnderCrystalEntity> by ENTITIES.register("ender_crystal")
+    {
+        EntityType.Builder.create(::EnderCrystalEntity, EntityClassification.MONSTER)
+            .immuneToFire()
+            .size(16.0f, 8.0f)
+            .build(ResourceLocation(Phoenix.MOD_ID, "dragon_ash_stage").toString())
+    }
+
     val DRAGON_ASH_STAGE: EntityType<DragonAshStageEntity> by ENTITIES.register("dragon_ash_stage")
     {
         EntityType.Builder.create(::DragonAshStageEntity, EntityClassification.MONSTER)
@@ -64,12 +73,12 @@ object PhoenixEntities
             .build(ResourceLocation(Phoenix.MOD_ID, "dragon_redo_stage").toString())
     }
 
-    val explosiveBall : EntityType<ExplosiveBallEntity> by ENTITIES.register("dragon_ash_stage")
+    val explosiveBall : EntityType<ExplosiveBallEntity> by ENTITIES.register("explosiveball")
     {
         EntityType.Builder.create(::ExplosiveBallEntity, EntityClassification.MONSTER)
                 .immuneToFire()
                 .size(16.0f, 8.0f)
-                .build(ResourceLocation(Phoenix.MOD_ID, "dragon_ash_stage").toString())
+                .build(ResourceLocation(Phoenix.MOD_ID, "explosiveball").toString())
     }
 
     fun register() = ENTITIES.register(MOD_BUS)

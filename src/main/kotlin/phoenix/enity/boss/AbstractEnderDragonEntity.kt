@@ -3,7 +3,6 @@ package phoenix.enity.boss
 import com.google.common.collect.Lists
 import net.minecraft.block.material.Material
 import net.minecraft.entity.*
-import net.minecraft.entity.item.EnderCrystalEntity
 import net.minecraft.entity.item.ExperienceOrbEntity
 import net.minecraft.entity.monster.IMob
 import net.minecraft.entity.player.PlayerEntity
@@ -30,6 +29,7 @@ import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.common.ForgeHooks
 import org.apache.logging.log4j.LogManager
+import phoenix.enity.EnderCrystalEntity
 import phoenix.enity.boss.phase.AbstractPhaseManager
 import phoenix.enity.boss.phase.PhaseType
 import phoenix.world.CustomDragonFightManager
@@ -1040,7 +1040,7 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
         val dim = worldIn.dimension;
         fightManager = if (!worldIn.isRemote && dim is phoenix.world.EndDimension)
         {
-            dim.getDragonFightManager()
+            dim.dragonFightManager
         } else
         {
             null
