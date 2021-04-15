@@ -14,6 +14,8 @@ import phoenix.Phoenix
 import phoenix.client.render.OvenRenderer
 import phoenix.client.render.PipeRender
 import phoenix.client.render.TankRenderer
+import phoenix.client.render.dragon.AshDragonRenderer
+import phoenix.client.render.dragon.RedoDragonRenderer
 import phoenix.client.render.entity.CaudaRenderer
 import phoenix.client.render.entity.KnifeRenderer
 import phoenix.client.render.entity.TalpaRenderer
@@ -21,6 +23,8 @@ import phoenix.init.PhoenixBlocks
 import phoenix.init.PhoenixBlocks.BLOCKS
 import phoenix.init.PhoenixContainers
 import phoenix.init.PhoenixEntities.CAUDA
+import phoenix.init.PhoenixEntities.DRAGON_ASH_STAGE
+import phoenix.init.PhoenixEntities.DRAGON_REDO_STAGE
 import phoenix.init.PhoenixEntities.KNIFE
 import phoenix.init.PhoenixEntities.TALPA
 import phoenix.init.PhoenixRenderTypes
@@ -50,6 +54,8 @@ object PhoenixClientEvents
         RenderingRegistry.registerEntityRenderingHandler(TALPA, ::TalpaRenderer)
         RenderingRegistry.registerEntityRenderingHandler(CAUDA, ::CaudaRenderer)
         RenderingRegistry.registerEntityRenderingHandler(KNIFE, ::KnifeRenderer)
+        RenderingRegistry.registerEntityRenderingHandler(DRAGON_ASH_STAGE, ::AshDragonRenderer)
+        RenderingRegistry.registerEntityRenderingHandler(DRAGON_REDO_STAGE, ::RedoDragonRenderer)
         //ClientRegistry.bindTileEntityRenderer(PhoenixTiles.PIPE, ::PipeRender)
         //ClientRegistry.bindTileEntityRenderer(PhoenixTiles.TANK, ::TankRenderer)
         ClientRegistry.bindTileEntityRenderer(PhoenixTiles.OVEN, ::OvenRenderer)

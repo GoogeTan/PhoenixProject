@@ -19,17 +19,11 @@ open class AshHoverPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 
     override val isStationary: Boolean = true
 
-    /**
-     * Called when this phase is set to active
-     */
     override fun initPhase()
     {
         targetLocation = null
     }
 
-    /**
-     * Returns the maximum amount dragon may rise or fall during this phase
-     */
     override val maxRiseOrFall = 1.0f
 
     override val type = PhaseType.ASH_HOVER

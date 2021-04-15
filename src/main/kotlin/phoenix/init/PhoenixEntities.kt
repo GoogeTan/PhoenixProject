@@ -56,20 +56,20 @@ object PhoenixEntities
             .build(ResourceLocation(Phoenix.MOD_ID, "dragon_ash_stage").toString())
     }
 
-    val explosiveBall : EntityType<ExplosiveBallEntity> by ENTITIES.register("dragon_ash_stage")
-    {
-        EntityType.Builder.create(::ExplosiveBallEntity, EntityClassification.MONSTER)
-                .immuneToFire()
-                .size(16.0f, 8.0f)
-                .build(ResourceLocation(Phoenix.MOD_ID, "dragon_ash_stage").toString())
-    }
-
     val DRAGON_REDO_STAGE: EntityType<DragonRedoStageEntity> by ENTITIES.register("dragon_redo_stage")
     {
         EntityType.Builder.create(::DragonRedoStageEntity, EntityClassification.MONSTER)
             .immuneToFire()
             .size(16.0f, 8.0f)
             .build(ResourceLocation(Phoenix.MOD_ID, "dragon_redo_stage").toString())
+    }
+
+    val explosiveBall : EntityType<ExplosiveBallEntity> by ENTITIES.register("dragon_ash_stage")
+    {
+        EntityType.Builder.create(::ExplosiveBallEntity, EntityClassification.MONSTER)
+                .immuneToFire()
+                .size(16.0f, 8.0f)
+                .build(ResourceLocation(Phoenix.MOD_ID, "dragon_ash_stage").toString())
     }
 
     fun register() = ENTITIES.register(MOD_BUS)
