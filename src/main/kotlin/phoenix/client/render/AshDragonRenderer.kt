@@ -19,6 +19,7 @@ import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import phoenix.enity.boss.DragonAshStageEntity
 import java.util.*
+import kotlin.math.sin
 
 @OnlyIn(Dist.CLIENT)
 class AshDragonRenderer(renderManagerIn: EntityRendererManager) :
@@ -236,8 +237,8 @@ class AshDragonRenderer(renderManagerIn: EntityRendererManager) :
         {
             matrixStackIn.push()
             val f = MathHelper.lerp(partialTicks, dragonInstance!!.prevAnimTime, dragonInstance!!.animTime)
-            jaw.rotateAngleX = (Math.sin((f * (Math.PI.toFloat() * 2f)).toDouble()) + 1.0).toFloat() * 0.2f
-            var f1 = (Math.sin((f * (Math.PI.toFloat() * 2f) - 1.0f).toDouble()) + 1.0).toFloat()
+            jaw.rotateAngleX = (sin((f * (Math.PI.toFloat() * 2f)).toDouble()) + 1.0).toFloat() * 0.2f
+            var f1 = (sin((f * (Math.PI.toFloat() * 2f) - 1.0f).toDouble()) + 1.0).toFloat()
             f1 = (f1 * f1 + f1 * 2.0f) * 0.05f
             matrixStackIn.translate(0.0, (f1 - 2.0f).toDouble(), -3.0)
             matrixStackIn.rotate(Vector3f.XP.rotationDegrees(f1 * 2.0f))

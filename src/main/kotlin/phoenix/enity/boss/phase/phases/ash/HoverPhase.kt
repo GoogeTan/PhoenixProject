@@ -5,7 +5,7 @@ import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
 
-class HoverPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
+open class HoverPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
     override var targetLocation: Vec3d? = null
 

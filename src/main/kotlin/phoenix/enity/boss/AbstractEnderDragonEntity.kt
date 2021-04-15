@@ -33,6 +33,7 @@ import org.apache.logging.log4j.LogManager
 import phoenix.enity.boss.phase.AbstractPhaseManager
 import phoenix.enity.boss.phase.PhaseType
 import phoenix.world.CustomDragonFightManager
+import phoenix.world.StageManager
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.pow
@@ -73,7 +74,7 @@ open class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDragonEnt
     override fun registerData()
     {
         super.registerData()
-        getDataManager().register(PHASE, PhaseType.HOVER.getId())
+        getDataManager().register(PHASE, StageManager.stageEnum.hoverPhase.getId())
     }
 
     /**
@@ -515,7 +516,7 @@ open class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDragonEnt
         return flag
     }
 
-    fun attackPart(part: AbstractDragonPartEntity, source: DamageSource, damageIn: Float): Boolean
+    open fun attackPart(part: AbstractDragonPartEntity, source: DamageSource, damageIn: Float): Boolean
     {
         var damage = damageIn
         return if (phaseManager.currentPhase!!.type === PhaseType.DYING)
@@ -917,7 +918,7 @@ open class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDragonEnt
     override fun getSoundVolume(): Float = 5.0f
 
     @OnlyIn(Dist.CLIENT)
-    fun getHeadPartYOffset(p_184667_1_: Int, p_184667_2_: DoubleArray, p_184667_3_: DoubleArray): Float
+    open fun getHeadPartYOffset(p_184667_1_: Int, p_184667_2_: DoubleArray, p_184667_3_: DoubleArray): Float
     {
         val iphase = phaseManager.currentPhase
         val phasetype = iphase?.type
@@ -948,7 +949,7 @@ open class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDragonEnt
         return d0.toFloat()
     }
 
-    fun getHeadLookVec(p_184665_1_: Float): Vec3d
+    open fun getHeadLookVec(p_184665_1_: Float): Vec3d
     {
         val iphase = phaseManager.currentPhase
         val phasetype = iphase!!.type

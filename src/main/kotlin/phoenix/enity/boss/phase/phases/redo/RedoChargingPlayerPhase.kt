@@ -2,7 +2,6 @@ package phoenix.enity.boss.phase.phases.redo
 
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
-import phoenix.enity.boss.phase.PhaseType.Companion.REDO_CHARGING_PLAYER
 import phoenix.enity.boss.phase.phases.ash.ChargingPlayerPhase
 
 class RedoChargingPlayerPhase(dragonIn: AbstractEnderDragonEntity) : ChargingPlayerPhase(dragonIn)
@@ -29,5 +28,5 @@ class RedoChargingPlayerPhase(dragonIn: AbstractEnderDragonEntity) : ChargingPla
         }
     }
 
-    override val type: PhaseType = REDO_CHARGING_PLAYER
+    override val type: PhaseType = PhaseType.REDO_CHARGING_PLAYER
 }

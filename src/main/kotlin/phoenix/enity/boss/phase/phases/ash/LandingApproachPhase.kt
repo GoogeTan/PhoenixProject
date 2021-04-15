@@ -10,9 +10,9 @@ import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
 
-class LandingApproachPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
+open class LandingApproachPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
-    private var currentPath: Path? = null
+    protected var currentPath: Path? = null
     override var targetLocation: Vec3d? = null
     override val type =  PhaseType.LANDING_APPROACH
 
@@ -38,7 +38,7 @@ class LandingApproachPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn
         }
     }
 
-    private fun findNewTarget()
+    protected open fun findNewTarget()
     {
         if (currentPath == null || currentPath!!.isFinished)
         {
@@ -71,7 +71,7 @@ class LandingApproachPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn
         }
     }
 
-    private fun navigateToNextPathNode()
+    protected fun navigateToNextPathNode()
     {
         if (currentPath != null && !currentPath!!.isFinished)
         {
@@ -94,6 +94,6 @@ class LandingApproachPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn
 
     companion object
     {
-        private val field_221118_b = EntityPredicate().setDistance(128.0)
+        val field_221118_b = EntityPredicate().setDistance(128.0)
     }
 }

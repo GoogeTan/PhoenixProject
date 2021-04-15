@@ -9,7 +9,7 @@ import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
 
 
-class DyingPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
+open class DyingPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
     override var targetLocation: Vec3d? = null
     private var time = 0

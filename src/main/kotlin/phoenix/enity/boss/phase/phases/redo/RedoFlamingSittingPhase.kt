@@ -25,7 +25,7 @@ class RedoFlamingSittingPhase(dragonIn: AbstractEnderDragonEntity) : FlamingSitt
                 dragon.phaseManager.setPhase(PhaseType.REDO_TAKEOFF)
             } else
             {
-                dragon.phaseManager.setPhase(PhaseType.SITTING_SCANNING)
+                dragon.phaseManager.setPhase(PhaseType.REDO_SITTING_SCANNING)
             }
         } else if (flameTicks == 10)
         {

@@ -7,6 +7,8 @@ import net.minecraft.nbt.CompoundNBT
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.IWorld
+import phoenix.enity.boss.phase.PhaseType
+import phoenix.enity.boss.phase.phases.Phase
 import phoenix.init.PhoenixBlocks.ARMORED_GLASS
 import phoenix.utils.PhoenixMusicTracks
 import phoenix.world.structures.CustomEndSpike
@@ -120,6 +122,8 @@ object StageManager
             }
 
             override val music: MusicTicker.MusicType = MusicTicker.MusicType.END
+            override val holdingPhase: PhaseType = PhaseType.HOLDING_PATTERN
+            override val hoverPhase: PhaseType = PhaseType.HOVER
         },
         REDO
         {
@@ -149,6 +153,8 @@ object StageManager
                 }
             }
             override val music: MusicTicker.MusicType = PhoenixMusicTracks.REDO_MUSIC
+            override val holdingPhase: PhaseType = PhaseType.REDO_HOLDING_PATTERN
+            override val hoverPhase: PhaseType = PhaseType.REDO_HOVER
         },
         REBIRTH
         {
@@ -157,6 +163,8 @@ object StageManager
                 ASH.createTower(future, world, spike)
             }
             override val music: MusicTicker.MusicType = REDO.music
+            override val holdingPhase: PhaseType = REDO.holdingPhase
+            override val hoverPhase: PhaseType = REDO.hoverPhase
         },
         AIR
         {
@@ -165,9 +173,13 @@ object StageManager
                 ASH.createTower(future, world, spike)
             }
             override val music: MusicTicker.MusicType = REBIRTH.music
+            override val holdingPhase: PhaseType = REBIRTH.holdingPhase
+            override val hoverPhase: PhaseType = REBIRTH.hoverPhase
         };
 
         abstract fun createTower(future: CustomEndSpike, world: IWorld, spike: CustomEndSpike.EndSpike)
         abstract val music : MusicTicker.MusicType
+        abstract val holdingPhase : PhaseType
+        abstract val hoverPhase : PhaseType
     }
 }

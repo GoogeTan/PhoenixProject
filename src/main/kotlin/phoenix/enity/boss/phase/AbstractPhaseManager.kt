@@ -2,6 +2,7 @@ package phoenix.enity.boss.phase
 
 import org.apache.logging.log4j.LogManager
 import phoenix.enity.boss.AbstractEnderDragonEntity
+import phoenix.world.StageManager
 
 class AbstractPhaseManager(private val dragon: AbstractEnderDragonEntity)
 {
@@ -46,6 +47,6 @@ class AbstractPhaseManager(private val dragon: AbstractEnderDragonEntity)
 
     init
     {
-        setPhase(PhaseType.HOVER)
+        setPhase(StageManager.stageEnum.hoverPhase)
     }
 }

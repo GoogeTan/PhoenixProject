@@ -4,6 +4,7 @@ import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.phases.ash.*
 import phoenix.enity.boss.phase.phases.redo.*
 import phoenix.utils.ArrayUtils.resize
+import phoenix.world.StageManager
 
 class PhaseType private constructor(private val id: Int, private val constructor: (AbstractEnderDragonEntity) -> IPhase, private val name: String)
 {
@@ -28,16 +29,19 @@ class PhaseType private constructor(private val id: Int, private val constructor
         val DYING = create(::DyingPhase, "Dying")
         val HOVER = create(::HoverPhase, "Hover")
 
-        val REDO_STRAFE_PLAYER = create(::RedoStrafePlayerPhase, "RedoStrafePlayer")
         val REDO_HOLDING_PATTERN = create(::RedoHoldingPatternPhase, "RedoHoldingPattern")
-        val REDO_CHARGING_PLAYER = create(::RedoChargingPlayerPhase, "RedoChargingPlayer")
+        val REDO_STRAFE_PLAYER = create(::RedoStrafePlayerPhase, "RedoStrafePlayer")
+        val REDO_LANDING_APPROACH = create(::RedoLandingApproachPhase, "LandingApproach")
+        val REDO_LANDING = create(::RedoLandingPhase, "Landing")
         val REDO_TAKEOFF = create(::RedoTakeoffPhase, "RedoTakeoff")
         val REDO_SITTING_FLAMING = create(::RedoFlamingSittingPhase, "SittingFlaming")
-        /**
-         * Gets a phase by its ID. If the phase is out of bounds (negative or beyond the end of the phase array), returns
-         * [.HOLDING_PATTERN].
-         */
-        fun getById(idIn: Int) = if (idIn >= 0 && idIn < phases.size) phases[idIn] else HOLDING_PATTERN
+        val REDO_SITTING_SCANNING = create(::RedoScanningSittingPhase, "SittingScanning")
+        val REDO_SITTING_ATTACKING = create(::RedoAttackingSittingPhase, "SittingAttacking")
+        val REDO_CHARGING_PLAYER = create(::RedoChargingPlayerPhase, "RedoChargingPlayer")
+        val REDO_DYING = create(::RedoDyingPhase, "Dying")
+        val REDO_HOVER = create(::RedoHoverPhase, "Hover")
+
+        fun getById(idIn: Int) = if (idIn >= 0 && idIn < phases.size) phases[idIn] else StageManager.stageEnum.holdingPhase
 
         fun getTotalPhases(): Int = phases.size
 

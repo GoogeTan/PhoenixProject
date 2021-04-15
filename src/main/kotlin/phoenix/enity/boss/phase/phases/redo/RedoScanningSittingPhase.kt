@@ -1,17 +1,16 @@
-package phoenix.enity.boss.phase.phases.ash
+package phoenix.enity.boss.phase.phases.redo
 
-import net.minecraft.entity.EntityPredicate
 import net.minecraft.entity.LivingEntity
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec3d
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
-import kotlin.math.abs
+import phoenix.enity.boss.phase.phases.ash.ChargingPlayerPhase
+import phoenix.enity.boss.phase.phases.ash.ScanningSittingPhase
 
-open class ScanningSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPhase(dragonIn)
+class RedoScanningSittingPhase(dragonIn: AbstractEnderDragonEntity) : ScanningSittingPhase(dragonIn)
 {
-    protected val predicate: EntityPredicate = EntityPredicate().setDistance(20.0).setCustomPredicate { entity: LivingEntity -> abs(entity.posY - dragonIn.posY) <= 10.0 }
-    protected var scanningTime = 0
+    override val type: PhaseType = PhaseType.REDO_SITTING_SCANNING
 
     override fun serverTick()
     {
@@ -24,7 +23,7 @@ open class ScanningSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPh
         {
             if (scanningTime > 25)
             {
-                dragon.phaseManager.setPhase(PhaseType.SITTING_ATTACKING)
+                dragon.phaseManager.setPhase(PhaseType.REDO_SITTING_ATTACKING)
             } else
             {
                 val vec3d = Vec3d(livingentity.posX - dragon.posX, 0.0, livingentity.posZ - dragon.posZ)
@@ -65,28 +64,12 @@ open class ScanningSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPh
                 field_221115_b,
                 dragon, dragon.posX, dragon.posY, dragon.posZ
             )
-            dragon.phaseManager.setPhase(PhaseType.TAKEOFF)
+            dragon.phaseManager.setPhase(PhaseType.REDO_TAKEOFF)
             if (livingentity != null)
             {
-                dragon.phaseManager.setPhase(PhaseType.CHARGING_PLAYER)
-                dragon.phaseManager.getPhase<ChargingPlayerPhase>(PhaseType.CHARGING_PLAYER)?.setTarget(Vec3d(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ()))
+                dragon.phaseManager.setPhase(PhaseType.REDO_CHARGING_PLAYER)
+                dragon.phaseManager.getPhase<ChargingPlayerPhase>(PhaseType.REDO_CHARGING_PLAYER)?.setTarget(Vec3d(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ()))
             }
         }
     }
-
-    /**
-     * Called when this phase is set to active
-     */
-    override fun initPhase()
-    {
-        scanningTime = 0
-    }
-
-    override val type =  PhaseType.SITTING_SCANNING
-
-    companion object
-    {
-        val field_221115_b = EntityPredicate().setDistance(150.0)
-    }
-
 }

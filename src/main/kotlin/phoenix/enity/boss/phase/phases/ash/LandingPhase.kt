@@ -12,7 +12,7 @@ import phoenix.enity.boss.phase.phases.Phase
 import kotlin.math.min
 
 
-class LandingPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
+open class LandingPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
     override var targetLocation: Vec3d? = null
     override val type =  PhaseType.LANDING

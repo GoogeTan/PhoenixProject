@@ -20,7 +20,7 @@ open class HoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(drag
 {
     protected var currentPath : Path? = null
 
-    private var clockwise = false
+    protected var clockwise = false
 
     override val type = PhaseType.HOLDING_PATTERN
 
@@ -51,7 +51,7 @@ open class HoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(drag
      */
     override var targetLocation : Vec3d? = null
 
-    private fun findNewTarget()
+    protected open fun findNewTarget()
     {
         if (currentPath != null && currentPath!!.isFinished)
         {
@@ -118,7 +118,7 @@ open class HoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(drag
         dragon.phaseManager.getPhase<StrafePlayerPhase>(PhaseType.STRAFE_PLAYER)?.setTarget(player)
     }
 
-    private fun navigateToNextPathNode()
+    protected fun navigateToNextPathNode()
     {
         if (currentPath != null && !currentPath!!.isFinished)
         {
@@ -149,6 +149,6 @@ open class HoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(drag
 
     companion object
     {
-        private val field_221117_b = EntityPredicate().setDistance(64.0)
+        val field_221117_b = EntityPredicate().setDistance(64.0)
     }
 }

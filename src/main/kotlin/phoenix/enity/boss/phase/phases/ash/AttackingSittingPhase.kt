@@ -4,10 +4,9 @@ import net.minecraft.util.SoundEvents
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 
-
-class AttackingSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPhase(dragonIn)
+open class AttackingSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPhase(dragonIn)
 {
-    private var attackingTicks = 0
+    protected var attackingTicks = 0
 
     /**
      * Generates particle effects appropriate to the phase (or sometimes sounds).
