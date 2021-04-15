@@ -5,10 +5,10 @@ import net.minecraft.world.gen.Heightmap
 import net.minecraft.world.gen.feature.EndPodiumFeature
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
-import phoenix.enity.boss.phase.phases.ash.FlamingSittingPhase
-import phoenix.enity.boss.phase.phases.ash.LandingPhase
+import phoenix.enity.boss.phase.phases.ash.AshFlamingSittingPhase
+import phoenix.enity.boss.phase.phases.ash.AshLandingPhase
 
-class RedoLandingPhase(dragonIn: AbstractEnderDragonEntity) : LandingPhase(dragonIn)
+class RedoLandingPhase(dragonIn: AbstractEnderDragonEntity) : AshLandingPhase(dragonIn)
 {
     override val type: PhaseType = PhaseType.REDO_LANDING
 
@@ -25,7 +25,7 @@ class RedoLandingPhase(dragonIn: AbstractEnderDragonEntity) : LandingPhase(drago
         }
         if (targetLocation!!.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ) < 1.0)
         {
-            dragon.phaseManager.getPhase<FlamingSittingPhase>(PhaseType.REDO_SITTING_FLAMING)?.resetFlameCount()
+            dragon.phaseManager.getPhase<AshFlamingSittingPhase>(PhaseType.REDO_SITTING_FLAMING)?.resetFlameCount()
             dragon.phaseManager.setPhase(PhaseType.REDO_SITTING_SCANNING)
         }
     }

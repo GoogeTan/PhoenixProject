@@ -9,7 +9,7 @@ import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
 
-open class TakeoffPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
+open class AshTakeoffPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
     protected var firstTick = false
     protected var currentPath: Path? = null
@@ -27,7 +27,7 @@ open class TakeoffPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
                 dragon.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EndPodiumFeature.END_PODIUM_LOCATION)
             if (!pos.withinDistance(dragon.positionVec, 10.0))
             {
-                dragon.phaseManager.setPhase(PhaseType.HOLDING_PATTERN)
+                dragon.phaseManager.setPhase(PhaseType.ASH_HOLDING_PATTERN)
             }
         } else
         {
@@ -91,5 +91,5 @@ open class TakeoffPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
         }
     }
 
-    override val type = PhaseType.TAKEOFF
+    override val type = PhaseType.ASH_TAKEOFF
 }

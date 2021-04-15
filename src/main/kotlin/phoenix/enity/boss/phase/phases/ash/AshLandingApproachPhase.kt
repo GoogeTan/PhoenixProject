@@ -10,11 +10,11 @@ import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
 
-open class LandingApproachPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
+open class AshLandingApproachPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
     protected var currentPath: Path? = null
     override var targetLocation: Vec3d? = null
-    override val type =  PhaseType.LANDING_APPROACH
+    override val type =  PhaseType.ASH_LANDING_APPROACH
 
     /**
      * Called when this phase is set to active
@@ -67,7 +67,7 @@ open class LandingApproachPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dra
         navigateToNextPathNode()
         if (currentPath != null && currentPath!!.isFinished)
         {
-            dragon.phaseManager.setPhase(PhaseType.LANDING)
+            dragon.phaseManager.setPhase(PhaseType.ASH_LANDING)
         }
     }
 

@@ -9,7 +9,7 @@ import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
 
 
-open class DyingPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
+open class AshDyingPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
     override var targetLocation: Vec3d? = null
     private var time = 0
@@ -64,5 +64,5 @@ open class DyingPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 
     override val maxRiseOrFall: Float = 3.0f
 
-    override val type: PhaseType = PhaseType.DYING
+    override val type: PhaseType = PhaseType.ASH_DYING
 }

@@ -7,12 +7,12 @@ import net.minecraft.util.math.Vec3d
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.balls.ExplosiveBallEntity
 import phoenix.enity.boss.phase.PhaseType
-import phoenix.enity.boss.phase.phases.ash.StrafePlayerPhase
+import phoenix.enity.boss.phase.phases.ash.AshStrafePlayerPhase
 import phoenix.init.events.PhoenixEvents
 import kotlin.math.acos
 import kotlin.math.min
 
-open class RedoStrafePlayerPhase(dragon: AbstractEnderDragonEntity) : StrafePlayerPhase(dragon)
+open class RedoStrafePlayerPhase(dragon: AbstractEnderDragonEntity) : AshStrafePlayerPhase(dragon)
 {
     override val type: PhaseType = PhaseType.REDO_STRAFE_PLAYER
 

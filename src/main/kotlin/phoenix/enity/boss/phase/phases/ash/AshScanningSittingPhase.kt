@@ -8,7 +8,7 @@ import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 import kotlin.math.abs
 
-open class ScanningSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPhase(dragonIn)
+open class AshScanningSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPhase(dragonIn)
 {
     protected val predicate: EntityPredicate = EntityPredicate().setDistance(20.0).setCustomPredicate { entity: LivingEntity -> abs(entity.posY - dragonIn.posY) <= 10.0 }
     protected var scanningTime = 0
@@ -24,7 +24,7 @@ open class ScanningSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPh
         {
             if (scanningTime > 25)
             {
-                dragon.phaseManager.setPhase(PhaseType.SITTING_ATTACKING)
+                dragon.phaseManager.setPhase(PhaseType.ASH_SITTING_ATTACKING)
             } else
             {
                 val vec3d = Vec3d(livingentity.posX - dragon.posX, 0.0, livingentity.posZ - dragon.posZ)
@@ -65,11 +65,11 @@ open class ScanningSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPh
                 field_221115_b,
                 dragon, dragon.posX, dragon.posY, dragon.posZ
             )
-            dragon.phaseManager.setPhase(PhaseType.TAKEOFF)
+            dragon.phaseManager.setPhase(PhaseType.ASH_TAKEOFF)
             if (livingentity != null)
             {
-                dragon.phaseManager.setPhase(PhaseType.CHARGING_PLAYER)
-                dragon.phaseManager.getPhase<ChargingPlayerPhase>(PhaseType.CHARGING_PLAYER)?.setTarget(Vec3d(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ()))
+                dragon.phaseManager.setPhase(PhaseType.ASH_CHARGING_PLAYER)
+                dragon.phaseManager.getPhase<AshChargingPlayerPhase>(PhaseType.ASH_CHARGING_PLAYER)?.setTarget(Vec3d(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ()))
             }
         }
     }
@@ -82,7 +82,7 @@ open class ScanningSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPh
         scanningTime = 0
     }
 
-    override val type =  PhaseType.SITTING_SCANNING
+    override val type =  PhaseType.ASH_SITTING_SCANNING
 
     companion object
     {

@@ -8,9 +8,9 @@ import net.minecraft.world.gen.Heightmap
 import net.minecraft.world.gen.feature.EndPodiumFeature
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
-import phoenix.enity.boss.phase.phases.ash.HoldingPatternPhase
+import phoenix.enity.boss.phase.phases.ash.AshHoldingPatternPhase
 
-class RedoHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : HoldingPatternPhase(dragonIn)
+class RedoHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : AshHoldingPatternPhase(dragonIn)
 {
     override val type: PhaseType = PhaseType.REDO_HOLDING_PATTERN
 

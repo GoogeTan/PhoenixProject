@@ -7,7 +7,7 @@ import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
 
 
-open class ChargingPlayerPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
+open class AshChargingPlayerPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
     override var targetLocation: Vec3d? = null
     protected var timeSinceCharge = 0
@@ -21,10 +21,10 @@ open class ChargingPlayerPhase(dragonIn: AbstractEnderDragonEntity) : Phase(drag
         if (targetLocation == null)
         {
             LOGGER.warn("Aborting charge player as no target was set.")
-            dragon.phaseManager.setPhase(PhaseType.HOLDING_PATTERN)
+            dragon.phaseManager.setPhase(PhaseType.ASH_HOLDING_PATTERN)
         } else if (timeSinceCharge > 0 && timeSinceCharge++ >= 10)
         {
-            dragon.phaseManager.setPhase(PhaseType.HOLDING_PATTERN)
+            dragon.phaseManager.setPhase(PhaseType.ASH_HOLDING_PATTERN)
         } else
         {
             val d0 = targetLocation!!.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ)
@@ -52,7 +52,7 @@ open class ChargingPlayerPhase(dragonIn: AbstractEnderDragonEntity) : Phase(drag
     override val maxRiseOrFall: Float
         get() = 3.0f
 
-    override val type = PhaseType.CHARGING_PLAYER
+    override val type = PhaseType.ASH_CHARGING_PLAYER
 
     companion object
     {

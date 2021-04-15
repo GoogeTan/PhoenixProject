@@ -38,7 +38,7 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.pow
 
-open class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDragonEntity>, worldIn: World) : MobEntity(type, worldIn), IMob
+abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDragonEntity>, worldIn: World) : MobEntity(type, worldIn), IMob
 {
     val ringBuffer = Array(64) { DoubleArray(3) }
     var ringBufferIndex = -1
@@ -64,6 +64,10 @@ open class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDragonEnt
     protected val pathPoints = arrayOfNulls<PathPoint>(24)
     protected val neighbors = IntArray(24)
     protected val pathFindQueue = PathHeap()
+
+    abstract val LANDING : PhaseType
+    abstract val TAKEOFF : PhaseType
+    abstract val DYING   : PhaseType
 
     override fun registerAttributes()
     {
@@ -519,7 +523,7 @@ open class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDragonEnt
     open fun attackPart(part: AbstractDragonPartEntity, source: DamageSource, damageIn: Float): Boolean
     {
         var damage = damageIn
-        return if (phaseManager.currentPhase!!.type === PhaseType.DYING)
+        return if (phaseManager.currentPhase!!.type === DYING)
         {
             false
         } else
@@ -541,7 +545,7 @@ open class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDragonEnt
                     if (this.health <= 0.0f && !phaseManager.currentPhase!!.isStationary)
                     {
                         this.health = 1.0f
-                        phaseManager.setPhase(PhaseType.DYING)
+                        phaseManager.setPhase(DYING)
                     }
                     if (phaseManager.currentPhase!!.isStationary)
                     {
@@ -549,7 +553,7 @@ open class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDragonEnt
                         if (sittingDamageReceived.toFloat() > 0.25f * this.maxHealth)
                         {
                             sittingDamageReceived = 0
-                            phaseManager.setPhase(PhaseType.TAKEOFF)
+                            phaseManager.setPhase(TAKEOFF)
                         }
                     }
                 }
@@ -922,7 +926,7 @@ open class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDragonEnt
     {
         val iphase = phaseManager.currentPhase
         val phasetype = iphase?.type
-        val d0: Double = if (phasetype !== PhaseType.LANDING && phasetype !== PhaseType.TAKEOFF)
+        val d0: Double = if (phasetype !== LANDING && phasetype !== TAKEOFF)
         {
             when
             {
@@ -954,7 +958,7 @@ open class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDragonEnt
         val iphase = phaseManager.currentPhase
         val phasetype = iphase!!.type
         val vec3d: Vec3d
-        if (phasetype !== PhaseType.LANDING && phasetype !== PhaseType.TAKEOFF)
+        if (phasetype !== LANDING && phasetype !== TAKEOFF)
         {
             if (iphase.isStationary)
             {
@@ -1010,23 +1014,11 @@ open class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDragonEnt
         super.notifyDataManagerChange(key)
     }
 
-    override fun addPotionEffect(effectInstanceIn: EffectInstance): Boolean
-    {
-        return false
-    }
+    override fun addPotionEffect(effectInstanceIn: EffectInstance): Boolean = false
 
-    override fun canBeRidden(entityIn: Entity): Boolean
-    {
-        return false
-    }
+    override fun canBeRidden(entityIn: Entity): Boolean = false
 
-    /**
-     * Returns false if this Entity is a boss, true otherwise.
-     */
-    override fun isNonBoss(): Boolean
-    {
-        return false
-    }
+    override fun isNonBoss(): Boolean = false
 
     companion object
     {

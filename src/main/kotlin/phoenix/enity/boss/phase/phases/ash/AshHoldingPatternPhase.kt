@@ -16,13 +16,13 @@ import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
 
 
-open class HoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
+open class AshHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
     protected var currentPath : Path? = null
 
     protected var clockwise = false
 
-    override val type = PhaseType.HOLDING_PATTERN
+    override val type = PhaseType.ASH_HOLDING_PATTERN
 
     /**
      * Gives the phase a chance to update its status.
@@ -59,7 +59,7 @@ open class HoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(drag
             val i = if (dragon.fightManager == null) 0 else dragon.fightManager!!.numAliveCrystals
             if (dragon.rng.nextInt(i + 3) == 0)
             {
-                dragon.phaseManager.setPhase(PhaseType.LANDING_APPROACH)
+                dragon.phaseManager.setPhase(PhaseType.ASH_LANDING_APPROACH)
                 return
             }
             var dist = 64.0
@@ -114,8 +114,8 @@ open class HoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(drag
 
     protected open fun strafePlayer(player: PlayerEntity)
     {
-        dragon.phaseManager.setPhase(PhaseType.STRAFE_PLAYER)
-        dragon.phaseManager.getPhase<StrafePlayerPhase>(PhaseType.STRAFE_PLAYER)?.setTarget(player)
+        dragon.phaseManager.setPhase(PhaseType.ASH_STRAFE_PLAYER)
+        dragon.phaseManager.getPhase<AshStrafePlayerPhase>(PhaseType.ASH_STRAFE_PLAYER)?.setTarget(player)
     }
 
     protected fun navigateToNextPathNode()

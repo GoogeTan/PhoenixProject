@@ -4,9 +4,9 @@ import net.minecraft.world.gen.Heightmap
 import net.minecraft.world.gen.feature.EndPodiumFeature
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
-import phoenix.enity.boss.phase.phases.ash.TakeoffPhase
+import phoenix.enity.boss.phase.phases.ash.AshTakeoffPhase
 
-class RedoTakeoffPhase(dragonIn: AbstractEnderDragonEntity) : TakeoffPhase(dragonIn)
+class RedoTakeoffPhase(dragonIn: AbstractEnderDragonEntity) : AshTakeoffPhase(dragonIn)
 {
     override val type: PhaseType = PhaseType.REDO_TAKEOFF
 

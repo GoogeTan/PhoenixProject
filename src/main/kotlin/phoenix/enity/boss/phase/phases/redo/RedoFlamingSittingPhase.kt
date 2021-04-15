@@ -9,9 +9,9 @@ import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec3d
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
-import phoenix.enity.boss.phase.phases.ash.FlamingSittingPhase
+import phoenix.enity.boss.phase.phases.ash.AshFlamingSittingPhase
 
-class RedoFlamingSittingPhase(dragonIn: AbstractEnderDragonEntity) : FlamingSittingPhase(dragonIn)
+class RedoFlamingSittingPhase(dragonIn: AbstractEnderDragonEntity) : AshFlamingSittingPhase(dragonIn)
 {
     override val type: PhaseType = PhaseType.REDO_SITTING_FLAMING
 

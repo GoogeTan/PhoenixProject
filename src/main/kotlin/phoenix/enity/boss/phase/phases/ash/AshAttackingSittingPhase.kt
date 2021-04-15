@@ -4,7 +4,7 @@ import net.minecraft.util.SoundEvents
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 
-open class AttackingSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPhase(dragonIn)
+open class AshAttackingSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPhase(dragonIn)
 {
     protected var attackingTicks = 0
 
@@ -34,7 +34,7 @@ open class AttackingSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingP
     {
         if (attackingTicks++ >= 40)
         {
-            dragon.phaseManager.setPhase(PhaseType.SITTING_FLAMING)
+            dragon.phaseManager.setPhase(PhaseType.ASH_SITTING_FLAMING)
         }
     }
 
@@ -46,5 +46,5 @@ open class AttackingSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingP
         attackingTicks = 0
     }
 
-    override val type = PhaseType.SITTING_ATTACKING
+    override val type = PhaseType.ASH_SITTING_ATTACKING
 }

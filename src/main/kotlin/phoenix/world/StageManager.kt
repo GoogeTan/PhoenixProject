@@ -8,7 +8,6 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.IWorld
 import phoenix.enity.boss.phase.PhaseType
-import phoenix.enity.boss.phase.phases.Phase
 import phoenix.init.PhoenixBlocks.ARMORED_GLASS
 import phoenix.utils.PhoenixMusicTracks
 import phoenix.world.structures.CustomEndSpike
@@ -122,8 +121,8 @@ object StageManager
             }
 
             override val music: MusicTicker.MusicType = MusicTicker.MusicType.END
-            override val holdingPhase: PhaseType = PhaseType.HOLDING_PATTERN
-            override val hoverPhase: PhaseType = PhaseType.HOVER
+            override val holdingPhase: PhaseType = PhaseType.ASH_HOLDING_PATTERN
+            override val hoverPhase: PhaseType = PhaseType.ASH_HOVER
         },
         REDO
         {

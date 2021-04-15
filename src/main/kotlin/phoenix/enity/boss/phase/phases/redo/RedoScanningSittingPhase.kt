@@ -5,10 +5,10 @@ import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec3d
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
-import phoenix.enity.boss.phase.phases.ash.ChargingPlayerPhase
-import phoenix.enity.boss.phase.phases.ash.ScanningSittingPhase
+import phoenix.enity.boss.phase.phases.ash.AshChargingPlayerPhase
+import phoenix.enity.boss.phase.phases.ash.AshScanningSittingPhase
 
-class RedoScanningSittingPhase(dragonIn: AbstractEnderDragonEntity) : ScanningSittingPhase(dragonIn)
+class RedoScanningSittingPhase(dragonIn: AbstractEnderDragonEntity) : AshScanningSittingPhase(dragonIn)
 {
     override val type: PhaseType = PhaseType.REDO_SITTING_SCANNING
 
@@ -68,7 +68,7 @@ class RedoScanningSittingPhase(dragonIn: AbstractEnderDragonEntity) : ScanningSi
             if (livingentity != null)
             {
                 dragon.phaseManager.setPhase(PhaseType.REDO_CHARGING_PLAYER)
-                dragon.phaseManager.getPhase<ChargingPlayerPhase>(PhaseType.REDO_CHARGING_PLAYER)?.setTarget(Vec3d(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ()))
+                dragon.phaseManager.getPhase<AshChargingPlayerPhase>(PhaseType.REDO_CHARGING_PLAYER)?.setTarget(Vec3d(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ()))
             }
         }
     }

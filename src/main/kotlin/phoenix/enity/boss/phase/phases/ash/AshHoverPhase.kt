@@ -5,7 +5,7 @@ import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
 
-open class HoverPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
+open class AshHoverPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
     override var targetLocation: Vec3d? = null
 
@@ -32,5 +32,5 @@ open class HoverPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
      */
     override val maxRiseOrFall = 1.0f
 
-    override val type = PhaseType.HOVER
+    override val type = PhaseType.ASH_HOVER
 }

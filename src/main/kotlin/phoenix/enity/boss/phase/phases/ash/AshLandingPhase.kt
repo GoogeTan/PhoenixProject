@@ -12,10 +12,10 @@ import phoenix.enity.boss.phase.phases.Phase
 import kotlin.math.min
 
 
-open class LandingPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
+open class AshLandingPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
     override var targetLocation: Vec3d? = null
-    override val type =  PhaseType.LANDING
+    override val type =  PhaseType.ASH_LANDING
     /**
      * Generates particle effects appropriate to the phase (or sometimes sounds).
      * Called by dragon's onLivingUpdate. Only used when worldObj.isRemote.
@@ -64,8 +64,8 @@ open class LandingPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
         }
         if (targetLocation!!.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ) < 1.0)
         {
-            dragon.phaseManager.getPhase<FlamingSittingPhase>(PhaseType.SITTING_FLAMING)?.resetFlameCount()
-            dragon.phaseManager.setPhase(PhaseType.SITTING_SCANNING)
+            dragon.phaseManager.getPhase<AshFlamingSittingPhase>(PhaseType.ASH_SITTING_FLAMING)?.resetFlameCount()
+            dragon.phaseManager.setPhase(PhaseType.ASH_SITTING_SCANNING)
         }
     }
 

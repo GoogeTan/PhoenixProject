@@ -6,9 +6,9 @@ import net.minecraft.world.gen.Heightmap
 import net.minecraft.world.gen.feature.EndPodiumFeature
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
-import phoenix.enity.boss.phase.phases.ash.LandingApproachPhase
+import phoenix.enity.boss.phase.phases.ash.AshLandingApproachPhase
 
-class RedoLandingApproachPhase(dragonIn: AbstractEnderDragonEntity) : LandingApproachPhase(dragonIn)
+class RedoLandingApproachPhase(dragonIn: AbstractEnderDragonEntity) : AshLandingApproachPhase(dragonIn)
 {
     override val type: PhaseType = PhaseType.REDO_LANDING_APPROACH
 

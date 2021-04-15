@@ -15,14 +15,14 @@ import phoenix.enity.boss.phase.phases.Phase
 import kotlin.math.acos
 import kotlin.math.min
 
-open class StrafePlayerPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
+open class AshStrafePlayerPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
     protected var fireballCharge = 0
     protected var currentPath: Path? = null
     override var targetLocation: Vec3d? = null
     protected var attackTarget: LivingEntity? = null
     protected var holdingPatternClockwise = false
-    override val type: PhaseType = PhaseType.STRAFE_PLAYER
+    override val type: PhaseType = PhaseType.ASH_STRAFE_PLAYER
     /**
      * Gives the phase a chance to update its status.
      * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
@@ -32,7 +32,7 @@ open class StrafePlayerPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragon
         if (attackTarget == null)
         {
             LOGGER.warn("Skipping player strafe phase because no player was found")
-            dragon.phaseManager.setPhase(PhaseType.HOLDING_PATTERN)
+            dragon.phaseManager.setPhase(PhaseType.ASH_HOLDING_PATTERN)
         } else
         {
             if (currentPath != null && currentPath!!.isFinished)
@@ -89,7 +89,7 @@ open class StrafePlayerPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragon
                                 currentPath!!.incrementPathIndex()
                             }
                         }
-                        dragon.phaseManager.setPhase(PhaseType.HOLDING_PATTERN)
+                        dragon.phaseManager.setPhase(PhaseType.ASH_HOLDING_PATTERN)
                     }
                 } else if (fireballCharge > 0)
                 {

@@ -10,7 +10,7 @@ import net.minecraft.util.math.Vec3d
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 
-open class FlamingSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPhase(dragonIn)
+open class AshFlamingSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPhase(dragonIn)
 {
     protected var flameTicks = 0
     protected var flameCount = 0
@@ -63,10 +63,10 @@ open class FlamingSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPha
         {
             if (flameCount >= 4)
             {
-                dragon.phaseManager.setPhase(PhaseType.TAKEOFF)
+                dragon.phaseManager.setPhase(PhaseType.ASH_TAKEOFF)
             } else
             {
-                dragon.phaseManager.setPhase(PhaseType.SITTING_SCANNING)
+                dragon.phaseManager.setPhase(PhaseType.ASH_SITTING_SCANNING)
             }
         } else if (flameTicks == 10)
         {
@@ -117,7 +117,7 @@ open class FlamingSittingPhase(dragonIn: AbstractEnderDragonEntity) : SittingPha
         }
     }
 
-    override val type = PhaseType.SITTING_FLAMING
+    override val type = PhaseType.ASH_SITTING_FLAMING
 
     fun resetFlameCount()
     {
