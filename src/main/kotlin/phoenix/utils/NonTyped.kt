@@ -44,7 +44,6 @@ import phoenix.client.gui.diaryPages.Chapters
 import phoenix.init.PhoenixBlocks
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncBookPacket
-import java.lang.NullPointerException
 import java.util.*
 import kotlin.math.roundToInt
 

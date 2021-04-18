@@ -12,8 +12,6 @@ import phoenix.init.PhoenixTiles
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncFluidThinkPacket
 import phoenix.tile.IFluidThing
-import phoenix.tile.ash.OvenTile
-import phoenix.utils.LogManager
 import phoenix.utils.SerializeUtils.readTank
 import phoenix.utils.SerializeUtils.writeToBuf
 import phoenix.utils.block.PhoenixTile

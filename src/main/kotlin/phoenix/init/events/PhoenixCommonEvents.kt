@@ -8,9 +8,7 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.item.crafting.Ingredient
-import net.minecraft.potion.PotionBrewing
 import net.minecraft.potion.PotionUtils
-import net.minecraft.potion.Potions
 import net.minecraft.potion.Potions.MUNDANE
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.biome.Biome.SpawnListEntry
@@ -18,7 +16,6 @@ import net.minecraft.world.biome.Biomes.*
 import net.minecraft.world.gen.GenerationStage
 import net.minecraft.world.gen.feature.IFeatureConfig
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry
-import net.minecraftforge.common.brewing.IBrewingRecipe
 import net.minecraftforge.event.RegistryEvent.Register
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
@@ -32,7 +29,6 @@ import phoenix.init.PhoenixEntities.CAUDA
 import phoenix.init.PhoenixEntities.TALPA
 import phoenix.init.PhoenixFeatures
 import phoenix.init.PhoenixItems
-import phoenix.init.PhoenixPotions
 import phoenix.init.PhoenixPotions.LEVITATION
 import phoenix.init.PhoenixPotions.LONG_LEVITATION
 import phoenix.init.PhoenixRecipes

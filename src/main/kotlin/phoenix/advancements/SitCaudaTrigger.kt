@@ -8,9 +8,6 @@ import net.minecraft.advancements.criterion.CriterionInstance
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.util.ResourceLocation
 import phoenix.Phoenix
-import phoenix.advancements.SitCaudaTrigger.func_227070_a_
-import phoenix.utils.addProp
-import phoenix.utils.getInt
 
 object SitCaudaTrigger  : AbstractCriterionTrigger<SitCaudaTrigger.Instance>()
 {

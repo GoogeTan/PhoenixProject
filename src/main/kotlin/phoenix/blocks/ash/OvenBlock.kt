@@ -35,7 +35,6 @@ import phoenix.network.NetworkHandler
 import phoenix.network.SyncOvenPacket
 import phoenix.recipes.OvenRecipe
 import phoenix.tile.ash.OvenTile
-import phoenix.utils.SizedArrayList
 import phoenix.utils.addChapter
 import phoenix.utils.block.BlockWithTile
 import java.util.*

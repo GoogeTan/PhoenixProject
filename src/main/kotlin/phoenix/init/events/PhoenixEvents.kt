@@ -36,7 +36,6 @@ import phoenix.network.NetworkHandler.sendTo
 import phoenix.network.SyncBookPacket
 import phoenix.network.SyncStagePacket
 import phoenix.utils.IPhoenixPlayer
-import phoenix.utils.LogManager
 import phoenix.utils.LogManager.error
 import phoenix.utils.LogManager.log
 import phoenix.utils.Tuple

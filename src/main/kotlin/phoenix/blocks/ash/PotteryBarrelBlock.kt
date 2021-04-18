@@ -27,7 +27,6 @@ import net.minecraft.world.World
 import net.minecraft.world.storage.loot.LootContext
 import phoenix.init.PhoenixItems
 import phoenix.tile.ash.PotteryBarrelTile
-import phoenix.utils.SizedArrayList
 import phoenix.utils.block.BlockWithTile
 import phoenix.utils.block.IColoredBlock
 import javax.annotation.Nonnull

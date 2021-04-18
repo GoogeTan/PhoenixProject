@@ -2,7 +2,6 @@ package phoenix.init
 
 import net.minecraft.client.renderer.RenderState
 import net.minecraft.client.renderer.RenderType
-import net.minecraft.client.renderer.texture.SimpleTexture
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.api.distmarker.Dist
@@ -10,7 +9,6 @@ import net.minecraftforge.api.distmarker.OnlyIn
 import org.lwjgl.opengl.GL11
 import phoenix.utils.ResourseUtils.block
 import phoenix.utils.ResourseUtils.key
-import phoenix.utils.mc
 
 @OnlyIn(Dist.CLIENT)
 object PhoenixRenderTypes

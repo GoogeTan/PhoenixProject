@@ -10,12 +10,10 @@ import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry
 import phoenix.Phoenix
 import phoenix.init.PhoenixBlocks
 import phoenix.utils.block.ICustomGroup
 import phoenix.utils.getEnchantmentLevel
-import phoenix.utils.sendMessage
 
 object WetLogBlock : RotatedPillarBlock(Properties.create(Material.WOOD).hardnessAndResistance(3.0f)), ICustomGroup
 {

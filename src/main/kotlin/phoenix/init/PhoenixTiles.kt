@@ -3,7 +3,6 @@ package phoenix.init
 import net.minecraft.tileentity.TileEntityType
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
-import phoenix.tile.TextTile
 import phoenix.tile.ash.OvenTile
 import phoenix.tile.ash.PotteryBarrelTile
 import phoenix.tile.redo.ElectricBarrelTile

@@ -12,9 +12,7 @@ import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import phoenix.blocks.ash.PotteryBarrelBlock
 import phoenix.init.PhoenixTiles
-import phoenix.tile.ash.OvenTile
 import phoenix.utils.block.PhoenixTile
-import java.io.IOException
 
 class ElectricBarrelTile : PhoenixTile<ElectricBarrelTile>(PhoenixTiles.ELECTRIC_BARREL), IInventory, ITickableTileEntity
 {

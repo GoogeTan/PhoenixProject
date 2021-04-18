@@ -4,13 +4,11 @@ import net.minecraft.block.Blocks
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.ChunkPos
-import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import net.minecraft.world.biome.provider.EndBiomeProviderSettings
 import net.minecraft.world.dimension.Dimension
 import net.minecraft.world.dimension.DimensionType
-import net.minecraft.world.end.DragonFightManager
 import net.minecraft.world.gen.EndChunkGenerator
 import net.minecraft.world.gen.EndGenerationSettings
 import net.minecraft.world.server.ServerWorld

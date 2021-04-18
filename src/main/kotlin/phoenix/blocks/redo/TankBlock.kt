@@ -5,7 +5,6 @@ import net.minecraft.block.BlockState
 import net.minecraft.block.material.Material
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.BucketItem
-import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.tileentity.TileEntity
@@ -20,12 +19,10 @@ import net.minecraftforge.fluids.FluidAttributes
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.IFluidHandler
-import phoenix.Phoenix.Companion.REDO
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncFluidThinkPacket
 import phoenix.tile.redo.TankTile
 import phoenix.utils.block.BlockWithTile
-import phoenix.utils.block.ICustomGroup
 import phoenix.utils.block.IRedoThink
 import phoenix.utils.getTileAt
 

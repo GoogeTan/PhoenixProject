@@ -1,9 +1,7 @@
 package phoenix.other
 
 import net.minecraft.client.audio.MusicTicker
-import net.minecraft.client.audio.MusicTicker.MusicType
 import net.minecraft.util.math.MathHelper
-import phoenix.utils.LogManager
 import phoenix.utils.mc
 import phoenix.world.StageManager
 import kotlin.math.min

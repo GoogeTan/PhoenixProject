@@ -14,7 +14,6 @@ import net.minecraft.world.dimension.DimensionType
 import phoenix.init.PhoenixRenderTypes
 import phoenix.tile.redo.TankTile
 import phoenix.utils.RenderUtils.refreshDrawing
-import java.util.function.Function
 
 class TankModel(var tileTank : TankTile) : Model({ PhoenixRenderTypes.tankTexture })
 {
