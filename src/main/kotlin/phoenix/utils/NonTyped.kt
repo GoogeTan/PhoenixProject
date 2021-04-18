@@ -93,8 +93,6 @@ inline fun IWorld.getDownHeight(pos : BlockPos, max: Int): BlockPos
     return pos
 }
 
-inline fun Number?.toSymbol() = if(this == 0 || this == null) 0 else if(this.toDouble() > 0) 1 else 0
-
 inline fun Random.nextInt(min : Int, max : Int) = (min - 0.5 + this.nextDouble() * (max - min + 1)).roundToInt()
 
 inline fun PacketBuffer.writeDate(date : Date)
@@ -157,9 +155,10 @@ inline fun ServerPlayerEntity.addChapter(chapter : Chapters)
     }
 }
 
-inline fun <T> IWorld.getTileAt(pos: BlockPos): T?
+inline fun <reified T> IWorld.getTileAt(pos: BlockPos): T?
 {
-    return getTileEntity(pos) as? T
+    val tile = getTileEntity(pos)
+    return if(tile is T) tile else null
 }
 
 inline fun JsonObject.addProp( property : String,  value : Number) : JsonObject

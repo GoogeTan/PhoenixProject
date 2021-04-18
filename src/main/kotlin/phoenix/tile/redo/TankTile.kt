@@ -13,12 +13,13 @@ import phoenix.network.NetworkHandler
 import phoenix.network.SyncFluidThinkPacket
 import phoenix.tile.IFluidThing
 import phoenix.tile.ash.OvenTile
+import phoenix.utils.LogManager
 import phoenix.utils.SerializeUtils.readTank
 import phoenix.utils.SerializeUtils.writeToBuf
 import phoenix.utils.block.PhoenixTile
 import phoenix.utils.getTileAt
 
-class TankTile(capacity : Int) : PhoenixTile<OvenTile>(PhoenixTiles.OVEN), IFluidThing, ITickableTileEntity
+class TankTile(capacity : Int) : PhoenixTile<TankTile>(PhoenixTiles.TANK), IFluidThing, ITickableTileEntity
 {
     constructor() : this(5)
 
@@ -38,16 +39,22 @@ class TankTile(capacity : Int) : PhoenixTile<OvenTile>(PhoenixTiles.OVEN), IFlui
                     val tile = world.getTileAt<IFluidThing>(pos.offset(i))
                     if (tile != null)
                     {
-                        if ((tile.tank.fluid.fluid === this.tank.fluid.fluid || tile.tank.fluid.fluid == Fluids.EMPTY) && tile.tank.fluidAmount != this.tank.fluidAmount)
+                        if ((tile.tank.fluid.fluid == this.tank.fluid.fluid  || tile.tank.fluid.fluid == Fluids.EMPTY) &&  tile.tank.fluidAmount != this.tank.fluidAmount)
                         {
-                            tile.tank.fluid = this.tank.fluid
-                            val all = tile.tank.fluidAmount + this.tank.fluidAmount
-                            tile.tank.fluid.amount = all / 2
-                            this.tank.fluid.amount = all / 2
-                            if(tile is TankTile)
+                            if (tile.tank.isEmpty)
                             {
-                                tile.needSync = true
+                                this.tank.fluid.amount /= 2
+                                tile.tank.fluid = this.tank.fluid
                             }
+                            else
+                            {
+                                val all = tile.tank.fluidAmount + this.tank.fluidAmount
+                                tile.tank.fluid.amount = all / 2
+                                this.tank.fluid.amount = all / 2
+                            }
+
+                            if (tile is TankTile)
+                                tile.needSync = true
                             this.needSync = true
                         }
                     }

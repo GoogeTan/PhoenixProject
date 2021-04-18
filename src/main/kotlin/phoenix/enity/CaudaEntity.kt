@@ -43,12 +43,12 @@ import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.wrapper.InvWrapper
 import phoenix.advancements.SitCaudaTrigger
 import phoenix.init.CaudaArmorItem
+import phoenix.init.PhoenixConfiguration
 import phoenix.init.PhoenixContainers
 import phoenix.network.NetworkHandler
 import phoenix.network.OpenCaudaInventoryPacket
 import phoenix.utils.max
 import phoenix.utils.min
-import phoenix.utils.sendMessage
 import java.lang.Math.abs
 import java.util.*
 import javax.annotation.Nonnull
@@ -58,25 +58,30 @@ private val SADDLE    = EntityDataManager.createKey(CaudaEntity::class.java, Dat
 
 open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEntity(type, worldIn), IMob
 {
-    var chests : Inventory = Inventory(22)
+    var chests : Inventory = Inventory(PhoenixConfiguration.caudaInventorySize + 2)
+
     var saddled : Boolean
         get() = dataManager[SADDLE]
         private inline set(value) = dataManager.set(SADDLE, value)
+
     var equipment : Boolean
         get() = dataManager[EQUIPMENT]
         private inline set(value) = dataManager.set(EQUIPMENT, value)
+
     private var itemHandler: LazyOptional<*>? = LazyOptional.of { InvWrapper(chests) }
+
     private var orbitOffset = Vec3d.ZERO
     private var orbitPosition = BlockPos.ZERO
     private var attackPhase = AttackPhase.CIRCLE
-    fun getArmorStack()  = chests.getStackInSlot(20)
-    fun getGreatcoatStack() = chests.getStackInSlot(21)
+
+    fun getArmorStack() : ItemStack = chests.getStackInSlot(PhoenixConfiguration.caudaInventorySize)
+    fun getGreatcoatStack() : ItemStack = chests.getStackInSlot(PhoenixConfiguration.caudaInventorySize + 1)
 
     init
     {
         experienceValue = 15
-        moveController = MoveHelperController(this)
-        lookController = LookHelperController(this)
+        moveController = MoveHelperController()
+        lookController = LookHelperController()
         saddled = true
     }
 
@@ -187,10 +192,7 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
         }
     }
 
-    override fun setCustomName(name: ITextComponent?)
-    {
-        super.setCustomName(StringTextComponent(name?.unformattedComponentText?.replace("Hentai", "Anime girl")?.replace("GoogleTan", "Zahara")?:""))
-    }
+    override fun setCustomName(name: ITextComponent?) = super.setCustomName(StringTextComponent(name?.unformattedComponentText?.replace("Hentai", "18+ Anime")?.replace("GoogleTan", "Zahara")?:""))
 
     override fun dropInventory()
     {
@@ -310,19 +312,39 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
 
             var i = 0
 
-            for (y in 0..3)
-                for (x in 0..4)
-                    addSlot(CaudaEntitySlot(this@CaudaEntity.chests, i++, 18 + 80 + x * 18, 8 + y * 18))
+            if(PhoenixConfiguration.gameMode != PhoenixConfiguration.GameMode.Liahim)
+            {
+                for (y in 0..3)
+                    for (x in 0..4)
+                        addSlot(CaudaEntitySlot(this@CaudaEntity.chests, i++, 18 + 80 + x * 18, 8 + y * 18))
 
-            addSlot(object : Slot(this@CaudaEntity.chests, i++, 172, 92)
+                addSlot(object : Slot(this@CaudaEntity.chests, i++, 172, 92)
+                {
+                    override fun isItemValid(stack: ItemStack) = stack.item is CaudaArmorItem
+                })
+
+                addSlot(object : Slot(this@CaudaEntity.chests, i++, 172, 113)
+                {
+                    override fun isItemValid(stack: ItemStack) = stack.item is BannerItem
+                })
+            }
+            else
             {
-                override fun isItemValid(stack: ItemStack) = stack.item is CaudaArmorItem
-            })
-            addSlot(object : Slot(this@CaudaEntity.chests, i++, 172, 113)
-            {
-                override fun isItemValid(stack: ItemStack) = stack.item is BannerItem
-            })
-            inventory.player.sendMessage(i.toString())
+                for (y in 0..2)
+                    for (x in 0..2)
+                        addSlot(CaudaEntitySlot(this@CaudaEntity.chests, i++, 18 + 80 + x * 18, 8 + y * 18))
+
+                addSlot(object : Slot(this@CaudaEntity.chests, i++, 152, 8)
+                {
+                    override fun isItemValid(stack: ItemStack) = stack.item is CaudaArmorItem
+                })
+
+                addSlot(object : Slot(this@CaudaEntity.chests, i++, 152, 44)
+                {
+                    override fun isItemValid(stack: ItemStack) = stack.item is BannerItem
+                })
+            }
+
             for (x in 0..2)
                 for (y in 0..8)
                     addSlot(Slot(inventory, y + x * 9 + 9, 8 + y * 18, 102 + x * 18 + -18))
@@ -345,68 +367,6 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
             super.onContainerClosed(playerIn)
             this@CaudaEntity.chests.closeInventory(playerIn)
         }
-
-        /*
-        override fun transferStackInSlot(playerIn: PlayerEntity?, index: Int): ItemStack?
-        {
-            var itemstack = ItemStack.EMPTY
-            val slot = inventorySlots[index]
-            if (slot != null && slot.hasStack)
-            {
-                val itemstack1 = slot.stack
-                itemstack = itemstack1.copy()
-                val i: Int = this@CaudaEntity.chests.sizeInventory
-                if (index < i)
-                {
-                    if (!mergeItemStack(itemstack1, i, inventorySlots.size, true))
-                    {
-                        return ItemStack.EMPTY
-                    }
-                } else if (getSlot(1).isItemValid(itemstack1) && !getSlot(1).hasStack)
-                {
-                    if (!mergeItemStack(itemstack1, 1, 2, false))
-                    {
-                        return ItemStack.EMPTY
-                    }
-                } else if (getSlot(0).isItemValid(itemstack1))
-                {
-                    if (!mergeItemStack(itemstack1, 0, 1, false))
-                    {
-                        return ItemStack.EMPTY
-                    }
-                } else if (i <= 2 || !mergeItemStack(itemstack1, 2, i, false))
-                {
-                    val j = i + 27
-                    val k = j + 9
-                    if (index in j until k)
-                    {
-                        if (!mergeItemStack(itemstack1, i, j, false))
-                        {
-                            return ItemStack.EMPTY
-                        }
-                    } else if (index in i until j)
-                    {
-                        if (!mergeItemStack(itemstack1, j, k, false))
-                        {
-                            return ItemStack.EMPTY
-                        }
-                    } else if (!mergeItemStack(itemstack1, j, j, false))
-                    {
-                        return ItemStack.EMPTY
-                    }
-                    return ItemStack.EMPTY
-                }
-                if (itemstack1.isEmpty)
-                {
-                    slot.putStack(ItemStack.EMPTY)
-                } else
-                {
-                    slot.onSlotChanged()
-                }
-            }
-            return itemstack
-        }
-        */
     }
 
     internal enum class AttackPhase
@@ -423,7 +383,7 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
         }
     }
 
-    class LookHelperController(entityIn: MobEntity) : LookController(entityIn) { override fun tick() {} }
+    inner class LookHelperController() : LookController((this@CaudaEntity)) { override fun tick() {} }
 
     abstract inner class MoveGoal : Goal()
     {
@@ -432,7 +392,7 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
         init {  this.mutexFlags = EnumSet.of(Flag.MOVE)  }
     }
 
-    inner class MoveHelperController(entityIn: MobEntity) : MovementController(entityIn)
+    inner class MoveHelperController : MovementController(this@CaudaEntity)
     {
         private var speedFactor = 0.1f
         override fun tick()
@@ -692,7 +652,7 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
                 val list: MutableList<PlayerEntity> = this@CaudaEntity.world.getTargettablePlayersWithinAABB(predicate, this@CaudaEntity, this@CaudaEntity.boundingBox.grow(16.0, 64.0, 16.0))
                 if (list.isNotEmpty())
                 {
-                    list.sortWith(Comparator { entity: PlayerEntity, player2: PlayerEntity -> if (entity.posY > player2.posY) -1 else 1 })
+                    list.sortWith { entity: PlayerEntity, player2: PlayerEntity -> if (entity.posY > player2.posY) -1 else 1 }
                     for (player in list)
                     {
                         if (this@CaudaEntity.canAttack(player, EntityPredicate.DEFAULT))

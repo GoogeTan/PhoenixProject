@@ -7,13 +7,23 @@ import net.minecraftforge.common.ForgeConfigSpec.IntValue
 
 object PhoenixConfiguration
 {
+    val caudaInventorySize : Int
+        inline get() = COMMON_CONFIG.gameMode.get().caudaInventorySize
+    val gameMode : GameMode
+        inline get() = COMMON_CONFIG.gameMode.get()
+    val biomeSize : Int
+        inline get() = COMMON_CONFIG.BIOME_SIZE.get()
+    val isDebugMode : Boolean
+        inline get() = COMMON_CONFIG.debug.get()
+
     lateinit var COMMON_CONFIG: Common
 
     class Common(builder: ForgeConfigSpec.Builder)
     {
-        var gameMode: EnumValue<GameMode>
-        var BIOME_SIZE: IntValue
+        var gameMode : EnumValue<GameMode>
+        var BIOME_SIZE : IntValue
         var debug : ForgeConfigSpec.BooleanValue
+
         init
         {
             builder.push("Game Settings")
@@ -26,8 +36,8 @@ object PhoenixConfiguration
         }
     }
 
-    enum class GameMode(val maxKnifeUsages: Int, val textureSuffix : String)
+    enum class GameMode(val maxKnifeUsages: Int, val caudaInventorySize : Int, val textureSuffix : String)
     {
-        normal(60, ""), Liahim(16, "_liahim"), hohserg(80, "_hohserg");
+        normal(60, 20, ""), Liahim(16, 9, "_liahim"), hohserg(80, 20, "_hohserg");
     }
 }

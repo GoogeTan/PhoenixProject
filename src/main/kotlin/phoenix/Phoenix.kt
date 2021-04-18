@@ -28,6 +28,7 @@ class Phoenix
         PhoenixRecipeSerializers.register()
         PhoenixTriggers.register()
         PhoenixPotions.register()
+        PhoenixFluids.register()
         val specPair = ForgeConfigSpec.Builder().configure(::Common)
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, specPair.right)
         PhoenixConfiguration.COMMON_CONFIG = specPair.left

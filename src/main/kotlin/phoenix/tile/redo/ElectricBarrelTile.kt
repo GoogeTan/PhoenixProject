@@ -16,7 +16,7 @@ import phoenix.tile.ash.OvenTile
 import phoenix.utils.block.PhoenixTile
 import java.io.IOException
 
-class ElectricBarrelTile : PhoenixTile<OvenTile>(PhoenixTiles.OVEN), IInventory, ITickableTileEntity
+class ElectricBarrelTile : PhoenixTile<ElectricBarrelTile>(PhoenixTiles.ELECTRIC_BARREL), IInventory, ITickableTileEntity
 {
     var jumpsCount = 0
 

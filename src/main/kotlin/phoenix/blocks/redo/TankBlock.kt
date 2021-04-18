@@ -26,9 +26,10 @@ import phoenix.network.SyncFluidThinkPacket
 import phoenix.tile.redo.TankTile
 import phoenix.utils.block.BlockWithTile
 import phoenix.utils.block.ICustomGroup
+import phoenix.utils.block.IRedoThink
 import phoenix.utils.getTileAt
 
-object TankBlock : BlockWithTile(Properties.create(Material.ROCK).lightValue(5).notSolid().hardnessAndResistance(3.0f)), ICustomGroup
+object TankBlock : BlockWithTile(Properties.create(Material.ROCK).lightValue(5).notSolid().hardnessAndResistance(3.0f)), IRedoThink
 {
     override fun onBlockActivated(
         state: BlockState,
@@ -51,13 +52,17 @@ object TankBlock : BlockWithTile(Properties.create(Material.ROCK).lightValue(5).
                     val stack = tileTank.tank.drain(1000, IFluidHandler.FluidAction.EXECUTE)
                     player.getHeldItem(handIn).shrink(1)
                     player.addItemStackToInventory(FluidUtil.getFilledBucket(stack))
+                    NetworkHandler.sendToAll(SyncFluidThinkPacket(tileTank.tank.fluid, pos))
                 } else if (item is BucketItem && tileTank.tank.capacity - tileTank.tank.fluidAmount >= FluidAttributes.BUCKET_VOLUME)
                 {
-                    tileTank.tank.fill(FluidUtil.getFluidContained(player.getHeldItem(handIn)).orElse(FluidStack.EMPTY), IFluidHandler.FluidAction.EXECUTE)
+                    tileTank.tank.fill(
+                        FluidUtil.getFluidContained(player.getHeldItem(handIn)).orElse(FluidStack.EMPTY),
+                        IFluidHandler.FluidAction.EXECUTE
+                    )
                     player.getHeldItem(handIn).shrink(1)
                     player.addItemStackToInventory(ItemStack(Items.BUCKET, 1))
+                    NetworkHandler.sendToAll(SyncFluidThinkPacket(tileTank.tank.fluid, pos))
                 }
-                NetworkHandler.sendToAll(SyncFluidThinkPacket(tileTank.tank.fluid, pos))
                 return ActionResultType.SUCCESS
             }
         }
@@ -66,9 +71,6 @@ object TankBlock : BlockWithTile(Properties.create(Material.ROCK).lightValue(5).
     }
 
     override fun createTileEntity(state: BlockState, world: IBlockReader): TileEntity = TankTile()
-
-    override val tab: ItemGroup
-        get() = REDO
 
     override fun getRenderType(state: BlockState): BlockRenderType = BlockRenderType.ENTITYBLOCK_ANIMATED
 }

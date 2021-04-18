@@ -10,7 +10,7 @@ object LogManager
 
     fun log(obj : Any, message : String)
     {
-        if(PhoenixConfiguration.COMMON_CONFIG.debug.get())
+        if(PhoenixConfiguration.isDebugMode)
             LOGGER.error("<${obj.javaClass.lastName()}> " + message)
         else
             LOGGER.log(Level.DEBUG, "<${obj.javaClass.lastName()}> " + message)
@@ -18,7 +18,7 @@ object LogManager
 
     fun log(from : String, message : String)
     {
-        if(PhoenixConfiguration.COMMON_CONFIG.debug.get())
+        if(PhoenixConfiguration.isDebugMode)
             LOGGER.error("<$from> $message")
         else
             LOGGER.log(Level.DEBUG, "<$from> $message")

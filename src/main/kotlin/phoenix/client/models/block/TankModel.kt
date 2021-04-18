@@ -16,7 +16,7 @@ import phoenix.tile.redo.TankTile
 import phoenix.utils.RenderUtils.refreshDrawing
 import java.util.function.Function
 
-class TankModel(var tileTank : TankTile) : Model(Function { PhoenixRenderTypes.tankTexture })
+class TankModel(var tileTank : TankTile) : Model({ PhoenixRenderTypes.tankTexture })
 {
     var TEXTURE_FLUID: ResourceLocation? = null
     var MATERIAL_FLUID: Material? = null

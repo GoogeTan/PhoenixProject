@@ -95,7 +95,7 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings) : BiomeProvide
             phoenixBiomes = HeartVoidLayer.apply(context.apply(200L), phoenixBiomes)
         }
 
-        for (i in 0..PhoenixConfiguration.COMMON_CONFIG.BIOME_SIZE.get())
+        for (i in 0..PhoenixConfiguration.biomeSize)
             phoenixBiomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenixBiomes)
 
         return UnificationLayer.apply(context.apply(200L), phoenixBiomes, vanilaBiomes)

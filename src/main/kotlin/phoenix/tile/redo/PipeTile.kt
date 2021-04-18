@@ -9,12 +9,14 @@ import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.util.Direction
 import net.minecraftforge.fluids.capability.templates.FluidTank
 import phoenix.init.PhoenixTiles.OVEN
+import phoenix.init.PhoenixTiles.PIPE
 import phoenix.tile.IFluidThing
 import phoenix.tile.ash.OvenTile
+import phoenix.utils.LogManager
 import phoenix.utils.block.PhoenixTile
 import phoenix.utils.getTileAt
 
-class PipeTile(maxCapacity : Int) : PhoenixTile<OvenTile>(OVEN), ITickableTileEntity, IFluidThing
+class PipeTile(maxCapacity : Int) : PhoenixTile<PipeTile>(PIPE), ITickableTileEntity, IFluidThing
 {
     override var tank = FluidTank(maxCapacity * 1000)
     override val throughput: Int = 1 * 1000
@@ -35,16 +37,10 @@ class PipeTile(maxCapacity : Int) : PhoenixTile<OvenTile>(OVEN), ITickableTileEn
         return tag
     }
 
-    override fun getUpdatePacket(): SUpdateTileEntityPacket = UpdatePacket()
-
-    override fun onDataPacket(net: NetworkManager, pkt: SUpdateTileEntityPacket)
-    {
-    }
-
     override fun tick()
     {
         val world = world
-        if(world != null)
+        if(world != null && !world.isRemote)
         {
             if(!tank.isEmpty)
             {
@@ -55,14 +51,21 @@ class PipeTile(maxCapacity : Int) : PhoenixTile<OvenTile>(OVEN), ITickableTileEn
                     {
                         if ((tile.tank.fluid.fluid == this.tank.fluid.fluid  || tile.tank.fluid.fluid == Fluids.EMPTY) &&  tile.tank.fluidAmount != this.tank.fluidAmount)
                         {
-                            tile.tank.fluid = this.tank.fluid
-                            val all = tile.tank.fluidAmount + this.tank.fluidAmount
-                            tile.tank.fluid.amount = all / 2
-                            this.tank.fluid.amount = all / 2
-                            if(tile is TankTile)
+                            if (tile.tank.isEmpty)
                             {
-                                tile.needSync = true
+                                this.tank.fluid.amount /= 2
+                                tile.tank.fluid = this.tank.fluid
                             }
+                            else
+                            {
+                                val all = tile.tank.fluidAmount + this.tank.fluidAmount
+                                tile.tank.fluid.amount = all / 2
+                                this.tank.fluid.amount = all / 2
+                            }
+
+                            if (tile is TankTile)
+                                tile.needSync = true
+                            this.needSync = true
                         }
                     }
                 }
@@ -70,18 +73,9 @@ class PipeTile(maxCapacity : Int) : PhoenixTile<OvenTile>(OVEN), ITickableTileEn
         }
     }
 
-    inner class UpdatePacket : SUpdateTileEntityPacket()
-    {
-        override fun readPacketData(buf: PacketBuffer)
-        {
-            super.readPacketData(buf)
-            //buf.writeFluidStack(tank.fluid)
-        }
+    override fun getUpdatePacket(): SUpdateTileEntityPacket = UpdatePacket()
 
-        override fun writePacketData(buf: PacketBuffer)
-        {
-            super.writePacketData(buf)
-            //tank.fluid = buf.readFluidStack()
-        }
-    }
+    override fun onDataPacket(net: NetworkManager, pkt: SUpdateTileEntityPacket) { }
+
+    inner class UpdatePacket : SUpdateTileEntityPacket()
 }

@@ -11,7 +11,7 @@ import phoenix.init.PhoenixConfiguration
 
 class CaudaGuiContainer(container: CaudaEntity.CaudaContainer, inv: PlayerInventory, titleIn: ITextComponent) : ContainerScreen<CaudaEntity.CaudaContainer>(container, inv, titleIn)
 {
-    private val GUI_TEXTURE = ResourceLocation("phoenix:textures/gui/cauda${ PhoenixConfiguration.COMMON_CONFIG.gameMode.get().textureSuffix }.png")
+    private val GUI_TEXTURE = ResourceLocation("phoenix:textures/gui/cauda${ PhoenixConfiguration.gameMode.textureSuffix }.png")
     private var mousePosX = 0f
     private var mousePosY = 0f
 
