@@ -40,7 +40,7 @@ object LogManager
 
     fun error(from : String, message : String) = LOGGER.error("<$from> $message")
 
-    fun errorObjects(obj : Any, vararg objects : Any)
+    fun errorObjects(obj : Any, vararg objects : Any?)
     {
         var message = ""
         for (i in objects)

@@ -24,7 +24,7 @@ import net.minecraft.util.text.StringTextComponent
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
 import phoenix.Phoenix.Companion.REDO
-import phoenix.tile.IFluidThing
+import phoenix.tile.AFluidTile
 import phoenix.tile.redo.PipeTile
 import phoenix.utils.block.BlockWithTile
 import phoenix.utils.block.ICustomGroup
@@ -42,8 +42,8 @@ class PipeBlock : BlockWithTile(Properties.create(Material.WOOD).notSolid().hard
     {
         if (worldIn.isRemote)
         {
-            val pipeTile = worldIn.getTileEntity(pos) as PipeTile?
-            player.sendMessage(StringTextComponent(pipeTile!!.getPercent().toString() + " " + pipeTile.tank.fluid.amount))
+            val pipeTile = worldIn.getTileEntity(pos) as? PipeTile
+            player.sendMessage(StringTextComponent(pipeTile?.tank?.fluid?.amount.toString()))
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit)
     }
@@ -53,15 +53,15 @@ class PipeBlock : BlockWithTile(Properties.create(Material.WOOD).notSolid().hard
         return makeConnections(context.world, context.pos).with(BlockStateProperties.WATERLOGGED, context.world.getFluidState(context.pos).fluid === Fluids.WATER)
     }
 
-    fun makeConnections(reader: IBlockReader, pos: BlockPos): BlockState
+    inline fun makeConnections(reader: IBlockReader, pos: BlockPos): BlockState
     {
         return defaultState
-            .with(DOWN,  reader.getTileEntity(pos.down())  is IFluidThing)
-            .with(UP,    reader.getTileEntity(pos.up())    is IFluidThing)
-            .with(NORTH, reader.getTileEntity(pos.north()) is IFluidThing)
-            .with(EAST,  reader.getTileEntity(pos.east())  is IFluidThing)
-            .with(SOUTH, reader.getTileEntity(pos.south()) is IFluidThing)
-            .with(WEST,  reader.getTileEntity(pos.west())  is IFluidThing)
+            .with(DOWN,  reader.getTileEntity(pos.down())  is AFluidTile)
+            .with(UP,    reader.getTileEntity(pos.up())    is AFluidTile)
+            .with(NORTH, reader.getTileEntity(pos.north()) is AFluidTile)
+            .with(EAST,  reader.getTileEntity(pos.east())  is AFluidTile)
+            .with(SOUTH, reader.getTileEntity(pos.south()) is AFluidTile)
+            .with(WEST,  reader.getTileEntity(pos.west())  is AFluidTile)
     }
 
     override fun fillStateContainer(builder: StateContainer.Builder<Block, BlockState>)
@@ -92,8 +92,7 @@ class PipeBlock : BlockWithTile(Properties.create(Material.WOOD).notSolid().hard
 
     override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape = NORMAL
 
-    override val tab: ItemGroup
-        get() = REDO
+    override val tab: ItemGroup = REDO
 
     companion object
     {

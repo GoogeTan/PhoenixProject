@@ -15,7 +15,7 @@ import phoenix.init.PhoenixTiles.POTTERY_BARREL
 import phoenix.utils.block.PhoenixTile
 
 
-class PotteryBarrelTile : PhoenixTile<PotteryBarrelTile>(POTTERY_BARREL), IInventory,
+class PotteryBarrelTile : PhoenixTile(POTTERY_BARREL), IInventory,
     ITickableTileEntity
 {
     var jumpsCount = 0

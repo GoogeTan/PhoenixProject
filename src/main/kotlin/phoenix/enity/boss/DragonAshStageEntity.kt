@@ -9,4 +9,5 @@ class DragonAshStageEntity(type: EntityType<out DragonAshStageEntity>, worldIn: 
     override val LANDING: PhaseType = PhaseType.ASH_LANDING
     override val TAKEOFF: PhaseType = PhaseType.ASH_TAKEOFF
     override val DYING: PhaseType   = PhaseType.ASH_DYING
+    override val HOVER: PhaseType   = PhaseType.ASH_HOVER
 }

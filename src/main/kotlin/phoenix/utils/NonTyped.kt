@@ -47,7 +47,8 @@ import phoenix.network.SyncBookPacket
 import java.util.*
 import kotlin.math.roundToInt
 
-data class Tuple<V, M, K>(var first : V, var second : M, var third : K)
+data class MTuple<V, M, K>(var first : V, var second : M, var third : K)
+data class MPair<V, M>(var first : V, var second : M)
 
 inline fun World.destroyBlock(pos : BlockPos, shouldDrop : Boolean, entity : Entity?, stack : ItemStack) : Boolean
 {

@@ -33,10 +33,9 @@ import phoenix.enity.EnderCrystalEntity
 import phoenix.enity.boss.phase.AbstractPhaseManager
 import phoenix.enity.boss.phase.PhaseType
 import phoenix.world.CustomDragonFightManager
-import phoenix.world.StageManager
+import phoenix.world.EndDimension
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.math.pow
 
 abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDragonEntity>, worldIn: World) : MobEntity(type, worldIn), IMob
 {
@@ -44,13 +43,13 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
     var ringBufferIndex = -1
     val dragonParts: Array<AbstractDragonPartEntity>
     val dragonPartHead: AbstractDragonPartEntity = AbstractDragonPartEntity(this, "head", 1.0f, 1.0f)
-    val dragonPartNeck: AbstractDragonPartEntity = AbstractDragonPartEntity(this, "neck", 3.0f, 3.0f)
-    val dragonPartBody: AbstractDragonPartEntity = AbstractDragonPartEntity(this, "body", 5.0f, 3.0f)
-    val dragonPartTail1: AbstractDragonPartEntity = AbstractDragonPartEntity(this, "tail", 2.0f, 2.0f)
-    val dragonPartTail2: AbstractDragonPartEntity = AbstractDragonPartEntity(this, "tail", 2.0f, 2.0f)
-    val dragonPartTail3: AbstractDragonPartEntity = AbstractDragonPartEntity(this, "tail", 2.0f, 2.0f)
-    val dragonPartRightWing: AbstractDragonPartEntity = AbstractDragonPartEntity(this, "wing", 4.0f, 2.0f)
-    val dragonPartLeftWing: AbstractDragonPartEntity = AbstractDragonPartEntity(this, "wing", 4.0f, 2.0f)
+    protected val dragonPartNeck: AbstractDragonPartEntity = AbstractDragonPartEntity(this, "neck", 3.0f, 3.0f)
+    protected val dragonPartBody: AbstractDragonPartEntity = AbstractDragonPartEntity(this, "body", 5.0f, 3.0f)
+    protected val dragonPartTail1: AbstractDragonPartEntity = AbstractDragonPartEntity(this, "tail", 2.0f, 2.0f)
+    protected val dragonPartTail2: AbstractDragonPartEntity = AbstractDragonPartEntity(this, "tail", 2.0f, 2.0f)
+    protected val dragonPartTail3: AbstractDragonPartEntity = AbstractDragonPartEntity(this, "tail", 2.0f, 2.0f)
+    protected val dragonPartRightWing: AbstractDragonPartEntity = AbstractDragonPartEntity(this, "wing", 4.0f, 2.0f)
+    protected val dragonPartLeftWing: AbstractDragonPartEntity = AbstractDragonPartEntity(this, "wing", 4.0f, 2.0f)
     var prevAnimTime = 0f
     var animTime = 0f
     var slowed = false
@@ -65,9 +64,10 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
     protected val neighbors = IntArray(24)
     protected val pathFindQueue = PathHeap()
 
-    abstract val LANDING : PhaseType
-    abstract val TAKEOFF : PhaseType
-    abstract val DYING   : PhaseType
+    abstract val LANDING: PhaseType
+    abstract val TAKEOFF: PhaseType
+    abstract val DYING  : PhaseType
+    abstract val HOVER  : PhaseType
 
     override fun registerAttributes()
     {
@@ -78,7 +78,8 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
     override fun registerData()
     {
         super.registerData()
-        getDataManager().register(PHASE, StageManager.stageEnum.hoverPhase.getId())
+        phoenix.utils.LogManager.errorObjects(this, PHASE, PhaseType.ASH_HOVER, PhaseType.REDO_HOVER)
+        getDataManager().register(PHASE, HOVER.getId())
     }
 
     /**
@@ -95,15 +96,15 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
         p_70974_2_ = 1.0f - p_70974_2_
         val i = ringBufferIndex - p_70974_1_ and 63
         val j = ringBufferIndex - p_70974_1_ - 1 and 63
-        val offsets = DoubleArray(3)
-        var fromBuffer = ringBuffer[i][0]
-        var delta = MathHelper.wrapDegrees(ringBuffer[j][0] - ringBuffer[i][0])
-        offsets[0] = fromBuffer + delta * p_70974_2_.toDouble()    //yaw offset
-        fromBuffer = ringBuffer[i][1]
-        delta = ringBuffer[j][1] - fromBuffer
-        offsets[1] = fromBuffer + delta * p_70974_2_.toDouble() //y offset
-        offsets[2] = MathHelper.lerp(p_70974_2_.toDouble(), ringBuffer[i][2], ringBuffer[j][2]) //i dont know
-        return offsets
+        val adouble = DoubleArray(3)
+        var d0 = ringBuffer[i][0]
+        var d1 = MathHelper.wrapDegrees(ringBuffer[j][0] - d0)
+        adouble[0] = d0 + d1 * p_70974_2_.toDouble()
+        d0 = ringBuffer[i][1]
+        d1 = ringBuffer[j][1] - d0
+        adouble[1] = d0 + d1 * p_70974_2_.toDouble()
+        adouble[2] = MathHelper.lerp(p_70974_2_.toDouble(), ringBuffer[i][2], ringBuffer[j][2])
+        return adouble
     }
 
     /**
@@ -168,12 +169,21 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
             updateDragonEnderCrystal()
             val vec3d4 = motion
             var f12 = 0.2f / (MathHelper.sqrt(horizontalMag(vec3d4)) * 10.0f + 1.0f)
-            f12 *= 2.0.pow(vec3d4.y).toFloat()
+            f12 *= Math.pow(2.0, vec3d4.y).toFloat()
             animTime += when
             {
-                phaseManager.currentPhase!!.isStationary -> 0.1f
-                slowed                                   -> f12 * 0.5f
-                else                                     -> f12
+                phaseManager.currentPhase!!.isStationary ->
+                {
+                    0.1f
+                }
+                slowed                                   ->
+                {
+                    f12 * 0.5f
+                }
+                else                                     ->
+                {
+                    f12
+                }
             }
             rotationYaw = MathHelper.wrapDegrees(rotationYaw)
             if (this.isAIDisabled)
@@ -210,7 +220,7 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
                         setPosition(d7, d0, d1)
                         setRotation(rotationYaw, rotationPitch)
                     }
-                    phaseManager.currentPhase!!.clientTick()
+                    phaseManager.currentPhase?.clientTick()
                 } else
                 {
                     var iphase = phaseManager.currentPhase!!
@@ -250,7 +260,7 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
                             motion.y,
                             (-MathHelper.cos(rotationYaw * (Math.PI.toFloat() / 180f))).toDouble()
                         ).normalize()
-                        val f8 = max((vec3d2.dotProduct(vec3d1).toFloat() + 0.5f) / 1.5f, 0.0f)
+                        val f8 = Math.max((vec3d2.dotProduct(vec3d1).toFloat() + 0.5f) / 1.5f, 0.0f)
                         field_226525_bB_ *= 0.8f
                         field_226525_bB_ = (field_226525_bB_.toDouble() + d5 * iphase.yawFactor.toDouble()).toFloat()
                         rotationYaw += field_226525_bB_ * 0.1f
@@ -270,62 +280,62 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
                     }
                 }
                 renderYawOffset = rotationYaw
-                val poses = arrayOfNulls<Vec3d>(dragonParts.size)
-                for (index in dragonParts.indices)
-                    poses[index] = Vec3d(dragonParts[index].posX, dragonParts[index].posY, dragonParts[index].posZ)
-
-                val f15: Float = (getMovementOffsets(5, 1.0f)[1] - getMovementOffsets(10, 1.0f)[1]).toFloat() * 10.0f * (Math.PI.toFloat() / 180f)
+                val avec3d = arrayOfNulls<Vec3d>(dragonParts.size)
+                for (j in dragonParts.indices)
+                {
+                    avec3d[j] = Vec3d(dragonParts[j].posX, dragonParts[j].posY, dragonParts[j].posZ)
+                }
+                val f15 = (getMovementOffsets(5, 1.0f)[1] - getMovementOffsets(
+                    10,
+                    1.0f
+                )[1]).toFloat() * 10.0f * (Math.PI.toFloat() / 180f)
                 val f16 = MathHelper.cos(f15)
                 val f2 = MathHelper.sin(f15)
                 val f17 = rotationYaw * (Math.PI.toFloat() / 180f)
                 val f3 = MathHelper.sin(f17)
                 val f18 = MathHelper.cos(f17)
-                movePart(dragonPartBody, (f3 * 0.5f).toDouble(), 0.0, (-f18 * 0.5f).toDouble())
-                movePart(dragonPartRightWing, (f18 * 4.5f).toDouble(), 2.0, (f3 * 4.5f).toDouble())
-                movePart(dragonPartLeftWing, (f18 * -4.5f).toDouble(), 2.0, (f3 * -4.5f).toDouble())
+                func_226526_a_(dragonPartBody, (f3 * 0.5f).toDouble(), 0.0, (-f18 * 0.5f).toDouble())
+                func_226526_a_(dragonPartRightWing, (f18 * 4.5f).toDouble(), 2.0, (f3 * 4.5f).toDouble())
+                func_226526_a_(dragonPartLeftWing, (f18 * -4.5f).toDouble(), 2.0, (f3 * -4.5f).toDouble())
                 if (!world.isRemote && hurtTime == 0)
                 {
                     collideWithEntities(
-                        world.getEntitiesInAABBexcluding
-                            (
-                                this,
-                                dragonPartRightWing.boundingBox.grow(4.0, 2.0, 4.0).offset(0.0, -2.0, 0.0),
-                                EntityPredicates.CAN_AI_TARGET
-                            )
+                        world.getEntitiesInAABBexcluding(
+                            this,
+                            dragonPartRightWing.boundingBox.grow(4.0, 2.0, 4.0).offset(0.0, -2.0, 0.0),
+                            EntityPredicates.CAN_AI_TARGET
                         )
+                    )
                     collideWithEntities(
-                        world.getEntitiesInAABBexcluding
-                            (
-                                this,
-                                dragonPartLeftWing.boundingBox.grow(4.0, 2.0, 4.0).offset(0.0, -2.0, 0.0),
-                                EntityPredicates.CAN_AI_TARGET
-                            )
+                        world.getEntitiesInAABBexcluding(
+                            this,
+                            dragonPartLeftWing.boundingBox.grow(4.0, 2.0, 4.0).offset(0.0, -2.0, 0.0),
+                            EntityPredicates.CAN_AI_TARGET
                         )
+                    )
                     attackEntitiesInList(
-                        world.getEntitiesInAABBexcluding
-                            (
-                                this,
-                                dragonPartHead.boundingBox.grow(1.0),
-                                EntityPredicates.CAN_AI_TARGET
-                            )
+                        world.getEntitiesInAABBexcluding(
+                            this,
+                            dragonPartHead.boundingBox.grow(1.0),
+                            EntityPredicates.CAN_AI_TARGET
                         )
+                    )
                     attackEntitiesInList(
-                        world.getEntitiesInAABBexcluding
-                            (
-                                this,
-                                dragonPartNeck.boundingBox.grow(1.0),
-                                EntityPredicates.CAN_AI_TARGET
-                            )
+                        world.getEntitiesInAABBexcluding(
+                            this,
+                            dragonPartNeck.boundingBox.grow(1.0),
+                            EntityPredicates.CAN_AI_TARGET
                         )
+                    )
                 }
                 val f4 = MathHelper.sin(rotationYaw * (Math.PI.toFloat() / 180f) - field_226525_bB_ * 0.01f)
                 val f19 = MathHelper.cos(rotationYaw * (Math.PI.toFloat() / 180f) - field_226525_bB_ * 0.01f)
                 val f5 = func_226527_er_()
-                movePart(
+                func_226526_a_(
                     dragonPartHead,
                     (f4 * 6.5f * f16).toDouble(), (f5 + f2 * 6.5f).toDouble(), (-f19 * 6.5f * f16).toDouble()
                 )
-                movePart(
+                func_226526_a_(
                     dragonPartNeck,
                     (f4 * 5.5f * f16).toDouble(), (f5 + f2 * 5.5f).toDouble(), (-f19 * 5.5f * f16).toDouble()
                 )
@@ -335,20 +345,30 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
                     var enderdragonpartentity: AbstractDragonPartEntity? = null
                     when (k)
                     {
-                        0 -> enderdragonpartentity = dragonPartTail1
-                        1 -> enderdragonpartentity = dragonPartTail2
-                        2 -> enderdragonpartentity = dragonPartTail3
+                        0 ->
+                        {
+                            enderdragonpartentity = dragonPartTail1
+                        }
+                        1 ->
+                        {
+                            enderdragonpartentity = dragonPartTail2
+                        }
+                        2 ->
+                        {
+                            enderdragonpartentity = dragonPartTail3
+                        }
                     }
-                    val offsets = getMovementOffsets(12 + k * 2, 1.0f)
-                    val f7 = rotationYaw * (Math.PI.toFloat() / 180f) + simplifyAngle(offsets[0] - adouble[0]) * (Math.PI.toFloat() / 180f)
+                    val adouble1 = getMovementOffsets(12 + k * 2, 1.0f)
+                    val f7 =
+                        rotationYaw * (Math.PI.toFloat() / 180f) + simplifyAngle(adouble1[0] - adouble[0]) * (Math.PI.toFloat() / 180f)
                     val f20 = MathHelper.sin(f7)
                     val f21 = MathHelper.cos(f7)
                     val f22 = 1.5f
                     val f23 = (k + 1).toFloat() * 2.0f
-                    movePart(
+                    func_226526_a_(
                         enderdragonpartentity,
                         (-(f3 * 1.5f + f20 * f23) * f16).toDouble(),
-                        offsets[1] - adouble[1] - ((f23 + 1.5f) * f2).toDouble() + 1.5,
+                        adouble1[1] - adouble[1] - ((f23 + 1.5f) * f2).toDouble() + 1.5,
                         ((f18 * 1.5f + f21 * f23) * f16).toDouble()
                     )
                 }
@@ -365,22 +385,30 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
                 }
                 for (l in dragonParts.indices)
                 {
-                    dragonParts[l].prevPosX = poses[l]!!.x
-                    dragonParts[l].prevPosY = poses[l]!!.y
-                    dragonParts[l].prevPosZ = poses[l]!!.z
-                    dragonParts[l].lastTickPosX = poses[l]!!.x
-                    dragonParts[l].lastTickPosY = poses[l]!!.y
-                    dragonParts[l].lastTickPosZ = poses[l]!!.z
+                    dragonParts[l].prevPosX = avec3d[l]!!.x
+                    dragonParts[l].prevPosY = avec3d[l]!!.y
+                    dragonParts[l].prevPosZ = avec3d[l]!!.z
+                    dragonParts[l].lastTickPosX = avec3d[l]!!.x
+                    dragonParts[l].lastTickPosY = avec3d[l]!!.y
+                    dragonParts[l].lastTickPosZ = avec3d[l]!!.z
                 }
             }
         }
     }
 
-    private fun movePart(part: AbstractDragonPartEntity?, x: Double, y: Double, z: Double) = part?.setPosition(posX + x, posY + y, posZ + z)
+    private fun func_226526_a_(
+        p_226526_1_: AbstractDragonPartEntity?,
+        p_226526_2_: Double,
+        p_226526_4_: Double,
+        p_226526_6_: Double
+    )
+    {
+        p_226526_1_!!.setPosition(posX + p_226526_2_, posY + p_226526_4_, posZ + p_226526_6_)
+    }
 
     private fun func_226527_er_(): Float
     {
-        return if (phaseManager.currentPhase!!.isStationary)
+        return if (phaseManager.currentPhase?.isStationary == true)
         {
             -1.0f
         } else
@@ -441,7 +469,7 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
                 val d3 = entity.getPosZ() - d1
                 val d4 = d2 * d2 + d3 * d3
                 entity.addVelocity(d2 / d4 * 4.0, 0.2f.toDouble(), d3 / d4 * 4.0)
-                if (!phaseManager.currentPhase!!.isStationary && entity.revengeTimer < entity.ticksExisted - 2)
+                if (phaseManager.currentPhase?.isStationary == false && entity.revengeTimer < entity.ticksExisted - 2)
                 {
                     entity.attackEntityFrom(DamageSource.causeMobDamage(this), 5.0f)
                     applyEnchantments(this, entity)
@@ -453,9 +481,9 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
     /**
      * Attacks all entities inside this list, dealing 5 hearts of damage.
      */
-    private fun attackEntitiesInList(p_70971_1_: List<Entity>)
+    private fun attackEntitiesInList(entities: List<Entity>)
     {
-        for (entity in p_70971_1_)
+        for (entity in entities)
         {
             if (entity is LivingEntity)
             {
@@ -520,20 +548,20 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
         return flag
     }
 
-    open fun attackPart(part: AbstractDragonPartEntity, source: DamageSource, damageIn: Float): Boolean
+    fun func_213403_a(part: AbstractDragonPartEntity, source: DamageSource, amount: Float): Boolean
     {
-        var damage = damageIn
-        return if (phaseManager.currentPhase!!.type === DYING)
+        var p_213403_3_ = amount
+        return if (phaseManager.currentPhase?.type === DYING)
         {
             false
         } else
         {
-            damage = phaseManager.currentPhase!!.func_221113_a(source, damage)
+            p_213403_3_ = phaseManager.currentPhase?.func_221113_a(source, p_213403_3_)!!
             if (part !== dragonPartHead)
             {
-                damage = damage / 4.0f + min(damage, 1.0f)
+                p_213403_3_ = p_213403_3_ / 4.0f + min(p_213403_3_, 1.0f)
             }
-            if (damage < 0.01f)
+            if (p_213403_3_ < 0.01f)
             {
                 false
             } else
@@ -541,7 +569,7 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
                 if (source.trueSource is PlayerEntity || source.isExplosion)
                 {
                     val f = this.health
-                    attackDragonFrom(source, damage)
+                    attackDragonFrom(source, p_213403_3_)
                     if (this.health <= 0.0f && !phaseManager.currentPhase!!.isStationary)
                     {
                         this.health = 1.0f
@@ -569,7 +597,7 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
     {
         if (source is EntityDamageSource && source.isThornsDamage)
         {
-            attackPart(dragonPartBody, source, amount)
+            func_213403_a(dragonPartBody, source, amount)
         }
         return false
     }
@@ -577,7 +605,7 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
     /**
      * Provides a way to cause damage to an ender dragon.
      */
-    protected fun attackDragonFrom(source: DamageSource?, amount: Float): Boolean
+    fun attackDragonFrom(source: DamageSource?, amount: Float): Boolean
     {
         return super.attackEntityFrom(source, amount)
     }
@@ -622,7 +650,7 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
         }
         val flag = world.gameRules.getBoolean(GameRules.DO_MOB_LOOT)
         var i = 500
-        if (fightManager != null && !(fightManager?.hasPreviouslyKilledDragon()?:false))
+        if (fightManager != null && fightManager?.hasPreviouslyKilledDragon() != true)
         {
             i = 12000
         }
@@ -654,13 +682,13 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
         }
     }
 
-    private fun dropExperience(countIn: Int)
+    private fun dropExperience(p_184668_1_: Int)
     {
-        var count = countIn
-        while (count > 0)
+        var p_184668_1_ = p_184668_1_
+        while (p_184668_1_ > 0)
         {
-            val i = ExperienceOrbEntity.getXPSplit(count)
-            count -= i
+            val i = ExperienceOrbEntity.getXPSplit(p_184668_1_)
+            p_184668_1_ -= i
             world.addEntity(ExperienceOrbEntity(world, posX, posY, posZ, i))
         }
     }
@@ -678,32 +706,34 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
                 var j = 5
                 var l: Int
                 var i1: Int
-                if (i < 12)
+                when
                 {
-                    l =
-                        MathHelper.floor(60.0f * MathHelper.cos(2.0f * ((-Math.PI).toFloat() + 0.2617994f * i.toFloat())))
-                    i1 =
-                        MathHelper.floor(60.0f * MathHelper.sin(2.0f * ((-Math.PI).toFloat() + 0.2617994f * i.toFloat())))
-                } else if (i < 20)
-                {
-                    val lvt_3_1_ = i - 12
-                    l =
-                        MathHelper.floor(40.0f * MathHelper.cos(2.0f * ((-Math.PI).toFloat() + Math.PI.toFloat() / 8f * lvt_3_1_.toFloat())))
-                    i1 =
-                        MathHelper.floor(40.0f * MathHelper.sin(2.0f * ((-Math.PI).toFloat() + Math.PI.toFloat() / 8f * lvt_3_1_.toFloat())))
-                    j += 10
-                } else
-                {
-                    val k1 = i - 20
-                    l =
-                        MathHelper.floor(20.0f * MathHelper.cos(2.0f * ((-Math.PI).toFloat() + Math.PI.toFloat() / 4f * k1.toFloat())))
-                    i1 =
-                        MathHelper.floor(20.0f * MathHelper.sin(2.0f * ((-Math.PI).toFloat() + Math.PI.toFloat() / 4f * k1.toFloat())))
+                    i < 12 ->
+                    {
+                        l =
+                            MathHelper.floor(60.0f * MathHelper.cos(2.0f * ((-Math.PI).toFloat() + 0.2617994f * i.toFloat())))
+                        i1 =
+                            MathHelper.floor(60.0f * MathHelper.sin(2.0f * ((-Math.PI).toFloat() + 0.2617994f * i.toFloat())))
+                    }
+                    i < 20 ->
+                    {
+                        val lvt_3_1_ = i - 12
+                        l =
+                            MathHelper.floor(40.0f * MathHelper.cos(2.0f * ((-Math.PI).toFloat() + Math.PI.toFloat() / 8f * lvt_3_1_.toFloat())))
+                        i1 =
+                            MathHelper.floor(40.0f * MathHelper.sin(2.0f * ((-Math.PI).toFloat() + Math.PI.toFloat() / 8f * lvt_3_1_.toFloat())))
+                        j += 10
+                    }
+                    else   ->
+                    {
+                        val k1 = i - 20
+                        l =
+                            MathHelper.floor(20.0f * MathHelper.cos(2.0f * ((-Math.PI).toFloat() + Math.PI.toFloat() / 4f * k1.toFloat())))
+                        i1 =
+                            MathHelper.floor(20.0f * MathHelper.sin(2.0f * ((-Math.PI).toFloat() + Math.PI.toFloat() / 4f * k1.toFloat())))
+                    }
                 }
-                val j1 = max(
-                    world.seaLevel + 10,
-                    world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlockPos(l, 0, i1)).y + j
-                )
+                val j1 = max(world.seaLevel + 10, world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlockPos(l, 0, i1)).y + j)
                 pathPoints[i] = PathPoint(l, j1, i1)
             }
             neighbors[0] = 6146
@@ -884,7 +914,7 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
     override fun writeAdditional(compound: CompoundNBT)
     {
         super.writeAdditional(compound)
-        compound.putInt("DragonPhase", phaseManager.currentPhase?.type?.getId()?:0)
+        compound.putInt("DragonPhase", phaseManager.currentPhase!!.type.getId())
     }
 
     /**
@@ -909,51 +939,59 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
     /**
      * Returns true if other Entities should be prevented from moving through this Entity.
      */
-    override fun canBeCollidedWith(): Boolean = false
+    override fun canBeCollidedWith(): Boolean
+    {
+        return false
+    }
 
-    override fun getSoundCategory(): SoundCategory =  SoundCategory.HOSTILE
+    override fun getSoundCategory(): SoundCategory
+    {
+        return SoundCategory.HOSTILE
+    }
 
-    override fun getAmbientSound(): SoundEvent? = SoundEvents.ENTITY_ENDER_DRAGON_AMBIENT
+    override fun getAmbientSound(): SoundEvent?
+    {
+        return SoundEvents.ENTITY_ENDER_DRAGON_AMBIENT
+    }
 
-    override fun getHurtSound(damageSourceIn: DamageSource): SoundEvent? = SoundEvents.ENTITY_ENDER_DRAGON_HURT
+    override fun getHurtSound(damageSourceIn: DamageSource): SoundEvent?
+    {
+        return SoundEvents.ENTITY_ENDER_DRAGON_HURT
+    }
+
     /**
      * Returns the volume for the sounds this mob makes.
      */
-    override fun getSoundVolume(): Float = 5.0f
+    override fun getSoundVolume(): Float
+    {
+        return 5.0f
+    }
 
     @OnlyIn(Dist.CLIENT)
-    open fun getHeadPartYOffset(p_184667_1_: Int, p_184667_2_: DoubleArray, p_184667_3_: DoubleArray): Float
+    fun getHeadPartYOffset(p_184667_1_: Int, p_184667_2_: DoubleArray, p_184667_3_: DoubleArray): Float
     {
         val iphase = phaseManager.currentPhase
-        val phasetype = iphase?.type
-        val d0: Double = if (phasetype !== LANDING && phasetype !== TAKEOFF)
+        val phasetype = iphase!!.type
+        val d0: Double
+        d0 = if (phasetype !== LANDING && phasetype !== TAKEOFF)
         {
             when
             {
-                iphase?.isStationary?:false ->
-                {
-                    p_184667_1_.toDouble()
-                }
-                p_184667_1_ == 6     ->
-                {
-                    0.0
-                }
-                else                 ->
-                {
-                    p_184667_3_[1] - p_184667_2_[1]
-                }
+                iphase.isStationary -> p_184667_1_.toDouble()
+                p_184667_1_ == 6    -> 0.0
+                else                -> p_184667_3_[1] - p_184667_2_[1]
             }
         } else
         {
             val blockpos =
                 world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EndPodiumFeature.END_PODIUM_LOCATION)
-            val f = max(MathHelper.sqrt(blockpos.distanceSq(this.positionVec, true)) / 4.0f, 1.0f)
+            val f = Math.max(MathHelper.sqrt(blockpos.distanceSq(this.positionVec, true)) / 4.0f, 1.0f)
             (p_184667_1_.toFloat() / f).toDouble()
         }
         return d0.toFloat()
     }
 
-    open fun getHeadLookVec(p_184665_1_: Float): Vec3d
+    fun getHeadLookVec(p_184665_1_: Float): Vec3d
     {
         val iphase = phaseManager.currentPhase
         val phasetype = iphase!!.type
@@ -975,7 +1013,7 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
         {
             val blockpos =
                 world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EndPodiumFeature.END_PODIUM_LOCATION)
-            val f = max(MathHelper.sqrt(blockpos.distanceSq(this.positionVec, true)) / 4.0f, 1.0f)
+            val f = Math.max(MathHelper.sqrt(blockpos.distanceSq(this.positionVec, true)) / 4.0f, 1.0f)
             val f1 = 6.0f / f
             val f2 = rotationPitch
             val f3 = 1.5f
@@ -990,7 +1028,7 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
     {
         val playerentity: PlayerEntity? = if (dmgSrc.trueSource is PlayerEntity)
         {
-            dmgSrc.trueSource as PlayerEntity?
+            dmgSrc.trueSource as? PlayerEntity?
         } else
         {
             world.getClosestPlayer(
@@ -1000,7 +1038,7 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
         }
         if (crystal === closestEnderCrystal)
         {
-            attackPart(dragonPartHead, DamageSource.causeExplosionDamage(playerentity), 10.0f)
+            func_213403_a(dragonPartHead, DamageSource.causeExplosionDamage(playerentity), 10.0f)
         }
         phaseManager.currentPhase?.onCrystalDestroyed(crystal, pos, dmgSrc, playerentity)
     }
@@ -1014,11 +1052,23 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
         super.notifyDataManagerChange(key)
     }
 
-    override fun addPotionEffect(effectInstanceIn: EffectInstance): Boolean = false
+    override fun addPotionEffect(effectInstanceIn: EffectInstance): Boolean
+    {
+        return false
+    }
 
-    override fun canBeRidden(entityIn: Entity): Boolean = false
+    override fun canBeRidden(entityIn: Entity): Boolean
+    {
+        return false
+    }
 
-    override fun isNonBoss(): Boolean = false
+    /**
+     * Returns false if this Entity is a boss, true otherwise.
+     */
+    override fun isNonBoss(): Boolean
+    {
+        return false
+    }
 
     companion object
     {
@@ -1037,10 +1087,9 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
         this.health = this.maxHealth
         noClip = true
         ignoreFrustumCheck = true
-        val dim = worldIn.dimension;
-        fightManager = if (!worldIn.isRemote && dim is phoenix.world.EndDimension)
+        fightManager = if (!worldIn.isRemote && worldIn.dimension is EndDimension)
         {
-            dim.dragonFightManager
+            (worldIn.dimension as EndDimension).dragonFightManager
         } else
         {
             null

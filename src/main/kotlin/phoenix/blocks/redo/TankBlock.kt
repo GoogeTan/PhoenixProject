@@ -43,13 +43,13 @@ object TankBlock : BlockWithTile(Properties.create(Material.ROCK).lightValue(5).
             if(tileTank != null)
             {
                 val item = player.getHeldItem(handIn).item
-                player.sendMessage(StringTextComponent("${tileTank.getPercent()} ${tileTank.tank.fluid.amount}"))
+                player.sendMessage(StringTextComponent("${tileTank.tank.fluid.amount}"))
                 if (item === Items.BUCKET && tileTank.tank.fluid.amount >= FluidAttributes.BUCKET_VOLUME)
                 {
                     val stack = tileTank.tank.drain(1000, IFluidHandler.FluidAction.EXECUTE)
                     player.getHeldItem(handIn).shrink(1)
                     player.addItemStackToInventory(FluidUtil.getFilledBucket(stack))
-                    NetworkHandler.sendToAll(SyncFluidThinkPacket(tileTank.tank.fluid, pos))
+                    NetworkHandler.sendToAll(SyncFluidThinkPacket(tileTank))
                 } else if (item is BucketItem && tileTank.tank.capacity - tileTank.tank.fluidAmount >= FluidAttributes.BUCKET_VOLUME)
                 {
                     tileTank.tank.fill(
@@ -58,7 +58,7 @@ object TankBlock : BlockWithTile(Properties.create(Material.ROCK).lightValue(5).
                     )
                     player.getHeldItem(handIn).shrink(1)
                     player.addItemStackToInventory(ItemStack(Items.BUCKET, 1))
-                    NetworkHandler.sendToAll(SyncFluidThinkPacket(tileTank.tank.fluid, pos))
+                    NetworkHandler.sendToAll(SyncFluidThinkPacket(tileTank))
                 }
                 return ActionResultType.SUCCESS
             }

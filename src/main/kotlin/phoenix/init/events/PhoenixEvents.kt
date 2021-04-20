@@ -38,7 +38,7 @@ import phoenix.network.SyncStagePacket
 import phoenix.utils.IPhoenixPlayer
 import phoenix.utils.LogManager.error
 import phoenix.utils.LogManager.log
-import phoenix.utils.Tuple
+import phoenix.utils.MTuple
 import phoenix.utils.addChapter
 import phoenix.world.GenSaveData
 import phoenix.world.StageManager
@@ -126,7 +126,7 @@ object PhoenixEvents
         }
     }
 
-    private var tasks = ArrayList<Tuple<Int, Int, Runnable>>()
+    private var tasks = ArrayList<MTuple<Int, Int, Runnable>>()
 
     @SubscribeEvent
     fun deferredTasks(event: WorldTickEvent)
@@ -154,7 +154,7 @@ object PhoenixEvents
 
     fun addTask(time: Int, r: Runnable)
     {
-        tasks.add(Tuple(0, time, r))
+        tasks.add(MTuple(0, time, r))
     }
 
     @SubscribeEvent
