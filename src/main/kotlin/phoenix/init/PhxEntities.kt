@@ -15,7 +15,7 @@ import phoenix.enity.boss.balls.ExplosiveBallEntity
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
-object PhoenixEntities
+object PhxEntities
 {
     private val ENTITIES = KDeferredRegister(ForgeRegistries.ENTITIES, Phoenix.MOD_ID)
 
@@ -54,6 +54,8 @@ object PhoenixEntities
         EntityType.Builder.create(::EnderCrystalEntity, EntityClassification.MONSTER)
             .immuneToFire()
             .size(2.0f, 2.0f)
+            .setTrackingRange(80)
+            .setUpdateInterval(1)
             .build(ResourceLocation(Phoenix.MOD_ID, "ender_crystal").toString())
     }
 

@@ -65,10 +65,10 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
     protected val neighbors = IntArray(24)
     protected val pathFindQueue = PathHeap()
 
-    abstract var LANDING: PhaseType
-    abstract var TAKEOFF: PhaseType
-    abstract var DYING  : PhaseType
-    abstract var HOVER  : PhaseType
+    protected abstract var LANDING: PhaseType
+    protected abstract var TAKEOFF: PhaseType
+    protected abstract var DYING  : PhaseType
+    protected abstract var HOVER  : PhaseType
 
     override fun registerAttributes()
     {
@@ -79,7 +79,7 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
     override fun registerData()
     {
         super.registerData()
-        if(HOVER == null) HOVER = StageManager.stageEnum.hoverPhase;
+        if(HOVER == null) HOVER = StageManager.stageEnum.hoverPhase
         getDataManager().register(PHASE, HOVER.getId())
     }
 
@@ -668,13 +668,13 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
         }
     }
 
-    private fun dropExperience(p_184668_1_: Int)
+    private fun dropExperience(count: Int)
     {
-        var p_184668_1_ = p_184668_1_
-        while (p_184668_1_ > 0)
+        var amount = count
+        while (amount > 0)
         {
-            val i = ExperienceOrbEntity.getXPSplit(p_184668_1_)
-            p_184668_1_ -= i
+            val i = ExperienceOrbEntity.getXPSplit(amount)
+            amount -= i
             world.addEntity(ExperienceOrbEntity(world, posX, posY, posZ, i))
         }
     }
@@ -1041,21 +1041,12 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
 
     init
     {
-        dragonParts = arrayOf(
-            dragonPartHead,
-            dragonPartNeck,
-            dragonPartBody, dragonPartTail1, dragonPartTail2, dragonPartTail3, dragonPartRightWing, dragonPartLeftWing
-        )
+        dragonParts = arrayOf(dragonPartHead, dragonPartNeck, dragonPartBody, dragonPartTail1, dragonPartTail2, dragonPartTail3, dragonPartRightWing, dragonPartLeftWing)
         this.health = this.maxHealth
         noClip = true
         ignoreFrustumCheck = true
-        fightManager = if (!worldIn.isRemote && worldIn.dimension is EndDimension)
-        {
-            (worldIn.dimension as EndDimension).dragonFightManager
-        } else
-        {
-            null
-        }
+        fightManager = if (!worldIn.isRemote && worldIn.dimension is EndDimension) (worldIn.dimension as EndDimension).dragonFightManager else null
+
         phaseManager = AbstractPhaseManager(this)
     }
 }

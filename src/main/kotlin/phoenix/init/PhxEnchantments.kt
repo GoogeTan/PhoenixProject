@@ -6,7 +6,7 @@ import phoenix.enchantments.TeleportationEnchant
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
-object PhoenixEnchantments
+object PhxEnchantments
 {
     var ENCHANTMENTS = KDeferredRegister(ForgeRegistries.ENCHANTMENTS, Phoenix.MOD_ID)
 

@@ -4,9 +4,9 @@ import net.minecraft.nbt.CompoundNBT
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.util.text.StringTextComponent
-import phoenix.init.PhoenixTiles
+import phoenix.init.PhxTiles
 
-class TextTile : TileEntity(PhoenixTiles.OVEN)
+class TextTile : TileEntity(PhxTiles.OVEN)
 {
     var text : ITextComponent = StringTextComponent("Just Like a Eva mark 06")
 

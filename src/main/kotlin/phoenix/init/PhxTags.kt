@@ -8,7 +8,7 @@ import net.minecraft.tags.Tag
 import net.minecraft.util.ResourceLocation
 import phoenix.Phoenix
 
-object PhoenixTags
+object PhxTags
 {
     object Blocks
     {

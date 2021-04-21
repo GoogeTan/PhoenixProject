@@ -8,7 +8,7 @@ import phoenix.Phoenix
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
-object PhoenixPotions
+object PhxPotions
 {
     val POTIONS = KDeferredRegister(ForgeRegistries.POTION_TYPES, Phoenix.MOD_ID)
 

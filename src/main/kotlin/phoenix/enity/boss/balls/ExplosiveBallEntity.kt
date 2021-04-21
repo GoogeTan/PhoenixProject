@@ -13,16 +13,16 @@ import net.minecraft.world.Explosion
 import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
-import phoenix.init.PhoenixEntities
+import phoenix.init.PhxEntities
 
 class ExplosiveBallEntity : DamagingProjectileEntity
 {
     constructor(type: EntityType<out ExplosiveBallEntity>, world: World) :  super(type, world)
 
     @OnlyIn(Dist.CLIENT)
-    constructor(worldIn: World, x: Double, y: Double, z: Double, accelX: Double, accelY: Double, accelZ: Double) : super(PhoenixEntities.explosiveBall, x, y, z, accelX, accelY, accelZ, worldIn)
+    constructor(worldIn: World, x: Double, y: Double, z: Double, accelX: Double, accelY: Double, accelZ: Double) : super(PhxEntities.explosiveBall, x, y, z, accelX, accelY, accelZ, worldIn)
 
-    constructor(worldIn: World, shooter: LivingEntity, accelX: Double, accelY: Double, accelZ: Double) : super(PhoenixEntities.explosiveBall, shooter, accelX, accelY, accelZ, worldIn)
+    constructor(worldIn: World, shooter: LivingEntity, accelX: Double, accelY: Double, accelZ: Double) : super(PhxEntities.explosiveBall, shooter, accelX, accelY, accelZ, worldIn)
 
     override fun onImpact(result: RayTraceResult)
     {

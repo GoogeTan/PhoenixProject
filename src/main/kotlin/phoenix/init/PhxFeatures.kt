@@ -8,7 +8,7 @@ import phoenix.world.structures.remains.RemainsStructure
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
-object PhoenixFeatures
+object PhxFeatures
 {
     val FEATURES = KDeferredRegister(ForgeRegistries.FEATURES, Phoenix.MOD_ID)
 

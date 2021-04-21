@@ -22,7 +22,7 @@ import phoenix.utils.block.INonTab
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
-object PhoenixBlocks
+object PhxBlocks
 {
     val BLOCKS = KDeferredRegister(ForgeRegistries.BLOCKS, Phoenix.MOD_ID)
 
@@ -42,7 +42,7 @@ object PhoenixBlocks
     val WET_LOG           by  BLOCKS.register("wet_log") { WetLogBlock   }
     val DIED_WET_LOG: RotatedPillarBlock by BLOCKS.register("died_wet_log") { object : RotatedPillarBlock(Properties.create(Material.WOOD).hardnessAndResistance(3.0f)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
     val WET_PLANKS: Block by  BLOCKS.register("wet_planks") { object : Block(Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
-    val SETA_JUICE        by BLOCKS.register("seta_juice") { FluidBlock(PhoenixFluids::seta_juice_source) }
+    val SETA_JUICE        by BLOCKS.register("seta_juice") { FluidBlock(PhxFluids::seta_juice_source) }
 
     fun register() = BLOCKS.register(MOD_BUS)
 }
@@ -53,6 +53,3 @@ object ZirconiumOreBlock : OreBlock(Properties.create(Material.ROCK).hardnessAnd
 }
 
 class FluidBlock(fluidSource : () -> FlowingFluid) : FlowingFluidBlock(fluidSource, Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0f).noDrops().notSolid()), INonTab
-{
-
-}

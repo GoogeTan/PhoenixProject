@@ -6,7 +6,7 @@ import phoenix.particles.PhoenixBornFactory
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
-object PhoenixParticles
+object PhxParticles
 {
     val PARTICLES = KDeferredRegister(ForgeRegistries.PARTICLE_TYPES, Phoenix.MOD_ID)
 

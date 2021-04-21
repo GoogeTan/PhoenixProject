@@ -6,7 +6,7 @@ import phoenix.fluids.SetaJuiceFluid
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
-object PhoenixFluids
+object PhxFluids
 {
     val fluids = KDeferredRegister(ForgeRegistries.FLUIDS, Phoenix.MOD_ID)
 

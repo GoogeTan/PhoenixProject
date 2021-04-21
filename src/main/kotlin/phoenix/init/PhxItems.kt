@@ -17,7 +17,7 @@ import phoenix.items.ash.KnifeItem
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
-object PhoenixItems
+object PhxItems
 {
     private val ITEMS = KDeferredRegister(ForgeRegistries.ITEMS, MOD_ID)
 
@@ -58,24 +58,24 @@ object PhoenixItems
     val STEEl_FORM_PICKAXE_HEAD_ROASTED by ITEMS.register("steel_form_pickaxe_head_roasted", form { STEEl_FORM_PICKAXE_HEAD })
     val STEEl_FORM_AXE_BLADE_ROASTED    by ITEMS.register("steel_form_axe_blade_roasted", form { STEEl_FORM_AXE_BLADE })
 
-    val ZIRCONIUM_AXE                  by ITEMS.register("ceramic_zirconium_axe")     { AxeItem(PhoenixTiers.ZIRCONIUM_TIER, 9.0f, -3.2f, Item.Properties().group(ASH)) }
-    val ZIRCONIUM_PICKAXE              by ITEMS.register("ceramic_zirconium_pickaxe") { PickaxeItem(PhoenixTiers.ZIRCONIUM_TIER, 0, -1f, Item.Properties().group(ASH)) }
-    val ZIRCONIUM_SWORD                by ITEMS.register("ceramic_zirconium_sword")   { SwordItem(PhoenixTiers.ZIRCONIUM_TIER, 2, -0.5f, Item.Properties().group(ASH)) }
-    val ZIRCONIUM_KNIFE                by ITEMS.register("ceramic_zirconium_knife")   { KnifeItem(PhoenixTiers.ZIRCONIUM_TIER, 3f, -10f, PhoenixConfiguration.COMMON_CONFIG.gameMode.get().maxKnifeUsages, ASH) }
+    val ZIRCONIUM_AXE                  by ITEMS.register("ceramic_zirconium_axe")     { AxeItem(PhxTiers.ZIRCONIUM_TIER, 9.0f, -3.2f, Item.Properties().group(ASH)) }
+    val ZIRCONIUM_PICKAXE              by ITEMS.register("ceramic_zirconium_pickaxe") { PickaxeItem(PhxTiers.ZIRCONIUM_TIER, 0, -1f, Item.Properties().group(ASH)) }
+    val ZIRCONIUM_SWORD                by ITEMS.register("ceramic_zirconium_sword")   { SwordItem(PhxTiers.ZIRCONIUM_TIER, 2, -0.5f, Item.Properties().group(ASH)) }
+    val ZIRCONIUM_KNIFE                by ITEMS.register("ceramic_zirconium_knife")   { KnifeItem(PhxTiers.ZIRCONIUM_TIER, 3f, -10f, PhxConfiguration.COMMON_CONFIG.gameMode.get().maxKnifeUsages, ASH) }
 
-    val STEEL_AXE                      by ITEMS.register("steel_axe")     { AxeItem(PhoenixTiers.STEEL_TIER, 5.0f, -2f, Item.Properties().group(ASH)) }
-    val STEEL_PICKAXE                  by ITEMS.register("steel_pickaxe") { PickaxeItem(PhoenixTiers.STEEL_TIER, 0, -2f, Item.Properties().group(ASH)) }
-    val STEEL_SWORD                    by ITEMS.register("steel_sword")   { SwordItem(PhoenixTiers.STEEL_TIER, 2, -2f, Item.Properties().group(ASH)) }
+    val STEEL_AXE                      by ITEMS.register("steel_axe")     { AxeItem(PhxTiers.STEEL_TIER, 5.0f, -2f, Item.Properties().group(ASH)) }
+    val STEEL_PICKAXE                  by ITEMS.register("steel_pickaxe") { PickaxeItem(PhxTiers.STEEL_TIER, 0, -2f, Item.Properties().group(ASH)) }
+    val STEEL_SWORD                    by ITEMS.register("steel_sword")   { SwordItem(PhxTiers.STEEL_TIER, 2, -2f, Item.Properties().group(ASH)) }
 
     val STEEL_ARMOR_HEAD               by ITEMS.register("steel_armor_head")      { SteelArmorItem(EquipmentSlotType.HEAD, Item.Properties().group(ASH)) }
     val STEEL_ARMOR_CHES               by ITEMS.register("steel_armor_chestplate"){ SteelArmorItem(EquipmentSlotType.CHEST, Item.Properties().group(ASH)) }
     val STEEL_ARMOR_LEGG               by ITEMS.register("steel_armor_leggings")  { SteelArmorItem(EquipmentSlotType.LEGS, Item.Properties().group(ASH)) }
     val STEEL_ARMOR_BUTS               by ITEMS.register("steel_armor_boots")     { SteelArmorItem(EquipmentSlotType.FEET, Item.Properties().group(ASH)) }
 
-    val STEEL_CAUDA_ARMOR              by ITEMS.register("steel_cauda_armor")   { CaudaArmorItem(PhoenixCaudaArmorMaterials.STEEL) }
-    //val CERAMIC_CAUDA_ARMOR            by ITEMS.register("ceramic_cauda_armor") { CaudaArmorItem(PhoenixCaudaArmorMaterials.CERAMIC) }
+    val STEEL_CAUDA_ARMOR              by ITEMS.register("steel_cauda_armor")   { CaudaArmorItem(PhxCaudaArmorMaterials.STEEL) }
+    //val CERAMIC_CAUDA_ARMOR            by ITEMS.register("ceramic_cauda_armor") { CaudaArmorItem(PhxCaudaArmorMaterials.CERAMIC) }
 
-    val SETA_JUICE_BUCKET by ITEMS.register("seta_juice_bucket") { PhoenixBucketItem(PhoenixFluids::seta_juice_source) }
+    val SETA_JUICE_BUCKET by ITEMS.register("seta_juice_bucket") { PhoenixBucketItem(PhxFluids::seta_juice_source) }
 
     fun register() = ITEMS.register(MOD_BUS)
 }
@@ -88,7 +88,7 @@ private fun basicFood(food: Food, group: ItemGroup): () -> Item  = { Item(Item.P
 private fun form(contains: () -> Item)                    : () -> Item  = { Item(Item.Properties().group(ASH).containerItem(contains())) }
 
 class SteelArmorItem(slot: EquipmentSlotType, builder: Properties) : ArmorItem(
-    PhoenixArmorMaterials.STEEL,
+    PhxArmorMaterials.STEEL,
     slot,
     builder
 )

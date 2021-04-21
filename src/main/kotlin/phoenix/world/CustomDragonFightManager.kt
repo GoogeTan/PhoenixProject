@@ -379,12 +379,16 @@ open class CustomDragonFightManager(
     open fun createNewDragon(): AbstractEnderDragonEntity?
     {
         world.getChunkAt(BlockPos(0, 128, 0))
-        val enderdragonentity = StageManager.stageEnum.dragonType.create(world)
-        enderdragonentity!!.phaseManager.setPhase(StageManager.stageEnum.holdingPhase)
-        enderdragonentity.setLocationAndAngles(0.0, 128.0, 0.0, world.rand.nextFloat() * 360.0f, 0.0f)
-        world.addEntity(enderdragonentity)
-        dragonUniqueId = enderdragonentity.uniqueID
-        return enderdragonentity
+        val dragon = StageManager.stageEnum.dragonType.create(world)
+        return if(dragon != null)
+        {
+            dragon.phaseManager.setPhase(StageManager.stageEnum.holdingPhase)
+            dragon.setLocationAndAngles(0.0, 128.0, 0.0, world.rand.nextFloat() * 360.0f, 0.0f)
+            world.addEntity(dragon)
+            dragonUniqueId = dragon.uniqueID
+            dragon
+        } else
+            null
     }
 
     fun dragonUpdate(dragonIn: AbstractEnderDragonEntity)

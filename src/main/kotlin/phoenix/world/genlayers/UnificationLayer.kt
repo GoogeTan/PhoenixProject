@@ -5,7 +5,7 @@ import net.minecraft.world.biome.Biomes
 import net.minecraft.world.gen.INoiseRandom
 import net.minecraft.world.gen.area.IArea
 import net.minecraft.world.gen.layer.traits.IAreaTransformer2
-import phoenix.init.PhoenixBiomes
+import phoenix.init.PhxBiomes
 
 
 object UnificationLayer : IAreaTransformer2
@@ -29,7 +29,7 @@ object UnificationLayer : IAreaTransformer2
     private val END_BARRENS: Int = Registry.BIOME.getId(Biomes.END_BARRENS)
     private val THE_END: Int = Registry.BIOME.getId(Biomes.THE_END)
     private val SMALL_END_ISLANDS: Int = Registry.BIOME.getId(Biomes.SMALL_END_ISLANDS)
-    private val UNDER: Int = Registry.BIOME.getId(PhoenixBiomes.UNDER)
-    private val HEART_VOID: Int = Registry.BIOME.getId(PhoenixBiomes.HEARTVOID)
+    private val UNDER: Int = Registry.BIOME.getId(PhxBiomes.UNDER)
+    private val HEART_VOID: Int = Registry.BIOME.getId(PhxBiomes.HEARTVOID)
 
 }

@@ -6,7 +6,7 @@ import net.minecraft.particles.IParticleData
 import net.minecraft.particles.IParticleData.IDeserializer
 import net.minecraft.particles.ParticleType
 import net.minecraft.util.math.MathHelper
-import phoenix.init.PhoenixParticles
+import phoenix.init.PhxParticles
 import java.awt.Color
 import java.util.*
 import javax.annotation.Nonnull
@@ -42,7 +42,7 @@ class PhoenixParticleData(tint: Color, diameter: Double, lifeTime: Int) : IParti
     fun getDiameter() = diameter
 
     @Nonnull
-    override fun getType(): ParticleType<*> = PhoenixParticles.PHOENIX_BORN
+    override fun getType(): ParticleType<*> = PhxParticles.PHOENIX_BORN
 
     override fun write(buf: PacketBuffer)
     {

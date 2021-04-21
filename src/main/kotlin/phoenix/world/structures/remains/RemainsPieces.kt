@@ -18,7 +18,7 @@ import net.minecraft.world.gen.feature.structure.TemplateStructurePiece
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor
 import net.minecraft.world.gen.feature.template.PlacementSettings
 import net.minecraft.world.gen.feature.template.TemplateManager
-import phoenix.init.PhoenixLootTables
+import phoenix.init.PhxLootTables
 import phoenix.utils.BlockPosUtils.isNear
 import phoenix.utils.min
 import java.util.*
@@ -97,7 +97,7 @@ object RemainsPieces
             pos: BlockPos,
             rotation: Rotation,
             y_offset: Int
-        ) : super(PhoenixLootTables.REMAINS_PIECES, 0)
+        ) : super(PhxLootTables.REMAINS_PIECES, 0)
         {
             currentPiece = location
             templatePosition = pos.add(offset.x, offset.y - y_offset, offset.z)
@@ -106,7 +106,7 @@ object RemainsPieces
             templatePosition.add(0, partToYOffset[location]?:0, 0)
         }
 
-        constructor(manager: TemplateManager, nbt: CompoundNBT) : super(PhoenixLootTables.REMAINS_PIECES, nbt)
+        constructor(manager: TemplateManager, nbt: CompoundNBT) : super(PhxLootTables.REMAINS_PIECES, nbt)
         {
             currentPiece = ResourceLocation(nbt.getString("Template"))
             this.rotationn = Rotation.valueOf(nbt.getString("Rot"))
@@ -135,7 +135,7 @@ object RemainsPieces
                 val tileentity = worldIn.getTileEntity(pos.down())
                 if (tileentity is ChestTileEntity)
                 {
-                    tileentity.setLootTable(PhoenixLootTables.REMAINS_LOOTTABLE, rand.nextLong())
+                    tileentity.setLootTable(PhxLootTables.REMAINS_LOOTTABLE, rand.nextLong())
                 }
             }
         }

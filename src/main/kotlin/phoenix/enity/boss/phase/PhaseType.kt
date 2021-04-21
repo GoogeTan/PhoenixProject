@@ -47,7 +47,7 @@ class PhaseType private constructor
         val REDO_DYING             = create(::RedoDyingPhase, "RedoDying")
         val REDO_HOVER             = create(::RedoHoverPhase, "RedoHover")
 
-        fun getById(idIn: Int) = if (idIn >= 0 && idIn < phases.size) phases[idIn] else StageManager.stageEnum.holdingPhase
+        fun getById(idIn: Int) = if (idIn in 0 until phases.size) phases[idIn] else StageManager.stageEnum.holdingPhase
 
         fun getTotalPhases(): Int = phases.size
 

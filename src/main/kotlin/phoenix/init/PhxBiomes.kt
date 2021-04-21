@@ -9,7 +9,7 @@ import phoenix.world.builders.Builders
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
-object PhoenixBiomes
+object PhxBiomes
 {
     val BIOMES = KDeferredRegister(ForgeRegistries.BIOMES, Phoenix.MOD_ID)
 

@@ -17,7 +17,7 @@ import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.IFeatureConfig
 import net.minecraft.world.gen.placement.IPlacementConfig
 import net.minecraft.world.gen.placement.Placement
-import phoenix.init.PhoenixBlocks
+import phoenix.init.PhxBlocks
 import phoenix.utils.GenerationUtils
 import phoenix.utils.getDownHeight
 import phoenix.world.builders.Builders
@@ -39,14 +39,14 @@ class UnderBiome : Biome(GenerationUtils.defaultSettingsForEnd(Builders.UNDER, B
             var position = worldIn.getDownHeight(pos.add(random.nextInt(15), 0, random.nextInt(15)), 50)
             if(position.y > 2)
             {
-                worldIn.setBlockState(position, PhoenixBlocks.SETA.defaultState.with(AGE_0_3, random.nextInt(3)), 2)
+                worldIn.setBlockState(position, PhxBlocks.SETA.defaultState.with(AGE_0_3, random.nextInt(3)), 2)
                 if (random.nextInt(3) == 0)
                 {
                     position = worldIn.getDownHeight(position.add(random.nextInt(1) - 2, 0, random.nextInt(1) - 2), 30)
                     if(position.y > 2)
                         worldIn.setBlockState   (
                             position,
-                            PhoenixBlocks.SETA.defaultState
+                            PhxBlocks.SETA.defaultState
                             .with(AGE_0_3, random.nextInt(3))
                             .with(BlockStateProperties.HORIZONTAL_FACING, Direction.Plane.HORIZONTAL.random(random)), 2)
                 }

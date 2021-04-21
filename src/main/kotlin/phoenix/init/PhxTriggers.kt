@@ -4,7 +4,7 @@ import net.minecraft.advancements.CriteriaTriggers
 import phoenix.advancements.ChangeStageTrigger
 import phoenix.advancements.SitCaudaTrigger
 
-object PhoenixTriggers
+object PhxTriggers
 {
     lateinit var CHANGE_STAGE : ChangeStageTrigger
     lateinit var SIT_CAUDA    : SitCaudaTrigger

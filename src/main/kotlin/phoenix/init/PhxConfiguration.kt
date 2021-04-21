@@ -5,7 +5,7 @@ import net.minecraftforge.common.ForgeConfigSpec.EnumValue
 import net.minecraftforge.common.ForgeConfigSpec.IntValue
 
 
-object PhoenixConfiguration
+object PhxConfiguration
 {
     val caudaInventorySize : Int
         inline get() = COMMON_CONFIG.gameMode.get().caudaInventorySize

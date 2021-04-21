@@ -2,6 +2,7 @@ package phoenix.utils
 
 import com.google.gson.JsonObject
 import net.minecraft.block.Block
+import net.minecraft.block.BlockState
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.client.gui.FontRenderer
@@ -14,6 +15,7 @@ import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.ShapedRecipe
 import net.minecraft.network.PacketBuffer
+import net.minecraft.state.IProperty
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.JSONUtils
@@ -40,8 +42,9 @@ import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.fml.RegistryObject
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.IForgeRegistryEntry
+import phoenix.blocks.ash.PotteryBarrelBlock
 import phoenix.client.gui.diaryPages.Chapters
-import phoenix.init.PhoenixBlocks
+import phoenix.init.PhxBlocks
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncBookPacket
 import java.util.*
@@ -66,6 +69,18 @@ inline fun World.destroyBlock(pos : BlockPos, shouldDrop : Boolean, entity : Ent
         }
         this.setBlockState(pos, fluidState.blockState, 3)
     }
+}
+
+inline fun<T : Comparable<T>, V : T> World.setProperty(pos : BlockPos, property  : IProperty<T>, value : V) : Boolean
+{
+    val state = world.getBlockState(pos)
+    return if(state.has(property))
+    {
+        world.setBlockState(pos, state.with(property, value))
+        true
+    }
+    else
+        false
 }
 
 inline fun JsonObject.getFloat(nameIn: String, fallback : Float)           = JSONUtils.getFloat (this, nameIn, fallback)
@@ -196,7 +211,7 @@ inline fun Biome.addZirconiumOre()
 {
     addFeature(
         GenerationStage.Decoration.UNDERGROUND_ORES,
-        Feature.ORE.withConfiguration(OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, PhoenixBlocks.ZIRCONIUM.defaultState, 4)).withPlacement(
+        Feature.ORE.withConfiguration(OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, PhxBlocks.ZIRCONIUM.defaultState, 4)).withPlacement(
             Placement.COUNT_RANGE.configure(CountRangeConfig(20, 0, 0, 64)))
     )
 }

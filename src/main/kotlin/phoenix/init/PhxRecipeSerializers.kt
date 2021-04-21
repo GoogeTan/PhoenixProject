@@ -7,7 +7,7 @@ import phoenix.recipes.tank.TankRecipeSerializer
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
-object PhoenixRecipeSerializers
+object PhxRecipeSerializers
 {
     private val RS = KDeferredRegister(ForgeRegistries.RECIPE_SERIALIZERS, Phoenix.MOD_ID)
 

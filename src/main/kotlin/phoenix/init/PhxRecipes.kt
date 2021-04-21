@@ -6,7 +6,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.registry.Registry
 import phoenix.recipes.OvenRecipe
 
-object PhoenixRecipes
+object PhxRecipes
 {
     lateinit var OVEN : IRecipeType<OvenRecipe>
 

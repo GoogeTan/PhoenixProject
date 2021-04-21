@@ -13,7 +13,7 @@ import phoenix.enity.CaudaEntity
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
-object PhoenixContainers
+object PhxContainers
 {
     private val CONTAINERS = KDeferredRegister(ForgeRegistries.CONTAINERS, Phoenix.MOD_ID)
 

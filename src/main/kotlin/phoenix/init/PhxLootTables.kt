@@ -6,7 +6,7 @@ import net.minecraft.world.storage.loot.LootTables
 import phoenix.Phoenix
 import phoenix.world.structures.remains.RemainsPieces.Piece
 
-object PhoenixLootTables
+object PhxLootTables
 {
     lateinit var REMAINS_LOOTTABLE : ResourceLocation
     lateinit var REMAINS_PIECES : IStructurePieceType

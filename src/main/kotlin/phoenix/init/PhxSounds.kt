@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.Mod
 import phoenix.Phoenix
 
 @Mod.EventBusSubscriber(modid=Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-object PhoenixSounds
+object PhxSounds
 {
     var CHANGE_STAGE: SoundEvent = SoundEvent(ResourceLocation("change_stage"))
     val REDO_MUSIC         : SoundEvent = phoenixSound("redo_music")

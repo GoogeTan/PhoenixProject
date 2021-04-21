@@ -11,7 +11,7 @@ import phoenix.utils.ResourseUtils.block
 import phoenix.utils.ResourseUtils.key
 
 @OnlyIn(Dist.CLIENT)
-object PhoenixRenderTypes
+object PhxRenderTypes
 {
     lateinit var tankTexture : RenderType
     lateinit var pipeTexture : RenderType

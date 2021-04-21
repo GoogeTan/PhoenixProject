@@ -11,8 +11,9 @@ import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import phoenix.blocks.ash.PotteryBarrelBlock.Companion.state
-import phoenix.init.PhoenixTiles.POTTERY_BARREL
+import phoenix.init.PhxTiles.POTTERY_BARREL
 import phoenix.utils.block.PhoenixTile
+import phoenix.utils.setProperty
 
 
 class PotteryBarrelTile : PhoenixTile(POTTERY_BARREL), IInventory,
@@ -21,19 +22,20 @@ class PotteryBarrelTile : PhoenixTile(POTTERY_BARREL), IInventory,
     var jumpsCount = 0
     override fun tick()
     {
-        if (!inventory.isEmpty)
+        val world = world
+        if (world != null && !world.isRemote && !inventory.isEmpty)
         {
             if (inventory.item === Items.CLAY)
             {
-                if (world!!.getBlockState(pos).get(state) == 1)
+                if (world.getBlockState(pos).get(state) == 1)
                 {
-                    world!!.setBlockState(pos, world!!.getBlockState(pos).with(state, 2))
+                    world.setProperty(pos, state, 2)
                 }
             } else if (inventory.item === Items.WATER_BUCKET)
             {
-                if (world!!.getBlockState(pos).get(state) == 0)
+                if (world.getBlockState(pos).get(state) == 0)
                 {
-                    world!!.setBlockState(pos, world!!.getBlockState(pos).with(state, 1))
+                    world.setProperty(pos, state, 1)
                 }
             } else
             {
