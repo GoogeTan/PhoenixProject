@@ -43,8 +43,8 @@ import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.wrapper.InvWrapper
 import phoenix.advancements.SitCaudaTrigger
 import phoenix.init.CaudaArmorItem
-import phoenix.init.PhoenixConfiguration
-import phoenix.init.PhoenixContainers
+import phoenix.init.PhxConfiguration
+import phoenix.init.PhxContainers
 import phoenix.network.NetworkHandler
 import phoenix.network.OpenCaudaInventoryPacket
 import phoenix.utils.max
@@ -58,7 +58,7 @@ private val SADDLE    = EntityDataManager.createKey(CaudaEntity::class.java, Dat
 
 open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEntity(type, worldIn), IMob
 {
-    var chests : Inventory = Inventory(PhoenixConfiguration.caudaInventorySize + 2)
+    var chests : Inventory = Inventory(PhxConfiguration.caudaInventorySize + 2)
 
     var saddled : Boolean
         get() = dataManager[SADDLE]
@@ -74,8 +74,8 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
     private var orbitPosition = BlockPos.ZERO
     private var attackPhase = AttackPhase.CIRCLE
 
-    fun getArmorStack() : ItemStack = chests.getStackInSlot(PhoenixConfiguration.caudaInventorySize)
-    fun getGreatcoatStack() : ItemStack = chests.getStackInSlot(PhoenixConfiguration.caudaInventorySize + 1)
+    fun getArmorStack() : ItemStack = chests.getStackInSlot(PhxConfiguration.caudaInventorySize)
+    fun getGreatcoatStack() : ItemStack = chests.getStackInSlot(PhxConfiguration.caudaInventorySize + 1)
 
     init
     {
@@ -304,7 +304,7 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
         }
     }
 
-    inner class CaudaContainer(id: Int, val inventory: PlayerInventory) : Container(PhoenixContainers.CAUDA, id)
+    inner class CaudaContainer(id: Int, val inventory: PlayerInventory) : Container(PhxContainers.CAUDA, id)
     {
         init
         {
@@ -312,7 +312,7 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
 
             var i = 0
 
-            if(PhoenixConfiguration.gameMode != PhoenixConfiguration.GameMode.Liahim)
+            if(PhxConfiguration.gameMode != PhxConfiguration.GameMode.Liahim)
             {
                 for (y in 0..3)
                     for (x in 0..4)

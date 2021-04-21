@@ -6,11 +6,11 @@ import net.minecraft.block.BlockState
 import net.minecraft.client.renderer.model.Model
 import net.minecraft.client.renderer.model.ModelRenderer
 import phoenix.blocks.redo.PipeBlock
-import phoenix.init.PhoenixRenderTypes
+import phoenix.init.PhxRenderTypes
 import java.util.function.Function
 
 
-class PipeModel(stateIn: BlockState) : Model(Function { PhoenixRenderTypes.pipeTexture })
+class PipeModel(stateIn: BlockState) : Model(Function { PhxRenderTypes.pipeTexture })
 {
     var base: ModelRenderer
     var n: ModelRenderer

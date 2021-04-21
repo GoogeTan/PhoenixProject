@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher
 import net.minecraft.util.ResourceLocation
 import phoenix.client.models.block.PipeModel
-import phoenix.init.PhoenixRenderTypes
+import phoenix.init.PhxRenderTypes
 import phoenix.tile.redo.PipeTile
 import phoenix.utils.RenderUtils.refreshDrawing
 
@@ -24,9 +24,9 @@ class PipeRender(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEntit
     )
     {
         matrix.push()
-        val builder = buffer.getBuffer(PhoenixRenderTypes.pipeTexture)
+        val builder = buffer.getBuffer(PhxRenderTypes.pipeTexture)
         PipeModel(tile.blockState).render(matrix, builder, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f)
-        refreshDrawing(builder, PhoenixRenderTypes.pipeTexture)
+        refreshDrawing(builder, PhxRenderTypes.pipeTexture)
         matrix.pop()
     }
 

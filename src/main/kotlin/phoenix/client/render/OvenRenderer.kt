@@ -16,7 +16,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.network.play.server.SSetSlotPacket
 import net.minecraft.util.Direction
 import net.minecraft.util.NonNullList
-import phoenix.init.PhoenixItems
+import phoenix.init.PhxItems
 import phoenix.tile.ash.OvenTile
 
 class OvenRenderer(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEntityRenderer<OvenTile>(rendererDispatcherIn), IContainerListener
@@ -36,7 +36,7 @@ class OvenRenderer(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEnt
                 val dirAngle = -direction1.horizontalAngle
                 matrixStackIn.rotate(Vector3f.YP.rotationDegrees(dirAngle))
                 matrixStackIn.translate(-0.15, -0.3125, 0.15)
-                if (stack.item.containerItem == PhoenixItems.CRUCIBLE)
+                if (stack.item.containerItem == PhxItems.CRUCIBLE)
                 {
                     matrixStackIn.scale(0.7f, 0.7f, 0.7f)
                 }

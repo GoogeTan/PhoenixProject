@@ -4,7 +4,7 @@ import com.mojang.datafixers.Dynamic
 import net.minecraft.block.Blocks
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig
-import phoenix.init.PhoenixBlocks
+import phoenix.init.PhxBlocks
 
 object Builders
 {
@@ -13,6 +13,6 @@ object Builders
     val HEARTVOID: SurfaceBuilder<SurfaceBuilderConfig> = SurfaceBuilder.register("heart", HeartVoidSurfaceBuilder { dynamic: Dynamic<*> -> SurfaceBuilderConfig.deserialize(dynamic) })
 
     //Конфиги для билдеров
-    val UNDER_CONFIG = AdvancedSurfaceBuilderConfig(Blocks.END_STONE, Blocks.END_STONE, Blocks.END_STONE, PhoenixBlocks.FERTILE_END_STONE)
+    val UNDER_CONFIG = AdvancedSurfaceBuilderConfig(Blocks.END_STONE, Blocks.END_STONE, Blocks.END_STONE, PhxBlocks.FERTILE_END_STONE)
     val HEARTVOID_CONFIG = SurfaceBuilderConfig(Blocks.END_STONE.defaultState, Blocks.END_STONE.defaultState, Blocks.END_STONE.defaultState)
 }

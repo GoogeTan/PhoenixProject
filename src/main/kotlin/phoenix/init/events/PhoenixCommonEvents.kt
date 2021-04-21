@@ -22,16 +22,16 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import phoenix.Phoenix
 import phoenix.Phoenix.Companion.ASH
-import phoenix.init.PhoenixBiomes.HEARTVOID
-import phoenix.init.PhoenixBiomes.UNDER
-import phoenix.init.PhoenixBlocks.BLOCKS
-import phoenix.init.PhoenixEntities.CAUDA
-import phoenix.init.PhoenixEntities.TALPA
-import phoenix.init.PhoenixFeatures
-import phoenix.init.PhoenixItems
-import phoenix.init.PhoenixPotions.LEVITATION
-import phoenix.init.PhoenixPotions.LONG_LEVITATION
-import phoenix.init.PhoenixRecipes
+import phoenix.init.PhxBiomes.HEARTVOID
+import phoenix.init.PhxBiomes.UNDER
+import phoenix.init.PhxBlocks.BLOCKS
+import phoenix.init.PhxEntities.CAUDA
+import phoenix.init.PhxEntities.TALPA
+import phoenix.init.PhxFeatures
+import phoenix.init.PhxItems
+import phoenix.init.PhxPotions.LEVITATION
+import phoenix.init.PhxPotions.LONG_LEVITATION
+import phoenix.init.PhxRecipes
 import phoenix.network.NetworkHandler
 import phoenix.utils.addStructure
 import phoenix.utils.addZirconiumOre
@@ -62,12 +62,12 @@ object PhoenixCommonEvents
     fun init(event: FMLCommonSetupEvent)
     {
         NetworkHandler.init()
-        PhoenixRecipes.register()
+        PhxRecipes.register()
         UNDER.addSpawn(EntityClassification.CREATURE, SpawnListEntry(CAUDA, 15, 1, 1))
         HEARTVOID.addSpawn(EntityClassification.CREATURE, SpawnListEntry(TALPA, 15, 1, 4))
-        END_HIGHLANDS.addStructure(PhoenixFeatures.REMAINS)
-        UNDER.addStructure(PhoenixFeatures.REMAINS)
-        HEARTVOID.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, PhoenixFeatures.WET_TREE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG))
+        END_HIGHLANDS.addStructure(PhxFeatures.REMAINS)
+        UNDER.addStructure(PhxFeatures.REMAINS)
+        HEARTVOID.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, PhxFeatures.WET_TREE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG))
 
         for (biome in Registry.BIOME)
         {
@@ -80,7 +80,7 @@ object PhoenixCommonEvents
 
         BrewingRecipeRegistry.addRecipe(
             Ingredient.fromStacks(PotionUtils.addPotionToItemStack(ItemStack(Items.POTION), MUNDANE)),
-            Ingredient.fromItems(PhoenixItems.GOLDEN_SETA),
+            Ingredient.fromItems(PhxItems.GOLDEN_SETA),
             PotionUtils.addPotionToItemStack(ItemStack(Items.POTION), LEVITATION))
 
         BrewingRecipeRegistry.addRecipe(

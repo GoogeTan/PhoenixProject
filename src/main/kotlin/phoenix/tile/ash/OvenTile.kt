@@ -12,8 +12,8 @@ import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.util.math.BlockPos
 import phoenix.blocks.ash.OvenBlock
 import phoenix.containers.ash.OvenContainer
-import phoenix.init.PhoenixItems
-import phoenix.init.PhoenixTiles
+import phoenix.init.PhxItems
+import phoenix.init.PhxTiles
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncOvenPacket
 import phoenix.recipes.OvenRecipe.Companion.recipesFromInputs
@@ -22,7 +22,7 @@ import phoenix.utils.block.PhoenixTile
 import java.lang.Integer.max
 import java.lang.Integer.min
 
-class OvenTile : PhoenixTile(PhoenixTiles.OVEN), ITickableTileEntity, IInventory
+class OvenTile : PhoenixTile(PhxTiles.OVEN), ITickableTileEntity, IInventory
 {
     var timers = IntArray(4)
     var burnTime = 0
@@ -43,7 +43,7 @@ class OvenTile : PhoenixTile(PhoenixTiles.OVEN), ITickableTileEntity, IInventory
         var has = false
         for (i in 0..3)
         {
-            if(!recipesFromInputs.contains(inventory[i].item) || inventory[i].item == PhoenixItems.COOKED_SETA)
+            if(!recipesFromInputs.contains(inventory[i].item) || inventory[i].item == PhxItems.COOKED_SETA)
             {
                 res.add(inventory[i].copy())
                 inventory[i] = ItemStack.EMPTY

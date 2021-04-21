@@ -11,11 +11,11 @@ import net.minecraft.client.renderer.texture.AtlasTexture
 import net.minecraft.fluid.Fluids
 import net.minecraft.util.ResourceLocation
 import net.minecraft.world.dimension.DimensionType
-import phoenix.init.PhoenixRenderTypes
+import phoenix.init.PhxRenderTypes
 import phoenix.tile.redo.TankTile
 import phoenix.utils.RenderUtils.refreshDrawing
 
-class TankModel(var tileTank : TankTile) : Model({ PhoenixRenderTypes.tankTexture })
+class TankModel(var tileTank : TankTile) : Model({ PhxRenderTypes.tankTexture })
 {
     var TEXTURE_FLUID: ResourceLocation? = null
     var MATERIAL_FLUID: Material? = null
@@ -75,9 +75,9 @@ class TankModel(var tileTank : TankTile) : Model({ PhoenixRenderTypes.tankTextur
                 }
             }
         }
-        val builder = buffer.getBuffer(PhoenixRenderTypes.tankTexture)
+        val builder = buffer.getBuffer(PhxRenderTypes.tankTexture)
         block.render(matrixStackIn, builder, packedLightIn, packedOverlayIn)
-        refreshDrawing(builder, PhoenixRenderTypes.tankTexture)
+        refreshDrawing(builder, PhxRenderTypes.tankTexture)
         matrixStackIn.pop()
     }
 

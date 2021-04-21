@@ -10,7 +10,7 @@ import net.minecraft.util.Hand
 import net.minecraft.world.World
 import net.minecraftforge.fml.network.NetworkHooks
 import phoenix.Phoenix
-import phoenix.init.PhoenixContainers
+import phoenix.init.PhxContainers
 
 class DiaryItem : Item(Properties().rarity(Rarity.EPIC).group(Phoenix.ASH).maxStackSize(1))
 {
@@ -18,7 +18,7 @@ class DiaryItem : Item(Properties().rarity(Rarity.EPIC).group(Phoenix.ASH).maxSt
     {
         if (playerIn is ServerPlayerEntity)
         {
-            val container = PhoenixContainers.GUIDE.create(0, playerIn.inventory)
+            val container = PhxContainers.GUIDE.create(0, playerIn.inventory)
             NetworkHooks.openGui(playerIn, container)
         }
 

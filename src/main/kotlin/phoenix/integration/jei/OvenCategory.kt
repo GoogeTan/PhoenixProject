@@ -9,7 +9,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import phoenix.Phoenix
-import phoenix.init.PhoenixBlocks
+import phoenix.init.PhxBlocks
 import phoenix.recipes.OvenRecipe
 
 class OvenCategory(private val helper: IGuiHelper) : IRecipeCategory<OvenRecipe>
@@ -20,7 +20,7 @@ class OvenCategory(private val helper: IGuiHelper) : IRecipeCategory<OvenRecipe>
     override fun getTitle      (): String                = "Oven"
     override fun getBackground (): IDrawable             = background
 
-    override fun getIcon(): IDrawable =  helper.createDrawableIngredient(ItemStack(PhoenixBlocks.OVEN))
+    override fun getIcon(): IDrawable =  helper.createDrawableIngredient(ItemStack(PhxBlocks.OVEN))
 
     override fun setIngredients(recipe: OvenRecipe, ingredients: IIngredients)
     {

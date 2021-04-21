@@ -17,9 +17,9 @@ import net.minecraft.world.gen.area.IAreaFactory
 import net.minecraft.world.gen.feature.structure.Structure
 import net.minecraft.world.gen.layer.Layer
 import net.minecraft.world.gen.layer.ZoomLayer
-import phoenix.init.PhoenixBiomes
-import phoenix.init.PhoenixConfiguration
-import phoenix.init.PhoenixFeatures
+import phoenix.init.PhxBiomes
+import phoenix.init.PhxConfiguration
+import phoenix.init.PhxFeatures
 import phoenix.utils.LogManager
 import phoenix.world.genlayers.*
 import java.util.function.LongFunction
@@ -95,7 +95,7 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings) : BiomeProvide
             phoenixBiomes = HeartVoidLayer.apply(context.apply(200L), phoenixBiomes)
         }
 
-        for (i in 0..PhoenixConfiguration.biomeSize)
+        for (i in 0..PhxConfiguration.biomeSize)
             phoenixBiomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenixBiomes)
 
         return UnificationLayer.apply(context.apply(200L), phoenixBiomes, vanilaBiomes)
@@ -110,7 +110,7 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings) : BiomeProvide
 
     companion object
     {
-        private val biomes: Set<Biome> = ImmutableSet.of(Biomes.THE_END, Biomes.END_HIGHLANDS, Biomes.END_MIDLANDS, Biomes.SMALL_END_ISLANDS, Biomes.END_BARRENS, PhoenixBiomes.UNDER, PhoenixBiomes.HEARTVOID)
+        private val biomes: Set<Biome> = ImmutableSet.of(Biomes.THE_END, Biomes.END_HIGHLANDS, Biomes.END_MIDLANDS, Biomes.SMALL_END_ISLANDS, Biomes.END_BARRENS, PhxBiomes.UNDER, PhxBiomes.HEARTVOID)
     }
 
     override fun hasStructure(structureIn: Structure<*>): Boolean
@@ -122,5 +122,5 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings) : BiomeProvide
 
     }
 
-    var structureToStage : Map<Structure<*>, Int> = ImmutableBiMap.of(PhoenixFeatures.REMAINS, 1)
+    var structureToStage : Map<Structure<*>, Int> = ImmutableBiMap.of(PhxFeatures.REMAINS, 1)
 }

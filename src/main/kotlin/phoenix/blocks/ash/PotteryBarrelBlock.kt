@@ -25,7 +25,7 @@ import net.minecraft.world.IBlockReader
 import net.minecraft.world.ILightReader
 import net.minecraft.world.World
 import net.minecraft.world.storage.loot.LootContext
-import phoenix.init.PhoenixItems
+import phoenix.init.PhxItems
 import phoenix.tile.ash.PotteryBarrelTile
 import phoenix.utils.block.BlockWithTile
 import phoenix.utils.block.IColoredBlock
@@ -88,7 +88,7 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO).hard
                     {
                         if (stateInt >= 2 && countOfJumps > 20)
                         {
-                            player.setHeldItem(handIn, ItemStack(PhoenixItems.HIGH_QUALITY_CLAY_ITEM, min(countOfJumps / 20, 3)))
+                            player.setHeldItem(handIn, ItemStack(PhxItems.HIGH_QUALITY_CLAY_ITEM, min(countOfJumps / 20, 3)))
                             setState(worldIn, pos, state, 0)
                             (worldIn.getTileEntity(pos) as PotteryBarrelTile?)?.nullifyJumpsCount()
                         }

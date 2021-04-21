@@ -9,7 +9,6 @@ import com.mojang.datafixers.Dynamic
 import com.mojang.datafixers.types.DynamicOps
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
-import net.minecraft.entity.EntityType
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
@@ -18,8 +17,7 @@ import net.minecraft.world.IWorldWriter
 import net.minecraft.world.gen.ChunkGenerator
 import net.minecraft.world.gen.GenerationSettings
 import net.minecraft.world.gen.feature.Feature
-import phoenix.init.PhoenixEntities
-import phoenix.utils.LogManager
+import phoenix.init.PhxEntities
 import phoenix.world.StageManager.stageEnum
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -73,7 +71,7 @@ class CustomEndSpike : Feature<CustomEndSpikeConfig>({ dynamic: Dynamic<*> -> Cu
             }
         }
         stageEnum.createTower(this, worldIn, spike)
-        val crystal = PhoenixEntities.ENDER_CRYSTAL.create(worldIn.world)
+        val crystal = PhxEntities.ENDER_CRYSTAL.create(worldIn.world)
         if (crystal != null)
         {
             crystal.setBeamTarget(config.crystalBeamTarget)

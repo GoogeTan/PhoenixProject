@@ -12,14 +12,14 @@ import net.minecraft.util.math.shapes.VoxelShapes
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.storage.loot.LootContext
 import net.minecraftforge.common.ToolType
-import phoenix.init.PhoenixBlocks
+import phoenix.init.PhxBlocks
 import phoenix.utils.block.IRedoThink
 
 object ArmoredGlassBlock : AbstractGlassBlock(
     Properties.create(Material.GLASS).doesNotBlockMovement().hardnessAndResistance(20.0f).harvestLevel(3).harvestTool(
         ToolType.PICKAXE).sound(SoundType.GLASS).notSolid()), IRedoThink
 {
-    override fun getDrops(state: BlockState, builder: LootContext.Builder): List<ItemStack> = listOf(ItemStack(PhoenixBlocks.ARMORED_GLASS))
+    override fun getDrops(state: BlockState, builder: LootContext.Builder): List<ItemStack> = listOf(ItemStack(PhxBlocks.ARMORED_GLASS))
 
     override fun getCollisionShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape = VoxelShapes.fullCube()
 

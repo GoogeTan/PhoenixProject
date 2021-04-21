@@ -7,11 +7,11 @@ import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.text.ITextComponent
 import phoenix.enity.CaudaEntity
-import phoenix.init.PhoenixConfiguration
+import phoenix.init.PhxConfiguration
 
 class CaudaGuiContainer(container: CaudaEntity.CaudaContainer, inv: PlayerInventory, titleIn: ITextComponent) : ContainerScreen<CaudaEntity.CaudaContainer>(container, inv, titleIn)
 {
-    private val GUI_TEXTURE = ResourceLocation("phoenix:textures/gui/cauda${ PhoenixConfiguration.gameMode.textureSuffix }.png")
+    private val GUI_TEXTURE = ResourceLocation("phoenix:textures/gui/cauda${ PhxConfiguration.gameMode.textureSuffix }.png")
     private var mousePosX = 0f
     private var mousePosY = 0f
 

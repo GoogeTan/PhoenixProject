@@ -9,8 +9,8 @@ import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
 import net.minecraft.util.ResourceLocation
-import phoenix.init.PhoenixBlocks
-import phoenix.init.PhoenixRecipes
+import phoenix.init.PhxBlocks
+import phoenix.init.PhxRecipes
 import phoenix.utils.mc
 
 @JeiPlugin
@@ -34,13 +34,13 @@ class PhoenixJEIPlugin : IModPlugin
         assert(mc.world != null)
         val manager = mc.world!!.recipeManager
         // oven
-        val ovenRecipes: Collection<IRecipe<IInventory>> = manager.getRecipes(PhoenixRecipes.OVEN).values
+        val ovenRecipes: Collection<IRecipe<IInventory>> = manager.getRecipes(PhxRecipes.OVEN).values
         register.addRecipes(ovenRecipes, ovenCategory.uid)
     }
 
     override fun registerRecipeCatalysts(registration: IRecipeCatalystRegistration)
     {
-        registration.addRecipeCatalyst(ItemStack(PhoenixBlocks.OVEN), ovenCategory.uid)
+        registration.addRecipeCatalyst(ItemStack(PhxBlocks.OVEN), ovenCategory.uid)
     }
 
 

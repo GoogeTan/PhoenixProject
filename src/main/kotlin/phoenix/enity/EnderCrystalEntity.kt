@@ -5,11 +5,9 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityType
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.nbt.NBTUtil
-import net.minecraft.network.IPacket
 import net.minecraft.network.datasync.DataParameter
 import net.minecraft.network.datasync.DataSerializers
 import net.minecraft.network.datasync.EntityDataManager
-import net.minecraft.network.play.server.SSpawnObjectPacket
 import net.minecraft.util.DamageSource
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.Explosion
@@ -18,7 +16,7 @@ import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.fml.network.NetworkHooks
 import phoenix.enity.boss.AbstractEnderDragonEntity
-import phoenix.init.PhoenixEntities
+import phoenix.init.PhxEntities
 import phoenix.world.EndDimension
 import java.util.*
 
@@ -29,7 +27,7 @@ class EnderCrystalEntity(type: EntityType<out EnderCrystalEntity>, world: World)
 {
     var innerRotation = 0
 
-    constructor(world: World, x: Double, y: Double, z: Double) : this(PhoenixEntities.ENDER_CRYSTAL, world)
+    constructor(world: World, x: Double, y: Double, z: Double) : this(PhxEntities.ENDER_CRYSTAL, world)
     {
         setPosition(x, y, z)
     }

@@ -29,8 +29,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.common.Mod
 import phoenix.client.gui.diaryPages.Chapters
-import phoenix.init.PhoenixBlocks
-import phoenix.init.PhoenixItems
+import phoenix.init.PhxBlocks
+import phoenix.init.PhxItems
 import phoenix.network.NetworkHandler
 import phoenix.network.NetworkHandler.sendTo
 import phoenix.network.SyncBookPacket
@@ -92,7 +92,7 @@ object PhoenixEvents
                 ImmutableList.of(VillagerTrades.ITrade { _: Entity, _: Random ->
                     MerchantOffer(
                         ItemStack(Items.EMERALD, 8), ItemStack(
-                            PhoenixItems.STEEL_AXE
+                            PhxItems.STEEL_AXE
                         ), 7, 1, 0.1f
                     )
                 })
@@ -103,7 +103,7 @@ object PhoenixEvents
                 ImmutableList.of(VillagerTrades.ITrade { _: Entity, _: Random ->
                     MerchantOffer(
                         ItemStack(Items.EMERALD, 8), ItemStack(
-                            PhoenixItems.STEEL_SWORD
+                            PhxItems.STEEL_SWORD
                         ), 7, 1, 0.1f
                     )
                 })
@@ -113,8 +113,8 @@ object PhoenixEvents
     @SubscribeEvent
     fun trades(event: WandererTradesEvent)
     {
-        event.rareTrades.add(VillagerTrades.ITrade { _: Entity, _: Random -> MerchantOffer(ItemStack(Items.EMERALD, 14), ItemStack(PhoenixBlocks.SETA), 7, 1, 0.1f) })
-        event.rareTrades.add(VillagerTrades.ITrade { _: Entity, _: Random -> MerchantOffer(ItemStack(Items.EMERALD, 24), ItemStack(PhoenixItems.GOLDEN_SETA, 4), 7, 1, 0.1f) })
+        event.rareTrades.add(VillagerTrades.ITrade { _: Entity, _: Random -> MerchantOffer(ItemStack(Items.EMERALD, 14), ItemStack(PhxBlocks.SETA), 7, 1, 0.1f) })
+        event.rareTrades.add(VillagerTrades.ITrade { _: Entity, _: Random -> MerchantOffer(ItemStack(Items.EMERALD, 24), ItemStack(PhxItems.GOLDEN_SETA, 4), 7, 1, 0.1f) })
     }
 
     @SubscribeEvent
@@ -122,7 +122,7 @@ object PhoenixEvents
     {
         if(event.name == LootTables.CHESTS_JUNGLE_TEMPLE)
         {
-            event.table.addPool(LootPool.builder().addEntry(ItemLootEntry.builder(PhoenixItems.ZIRCONIUM_INGOT).weight(2)).build())
+            event.table.addPool(LootPool.builder().addEntry(ItemLootEntry.builder(PhxItems.ZIRCONIUM_INGOT).weight(2)).build())
         }
     }
 

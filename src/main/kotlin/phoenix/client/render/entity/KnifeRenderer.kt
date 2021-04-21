@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import phoenix.enity.KnifeEntity
-import phoenix.init.PhoenixItems.ZIRCONIUM_KNIFE
+import phoenix.init.PhxItems.ZIRCONIUM_KNIFE
 
 class KnifeRenderer<T : KnifeEntity>(renderManagerIn: EntityRendererManager) : EntityRenderer<T>(renderManagerIn)
 {

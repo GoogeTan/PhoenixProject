@@ -11,10 +11,10 @@ import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import phoenix.blocks.ash.PotteryBarrelBlock
-import phoenix.init.PhoenixTiles
+import phoenix.init.PhxTiles
 import phoenix.utils.block.PhoenixTile
 
-class ElectricBarrelTile : PhoenixTile(PhoenixTiles.ELECTRIC_BARREL), IInventory, ITickableTileEntity
+class ElectricBarrelTile : PhoenixTile(PhxTiles.ELECTRIC_BARREL), IInventory, ITickableTileEntity
 {
     var jumpsCount = 0
 

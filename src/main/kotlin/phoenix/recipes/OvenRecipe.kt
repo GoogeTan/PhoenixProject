@@ -7,8 +7,8 @@ import net.minecraft.item.crafting.AbstractCookingRecipe
 import net.minecraft.item.crafting.IRecipeSerializer
 import net.minecraft.item.crafting.Ingredient
 import net.minecraft.util.ResourceLocation
-import phoenix.init.PhoenixRecipeSerializers.OVEN
-import phoenix.init.PhoenixRecipes
+import phoenix.init.PhxRecipeSerializers.OVEN
+import phoenix.init.PhxRecipes
 
 class OvenRecipe(
     idIn: ResourceLocation,
@@ -18,7 +18,7 @@ class OvenRecipe(
     experienceIn: Float,
     cookTimeIn: Int
 ) :
-    AbstractCookingRecipe(PhoenixRecipes.OVEN, idIn, groupIn, ingredientIn, resultIn, experienceIn, cookTimeIn)
+    AbstractCookingRecipe(PhxRecipes.OVEN, idIn, groupIn, ingredientIn, resultIn, experienceIn, cookTimeIn)
 {
     override fun getSerializer(): IRecipeSerializer<OvenRecipe> = OVEN
 

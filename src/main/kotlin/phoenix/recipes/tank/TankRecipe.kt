@@ -7,11 +7,11 @@ import net.minecraft.item.crafting.AbstractCookingRecipe
 import net.minecraft.item.crafting.IRecipeSerializer
 import net.minecraft.item.crafting.Ingredient
 import net.minecraft.util.ResourceLocation
-import phoenix.init.PhoenixRecipeSerializers
-import phoenix.init.PhoenixRecipes
+import phoenix.init.PhxRecipeSerializers
+import phoenix.init.PhxRecipes
 
 class TankRecipe(id: ResourceLocation, group: String, inputIn: ItemStack, result: ItemStack, exp: Float, cookTime: Int)
-    : AbstractCookingRecipe(PhoenixRecipes.OVEN, id, group, Ingredient.fromStacks(inputIn), result, exp, cookTime)
+    : AbstractCookingRecipe(PhxRecipes.OVEN, id, group, Ingredient.fromStacks(inputIn), result, exp, cookTime)
 {
     private var input : ItemStack = inputIn
     private val inputs = HashSet<Item>()
@@ -24,7 +24,7 @@ class TankRecipe(id: ResourceLocation, group: String, inputIn: ItemStack, result
 
     }
 
-    override fun getSerializer(): IRecipeSerializer<*>? = PhoenixRecipeSerializers.TANK
+    override fun getSerializer(): IRecipeSerializer<*>? = PhxRecipeSerializers.TANK
     fun getIngredient(): Ingredient = ingredient
     fun getResult(): ItemStack = result
     fun getInput(): ItemStack = input

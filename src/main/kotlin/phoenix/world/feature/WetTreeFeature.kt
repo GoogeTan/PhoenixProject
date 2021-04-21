@@ -7,7 +7,7 @@ import net.minecraft.world.gen.ChunkGenerator
 import net.minecraft.world.gen.GenerationSettings
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.NoFeatureConfig
-import phoenix.init.PhoenixBlocks
+import phoenix.init.PhxBlocks
 import java.util.*
 import java.util.function.Function
 
@@ -41,10 +41,10 @@ class WetTreeFeature : Feature<NoFeatureConfig>(Function { dyn: Dynamic<*>? -> N
         startPos = startPos.down()
         do
         {
-            worldIn.setBlockState(startPos, PhoenixBlocks.WET_LOG.defaultState, 2)
-            worldIn.setBlockState(startPos.east(), PhoenixBlocks.WET_LOG.defaultState, 2)
-            worldIn.setBlockState(startPos.north(), PhoenixBlocks.WET_LOG.defaultState, 2)
-            worldIn.setBlockState(startPos.east().north(), PhoenixBlocks.WET_LOG.defaultState, 2)
+            worldIn.setBlockState(startPos, PhxBlocks.WET_LOG.defaultState, 2)
+            worldIn.setBlockState(startPos.east(), PhxBlocks.WET_LOG.defaultState, 2)
+            worldIn.setBlockState(startPos.north(), PhxBlocks.WET_LOG.defaultState, 2)
+            worldIn.setBlockState(startPos.east().north(), PhxBlocks.WET_LOG.defaultState, 2)
 
             startPos = startPos.up()
         }

@@ -9,7 +9,7 @@ import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig
 import phoenix.init.*
-import phoenix.init.PhoenixConfiguration.Common
+import phoenix.init.PhxConfiguration.Common
 import phoenix.world.EndDimension
 
 @Mod(Phoenix.MOD_ID)
@@ -17,21 +17,21 @@ class Phoenix
 {
     init
     {
-        PhoenixEnchantments.register()
-        PhoenixBiomes.register()
-        PhoenixBlocks.register()
-        PhoenixTiles.register()
-        PhoenixFeatures.register()
-        PhoenixEntities.register()
-        PhoenixItems.register()
-        PhoenixContainers.register()
-        PhoenixRecipeSerializers.register()
-        PhoenixTriggers.register()
-        PhoenixPotions.register()
-        PhoenixFluids.register()
+        PhxEnchantments.register()
+        PhxBiomes.register()
+        PhxBlocks.register()
+        PhxTiles.register()
+        PhxFeatures.register()
+        PhxEntities.register()
+        PhxItems.register()
+        PhxContainers.register()
+        PhxRecipeSerializers.register()
+        PhxTriggers.register()
+        PhxPotions.register()
+        PhxFluids.register()
         val specPair = ForgeConfigSpec.Builder().configure(::Common)
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, specPair.right)
-        PhoenixConfiguration.COMMON_CONFIG = specPair.left
+        PhxConfiguration.COMMON_CONFIG = specPair.left
         StaticInit.init()
     }
 
@@ -40,12 +40,12 @@ class Phoenix
         const val MOD_ID = "phoenix"
 
         val ASH : ItemGroup = PhoenixGroup("$MOD_ID.ash", Blocks.END_PORTAL_FRAME)
-        val REDO: ItemGroup = PhoenixGroup("$MOD_ID.redo", PhoenixBlocks::SETA)
+        val REDO: ItemGroup = PhoenixGroup("$MOD_ID.redo", PhxBlocks::SETA)
 
         init
         {
             DimensionType.THE_END = DimensionType.register("the_end", DimensionType(2, "_end", "DIM1", ::EndDimension, false, FuzzedBiomeMagnifier.INSTANCE))
-            PhoenixLootTables.init()
+            PhxLootTables.init()
         }
     }
 }

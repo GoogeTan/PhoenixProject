@@ -5,10 +5,10 @@ import net.minecraft.inventory.Inventory
 import net.minecraft.inventory.container.Container
 import net.minecraft.inventory.container.Slot
 import net.minecraft.item.ItemStack
-import phoenix.init.PhoenixContainers
+import phoenix.init.PhxContainers
 
 
-class OvenContainer : Container(PhoenixContainers.GUIDE, 1015)
+class OvenContainer : Container(PhxContainers.GUIDE, 1015)
 {
     var inventory = Inventory(4)
 
