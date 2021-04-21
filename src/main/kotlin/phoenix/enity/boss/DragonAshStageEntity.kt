@@ -6,8 +6,8 @@ import phoenix.enity.boss.phase.PhaseType
 
 class DragonAshStageEntity(type: EntityType<out DragonAshStageEntity>, worldIn: World) : AbstractEnderDragonEntity(type, worldIn)
 {
-    override val LANDING: PhaseType = PhaseType.ASH_LANDING
-    override val TAKEOFF: PhaseType = PhaseType.ASH_TAKEOFF
-    override val DYING: PhaseType   = PhaseType.ASH_DYING
-    override val HOVER: PhaseType   = PhaseType.ASH_HOVER
+    override var LANDING: PhaseType = PhaseType.ASH_LANDING
+    override var TAKEOFF: PhaseType = PhaseType.ASH_TAKEOFF
+    override var DYING: PhaseType   = PhaseType.ASH_DYING
+    override var HOVER: PhaseType   = PhaseType.ASH_HOVER
 }

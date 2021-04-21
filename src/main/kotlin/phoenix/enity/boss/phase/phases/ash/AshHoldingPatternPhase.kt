@@ -14,12 +14,13 @@ import phoenix.enity.EnderCrystalEntity
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
+import phoenix.utils.LogManager
 
 open class AshHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
-    protected var currentPath : Path? = null
+    var currentPath : Path? = null
 
-    protected var clockwise = false
+    var clockwise = false
 
     override val type = PhaseType.ASH_HOLDING_PATTERN
 
@@ -29,10 +30,11 @@ open class AshHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(d
      */
     override fun serverTick()
     {
-        val d0 = if (targetLocation == null) 0.0 else targetLocation!!.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ)
-        if (d0 < 100.0 || d0 > 22500.0 || dragon.collidedHorizontally || dragon.collidedVertically)
+        val dist = targetLocation?.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ)?:0.0
+        if (dist < 100.0 || dist > 22500.0 || dragon.collidedHorizontally || dragon.collidedVertically)
         {
             findNewTarget()
+            LogManager.errorObjects(this, targetLocation, dist, currentPath)
         }
     }
 
@@ -55,19 +57,19 @@ open class AshHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(d
         if (currentPath != null && currentPath!!.isFinished)
         {
             val topPos = dragon.world!!.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlockPos(EndPodiumFeature.END_PODIUM_LOCATION))
-            val i = if (dragon.fightManager == null) 0 else dragon.fightManager!!.numAliveCrystals
-            if (dragon.rng.nextInt(i + 3) == 0)
+            val aliveCrystals = if (dragon.fightManager == null) 0 else dragon.fightManager!!.numAliveCrystals
+            if (dragon.rng.nextInt(aliveCrystals + 3) == 0)
             {
                 dragon.phaseManager.setPhase(PhaseType.ASH_LANDING_APPROACH)
                 return
             }
             var dist = 64.0
-            val player = dragon.world.getClosestPlayer(field_221117_b, topPos.x.toDouble(), topPos.y.toDouble(), topPos.z.toDouble())
+            val player = dragon.world.getClosestPlayer(NEW_TARGET_TARGETING, topPos.x.toDouble(), topPos.y.toDouble(), topPos.z.toDouble())
             if (player != null)
             {
                 dist = topPos.distanceSq(player.positionVec, true) / 512.0
             }
-            if (player != null && !player.abilities.disableDamage && (dragon.rng.nextInt(MathHelper.abs(dist.toInt()) + 2) == 0 || dragon.rng.nextInt(i + 2) == 0))
+            if (player != null && !player.abilities.disableDamage && (dragon.rng.nextInt(MathHelper.abs(dist.toInt()) + 2) == 0 || dragon.rng.nextInt(aliveCrystals + 2) == 0))
             {
                 strafePlayer(player)
                 return
@@ -75,7 +77,7 @@ open class AshHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(d
         }
         if (currentPath == null || currentPath!!.isFinished)
         {
-            val j = dragon.initPathPoints()
+            val j = dragon.findClosestNode()
             var k = j
             if (dragon.rng.nextInt(8) == 0)
             {
@@ -102,7 +104,7 @@ open class AshHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(d
                 k = k and 7
                 k += 12
             }
-            currentPath = dragon.findPath(j, k, null as PathPoint?)
+            currentPath = dragon.findPath(j, k, null)
             if (currentPath != null)
             {
                 currentPath!!.incrementPathIndex()
@@ -121,15 +123,15 @@ open class AshHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(d
     {
         if (currentPath != null && !currentPath!!.isFinished)
         {
-            val vec3d = currentPath!!.currentPos
+            val pos = currentPath!!.currentPos
             currentPath!!.incrementPathIndex()
-            val d0 = vec3d.x
-            val d1 = vec3d.z
-            var d2: Double
+            val x = pos.x
+            val z = pos.z
+            var y: Double
             do
-                d2 = vec3d.y + (dragon.rng.nextFloat() * 20.0f).toDouble()
-            while (d2 < vec3d.y)
-            targetLocation = Vec3d(d0, d2, d1)
+                y = pos.y + (dragon.rng.nextFloat() * 20.0f).toDouble()
+            while (y < pos.y)
+            targetLocation = Vec3d(x, y, z)
         }
     }
 
@@ -148,6 +150,6 @@ open class AshHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(d
 
     companion object
     {
-        val field_221117_b = EntityPredicate().setDistance(64.0)
+        val NEW_TARGET_TARGETING = EntityPredicate().setDistance(64.0)
     }
 }

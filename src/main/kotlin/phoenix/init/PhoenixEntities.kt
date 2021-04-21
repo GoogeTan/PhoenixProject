@@ -53,8 +53,8 @@ object PhoenixEntities
     {
         EntityType.Builder.create(::EnderCrystalEntity, EntityClassification.MONSTER)
             .immuneToFire()
-            .size(16.0f, 8.0f)
-            .build(ResourceLocation(Phoenix.MOD_ID, "dragon_ash_stage").toString())
+            .size(2.0f, 2.0f)
+            .build(ResourceLocation(Phoenix.MOD_ID, "ender_crystal").toString())
     }
 
     val DRAGON_ASH_STAGE: EntityType<DragonAshStageEntity> by ENTITIES.register("dragon_ash_stage")

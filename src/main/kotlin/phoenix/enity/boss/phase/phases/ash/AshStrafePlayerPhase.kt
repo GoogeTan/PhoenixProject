@@ -106,7 +106,7 @@ open class AshStrafePlayerPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dra
     {
         if (currentPath == null || currentPath!!.isFinished)
         {
-            val i = dragon.initPathPoints()
+            val i = dragon.findClosestNode()
             var j = i
             if (dragon.rng.nextInt(8) == 0)
             {
@@ -173,7 +173,7 @@ open class AshStrafePlayerPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dra
     open fun setTarget(targetIn: LivingEntity)
     {
         attackTarget = targetIn
-        val i = dragon.initPathPoints()
+        val i = dragon.findClosestNode()
         val j = dragon.getNearestPpIdx(attackTarget!!.posX, attackTarget!!.posY, attackTarget!!.posZ)
         val k = MathHelper.floor(attackTarget!!.posX)
         val l = MathHelper.floor(attackTarget!!.posZ)

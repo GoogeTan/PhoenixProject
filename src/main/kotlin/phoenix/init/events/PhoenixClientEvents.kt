@@ -2,7 +2,6 @@ package phoenix.init.events
 
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderTypeLookup
-import net.minecraft.client.renderer.entity.EnderCrystalRenderer
 import net.minecraft.util.text.TextFormatting.*
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
@@ -12,6 +11,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import phoenix.Phoenix
+import phoenix.client.render.EnderCrystalRenderer
 import phoenix.client.render.OvenRenderer
 import phoenix.client.render.PipeRender
 import phoenix.client.render.TankRenderer

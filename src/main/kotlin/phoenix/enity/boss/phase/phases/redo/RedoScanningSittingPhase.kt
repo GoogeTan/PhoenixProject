@@ -46,16 +46,16 @@ class RedoScanningSittingPhase(dragonIn: AbstractEnderDragonEntity) : AshScannin
                             ) * (180f / Math.PI.toFloat()).toDouble() - dragon.rotationYaw.toDouble()
                         ), -100.0, 100.0
                     )
-                    dragon.field_226525_bB_ *= 0.8f
+                    dragon.yRotA *= 0.8f
                     var f2 = MathHelper.sqrt(d0 * d0 + d1 * d1) + 1.0f
                     val f3 = f2
                     if (f2 > 40.0f)
                     {
                         f2 = 40.0f
                     }
-                    dragon.field_226525_bB_ =
-                        (dragon.field_226525_bB_.toDouble() + d2 * (0.7f / f2 / f3).toDouble()).toFloat()
-                    dragon.rotationYaw += dragon.field_226525_bB_
+                    dragon.yRotA =
+                        (dragon.yRotA.toDouble() + d2 * (0.7f / f2 / f3).toDouble()).toFloat()
+                    dragon.rotationYaw += dragon.yRotA
                 }
             }
         } else if (scanningTime >= 100)

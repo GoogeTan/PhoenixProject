@@ -21,12 +21,14 @@ interface IPhase
      * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
      */
     fun serverTick()
-    fun onCrystalDestroyed(crystal: EnderCrystalEntity, pos: BlockPos, dmgSrc: DamageSource, plyr: PlayerEntity?)
+
+    fun onCrystalDestroyed(crystal: EnderCrystalEntity, pos: BlockPos, dmgSrc: DamageSource, player: PlayerEntity?)
 
     /**
      * Called when this phase is set to active
      */
     fun initPhase()
+
     fun removeAreaEffect()
 
     /**
@@ -41,5 +43,5 @@ interface IPhase
      */
     val targetLocation: Vec3d?
 
-    fun func_221113_a(source: DamageSource, amount: Float): Float
+    fun onHurt(source: DamageSource, amount: Float): Float
 }

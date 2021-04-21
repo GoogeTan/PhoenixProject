@@ -10,6 +10,7 @@ import com.mojang.datafixers.types.DynamicOps
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
 import net.minecraft.entity.EntityType
+import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.IWorld
@@ -17,6 +18,8 @@ import net.minecraft.world.IWorldWriter
 import net.minecraft.world.gen.ChunkGenerator
 import net.minecraft.world.gen.GenerationSettings
 import net.minecraft.world.gen.feature.Feature
+import phoenix.init.PhoenixEntities
+import phoenix.utils.LogManager
 import phoenix.world.StageManager.stageEnum
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -28,7 +31,7 @@ import kotlin.math.sin
 
 
 @ParametersAreNonnullByDefault
-class CustomEndSpike : Feature<CustomEndSpikeConfig>({dynamic : Dynamic<*> -> CustomEndSpikeConfig.deserialize(dynamic)})
+class CustomEndSpike : Feature<CustomEndSpikeConfig>({ dynamic: Dynamic<*> -> CustomEndSpikeConfig.deserialize(dynamic) })
 {
     override fun place(
         worldIn: IWorld,
@@ -70,10 +73,10 @@ class CustomEndSpike : Feature<CustomEndSpikeConfig>({dynamic : Dynamic<*> -> Cu
             }
         }
         stageEnum.createTower(this, worldIn, spike)
-        val crystal = EntityType.END_CRYSTAL.create(worldIn.world)
+        val crystal = PhoenixEntities.ENDER_CRYSTAL.create(worldIn.world)
         if (crystal != null)
         {
-            crystal.beamTarget = config.crystalBeamTarget
+            crystal.setBeamTarget(config.crystalBeamTarget)
             crystal.isInvulnerable = config.isCrystalInvulnerable
             crystal.setLocationAndAngles(
                 (spike.centerX.toFloat() + 0.5f).toDouble(),
@@ -89,6 +92,15 @@ class CustomEndSpike : Feature<CustomEndSpikeConfig>({dynamic : Dynamic<*> -> Cu
 
     class EndSpike(val centerX: Int, val centerZ: Int, val radius: Int, val height: Int, val isGuarded: Boolean)
     {
+        val topBoundingBox: AxisAlignedBB = AxisAlignedBB(
+            (centerX - radius).toDouble(),
+            0.0,
+            (centerZ - radius).toDouble(),
+            (centerX + radius).toDouble(),
+            256.0,
+            (centerZ + radius).toDouble()
+        )
+
         fun doesStartInChunk(pos: BlockPos): Boolean = pos.x shr 4 == centerX shr 4 && pos.z shr 4 == centerZ shr 4
 
         fun <T> serialise(ops: DynamicOps<T>): Dynamic<T>
@@ -118,12 +130,12 @@ class CustomEndSpike : Feature<CustomEndSpikeConfig>({dynamic : Dynamic<*> -> Cu
 
     }
 
-    class EndSpikeCacheLoader : CacheLoader<Long?, List<EndSpike>>()
+    class EndSpikeCacheLoader : CacheLoader<Long, List<EndSpike>>()
     {
-        override fun load(seed: Long?): List<EndSpike>
+        override fun load(seed: Long): List<EndSpike>
         {
             val list = IntStream.range(0, 10).boxed().collect(Collectors.toList())
-            list.shuffle(Random(seed!!))
+            list.shuffle(Random(seed))
             val res: MutableList<EndSpike> = Lists.newArrayList()
             for (i in list.indices)
             {
@@ -146,10 +158,7 @@ class CustomEndSpike : Feature<CustomEndSpikeConfig>({dynamic : Dynamic<*> -> Cu
 
     companion object
     {
-        var LOADING_CACHE: LoadingCache<Long, List<EndSpike>> =
-            CacheBuilder.newBuilder().expireAfterWrite(5L, TimeUnit.MINUTES).build(
-                EndSpikeCacheLoader()
-            )
+        var LOADING_CACHE: LoadingCache<Long, List<EndSpike>> = CacheBuilder.newBuilder().expireAfterWrite(5L, TimeUnit.MINUTES).build(EndSpikeCacheLoader())
 
         fun generateSpikes(worldIn: IWorld): List<EndSpike>
         {

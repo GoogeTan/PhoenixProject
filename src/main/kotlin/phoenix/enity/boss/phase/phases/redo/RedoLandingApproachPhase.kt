@@ -16,7 +16,7 @@ class RedoLandingApproachPhase(dragonIn: AbstractEnderDragonEntity) : AshLanding
     {
         if (currentPath == null || currentPath!!.isFinished)
         {
-            val i = dragon.initPathPoints()
+            val i = dragon.findClosestNode()
             val blockpos =
                 dragon.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EndPodiumFeature.END_PODIUM_LOCATION)
             val playerentity = dragon.world.getClosestPlayer(

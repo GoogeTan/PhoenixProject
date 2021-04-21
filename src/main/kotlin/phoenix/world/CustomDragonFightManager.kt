@@ -287,16 +287,16 @@ open class CustomDragonFightManager(
     fun updatePlayers()
     {
         val set: MutableSet<ServerPlayerEntity> = Sets.newHashSet()
-        for (serverplayerentity in world.getPlayers(VALID_PLAYER))
+        for (player in world.getPlayers(VALID_PLAYER))
         {
-            bossInfo.addPlayer(serverplayerentity)
-            set.add(serverplayerentity)
+            bossInfo.addPlayer(player)
+            set.add(player)
         }
-        val set1: MutableSet<ServerPlayerEntity> = Sets.newHashSet(bossInfo.players)
-        set1.removeAll(set)
-        for (serverplayerentity1 in set1)
+        val players: MutableSet<ServerPlayerEntity> = Sets.newHashSet(bossInfo.players)
+        players.removeAll(set)
+        for (player in players)
         {
-            bossInfo.removePlayer(serverplayerentity1)
+            bossInfo.removePlayer(player)
         }
     }
 
@@ -304,13 +304,18 @@ open class CustomDragonFightManager(
     {
         ticksSinceCrystalsScanned = 0
         numAliveCrystals = 0
-        for (`endspikefeature$endspike` in EndSpikeFeature.generateSpikes(world))
+        /*
+        for (spike in CustomEndSpike.generateSpikes(world))
         {
             numAliveCrystals += world.getEntitiesWithinAABB(
                 EnderCrystalEntity::class.java,
-                `endspikefeature$endspike`.topBoundingBox
+                spike.topBoundingBox
             ).size
-        }
+        }*/
+        numAliveCrystals += world.getEntitiesWithinAABB(
+            EnderCrystalEntity::class.java,
+            AxisAlignedBB(-200.0, 0.0, -200.0, 200.0, 255.0, 200.0)
+        ).size
         LOGGER.debug("Found {} end crystals still alive", numAliveCrystals)
     }
 
@@ -338,7 +343,7 @@ open class CustomDragonFightManager(
 
     fun spawnNewGateway()
     {
-        if (!gateways.isEmpty())
+        if (gateways.isNotEmpty())
         {
             val i = gateways.removeAt(gateways.size - 1)
             val j = MathHelper.floor(96.0 * Math.cos(2.0 * (-Math.PI + 0.15707963267948966 * i.toDouble())))
@@ -347,12 +352,10 @@ open class CustomDragonFightManager(
         }
     }
 
-    fun generateGateway(pos: BlockPos?)
+    fun generateGateway(pos: BlockPos)
     {
         world.playEvent(3000, pos, 0)
-        Feature.END_GATEWAY.withConfiguration(EndGatewayConfig.func_214698_a()).place(
-            world, world.chunkProvider.chunkGenerator, Random(), pos
-        )
+        Feature.END_GATEWAY.withConfiguration(EndGatewayConfig.func_214698_a()).place(world, world.chunkProvider.chunkGenerator, Random(), pos)
     }
 
     fun generatePortal(active: Boolean)
@@ -427,8 +430,8 @@ open class CustomDragonFightManager(
             if (blockpos == null)
             {
                 LOGGER.debug("Tried to respawn, but need to find the portal first.")
-                val `blockpattern$patternhelper` = findExitPortal()
-                if (`blockpattern$patternhelper` == null)
+                val portal = findExitPortal()
+                if (portal == null)
                 {
                     LOGGER.debug("Couldn't find a portal, so we made one.")
                     generatePortal(true)
@@ -455,8 +458,8 @@ open class CustomDragonFightManager(
     {
         if (dragonKilled && respawnState == null)
         {
-            var `blockpattern$patternhelper` = findExitPortal()
-            while (`blockpattern$patternhelper` != null)
+            var portal = findExitPortal()
+            while (portal != null)
             {
                 for (i in 0 until portalPattern.palmLength)
                 {
@@ -464,7 +467,7 @@ open class CustomDragonFightManager(
                     {
                         for (k in 0 until portalPattern.fingerLength)
                         {
-                            val cachedblockinfo = `blockpattern$patternhelper`.translateOffset(i, j, k)
+                            val cachedblockinfo = portal.translateOffset(i, j, k)
                             if (cachedblockinfo.blockState.block === Blocks.BEDROCK || cachedblockinfo.blockState.block === Blocks.END_PORTAL)
                             {
                                 world.setBlockState(cachedblockinfo.pos, Blocks.END_STONE.defaultState)
@@ -472,7 +475,7 @@ open class CustomDragonFightManager(
                         }
                     }
                 }
-                `blockpattern$patternhelper` = findExitPortal()
+                portal = findExitPortal()
             }
             respawnState = CustomDragonSpawnState.START
             respawnStateTicks = 0
@@ -483,14 +486,14 @@ open class CustomDragonFightManager(
 
     fun resetSpikeCrystals()
     {
-        for (`endspikefeature$endspike` in EndSpikeFeature.generateSpikes(world))
+        for (feature in EndSpikeFeature.generateSpikes(world))
         {
-            for (endercrystalentity in world.getEntitiesWithinAABB(
-                EnderCrystalEntity::class.java, `endspikefeature$endspike`.topBoundingBox
+            for (entity in world.getEntitiesWithinAABB(
+                EnderCrystalEntity::class.java, feature.topBoundingBox
             ))
             {
-                endercrystalentity.isInvulnerable = false
-                endercrystalentity.beamTarget = null
+                entity.isInvulnerable = false
+                entity.setBeamTarget(null)
             }
         }
     }

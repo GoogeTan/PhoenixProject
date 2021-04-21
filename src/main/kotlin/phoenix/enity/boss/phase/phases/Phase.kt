@@ -37,7 +37,7 @@ abstract class Phase(protected val dragon: AbstractEnderDragonEntity) : IPhase
         crystal: EnderCrystalEntity,
         pos: BlockPos,
         dmgSrc: DamageSource,
-        plyr: PlayerEntity?
+        player: PlayerEntity?
     )
     {
     }
@@ -65,7 +65,7 @@ abstract class Phase(protected val dragon: AbstractEnderDragonEntity) : IPhase
     override val targetLocation: Vec3d?
         get() = null
 
-    override fun func_221113_a(source: DamageSource, amount: Float): Float = amount
+    override fun onHurt(source: DamageSource, amount: Float): Float = amount
 
 
     override val yawFactor: Float

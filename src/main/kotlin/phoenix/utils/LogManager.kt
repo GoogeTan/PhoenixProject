@@ -24,7 +24,16 @@ object LogManager
             LOGGER.log(Level.DEBUG, "<$from> $message")
     }
 
-    fun error(obj : Any, message : String?) = LOGGER.error("<${obj.javaClass.lastName()}> " + (message ?: ""))
+    //fun error(obj : Any, message : String?) = LOGGER.error("<${obj.javaClass.lastName()}> " + (message ?: ""))
+
+    fun error(obj : Any, message : String)
+    {
+        val e = Exception().stackTrace[2]
+        val from = e.className.split(".").last()
+        val method = e.methodName
+        val line = e.lineNumber
+        LOGGER.error("<$from::$method::$line> $message")
+    }
 
     fun error(obj : Any, message : Exception?)
     {

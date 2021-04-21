@@ -19,7 +19,7 @@ enum class CustomDragonSpawnState
         override fun process(world: ServerWorld, manager: CustomDragonFightManager, list: List<EnderCrystalEntity?>, ticks: Int, pos: BlockPos)
         {
             val center = BlockPos(0, 128, 0)
-            list.stream().filter { obj: EnderCrystalEntity? -> Objects.nonNull(obj) }?.forEach { enderCrystalEntity: EnderCrystalEntity? -> enderCrystalEntity?.beamTarget = center }
+            list.stream().filter { obj: EnderCrystalEntity? -> Objects.nonNull(obj) }?.forEach { enderCrystalEntity: EnderCrystalEntity? -> enderCrystalEntity?.setBeamTarget(center) }
             manager.respawnState = PREPARING_TO_SUMMON_PILLARS
         }
     },
@@ -55,7 +55,7 @@ enum class CustomDragonSpawnState
                     val spike = spikes[currentSpike]
                     if (isEnd)
                     {
-                        list.forEach(Consumer { enderCrystalEntity: EnderCrystalEntity? -> enderCrystalEntity?.beamTarget = BlockPos(spike.centerX, spike.height + 1, spike.centerZ) })
+                        list.forEach(Consumer { enderCrystalEntity: EnderCrystalEntity? -> enderCrystalEntity?.setBeamTarget(BlockPos(spike.centerX, spike.height + 1, spike.centerZ)) })
                     }
                     else
                     {
@@ -87,7 +87,7 @@ enum class CustomDragonSpawnState
                     manager.resetSpikeCrystals()
                     for (enderCrystalEntity in list)
                     {
-                        enderCrystalEntity!!.beamTarget = null
+                        enderCrystalEntity!!.setBeamTarget(null)
                         world.createExplosion(enderCrystalEntity, enderCrystalEntity.posX, enderCrystalEntity.posY, enderCrystalEntity.posZ, 6.0f, Explosion.Mode.NONE)
                         enderCrystalEntity.remove()
                     }
@@ -100,7 +100,7 @@ enum class CustomDragonSpawnState
                 {
                     for (enderCrystalEntity in list)
                     {
-                        enderCrystalEntity?.beamTarget = BlockPos(0, 128, 0)
+                        enderCrystalEntity?.setBeamTarget(BlockPos(0, 128, 0))
                     }
                 }
                 ticks < 5 ->

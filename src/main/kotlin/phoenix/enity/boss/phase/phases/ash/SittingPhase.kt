@@ -9,7 +9,7 @@ abstract class SittingPhase(dragon: AbstractEnderDragonEntity) : Phase(dragon)
 {
     override val isStationary = true
 
-    override fun func_221113_a(source: DamageSource, amount: Float): Float
+    override fun onHurt(source: DamageSource, amount: Float): Float
     {
         val s = source.immediateSource
         return if (s is AbstractArrowEntity)
@@ -18,7 +18,7 @@ abstract class SittingPhase(dragon: AbstractEnderDragonEntity) : Phase(dragon)
             0.0f
         } else
         {
-            super.func_221113_a(source, amount)
+            super.onHurt(source, amount)
         }
     }
 }

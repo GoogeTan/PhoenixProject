@@ -25,19 +25,19 @@ class RedoHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : AshHoldingP
         if (currentPath != null && currentPath!!.isFinished)
         {
             val topPos = dragon.world!!.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlockPos(EndPodiumFeature.END_PODIUM_LOCATION))
-            val i = if (dragon.fightManager == null) 0 else dragon.fightManager!!.numAliveCrystals
-            if (dragon.rng.nextInt(i + 3) == 0)
+            val aliveCrystals = if (dragon.fightManager == null) 0 else dragon.fightManager!!.numAliveCrystals
+            if (dragon.rng.nextInt(aliveCrystals + 3) == 0)
             {
                 dragon.phaseManager.setPhase(PhaseType.REDO_LANDING_APPROACH)
                 return
             }
             var dist = 64.0
-            val player = dragon.world.getClosestPlayer(field_221117_b, topPos.x.toDouble(), topPos.y.toDouble(), topPos.z.toDouble())
+            val player = dragon.world.getClosestPlayer(NEW_TARGET_TARGETING, topPos.x.toDouble(), topPos.y.toDouble(), topPos.z.toDouble())
             if (player != null)
             {
                 dist = topPos.distanceSq(player.positionVec, true) / 512.0
             }
-            if (player != null && !player.abilities.disableDamage && (dragon.rng.nextInt(MathHelper.abs(dist.toInt()) + 2) == 0 || dragon.rng.nextInt(i + 2) == 0))
+            if (player != null && !player.abilities.disableDamage && (dragon.rng.nextInt(MathHelper.abs(dist.toInt()) + 2) == 0 || dragon.rng.nextInt(aliveCrystals + 2) == 0))
             {
                 strafePlayer(player)
                 return
@@ -45,34 +45,34 @@ class RedoHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : AshHoldingP
         }
         if (currentPath == null || currentPath!!.isFinished)
         {
-            val j = dragon.initPathPoints()
-            var k = j
+            val path = dragon.findClosestNode()
+            var tmp = path
             if (dragon.rng.nextInt(8) == 0)
             {
                 clockwise = !clockwise
-                k = j + 6
+                tmp = path + 6
             }
             if (clockwise)
             {
-                ++k
+                ++tmp
             } else
             {
-                --k
+                --tmp
             }
             if (dragon.fightManager != null && dragon.fightManager!!.numAliveCrystals >= 0)
             {
-                k %= 12
-                if (k < 0)
+                tmp %= 12
+                if (tmp < 0)
                 {
-                    k += 12
+                    tmp += 12
                 }
             } else
             {
-                k -= 12
-                k = k and 7
-                k += 12
+                tmp -= 12
+                tmp = tmp and 7
+                tmp += 12
             }
-            currentPath = dragon.findPath(j, k, null as PathPoint?)
+            currentPath = dragon.findPath(path, tmp, null as PathPoint?)
             if (currentPath != null)
             {
                 currentPath!!.incrementPathIndex()
