@@ -7,7 +7,7 @@ import net.minecraft.world.World
 import java.awt.Color
 
 class PhoenixBornParticle(
-    world: World?,
+    world: World,
     x: Double,
     y: Double,
     z: Double,
@@ -21,10 +21,7 @@ class PhoenixBornParticle(
 ) :
     SpriteTexturedParticle(world, x, y, z, velocityX, velocityY, velocityZ)
 {
-    override fun getRenderType(): IParticleRenderType
-    {
-        return IParticleRenderType.PARTICLE_SHEET_TRANSLUCENT
-    }
+    override fun getRenderType(): IParticleRenderType = IParticleRenderType.PARTICLE_SHEET_TRANSLUCENT
 
     override fun tick()
     {
@@ -52,8 +49,7 @@ class PhoenixBornParticle(
         setSize(diameter.toFloat(), diameter.toFloat())
         maxAge = lifeTime
         particleScale = 0.5f * diameter.toFloat()
-        val ALPHA_VALUE = 1.0f
-        particleAlpha = ALPHA_VALUE
+        particleAlpha = 1.0f
         motionX = velocityX
         motionY = velocityY
         motionZ = velocityZ

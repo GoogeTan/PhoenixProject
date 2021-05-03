@@ -12,5 +12,5 @@ abstract class PhoenixTile(tileEntityTypeIn: TileEntityType<out PhoenixTile>) : 
     override fun getUpdateTag(): CompoundNBT = write(CompoundNBT())
 
     abstract override fun getUpdatePacket(): SUpdateTileEntityPacket
-    abstract override fun onDataPacket(net: NetworkManager, pkt: SUpdateTileEntityPacket)
+    override fun onDataPacket(net: NetworkManager, pkt: SUpdateTileEntityPacket) { super.onDataPacket(net, pkt) }
 }

@@ -15,19 +15,6 @@ import kotlin.math.sqrt
 
 object RenderUtils
 {
-    fun drawWithScale(texture: ResourceLocation, sizeX: Int, sizeY: Int, x: Int, y: Int, scale: Float)
-    {
-        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f)
-        mc.getTextureManager().bindTexture(texture)
-        RenderSystem.scaled(scale.toDouble(), scale.toDouble(), scale.toDouble()) //увеличиваем картинку
-        blit(x, y, 0f, 0f, sizeX, sizeY)
-        RenderSystem.scaled(
-            (1 / scale).toDouble(),
-            (1 / scale).toDouble(),
-            (1 / scale).toDouble()
-        ) //возвращаем старый скейл, чтоб тект был нормальным
-    }
-
     fun drawRectScalable(texture: TextureLocation, x: Int, y: Int, maxSizeX: Double, maxSizeY: Double, depth: Int)
     {
         texture.bind()
@@ -76,10 +63,7 @@ object RenderUtils
         AbstractGui.blit(x, y, blitOffset, u.toFloat(), v.toFloat(), sizeX, sizeY, textureSizeX, textureSizeY)
     }
 
-    fun blit(x: Int, y: Int, offsetU: Float, offsetV: Float, sizeX: Int, sizeY: Int)
-    {
-        blit(x, y, 0, offsetU, offsetV, sizeX, sizeY, 256, 256)
-    }
+    fun blit(x: Int, y: Int, offsetU: Float, offsetV: Float, sizeX: Int, sizeY: Int) = blit(x, y, 0, offsetU, offsetV, sizeX, sizeY, 256, 256)
 
     fun blit(
         x: Int,

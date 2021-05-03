@@ -14,15 +14,15 @@ import phoenix.enity.EnderCrystalEntity
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
-import phoenix.utils.LogManager
 
 open class AshHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
-    var currentPath : Path? = null
+    protected var currentPath: Path? = null
+    override var targetLocation: Vec3d? = null
+    protected var clockwise = false
+    override val type: PhaseType
+        get() = PhaseType.ASH_HOLDING_PATTERN
 
-    var clockwise = false
-
-    override val type = PhaseType.ASH_HOLDING_PATTERN
 
     /**
      * Gives the phase a chance to update its status.
@@ -30,11 +30,14 @@ open class AshHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(d
      */
     override fun serverTick()
     {
-        val dist = targetLocation?.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ)?:0.0
-        if (dist < 100.0 || dist > 22500.0 || dragon.collidedHorizontally || dragon.collidedVertically)
+        val d0 = if (targetLocation == null) 0.0 else targetLocation!!.squareDistanceTo(
+            dragon.posX,
+            dragon.posY,
+            dragon.posZ
+        )
+        if (d0 < 100.0 || d0 > 22500.0 || dragon.collidedHorizontally || dragon.collidedVertically)
         {
             findNewTarget()
-            LogManager.errorObjects(this, targetLocation, dist, currentPath)
         }
     }
 
@@ -47,37 +50,43 @@ open class AshHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(d
         targetLocation = null
     }
 
-    /**
-     * Returns the location the dragon is flying toward
-     */
-    override var targetLocation : Vec3d? = null
-
     protected open fun findNewTarget()
     {
         if (currentPath != null && currentPath!!.isFinished)
         {
-            val topPos = dragon.world!!.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlockPos(EndPodiumFeature.END_PODIUM_LOCATION))
-            val aliveCrystals = if (dragon.fightManager == null) 0 else dragon.fightManager!!.numAliveCrystals
-            if (dragon.rng.nextInt(aliveCrystals + 3) == 0)
+            val blockpos = dragon.world.getHeight(
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+                BlockPos(EndPodiumFeature.END_PODIUM_LOCATION)
+            )
+            val i = if (dragon.fightManager == null) 0 else dragon.fightManager!!.numAliveCrystals
+            if (dragon.rng.nextInt(i + 3) == 0)
             {
                 dragon.phaseManager.setPhase(PhaseType.ASH_LANDING_APPROACH)
                 return
             }
-            var dist = 64.0
-            val player = dragon.world.getClosestPlayer(NEW_TARGET_TARGETING, topPos.x.toDouble(), topPos.y.toDouble(), topPos.z.toDouble())
-            if (player != null)
+            var d0 = 64.0
+            val playerentity = dragon.world.getClosestPlayer(
+                NEW_TARGET_TARGETING,
+                blockpos.x.toDouble(), blockpos.y.toDouble(), blockpos.z.toDouble()
+            )
+            if (playerentity != null)
             {
-                dist = topPos.distanceSq(player.positionVec, true) / 512.0
+                d0 = blockpos.distanceSq(playerentity.positionVec, true) / 512.0
             }
-            if (player != null && !player.abilities.disableDamage && (dragon.rng.nextInt(MathHelper.abs(dist.toInt()) + 2) == 0 || dragon.rng.nextInt(aliveCrystals + 2) == 0))
+            if (playerentity != null && !playerentity.abilities.disableDamage && (dragon.rng.nextInt(
+                    MathHelper.abs(
+                        d0.toInt()
+                    ) + 2
+                ) == 0 || dragon.rng.nextInt(i + 2) == 0)
+            )
             {
-                strafePlayer(player)
+                strafePlayer(playerentity)
                 return
             }
         }
         if (currentPath == null || currentPath!!.isFinished)
         {
-            val j = dragon.findClosestNode()
+            val j = dragon.initPathPoints()
             var k = j
             if (dragon.rng.nextInt(8) == 0)
             {
@@ -93,18 +102,18 @@ open class AshHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(d
             }
             if (dragon.fightManager != null && dragon.fightManager!!.numAliveCrystals >= 0)
             {
-                k %= 12
+                k = k % 12
                 if (k < 0)
                 {
                     k += 12
                 }
             } else
             {
-                k -= 12
+                k = k - 12
                 k = k and 7
-                k += 12
+                k = k + 12
             }
-            currentPath = dragon.findPath(j, k, null)
+            currentPath = dragon.findPath(j, k, null as PathPoint?)
             if (currentPath != null)
             {
                 currentPath!!.incrementPathIndex()
@@ -119,19 +128,24 @@ open class AshHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(d
         dragon.phaseManager.getPhase<AshStrafePlayerPhase>(PhaseType.ASH_STRAFE_PLAYER)?.setTarget(player)
     }
 
-    protected fun navigateToNextPathNode()
+    protected open fun navigateToNextPathNode()
     {
         if (currentPath != null && !currentPath!!.isFinished)
         {
-            val pos = currentPath!!.currentPos
+            val vec3d = currentPath!!.currentPos
             currentPath!!.incrementPathIndex()
-            val x = pos.x
-            val z = pos.z
-            var y: Double
-            do
-                y = pos.y + (dragon.rng.nextFloat() * 20.0f).toDouble()
-            while (y < pos.y)
-            targetLocation = Vec3d(x, y, z)
+            val d0 = vec3d.x
+            val d1 = vec3d.z
+            var d2: Double
+            while (true)
+            {
+                d2 = vec3d.y + (dragon.rng.nextFloat() * 20.0f).toDouble()
+                if (d2 >= vec3d.y)
+                {
+                    break
+                }
+            }
+            targetLocation = Vec3d(d0, d2, d1)
         }
     }
 
@@ -139,12 +153,12 @@ open class AshHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : Phase(d
         crystal: EnderCrystalEntity,
         pos: BlockPos,
         dmgSrc: DamageSource,
-        player: PlayerEntity?
+        plyr: PlayerEntity?
     )
     {
-        if (player != null && !player.abilities.disableDamage)
+        if (plyr != null && !plyr.abilities.disableDamage)
         {
-            strafePlayer(player)
+            strafePlayer(plyr)
         }
     }
 

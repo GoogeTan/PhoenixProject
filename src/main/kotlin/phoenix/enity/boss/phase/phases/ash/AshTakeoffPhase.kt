@@ -48,7 +48,7 @@ open class AshTakeoffPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn
 
     protected fun findNewTarget()
     {
-        val i = dragon.findClosestNode()
+        val i = dragon.initPathPoints()
         val vec3d = dragon.getHeadLookVec(1.0f)
         var j = dragon.getNearestPpIdx(-vec3d.x * 40.0, 105.0, -vec3d.z * 40.0)
         if (dragon.fightManager != null && dragon.fightManager!!.numAliveCrystals > 0)

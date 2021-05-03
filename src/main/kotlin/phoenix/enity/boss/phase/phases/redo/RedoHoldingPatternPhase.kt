@@ -45,7 +45,7 @@ class RedoHoldingPatternPhase(dragonIn: AbstractEnderDragonEntity) : AshHoldingP
         }
         if (currentPath == null || currentPath!!.isFinished)
         {
-            val path = dragon.findClosestNode()
+            val path = dragon.initPathPoints()
             var tmp = path
             if (dragon.rng.nextInt(8) == 0)
             {

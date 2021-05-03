@@ -212,37 +212,31 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
 
     override fun processInteract(player: PlayerEntity, hand: Hand): Boolean
     {
-        return if (player is ServerPlayerEntity)
+        return if (player is ServerPlayerEntity && player != this.controllingPassenger)
         {
             val item = player.getHeldItem(hand)
-            if (player != this.controllingPassenger)
+            if (Block.getBlockFromItem(item.item) is ChestBlock && !equipment)
             {
-                if (Block.getBlockFromItem(item.item) is ChestBlock && !equipment)
-                {
-                    equipment = true
-                    item.shrink(1)
-                    player.setHeldItem(hand, item)
-                }
-                else if (!saddled && item.item == Items.SADDLE)
-                {
-                    saddled = true
-                    item.shrink(1)
-                    player.setHeldItem(hand, item)
-                }
-                else if (!saddled && item.item == Items.NAME_TAG)
-                {
-                    item.interactWithEntity(player, this, hand)
-                }
-                else if (player.isSneaking)
-                {
-                    player.openContainer = CaudaContainer(player.currentWindowId, player.inventory)
-                    player.openContainer.addListener(player)
-                    NetworkHandler.sendTo(OpenCaudaInventoryPacket(this.entityId), player)
-                } else if (saddled)
-                {
-                    SitCaudaTrigger.test(player)
-                    mountTo(player)
-                }
+                equipment = true
+                item.shrink(1)
+                player.setHeldItem(hand, item)
+            } else if (!saddled && item.item == Items.SADDLE)
+            {
+                saddled = true
+                item.shrink(1)
+                player.setHeldItem(hand, item)
+            } else if (!saddled && item.item == Items.NAME_TAG)
+            {
+                item.interactWithEntity(player, this, hand)
+            } else if (player.isSneaking)
+            {
+                player.openContainer = CaudaContainer(player.currentWindowId, player.inventory)
+                player.openContainer.addListener(player)
+                NetworkHandler.sendTo(OpenCaudaInventoryPacket(this.entityId), player)
+            } else if (saddled)
+            {
+                SitCaudaTrigger.test(player)
+                mountTo(player)
             }
             true
         } else

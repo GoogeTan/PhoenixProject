@@ -9,32 +9,32 @@ import net.minecraft.world.gen.feature.EndPodiumFeature
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
+import phoenix.utils.LogManager
 
 open class AshLandingApproachPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {
     protected var currentPath: Path? = null
     override var targetLocation: Vec3d? = null
-    override val type =  PhaseType.ASH_LANDING_APPROACH
+    override val type: PhaseType
+        get() = PhaseType.ASH_LANDING_APPROACH
 
-    /**
-     * Called when this phase is set to active
-     */
     override fun initPhase()
     {
         currentPath = null
         targetLocation = null
     }
 
-    /**
-     * Gives the phase a chance to update its status.
-     * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
-     */
     override fun serverTick()
     {
-        val dist = if (targetLocation == null) 0.0 else targetLocation!!.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ)
-        if (dist < 100.0 || dist > 22500.0 || dragon.collidedHorizontally || dragon.collidedVertically)
+        val d0 = if (targetLocation == null) 0.0 else targetLocation!!.squareDistanceTo(
+            dragon.posX,
+            dragon.posY,
+            dragon.posZ
+        )
+        if (d0 < 100.0 || d0 > 22500.0 || dragon.collidedHorizontally || dragon.collidedVertically)
         {
             findNewTarget()
+            //LogManager.error(this.toString())
         }
     }
 
@@ -42,23 +42,21 @@ open class AshLandingApproachPhase(dragonIn: AbstractEnderDragonEntity) : Phase(
     {
         if (currentPath == null || currentPath!!.isFinished)
         {
-            val i = dragon.findClosestNode()
-            val blockpos =
-                dragon.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EndPodiumFeature.END_PODIUM_LOCATION)
-            val playerentity = dragon.world.getClosestPlayer(
+            val node : Int = dragon.initPathPoints()
+            val toppos = dragon.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EndPodiumFeature.END_PODIUM_LOCATION)
+            val player = dragon.world.getClosestPlayer(
                 field_221118_b,
-                blockpos.x.toDouble(), blockpos.y.toDouble(), blockpos.z.toDouble()
+                toppos.x.toDouble(), toppos.y.toDouble(), toppos.z.toDouble()
             )
-            val j: Int = if (playerentity != null)
+            val nodeId: Int = if (player != null)
             {
-                val vec3d = Vec3d(playerentity.posX, 0.0, playerentity.posZ).normalize()
+                val vec3d = Vec3d(player.posX, 0.0, player.posZ).normalize()
                 dragon.getNearestPpIdx(-vec3d.x * 40.0, 105.0, -vec3d.z * 40.0)
             } else
-            {
-                dragon.getNearestPpIdx(40.0, blockpos.y.toDouble(), 0.0)
-            }
-            val pathpoint = PathPoint(blockpos.x, blockpos.y, blockpos.z)
-            currentPath = dragon.findPath(i, j, pathpoint)
+                dragon.getNearestPpIdx(40.0, toppos.y.toDouble(), 0.0)
+            val point = PathPoint(toppos.x, toppos.y, toppos.z)
+            currentPath = dragon.findPath(node, nodeId, point)
+            LogManager.error(currentPath.toString())
             if (currentPath != null)
             {
                 currentPath!!.incrementPathIndex()
@@ -71,29 +69,29 @@ open class AshLandingApproachPhase(dragonIn: AbstractEnderDragonEntity) : Phase(
         }
     }
 
-    protected fun navigateToNextPathNode()
+    protected open fun navigateToNextPathNode()
     {
         if (currentPath != null && !currentPath!!.isFinished)
         {
-            val vec3d = currentPath!!.currentPos
+            val pos = currentPath!!.currentPos
             currentPath!!.incrementPathIndex()
-            val d0 = vec3d.x
-            val d1 = vec3d.z
-            var d2: Double
+            val x = pos.x
+            val z = pos.z
+            var y: Double
             while (true)
             {
-                d2 = vec3d.y + (dragon.rng.nextFloat() * 20.0f).toDouble()
-                if (d2 >= vec3d.y)
-                {
-                    break
-                }
+                y = pos.y + (dragon.rng.nextFloat() * 20.0f).toDouble()
+                if (y >= pos.y) break
             }
-            targetLocation = Vec3d(d0, d2, d1)
+            targetLocation = Vec3d(x, y, z)
         }
     }
+
+    override fun toString(): String = "AshLandingApproachPhase(currentPath=$currentPath, targetLocation=$targetLocation)"
 
     companion object
     {
         val field_221118_b = EntityPredicate().setDistance(128.0)
     }
 }
+

@@ -34,11 +34,7 @@ import phoenix.enity.EnderCrystalEntity
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import java.util.*
 
-open class CustomDragonFightManager(
-    var world: ServerWorld,
-    compound: CompoundNBT,
-    dim: EndDimension
-)
+class CustomDragonFightManager(var world: ServerWorld, compound: CompoundNBT, dim: EndDimension)
 {
     var bossInfo = ServerBossInfo(
         TranslationTextComponent("entity.minecraft.ender_dragon"),

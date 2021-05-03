@@ -35,7 +35,7 @@ class AbstractDragonPartEntity(val dragon: AbstractEnderDragonEntity, val name: 
      */
     override fun attackEntityFrom(source: DamageSource, amount: Float): Boolean
     {
-        return if (isInvulnerableTo(source)) false else dragon.hurt(this, source, amount)
+        return if (isInvulnerableTo(source)) false else dragon.func_213403_a(this, source, amount)
     }
 
     /**

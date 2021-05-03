@@ -19,17 +19,10 @@ class CaudaGuiContainer(container: CaudaEntity.CaudaContainer, inv: PlayerInvent
     {
         RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f)
         minecraft!!.getTextureManager().bindTexture(GUI_TEXTURE)
-        val i = (width - xSize) / 2
-        val j = (height - ySize) / 2
-        this.blit(i, j, 0, 0, (xSize * 194.0 / 176.0).toInt(), ySize)
-        InventoryScreen.drawEntityOnScreen(
-            i + 51,
-            j + 60,
-            17,
-            (i + 51).toFloat() - this.mousePosX,
-            (j + 75 - 50).toFloat() + mousePosY,
-            container.getCauda()
-        )
+        val x = (width - xSize) / 2
+        val y = (height - ySize) / 2
+        this.blit(x, y, 0, 0, (xSize * 194.0 / 176.0).toInt(), ySize)
+        InventoryScreen.drawEntityOnScreen(x + 51, y + 60, 17, x + 51F - this.mousePosX, (y + 25).toFloat() + mousePosY, container.getCauda())
     }
 
     override fun render(mouseX: Int, mouseY: Int, partialTicks: Float)

@@ -1,7 +1,6 @@
 package phoenix.mixin
 
 import net.minecraft.block.Blocks
-import net.minecraft.entity.Entity
 import net.minecraft.item.EnderCrystalItem
 import net.minecraft.item.ItemUseContext
 import net.minecraft.util.ActionResultType
@@ -36,10 +35,7 @@ class EnderCrystalItemMixin
                 val d0 = blockpos1.x.toDouble()
                 val d1 = blockpos1.y.toDouble()
                 val d2 = blockpos1.z.toDouble()
-                val list = world.getEntitiesWithinAABBExcludingEntity(
-                    null as Entity?,
-                    AxisAlignedBB(d0, d1, d2, d0 + 1.0, d1 + 2.0, d2 + 1.0)
-                )
+                val list = world.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB(d0, d1, d2, d0 + 1.0, d1 + 2.0, d2 + 1.0))
                 if (list.isNotEmpty())
                 {
                     ActionResultType.FAIL
@@ -47,13 +43,10 @@ class EnderCrystalItemMixin
                 {
                     if (!world.isRemote)
                     {
-                        val endercrystalentity = EnderCrystalEntity(world, d0 + 0.5, d1, d2 + 0.5)
-                        endercrystalentity.setShowBottom(false)
-                        world.addEntity(endercrystalentity)
-                        if (world.dimension is EndDimension)
-                        {
-                            (world.dimension as EndDimension).dragonFightManager?.tryRespawnDragon()
-                        }
+                        val crystal = EnderCrystalEntity(world, d0 + 0.5, d1, d2 + 0.5)
+                        crystal.setShowBottom(false)
+                        world.addEntity(crystal)
+                        (world.dimension as? EndDimension)?.dragonFightManager?.tryRespawnDragon()
                     }
                     context.item.shrink(1)
                     ActionResultType.SUCCESS

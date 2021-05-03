@@ -6,32 +6,20 @@ import phoenix.containers.DiaryContainer
 
 class DiaryPage(val maxSize : Int, val elements : ArrayList<ADiaryElement>)
 {
+    var sum = 0
     constructor(maxSize : Int) : this(maxSize, ArrayList())
-    fun isFull(sizeX : Int, sizeY : Int) : Boolean
-    {
-        var sum = 0;
-        for (el in elements)
-            sum += el.getHeight(sizeX, sizeY)
 
-        return sum < maxSize
-    }
-
+    fun isFull(sizeX : Int, sizeY : Int) : Boolean = sum < maxSize
 
     fun tryAdd(element: ADiaryElement, sizeX: Int, sizeY: Int) : Boolean
     {
-        var sum = 0;
-        for (el in elements)
-            sum += el.getHeight(sizeX, sizeY)
-
         return if (sum + element.getHeight(sizeX, sizeY) < maxSize)
         {
+            sum += element.getHeight(sizeX, sizeY)
             elements.add(element)
             true
         }
-        else
-        {
-            false
-        }
+        else false
     }
 
     fun render(gui: ContainerScreen<DiaryContainer>, font: FontRenderer, xSize: Int, ySize: Int, x: Int, y: Int, depth: Int)
@@ -43,4 +31,6 @@ class DiaryPage(val maxSize : Int, val elements : ArrayList<ADiaryElement>)
             sum += element.getHeight(xSize, ySize)
         }
     }
+
+    override fun toString(): String = "DiaryPage(elements=$elements)"
 }

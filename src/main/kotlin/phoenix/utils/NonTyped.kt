@@ -18,6 +18,7 @@ import net.minecraft.network.PacketBuffer
 import net.minecraft.state.IProperty
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityType
+import net.minecraft.util.Hand
 import net.minecraft.util.JSONUtils
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
@@ -39,6 +40,8 @@ import net.minecraft.world.gen.placement.IPlacementConfig
 import net.minecraft.world.gen.placement.Placement
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
+import net.minecraftforge.fluids.FluidStack
+import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fml.RegistryObject
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.IForgeRegistryEntry
@@ -47,6 +50,7 @@ import phoenix.client.gui.diaryPages.Chapters
 import phoenix.init.PhxBlocks
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncBookPacket
+import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -83,6 +87,13 @@ inline fun<T : Comparable<T>, V : T> World.setProperty(pos : BlockPos, property 
         false
 }
 
+inline fun ItemStack.getFluidContained() = FluidUtil.getFluidContained(this).orElse(FluidStack.EMPTY)
+inline fun PlayerEntity.getFluidContainedInHand(hand : Hand) = FluidUtil.getFluidContained(this.getHeldItem(hand)).orElse(FluidStack.EMPTY)
+
+inline fun<V : IForgeRegistryEntry<V>> KDeferredRegister<V>.register(name: String, value : V) = register(name) { value }
+
+inline fun<T : TileEntity> TileEntityType.Builder<T>.build() = this.build(null)
+
 inline fun JsonObject.getFloat(nameIn: String, fallback : Float)           = JSONUtils.getFloat (this, nameIn, fallback)
 inline fun JsonObject.getInt(nameIn: String)                               = JSONUtils.getInt   (this, nameIn)
 inline fun JsonObject.getString(nameIn: String, fallback : String): String = JSONUtils.getString(this, nameIn, fallback)
@@ -117,6 +128,8 @@ inline fun PacketBuffer.writeDate(date : Date)
     this.writeLong(date.year)
 }
 
+inline fun PacketBuffer.readDate() : Date = Date(readLong(), readLong(), readLong())
+
 inline fun<T : Number> min(vararg vals : T) : T
 {
     if(vals.isEmpty())
@@ -143,7 +156,6 @@ inline fun<T : Number> max(vararg vals : T) : T
     return res
 }
 
-inline fun PacketBuffer.readDate() : Date = Date(readLong(), readLong(), readLong())
 
 inline fun<T : TileEntity> create(tile: T, block: Block) : () -> TileEntityType<T> = { TileEntityType.Builder.create({ tile }, block).build(null) }
 

@@ -76,10 +76,6 @@ abstract class AFluidTile(type: TileEntityType<out AFluidTile>) : PhoenixTile(ty
 
     override fun getUpdatePacket(): FluidTileUpdatePacket = FluidTileUpdatePacket()
 
-    override fun onDataPacket(net: NetworkManager, pkt: SUpdateTileEntityPacket)
-    {
-    }
-
     override fun read(tag: CompoundNBT)
     {
         super.read(tag)
@@ -109,7 +105,7 @@ abstract class AFluidTile(type: TileEntityType<out AFluidTile>) : PhoenixTile(ty
         return res
     }
 
-    inner class FluidTileUpdatePacket : SUpdateTileEntityPacket()
+    inner open class FluidTileUpdatePacket : SUpdateTileEntityPacket()
     {
         override fun writePacketData(buf: PacketBuffer)
         {

@@ -1,5 +1,6 @@
 package phoenix.client.gui.diaryPages
 
+import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
 import phoenix.client.gui.diaryPages.elements.ADiaryElement
@@ -31,10 +32,17 @@ class DiaryBook(private val xSize: Int, private val ySize: Int, private val font
 
     fun render(gui: ContainerScreen<DiaryContainer>, renderer: FontRenderer, xSize: Int, ySize: Int, x: Int, y: Int, depth: Int)
     {
-       // RenderSystem.scalef(2f, 2f, 2f)
+        RenderSystem.pushMatrix()
+        RenderSystem.scalef(0.5f, 0.5f, 0.5f)
         leftPage.render(gui, font, xSize / 2, ySize, x, y, depth)
+        RenderSystem.scalef(2f, 2f, 2f)
+        RenderSystem.popMatrix()
+
+        RenderSystem.pushMatrix()
+        RenderSystem.scalef(0.5f, 0.5f, 0.5f)
         rightPage.render(gui, renderer, xSize / 2, ySize, x + xSize / 2, y, depth)
-        //RenderSystem.scalef(0.5f, 0.5f, 0.5f)
+        RenderSystem.scalef(2f, 2f, 2f)
+        RenderSystem.popMatrix()
     }
 
     private val isLast : Boolean get() = page + 1 >= pages.size - 1
@@ -44,4 +52,6 @@ class DiaryBook(private val xSize: Int, private val ySize: Int, private val font
 
     fun next() = if (!isLast)  page += 2 else page += 0
     fun prev() = if (!isFirst) page -= 2 else page += 0
+
+    override fun toString(): String = "DiaryBook(xSize=$xSize, ySize=$ySize, font=$font, pages=$pages, page=$page)"
 }

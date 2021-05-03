@@ -15,14 +15,11 @@ class AbstractPhaseManager(private val dragon: AbstractEnderDragonEntity)
         if (currentPhase == null || phaseIn !== currentPhase?.type)
         {
             if (currentPhase != null)
-            {
-                currentPhase?.removeAreaEffect()
-            }
+                currentPhase!!.removeAreaEffect()
+
             currentPhase = getPhase(phaseIn)
             if (!dragon.world.isRemote)
-            {
-                dragon.dataManager.set(AbstractEnderDragonEntity.PHASE, phaseIn?.getId())
-            }
+                dragon.dataManager.set(AbstractEnderDragonEntity.PHASE, phaseIn!!.getId())
             LOGGER.debug("Dragon is now in phase {} on the {}", phaseIn, if (dragon.world.isRemote) "client" else "server")
             currentPhase?.initPhase()
         }

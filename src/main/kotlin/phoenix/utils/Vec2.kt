@@ -15,15 +15,9 @@ class Vec2(var x: Double, var y: Double)
     operator fun minus(o : Vec2) : Vec2 = Vec2(x - o.x, y - o.y)
 
     operator fun times(o : Double) = Vec2(x * o, y * o)
-    /*
-    operator fun timesAssign(o : Double)
-    {
-        x *= o
-        y *= o
-    }
-    */
 
     operator fun div(o : Double) = times(1 / o)
+    
     operator fun divAssign(o : Double)
     {
         x /= o

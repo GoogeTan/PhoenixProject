@@ -12,6 +12,7 @@ import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
 import phoenix.Phoenix.Companion.ASH
 import phoenix.Phoenix.Companion.MOD_ID
+import phoenix.items.DiaryItem
 import phoenix.items.ash.CrucibleItem
 import phoenix.items.ash.KnifeItem
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
@@ -21,7 +22,7 @@ object PhxItems
 {
     private val ITEMS = KDeferredRegister(ForgeRegistries.ITEMS, MOD_ID)
 
-    //val GUIDE                          by ITEMS.register("diary", ::DiaryItem)
+    val GUIDE                          by ITEMS.register("diary", ::DiaryItem)
 
     val HIGH_QUALITY_CLAY_ITEM         by ITEMS.register("high_quality_clay", basicItem(Item.Properties().maxStackSize(16).group(ASH)))
     val COOKED_SETA                    by ITEMS.register("cooked_seta", basicFood(Food.Builder().hunger(3).saturation(1.0f).fastToEat().build(), ItemGroup.FOOD))
@@ -78,29 +79,23 @@ object PhxItems
     val SETA_JUICE_BUCKET by ITEMS.register("seta_juice_bucket") { PhoenixBucketItem(PhxFluids::seta_juice_source) }
 
     fun register() = ITEMS.register(MOD_BUS)
+
+    private fun basicItem()                             : () -> Item  = { Item(Item.Properties().group(ASH))                               }
+    private fun basicItem(prop: Item.Properties)       : () -> Item  = { Item(prop)                                                       }
+    private fun basicFood(food: Food)                   : () -> Item  = { Item(Item.Properties().group(ASH).food(food))                    }
+    private fun basicFood(food: Food, group: ItemGroup): () -> Item  = { Item(Item.Properties().group(group).food(food))                  }
+    private fun form(contains: () -> Item)                    : () -> Item  = { Item(Item.Properties().group(ASH).containerItem(contains())) }
 }
 
 
-private fun basicItem()                             : () -> Item  = { Item(Item.Properties().group(ASH))                               }
-private fun basicItem(prop: Item.Properties)       : () -> Item  = { Item(prop)                                                       }
-private fun basicFood(food: Food)                   : () -> Item  = { Item(Item.Properties().group(ASH).food(food))                    }
-private fun basicFood(food: Food, group: ItemGroup): () -> Item  = { Item(Item.Properties().group(group).food(food))                  }
-private fun form(contains: () -> Item)                    : () -> Item  = { Item(Item.Properties().group(ASH).containerItem(contains())) }
 
-class SteelArmorItem(slot: EquipmentSlotType, builder: Properties) : ArmorItem(
-    PhxArmorMaterials.STEEL,
-    slot,
-    builder
-)
+
+class SteelArmorItem(slot: EquipmentSlotType, builder: Properties) : ArmorItem(PhxArmorMaterials.STEEL, slot, builder)
 {
     override fun getArmorTexture(itemstack: ItemStack?, entity: Entity?, slot: EquipmentSlotType?, layer: String?) = "$MOD_ID:textures/models/armor/steel_layer_${if (slot == EquipmentSlotType.LEGS) 2 else 1}.png"
 }
 
-class CaudaArmorItem(val material: ICaudaArmorMaterial) : Item(
-    Properties().rarity(Rarity.RARE).group(Phoenix.REDO).maxStackSize(
-        1
-    )
-)
+class CaudaArmorItem(val material: ICaudaArmorMaterial) : Item(Properties().rarity(Rarity.RARE).group(Phoenix.REDO).maxStackSize(1))
 
 class PhoenixBucketItem(fluid : () -> Fluid) : BucketItem(fluid, Properties().containerItem(Items.BUCKET).maxStackSize(1).group(ItemGroup.MATERIALS))
 {

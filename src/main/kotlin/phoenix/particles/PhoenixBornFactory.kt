@@ -20,7 +20,7 @@ class PhoenixBornFactory(private val sprites: IAnimatedSprite) : IParticleFactor
         xSpeed: Double,
         ySpeed: Double,
         zSpeed: Double
-    ): Particle
+                             ): Particle
     {
         val newParticle = PhoenixBornParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed,
             typeIn.getTint(), typeIn.getDiameter(), typeIn.getLifeTime(),
@@ -32,9 +32,6 @@ class PhoenixBornFactory(private val sprites: IAnimatedSprite) : IParticleFactor
 
     class PhoenixBornType : ParticleType<PhoenixParticleData>(false, PhoenixParticleData.DESERIALIZER)
     {
-        override fun getDeserializer(): IParticleData.IDeserializer<PhoenixParticleData>
-        {
-            return PhoenixParticleData.DESERIALIZER
-        }
+        override fun getDeserializer(): IParticleData.IDeserializer<PhoenixParticleData> = PhoenixParticleData.DESERIALIZER
     }
 }

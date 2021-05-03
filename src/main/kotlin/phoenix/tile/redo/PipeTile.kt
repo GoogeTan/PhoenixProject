@@ -9,5 +9,6 @@ class PipeTile(maxCapacity : Int) : AFluidTankTile(PIPE, maxCapacity), ITickable
     override var needSync: Boolean = false
         get() = false
         set(value) { field = false }
+
     constructor() : this(1000)
 }

@@ -9,5 +9,5 @@ abstract class BlockWithTile(properties: Properties) : Block(properties)
 {
     override fun hasTileEntity(state: BlockState) = true
 
-    abstract override fun createTileEntity(state: BlockState, world: IBlockReader): TileEntity?
+    abstract override fun createTileEntity(state: BlockState, world: IBlockReader): TileEntity
 }
