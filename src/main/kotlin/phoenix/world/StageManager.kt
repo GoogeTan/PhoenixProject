@@ -10,7 +10,7 @@ import net.minecraft.util.math.MathHelper
 import net.minecraft.world.IWorld
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
-import phoenix.init.PhxBlocks.ARMORED_GLASS
+import phoenix.init.PhxBlocks.armoredGlass
 import phoenix.init.PhxEntities
 import phoenix.utils.PhoenixMusicTracks
 import phoenix.world.structures.CustomEndSpike
@@ -148,7 +148,7 @@ object StageManager
                             val isTop = i1 == 3
                             if (isRight || ifLeft || isTop)
                             {
-                                val blockstate = ARMORED_GLASS.defaultState
+                                val blockstate = armoredGlass.defaultState
                                 future.setBlockState(
                                     world,
                                     pos.setPos(spike.centerX + k, spike.height + i1, spike.centerZ + l),

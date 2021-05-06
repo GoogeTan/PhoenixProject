@@ -19,7 +19,7 @@ object ArmoredGlassBlock : AbstractGlassBlock(
     Properties.create(Material.GLASS).doesNotBlockMovement().hardnessAndResistance(20.0f).harvestLevel(3).harvestTool(
         ToolType.PICKAXE).sound(SoundType.GLASS).notSolid()), IRedoThink
 {
-    override fun getDrops(state: BlockState, builder: LootContext.Builder): List<ItemStack> = listOf(ItemStack(PhxBlocks.ARMORED_GLASS))
+    override fun getDrops(state: BlockState, builder: LootContext.Builder): List<ItemStack> = listOf(ItemStack(PhxBlocks.armoredGlass))
 
     override fun getCollisionShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape = VoxelShapes.fullCube()
 

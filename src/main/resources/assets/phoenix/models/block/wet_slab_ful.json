@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "side": "phoenix:blocks/wet_slab",
+    "end":  "phoenix:blocks/wet_slab"
+  }
+}

@@ -32,7 +32,7 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings) : BiomeProvide
 
     init
     {
-        this.random.skip(17292);
+        this.random.skip(17292)
         this.generator = SimplexNoiseGenerator(this.random)
         initBiomeLayer()
     }
@@ -72,40 +72,28 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings) : BiomeProvide
         return result
     }
 
-    override fun getBiomesToSpawnIn() : List<Biome> = ImmutableList.copyOf(Companion.biomes)
+    override fun getBiomesToSpawnIn() : List<Biome> = ImmutableList.copyOf(biomes)
 
     private fun createLayer(seed: Long): Layer
     {
-        val factory = getLayersApply { seedModifierIn: Long -> LazyAreaLayerContext(25, seed, seedModifierIn) }
-        return Layer(factory)
-    }
+        val context = { seedModifierIn: Long -> LazyAreaLayerContext(25, seed, seedModifierIn) }
+        var phoenixBiomes = ParentLayer(this).apply(context(1L))
+        val vanilaBiomes = EndBiomeLayer.apply(context(200L), ParentLayer(this).apply(context(1L)))
 
-    private fun <T : IArea, C : IExtendedNoiseRandom<T>> getLayersApply(context: LongFunction<C>): IAreaFactory<T>
-    {
-        var phoenixBiomes = ParentLayer(this).apply(context.apply(1L))
-        var vanilaBiomes = ParentLayer(this).apply(context.apply(1L))
-        vanilaBiomes = getBiomeLayer(vanilaBiomes, context)
         val stage = StageManager.stage
-
-        LogManager.log(this, stage.toString())
 
         if (stage >= 1)
         {
-            phoenixBiomes = UnderLayer.apply(context.apply(200L), phoenixBiomes)
-            phoenixBiomes = HeartVoidLayer.apply(context.apply(200L), phoenixBiomes)
+            phoenixBiomes = UnderLayer.apply(context(200L), phoenixBiomes)
+            phoenixBiomes = SmallIslandsUnderLayer.apply(context(124L), phoenixBiomes)
+            phoenixBiomes = HeartVoidLayer.apply(context(472L), phoenixBiomes)
+            phoenixBiomes = HeartVoidLayer.apply(context(472L), phoenixBiomes)
         }
 
         for (i in 0..PhxConfiguration.biomeSize)
-            phoenixBiomes = ZoomLayer.NORMAL.apply(context.apply(200L), phoenixBiomes)
+            phoenixBiomes = ZoomLayer.NORMAL.apply(context(200L), phoenixBiomes)
 
-        return UnificationLayer.apply(context.apply(200L), phoenixBiomes, vanilaBiomes)
-    }
-
-    private fun <T : IArea, C : IExtendedNoiseRandom<T>> getBiomeLayer(parentLayer: IAreaFactory<T>, contextFactory: LongFunction<C>): IAreaFactory<T>
-    {
-        var parentLayer = parentLayer
-        parentLayer = EndBiomeLayer.apply(contextFactory.apply(200L), parentLayer)
-        return parentLayer
+        return Layer(UnificationLayer.apply(context(200L), phoenixBiomes, vanilaBiomes))
     }
 
     companion object
@@ -113,14 +101,7 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings) : BiomeProvide
         private val biomes: Set<Biome> = ImmutableSet.of(Biomes.THE_END, Biomes.END_HIGHLANDS, Biomes.END_MIDLANDS, Biomes.SMALL_END_ISLANDS, Biomes.END_BARRENS, PhxBiomes.UNDER, PhxBiomes.HEARTVOID)
     }
 
-    override fun hasStructure(structureIn: Structure<*>): Boolean
-    {
-        return if(structureToStage.containsKey(structureIn))
-            StageManager.stage >= structureToStage[structureIn] ?: 10 && super.hasStructure(structureIn)
-        else
-            super.hasStructure(structureIn)
-
-    }
+    override fun hasStructure(structureIn: Structure<*>): Boolean = StageManager.stage >= structureToStage[structureIn] ?: 10 || super.hasStructure(structureIn)
 
     var structureToStage : Map<Structure<*>, Int> = ImmutableBiMap.of(PhxFeatures.REMAINS, 1)
 }

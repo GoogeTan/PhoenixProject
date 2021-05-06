@@ -2,7 +2,6 @@ package phoenix.utils
 
 import com.google.gson.JsonObject
 import net.minecraft.block.Block
-import net.minecraft.block.BlockState
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.client.gui.FontRenderer
@@ -45,7 +44,6 @@ import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fml.RegistryObject
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.IForgeRegistryEntry
-import phoenix.blocks.ash.PotteryBarrelBlock
 import phoenix.client.gui.diaryPages.Chapters
 import phoenix.init.PhxBlocks
 import phoenix.network.NetworkHandler
@@ -188,7 +186,7 @@ inline fun <reified T> IWorld.getTileAt(pos: BlockPos): T?
     return if(tile is T) tile else null
 }
 
-inline fun JsonObject.addProp( property : String,  value : Number) : JsonObject
+inline fun JsonObject.addProp(property : String,  value : Number) : JsonObject
 {
     this.addProperty(property, value)
     return this
@@ -223,7 +221,7 @@ inline fun Biome.addZirconiumOre()
 {
     addFeature(
         GenerationStage.Decoration.UNDERGROUND_ORES,
-        Feature.ORE.withConfiguration(OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, PhxBlocks.ZIRCONIUM.defaultState, 4)).withPlacement(
+        Feature.ORE.withConfiguration(OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, PhxBlocks.zirconium.defaultState, 4)).withPlacement(
             Placement.COUNT_RANGE.configure(CountRangeConfig(20, 0, 0, 64)))
     )
 }

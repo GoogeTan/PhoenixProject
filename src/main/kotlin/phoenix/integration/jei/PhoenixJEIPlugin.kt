@@ -40,7 +40,7 @@ class PhoenixJEIPlugin : IModPlugin
 
     override fun registerRecipeCatalysts(registration: IRecipeCatalystRegistration)
     {
-        registration.addRecipeCatalyst(ItemStack(PhxBlocks.OVEN), ovenCategory.uid)
+        registration.addRecipeCatalyst(ItemStack(PhxBlocks.oven), ovenCategory.uid)
     }
 
 

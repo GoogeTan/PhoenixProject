@@ -26,23 +26,28 @@ object PhxBlocks
 {
     val BLOCKS = KDeferredRegister(ForgeRegistries.BLOCKS, Phoenix.MOD_ID)
 
-    val UPDATER           by  BLOCKS.register("updater") { UpdaterBlock         }
-    val PIPE              by  BLOCKS.register("pipe", ::PipeBlock)
-    val TANK              by  BLOCKS.register("tank") { TankBlock            }
-    val FERTILE_END_STONE by  BLOCKS.register("fertile_end_stone") { FertileEndStoneBlock }
-    val ANTI_AIR: AirBlock by BLOCKS.register("anti_air") { object : AirBlock(Properties.create(Material.AIR).doesNotBlockMovement().noDrops().notSolid()), INonItem {} }
-    val POTTERY_BARREL    by  BLOCKS.register("pottery_barrel", ::PotteryBarrelBlock)
-    val ELECTRIC_BARREL   by  BLOCKS.register("electric_barrel", ::ElectricBarrelBlock)
-    val END_STONE_COLUMN  by  BLOCKS.register("end_stone_column") { RotatedPillarBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0f))  }
-    val OVEN              by  BLOCKS.register("oven", ::OvenBlock)
-    val SETA              by  BLOCKS.register("seta") { SetaBlock            }
-    val ZIRCONIUM         by  BLOCKS.register("zirconium_ore") { ZirconiumOreBlock    }
-    val TEXT_BLOCK        by  BLOCKS.register("block_with_text") { AnonimBlock.create(Material.ROCK, ::TextTile, Phoenix.REDO) }
-    val ARMORED_GLASS     by  BLOCKS.register("armored_glass") { ArmoredGlassBlock    }
-    val WET_LOG           by  BLOCKS.register("wet_log") { WetLogBlock   }
-    val DIED_WET_LOG: RotatedPillarBlock by BLOCKS.register("died_wet_log") { object : RotatedPillarBlock(Properties.create(Material.WOOD).hardnessAndResistance(3.0f)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
-    val WET_PLANKS: Block by  BLOCKS.register("wet_planks") { object : Block(Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
-    val SETA_JUICE        by BLOCKS.register("seta_juice") { FluidBlock(PhxFluids::seta_juice_source) }
+    val updater           by  BLOCKS.register("updater") { UpdaterBlock         }
+    val pipe              by  BLOCKS.register("pipe", ::PipeBlock)
+    val tank              by  BLOCKS.register("tank") { TankBlock            }
+    val fertileEndStone   by  BLOCKS.register("fertile_end_stone") { FertileEndStoneBlock }
+    val antiAir: AirBlock by BLOCKS.register("anti_air") { object : AirBlock(Properties.create(Material.AIR).doesNotBlockMovement().noDrops().notSolid()), INonItem {} }
+    val potteryBarrel     by  BLOCKS.register("pottery_barrel", ::PotteryBarrelBlock)
+    val electricBarrel    by  BLOCKS.register("electric_barrel", ::ElectricBarrelBlock)
+    val endStoneColumn    by  BLOCKS.register("end_stone_column") { RotatedPillarBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0f))  }
+    val oven              by  BLOCKS.register("oven", ::OvenBlock)
+    val seta              by  BLOCKS.register("seta") { SetaBlock            }
+    val zirconium         by  BLOCKS.register("zirconium_ore") { ZirconiumOreBlock    }
+    val textBlock         by  BLOCKS.register("block_with_text") { AnonimBlock.create(Material.ROCK, ::TextTile, Phoenix.REDO) }
+    val armoredGlass      by  BLOCKS.register("armored_glass") { ArmoredGlassBlock    }
+    val wetLog            by  BLOCKS.register("wet_log") { WetLogBlock   }
+    val diedWetLog      : Block by BLOCKS.register("died_wet_log") { object : RotatedPillarBlock(Properties.create(Material.WOOD).hardnessAndResistance(3.0f)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
+    val wetPlanks       : Block by BLOCKS.register("wet_planks")      { object : LogBlock(MaterialColor.SAND, Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
+    val diedWetPlanks   : Block by BLOCKS.register("died_wet_planks") { object : LogBlock(MaterialColor.SAND, Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
+    val wetSlab         : Block by BLOCKS.register("wet_slab")        { object : SlabBlock(Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
+    val diedWetSlab     : Block by BLOCKS.register("died_wet_slab")   { object : SlabBlock(Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
+    val wetStairs       : Block by BLOCKS.register("wet_stairs")      { object : StairsBlock(wetLog::getDefaultState,     Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
+    val diedWetStairs   : Block by BLOCKS.register("died_wet_stairs") { object : StairsBlock(diedWetLog::getDefaultState, Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
+    val setaJuice             by BLOCKS.register("seta_juice") { FluidBlock(PhxFluids::seta_juice_source) }
 
     fun register() = BLOCKS.register(MOD_BUS)
 }

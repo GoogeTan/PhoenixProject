@@ -113,7 +113,7 @@ object PhoenixEvents
     @SubscribeEvent
     fun trades(event: WandererTradesEvent)
     {
-        event.rareTrades.add(VillagerTrades.ITrade { _: Entity, _: Random -> MerchantOffer(ItemStack(Items.EMERALD, 14), ItemStack(PhxBlocks.SETA), 7, 1, 0.1f) })
+        event.rareTrades.add(VillagerTrades.ITrade { _: Entity, _: Random -> MerchantOffer(ItemStack(Items.EMERALD, 14), ItemStack(PhxBlocks.seta), 7, 1, 0.1f) })
         event.rareTrades.add(VillagerTrades.ITrade { _: Entity, _: Random -> MerchantOffer(ItemStack(Items.EMERALD, 24), ItemStack(PhxItems.GOLDEN_SETA, 4), 7, 1, 0.1f) })
     }
 

@@ -20,9 +20,9 @@ object WetLogBlock : RotatedPillarBlock(Properties.create(Material.WOOD).hardnes
     override fun spawnAdditionalDrops(state: BlockState, worldIn: World, pos: BlockPos, stack: ItemStack)
     {
         if(stack.getEnchantmentLevel(Enchantments.SILK_TOUCH) != 0)
-            worldIn.addEntity(ItemEntity(worldIn, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), ItemStack(PhxBlocks.WET_LOG)))
+            worldIn.addEntity(ItemEntity(worldIn, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), ItemStack(PhxBlocks.wetLog)))
         else
-            worldIn.addEntity(ItemEntity(worldIn, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), ItemStack(PhxBlocks.DIED_WET_LOG)))
+            worldIn.addEntity(ItemEntity(worldIn, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), ItemStack(PhxBlocks.diedWetLog)))
         super.spawnAdditionalDrops(state, worldIn, pos, stack)
     }
 

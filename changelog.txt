@@ -1,3 +1,6 @@
+REDO-0.0.0.3B
+ Added:
+  Small islands under biome
 REDO-0.0.0.2B
  Fixed:
   Cauda render

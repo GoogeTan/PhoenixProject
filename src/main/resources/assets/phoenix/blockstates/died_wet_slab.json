@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "phoenix:block/died_wet_slab" },
+    "type=top": { "model": "phoenix:block/died_wet_slab_top" },
+    "type=double": { "model": "phoenix:block/died_wet_slab_ful" }
+  }
+}

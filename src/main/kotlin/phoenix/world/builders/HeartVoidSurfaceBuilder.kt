@@ -39,7 +39,7 @@ class HeartVoidSurfaceBuilder(function: Function<Dynamic<*>, out SurfaceBuilderC
                 {
                     if (currectState.block === Blocks.END_STONE)
                     {
-                        chunkIn.setBlockState(currect_pos, PhxBlocks.ANTI_AIR.getDefaultState(), false)
+                        chunkIn.setBlockState(currect_pos, PhxBlocks.antiAir.getDefaultState(), false)
                     }
                 } else if (i == -1)
                 {
@@ -62,6 +62,6 @@ class HeartVoidSurfaceBuilder(function: Function<Dynamic<*>, out SurfaceBuilderC
     companion object
     {
         fun isAir(chunk: IChunk, pos: BlockPos) = isAir(chunk.getBlockState(pos))
-        fun isAir(state: BlockState) = state.isAir && state.block !== PhxBlocks.ANTI_AIR
+        fun isAir(state: BlockState) = state.isAir && state.block !== PhxBlocks.antiAir
     }
 }

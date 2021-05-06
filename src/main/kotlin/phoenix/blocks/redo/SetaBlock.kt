@@ -40,7 +40,7 @@ object SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRando
         super.fillStateContainer(builder)
     }
 
-    override fun isValidPosition(state: BlockState, worldIn: IWorldReader, pos: BlockPos): Boolean = worldIn.getBlockState(pos.up()).block == PhxBlocks.FERTILE_END_STONE
+    override fun isValidPosition(state: BlockState, worldIn: IWorldReader, pos: BlockPos): Boolean = worldIn.getBlockState(pos.up()).block == PhxBlocks.fertileEndStone
 
     override fun tick(state: BlockState, worldIn: ServerWorld, pos: BlockPos, rand: Random)
     {
@@ -73,7 +73,7 @@ object SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRando
                     }
             if(pos != pos2 && pos2 != BlockPos.ZERO)
             {
-                worldIn.setBlockState(pos2, PhxBlocks.SETA.defaultState.with(HORIZONTAL_FACING, Direction.Plane.HORIZONTAL.random(rand)), 2)
+                worldIn.setBlockState(pos2, PhxBlocks.seta.defaultState.with(HORIZONTAL_FACING, Direction.Plane.HORIZONTAL.random(rand)), 2)
             }
         }
     }

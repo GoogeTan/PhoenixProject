@@ -41,10 +41,10 @@ class WetTreeFeature : Feature<NoFeatureConfig>(Function { dyn: Dynamic<*>? -> N
         startPos = startPos.down()
         do
         {
-            worldIn.setBlockState(startPos, PhxBlocks.WET_LOG.defaultState, 2)
-            worldIn.setBlockState(startPos.east(), PhxBlocks.WET_LOG.defaultState, 2)
-            worldIn.setBlockState(startPos.north(), PhxBlocks.WET_LOG.defaultState, 2)
-            worldIn.setBlockState(startPos.east().north(), PhxBlocks.WET_LOG.defaultState, 2)
+            worldIn.setBlockState(startPos, PhxBlocks.wetLog.defaultState, 2)
+            worldIn.setBlockState(startPos.east(), PhxBlocks.wetLog.defaultState, 2)
+            worldIn.setBlockState(startPos.north(), PhxBlocks.wetLog.defaultState, 2)
+            worldIn.setBlockState(startPos.east().north(), PhxBlocks.wetLog.defaultState, 2)
 
             startPos = startPos.up()
         }

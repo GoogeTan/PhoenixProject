@@ -20,7 +20,7 @@ class OvenCategory(private val helper: IGuiHelper) : IRecipeCategory<OvenRecipe>
     override fun getTitle      (): String                = "Oven"
     override fun getBackground (): IDrawable             = background
 
-    override fun getIcon(): IDrawable =  helper.createDrawableIngredient(ItemStack(PhxBlocks.OVEN))
+    override fun getIcon(): IDrawable =  helper.createDrawableIngredient(ItemStack(PhxBlocks.oven))
 
     override fun setIngredients(recipe: OvenRecipe, ingredients: IIngredients)
     {

@@ -30,7 +30,7 @@ abstract class SetaJuiceFluid(properties: Properties) : ForgeFlowingFluid(proper
 
     override fun getLevelDecreasePerBlock(worldIn: IWorldReader?): Int = 2
 
-    object Flowing : SetaJuiceFluid(Properties(PhxFluids::seta_juice_source, PhxFluids::seta_juice_flowing, makeAttributes()).block(PhxBlocks::SETA_JUICE).bucket(PhxItems::SETA_JUICE_BUCKET))
+    object Flowing : SetaJuiceFluid(Properties(PhxFluids::seta_juice_source, PhxFluids::seta_juice_flowing, makeAttributes()).block(PhxBlocks::setaJuice).bucket(PhxItems::SETA_JUICE_BUCKET))
     {
         override fun fillStateContainer(builder: StateContainer.Builder<Fluid?, IFluidState?>)
         {
@@ -48,7 +48,7 @@ abstract class SetaJuiceFluid(properties: Properties) : ForgeFlowingFluid(proper
         }
     }
 
-    object Source : SetaJuiceFluid(Properties(PhxFluids::seta_juice_source, PhxFluids::seta_juice_flowing, makeAttributes()).block(PhxBlocks::SETA_JUICE).bucket(PhxItems::SETA_JUICE_BUCKET))
+    object Source : SetaJuiceFluid(Properties(PhxFluids::seta_juice_source, PhxFluids::seta_juice_flowing, makeAttributes()).block(PhxBlocks::setaJuice).bucket(PhxItems::SETA_JUICE_BUCKET))
     {
         override fun getLevel(state: IFluidState?): Int = 8
 
