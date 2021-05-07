@@ -66,6 +66,7 @@
   "block.phoenix.pipe": "Труба",
   "block.phoenix.pottery_barrel": "Гончарная бочка",
   "block.phoenix.end_stone_column": "Коллонна из эндерняка",
+  "block.phoenix.chiseled_end_stone": "Резанный эндерняк",
   "block.phoenix.oven": "Печь",
   "block.phoenix.zirconium_ore": "Руда циркония",
   "block.phoenix.armored_glass": "Укреплённое стекло",
@@ -74,6 +75,11 @@
   "block.phoenix.died_wet_log": "Мертвое мокрое бревно",
   "block.phoenix.block_with_text": "Блок с надписями",
   "block.phoenix.wet_planks": "Мокрые доски",
+  "block.phoenix.died_wet_planks": "Мертвые мокрые доски",
+  "block.phoenix.wet_slab": "Мокрый полублок",
+  "block.phoenix.died_wet_slab": "Мертвый мокрый полублок",
+  "block.phoenix.wet_stairs": "Мокрые ступени",
+  "block.phoenix.died_wet_stairs": "Мертвые мокрые ступени",
 
 
   "advancements.phoenix.ash.ash.title": "Пепел",

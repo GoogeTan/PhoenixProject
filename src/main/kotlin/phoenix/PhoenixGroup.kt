@@ -1,10 +1,7 @@
 package phoenix
 
 import net.minecraft.block.Block
-import net.minecraft.item.BlockItem
-import net.minecraft.item.ItemGroup
-import net.minecraft.item.ItemStack
-import net.minecraft.item.ToolItem
+import net.minecraft.item.*
 import net.minecraft.util.IItemProvider
 import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.RegistryObject
@@ -24,7 +21,7 @@ class PhoenixGroup(name: String, private val item: () -> IItemProvider) : ItemGr
         items.sortWith(ItemStackComparator)
     }
 
-    internal object ItemStackComparator : Comparator<ItemStack>
+    private object ItemStackComparator : Comparator<ItemStack>
     {
         override fun compare(i1: ItemStack, i2: ItemStack): Int
         {
@@ -34,12 +31,7 @@ class PhoenixGroup(name: String, private val item: () -> IItemProvider) : ItemGr
             {
                 f > s -> 1
                 f < s -> -1
-                else  ->
-                {
-                    val a = i1.displayName
-                    val b = i2.displayName
-                    a.formattedText.compareTo(b.formattedText)
-                }
+                else -> i1.displayName.formattedText.compareTo(i2.displayName.formattedText)
             }
         }
 
@@ -48,8 +40,9 @@ class PhoenixGroup(name: String, private val item: () -> IItemProvider) : ItemGr
             return when (i1.item)
             {
                 is BlockItem -> 1
-                is ToolItem  -> 3
-                else         -> 2
+                is ToolItem  -> 2
+                is ArmorItem -> 3
+                else         -> 4
             }
         }
     }

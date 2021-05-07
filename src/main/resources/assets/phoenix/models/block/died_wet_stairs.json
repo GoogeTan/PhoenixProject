@@ -3,6 +3,6 @@
     "textures": {
         "bottom": "phoenix:blocks/died_wet_planks",
         "top": "phoenix:blocks/died_wet_planks",
-        "side": "phoenix:blocks/died_wet_slab"
+        "side": "phoenix:blocks/died_wet_planks"
     }
 }

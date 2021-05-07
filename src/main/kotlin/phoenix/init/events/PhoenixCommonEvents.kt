@@ -24,7 +24,7 @@ import phoenix.Phoenix
 import phoenix.Phoenix.Companion.ASH
 import phoenix.init.PhxBiomes.HEARTVOID
 import phoenix.init.PhxBiomes.UNDER
-import phoenix.init.PhxBlocks.BLOCKS
+import phoenix.init.PhxBlocks.blocks
 import phoenix.init.PhxEntities.CAUDA
 import phoenix.init.PhxEntities.TALPA
 import phoenix.init.PhxFeatures
@@ -45,7 +45,7 @@ object PhoenixCommonEvents
     @SubscribeEvent
     fun onRegisterItems(event: Register<Item>)
     {
-        BLOCKS.getEntries().stream()
+        blocks.getEntries().stream()
                 .map(ObjectHolderDelegate<out Block>::get)
                 .filter { block: Block -> block !is INonItem }
                 .filter { block: Block -> block !is FlowingFluidBlock }

@@ -69,6 +69,7 @@
   "block.phoenix.pipe": "Pipe",
   "block.phoenix.pottery_barrel": "Pottery barrel",
   "block.phoenix.end_stone_column": "End stone column",
+  "block.phoenix.chiseled_end_stone": "Сhiseled end stone",
   "block.phoenix.oven": "Oven",
   "block.phoenix.zirconium_ore": "Zirconium ore",
   "block.phoenix.armored_glass": "Armored glass",
@@ -77,6 +78,11 @@
   "block.phoenix.died_wet_log": "Died wet log",
   "block.phoenix.block_with_text": "Block with text",
   "block.phoenix.wet_planks": "Wet planks",
+  "block.phoenix.died_wet_planks": "Died wet planks",
+  "block.phoenix.wet_slab": "Wet slab",
+  "block.phoenix.died_wet_slab": "Died wet slab",
+  "block.phoenix.wet_stairs": "Wet stairs",
+  "block.phoenix.died_wet_stairs": "Died wet stairs",
 
 
   "advancements.phoenix.ash.ash.title": "Ash",

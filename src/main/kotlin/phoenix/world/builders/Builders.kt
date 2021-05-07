@@ -8,11 +8,10 @@ import phoenix.init.PhxBlocks
 
 object Builders
 {
-    //Билдеры
     val UNDER: SurfaceBuilder<AdvancedSurfaceBuilderConfig> = SurfaceBuilder.register("under", UnderSurfaceBuilder { dynamic: Dynamic<*> -> AdvancedSurfaceBuilderConfig.deserialize(dynamic) })
     val HEARTVOID: SurfaceBuilder<SurfaceBuilderConfig> = SurfaceBuilder.register("heart", HeartVoidSurfaceBuilder { dynamic: Dynamic<*> -> SurfaceBuilderConfig.deserialize(dynamic) })
+    val WET_HEARTVOID: SurfaceBuilder<SurfaceBuilderConfig> = SurfaceBuilder.register("wet_heart", WetHeartVoidSurfaceBuilder { dynamic: Dynamic<*> -> SurfaceBuilderConfig.deserialize(dynamic) })
 
-    //Конфиги для билдеров
     val UNDER_CONFIG = AdvancedSurfaceBuilderConfig(Blocks.END_STONE, Blocks.END_STONE, Blocks.END_STONE, PhxBlocks.fertileEndStone)
     val HEARTVOID_CONFIG = SurfaceBuilderConfig(Blocks.END_STONE.defaultState, Blocks.END_STONE.defaultState, Blocks.END_STONE.defaultState)
 }

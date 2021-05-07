@@ -17,26 +17,19 @@ class AnonimBlock(properties: Properties, val tile : () -> TileEntity? = {null},
 {
     override fun hasTileEntity(state: BlockState): Boolean = tile.invoke() != null
 
-    override fun createTileEntity(state: BlockState, world: IBlockReader): TileEntity?
-    {
-        val res = tile.invoke()
-        if (res == null)
-            LogManager.error(this, "Can not init tile: $tile")
-        return res
-    }
+    override fun createTileEntity(state: BlockState, world: IBlockReader): TileEntity? = tile.invoke()
 
     override fun getDrops(state: BlockState, builder: LootContext.Builder) = SizedArrayList.of(ItemStack(this))
 
-    override val tab: ItemGroup
-        get() = itemGroup
+    override val tab: ItemGroup = itemGroup
 
     companion object
     {
-        fun create(properties: Properties)                               = Supplier { AnonimBlock(properties) }
-        fun create(material: Material)                                   = Supplier { AnonimBlock(Properties.create(material)) }
-        fun create(material: Material, entityClass: () -> TileEntity)   = Supplier { AnonimBlock(Properties.create(material), entityClass) }
-        fun create(properties: Properties, classIn: () -> TileEntity)   = Supplier { AnonimBlock(properties, classIn) }
-        fun create(material: Material, entityClass: () -> TileEntity, itemGroup: ItemGroup)   = AnonimBlock(Properties.create(material), entityClass, itemGroup)
-        fun create(properties: Properties, itemGroup: ItemGroup)   = Supplier { AnonimBlock(properties, itemGroup = itemGroup) }
+        fun create(properties: Properties)                              = AnonimBlock(properties)
+        fun create(material: Material)                                  = create(Properties.create(material))
+        fun create(material: Material, tile: () -> TileEntity)   = AnonimBlock(Properties.create(material), tile)
+        fun create(properties: Properties, tile: () -> TileEntity)   = AnonimBlock(properties, tile)
+        fun create(material: Material, tile: () -> TileEntity, itemGroup: ItemGroup)  = AnonimBlock(Properties.create(material), tile, itemGroup)
+        fun create(properties: Properties, itemGroup: ItemGroup)   =  AnonimBlock(properties, itemGroup = itemGroup)
     }
 }

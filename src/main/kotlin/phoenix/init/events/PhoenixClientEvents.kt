@@ -22,7 +22,7 @@ import phoenix.client.render.entity.ExplosiveBallRenderer
 import phoenix.client.render.entity.KnifeRenderer
 import phoenix.client.render.entity.TalpaRenderer
 import phoenix.init.PhxBlocks
-import phoenix.init.PhxBlocks.BLOCKS
+import phoenix.init.PhxBlocks.blocks
 import phoenix.init.PhxContainers
 import phoenix.init.PhxEntities.CAUDA
 import phoenix.init.PhxEntities.DRAGON_ASH_STAGE
@@ -55,6 +55,8 @@ object PhoenixClientEvents
         RenderTypeLookup.setRenderLayer(PhxBlocks.armoredGlass, RenderType.getCutoutMipped())
         //RenderTypeLookup.setRenderLayer(PhxBlocks.textBlock,    RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.wetLog, RenderType.getCutoutMipped())
+        RenderTypeLookup.setRenderLayer(PhxBlocks.wetSlab, RenderType.getCutoutMipped())
+        RenderTypeLookup.setRenderLayer(PhxBlocks.wetStairs, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.setaJuice, RenderType.getCutoutMipped())
         RenderingRegistry.registerEntityRenderingHandler(TALPA, ::TalpaRenderer)
         RenderingRegistry.registerEntityRenderingHandler(CAUDA, ::CaudaRenderer)
@@ -70,7 +72,7 @@ object PhoenixClientEvents
         //ClientRegistry.bindTileEntityRenderer(PhxTiles.TEXT, ::TextRenderer)
 
         // регистрация цветных блоков
-        for (block in BLOCKS.getEntries())
+        for (block in blocks.getEntries())
         {
             if (block is IColoredBlock)
             {

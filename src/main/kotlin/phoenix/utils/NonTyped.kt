@@ -29,11 +29,17 @@ import net.minecraft.world.IWorld
 import net.minecraft.world.World
 import net.minecraft.world.biome.Biome
 import net.minecraft.world.gen.GenerationStage
+import net.minecraft.world.gen.IExtendedNoiseRandom
+import net.minecraft.world.gen.area.IArea
+import net.minecraft.world.gen.area.IAreaFactory
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.IFeatureConfig
 import net.minecraft.world.gen.feature.NoFeatureConfig
 import net.minecraft.world.gen.feature.OreFeatureConfig
 import net.minecraft.world.gen.feature.structure.Structure
+import net.minecraft.world.gen.layer.traits.IAreaTransformer0
+import net.minecraft.world.gen.layer.traits.IAreaTransformer1
+import net.minecraft.world.gen.layer.traits.IAreaTransformer2
 import net.minecraft.world.gen.placement.CountRangeConfig
 import net.minecraft.world.gen.placement.IPlacementConfig
 import net.minecraft.world.gen.placement.Placement
@@ -225,3 +231,7 @@ inline fun Biome.addZirconiumOre()
             Placement.COUNT_RANGE.configure(CountRangeConfig(20, 0, 0, 64)))
     )
 }
+
+inline operator fun<R : IArea> IAreaTransformer1.invoke(context : IExtendedNoiseRandom<R>, area : IAreaFactory<R>) : IAreaFactory<R> = apply(context, area)
+inline operator fun<R : IArea> IAreaTransformer2.invoke(context : IExtendedNoiseRandom<R>, area1 : IAreaFactory<R>, area2 : IAreaFactory<R>) : IAreaFactory<R> = apply(context, area1, area2)
+inline operator fun<R : IArea> IAreaTransformer0.invoke(context : IExtendedNoiseRandom<R>) : IAreaFactory<R> = apply(context)

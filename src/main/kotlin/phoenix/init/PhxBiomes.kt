@@ -16,6 +16,7 @@ object PhxBiomes
 
     val UNDER               by BIOMES.register("under")      { UnderBiome }
     val HEARTVOID           by BIOMES.register("heart_void") { object : Biome(GenerationUtils.defaultSettingsForEnd(Builders.HEARTVOID, Builders.HEARTVOID_CONFIG)){} }
+    val WET_HEARTVOID       by BIOMES.register("wet_heart_void") { object : Biome(GenerationUtils.defaultSettingsForEnd(Builders.WET_HEARTVOID, Builders.HEARTVOID_CONFIG)){} }
     val SMALL_ISLANDS_UNDER by BIOMES.register("small_islands_under")      { SmallIslandsUnderBiome }
 
     fun register() =  BIOMES.register(MOD_BUS)

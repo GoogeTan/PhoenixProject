@@ -9,20 +9,16 @@ import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.Biomes
 import net.minecraft.world.biome.provider.BiomeProvider
 import net.minecraft.world.biome.provider.EndBiomeProviderSettings
-import net.minecraft.world.gen.IExtendedNoiseRandom
 import net.minecraft.world.gen.LazyAreaLayerContext
 import net.minecraft.world.gen.SimplexNoiseGenerator
-import net.minecraft.world.gen.area.IArea
-import net.minecraft.world.gen.area.IAreaFactory
 import net.minecraft.world.gen.feature.structure.Structure
 import net.minecraft.world.gen.layer.Layer
 import net.minecraft.world.gen.layer.ZoomLayer
 import phoenix.init.PhxBiomes
 import phoenix.init.PhxConfiguration
 import phoenix.init.PhxFeatures
-import phoenix.utils.LogManager
 import phoenix.world.genlayers.*
-import java.util.function.LongFunction
+import phoenix.utils.invoke
 
 class NewEndBiomeProvider(var settings: EndBiomeProviderSettings) : BiomeProvider(biomes)
 {
@@ -77,23 +73,31 @@ class NewEndBiomeProvider(var settings: EndBiomeProviderSettings) : BiomeProvide
     private fun createLayer(seed: Long): Layer
     {
         val context = { seedModifierIn: Long -> LazyAreaLayerContext(25, seed, seedModifierIn) }
-        var phoenixBiomes = ParentLayer(this).apply(context(1L))
-        val vanilaBiomes = EndBiomeLayer.apply(context(200L), ParentLayer(this).apply(context(1L)))
+        var phoenixBiomes = ParentLayer(this)(context(1L))
+        val vanilaBiomes = EndBiomeLayer(context(200L), ParentLayer(this)(context(1L)))
 
         val stage = StageManager.stage
 
         if (stage >= 1)
         {
-            phoenixBiomes = UnderLayer.apply(context(200L), phoenixBiomes)
-            phoenixBiomes = SmallIslandsUnderLayer.apply(context(124L), phoenixBiomes)
-            phoenixBiomes = HeartVoidLayer.apply(context(472L), phoenixBiomes)
-            phoenixBiomes = HeartVoidLayer.apply(context(472L), phoenixBiomes)
+            phoenixBiomes = UnderLayer(context(200L), phoenixBiomes)
+            phoenixBiomes = SmallIslandsUnderLayer(context(124L), phoenixBiomes)
+            phoenixBiomes = HeartVoidLayer(context(472L), phoenixBiomes)
+            phoenixBiomes = HeartVoidLayer(context(472L), phoenixBiomes)
         }
 
         for (i in 0..PhxConfiguration.biomeSize)
-            phoenixBiomes = ZoomLayer.NORMAL.apply(context(200L), phoenixBiomes)
+            phoenixBiomes = ZoomLayer.NORMAL(context(200L), phoenixBiomes)
 
-        return Layer(UnificationLayer.apply(context(200L), phoenixBiomes, vanilaBiomes))
+        var res = UnificationLayer(context(200L), phoenixBiomes, vanilaBiomes)
+
+        if (stage >= 2)
+        {
+            for (i in 0..3) res = PrimaryWetHeartVoidLayer(context(134L), res)
+            for (i in 0..9) res = SecondaryWetHeartVoidLayer(context(134L), res)
+        }
+
+        return Layer(res)
     }
 
     companion object

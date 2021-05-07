@@ -1,7 +1,30 @@
 {
-  "parent": "block/cube_column",
+  "parent": "block/cube_all",
   "textures": {
-    "side": "phoenix:blocks/wet_slab",
-    "end":  "phoenix:blocks/wet_slab"
-  }
+    "all": "phoenix:blocks/wet_slab",
+    "overlay":  "phoenix:blocks/wet_planks_overlay"
+  },
+  "elements": [
+    {   "from": [ 0, 0, 0 ],
+      "to":   [ 16, 16, 16 ],
+      "faces": {
+        "north": { "texture": "#all", "cullface": "north" },
+        "south": { "texture": "#all", "cullface": "south" },
+        "west":  { "texture": "#all", "cullface": "west" },
+        "east":  { "texture": "#all", "cullface": "east" },
+        "up":    { "texture": "#all",  "cullface": "up" },
+        "down":  { "texture": "#bottom",  "cullface": "down" }
+      }
+    },
+    {   "from": [ 0, 0, 0 ],
+      "to":   [ 16, 16, 16 ],
+      "shade": false,
+      "faces": {
+        "north": { "texture": "#overlay", "cullface": "north" },
+        "south": { "texture": "#overlay", "cullface": "south" },
+        "west":  { "texture": "#overlay", "cullface": "west" },
+        "east":  { "texture": "#overlay", "cullface": "east" }
+      }
+    }
+  ]
 }
