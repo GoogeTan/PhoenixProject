@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "Z"
+  ],
+  "key": {
+    "Z": { "item": "phoenix:died_wet_log"}
+  },
+  "result": {
+    "item": "phoenix:died_wet_planks",
+    "count": 4
+  }
+}

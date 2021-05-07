@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ZZZ"
+  ],
+  "key": {
+    "Z": { "item": "phoenix:wet_planks"}
+  },
+  "result": {
+    "item": "phoenix:wet_slab",
+    "count": 6
+  }
+}
