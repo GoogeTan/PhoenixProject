@@ -1,6 +1,5 @@
 package phoenix.tile.redo
 
-import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntity
@@ -12,26 +11,23 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.fluids.capability.templates.FluidTank
 import phoenix.init.PhxTiles
-import phoenix.network.NetworkHandler
-import phoenix.network.SyncTankPacket
 import phoenix.tile.AFluidTile
-import phoenix.utils.SerializeUtils.readTank
-import phoenix.utils.SerializeUtils.writeTank
+import phoenix.utils.block.IFluidPipe
 import phoenix.utils.getFluid
 import phoenix.utils.interactBetweenFluidHandlers
 
-open class TankTile
+open class BambooPipeTile
     (
-        type : TileEntityType<out TankTile> = PhxTiles.tank,
-        val capacity : Int = 5000,
-        val pullAmount : Int = 1000
-    ) : AFluidTile(type), ITickableTileEntity
+    type : TileEntityType<out BambooPipeTile> = PhxTiles.bambooPipe,
+    private val capacity: Int = 1000,
+    private val pullAmount: Int = 1000
+    ) : AFluidTile(type), ITickableTileEntity, IFluidPipe
 {
     open var fluidTank : FluidTank = FluidTank(capacity)
 
     override fun interact(tile: TileEntity, fluid: IFluidHandler): Boolean
     {
-        if (tile is BambooPipeTile)
+        if (tile is IFluidPipe)
         {
             return interactBetweenFluidHandlers(this.getFluid(null).orElse(null), fluid, pullAmount)
         }
@@ -40,25 +36,9 @@ open class TankTile
 
     override fun sync()
     {
-        NetworkHandler.sendToDim(SyncTankPacket(this), world!!.dimension.type)
     }
 
-    override fun getUpdatePacket(): SUpdateTileEntityPacket = this.SyncPacket()
-
-    open inner class SyncPacket : SUpdateTileEntityPacket()
-    {
-        override fun readPacketData(buffer: PacketBuffer)
-        {
-            super.readPacketData(buffer)
-            fluidTank = buffer.readTank()
-        }
-
-        override fun writePacketData(buffer: PacketBuffer)
-        {
-            super.writePacketData(buffer)
-            buffer.writeTank(fluidTank)
-        }
-    }
+    override fun getUpdatePacket(): SUpdateTileEntityPacket = SUpdateTileEntityPacket()
 
     override fun <T : Any> getCapability(cap: Capability<T>, side: Direction?): LazyOptional<T>
     {

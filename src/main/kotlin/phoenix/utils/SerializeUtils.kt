@@ -52,9 +52,9 @@ object SerializeUtils
         }
     }
 
-    fun PacketBuffer.writeToBuf(tank: FluidTank)
+    fun PacketBuffer.writeTank(tank: FluidTank)
     {
-        tank.fluid.writeToPacket(this)
+        this.writeFluidStack(tank.fluid)
         this.writeInt(tank.capacity)
     }
 
@@ -62,6 +62,7 @@ object SerializeUtils
     {
         val stack = this.readFluidStack()
         val capacity = this.readInt()
+
         val res = FluidTank(capacity)
         res.fluid = stack
         return res

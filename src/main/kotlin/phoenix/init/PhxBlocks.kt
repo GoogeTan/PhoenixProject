@@ -21,14 +21,17 @@ import phoenix.utils.block.INonItem
 import phoenix.utils.block.INonTab
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
+import phoenix.blocks.redo.BambooPipeBlock
 
 object PhxBlocks
 {
     val blocks = KDeferredRegister(ForgeRegistries.BLOCKS, Phoenix.MOD_ID)
 
-    val updater           by blocks.register("updater") { UpdaterBlock }
-    val pipe              by blocks.register("pipe", ::PipeBlock)
-    val tank              by blocks.register("tank") { TankBlock }
+    val updater           by blocks.register("updater")     { UpdaterBlock    }
+    val bambooPipe        by blocks.register("bamboo_pipe") { BambooPipeBlock }
+    val tank              by blocks.register("tank")        { TankBlock       }
+    val juicer            by blocks.register("juicer")      { JuicerBlock     }
+
     val fertileEndStone   by blocks.register("fertile_end_stone") { FertileEndStoneBlock }
     val antiAir: AirBlock by blocks.register("anti_air") { object : AirBlock(Properties.create(Material.AIR).doesNotBlockMovement().noDrops().notSolid()), INonItem {} }
     val potteryBarrel     by blocks.register("pottery_barrel", ::PotteryBarrelBlock)
@@ -50,7 +53,7 @@ object PhxBlocks
     val wetStairs       : Block by blocks.register("wet_stairs")      { object : StairsBlock(wetLog::getDefaultState,     Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
     val diedWetStairs   : Block by blocks.register("died_wet_stairs") { object : StairsBlock(diedWetLog::getDefaultState, Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
     val setaJuice               by blocks.register("seta_juice")      { FluidBlock(PhxFluids::seta_juice_source) }
-
+    
     fun register() = blocks.register(MOD_BUS)
 }
 

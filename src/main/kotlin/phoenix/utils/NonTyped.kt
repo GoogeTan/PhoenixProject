@@ -17,6 +17,7 @@ import net.minecraft.network.PacketBuffer
 import net.minecraft.state.IProperty
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityType
+import net.minecraft.util.Direction
 import net.minecraft.util.Hand
 import net.minecraft.util.JSONUtils
 import net.minecraft.util.ResourceLocation
@@ -45,9 +46,15 @@ import net.minecraft.world.gen.placement.IPlacementConfig
 import net.minecraft.world.gen.placement.Placement
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
+import net.minecraftforge.common.util.LazyOptional
+import net.minecraftforge.fluids.FluidActionResult
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.FluidUtil
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler
+import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.fml.RegistryObject
+import net.minecraftforge.items.IItemHandler
+import net.minecraftforge.items.wrapper.PlayerMainInvWrapper
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.IForgeRegistryEntry
 import phoenix.client.gui.diaryPages.Chapters
@@ -56,12 +63,14 @@ import phoenix.network.NetworkHandler
 import phoenix.network.SyncBookPacket
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import java.util.*
+import javax.annotation.Nonnull
+import kotlin.math.abs
 import kotlin.math.roundToInt
 
-data class MTuple<V, M, K>(var first : V, var second : M, var third : K)
-data class MPair<V, M>(var first : V, var second : M)
+data class MTuple<V, M, K>(var first: V, var second: M, var third: K)
+data class MPair<V, M>(var first: V, var second: M)
 
-inline fun World.destroyBlock(pos : BlockPos, shouldDrop : Boolean, entity : Entity?, stack : ItemStack) : Boolean
+inline fun World.destroyBlock(pos: BlockPos, shouldDrop: Boolean, entity: Entity?, stack: ItemStack) : Boolean
 {
     val state = this.getBlockState(pos)
     return if (state.isAir(this, pos))
@@ -79,7 +88,7 @@ inline fun World.destroyBlock(pos : BlockPos, shouldDrop : Boolean, entity : Ent
     }
 }
 
-inline fun<T : Comparable<T>, V : T> World.setProperty(pos : BlockPos, property  : IProperty<T>, value : V) : Boolean
+inline fun <T : Comparable<T>, V : T> World.setProperty(pos: BlockPos, property: IProperty<T>, value: V) : Boolean
 {
     val state = world.getBlockState(pos)
     return if(state.has(property))
@@ -92,28 +101,35 @@ inline fun<T : Comparable<T>, V : T> World.setProperty(pos : BlockPos, property 
 }
 
 inline fun ItemStack.getFluidContained() = FluidUtil.getFluidContained(this).orElse(FluidStack.EMPTY)
-inline fun PlayerEntity.getFluidContainedInHand(hand : Hand) = FluidUtil.getFluidContained(this.getHeldItem(hand)).orElse(FluidStack.EMPTY)
+inline fun PlayerEntity.getFluidContainedInHand(hand: Hand) = FluidUtil.getFluidContained(this.getHeldItem(hand)).orElse(
+    FluidStack.EMPTY
+)
 
-inline fun<V : IForgeRegistryEntry<V>> KDeferredRegister<V>.register(name: String, value : V) = register(name) { value }
+inline fun <V : IForgeRegistryEntry<V>> KDeferredRegister<V>.register(name: String, value: V) = register(name) { value }
 
-inline fun<T : TileEntity> TileEntityType.Builder<T>.build() = this.build(null)
+inline fun <T : TileEntity> TileEntityType.Builder<T>.build() = this.build(null)
 
-inline fun JsonObject.getFloat(nameIn: String, fallback : Float)           = JSONUtils.getFloat (this, nameIn, fallback)
-inline fun JsonObject.getInt(nameIn: String)                               = JSONUtils.getInt   (this, nameIn)
-inline fun JsonObject.getString(nameIn: String, fallback : String): String = JSONUtils.getString(this, nameIn, fallback)
+inline fun JsonObject.getFloat(nameIn: String, fallback: Float)           = JSONUtils.getFloat(this, nameIn, fallback)
+inline fun JsonObject.getInt(nameIn: String)                               = JSONUtils.getInt(this, nameIn)
+inline fun JsonObject.getString(nameIn: String, fallback: String): String = JSONUtils.getString(this, nameIn, fallback)
 
 inline fun JsonObject.readItemStack(nameIn: String): ItemStack
 {
     return if (get(nameIn).isJsonObject) ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(this, nameIn)) else
     {
         val name = JSONUtils.getString(this, nameIn)
-        ItemStack(Registry.ITEM.getValue(ResourceLocation(name)).orElseThrow { IllegalStateException("Item: $name does not exist") })
+        ItemStack(
+            Registry.ITEM.getValue(ResourceLocation(name))
+                .orElseThrow { IllegalStateException("Item: $name does not exist") })
     }
 }
 
-inline fun ItemStack.getEnchantmentLevel(enchantment: Enchantment) = EnchantmentHelper.getEnchantmentLevel(enchantment, this)
+inline fun ItemStack.getEnchantmentLevel(enchantment: Enchantment) = EnchantmentHelper.getEnchantmentLevel(
+    enchantment,
+    this
+)
 
-inline fun IWorld.getDownHeight(pos : BlockPos, max: Int): BlockPos
+inline fun IWorld.getDownHeight(pos: BlockPos, max: Int): BlockPos
 {
     val pos2 = BlockPos(pos.x, 0, pos.z)
     for (i in 0 until max)
@@ -123,9 +139,9 @@ inline fun IWorld.getDownHeight(pos : BlockPos, max: Int): BlockPos
     return pos
 }
 
-inline fun Random.nextInt(min : Int, max : Int) = (min - 0.5 + this.nextDouble() * (max - min + 1)).roundToInt()
+inline fun Random.nextInt(min: Int, max: Int) = (min - 0.5 + this.nextDouble() * (max - min + 1)).roundToInt()
 
-inline fun PacketBuffer.writeDate(date : Date)
+inline fun PacketBuffer.writeDate(date: Date)
 {
     this.writeLong(date.minute)
     this.writeLong(date.day)
@@ -134,7 +150,7 @@ inline fun PacketBuffer.writeDate(date : Date)
 
 inline fun PacketBuffer.readDate() : Date = Date(readLong(), readLong(), readLong())
 
-inline fun<T : Number> min(vararg vals : T) : T
+inline fun <T : Number> min(vararg vals: T) : T
 {
     if(vals.isEmpty())
         throw NullPointerException()
@@ -147,7 +163,7 @@ inline fun<T : Number> min(vararg vals : T) : T
     return res
 }
 
-inline fun<T : Number> max(vararg vals : T) : T
+inline fun <T : Number> max(vararg vals: T) : T
 {
     if(vals.isEmpty())
         throw NullPointerException()
@@ -161,22 +177,34 @@ inline fun<T : Number> max(vararg vals : T) : T
 }
 
 
-inline fun<T : TileEntity> create(tile: T, block: Block) : () -> TileEntityType<T> = { TileEntityType.Builder.create({ tile }, block).build(null) }
+inline fun <T : TileEntity> create(tile: T, block: Block) : () -> TileEntityType<T> = { TileEntityType.Builder.create(
+    { tile },
+    block
+).build(null) }
 
-inline fun<T : TileEntity> create(tile: T, block: RegistryObject<Block>) : () -> TileEntityType<T> = { TileEntityType.Builder.create({ tile }, block.get()).build(null) }
+inline fun <T : TileEntity> create(tile: T, block: RegistryObject<Block>) : () -> TileEntityType<T> = { TileEntityType.Builder.create(
+    { tile },
+    block.get()
+).build(null) }
 
-inline fun<T : IForgeRegistryEntry<T>> DeferredRegister<T>.registerValue(nameIn: String, value : T): RegistryObject<T> = this.register(nameIn) { value }
+inline fun <T : IForgeRegistryEntry<T>> DeferredRegister<T>.registerValue(nameIn: String, value: T): RegistryObject<T> = this.register(
+    nameIn
+) { value }
 
-inline fun FontRenderer.drawCenterAlignedString(string : ITextComponent, x : Float, y : Float)
+inline fun FontRenderer.drawCenterAlignedString(string: ITextComponent, x: Float, y: Float)
 {
     drawString(string.formattedText, x, y, BossInfo.Color.RED.ordinal)
 }
 private const val daysAYear = 319
 private const val dayLength = 12000
 private const val secondLength = 12000
-fun World.getDate() = Date((795 + dayTime) % dayLength / secondLength, (gameTime + 2005) % daysAYear, (gameTime + 2005) / daysAYear)
+fun World.getDate() = Date(
+    (795 + dayTime) % dayLength / secondLength,
+    (gameTime + 2005) % daysAYear,
+    (gameTime + 2005) / daysAYear
+)
 
-inline fun ServerPlayerEntity.addChapter(chapter : Chapters)
+inline fun ServerPlayerEntity.addChapter(chapter: Chapters)
 {
     if(this is IPhoenixPlayer)
     {
@@ -192,7 +220,9 @@ inline fun <reified T> IWorld.getTileAt(pos: BlockPos): T?
     return if(tile is T) tile else null
 }
 
-inline fun JsonObject.addProp(property : String,  value : Number) : JsonObject
+inline fun IWorld.getTileAt(pos: BlockPos) = getTileAt<TileEntity>(pos)
+
+inline fun JsonObject.addProp(property: String, value: Number) : JsonObject
 {
     this.addProperty(property, value)
     return this
@@ -209,7 +239,7 @@ val clientWorld : ClientWorld?
     @OnlyIn(Dist.CLIENT)
     inline get() = mc.world
 
-inline fun PlayerEntity.sendMessage(text : String) = sendMessage(StringTextComponent(text))
+inline fun PlayerEntity.sendMessage(text: String) = sendMessage(StringTextComponent(text))
 
 class BookException(message: String) : Exception(message)
 
@@ -227,11 +257,69 @@ inline fun Biome.addZirconiumOre()
 {
     addFeature(
         GenerationStage.Decoration.UNDERGROUND_ORES,
-        Feature.ORE.withConfiguration(OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, PhxBlocks.zirconium.defaultState, 4)).withPlacement(
-            Placement.COUNT_RANGE.configure(CountRangeConfig(20, 0, 0, 64)))
+        Feature.ORE.withConfiguration(
+            OreFeatureConfig(
+                OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                PhxBlocks.zirconium.defaultState,
+                4
+            )
+        ).withPlacement(
+            Placement.COUNT_RANGE.configure(CountRangeConfig(20, 0, 0, 64))
+        )
     )
 }
 
-inline operator fun<R : IArea> IAreaTransformer1.invoke(context : IExtendedNoiseRandom<R>, area : IAreaFactory<R>) : IAreaFactory<R> = apply(context, area)
-inline operator fun<R : IArea> IAreaTransformer2.invoke(context : IExtendedNoiseRandom<R>, area1 : IAreaFactory<R>, area2 : IAreaFactory<R>) : IAreaFactory<R> = apply(context, area1, area2)
-inline operator fun<R : IArea> IAreaTransformer0.invoke(context : IExtendedNoiseRandom<R>) : IAreaFactory<R> = apply(context)
+inline operator fun <R : IArea> IAreaTransformer1.invoke(context: IExtendedNoiseRandom<R>, area: IAreaFactory<R>) : IAreaFactory<R> = apply(
+    context,
+    area
+)
+inline operator fun <R : IArea> IAreaTransformer2.invoke(
+    context: IExtendedNoiseRandom<R>,
+    area1: IAreaFactory<R>,
+    area2: IAreaFactory<R>
+) : IAreaFactory<R> = apply(context, area1, area2)
+inline operator fun <R : IArea> IAreaTransformer0.invoke(context: IExtendedNoiseRandom<R>) : IAreaFactory<R> = apply(
+    context
+)
+inline fun TileEntity.getFluid(direction: Direction?) : LazyOptional<IFluidHandler> = getCapability(
+    CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
+    direction
+)
+
+fun interactWithFluidHandler
+    (
+        container: ItemStack,
+        fluidHandler: IFluidHandler?,
+        player: PlayerEntity?
+    ): FluidActionResult
+{
+    if (container.isEmpty || fluidHandler == null || player == null)
+        return FluidActionResult.FAILURE
+
+    val playerInventory: IItemHandler = PlayerMainInvWrapper(player.inventory)
+    val fillResult = FluidUtil.tryFillContainerAndStow(container, fluidHandler, playerInventory, Int.MAX_VALUE, player, true)
+    return if (fillResult.isSuccess)
+        fillResult
+     else
+        FluidUtil.tryEmptyContainerAndStow(container, fluidHandler, playerInventory, Int.MAX_VALUE, player, true)
+}
+
+inline fun areFluidsCompatible(f: FluidStack, s: FluidStack) : Boolean = f.isEmpty xor s.isEmpty || f.fluid === s.fluid
+
+fun interactBetweenFluidHandlers(f: IFluidHandler, s: IFluidHandler, max: Int) : Boolean
+{
+    val ff = f.getFluidInTank(0)
+    val sf = s.getFluidInTank(0)
+    return if (areFluidsCompatible(sf, ff))
+    {
+        val amount = min(abs(ff.amount - sf.amount) / 2, max)
+        if (ff.amount > sf.amount)
+        {
+            s.fill(f.drain(amount, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE)
+        } else
+        {
+            f.fill(s.drain(amount, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE)
+        }
+        amount != 0
+    } else false
+}

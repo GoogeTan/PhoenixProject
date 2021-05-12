@@ -6,12 +6,10 @@ import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.network.NetworkManager
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.math.BlockPos
 import net.minecraft.world.chunk.Chunk
 import net.minecraft.world.dimension.DimensionType
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
-import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.network.NetworkEvent
 import net.minecraftforge.fml.network.NetworkRegistry
@@ -31,7 +29,7 @@ object NetworkHandler
         registerPacket(SyncStagePacket().javaClass)
         registerPacket(SyncBookPacket(ArrayList()))
         registerPacket(SyncOvenPacket().javaClass)
-        registerPacket(SyncFluidThinkPacket().javaClass)
+        registerPacket(SyncTankPacket().javaClass)
         registerPacket(OpenCaudaInventoryPacket(0).javaClass)
     }
 

@@ -3,8 +3,6 @@ package phoenix.enity.boss
 import com.google.common.collect.Lists
 import net.minecraft.block.material.Material
 import net.minecraft.entity.*
-import net.minecraft.entity.boss.dragon.EnderDragonPartEntity
-import net.minecraft.entity.boss.dragon.phase.PhaseManager
 import net.minecraft.entity.item.ExperienceOrbEntity
 import net.minecraft.entity.monster.IMob
 import net.minecraft.entity.player.PlayerEntity
@@ -25,7 +23,6 @@ import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.GameRules
 import net.minecraft.world.World
-import net.minecraft.world.end.DragonFightManager
 import net.minecraft.world.gen.Heightmap
 import net.minecraft.world.gen.feature.EndPodiumFeature
 import net.minecraftforge.api.distmarker.Dist

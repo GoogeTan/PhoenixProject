@@ -13,7 +13,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import phoenix.Phoenix
 import phoenix.client.render.EnderCrystalRenderer
 import phoenix.client.render.OvenRenderer
-import phoenix.client.render.PipeRender
 import phoenix.client.render.TankRenderer
 import phoenix.client.render.dragon.AshDragonRenderer
 import phoenix.client.render.dragon.RedoDragonRenderer
@@ -50,7 +49,7 @@ object PhoenixClientEvents
         PhxRenderTypes.init()
         PhxContainers.registerScreens()
         RenderTypeLookup.setRenderLayer(PhxBlocks.oven, RenderType.getCutoutMipped())
-        RenderTypeLookup.setRenderLayer(PhxBlocks.pipe, RenderType.getCutoutMipped())
+        RenderTypeLookup.setRenderLayer(PhxBlocks.bambooPipe, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.tank, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.armoredGlass, RenderType.getCutoutMipped())
         //RenderTypeLookup.setRenderLayer(PhxBlocks.textBlock,    RenderType.getCutoutMipped())
@@ -58,6 +57,7 @@ object PhoenixClientEvents
         RenderTypeLookup.setRenderLayer(PhxBlocks.wetSlab, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.wetStairs, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.setaJuice, RenderType.getCutoutMipped())
+        RenderTypeLookup.setRenderLayer(PhxBlocks.juicer, RenderType.getCutoutMipped())
         RenderingRegistry.registerEntityRenderingHandler(TALPA, ::TalpaRenderer)
         RenderingRegistry.registerEntityRenderingHandler(CAUDA, ::CaudaRenderer)
         RenderingRegistry.registerEntityRenderingHandler(KNIFE, ::KnifeRenderer)
@@ -66,8 +66,8 @@ object PhoenixClientEvents
         RenderingRegistry.registerEntityRenderingHandler(DRAGON_ASH_STAGE, ::AshDragonRenderer)
         RenderingRegistry.registerEntityRenderingHandler(explosiveBall, ::ExplosiveBallRenderer)
         RenderingRegistry.registerEntityRenderingHandler(ENDER_CRYSTAL, ::EnderCrystalRenderer)
-        ClientRegistry.bindTileEntityRenderer(PhxTiles.PIPE, ::PipeRender)
-        ClientRegistry.bindTileEntityRenderer(PhxTiles.TANK, ::TankRenderer)
+        ClientRegistry.bindTileEntityRenderer(PhxTiles.tank, ::TankRenderer)
+        ClientRegistry.bindTileEntityRenderer(PhxTiles.JUICER, ::TankRenderer)
         ClientRegistry.bindTileEntityRenderer(PhxTiles.OVEN, ::OvenRenderer)
         //ClientRegistry.bindTileEntityRenderer(PhxTiles.TEXT, ::TextRenderer)
 

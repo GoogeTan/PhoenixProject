@@ -1,9 +1,7 @@
 package phoenix.client.gui
 
-import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
-import net.minecraft.client.renderer.RenderHelper
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.util.text.ITextComponent
 import phoenix.Phoenix

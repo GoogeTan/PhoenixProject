@@ -15,12 +15,11 @@ import phoenix.init.PhxRenderTypes
 import phoenix.tile.redo.TankTile
 import phoenix.utils.RenderUtils.refreshDrawing
 
-class TankModel(var tileTank : TankTile) : Model({ PhxRenderTypes.tankTexture })
+open class TankModel<T : TankTile>(var tileTank : T) : Model({ PhxRenderTypes.tankTexture })
 {
     var TEXTURE_FLUID: ResourceLocation? = null
     var MATERIAL_FLUID: Material? = null
     var fluid = ModelRenderer(this, 0, 0)
-    val block = ModelRenderer(this, 0, 0)
 
     override fun render(
         matrixStackIn: MatrixStack,
@@ -33,16 +32,15 @@ class TankModel(var tileTank : TankTile) : Model({ PhxRenderTypes.tankTexture })
         alpha: Float
     )
     {
-        block.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha)
         fluid.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha)
     }
 
-    fun render(matrixStackIn: MatrixStack, buffer: IRenderTypeBuffer, packedLightIn: Int, packedOverlayIn: Int)
+    open fun render(matrixStackIn: MatrixStack, buffer: IRenderTypeBuffer, packedLightIn: Int, packedOverlayIn: Int)
     {
         matrixStackIn.push()
         TEXTURE_FLUID = try
         {
-            tileTank.tank.fluid.fluid.attributes.stillTexture
+            tileTank.fluidTank.fluid.fluid.attributes.stillTexture
         } catch (e: Exception)
         {
             null
@@ -51,7 +49,7 @@ class TankModel(var tileTank : TankTile) : Model({ PhxRenderTypes.tankTexture })
         {
             MATERIAL_FLUID = Material(AtlasTexture.LOCATION_BLOCKS_TEXTURE, TEXTURE_FLUID)
             val fluidBuilder = MATERIAL_FLUID!!.getBuffer(buffer, { location: ResourceLocation -> RenderType.getEntitySolid(location) })
-            if (tileTank.tank.fluid.fluid !== Fluids.WATER)
+            if (tileTank.fluidTank.fluid.fluid !== Fluids.WATER)
             {
                 fluid.render(matrixStackIn, fluidBuilder, packedLightIn, packedOverlayIn, 1.0f, 1.0f, 1.0f, 1.0f)
             } else
@@ -76,16 +74,13 @@ class TankModel(var tileTank : TankTile) : Model({ PhxRenderTypes.tankTexture })
             }
         }
         val builder = buffer.getBuffer(PhxRenderTypes.tankTexture)
-        block.render(matrixStackIn, builder, packedLightIn, packedOverlayIn)
         refreshDrawing(builder, PhxRenderTypes.tankTexture)
         matrixStackIn.pop()
     }
 
     init
     {
-        block.setRotationPoint(0f, 0f, 0f)
-        block.addBox(0f, 0f, 0f, 16f, 16f, 16f)
         fluid.setRotationPoint(0f, 0f, 0f)
-        fluid.addBox(2f, 2f, 2f, 12f, (12 * tileTank.tank.fluidAmount / tileTank.tank.capacity).toFloat(), 12f)
+        fluid.addBox(2f, 2f, 2f, 12f, (12 * tileTank.fluidTank.fluidAmount / tileTank.fluidTank.capacity).toFloat(), 12f)
     }
 }

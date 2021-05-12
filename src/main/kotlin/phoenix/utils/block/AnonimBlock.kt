@@ -9,9 +9,7 @@ import net.minecraft.tileentity.TileEntity
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.storage.loot.LootContext
 import phoenix.Phoenix
-import phoenix.utils.LogManager
 import phoenix.utils.SizedArrayList
-import java.util.function.Supplier
 
 class AnonimBlock(properties: Properties, val tile : () -> TileEntity? = {null}, val itemGroup : ItemGroup = Phoenix.ASH) : Block(properties), ICustomGroup
 {

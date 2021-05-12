@@ -25,3 +25,5 @@ interface ICustomGroup
 
 interface INonItem
 interface INonTab
+
+interface IFluidPipe
