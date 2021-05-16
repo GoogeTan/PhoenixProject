@@ -2,6 +2,8 @@ package phoenix.other
 
 import net.minecraft.client.audio.MusicTicker
 import net.minecraft.util.math.MathHelper
+import phoenix.utils.LogManager
+import phoenix.utils.PhoenixMusicTracks
 import phoenix.utils.mc
 import phoenix.world.StageManager
 import kotlin.math.min
@@ -19,6 +21,7 @@ class MusicTicker(old : MusicTicker) : MusicTicker(mc)
     override fun tick()
     {
         val music = getMusicType()
+        LogManager.errorObjects(this, music, PhoenixMusicTracks.REDO_MUSIC)
         if (currentMusic != null)
         {
             if (music!!.sound.name != currentMusic.soundLocation)
@@ -46,6 +49,6 @@ class MusicTicker(old : MusicTicker) : MusicTicker(mc)
     private fun getMusicType() : MusicType?
     {
         val selector: MusicType? = client.ambientMusicType
-        return if(selector == MusicType.END) StageManager.stageEnum.music else selector
+        return if(selector === MusicType.END) StageManager.stageEnum.music else selector
     }
 }

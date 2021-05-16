@@ -10,9 +10,9 @@ import phoenix.utils.block.PhoenixTile
 import phoenix.utils.getFluid
 import phoenix.utils.getTileAt
 
-abstract class AFluidTile(type: TileEntityType<out AFluidTile>) : PhoenixTile(type), ITickableTileEntity
+abstract class AFluidTile(type: TileEntityType<out AFluidTile>) : PhoenixTile(type), ITickableTileEntity, ISyncable
 {
-    protected var needSync : Boolean = false
+    override var needSync : Boolean = false
 
     override fun tick()
     {
@@ -28,7 +28,7 @@ abstract class AFluidTile(type: TileEntityType<out AFluidTile>) : PhoenixTile(ty
                     if(handler.isPresent)
                     {
                         val fluid = handler.orElseThrow { NullPointerException("Present fluid tank in not present! It sound like bread, but it is reality.") }
-                        needSync = needSync or interact(tile, fluid)
+                        needSync = needSync or interact(tile, fluid, i.opposite)
                     }
                 }
             }
@@ -41,7 +41,7 @@ abstract class AFluidTile(type: TileEntityType<out AFluidTile>) : PhoenixTile(ty
         }
     }
 
-    abstract fun interact(tile : TileEntity, fluid : IFluidHandler) : Boolean
+    abstract fun interact(tile : TileEntity, fluid : IFluidHandler, side : Direction) : Boolean
 
     abstract fun sync()
 

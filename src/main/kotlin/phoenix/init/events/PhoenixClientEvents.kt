@@ -38,7 +38,6 @@ import phoenix.utils.StringUtils
 import phoenix.utils.block.IColoredBlock
 import phoenix.utils.mc
 
-@OnlyIn(Dist.CLIENT)
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 object PhoenixClientEvents
 {
@@ -92,6 +91,6 @@ object PhoenixClientEvents
         splashes.possibleSplashes.add("$WHITE The hands of the clock cannot be turned back.$WHITE But it is in our power to move them forward!") // Reference to: Neon Genesis Evangelion
         splashes.possibleSplashes.add("$RED Where are the fixes, Lebowski?") // Reference to: The Big Lebowski
 
-        mc.musicTicker = MusicTicker(mc.musicTicker)
+        //mc.musicTicker = MusicTicker(mc.musicTicker)
     }
 }

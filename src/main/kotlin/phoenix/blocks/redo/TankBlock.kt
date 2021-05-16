@@ -1,11 +1,16 @@
 package phoenix.blocks.redo
 
+import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.material.Material
 import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.item.BlockItemUseContext
 import net.minecraft.item.ItemStack
+import net.minecraft.state.StateContainer
+import net.minecraft.state.properties.BlockStateProperties
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.ActionResultType
+import net.minecraft.util.Direction
 import net.minecraft.util.Hand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.BlockRayTraceResult
@@ -41,7 +46,8 @@ object TankBlock : BlockWithTile(Properties.create(Material.GLASS).notSolid().ha
         {
             return ActionResultType.PASS
         }
-
+        if (worldIn.isRemote)
+            return ActionResultType.SUCCESS
         val current: ItemStack = playerIn.inventory.getCurrentItem()
         val slot: Int = playerIn.inventory.currentItem
 
@@ -51,8 +57,7 @@ object TankBlock : BlockWithTile(Properties.create(Material.GLASS).notSolid().ha
             if (tile is AFluidTile)
             {
                 val tank: AFluidTile = tile
-                val holder: LazyOptional<IFluidHandler?> =
-                    tank.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)
+                val holder: LazyOptional<IFluidHandler?> = tank.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, hit.face)
                 if (holder.isPresent)
                 {
                     val forgeResult: FluidActionResult = interactWithFluidHandler(current, holder.orElse(null), playerIn)
@@ -74,4 +79,19 @@ object TankBlock : BlockWithTile(Properties.create(Material.GLASS).notSolid().ha
     }
 
     override fun createTileEntity(state: BlockState, world: IBlockReader): TileEntity = TankTile()
+
+
+    init
+    {
+        defaultState = defaultState.with(BlockStateProperties.FACING, Direction.NORTH)
+    }
+
+    override fun fillStateContainer(builder: StateContainer.Builder<Block, BlockState>)
+    {
+        super.fillStateContainer(builder)
+        builder.add(BlockStateProperties.FACING)
+    }
+
+
+    override fun getStateForPlacement(context: BlockItemUseContext): BlockState = defaultState.with(BlockStateProperties.FACING, context.placementHorizontalFacing)
 }

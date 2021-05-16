@@ -1,6 +1,7 @@
 package phoenix.world
 
 import net.minecraft.block.Blocks
+import net.minecraft.client.audio.MusicTicker
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.ChunkPos
@@ -66,4 +67,6 @@ class EndDimension(worldIn: World, typeIn: DimensionType) : Dimension(worldIn, t
     {
         dragonFightManager?.tick()
     }
+
+    override fun getMusicType(): MusicTicker.MusicType = StageManager.stageEnum.music
 }

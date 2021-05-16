@@ -1,5 +1,6 @@
-package phoenix.tile.redo
+package phoenix.tile.redo.pipe
 
+import net.minecraft.block.HorizontalBlock
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntity
@@ -12,11 +13,10 @@ import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.fluids.capability.templates.FluidTank
 import phoenix.init.PhxTiles
 import phoenix.tile.AFluidTile
-import phoenix.utils.MPair
 import phoenix.utils.block.IFluidPipe
 import phoenix.utils.getFluid
 import phoenix.utils.getTileAt
-import phoenix.utils.interactBetweenFluidHandlers
+import phoenix.utils.interactBetweenPipes
 
 open class VerticalBambooPipeTile
     (
@@ -26,41 +26,35 @@ open class VerticalBambooPipeTile
     ) : AFluidTile(type), ITickableTileEntity, IFluidPipe
 {
     open var fluidTank : FluidTank = FluidTank(capacity)
-    val dirs = MPair<Direction?, Direction?>(null, null)
 
     override fun tick()
     {
         val world = world
         if(world != null && !world.isRemote)
         {
-            val (input, output) = dirs
-            if(input != null)
+            val input = blockState[HorizontalBlock.HORIZONTAL_FACING]
+            val tile = world.getTileAt<TileEntity>(pos.offset(input))
+            if (tile != null)
             {
-                val tile = world.getTileAt<TileEntity>(pos.offset(input))
-                if (tile != null)
+                val handler = tile.getFluid(input.opposite)
+                if (handler.isPresent)
                 {
-                    val handler = tile.getFluid(input.opposite)
-                    if (handler.isPresent)
-                    {
-                        val fluid =
-                            handler.orElseThrow { NullPointerException("Present fluid tank in not present! It sound like bread, but it is reality.") }
-                        needSync = needSync or interact(tile, fluid)
-                    }
+                    val fluid =
+                        handler.orElseThrow { NullPointerException("Present fluid tank in not present! It sound like bread, but it is reality.") }
+                    needSync = needSync or interact(tile, fluid, input.opposite)
                 }
             }
-            if(output != null)
+            val output = Direction.DOWN
+            if (tile != null)
             {
-                val tile = world.getTileAt<TileEntity>(pos.offset(output))
-                if (tile != null)
+                val handler = tile.getFluid(output.opposite)
+                if (handler.isPresent)
                 {
-                    val handler = tile.getFluid(output.opposite)
-                    if (handler.isPresent)
-                    {
-                        val fluid = handler.orElseThrow { NullPointerException("Present fluid tank in not present! It sound like bread, but it is reality.") }
-                        needSync = needSync or interact(tile, fluid)
-                    }
+                    val fluid = handler.orElseThrow { NullPointerException("Present fluid tank in not present! It sound like bread, but it is reality.") }
+                    needSync = needSync or interact(tile, fluid, output.opposite)
                 }
             }
+
             if (needSync)
             {
                 sync()
@@ -69,11 +63,13 @@ open class VerticalBambooPipeTile
         }
     }
 
-    override fun interact(tile: TileEntity, fluid: IFluidHandler): Boolean
+    override fun interact(tile: TileEntity, fluid: IFluidHandler, side : Direction): Boolean
     {
         if (tile is IFluidPipe)
         {
-            return interactBetweenFluidHandlers(this.getFluid(null).orElse(null), fluid, pullAmount)
+            val tfluid = this.getFluid(side)
+            if(tfluid.isPresent)
+                return interactBetweenPipes(tfluid.orElse(null), fluid, pullAmount)
         }
         return false
     }

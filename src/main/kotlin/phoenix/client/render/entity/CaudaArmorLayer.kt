@@ -28,7 +28,7 @@ class CaudaArmorLayer<T : CaudaEntity, M : EntityModel<T>>(renderer: IEntityRend
         val armor = entitylivingbaseIn.getArmorStack().item
         if(armor is CaudaArmorItem)
         {
-            val renderType = armor.material.texture
+            val renderType = armor.material.texture.getRenderType()
             val model = entityModel
             model.render(matrixStackIn, bufferIn.getBuffer(renderType), 15728640, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f)
             if (model is CaudaModel)

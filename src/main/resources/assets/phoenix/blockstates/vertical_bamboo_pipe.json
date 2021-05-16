@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "facing=z":   { "model": "phoenix:block/bamboo_pipe", "y": 90},
+    "facing=x":   { "model": "phoenix:block/bamboo_pipe" }
+  }
+}

@@ -51,13 +51,8 @@ class SyncTankPacket(var pos : BlockPos, var tank : FluidTank, var stack : ItemS
                 tile.fluidTank = tank
                 if(tile is JuicerTile)
                     tile.stack = stack
-                clientPlayer?.sendMessage("tile at $pos synced")
             }
-            else
-                clientPlayer?.sendMessage("tile at $pos is null")
         }
-        else
-            clientPlayer?.sendMessage("world is null")
     }
 
     override fun server(player: ServerPlayerEntity?) {}

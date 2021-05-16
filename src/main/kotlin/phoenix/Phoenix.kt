@@ -4,13 +4,16 @@ import net.minecraft.block.Blocks
 import net.minecraft.item.ItemGroup
 import net.minecraft.world.biome.FuzzedBiomeMagnifier
 import net.minecraft.world.dimension.DimensionType
+import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.common.ForgeConfigSpec
+import net.minecraftforge.fml.DistExecutor
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig
 import phoenix.init.*
 import phoenix.init.PhxConfiguration.Common
 import phoenix.world.EndDimension
+import java.util.concurrent.Callable
 
 @Mod(Phoenix.MOD_ID)
 class Phoenix
@@ -32,7 +35,7 @@ class Phoenix
         val specPair = ForgeConfigSpec.Builder().configure(::Common)
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, specPair.right)
         PhxConfiguration.COMMON_CONFIG = specPair.left
-        StaticInit.init()
+        DistExecutor.safeCallWhenOn(Dist.CLIENT) { DistExecutor.SafeCallable { StaticInit.init() } }
     }
 
     companion object
@@ -44,7 +47,16 @@ class Phoenix
 
         init
         {
-            DimensionType.THE_END = DimensionType.register("the_end", DimensionType(2, "_end", "DIM1", ::EndDimension, false, FuzzedBiomeMagnifier.INSTANCE))
+            DimensionType.THE_END = DimensionType.register(
+                "the_end", DimensionType(
+                    2,
+                    "_end",
+                    "DIM1",
+                    ::EndDimension,
+                    false,
+                    FuzzedBiomeMagnifier.INSTANCE
+                )
+            )
             PhxLootTables.init()
         }
     }
