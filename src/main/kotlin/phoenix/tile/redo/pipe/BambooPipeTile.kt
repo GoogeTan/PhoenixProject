@@ -1,6 +1,7 @@
 package phoenix.tile.redo.pipe
 
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
+import net.minecraft.state.properties.BlockStateProperties
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityType
@@ -12,8 +13,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.fluids.capability.templates.FluidTank
 import phoenix.init.PhxTiles
 import phoenix.tile.AFluidTile
-import phoenix.utils.getFluid
-import phoenix.utils.interactBetweenPipes
+import phoenix.utils.*
 
 open class BambooPipeTile
     (
@@ -24,7 +24,6 @@ open class BambooPipeTile
 {
     open var fluidTank : FluidTank = FluidTank(capacity)
 
-    /*
     override fun tick()
     {
         val world = world
@@ -61,7 +60,7 @@ open class BambooPipeTile
                 needSync = false
             }
         }
-    }*/
+    }
 
     override fun interact(tile: TileEntity, fluid: IFluidHandler, side : Direction): Boolean
     {
@@ -82,5 +81,45 @@ open class BambooPipeTile
         if (cap === CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)// && side?.axis === blockState[BlockStateProperties.HORIZONTAL_AXIS])
             return LazyOptional.of { fluidTank as T }
         return super.getCapability(cap, side)
+    }
+
+    private fun extract(tile: TileEntity, fluid: IFluidHandler, side : Direction): Boolean
+    {
+        val tank = this.getFluid(side)
+        return if (tank.isPresent) extract(tank.orElse(null), fluid, pullAmount) else false
+    }
+
+    private fun extract(tank: IFluidHandler, other: IFluidHandler, max: Int, tankIndex : Int = 0, otherIndex : Int = 0) : Boolean
+    {
+        val ff = tank.getFluidInTank(tankIndex)
+        val sf = other.getFluidInTank(otherIndex)
+        return if (areFluidsCompatible(sf, ff))
+        {
+            val amount = min(max, other.getTankCapacity(otherIndex) - other.getFluidInTank(otherIndex).amount, tank.getFluidInTank(tankIndex).amount)
+            val res = other.fill(tank.drain(amount, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.EXECUTE)
+            tank.drain(res, IFluidHandler.FluidAction.EXECUTE)
+            res != 0
+        } else false
+    }
+
+    private fun fill(tile: TileEntity, fluid: IFluidHandler, side : Direction): Boolean
+    {
+        val tfluid = this.getFluid(side)
+        if (tfluid.isPresent)
+            return fill(tfluid.orElse(null), fluid, pullAmount)
+        return false
+    }
+
+    private fun fill(tank: IFluidHandler, other: IFluidHandler, max: Int, tankIndex : Int = 0, otherIndex : Int = 0) : Boolean
+    {
+        val ff = tank.getFluidInTank(tankIndex)
+        val sf = other.getFluidInTank(otherIndex)
+        return if (areFluidsCompatible(sf, ff))
+        {
+            val amount = min(max, tank.getTankCapacity(tankIndex) - ff.amount, tank.getTankCapacity(otherIndex) - tank.getFluidInTank(otherIndex).amount, other.getFluidInTank(tankIndex).amount)
+            val res = other.fill(tank.drain(amount, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.EXECUTE)
+            tank.drain(res, IFluidHandler.FluidAction.EXECUTE)
+            res != 0
+        } else false
     }
 }

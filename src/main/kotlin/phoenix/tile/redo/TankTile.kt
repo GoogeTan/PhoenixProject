@@ -63,8 +63,7 @@ open class TankTile
                 val handler = tile.getFluid(i.opposite)
                 if (handler.isPresent)
                 {
-                    val fluid =
-                        handler.orElseThrow { NullPointerException("Present fluid tank in not present! It sound like bread, but it is reality.") }
+                    val fluid = handler.orElseThrow { NullPointerException("Present fluid tank in not present! It sound like bread, but it is reality.") }
                     val res = extract(tile, fluid, i.opposite)
                     needSync = needSync or res
                     if (tile is ISyncable)
@@ -121,14 +120,16 @@ open class TankTile
         return if (tank.isPresent) extract(tank.orElse(null), fluid, pullAmount) else false
     }
 
-    private fun extract(tank: IFluidHandler, pipe: IFluidHandler, max: Int, tankIndex : Int = 0, pipeIndex : Int = 0) : Boolean
+    private fun extract(tank: IFluidHandler, other: IFluidHandler, max: Int, tankIndex : Int = 0, otherIndex : Int = 0) : Boolean
     {
         val ff = tank.getFluidInTank(tankIndex)
-        val sf = pipe.getFluidInTank(pipeIndex)
+        val sf = other.getFluidInTank(otherIndex)
         return if (areFluidsCompatible(sf, ff))
         {
-            val amount = min(max, pipe.getTankCapacity(pipeIndex) - pipe.getFluidInTank(pipeIndex).amount, pipe.getTankCapacity(pipeIndex) - pipe.getFluidInTank(pipeIndex).amount)
-            pipe.fill(tank.drain(amount, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE)!= 0
+            val amount = min(max, other.getTankCapacity(otherIndex) - other.getFluidInTank(otherIndex).amount, tank.getFluidInTank(tankIndex).amount)
+            val res = other.fill(tank.drain(amount, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.EXECUTE)
+            tank.drain(res, IFluidHandler.FluidAction.EXECUTE)
+            res != 0
         } else false
     }
 
@@ -140,14 +141,16 @@ open class TankTile
         return false
     }
 
-    private fun fill(tank: IFluidHandler, pipe: IFluidHandler, max: Int, tankIndex : Int = 0, pipeIndex : Int = 0) : Boolean
+    private fun fill(tank: IFluidHandler, other: IFluidHandler, max: Int, tankIndex : Int = 0, otherIndex : Int = 0) : Boolean
     {
         val ff = tank.getFluidInTank(tankIndex)
-        val sf = pipe.getFluidInTank(pipeIndex)
+        val sf = other.getFluidInTank(otherIndex)
         return if (areFluidsCompatible(sf, ff))
         {
-            val amount = min(max, tank.getTankCapacity(tankIndex) - ff.amount, pipe.getTankCapacity(pipeIndex) - pipe.getFluidInTank(pipeIndex).amount)
-            pipe.fill(tank.drain(amount, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE) != 0
+            val amount = min(max, tank.getTankCapacity(tankIndex) - ff.amount, tank.getTankCapacity(otherIndex) - tank.getFluidInTank(otherIndex).amount, other.getFluidInTank(tankIndex).amount)
+            val res = other.fill(tank.drain(amount, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.EXECUTE)
+            tank.drain(res, IFluidHandler.FluidAction.EXECUTE)
+            res != 0
         } else false
     }
 }
