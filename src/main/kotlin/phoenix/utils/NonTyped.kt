@@ -78,7 +78,7 @@ data class MPair<V, M>(var first: V, var second: M)
 }
 
 inline fun<V, M> mpairOf(first: V, second: M) = MPair(first, second)
-inline fun<V, M> uniquePairOf(first: V, second: M) : MPair<V?, M?> = if (first != second) MPair(first, second) else MPair(null, second)
+inline fun<V, M> uniquePairOf(first: V? = null, second: M? = null) : MPair<V?, M?> = if (first != second) MPair(first, second) else MPair(null, second)
 
 inline fun World.destroyBlock(pos: BlockPos, shouldDrop: Boolean, entity: Entity?, stack: ItemStack) : Boolean
 {
@@ -111,9 +111,7 @@ inline fun <T : Comparable<T>, V : T> World.setProperty(pos: BlockPos, property:
 }
 
 inline fun ItemStack.getFluidContained() = FluidUtil.getFluidContained(this).orElse(FluidStack.EMPTY)
-inline fun PlayerEntity.getFluidContainedInHand(hand: Hand) = FluidUtil.getFluidContained(this.getHeldItem(hand)).orElse(
-    FluidStack.EMPTY
-)
+inline fun PlayerEntity.getFluidContainedInHand(hand: Hand) = FluidUtil.getFluidContained(this.getHeldItem(hand)).orElse(FluidStack.EMPTY)
 
 inline fun <V : IForgeRegistryEntry<V>> KDeferredRegister<V>.register(name: String, value: V) = register(name) { value }
 

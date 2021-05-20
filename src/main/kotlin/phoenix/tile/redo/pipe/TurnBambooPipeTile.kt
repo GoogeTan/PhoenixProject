@@ -21,10 +21,10 @@ open class TurnBambooPipeTile
     override var needSync: Boolean = false
         get() = false
         set(value) { field = false }
-    
+
     override fun sync()
     {
     }
 
-    override fun getDirections(): MPair<Direction?, Direction?> = uniquePairOf(blockState[facing], blockState[facing].next())
+    override fun getDirections(): MPair<Direction?, Direction?> = uniquePairOf(null, blockState[facing].next())
 }
