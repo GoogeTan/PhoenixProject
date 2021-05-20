@@ -20,7 +20,7 @@ import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.fluids.FluidActionResult
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
-import phoenix.tile.AFluidTile
+import phoenix.tile.FluidTileSidable
 import phoenix.tile.redo.TankTile
 import phoenix.utils.block.BlockWithTile
 import phoenix.utils.block.IRedoThink
@@ -54,10 +54,10 @@ object TankBlock : BlockWithTile(Properties.create(Material.GLASS).notSolid().ha
         if (!current.isEmpty)
         {
             val tile = worldIn.getTileEntity(pos)
-            if (tile is AFluidTile)
+            if (tile is FluidTileSidable)
             {
-                val tank: AFluidTile = tile
-                val holder: LazyOptional<IFluidHandler?> = tank.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, hit.face)
+                val tank : FluidTileSidable = tile
+                val holder: LazyOptional<IFluidHandler> = tank.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, hit.face)
                 if (holder.isPresent)
                 {
                     val forgeResult: FluidActionResult = interactWithFluidHandler(current, holder.orElse(null), playerIn)

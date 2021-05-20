@@ -1,6 +1,5 @@
 package phoenix.blocks.redo.pipe
 
-import net.minecraft.block.AbstractFurnaceBlock
 import net.minecraft.block.Block
 import net.minecraft.block.BlockRenderType
 import net.minecraft.block.BlockState
@@ -8,7 +7,7 @@ import net.minecraft.block.material.Material
 import net.minecraft.item.BlockItemUseContext
 import net.minecraft.item.ItemGroup
 import net.minecraft.state.StateContainer
-import net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_AXIS
+import net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.Direction
 import net.minecraft.util.math.BlockPos
@@ -37,14 +36,14 @@ object BambooPipeBlock : Block(Properties.create(Material.WOOD).notSolid().hardn
 
     init
     {
-        defaultState = defaultState.with(HORIZONTAL_AXIS, Direction.Axis.X)
+        defaultState = defaultState.with(HORIZONTAL_FACING, Direction.NORTH)
     }
 
     override fun fillStateContainer(builder: StateContainer.Builder<Block, BlockState>)
     {
         super.fillStateContainer(builder)
-        builder.add(HORIZONTAL_AXIS)
+        builder.add(HORIZONTAL_FACING)
     }
 
-    override fun getStateForPlacement(context: BlockItemUseContext): BlockState = defaultState.with(HORIZONTAL_AXIS, context.placementHorizontalFacing.axis)
+    override fun getStateForPlacement(context: BlockItemUseContext): BlockState = defaultState.with(HORIZONTAL_FACING, context.placementHorizontalFacing)
 }

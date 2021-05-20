@@ -71,6 +71,14 @@ import kotlin.math.roundToInt
 
 data class MTuple<V, M, K>(var first: V, var second: M, var third: K)
 data class MPair<V, M>(var first: V, var second: M)
+{
+    operator fun not() : MPair<M, V> = MPair(second, first)
+
+    operator fun<T> contains(v : T) : Boolean = v != null && first == v || second == v
+}
+
+inline fun<V, M> mpairOf(first: V, second: M) = MPair(first, second)
+inline fun<V, M> uniquePairOf(first: V, second: M) : MPair<V?, M?> = if (first != second) MPair(first, second) else MPair(null, second)
 
 inline fun World.destroyBlock(pos: BlockPos, shouldDrop: Boolean, entity: Entity?, stack: ItemStack) : Boolean
 {
@@ -337,9 +345,3 @@ inline fun Direction.next() : Direction = next[this] ?: Direction.NORTH
 val axisToFace: ImmutableMap<Direction.Axis, Direction> = ImmutableMap.of(Direction.Axis.X, Direction.NORTH, Direction.Axis.Z, Direction.SOUTH)
 
 inline fun Direction.Axis.getMainDirection() : Direction = axisToFace[this] ?: Direction.NORTH
-
-fun FluidStack.of(fluid : Fluid, amount : Int, capacity : Int)
-{
-    val res = FluidStack(fluid, capacity)
-    res.amount = amount
-}
