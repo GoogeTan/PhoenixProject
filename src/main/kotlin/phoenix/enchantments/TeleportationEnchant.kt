@@ -6,7 +6,7 @@ import net.minecraft.enchantment.Enchantments
 import net.minecraft.inventory.EquipmentSlotType
 import net.minecraft.item.ItemStack
 
-class TeleportationEnchant : Enchantment(Rarity.VERY_RARE, EnchantmentType.ALL, arrayOf(EquipmentSlotType.MAINHAND, EquipmentSlotType.OFFHAND))
+object TeleportationEnchant : Enchantment(Rarity.VERY_RARE, EnchantmentType.ALL, arrayOf(EquipmentSlotType.MAINHAND, EquipmentSlotType.OFFHAND))
 {
     override fun canApplyTogether(enchantment: Enchantment) = super.canApplyTogether(enchantment) && enchantment !== Enchantments.LOYALTY
     override fun canApplyAtEnchantingTable(stack: ItemStack) = false

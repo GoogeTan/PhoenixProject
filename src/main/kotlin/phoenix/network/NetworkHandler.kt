@@ -1,8 +1,10 @@
 package phoenix.network
 
+import com.google.common.collect.ImmutableList
 import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.ServerPlayerEntity
+import net.minecraft.network.NettyPacketDecoder
 import net.minecraft.network.NetworkManager
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.ResourceLocation
@@ -16,6 +18,7 @@ import net.minecraftforge.fml.network.NetworkRegistry
 import net.minecraftforge.fml.network.PacketDistributor
 import net.minecraftforge.fml.network.PacketDistributor.TargetPoint
 import phoenix.Phoenix
+import phoenix.utils.SizedArrayList
 import phoenix.utils.clientPlayer
 import java.util.function.Supplier
 
@@ -116,5 +119,10 @@ object NetworkHandler
         abstract fun client(player: ClientPlayerEntity?)
         @OnlyIn(Dist.DEDICATED_SERVER)
         abstract fun server(player: ServerPlayerEntity?)
+
+        fun sendToAll() = sendToAll(this)
+        fun sendToServer() = sendToServer(this)
+        fun sandTo(target : PacketDistributor.PacketTarget) = CHANNEL.send(target, this)
+        fun sendTo(type : DimensionType) = sendToDim(this, type)
     }
 }

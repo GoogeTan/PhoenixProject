@@ -10,7 +10,7 @@ object PhxEnchantments
 {
     var ENCHANTMENTS = KDeferredRegister(ForgeRegistries.ENCHANTMENTS, Phoenix.MOD_ID)
 
-    val TELEPORTATION by ENCHANTMENTS.register("teleportation", ::TeleportationEnchant)
+    val TELEPORTATION by ENCHANTMENTS.register("teleportation") { TeleportationEnchant }
 
     fun register() = ENCHANTMENTS.register(MOD_BUS)
 }
