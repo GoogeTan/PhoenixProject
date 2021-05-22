@@ -1,9 +1,10 @@
-package phoenix.blocks.redo
+package phoenix.blocks.redo.pipe
 
-import net.minecraft.block.Block
 import net.minecraft.block.BlockRenderType
 import net.minecraft.block.BlockState
+import net.minecraft.block.RotatedPillarBlock
 import net.minecraft.block.material.Material
+import net.minecraft.item.BlockItemUseContext
 import net.minecraft.item.ItemGroup
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.BlockPos
@@ -11,16 +12,17 @@ import net.minecraft.util.math.shapes.ISelectionContext
 import net.minecraft.util.math.shapes.VoxelShape
 import net.minecraft.world.IBlockReader
 import phoenix.Phoenix
-import phoenix.tile.redo.BambooPipeTile
+import phoenix.tile.redo.pipe.TurnBambooPipeTile
 import phoenix.utils.block.ICustomGroup
 
-class VerticalBambooPipeBlock : Block(Properties.create(Material.WOOD).notSolid().hardnessAndResistance(1.0f)), ICustomGroup
+object TurnBambooPipeBlock : RotatedPillarBlock(Properties.create(Material.WOOD).notSolid().hardnessAndResistance(1.0f)),
+    ICustomGroup
 {
-    private val NORMAL = makeCuboidShape(4.0, 0.0, 4.0, 12.0, 16.0, 12.0)
+    private val NORMAL = makeCuboidShape(4.0, 4.0, 4.0, 12.0, 12.0, 12.0)
 
     override fun getRenderType(state: BlockState): BlockRenderType = BlockRenderType.MODEL
 
-    override fun createTileEntity(state: BlockState, world: IBlockReader): TileEntity = BambooPipeTile()
+    override fun createTileEntity(state: BlockState, world: IBlockReader): TileEntity = TurnBambooPipeTile()
 
     override fun isNormalCube(state: BlockState, worldIn: IBlockReader, pos: BlockPos): Boolean = false
 
@@ -29,4 +31,6 @@ class VerticalBambooPipeBlock : Block(Properties.create(Material.WOOD).notSolid(
     override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape = NORMAL
 
     override val tab: ItemGroup = Phoenix.REDO
+
+    override fun getStateForPlacement(context: BlockItemUseContext): BlockState = defaultState.with(AXIS, context.face.axis)
 }

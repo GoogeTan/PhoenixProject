@@ -1,5 +1,6 @@
 package phoenix.utils
 
+import com.google.common.collect.ImmutableMap
 import com.google.gson.JsonObject
 import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
@@ -11,6 +12,7 @@ import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
+import net.minecraft.fluid.Fluid
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.ShapedRecipe
 import net.minecraft.network.PacketBuffer
@@ -69,6 +71,14 @@ import kotlin.math.roundToInt
 
 data class MTuple<V, M, K>(var first: V, var second: M, var third: K)
 data class MPair<V, M>(var first: V, var second: M)
+{
+    operator fun not() : MPair<M, V> = MPair(second, first)
+
+    operator fun<T> contains(v : T) : Boolean = v != null && first == v || second == v
+}
+
+inline fun<V, M> mpairOf(first: V, second: M) = MPair(first, second)
+inline fun<V, M> uniquePairOf(first: V? = null, second: M? = null) : MPair<V?, M?> = if (first != second) MPair(first, second) else MPair(null, second)
 
 inline fun World.destroyBlock(pos: BlockPos, shouldDrop: Boolean, entity: Entity?, stack: ItemStack) : Boolean
 {
@@ -101,9 +111,7 @@ inline fun <T : Comparable<T>, V : T> World.setProperty(pos: BlockPos, property:
 }
 
 inline fun ItemStack.getFluidContained() = FluidUtil.getFluidContained(this).orElse(FluidStack.EMPTY)
-inline fun PlayerEntity.getFluidContainedInHand(hand: Hand) = FluidUtil.getFluidContained(this.getHeldItem(hand)).orElse(
-    FluidStack.EMPTY
-)
+inline fun PlayerEntity.getFluidContainedInHand(hand: Hand) = FluidUtil.getFluidContained(this.getHeldItem(hand)).orElse(FluidStack.EMPTY)
 
 inline fun <V : IForgeRegistryEntry<V>> KDeferredRegister<V>.register(name: String, value: V) = register(name) { value }
 
@@ -306,20 +314,32 @@ fun interactWithFluidHandler
 
 inline fun areFluidsCompatible(f: FluidStack, s: FluidStack) : Boolean = f.isEmpty xor s.isEmpty || f.fluid === s.fluid
 
-fun interactBetweenFluidHandlers(f: IFluidHandler, s: IFluidHandler, max: Int) : Boolean
+fun interactBetweenPipes(f: IFluidHandler, s: IFluidHandler, max: Int) : Boolean
 {
     val ff = f.getFluidInTank(0)
     val sf = s.getFluidInTank(0)
     return if (areFluidsCompatible(sf, ff))
     {
-        val amount = min(abs(ff.amount - sf.amount) / 2, max)
-        if (ff.amount > sf.amount)
+        val amount = min(abs(ff.amount - sf.amount) / 2, max, f.getTankCapacity(0) - ff.amount, s.getTankCapacity(0) - sf.amount)
+        if(amount != 0)
         {
-            s.fill(f.drain(amount, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE)
-        } else
-        {
-            f.fill(s.drain(amount, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE)
+            if (ff.amount > sf.amount)
+            {
+                s.fill(f.drain(amount, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE)
+            } else
+            {
+                f.fill(s.drain(amount, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE)
+            }
         }
         amount != 0
     } else false
 }
+
+
+val next: ImmutableMap<Direction, Direction> = ImmutableMap.of(Direction.NORTH, Direction.EAST, Direction.EAST, Direction.SOUTH, Direction.SOUTH, Direction.WEST, Direction.WEST, Direction.NORTH)
+
+inline fun Direction.next() : Direction = next[this] ?: Direction.NORTH
+
+val axisToFace: ImmutableMap<Direction.Axis, Direction> = ImmutableMap.of(Direction.Axis.X, Direction.NORTH, Direction.Axis.Z, Direction.SOUTH)
+
+inline fun Direction.Axis.getMainDirection() : Direction = axisToFace[this] ?: Direction.NORTH
