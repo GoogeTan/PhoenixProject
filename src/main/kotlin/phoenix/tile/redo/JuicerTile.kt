@@ -16,7 +16,7 @@ open class JuicerTile(type : TileEntityType<out JuicerTile> = PhxTiles.JUICER) :
 
     override fun getUpdatePacket(): SUpdateTileEntityPacket = SyncPacket()
 
-    inner class SyncPacket : TankTile.SyncPacket()
+    inner class SyncPacket : SUpdateTileEntityPacket()
     {
         override fun readPacketData(buffer : PacketBuffer)
         {

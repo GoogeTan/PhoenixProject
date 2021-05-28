@@ -13,17 +13,12 @@ import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
 import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.fluids.FluidActionResult
-import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
-import phoenix.network.NetworkHandler
-import phoenix.network.SyncTankPacket
-import phoenix.tile.AFluidTile
+import phoenix.tile.FluidTileSidable
 import phoenix.tile.redo.JuicerTile
-import phoenix.tile.redo.TankTile
 import phoenix.utils.block.BlockWithTile
 import phoenix.utils.block.IRedoThink
-import phoenix.utils.getTileAt
 import phoenix.utils.interactWithFluidHandler
 
 object JuicerBlock : BlockWithTile(
@@ -57,10 +52,10 @@ object JuicerBlock : BlockWithTile(
         if (!current.isEmpty)
         {
             val tile = worldIn.getTileEntity(pos)
-            if (tile is AFluidTile)
+            if (tile is FluidTileSidable)
             {
-                val tank: AFluidTile = tile
-                val holder: LazyOptional<IFluidHandler?> = tank.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)
+                val tank: FluidTileSidable = tile
+                val holder: LazyOptional<IFluidHandler> = tank.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)
                 if (holder.isPresent)
                 {
                     val forgeResult: FluidActionResult = interactWithFluidHandler(current, holder.orElse(null), playerIn)
