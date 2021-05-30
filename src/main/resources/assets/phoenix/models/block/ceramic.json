@@ -1,9 +1,6 @@
 {
-  "parent" : "blocks/block",
   "ambientocclusion": false,
   "textures": {
-    "particle": "block/barrel_top",
-    "top": "phoenix:blocks/ceramic",
     "water": "phoenix:blocks/ceramic",
     "side": "block/barrel_side"
   },
@@ -12,8 +9,7 @@
       "name": "water",
       "from": [0, 0, 0],
       "to": [16, 16, 16],
-      "rotation": {"angle": 0, "axis": "y", "origin": [10, 9, 10]},
-      "color": 4,
+      "color": 0,
       "faces": {
         "up":    { "texture": "#water", "tintindex": 0 },
         "down":  { "texture": "#water", "tintindex": 0 },
@@ -24,7 +20,8 @@
       }
     }
   ],
-  "groups": [
+  "groups":
+  [
     {
       "name": "pottery_barrel",
       "origin": [8, 8, 8],

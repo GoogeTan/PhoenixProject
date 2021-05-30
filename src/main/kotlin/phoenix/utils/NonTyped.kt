@@ -343,3 +343,6 @@ inline fun Direction.next() : Direction = next[this] ?: Direction.NORTH
 val axisToFace: ImmutableMap<Direction.Axis, Direction> = ImmutableMap.of(Direction.Axis.X, Direction.NORTH, Direction.Axis.Z, Direction.SOUTH)
 
 inline fun Direction.Axis.getMainDirection() : Direction = axisToFace[this] ?: Direction.NORTH
+
+
+inline fun<T> T.changeIfEqual(value : T, other : T) : T = if (this == value) other else this
