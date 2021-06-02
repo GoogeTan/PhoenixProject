@@ -27,7 +27,7 @@ class EnderCrystalEntity(type: EntityType<out EnderCrystalEntity>, world: World)
 {
     var innerRotation = 0
 
-    constructor(world: World, x: Double, y: Double, z: Double) : this(PhxEntities.ENDER_CRYSTAL, world)
+    constructor(world: World, x: Double, y: Double, z: Double) : this(PhxEntities.enderCrystal, world)
     {
         setPosition(x, y, z)
     }

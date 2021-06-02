@@ -1,4 +1,4 @@
-package phoenix.client.render.entity
+package phoenix.client.render.entity.layer
 
 import com.mojang.blaze3d.matrix.MatrixStack
 import net.minecraft.client.renderer.IRenderTypeBuffer

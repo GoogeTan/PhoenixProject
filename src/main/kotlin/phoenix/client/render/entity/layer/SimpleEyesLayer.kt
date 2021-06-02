@@ -1,4 +1,4 @@
-package phoenix.client.render.entity
+package phoenix.client.render.entity.layer
 
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.entity.IEntityRenderer

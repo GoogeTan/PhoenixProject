@@ -25,8 +25,8 @@ import phoenix.Phoenix.Companion.ASH
 import phoenix.init.PhxBiomes.HEARTVOID
 import phoenix.init.PhxBiomes.UNDER
 import phoenix.init.PhxBlocks.blocks
-import phoenix.init.PhxEntities.CAUDA
-import phoenix.init.PhxEntities.TALPA
+import phoenix.init.PhxEntities.cauda
+import phoenix.init.PhxEntities.talpa
 import phoenix.init.PhxFeatures
 import phoenix.init.PhxItems
 import phoenix.init.PhxPotions.LEVITATION
@@ -63,8 +63,8 @@ object PhoenixCommonEvents
     {
         NetworkHandler.init()
         PhxRecipes.register()
-        UNDER.addSpawn(EntityClassification.CREATURE, SpawnListEntry(CAUDA, 15, 1, 1))
-        HEARTVOID.addSpawn(EntityClassification.CREATURE, SpawnListEntry(TALPA, 15, 1, 4))
+        UNDER.addSpawn(EntityClassification.CREATURE, SpawnListEntry(cauda, 15, 1, 1))
+        HEARTVOID.addSpawn(EntityClassification.CREATURE, SpawnListEntry(talpa, 15, 1, 4))
         END_HIGHLANDS.addStructure(PhxFeatures.REMAINS)
         UNDER.addStructure(PhxFeatures.REMAINS)
         HEARTVOID.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, PhxFeatures.WET_TREE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG))

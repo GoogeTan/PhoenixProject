@@ -35,7 +35,7 @@ class TalpaEntity(type: EntityType<TalpaEntity>, worldIn: World) : AnimalEntity(
     override fun getMaxFallHeight() = 7
     override fun getSize(poseIn: Pose) = EntitySize(0.6f, 0.6f, false)
     override fun getCollisionBox(entityIn: Entity): AxisAlignedBB? = if (isEntityInsideOpaqueBlock) null else super.getCollisionBox(entityIn)
-    override fun createChild(ageable: AgeableEntity): AgeableEntity = TalpaEntity(PhxEntities.TALPA, ageable.world)
+    override fun createChild(ageable: AgeableEntity): AgeableEntity = TalpaEntity(PhxEntities.talpa, ageable.world)
     override fun canSpawn(worldIn: IWorld, spawnReasonIn: SpawnReason) = this.position.y in 11..49 && super.canSpawn(worldIn, spawnReasonIn)
 
     override fun registerGoals()

@@ -7,6 +7,8 @@ import net.minecraft.client.renderer.entity.MobRenderer
 import net.minecraft.util.ResourceLocation
 import phoenix.Phoenix
 import phoenix.client.models.entity.CaudaModel
+import phoenix.client.render.entity.layer.CaudaArmorLayer
+import phoenix.client.render.entity.layer.SimpleEyesLayer
 import phoenix.enity.CaudaEntity
 import phoenix.init.PhxRenderTypes
 import javax.annotation.Nonnull

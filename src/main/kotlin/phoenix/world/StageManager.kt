@@ -130,7 +130,7 @@ object StageManager
             override val holdingPhase: PhaseType = PhaseType.ASH_HOLDING_PATTERN
             override val hoverPhase: PhaseType = PhaseType.ASH_HOVER
 
-            override val dragonType: EntityType<out AbstractEnderDragonEntity> = PhxEntities.DRAGON_ASH_STAGE
+            override val dragonType: EntityType<out AbstractEnderDragonEntity> = PhxEntities.dragonAshStage
         },
         REDO
         {
@@ -164,7 +164,7 @@ object StageManager
             override val holdingPhase: PhaseType = PhaseType.REDO_HOLDING_PATTERN
             override val hoverPhase: PhaseType = PhaseType.REDO_HOVER
 
-            override val dragonType: EntityType<out AbstractEnderDragonEntity> = PhxEntities.DRAGON_REDO_STAGE
+            override val dragonType: EntityType<out AbstractEnderDragonEntity> = PhxEntities.dragonRedoStage
         },
         REBIRTH
         {

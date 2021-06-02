@@ -11,21 +11,13 @@
       "to": [16, 16, 16],
       "color": 0,
       "faces": {
-        "up":    { "texture": "#water", "tintindex": 0 },
-        "down":  { "texture": "#water", "tintindex": 0 },
-        "east":  { "texture": "#water", "tintindex": 0 },
-        "west":  { "texture": "#water", "tintindex": 0 },
-        "north": { "texture": "#water", "tintindex": 0 },
-        "south": { "texture": "#water", "tintindex": 0 }
+        "up":    { "texture": "#water", "tintindex": 0, "cullface" : "up" },
+        "down":  { "texture": "#water", "tintindex": 0, "cullface" : "down" },
+        "east":  { "texture": "#water", "tintindex": 0, "cullface" : "east" },
+        "west":  { "texture": "#water", "tintindex": 0, "cullface" : "west" },
+        "north": { "texture": "#water", "tintindex": 0, "cullface" : "north" },
+        "south": { "texture": "#water", "tintindex": 0, "cullface" : "south" }
       }
-    }
-  ],
-  "groups":
-  [
-    {
-      "name": "pottery_barrel",
-      "origin": [8, 8, 8],
-      "children": [0, 1, 2, 3, 4, 5]
     }
   ]
 }

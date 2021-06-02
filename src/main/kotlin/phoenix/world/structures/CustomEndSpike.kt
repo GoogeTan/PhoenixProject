@@ -71,7 +71,7 @@ class CustomEndSpike : Feature<CustomEndSpikeConfig>({ dynamic: Dynamic<*> -> Cu
             }
         }
         stageEnum.createTower(this, worldIn, spike)
-        val crystal = PhxEntities.ENDER_CRYSTAL.create(worldIn.world)
+        val crystal = PhxEntities.enderCrystal.create(worldIn.world)
         if (crystal != null)
         {
             crystal.setBeamTarget(config.crystalBeamTarget)

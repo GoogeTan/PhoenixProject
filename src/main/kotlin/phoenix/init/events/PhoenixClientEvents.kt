@@ -3,8 +3,6 @@ package phoenix.init.events
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderTypeLookup
 import net.minecraft.util.text.TextFormatting.*
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.client.registry.RenderingRegistry
@@ -16,24 +14,21 @@ import phoenix.client.render.OvenRenderer
 import phoenix.client.render.TankRenderer
 import phoenix.client.render.dragon.AshDragonRenderer
 import phoenix.client.render.dragon.RedoDragonRenderer
-import phoenix.client.render.entity.CaudaRenderer
-import phoenix.client.render.entity.ExplosiveBallRenderer
-import phoenix.client.render.entity.KnifeRenderer
-import phoenix.client.render.entity.TalpaRenderer
+import phoenix.client.render.entity.*
 import phoenix.init.PhxBlocks
 import phoenix.init.PhxBlocks.blocks
 import phoenix.init.PhxContainers
-import phoenix.init.PhxEntities.CAUDA
-import phoenix.init.PhxEntities.DRAGON_ASH_STAGE
-import phoenix.init.PhxEntities.DRAGON_REDO_STAGE
-import phoenix.init.PhxEntities.ENDER_CRYSTAL
-import phoenix.init.PhxEntities.KNIFE
-import phoenix.init.PhxEntities.TALPA
+import phoenix.init.PhxEntities.cauda
+import phoenix.init.PhxEntities.dragonAshStage
+import phoenix.init.PhxEntities.dragonRedoStage
+import phoenix.init.PhxEntities.enderCrystal
+import phoenix.init.PhxEntities.zirconiumKnife
+import phoenix.init.PhxEntities.talpa
+import phoenix.init.PhxEntities.ancientGolemEntity
 import phoenix.init.PhxEntities.explosiveBall
 import phoenix.init.PhxRenderTypes
 import phoenix.init.PhxTiles
 import phoenix.network.NetworkHandler
-import phoenix.other.MusicTicker
 import phoenix.utils.StringUtils
 import phoenix.utils.block.IColoredBlock
 import phoenix.utils.mc
@@ -57,17 +52,18 @@ object PhoenixClientEvents
         RenderTypeLookup.setRenderLayer(PhxBlocks.wetStairs, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.setaJuice, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.juicer, RenderType.getCutoutMipped())
-        RenderingRegistry.registerEntityRenderingHandler(TALPA, ::TalpaRenderer)
-        RenderingRegistry.registerEntityRenderingHandler(CAUDA, ::CaudaRenderer)
-        RenderingRegistry.registerEntityRenderingHandler(KNIFE, ::KnifeRenderer)
-        RenderingRegistry.registerEntityRenderingHandler(DRAGON_ASH_STAGE, ::AshDragonRenderer)
-        RenderingRegistry.registerEntityRenderingHandler(DRAGON_REDO_STAGE, ::RedoDragonRenderer)
-        RenderingRegistry.registerEntityRenderingHandler(DRAGON_ASH_STAGE, ::AshDragonRenderer)
+        RenderingRegistry.registerEntityRenderingHandler(talpa, ::TalpaRenderer)
+        RenderingRegistry.registerEntityRenderingHandler(ancientGolemEntity, ::AncientGolemRenderer)
+        RenderingRegistry.registerEntityRenderingHandler(cauda, ::CaudaRenderer)
+        RenderingRegistry.registerEntityRenderingHandler(zirconiumKnife, ::KnifeRenderer)
+        RenderingRegistry.registerEntityRenderingHandler(dragonAshStage, ::AshDragonRenderer)
+        RenderingRegistry.registerEntityRenderingHandler(dragonRedoStage, ::RedoDragonRenderer)
+        RenderingRegistry.registerEntityRenderingHandler(dragonAshStage, ::AshDragonRenderer)
         RenderingRegistry.registerEntityRenderingHandler(explosiveBall, ::ExplosiveBallRenderer)
-        RenderingRegistry.registerEntityRenderingHandler(ENDER_CRYSTAL, ::EnderCrystalRenderer)
+        RenderingRegistry.registerEntityRenderingHandler(enderCrystal, ::EnderCrystalRenderer)
         ClientRegistry.bindTileEntityRenderer(PhxTiles.tank, ::TankRenderer)
-        ClientRegistry.bindTileEntityRenderer(PhxTiles.JUICER, ::TankRenderer)
-        ClientRegistry.bindTileEntityRenderer(PhxTiles.OVEN, ::OvenRenderer)
+        ClientRegistry.bindTileEntityRenderer(PhxTiles.juicer, ::TankRenderer)
+        ClientRegistry.bindTileEntityRenderer(PhxTiles.oven, ::OvenRenderer)
         //ClientRegistry.bindTileEntityRenderer(PhxTiles.TEXT, ::TextRenderer)
 
         // регистрация цветных блоков

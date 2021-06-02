@@ -6,7 +6,7 @@ import net.minecraft.util.text.ITextComponent
 import net.minecraft.util.text.StringTextComponent
 import phoenix.init.PhxTiles
 
-class TextTile : TileEntity(PhxTiles.OVEN)
+class TextTile : TileEntity(PhxTiles.oven)
 {
     var text : ITextComponent = StringTextComponent("Just Like a Eva mark 06")
 

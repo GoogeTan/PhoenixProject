@@ -31,7 +31,7 @@ class KnifeEntity : ThrowableEntity
     var knife = ItemStack(PhxItems.ZIRCONIUM_KNIFE)
     var isReal = true
     constructor(type: EntityType<KnifeEntity>, worldIn: World) : super(type, worldIn)
-    constructor(worldIn: World, owner: LivingEntity, isReal: Boolean) : super(PhxEntities.KNIFE, owner, worldIn)
+    constructor(worldIn: World, owner: LivingEntity, isReal: Boolean) : super(PhxEntities.zirconiumKnife, owner, worldIn)
     {
         this.isReal = isReal
     }

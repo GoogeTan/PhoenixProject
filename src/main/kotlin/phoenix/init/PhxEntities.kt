@@ -5,10 +5,7 @@ import net.minecraft.entity.EntityType
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
-import phoenix.enity.CaudaEntity
-import phoenix.enity.EnderCrystalEntity
-import phoenix.enity.KnifeEntity
-import phoenix.enity.TalpaEntity
+import phoenix.enity.*
 import phoenix.enity.boss.DragonAshStageEntity
 import phoenix.enity.boss.DragonRedoStageEntity
 import phoenix.enity.boss.balls.ExplosiveBallEntity
@@ -19,7 +16,7 @@ object PhxEntities
 {
     private val ENTITIES = KDeferredRegister(ForgeRegistries.ENTITIES, Phoenix.MOD_ID)
 
-    val TALPA: EntityType<TalpaEntity> by ENTITIES.register("talpa")
+    val talpa: EntityType<TalpaEntity> by ENTITIES.register("talpa")
     {
         EntityType.Builder.create(::TalpaEntity, EntityClassification.CREATURE)
                 .size(0.5f, 0.5f)
@@ -29,7 +26,7 @@ object PhxEntities
                 .build(ResourceLocation(Phoenix.MOD_ID, "talpa").toString())
     }
 
-    val CAUDA: EntityType<CaudaEntity> by ENTITIES.register("cauda")
+    val cauda: EntityType<CaudaEntity> by ENTITIES.register("cauda")
     {
         EntityType.Builder.create(::CaudaEntity, EntityClassification.CREATURE)
                 .size(0.9f, 0.5f)
@@ -39,7 +36,7 @@ object PhxEntities
                 .build(ResourceLocation(Phoenix.MOD_ID, "cauda").toString())
     }
 
-    val KNIFE: EntityType<KnifeEntity> by ENTITIES.register("zirconium_knife")
+    val zirconiumKnife: EntityType<KnifeEntity> by ENTITIES.register("zirconium_knife")
     {
         EntityType.Builder.create(::KnifeEntity, EntityClassification.MISC)
                 .size(0.1f, 0.1f)
@@ -49,7 +46,7 @@ object PhxEntities
                 .build(ResourceLocation(Phoenix.MOD_ID, "zirconium_knife").toString())
     }
 
-    val ENDER_CRYSTAL: EntityType<EnderCrystalEntity> by ENTITIES.register("ender_crystal")
+    val enderCrystal: EntityType<EnderCrystalEntity> by ENTITIES.register("ender_crystal")
     {
         EntityType.Builder.create(::EnderCrystalEntity, EntityClassification.MONSTER)
             .immuneToFire()
@@ -59,7 +56,7 @@ object PhxEntities
             .build(ResourceLocation(Phoenix.MOD_ID, "ender_crystal").toString())
     }
 
-    val DRAGON_ASH_STAGE: EntityType<DragonAshStageEntity> by ENTITIES.register("dragon_ash_stage")
+    val dragonAshStage: EntityType<DragonAshStageEntity> by ENTITIES.register("dragon_ash_stage")
     {
         EntityType.Builder.create(::DragonAshStageEntity, EntityClassification.MONSTER)
             .immuneToFire()
@@ -67,7 +64,7 @@ object PhxEntities
             .build(ResourceLocation(Phoenix.MOD_ID, "dragon_ash_stage").toString())
     }
 
-    val DRAGON_REDO_STAGE: EntityType<DragonRedoStageEntity> by ENTITIES.register("dragon_redo_stage")
+    val dragonRedoStage: EntityType<DragonRedoStageEntity> by ENTITIES.register("dragon_redo_stage")
     {
         EntityType.Builder.create(::DragonRedoStageEntity, EntityClassification.MONSTER)
             .immuneToFire()
@@ -81,6 +78,14 @@ object PhxEntities
                 .immuneToFire()
                 .size(16.0f, 8.0f)
                 .build(ResourceLocation(Phoenix.MOD_ID, "explosiveball").toString())
+    }
+
+    val ancientGolemEntity : EntityType<AncientGolemEntity> by ENTITIES.register("ancient_golem")
+    {
+        EntityType.Builder.create(::AncientGolemEntity, EntityClassification.MONSTER)
+            .immuneToFire()
+            .size(1.0f, 1.0f)
+            .build(ResourceLocation(Phoenix.MOD_ID, "ancient_golem").toString())
     }
 
     fun register() = ENTITIES.register(MOD_BUS)

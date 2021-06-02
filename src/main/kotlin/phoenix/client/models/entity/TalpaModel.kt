@@ -14,7 +14,7 @@ class TalpaModel : EntityModel<TalpaEntity>()
     var paws = arrayOf(ModelRenderer(this, 0, 8), ModelRenderer(this, 0, 8), ModelRenderer(this, 0, 8), ModelRenderer(this, 0, 8))
     override fun setLivingAnimations(entityIn: TalpaEntity, limbSwing: Float, limbSwingAmount: Float, partialTick: Float)
     {
-        if (entityIn.isChild)
+        if (isChild)
         {
             textureHeight = 16
             textureWidth = 16

@@ -14,7 +14,7 @@ import phoenix.blocks.ash.PotteryBarrelBlock
 import phoenix.init.PhxTiles
 import phoenix.utils.block.PhoenixTile
 
-class ElectricBarrelTile : PhoenixTile(PhxTiles.ELECTRIC_BARREL), IInventory, ITickableTileEntity
+class ElectricBarrelTile : PhoenixTile(PhxTiles.electricBarrel), IInventory, ITickableTileEntity
 {
     var jumpsCount = 0
 

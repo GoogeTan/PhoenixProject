@@ -22,7 +22,7 @@ import phoenix.utils.block.PhoenixTile
 import java.lang.Integer.max
 import java.lang.Integer.min
 
-class OvenTile : PhoenixTile(PhxTiles.OVEN), ITickableTileEntity, IInventory
+class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory
 {
     var timers = IntArray(4)
     var burnTime = 0

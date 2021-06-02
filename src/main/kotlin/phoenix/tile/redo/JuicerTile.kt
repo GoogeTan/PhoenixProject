@@ -10,7 +10,7 @@ import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import phoenix.init.PhxTiles
 
-open class JuicerTile(type : TileEntityType<out JuicerTile> = PhxTiles.JUICER) : TankTile(type)
+open class JuicerTile(type : TileEntityType<out JuicerTile> = PhxTiles.juicer) : TankTile(type)
 {
     open var stack : ItemStack = ItemStack.EMPTY
 

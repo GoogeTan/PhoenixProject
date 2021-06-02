@@ -35,15 +35,18 @@ object CeramicBlock : BlockWithTile(Properties.create(Material.CLAY)), IRedoThin
     @SubscribeEvent
     fun onDrops(event: BlockEvent.BreakEvent)
     {
-        val res = ItemStack(CeramicBlock)
-        val tile = event.world.getTileAt<CeramicTile>(event.pos)
-        val pos = event.pos
-        val world : World = event.player.world
-        if (tile != null)
+        if (event.world.getBlockState(event.pos).block == this && !event.world.isRemote)
         {
-            res.orCreateTag.put("tile", tile.write(CompoundNBT()))
+            val res = ItemStack(CeramicBlock)
+            val tile = event.world.getTileAt<CeramicTile>(event.pos)
+            val pos = event.pos
+            val world: World = event.player.world
+            if (tile != null)
+            {
+                res.orCreateTag.put("tile", tile.write(CompoundNBT()))
+            }
+            world.addEntity(ItemEntity(world, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), res))
         }
-        world.addEntity(ItemEntity(world, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), res))
     }
 
     override fun onPlayerDestroy(worldIn: IWorld, pos: BlockPos, state: BlockState)
