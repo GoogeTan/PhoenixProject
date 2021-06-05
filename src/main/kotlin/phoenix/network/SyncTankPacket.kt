@@ -10,10 +10,8 @@ import phoenix.tile.redo.JuicerTile
 import phoenix.tile.redo.TankTile
 import phoenix.utils.SerializeUtils.readTank
 import phoenix.utils.SerializeUtils.writeTank
-import phoenix.utils.clientPlayer
 import phoenix.utils.getTileAt
 import phoenix.utils.mc
-import phoenix.utils.sendMessage
 
 class SyncTankPacket(var pos : BlockPos, var tank : FluidTank, var stack : ItemStack) : NetworkHandler.Packet()
 {

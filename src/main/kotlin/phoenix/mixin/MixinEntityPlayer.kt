@@ -8,8 +8,6 @@ import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
 import phoenix.utils.Date
 import phoenix.utils.IPhoenixPlayer
-import java.util.*
-import kotlin.collections.HashSet
 
 @Mixin(PlayerEntity::class)
 abstract class MixinEntityPlayer : IPhoenixPlayer

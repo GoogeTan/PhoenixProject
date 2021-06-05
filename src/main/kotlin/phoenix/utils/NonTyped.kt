@@ -12,7 +12,6 @@ import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
-import net.minecraft.fluid.Fluid
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.ShapedRecipe
 import net.minecraft.network.PacketBuffer
@@ -65,7 +64,6 @@ import phoenix.network.NetworkHandler
 import phoenix.network.SyncBookPacket
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import java.util.*
-import javax.annotation.Nonnull
 import kotlin.math.abs
 import kotlin.math.roundToInt
 

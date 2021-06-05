@@ -4,16 +4,19 @@ import net.minecraft.enchantment.Enchantments
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.SharedMonsterAttributes
+import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.ai.goal.*
 import net.minecraft.entity.monster.MonsterEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.projectile.SmallFireballEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
+import net.minecraft.network.datasync.DataParameter
 import net.minecraft.network.datasync.DataSerializers
 import net.minecraft.network.datasync.EntityDataManager
 import net.minecraft.util.DamageSource
 import net.minecraft.util.Hand
+import net.minecraft.util.SoundEvents
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
@@ -24,12 +27,24 @@ class AncientGolemEntity(type: EntityType<out AncientGolemEntity> = PhxEntities.
 {
     var breathState = 0.0f
     var closing = true
-    var closed : Boolean
-        get() = dataManager[CLOSED]
-        private inline set(value)
+    private var closed : Boolean
+        inline get() = dataManager[CLOSED]
+        inline set(value)
         {
-            dataManager.set(CLOSED, value)
-            closedTimer = (closedTimer * 0.7 + 20 * 10).toInt()
+            dataManager[CLOSED] = value
+            if (value)
+            {
+                closedTimer = (closedTimer * 0.7 + 20 * 10).toInt()
+                getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).baseValue = 0.2
+                getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).baseValue = 15.0
+                breathState = 0F
+            }
+            else
+            {
+                closedTimer = 0
+                getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).baseValue = 1.2
+                getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).baseValue = 30.0
+            }
         }
 
     var closedTimer = 0
@@ -39,7 +54,7 @@ class AncientGolemEntity(type: EntityType<out AncientGolemEntity> = PhxEntities.
     {
         super.livingTick()
 
-        if (closing || closed && breathState in 0.0f..0.25f)
+        if (closing)
             breathState -= 0.008f
         else if (!closed)
             breathState += 0.008f
@@ -55,7 +70,7 @@ class AncientGolemEntity(type: EntityType<out AncientGolemEntity> = PhxEntities.
                 closed = false
         }
 
-        shownHand = attackTarget != null && BlockPos(this).distanceSq(BlockPos(attackTarget)) < 5.0
+        shownHand = attackTarget != null && BlockPos(this).distanceSq(BlockPos(attackTarget)) < 5.0 && !closed
     }
 
     override fun onAddedToWorld()
@@ -89,13 +104,32 @@ class AncientGolemEntity(type: EntityType<out AncientGolemEntity> = PhxEntities.
 
     override fun attackEntityFrom(source: DamageSource, amount: Float): Boolean
     {
-        closed = true
+        if (source.trueSource != null)
+            closed = true
         return super.attackEntityFrom(source, amount)
     }
 
     companion object
     {
-        protected val CLOSED = EntityDataManager.createKey(AncientGolemEntity::class.java, DataSerializers.BOOLEAN)
+        protected val CLOSED                       : DataParameter<Boolean> = EntityDataManager.createKey(AncientGolemEntity::class.java, DataSerializers.BOOLEAN)
+        protected val COVERED_ARMOR_BONUS_ID       : UUID                   = UUID.fromString("910aaa79-7db8-47ec-93ad-c03da665d22f")
+        protected val COVERED_ARMOR_BONUS_MODIFIER : AttributeModifier      = AttributeModifier(COVERED_ARMOR_BONUS_ID, "Covered armor bonus", 20.0, AttributeModifier.Operation.ADDITION).setSaved(false)
+    }
+
+    fun updateArmorModifier(int: Int)
+    {
+        if (!world.isRemote)
+        {
+            getAttribute(SharedMonsterAttributes.ARMOR).removeModifier(COVERED_ARMOR_BONUS_MODIFIER)
+            if (int == 0)
+            {
+                getAttribute(SharedMonsterAttributes.ARMOR).applyModifier(COVERED_ARMOR_BONUS_MODIFIER)
+                playSound(SoundEvents.ENTITY_SHULKER_CLOSE, 1.0f, 1.0f)
+            } else
+            {
+                playSound(SoundEvents.ENTITY_SHULKER_OPEN, 1.0f, 1.0f)
+            }
+        }
     }
 
     override fun registerAttributes()
@@ -106,6 +140,12 @@ class AncientGolemEntity(type: EntityType<out AncientGolemEntity> = PhxEntities.
         getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).baseValue = 30.0
         getAttribute(SharedMonsterAttributes.ARMOR).baseValue = 4.0
         getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).baseValue = 6.0
+    }
+
+    override fun dropInventory()
+    {
+        entityDropItem(getHeldItem(Hand.OFF_HAND))
+        super.dropInventory()
     }
 
     private inner class FireballAttackGoal : Goal()
@@ -127,7 +167,6 @@ class AncientGolemEntity(type: EntityType<out AncientGolemEntity> = PhxEntities.
 
         override fun resetTask()
         {
-            this@AncientGolemEntity.closed = true
             field_223527_d = 0
         }
 
@@ -169,7 +208,6 @@ class AncientGolemEntity(type: EntityType<out AncientGolemEntity> = PhxEntities.
                             attackStep == 1 ->
                             {
                                 attackTime = 60
-                                this@AncientGolemEntity.closed = true
                             }
                             attackStep <= 4 ->
                             {
@@ -179,7 +217,6 @@ class AncientGolemEntity(type: EntityType<out AncientGolemEntity> = PhxEntities.
                             {
                                 attackTime = 100
                                 attackStep = 0
-                                this@AncientGolemEntity.closed = true
                             }
                         }
                         if (attackStep > 1)

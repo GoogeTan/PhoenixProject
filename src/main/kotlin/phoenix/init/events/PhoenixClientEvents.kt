@@ -18,14 +18,14 @@ import phoenix.client.render.entity.*
 import phoenix.init.PhxBlocks
 import phoenix.init.PhxBlocks.blocks
 import phoenix.init.PhxContainers
+import phoenix.init.PhxEntities.ancientGolemEntity
 import phoenix.init.PhxEntities.cauda
 import phoenix.init.PhxEntities.dragonAshStage
 import phoenix.init.PhxEntities.dragonRedoStage
 import phoenix.init.PhxEntities.enderCrystal
-import phoenix.init.PhxEntities.zirconiumKnife
-import phoenix.init.PhxEntities.talpa
-import phoenix.init.PhxEntities.ancientGolemEntity
 import phoenix.init.PhxEntities.explosiveBall
+import phoenix.init.PhxEntities.talpa
+import phoenix.init.PhxEntities.zirconiumKnife
 import phoenix.init.PhxRenderTypes
 import phoenix.init.PhxTiles
 import phoenix.network.NetworkHandler

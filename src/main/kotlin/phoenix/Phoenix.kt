@@ -13,7 +13,6 @@ import net.minecraftforge.fml.config.ModConfig
 import phoenix.init.*
 import phoenix.init.PhxConfiguration.Common
 import phoenix.world.EndDimension
-import java.util.concurrent.Callable
 
 @Mod(Phoenix.MOD_ID)
 class Phoenix

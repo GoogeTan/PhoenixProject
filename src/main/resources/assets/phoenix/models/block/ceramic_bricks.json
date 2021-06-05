@@ -1,0 +1,10 @@
+{
+  "parent": "block/cube_all",
+  "ambientocclusion": false,
+  "textures": {
+    "water": "phoenix:blocks/ceramic_bricks",
+    "side": "block/barrel_side",
+    "all": "phoenix:blocks/ceramic_bricks",
+    "particle": "phoenix:blocks/ceramic_bricks"
+  }
+}

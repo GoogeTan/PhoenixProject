@@ -4,7 +4,6 @@ import net.minecraft.entity.Entity
 import net.minecraft.fluid.Fluid
 import net.minecraft.inventory.EquipmentSlotType
 import net.minecraft.item.*
-import net.minecraft.item.ItemGroup
 import net.minecraft.nbt.CompoundNBT
 import net.minecraftforge.common.capabilities.ICapabilityProvider
 import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper

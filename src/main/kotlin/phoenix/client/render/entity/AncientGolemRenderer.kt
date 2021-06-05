@@ -36,7 +36,7 @@ class AncientGolemRenderer(renderManager: EntityRendererManager) : KMobRenderer<
             headPitch: Float
         )
         {
-            if (!entity.closed)
+            if (entity.shownHand)
             {
                 super.render(matrixStackIn, bufferIn, packedLightIn, entity, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch)
             }

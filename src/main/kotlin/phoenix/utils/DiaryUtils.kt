@@ -4,7 +4,6 @@ import net.minecraft.client.gui.FontRenderer
 import phoenix.client.gui.diaryPages.elements.ADiaryElement
 import phoenix.client.gui.diaryPages.elements.TextElement
 import phoenix.utils.StringUtils.toWords
-import java.util.*
 
 object DiaryUtils
 {

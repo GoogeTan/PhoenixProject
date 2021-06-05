@@ -3,7 +3,6 @@ package phoenix.utils
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.util.text.LanguageMap
 import net.minecraft.util.text.TextFormatting
-import java.util.*
 
 
 object StringUtils

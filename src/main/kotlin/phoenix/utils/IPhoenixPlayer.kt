@@ -1,7 +1,6 @@
 package phoenix.utils
 
 import phoenix.client.gui.diaryPages.Chapters
-import java.util.*
 
 interface IPhoenixPlayer
 {

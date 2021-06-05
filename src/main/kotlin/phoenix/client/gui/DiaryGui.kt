@@ -12,7 +12,6 @@ import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement
 import phoenix.containers.DiaryContainer
 import phoenix.utils.*
 import phoenix.utils.DiaryUtils.makeParagraph
-import java.util.*
 
 private val backgoundTexture = TextureLocation(Phoenix.MOD_ID, "textures/gui/diary_2.png")
 

@@ -4,7 +4,6 @@ import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.entity.model.EntityModel
 import net.minecraft.entity.LivingEntity
 import net.minecraft.util.ResourceLocation
-import phoenix.enity.AncientGolemEntity
 import java.util.function.Function
 
 abstract class KEntityModel<T : LivingEntity> : EntityModel<T>

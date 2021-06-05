@@ -43,7 +43,6 @@ import phoenix.utils.addChapter
 import phoenix.world.GenSaveData
 import phoenix.world.StageManager
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.collections.set
 
 @Mod.EventBusSubscriber

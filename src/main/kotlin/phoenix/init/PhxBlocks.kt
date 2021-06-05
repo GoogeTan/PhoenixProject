@@ -14,16 +14,13 @@ import phoenix.blocks.UpdaterBlock
 import phoenix.blocks.ash.OvenBlock
 import phoenix.blocks.ash.PotteryBarrelBlock
 import phoenix.blocks.redo.*
-import phoenix.tile.TextTile
-import phoenix.utils.block.AnonimBlock
-import phoenix.utils.block.ICustomGroup
-import phoenix.utils.block.INonItem
-import phoenix.utils.block.INonTab
-import thedarkcolour.kotlinforforge.forge.KDeferredRegister
-import thedarkcolour.kotlinforforge.forge.MOD_BUS
 import phoenix.blocks.redo.pipe.BambooPipeBlock
 import phoenix.blocks.redo.pipe.TurnBambooPipeBlock
 import phoenix.blocks.redo.pipe.VerticalBambooPipeBlock
+import phoenix.tile.TextTile
+import phoenix.utils.block.*
+import thedarkcolour.kotlinforforge.forge.KDeferredRegister
+import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
 object PhxBlocks
 {
@@ -57,7 +54,7 @@ object PhxBlocks
     val wetStairs       : Block by blocks.register("wet_stairs")      { object : StairsBlock(wetLog::getDefaultState,     Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
     val diedWetStairs   : Block by blocks.register("died_wet_stairs") { object : StairsBlock(diedWetLog::getDefaultState, Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
     val setaJuice               by blocks.register("seta_juice")      { FluidBlock(PhxFluids::seta_juice_source) }
-    val ceramic                 by blocks.register("ceramic")         { CeramicBlock }
+    val ceramic                 by blocks.register("ceramic_bricks")  { CeramicBrickBlock }
     fun register() = blocks.register(MOD_BUS)
 }
 
@@ -65,5 +62,5 @@ object ZirconiumOreBlock : OreBlock(Properties.create(Material.ROCK).hardnessAnd
 {
     override fun getDrops(state: BlockState, builder: LootContext.Builder) = listOf(ItemStack(this))
 }
-
+object CeramicBrickBlock : Block(Properties.create(Material.ROCK).sound(SoundType.STONE)), IRedoThink
 class FluidBlock(fluidSource : () -> FlowingFluid) : FlowingFluidBlock(fluidSource, Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0f).noDrops().notSolid()), INonTab
