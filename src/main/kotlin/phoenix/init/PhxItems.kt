@@ -1,6 +1,8 @@
 package phoenix.init
 
+import net.minecraft.block.material.MaterialColor
 import net.minecraft.entity.Entity
+import net.minecraft.entity.EntityType
 import net.minecraft.fluid.Fluid
 import net.minecraft.inventory.EquipmentSlotType
 import net.minecraft.item.*

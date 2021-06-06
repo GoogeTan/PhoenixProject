@@ -16,7 +16,7 @@ import javax.annotation.Nonnull
 class CaudaRenderer(renderManager: EntityRendererManager) : MobRenderer<CaudaEntity, CaudaModel>(renderManager, CaudaModel(), 1f)
 {
     @Nonnull
-    override fun getEntityTexture(entity: CaudaEntity) = ResourceLocation(Phoenix.MOD_ID, "textures/entity/cauda/" + if (entity.isChild) "cauda_child.png" else "texture.png")
+    override fun getEntityTexture(entity: CaudaEntity) = ResourceLocation(Phoenix.MOD_ID, "textures/entity/cauda/texture_.png")
 
     override fun applyRotations(
         entity: CaudaEntity,
