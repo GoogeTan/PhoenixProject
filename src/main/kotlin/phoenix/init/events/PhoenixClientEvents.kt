@@ -15,9 +15,8 @@ import phoenix.client.render.TankRenderer
 import phoenix.client.render.dragon.AshDragonRenderer
 import phoenix.client.render.dragon.RedoDragonRenderer
 import phoenix.client.render.entity.*
-import phoenix.init.PhxBlocks
+import phoenix.init.*
 import phoenix.init.PhxBlocks.blocks
-import phoenix.init.PhxContainers
 import phoenix.init.PhxEntities.ancientGolemEntity
 import phoenix.init.PhxEntities.cauda
 import phoenix.init.PhxEntities.dragonAshStage
@@ -26,8 +25,7 @@ import phoenix.init.PhxEntities.enderCrystal
 import phoenix.init.PhxEntities.explosiveBall
 import phoenix.init.PhxEntities.talpa
 import phoenix.init.PhxEntities.zirconiumKnife
-import phoenix.init.PhxRenderTypes
-import phoenix.init.PhxTiles
+import phoenix.items.FixedSpawnEggItem
 import phoenix.network.NetworkHandler
 import phoenix.utils.StringUtils
 import phoenix.utils.block.IColoredBlock
@@ -75,6 +73,9 @@ object PhoenixClientEvents
                 if (block.getItemColor() != null) mc.itemColors.register(block.getItemColor()!!, block.get())
             }
         }
+
+        for (i in FixedSpawnEggItem.eggs)
+            mc.itemColors.register({ _, index -> i.getColor(index) }, i)
 
         val splashes = mc.splashes
         splashes.possibleSplashes.add(StringUtils.rainbowColor("God is an artist, since there are so many \n colors in the world")) //Reference to: Beautiful mind

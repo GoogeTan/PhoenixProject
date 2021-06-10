@@ -3,9 +3,7 @@ package phoenix.init.events
 import net.minecraft.block.Block
 import net.minecraft.block.FlowingFluidBlock
 import net.minecraft.block.material.MaterialColor
-import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityClassification
-import net.minecraft.entity.EntityType
 import net.minecraft.item.*
 import net.minecraft.item.crafting.Ingredient
 import net.minecraft.potion.PotionUtils
@@ -16,9 +14,7 @@ import net.minecraft.world.biome.Biome.SpawnListEntry
 import net.minecraft.world.biome.Biomes.*
 import net.minecraft.world.gen.GenerationStage
 import net.minecraft.world.gen.feature.IFeatureConfig
-import net.minecraft.world.gen.feature.jigsaw.JigsawManager
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry
-import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.event.RegistryEvent.Register
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
@@ -43,7 +39,6 @@ import phoenix.utils.addStructure
 import phoenix.utils.addZirconiumOre
 import phoenix.utils.block.ICustomGroup
 import phoenix.utils.block.INonItem
-import sun.security.krb5.internal.crypto.RsaMd5CksumType
 import thedarkcolour.kotlinforforge.forge.ObjectHolderDelegate
 
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
