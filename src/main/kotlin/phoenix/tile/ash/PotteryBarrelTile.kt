@@ -72,7 +72,7 @@ class PotteryBarrelTile : PhoenixTile(potteryBarrel), IInventory,
     fun nullifyJumpsCount()
     {
         jumpsCount = 0
-		removeStackFromSlot(0)
+        removeStackFromSlot(0)
     }
 
     private var inventory = ItemStack.EMPTY
