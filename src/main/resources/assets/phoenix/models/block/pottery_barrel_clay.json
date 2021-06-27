@@ -1,11 +1,10 @@
 {
 	"credit": "Made with Blockbench",
-	"ambientocclusion": false,
 	"textures": {
 		"particle": "block/barrel_top",
 		"top": "block/barrel_top",
 		"bottom": "phoenix:blocks/barrel_bottom",
-		"water": "block/clay",
+		"clay": "block/clay",
 		"side": "block/barrel_side"
 	},
 	"elements": [
@@ -72,18 +71,12 @@
 			}
 		},
 		{
-			"name": "water",
+			"name": "clay",
 			"from": [2, 1, 2],
-			"to": [14, 12, 15],
+			"to": [14, 10, 15],
 			"rotation": {"angle": 0, "axis": "y", "origin": [10, 9, 10]},
-			"color": 4,
 			"faces": {
-				"north":{"texture": "#water"},
-				"east": {"texture": "#water"},
-				"south":{"texture": "#water"},
-				"west": {"texture": "#water"},
-				"up":   {"texture": "#water"},
-				"down": {"texture": "#water"}
+				"up":   {"texture": "#clay"}
 			}
 		}
 	],

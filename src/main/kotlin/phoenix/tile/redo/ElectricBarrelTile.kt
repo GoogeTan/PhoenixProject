@@ -24,15 +24,15 @@ class ElectricBarrelTile : PhoenixTile(PhxTiles.electricBarrel), IInventory, ITi
         {
             if (inventory.item === Items.CLAY)
             {
-                if (world!!.getBlockState(pos).get(PotteryBarrelBlock.state) == 1)
+                if (world!!.getBlockState(pos).get(PotteryBarrelBlock.POTTERY_STATE) == 1)
                 {
-                    world!!.setBlockState(pos, world!!.getBlockState(pos).with(PotteryBarrelBlock.state, 2))
+                    world!!.setBlockState(pos, world!!.getBlockState(pos).with(PotteryBarrelBlock.POTTERY_STATE, 2))
                 }
             } else if (inventory.item === Items.WATER_BUCKET)
             {
-                if (world!!.getBlockState(pos).get(PotteryBarrelBlock.state) == 0)
+                if (world!!.getBlockState(pos).get(PotteryBarrelBlock.POTTERY_STATE) == 0)
                 {
-                    world!!.setBlockState(pos, world!!.getBlockState(pos).with(PotteryBarrelBlock.state, 1))
+                    world!!.setBlockState(pos, world!!.getBlockState(pos).with(PotteryBarrelBlock.POTTERY_STATE, 1))
                 }
             } else
             {
