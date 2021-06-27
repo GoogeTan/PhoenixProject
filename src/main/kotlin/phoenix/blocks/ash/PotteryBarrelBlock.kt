@@ -8,8 +8,6 @@ import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.fluid.Fluids
-import net.minecraft.inventory.InventoryHelper
-import net.minecraft.inventory.ItemStackHelper
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.state.IntegerProperty
@@ -17,8 +15,6 @@ import net.minecraft.state.StateContainer
 import net.minecraft.tags.FluidTags
 import net.minecraft.util.ActionResultType
 import net.minecraft.util.Hand
-import net.minecraft.util.SoundCategory
-import net.minecraft.util.SoundEvents
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.BlockRayTraceResult
 import net.minecraft.util.math.shapes.IBooleanFunction
@@ -36,12 +32,9 @@ import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.items.ItemHandlerHelper
 import phoenix.init.PhxItems
-import phoenix.tile.ash.PotteryBarrelTile
 import phoenix.utils.block.IColoredBlock
-import java.util.*
 import javax.annotation.Nonnull
 import javax.annotation.ParametersAreNonnullByDefault
-import kotlin.math.min
 
 
 class PotteryBarrelBlock : Block(Properties.create(Material.BAMBOO).hardnessAndResistance(4.0f)), IColoredBlock
@@ -58,7 +51,7 @@ class PotteryBarrelBlock : Block(Properties.create(Material.BAMBOO).hardnessAndR
     override fun onFallenUpon(worldIn: World, @Nonnull pos: BlockPos, entityIn: Entity, fallDistance: Float)
     {
         val state = worldIn.getBlockState(pos)
-        if (!worldIn.isRemote && pos.y < entityIn.posY && state.get(Companion.POTTERY_STATE) == 3 && worldIn.rand.nextDouble() < 0.05)
+        if (!worldIn.isRemote && pos.y < entityIn.posY && state.get(POTTERY_STATE) == 3 && worldIn.rand.nextDouble() < 0.05)
         {
             setState(worldIn, pos, state, 0)
             spawnAsEntity(worldIn, pos, ItemStack(PhxItems.HIGH_QUALITY_CLAY_ITEM))
@@ -71,24 +64,23 @@ class PotteryBarrelBlock : Block(Properties.create(Material.BAMBOO).hardnessAndR
     override fun onBlockActivated(state: BlockState, worldIn: World, pos: BlockPos, player: PlayerEntity, handIn: Hand, hit: BlockRayTraceResult): ActionResultType
     {
         val stack = player.getHeldItem(handIn)
-        val potteryState = state.get(Companion.POTTERY_STATE)
-        when (potteryState)
+        when (state.get(POTTERY_STATE))
         {
             0 -> // Empty
             {
                 if (insertWater(stack, player, handIn))
                 {
                     if (!worldIn.isRemote)
-                        setState(worldIn, pos, state, 1);
-                    return ActionResultType.SUCCESS;
-                } else if (stack.item == Items.CLAY)
+                        setState(worldIn, pos, state, 1)
+                    return ActionResultType.SUCCESS
+                } else if (stack.item === Items.CLAY)
                 {
                     if (!worldIn.isRemote)
                     {
                         stack.shrink(1)
-                        setState(worldIn, pos, state, 2);
+                        setState(worldIn, pos, state, 2)
                     }
-                    return ActionResultType.SUCCESS;
+                    return ActionResultType.SUCCESS
                 }
             }
             1 -> // Water
@@ -96,42 +88,42 @@ class PotteryBarrelBlock : Block(Properties.create(Material.BAMBOO).hardnessAndR
                 if (extractWater(stack, player, handIn))
                 {
                     if (!worldIn.isRemote)
-                        setState(worldIn, pos, state, 0);
-                    return ActionResultType.SUCCESS;
-                } else if (stack.item == Items.CLAY)
+                        setState(worldIn, pos, state, 0)
+                    return ActionResultType.SUCCESS
+                } else if (stack.item === Items.CLAY)
                 {
                     if (!worldIn.isRemote)
                     {
                         stack.shrink(1)
-                        setState(worldIn, pos, state, 3);
+                        setState(worldIn, pos, state, 3)
                     }
-                    return ActionResultType.SUCCESS;
+                    return ActionResultType.SUCCESS
                 }
             }
             2 -> // Clay
             {
                 if (insertWater(stack, player, handIn) && !worldIn.isRemote)
                 {
-                    setState(worldIn, pos, state, 3);
+                    setState(worldIn, pos, state, 3)
                 } else if (!worldIn.isRemote)
                 {
                     ItemHandlerHelper.giveItemToPlayer(player, ItemStack(Items.CLAY))
-                    setState(worldIn, pos, state, 0);
+                    setState(worldIn, pos, state, 0)
                 }
-                return ActionResultType.SUCCESS;
+                return ActionResultType.SUCCESS
             }
             3 -> // Water and clay
             {
                 if (extractWater(stack, player, handIn))
                 {
                     if (!worldIn.isRemote)
-                        setState(worldIn, pos, state, 2);
+                        setState(worldIn, pos, state, 2)
                 } else if (!worldIn.isRemote)
                 {
                     ItemHandlerHelper.giveItemToPlayer(player, ItemStack(Items.CLAY))
-                    setState(worldIn, pos, state, 1);
+                    setState(worldIn, pos, state, 1)
                 }
-                return ActionResultType.SUCCESS;
+                return ActionResultType.SUCCESS
             }
         }
 
@@ -150,7 +142,7 @@ class PotteryBarrelBlock : Block(Properties.create(Material.BAMBOO).hardnessAndR
                     t.drain(FluidAttributes.BUCKET_VOLUME, IFluidHandler.FluidAction.EXECUTE)
                     player.setHeldItem(hand, t.container)
                 }
-                drained = true;
+                drained = true
             }
         }
         return drained
@@ -165,15 +157,15 @@ class PotteryBarrelBlock : Block(Properties.create(Material.BAMBOO).hardnessAndR
             {
                 t.fill(FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE)
                 player.setHeldItem(hand, t.container)
-                filled = true;
+                filled = true
             }
         }
         return filled
     }
 
-    private fun setState(worldIn: World, pos: BlockPos?, state: BlockState, level: Int)
+    private fun setState(worldIn: World, pos: BlockPos, state: BlockState, level: Int)
     {
-        worldIn.setBlockState(pos, state.with(Companion.POTTERY_STATE, level))
+        worldIn.setBlockState(pos, state.with(POTTERY_STATE, level))
     }
 
     override fun hasComparatorInputOverride(state: BlockState): Boolean = true
