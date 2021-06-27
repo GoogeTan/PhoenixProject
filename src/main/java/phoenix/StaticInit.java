@@ -16,8 +16,6 @@ public class StaticInit
                 Object[] params = {PhxSounds.INSTANCE.getREDO_MUSIC(), 16000, 24000};
                 PhoenixMusicTracks.INSTANCE.setREDO_MUSIC(EnumUtil.addEnum(MusicTicker.MusicType.class, "redo_music", arr, params));
             }
-            catch (Exception e)
-            {
-            }
+            catch (Exception ignored) { }
     }
 }

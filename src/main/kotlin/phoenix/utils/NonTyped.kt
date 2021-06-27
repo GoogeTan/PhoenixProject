@@ -6,6 +6,9 @@ import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.player.ClientPlayerEntity
+import net.minecraft.client.gui.FontRenderer
+import net.minecraft.client.renderer.ItemRenderer
+import net.minecraft.client.renderer.texture.TextureManager
 import net.minecraft.client.world.ClientWorld
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
@@ -255,6 +258,15 @@ val PlayerEntity.isRemote
 
 val server : MinecraftServer?
     get() = try { mc.integratedServer } catch(e : Throwable) { serverInstance }
+
+val textureManager : TextureManager
+    get() = Minecraft.getInstance().textureManager
+
+val itemRenderer : ItemRenderer
+    get() = Minecraft.getInstance().itemRenderer
+
+val font : FontRenderer
+    get() = Minecraft.getInstance().fontRenderer
 
 fun PlayerEntity.sendMessage(text: String) = sendMessage(StringTextComponent(text))
 
