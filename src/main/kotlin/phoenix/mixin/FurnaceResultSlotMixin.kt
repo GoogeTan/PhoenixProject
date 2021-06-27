@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.Mixin
 import org.spongepowered.asm.mixin.injection.At
 import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
-import phoenix.client.gui.diaryPages.Chapters
-import phoenix.utils.IPhoenixPlayer
+import phoenix.api.entity.IPhoenixPlayer
+import phoenix.client.gui.diaryPages.Chapter
 import phoenix.utils.addChapter
 import phoenix.utils.sendMessage
 
@@ -22,8 +22,8 @@ class FurnaceResultSlotMixin
     {
         if(thePlayer is ServerPlayerEntity && thePlayer is IPhoenixPlayer && stack?.item == Items.IRON_INGOT)
         {
-            thePlayer.addChapter(Chapters.STEEL)
-            thePlayer.sendMessage("Chapters ${thePlayer.getOpenedChapters()}")
+            thePlayer.addChapter(Chapter.STEEL)
+            thePlayer.sendMessage("Chapter ${thePlayer.getOpenedChapters()}")
         }
     }
 }

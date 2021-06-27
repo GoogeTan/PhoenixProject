@@ -9,6 +9,7 @@ import net.minecraft.world.chunk.IChunk
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig
 import phoenix.init.PhxBlocks
+import phoenix.utils.get
 import java.util.*
 import java.util.function.Function
 
@@ -27,7 +28,7 @@ class HeartVoidSurfaceBuilder(function: Function<Dynamic<*>, out SurfaceBuilderC
         for (y in startHeight downTo 0)
         {
             currect_pos.setPos(currectX, y, currectZ)
-            val currectState = chunkIn.getBlockState(currect_pos)
+            val currectState = chunkIn[currect_pos]
             if (currectState.isAir)
             {
                 i = -1
@@ -39,7 +40,7 @@ class HeartVoidSurfaceBuilder(function: Function<Dynamic<*>, out SurfaceBuilderC
                 {
                     if (currectState.block === Blocks.END_STONE)
                     {
-                        chunkIn.setBlockState(currect_pos, PhxBlocks.antiAir.getDefaultState(), false)
+                        chunkIn.setBlockState(currect_pos, PhxBlocks.antiAir.defaultState, false)
                     }
                 } else if (i == -1)
                 {
@@ -61,7 +62,7 @@ class HeartVoidSurfaceBuilder(function: Function<Dynamic<*>, out SurfaceBuilderC
 
     companion object
     {
-        fun isAir(chunk: IChunk, pos: BlockPos) = isAir(chunk.getBlockState(pos))
+        fun isAir(chunk: IChunk, pos: BlockPos) = isAir(chunk[pos])
         fun isAir(state: BlockState) = state.isAir && state.block !== PhxBlocks.antiAir
     }
 }

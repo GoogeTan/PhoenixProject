@@ -32,7 +32,10 @@ import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.items.ItemHandlerHelper
 import phoenix.init.PhxItems
-import phoenix.utils.block.IColoredBlock
+import phoenix.api.block.IColoredBlock
+import phoenix.tile.ash.PotteryBarrelTile
+import phoenix.utils.block.BlockWithTile
+import phoenix.utils.get
 import javax.annotation.Nonnull
 import javax.annotation.ParametersAreNonnullByDefault
 
@@ -50,7 +53,7 @@ class PotteryBarrelBlock : Block(Properties.create(Material.BAMBOO).hardnessAndR
 
     override fun onFallenUpon(worldIn: World, @Nonnull pos: BlockPos, entityIn: Entity, fallDistance: Float)
     {
-        val state = worldIn.getBlockState(pos)
+        val state = worldIn[pos]
         if (!worldIn.isRemote && pos.y < entityIn.posY && state.get(POTTERY_STATE) == 3 && worldIn.rand.nextDouble() < 0.05)
         {
             setState(worldIn, pos, state, 0)
@@ -183,7 +186,7 @@ class PotteryBarrelBlock : Block(Properties.create(Material.BAMBOO).hardnessAndR
 
     companion object
     {
-        val SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), VoxelShapes.or(makeCuboidShape(0.0, 0.0, 4.0, 16.0, 3.0, 12.0), makeCuboidShape(4.0, 0.0, 0.0, 12.0, 3.0, 16.0), makeCuboidShape(2.0, 0.0, 2.0, 14.0, 3.0, 14.0), makeCuboidShape(2.0, 4.0, 2.0, 14.0, 16.0, 14.0)), IBooleanFunction.ONLY_FIRST)
+        val SHAPE: VoxelShape = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), VoxelShapes.or(makeCuboidShape(0.0, 0.0, 4.0, 16.0, 3.0, 12.0), makeCuboidShape(4.0, 0.0, 0.0, 12.0, 3.0, 16.0), makeCuboidShape(2.0, 0.0, 2.0, 14.0, 3.0, 14.0), makeCuboidShape(2.0, 4.0, 2.0, 14.0, 16.0, 14.0)), IBooleanFunction.ONLY_FIRST)
         val POTTERY_STATE: IntegerProperty = IntegerProperty.create("pottery_state", 0, 3)
     }
 

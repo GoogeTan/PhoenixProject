@@ -32,6 +32,7 @@ import net.minecraft.world.server.TicketType
 import org.apache.logging.log4j.LogManager
 import phoenix.enity.EnderCrystalEntity
 import phoenix.enity.boss.AbstractEnderDragonEntity
+import phoenix.utils.get
 import java.util.*
 
 class CustomDragonFightManager(var world: ServerWorld, compound: CompoundNBT, dim: EndDimension)
@@ -361,7 +362,7 @@ class CustomDragonFightManager(var world: ServerWorld, compound: CompoundNBT, di
         {
             exitPortalLocation =
                 world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EndPodiumFeature.END_PODIUM_LOCATION).down()
-            while (world.getBlockState(exitPortalLocation).block === Blocks.BEDROCK && exitPortalLocation!!.y > world.seaLevel)
+            while (world[exitPortalLocation!!].block === Blocks.BEDROCK && exitPortalLocation!!.y > world.seaLevel)
             {
                 exitPortalLocation = exitPortalLocation!!.down()
             }

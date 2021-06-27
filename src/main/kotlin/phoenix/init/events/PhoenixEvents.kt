@@ -28,18 +28,17 @@ import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.common.Mod
-import phoenix.client.gui.diaryPages.Chapters
+import phoenix.api.entity.IPhoenixPlayer
 import phoenix.init.PhxBlocks
 import phoenix.init.PhxItems
 import phoenix.network.NetworkHandler
 import phoenix.network.NetworkHandler.sendTo
 import phoenix.network.SyncBookPacket
 import phoenix.network.SyncStagePacket
-import phoenix.utils.IPhoenixPlayer
 import phoenix.utils.LogManager.error
 import phoenix.utils.LogManager.log
-import phoenix.utils.MTuple
-import phoenix.utils.addChapter
+import phoenix.utils.MutableTuple
+import phoenix.utils.isServer
 import phoenix.world.GenSaveData
 import phoenix.world.StageManager
 import java.util.*
@@ -125,7 +124,7 @@ object PhoenixEvents
         }
     }
 
-    private var tasks = ArrayList<MTuple<Int, Int, Runnable>>()
+    private var tasks = ArrayList<MutableTuple<Int, Int, Runnable>>()
 
     @SubscribeEvent
     fun deferredTasks(event: WorldTickEvent)
@@ -153,7 +152,7 @@ object PhoenixEvents
 
     fun addTask(time: Int, r: Runnable)
     {
-        tasks.add(MTuple(0, time, r))
+        tasks.add(MutableTuple(0, time, r))
     }
 
     @SubscribeEvent
@@ -170,23 +169,21 @@ object PhoenixEvents
         }
     }
 
-    var time = 0
+    var time = 0L
 
     @SubscribeEvent
     fun playerTick(event: TickEvent.PlayerTickEvent)
     {
-        if(!event.player.world.isRemote && time % 20 == 0 && event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END)
+        if (event.player.isServer)
+            time++;
+        if(!event.player.world.isRemote && time % 20L == 0L && event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END)
         {
             val player = event.player as ServerPlayerEntity
             if(player is IPhoenixPlayer)
             {
-                time++
-                for (i in player.inventory.mainInventory)
+                for (item in player.inventory.mainInventory)
                 {
-                    if (i.item === Items.IRON_INGOT)
-                    {
-                        player.addChapter(Chapters.STEEL)
-                    }
+                    player.testItem(item)
                 }
             }
         }

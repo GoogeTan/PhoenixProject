@@ -9,9 +9,11 @@ import net.minecraft.tileentity.TileEntity
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.storage.loot.LootContext
 import phoenix.Phoenix
+import phoenix.api.block.ICustomGroup
 import phoenix.utils.SizedArrayList
 
-class AnonimBlock(properties: Properties, val tile : () -> TileEntity? = {null}, val itemGroup : ItemGroup = Phoenix.ASH) : Block(properties), ICustomGroup
+class AnonimBlock(properties: Properties, val tile : () -> TileEntity? = {null}, val itemGroup : ItemGroup = Phoenix.ASH) : Block(properties),
+    ICustomGroup
 {
     override fun hasTileEntity(state: BlockState): Boolean = tile.invoke() != null
 

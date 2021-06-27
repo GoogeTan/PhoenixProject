@@ -12,8 +12,8 @@ import net.minecraft.util.math.shapes.ISelectionContext
 import net.minecraft.util.math.shapes.VoxelShape
 import net.minecraft.world.IBlockReader
 import phoenix.Phoenix
+import phoenix.api.block.ICustomGroup
 import phoenix.tile.redo.pipe.TurnBambooPipeTile
-import phoenix.utils.block.ICustomGroup
 
 object TurnBambooPipeBlock : RotatedPillarBlock(Properties.create(Material.WOOD).notSolid().hardnessAndResistance(1.0f)),
     ICustomGroup

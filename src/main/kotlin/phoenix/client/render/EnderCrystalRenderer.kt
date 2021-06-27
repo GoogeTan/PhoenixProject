@@ -21,44 +21,43 @@ import kotlin.math.sin
 @OnlyIn(Dist.CLIENT)
 class EnderCrystalRenderer(renderManager: EntityRendererManager) : EntityRenderer<EnderCrystalEntity>(renderManager)
 {
-    private val field_229048_g_: ModelRenderer
-    private val field_229049_h_: ModelRenderer
-    private val field_229050_i_: ModelRenderer
+    private val cube2: ModelRenderer
+    private val cube1: ModelRenderer
+    private val base : ModelRenderer
 
     override fun render(
         entity: EnderCrystalEntity,
-        p_225623_2_: Float,
-        p_225623_3_: Float,
+        entityYaw: Float,
+        partialTicks: Float,
         matrix: MatrixStack,
-        p_225623_5_: IRenderTypeBuffer,
-        p_225623_6_: Int
+        bufferIn: IRenderTypeBuffer,
+        packedLightIn: Int
     )
     {
         matrix.push()
-        val lvt_7_1_ = func_229051_a_(entity, p_225623_3_)
-        val lvt_8_1_ = (entity.innerRotation.toFloat() + p_225623_3_) * 3.0f
-        val lvt_9_1_ = p_225623_5_.getBuffer(rendertype)
+        val lvt_7_1_ = func_229051_a_(entity, partialTicks)
+        val rotation = (entity.innerRotation.toFloat() + partialTicks) * 3.0f
+        val builder = bufferIn.getBuffer(rendertype)
         matrix.push()
         matrix.scale(2.0f, 2.0f, 2.0f)
         matrix.translate(0.0, -0.5, 0.0)
-        val lvt_10_1_ = OverlayTexture.NO_OVERLAY
+        val noOverlay = OverlayTexture.NO_OVERLAY
         if (entity.shouldShowBottom())
         {
-            field_229050_i_.render(matrix, lvt_9_1_, p_225623_6_, lvt_10_1_)
+            base.render(matrix, builder, packedLightIn, noOverlay)
         }
-        matrix.rotate(Vector3f.YP.rotationDegrees(lvt_8_1_))
+        matrix.rotate(Vector3f.YP.rotationDegrees(rotation))
         matrix.translate(0.0, (1.5f + lvt_7_1_ / 2.0f).toDouble(), 0.0)
         matrix.rotate(Quaternion(Vector3f(field_229047_f_, 0.0f, field_229047_f_), 60.0f, true))
-        field_229049_h_.render(matrix, lvt_9_1_, p_225623_6_, lvt_10_1_)
-        val lvt_11_1_ = 0.875f
+        cube1.render(matrix, builder, packedLightIn, noOverlay)
         matrix.scale(0.875f, 0.875f, 0.875f)
         matrix.rotate(Quaternion(Vector3f(field_229047_f_, 0.0f, field_229047_f_), 60.0f, true))
-        matrix.rotate(Vector3f.YP.rotationDegrees(lvt_8_1_))
-        field_229049_h_.render(matrix, lvt_9_1_, p_225623_6_, lvt_10_1_)
+        matrix.rotate(Vector3f.YP.rotationDegrees(rotation))
+        cube1.render(matrix, builder, packedLightIn, noOverlay)
         matrix.scale(0.875f, 0.875f, 0.875f)
         matrix.rotate(Quaternion(Vector3f(field_229047_f_, 0.0f, field_229047_f_), 60.0f, true))
-        matrix.rotate(Vector3f.YP.rotationDegrees(lvt_8_1_))
-        field_229048_g_.render(matrix, lvt_9_1_, p_225623_6_, lvt_10_1_)
+        matrix.rotate(Vector3f.YP.rotationDegrees(rotation))
+        cube2.render(matrix, builder, packedLightIn, noOverlay)
         matrix.pop()
         matrix.pop()
         val target = entity.getBeamTarget()
@@ -71,15 +70,12 @@ class EnderCrystalRenderer(renderManager: EntityRendererManager) : EntityRendere
             val deltaY = (y.toDouble() - entity.posY).toFloat()
             val deltaZ = (z.toDouble() - entity.posZ).toFloat()
             matrix.translate(deltaX.toDouble(), deltaY.toDouble(), deltaZ.toDouble())
-            EnderDragonRenderer.func_229059_a_(-deltaX, -deltaY + lvt_7_1_, -deltaZ, p_225623_3_, entity.innerRotation, matrix, p_225623_5_, p_225623_6_)
+            EnderDragonRenderer.func_229059_a_(-deltaX, -deltaY + lvt_7_1_, -deltaZ, partialTicks, entity.innerRotation, matrix, bufferIn, packedLightIn)
         }
-        super.render(entity, p_225623_2_, p_225623_3_, matrix, p_225623_5_, p_225623_6_)
+        super.render(entity, entityYaw, partialTicks, matrix, bufferIn, packedLightIn)
     }
 
-    override fun getEntityTexture(entity: EnderCrystalEntity): ResourceLocation
-    {
-        return ENDER_CRYSTAL_TEXTURES
-    }
+    override fun getEntityTexture(entity: EnderCrystalEntity): ResourceLocation = ENDER_CRYSTAL_TEXTURES
 
     override fun shouldRender(
         entity: EnderCrystalEntity,
@@ -96,11 +92,11 @@ class EnderCrystalRenderer(renderManager: EntityRendererManager) : EntityRendere
     {
         private val ENDER_CRYSTAL_TEXTURES = ResourceLocation("textures/entity/end_crystal/end_crystal.png")
         private var rendertype: RenderType? = RenderType.getEntityCutoutNoCull(ENDER_CRYSTAL_TEXTURES)
-        private var field_229047_f_ = sin(0.7853981633974483).toFloat()
+        private val field_229047_f_ = sin(0.7853981633974483).toFloat()
 
-        fun func_229051_a_(entity: EnderCrystalEntity, tickts: Float): Float
+        fun func_229051_a_(entity: EnderCrystalEntity, ticks: Float): Float
         {
-            val rotation = entity.innerRotation.toFloat() + tickts
+            val rotation = entity.innerRotation.toFloat() + ticks
             var i = MathHelper.sin(rotation * 0.2f) / 2.0f + 0.5f
             i = (i * i + i) * 0.4f
             return i - 1.4f
@@ -110,11 +106,11 @@ class EnderCrystalRenderer(renderManager: EntityRendererManager) : EntityRendere
     init
     {
         shadowSize = 0.5f
-        field_229049_h_ = ModelRenderer(64, 32, 0, 0)
-        field_229049_h_.addBox(-4.0f, -4.0f, -4.0f, 8.0f, 8.0f, 8.0f)
-        field_229048_g_ = ModelRenderer(64, 32, 32, 0)
-        field_229048_g_.addBox(-4.0f, -4.0f, -4.0f, 8.0f, 8.0f, 8.0f)
-        field_229050_i_ = ModelRenderer(64, 32, 0, 16)
-        field_229050_i_.addBox(-6.0f, 0.0f, -6.0f, 12.0f, 4.0f, 12.0f)
+        cube1 = ModelRenderer(64, 32, 0, 0)
+        cube1.addBox(-4.0f, -4.0f, -4.0f, 8.0f, 8.0f, 8.0f)
+        cube2 = ModelRenderer(64, 32, 32, 0)
+        cube2.addBox(-4.0f, -4.0f, -4.0f, 8.0f, 8.0f, 8.0f)
+        base = ModelRenderer(64, 32, 0, 16)
+        base.addBox(-6.0f, 0.0f, -6.0f, 12.0f, 4.0f, 12.0f)
     }
 }

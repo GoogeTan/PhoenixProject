@@ -12,8 +12,8 @@ import net.minecraft.util.math.shapes.VoxelShapes
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.storage.loot.LootContext
 import net.minecraftforge.common.ToolType
+import phoenix.api.block.IRedoThink
 import phoenix.init.PhxBlocks
-import phoenix.utils.block.IRedoThink
 
 object ArmoredGlassBlock : AbstractGlassBlock(
     Properties.create(Material.GLASS).doesNotBlockMovement().hardnessAndResistance(20.0f).harvestLevel(3).harvestTool(

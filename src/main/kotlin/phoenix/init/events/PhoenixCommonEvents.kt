@@ -22,6 +22,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
 import phoenix.Phoenix.Companion.ASH
+import phoenix.api.block.ICustomGroup
+import phoenix.api.block.INonItem
 import phoenix.init.PhxBiomes.HEARTVOID
 import phoenix.init.PhxBiomes.UNDER
 import phoenix.init.PhxBlocks.blocks
@@ -35,10 +37,9 @@ import phoenix.init.PhxPotions.LONG_LEVITATION
 import phoenix.init.PhxRecipes
 import phoenix.items.FixedSpawnEggItem
 import phoenix.network.NetworkHandler
+import phoenix.utils.ServerStageUppedEvent
 import phoenix.utils.addStructure
 import phoenix.utils.addZirconiumOre
-import phoenix.utils.block.ICustomGroup
-import phoenix.utils.block.INonItem
 import thedarkcolour.kotlinforforge.forge.ObjectHolderDelegate
 
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
@@ -105,5 +106,10 @@ object PhoenixCommonEvents
             golemSpawnEntity.registryName = ResourceLocation(Phoenix.MOD_ID, "ancient_golem_spawn_egg")
             ForgeRegistries.ITEMS.registerAll(caudaEgg, golemSpawnEntity)
         }
+    }
+
+    @SubscribeEvent
+    fun onStageUppded(event : ServerStageUppedEvent)
+    {
     }
 }

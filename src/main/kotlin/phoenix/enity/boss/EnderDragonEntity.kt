@@ -32,6 +32,7 @@ import org.apache.logging.log4j.LogManager
 import phoenix.enity.EnderCrystalEntity
 import phoenix.enity.boss.phase.AbstractPhaseManager
 import phoenix.enity.boss.phase.PhaseType
+import phoenix.utils.get
 import phoenix.world.CustomDragonFightManager
 import phoenix.world.EndDimension
 import phoenix.world.StageManager
@@ -490,7 +491,7 @@ abstract class AbstractEnderDragonEntity(type: EntityType<out AbstractEnderDrago
                 for (i2 in k..j1)
                 {
                     val blockpos = BlockPos(k1, l1, i2)
-                    val blockstate = world.getBlockState(blockpos)
+                    val blockstate = world[blockpos]
                     val block = blockstate.block
                     if (!blockstate.isAir(world, blockpos) && blockstate.material != Material.FIRE)
                     {

@@ -9,8 +9,8 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.registries.ForgeRegistryEntry
 import phoenix.utils.getFloat
 import phoenix.utils.getInt
+import phoenix.utils.getItemStack
 import phoenix.utils.getString
-import phoenix.utils.readItemStack
 
 class TankRecipeSerializer : IRecipeSerializer<TankRecipe>, ForgeRegistryEntry<IRecipeSerializer<*>>()
 {
@@ -19,8 +19,8 @@ class TankRecipeSerializer : IRecipeSerializer<TankRecipe>, ForgeRegistryEntry<I
         val group = json.getString("group", "")
         if (!json.has("input")) throw JsonSyntaxException("Missing result, expected to find a string or object")
         if (!json.has("result")) throw JsonSyntaxException("Missing result, expected to find a string or object")
-        val input:  ItemStack = json.readItemStack("input")
-        val result: ItemStack = json.readItemStack("result")
+        val input:  ItemStack = json.getItemStack("input")
+        val result: ItemStack = json.getItemStack("result")
         val exp = json.getFloat("experience", 0.0f)
         val cookingTime = json.getInt("cookingtime")
         return TankRecipe(id, group, input, result, exp, cookingTime)

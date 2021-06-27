@@ -46,9 +46,9 @@ object ArrayUtils
         return res
     }
 
-    private fun getIndex(size: Int, index: Int): Int
+    private fun getIndex(size: Int, indexIn: Int): Int
     {
-        var index = index
+        var index = indexIn
         if (size == 0) return 0
         while (index < 0) index += size
         return if (index >= size) size - 1 else index

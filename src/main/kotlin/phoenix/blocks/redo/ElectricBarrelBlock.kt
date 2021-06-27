@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
 import phoenix.tile.ash.PotteryBarrelTile
+import phoenix.utils.get
 import phoenix.utils.getTileAt
 
 class ElectricBarrelBlock : ContainerBlock(Properties.create(Material.BAMBOO).hardnessAndResistance(5.0f))
@@ -36,7 +37,7 @@ class ElectricBarrelBlock : ContainerBlock(Properties.create(Material.BAMBOO).ha
         isMoving: Boolean
     )
     {
-        if (!worldIn.isRemote && worldIn.getStrongPower(fromPos) > 0 && worldIn.getBlockState(pos)[STATE] == 2)
+        if (!worldIn.isRemote && worldIn.getStrongPower(fromPos) > 0 && worldIn[pos, STATE] == 2)
         {
             worldIn.getTileAt<PotteryBarrelTile>(pos)?.incrementJumpsCount()
         }

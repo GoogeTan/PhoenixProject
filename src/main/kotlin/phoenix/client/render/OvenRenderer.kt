@@ -2,7 +2,6 @@ package phoenix.client.render
 
 import com.mojang.blaze3d.matrix.MatrixStack
 import net.minecraft.block.AbstractFurnaceBlock
-import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.IRenderTypeBuffer
 import net.minecraft.client.renderer.Quaternion
 import net.minecraft.client.renderer.Vector3f
@@ -18,6 +17,7 @@ import net.minecraft.util.Direction
 import net.minecraft.util.NonNullList
 import phoenix.init.PhxItems
 import phoenix.tile.ash.OvenTile
+import phoenix.utils.itemRenderer
 
 class OvenRenderer(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEntityRenderer<OvenTile>(rendererDispatcherIn), IContainerListener
 {
@@ -36,7 +36,7 @@ class OvenRenderer(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEnt
                 val dirAngle = -direction1.horizontalAngle
                 matrixStackIn.rotate(Vector3f.YP.rotationDegrees(dirAngle))
                 matrixStackIn.translate(-0.15, -0.3125, 0.15)
-                if (stack.item.containerItem == PhxItems.CRUCIBLE)
+                if (stack.getItem().containerItem == PhxItems.CRUCIBLE)
                 {
                     matrixStackIn.scale(0.7f, 0.7f, 0.7f)
                 }
@@ -46,7 +46,7 @@ class OvenRenderer(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEnt
                     matrixStackIn.scale(0.3f, 0.3f, 0.3f)
                     matrixStackIn.rotate(Quaternion(90f, 0f, 90f, true))
                 }
-                Minecraft.getInstance().getItemRenderer().renderItem(
+                itemRenderer.renderItem(
                     stack,
                     ItemCameraTransforms.TransformType.FIXED,
                     combinedLightIn,
@@ -66,7 +66,7 @@ class OvenRenderer(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEnt
     override fun sendAllContents(containerToSend: Container, itemsList: NonNullList<ItemStack>)
     {
         for(i in itemsList.indices)
-         sendSlotContents(containerToSend, i, containerToSend.getSlot(i).stack)
+            sendSlotContents(containerToSend, i, containerToSend.getSlot(i).stack)
     }
 
     /**

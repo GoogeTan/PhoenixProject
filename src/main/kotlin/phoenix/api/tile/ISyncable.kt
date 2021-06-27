@@ -1,4 +1,4 @@
-package phoenix.tile
+package phoenix.api.tile
 
 interface ISyncable
 {

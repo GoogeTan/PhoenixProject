@@ -8,10 +8,10 @@ import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fluids.capability.templates.FluidTank
 import phoenix.tile.redo.JuicerTile
 import phoenix.tile.redo.TankTile
-import phoenix.utils.SerializeUtils.readTank
-import phoenix.utils.SerializeUtils.writeTank
 import phoenix.utils.getTileAt
 import phoenix.utils.mc
+import phoenix.utils.readFluidTank
+import phoenix.utils.writeFluidTank
 
 class SyncTankPacket(var pos : BlockPos, var tank : FluidTank, var stack : ItemStack) : NetworkHandler.Packet()
 {
@@ -25,7 +25,7 @@ class SyncTankPacket(var pos : BlockPos, var tank : FluidTank, var stack : ItemS
             pos = packet.pos
             tank = packet.tank
             buf.writeBlockPos(pos)
-            buf.writeTank(tank)
+            buf.writeFluidTank(tank)
             buf.writeItemStack(stack)
         }
     }
@@ -33,7 +33,7 @@ class SyncTankPacket(var pos : BlockPos, var tank : FluidTank, var stack : ItemS
     override fun decode(buf: PacketBuffer): NetworkHandler.Packet
     {
         pos = buf.readBlockPos()
-        tank = buf.readTank()
+        tank = buf.readFluidTank()
         stack = buf.readItemStack()
         return SyncTankPacket(pos, tank, stack)
     }

@@ -20,10 +20,10 @@ import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.fluids.FluidActionResult
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
+import phoenix.api.block.IRedoThink
 import phoenix.tile.FluidTileSidable
 import phoenix.tile.redo.TankTile
 import phoenix.utils.block.BlockWithTile
-import phoenix.utils.block.IRedoThink
 import phoenix.utils.interactWithFluidHandler
 
 object TankBlock : BlockWithTile(Properties.create(Material.GLASS).notSolid().hardnessAndResistance(3.0f)), IRedoThink

@@ -9,6 +9,7 @@ import net.minecraft.world.chunk.IChunk
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig
 import phoenix.init.PhxBlocks
+import phoenix.utils.get
 import java.util.*
 import java.util.function.Function
 
@@ -27,7 +28,7 @@ class WetHeartVoidSurfaceBuilder(function: Function<Dynamic<*>, out SurfaceBuild
         for (y in startHeight downTo 0)
         {
             currentPos.setPos(currectX, y, currectZ)
-            val currectState = chunkIn.getBlockState(currentPos)
+            val currectState = chunkIn[currentPos]
             if (currectState.isAir)
             {
                 i = -1
@@ -59,6 +60,6 @@ class WetHeartVoidSurfaceBuilder(function: Function<Dynamic<*>, out SurfaceBuild
         }
     }
 
-    inline fun isAir(chunk: IChunk, pos: BlockPos) = isAir(chunk.getBlockState(pos))
+    inline fun isAir(chunk: IChunk, pos: BlockPos) = isAir(chunk[pos])
     inline fun isAir(state: BlockState) = state.isAir && state.block !== PhxBlocks.antiAir && state.block !== Blocks.WATER
 }

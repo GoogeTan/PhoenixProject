@@ -5,13 +5,17 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.util.text.ITextComponent
 import phoenix.Phoenix
-import phoenix.client.gui.diaryPages.Chapters
+import phoenix.api.entity.IPhoenixPlayer
+import phoenix.client.gui.diaryPages.Chapter
 import phoenix.client.gui.diaryPages.DiaryBook
 import phoenix.client.gui.diaryPages.elements.ADiaryElement
 import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement
 import phoenix.containers.DiaryContainer
-import phoenix.utils.*
 import phoenix.utils.DiaryUtils.makeParagraph
+import phoenix.utils.RenderUtils
+import phoenix.utils.TextureLocation
+import phoenix.utils.clientPlayer
+import phoenix.utils.mc
 
 private val backgoundTexture = TextureLocation(Phoenix.MOD_ID, "textures/gui/diary_2.png")
 
@@ -35,7 +39,7 @@ class DiaryGui(val container: DiaryContainer, inv: PlayerInventory, titleIn: ITe
 
            for ((id, date) in chapters)
            {
-               els.addAll(makeParagraph(font, xSize / 2 - 5, Chapters.values()[id].getText()))
+               els.addAll(makeParagraph(font, xSize / 2 - 5, Chapter.values()[id].getText()))
                els.add(RightAlignedTextElement(date.toString()))
            }
            book.add(els)
@@ -56,7 +60,7 @@ class DiaryGui(val container: DiaryContainer, inv: PlayerInventory, titleIn: ITe
 
             for ((id, date) in chapters)
             {
-                els.addAll(makeParagraph(font, xSize / 2 - 5, Chapters.values()[id].getText()))
+                els.addAll(makeParagraph(font, xSize / 2 - 5, Chapter.values()[id].getText()))
                 els.add(RightAlignedTextElement(date.toString()))
             }
             book.add(els)

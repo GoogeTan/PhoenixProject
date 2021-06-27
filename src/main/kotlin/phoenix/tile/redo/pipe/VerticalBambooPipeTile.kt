@@ -4,10 +4,10 @@ import net.minecraft.state.properties.BlockStateProperties
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.Direction
+import phoenix.api.block.IFluidPipe
 import phoenix.init.PhxTiles
 import phoenix.tile.FluidTileSidable
-import phoenix.utils.MPair
-import phoenix.utils.block.IFluidPipe
+import phoenix.utils.MutablePair
 import phoenix.utils.uniquePairOf
 
 open class VerticalBambooPipeTile
@@ -21,5 +21,5 @@ open class VerticalBambooPipeTile
         get() = false
         set(value) { field = false }
 
-    override fun getDirections(): MPair<Direction?, Direction?> = uniquePairOf(blockState[facing], Direction.DOWN)
+    override fun getDirections(): MutablePair<Direction?, Direction?> = uniquePairOf(blockState[facing], Direction.DOWN)
 }

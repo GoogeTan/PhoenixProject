@@ -17,6 +17,7 @@ import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.fml.network.NetworkHooks
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.init.PhxEntities
+import phoenix.utils.get
 import phoenix.world.EndDimension
 import java.util.*
 
@@ -53,7 +54,7 @@ class EnderCrystalEntity(type: EntityType<out EnderCrystalEntity>, world: World)
         if (!world.isRemote)
         {
             val blockpos = BlockPos(this)
-            if (world.dimension is EndDimension && world.getBlockState(blockpos).isAir)
+            if (world.dimension is EndDimension && world[blockpos].isAir)
             {
                 world.setBlockState(blockpos, Blocks.FIRE.defaultState)
             }

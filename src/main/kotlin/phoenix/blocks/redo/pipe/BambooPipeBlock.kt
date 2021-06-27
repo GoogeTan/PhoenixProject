@@ -15,8 +15,8 @@ import net.minecraft.util.math.shapes.ISelectionContext
 import net.minecraft.util.math.shapes.VoxelShape
 import net.minecraft.world.IBlockReader
 import phoenix.Phoenix.Companion.REDO
+import phoenix.api.block.ICustomGroup
 import phoenix.tile.redo.pipe.BambooPipeTile
-import phoenix.utils.block.ICustomGroup
 
 object BambooPipeBlock : Block(Properties.create(Material.WOOD).notSolid().hardnessAndResistance(1.0f)), ICustomGroup
 {

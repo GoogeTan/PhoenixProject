@@ -19,6 +19,8 @@ import phoenix.network.SyncOvenPacket
 import phoenix.recipes.OvenRecipe.Companion.recipesFromInputs
 import phoenix.utils.BlockPosUtils.minus
 import phoenix.utils.block.PhoenixTile
+import phoenix.utils.get
+import phoenix.utils.set
 import java.lang.Integer.max
 import java.lang.Integer.min
 
@@ -83,14 +85,15 @@ class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory
 
     override fun tick()
     {
-        if(!world!!.isRemote && world != null)
+        val world = world!!
+        if(!world.isRemote)
         {
             if(burnTime > 0)
             {
                 burnTime--
                 burnTime = min(maxBurnTime, burnTime)
                 burnTime = max(0, burnTime)
-                if(world!!.getBlockState(pos)[OvenBlock.STATE] == 2)
+                if(world[pos, OvenBlock.STATE] == 2)
                 {
                     var has = false
                     for (i in 0..3)
@@ -110,10 +113,10 @@ class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory
                         }
                     }
                     if (has)
-                        NetworkHandler.sendToDim(SyncOvenPacket(this), world!!.dimension.type)
+                        NetworkHandler.sendToDim(SyncOvenPacket(this), world.dimension.type)
                 }
                 if (burnTime == 0)
-                    world!!.setBlockState(pos, world!!.getBlockState(pos).with(OvenBlock.STATE, 0))
+                    world[pos, OvenBlock.STATE] = 0
             }
         }
     }

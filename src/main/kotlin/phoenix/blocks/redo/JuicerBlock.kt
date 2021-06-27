@@ -15,10 +15,10 @@ import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.fluids.FluidActionResult
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
+import phoenix.api.block.IRedoThink
 import phoenix.tile.FluidTileSidable
 import phoenix.tile.redo.JuicerTile
 import phoenix.utils.block.BlockWithTile
-import phoenix.utils.block.IRedoThink
 import phoenix.utils.interactWithFluidHandler
 
 object JuicerBlock : BlockWithTile(
@@ -54,8 +54,7 @@ object JuicerBlock : BlockWithTile(
             val tile = worldIn.getTileEntity(pos)
             if (tile is FluidTileSidable)
             {
-                val tank: FluidTileSidable = tile
-                val holder: LazyOptional<IFluidHandler> = tank.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)
+                val holder: LazyOptional<IFluidHandler> = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)
                 if (holder.isPresent)
                 {
                     val forgeResult: FluidActionResult = interactWithFluidHandler(current, holder.orElse(null), playerIn)

@@ -13,9 +13,8 @@ import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.fluids.capability.templates.FluidTank
+import phoenix.api.tile.ISyncable
 import phoenix.utils.*
-import phoenix.utils.SerializeUtils.readTank
-import phoenix.utils.SerializeUtils.writeTank
 import phoenix.utils.block.PhoenixTile
 
 abstract class FluidTileSidable
@@ -43,8 +42,7 @@ abstract class FluidTileSidable
                     val handler = tile.getFluid(input.opposite)
                     if (handler.isPresent)
                     {
-                        val fluid =
-                            handler.orElseThrow { NullPointerException("Present fluid tank in not present! It sound like bread, but it is reality.") }
+                        val fluid = handler.orElseThrow { NullPointerException("Present fluid tank in not present! It sound like bread, but it is reality.") }
                         needSync = needSync or fill(tile, fluid, input.opposite)
                     }
                 }
@@ -57,13 +55,12 @@ abstract class FluidTileSidable
                     val handler = tile.getFluid(output.opposite)
                     if (handler.isPresent)
                     {
-                        val fluid =
-                            handler.orElseThrow { NullPointerException("Present fluid tank in not present! It sound like bread, but it is reality.") }
+                        val fluid = handler.orElseThrow { NullPointerException("Present fluid tank in not present! It sound like bread, but it is reality.") }
                         needSync = needSync or extract(tile, fluid, output.opposite)
                     }
                 }
             }
-            if (needSync)
+            if (needSync || true)
             {
                 sync()
                 needSync = false
@@ -72,7 +69,7 @@ abstract class FluidTileSidable
     }
 
     // first - input, second - output
-    open fun getDirections(): MPair<Direction?, Direction?> = uniquePairOf(blockState[facing], blockState[facing].opposite)
+    open fun getDirections(): MutablePair<Direction?, Direction?> = uniquePairOf(blockState[facing], blockState[facing].opposite)
 
     open fun extract(tile: TileEntity, fluid: IFluidHandler, side : Direction): Boolean
     {
@@ -126,14 +123,14 @@ abstract class FluidTileSidable
         override fun readPacketData(buffer: PacketBuffer)
         {
             super.readPacketData(buffer)
-            fluidTank = buffer.readTank()
+            fluidTank = buffer.readFluidTank()
             capacity = buffer.readInt()
         }
 
         override fun writePacketData(buffer: PacketBuffer)
         {
             super.writePacketData(buffer)
-            buffer.writeTank(fluidTank)
+            buffer.writeFluidTank(fluidTank)
             buffer.writeInt(capacity)
         }
     }

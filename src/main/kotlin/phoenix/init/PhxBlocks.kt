@@ -10,6 +10,10 @@ import net.minecraft.world.storage.loot.LootContext
 import net.minecraftforge.common.ToolType
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
+import phoenix.api.block.ICustomGroup
+import phoenix.api.block.INonItem
+import phoenix.api.block.INonTab
+import phoenix.api.block.IRedoThink
 import phoenix.blocks.UpdaterBlock
 import phoenix.blocks.ash.OvenBlock
 import phoenix.blocks.ash.PotteryBarrelBlock
@@ -18,7 +22,7 @@ import phoenix.blocks.redo.pipe.BambooPipeBlock
 import phoenix.blocks.redo.pipe.TurnBambooPipeBlock
 import phoenix.blocks.redo.pipe.VerticalBambooPipeBlock
 import phoenix.tile.TextTile
-import phoenix.utils.block.*
+import phoenix.utils.block.AnonimBlock
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
@@ -34,7 +38,9 @@ object PhxBlocks
     val juicer             by blocks.register("juicer")      { JuicerBlock     }
 
     val fertileEndStone    by blocks.register("fertile_end_stone") { FertileEndStoneBlock }
-    val antiAir: AirBlock  by blocks.register("anti_air") { object : AirBlock(Properties.create(Material.AIR).doesNotBlockMovement().noDrops().notSolid()), INonItem {} }
+    val antiAir: AirBlock  by blocks.register("anti_air") { object : AirBlock(Properties.create(Material.AIR).doesNotBlockMovement().noDrops().notSolid()),
+        INonItem
+    {} }
     val potteryBarrel      by blocks.register("pottery_barrel", ::PotteryBarrelBlock)
     val electricBarrel     by blocks.register("electric_barrel", ::ElectricBarrelBlock)
     val endStoneColumn     by blocks.register("end_stone_column") { RotatedPillarBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0f))  }
@@ -46,7 +52,9 @@ object PhxBlocks
     val textBlock          by blocks.register("block_with_text") { AnonimBlock.create(Material.ROCK, ::TextTile, Phoenix.REDO) }
     val armoredGlass       by blocks.register("armored_glass") { ArmoredGlassBlock }
     val wetLog             by blocks.register("wet_log") { WetLogBlock }
-    val diedWetLog      : Block by blocks.register("died_wet_log")    { object : RotatedPillarBlock(Properties.create(Material.WOOD).hardnessAndResistance(3.0f)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
+    val diedWetLog      : Block by blocks.register("died_wet_log")    { object : RotatedPillarBlock(Properties.create(Material.WOOD).hardnessAndResistance(3.0f)),
+        ICustomGroup
+    { override val tab: ItemGroup = Phoenix.REDO } }
     val wetPlanks       : Block by blocks.register("wet_planks")      { object : LogBlock(MaterialColor.SAND, Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
     val diedWetPlanks   : Block by blocks.register("died_wet_planks") { object : LogBlock(MaterialColor.SAND, Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
     val wetSlab         : Block by blocks.register("wet_slab")        { object : SlabBlock(Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
@@ -63,4 +71,5 @@ object ZirconiumOreBlock : OreBlock(Properties.create(Material.ROCK).hardnessAnd
     override fun getDrops(state: BlockState, builder: LootContext.Builder) = listOf(ItemStack(this))
 }
 object CeramicBrickBlock : Block(Properties.create(Material.ROCK).sound(SoundType.STONE)), IRedoThink
-class FluidBlock(fluidSource : () -> FlowingFluid) : FlowingFluidBlock(fluidSource, Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0f).noDrops().notSolid()), INonTab
+class FluidBlock(fluidSource : () -> FlowingFluid) : FlowingFluidBlock(fluidSource, Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0f).noDrops().notSolid()),
+    INonTab

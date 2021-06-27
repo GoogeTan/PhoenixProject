@@ -30,7 +30,7 @@ object BunkerPieces
     )
     {
         JigsawManager.addPieces(
-            ResourceLocation("pillager_outpost/base_plates"),
+            ResourceLocation("bunker/base_plates"),
             7,
             { manager: TemplateManager, jigsawPieceIn: JigsawPiece, pos: BlockPos, seed: Int, rotationIn: Rotation, boundsIn: MutableBoundingBox -> BunkerPiece(manager, jigsawPieceIn, pos, seed, rotationIn, boundsIn) },
             chunkGeneratorIn,
@@ -46,9 +46,9 @@ object BunkerPieces
         JigsawManager.REGISTRY.register(
             JigsawPattern
             (
-                ResourceLocation(Phoenix.MOD_ID, "pillager_outpost/base_plates"),
-                ResourceLocation(Phoenix.MOD_ID, "empty"),
-                SizedArrayList.of(Pair.of(SingleJigsawPiece("pillager_outpost/base_plate"), 1)),
+                ResourceLocation(Phoenix.MOD_ID, "bunker/base_plates"),
+                ResourceLocation("empty"),
+                SizedArrayList.of(Pair.of(SingleJigsawPiece("bunker/base_plate"), 1)),
                 JigsawPattern.PlacementBehaviour.RIGID
             )
         )
@@ -57,14 +57,16 @@ object BunkerPieces
 
     class BunkerPiece : AbstractVillagePiece
     {
-        constructor(
+        constructor
+        (
             templateManagerIn: TemplateManager,
             jigsawPieceIn: JigsawPiece,
             posIn: BlockPos,
             groundLevelDelta: Int,
             rotation: Rotation,
             boundingBox: MutableBoundingBox
-        ) : super(
+        ) : super
+        (
             IStructurePieceType.PCP,
             templateManagerIn,
             jigsawPieceIn,
