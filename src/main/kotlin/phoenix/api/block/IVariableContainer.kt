@@ -1,6 +1,5 @@
 package phoenix.api.block
 
-import net.minecraft.inventory.IInventory
 //import org.cyclops.integrateddynamics.api.item.IVariableFacade
 //import org.cyclops.integrateddynamics.api.network.INetwork
 

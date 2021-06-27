@@ -4,10 +4,10 @@ import net.minecraft.state.properties.BlockStateProperties
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.Direction
+import phoenix.api.block.IFluidPipe
 import phoenix.init.PhxTiles
 import phoenix.tile.FluidTileSidable
 import phoenix.utils.MutablePair
-import phoenix.api.block.IFluidPipe
 import phoenix.utils.next
 import phoenix.utils.uniquePairOf
 

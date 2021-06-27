@@ -1,18 +1,14 @@
 package phoenix.init.events
 
 import com.google.common.collect.ImmutableList
-import com.google.common.collect.ImmutableMap
 import net.minecraft.entity.Entity
 import net.minecraft.entity.merchant.villager.VillagerProfession
 import net.minecraft.entity.merchant.villager.VillagerTrades
-import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.item.MerchantOffer
 import net.minecraft.particles.ParticleTypes
-import net.minecraft.util.IItemProvider
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.dimension.DimensionType
@@ -33,18 +29,15 @@ import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.common.Mod
 import phoenix.api.entity.IPhoenixPlayer
-import phoenix.client.gui.diaryPages.Chapter
 import phoenix.init.PhxBlocks
 import phoenix.init.PhxItems
 import phoenix.network.NetworkHandler
 import phoenix.network.NetworkHandler.sendTo
 import phoenix.network.SyncBookPacket
 import phoenix.network.SyncStagePacket
-import phoenix.utils.DefauldableMap
 import phoenix.utils.LogManager.error
 import phoenix.utils.LogManager.log
 import phoenix.utils.MutableTuple
-import phoenix.utils.addChapter
 import phoenix.utils.isServer
 import phoenix.world.GenSaveData
 import phoenix.world.StageManager

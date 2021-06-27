@@ -17,7 +17,8 @@ import phoenix.api.entity.Date
 import phoenix.api.entity.IPhoenixPlayer
 import phoenix.client.gui.diaryPages.Chapter
 import phoenix.init.PhxItems
-import phoenix.utils.*
+import phoenix.utils.addChapter
+import phoenix.utils.toSet
 
 val itemToChapter : Map<IItemProvider, Chapter> = ImmutableMap.of(
     Items.IRON_INGOT, Chapter.STEEL,
