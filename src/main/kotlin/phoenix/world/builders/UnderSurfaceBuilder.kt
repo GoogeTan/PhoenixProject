@@ -7,6 +7,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.biome.Biome
 import net.minecraft.world.chunk.IChunk
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder
+import phoenix.utils.get
 import java.util.*
 import java.util.function.Function
 import javax.annotation.ParametersAreNonnullByDefault
@@ -56,7 +57,7 @@ class UnderSurfaceBuilder(function: Function<Dynamic<*>, out AdvancedSurfaceBuil
         for (y in startHeight downTo 0)
         {
             currentPos.setPos(currentX, y, currentZ)
-            val currentState = chunkIn.getBlockState(currentPos)
+            val currentState = chunkIn[currentPos]
             if (currentState.isAir)
             {
                 i = -1

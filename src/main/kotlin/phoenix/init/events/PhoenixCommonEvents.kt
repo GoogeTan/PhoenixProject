@@ -35,6 +35,7 @@ import phoenix.init.PhxPotions.LONG_LEVITATION
 import phoenix.init.PhxRecipes
 import phoenix.items.FixedSpawnEggItem
 import phoenix.network.NetworkHandler
+import phoenix.utils.ServerStageUppedEvent
 import phoenix.utils.addStructure
 import phoenix.utils.addZirconiumOre
 import phoenix.utils.block.ICustomGroup
@@ -105,5 +106,10 @@ object PhoenixCommonEvents
             golemSpawnEntity.registryName = ResourceLocation(Phoenix.MOD_ID, "ancient_golem_spawn_egg")
             ForgeRegistries.ITEMS.registerAll(caudaEgg, golemSpawnEntity)
         }
+    }
+
+    @SubscribeEvent
+    fun onStageUppded(event : ServerStageUppedEvent)
+    {
     }
 }

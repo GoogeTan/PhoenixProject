@@ -7,8 +7,8 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import org.lwjgl.opengl.GL11
-import phoenix.utils.ResourseUtils.block
-import phoenix.utils.ResourseUtils.key
+import phoenix.utils.block
+import phoenix.utils.key
 
 @OnlyIn(Dist.CLIENT)
 object PhxRenderTypes

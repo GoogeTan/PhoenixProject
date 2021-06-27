@@ -13,8 +13,8 @@ import net.minecraft.tileentity.ITickableTileEntity
 import phoenix.blocks.ash.PotteryBarrelBlock.Companion.state
 import phoenix.init.PhxTiles.potteryBarrel
 import phoenix.utils.block.PhoenixTile
-import phoenix.utils.setProperty
-
+import phoenix.utils.get
+import phoenix.utils.set
 
 class PotteryBarrelTile : PhoenixTile(potteryBarrel), IInventory,
     ITickableTileEntity
@@ -27,15 +27,15 @@ class PotteryBarrelTile : PhoenixTile(potteryBarrel), IInventory,
         {
             if (inventory.item === Items.CLAY)
             {
-                if (world.getBlockState(pos).get(state) == 1)
+                if (world[pos, state] == 1)
                 {
-                    world.setProperty(pos, state, 2)
+                    world[pos, state] = 2
                 }
             } else if (inventory.item === Items.WATER_BUCKET)
             {
-                if (world.getBlockState(pos).get(state) == 0)
+                if (world[pos, state] == 0)
                 {
-                    world.setProperty(pos, state, 1)
+                    world[pos, state] = 1
                 }
             } else
             {

@@ -12,7 +12,7 @@ import phoenix.utils.IPhoenixPlayer
 @Mixin(PlayerEntity::class)
 abstract class MixinEntityPlayer : IPhoenixPlayer
 {
-    private val chaptersSet: MutableSet<Int> = HashSet()
+    private val chaptersSet: MutableSet<Int> = LinkedHashSet()
     var chapters = ArrayList<Pair<Int, Date>>()
 
     @Inject(method = ["writeAdditional"], at = [At("TAIL")])
@@ -21,7 +21,7 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
         nbt.putInt("count", chapters.size)
         for (i in chapters.indices)
         {
-            nbt.putInt("chid$i", chapters[i].first.toInt())
+            nbt.putInt("chid$i", chapters[i].first)
             nbt.putLong("chmin$i", chapters[i].second.minute)
             nbt.putLong("chday$i", chapters[i].second.day)
             nbt.putLong("chyear$i", chapters[i].second.year)
@@ -43,11 +43,11 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
         if (chapters.isEmpty()) addChapter(0, Date(795 % 12000 / 100, 2005 % 319, 2005 / 319))
     }
 
-    @Deprecated("Use phoenix.utils.addChapter(chapters : Chapters)") //Use addChapter(Chapters)
+    @Deprecated("Use phoenix.utils.addChapter(chapters : Chapter)") //Use addChapter(Chapter)
     override fun addChapter(id: Int, date: Date): Boolean
     {
         val toAdd = Pair(id, date)
-        return if (!chaptersSet.contains(id))
+        return if (!hasChapter(id))
         {
             chaptersSet.add(id)
             chapters.add(toAdd)

@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.Direction
 import phoenix.init.PhxTiles
 import phoenix.tile.FluidTileSidable
-import phoenix.utils.MPair
+import phoenix.utils.MutablePair
 import phoenix.utils.block.IFluidPipe
 import phoenix.utils.next
 import phoenix.utils.uniquePairOf
@@ -26,5 +26,5 @@ open class TurnBambooPipeTile
     {
     }
 
-    override fun getDirections(): MPair<Direction?, Direction?> = uniquePairOf(null, blockState[facing].next())
+    override fun getDirections(): MutablePair<Direction?, Direction?> = uniquePairOf(null, blockState[facing].next())
 }

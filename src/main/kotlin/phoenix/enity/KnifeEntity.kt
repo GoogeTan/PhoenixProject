@@ -23,6 +23,7 @@ import phoenix.init.PhxEnchantments
 import phoenix.init.PhxEntities
 import phoenix.init.PhxItems
 import phoenix.items.ash.KnifeItem
+import phoenix.utils.get
 import phoenix.utils.getEnchantmentLevel
 
 
@@ -76,7 +77,7 @@ class KnifeEntity : ThrowableEntity
                }
                BLOCK ->
                {
-                   val block = world.getBlockState(((result as BlockRayTraceResult).pos))
+                   val block = world[(result as BlockRayTraceResult).pos]
                    dropItem = dropItem and (knife.item as KnifeItem).onHitBlock(world, owner, result.pos, this, knife)
                    if(block.block !== Blocks.GRASS || block.block !== Blocks.TALL_GRASS)
                    {

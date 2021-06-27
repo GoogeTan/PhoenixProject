@@ -13,6 +13,8 @@ import net.minecraft.tileentity.ITickableTileEntity
 import phoenix.blocks.ash.PotteryBarrelBlock
 import phoenix.init.PhxTiles
 import phoenix.utils.block.PhoenixTile
+import phoenix.utils.get
+import phoenix.utils.set
 
 class ElectricBarrelTile : PhoenixTile(PhxTiles.electricBarrel), IInventory, ITickableTileEntity
 {
@@ -20,19 +22,20 @@ class ElectricBarrelTile : PhoenixTile(PhxTiles.electricBarrel), IInventory, ITi
 
     override fun tick()
     {
+        val world = world!!
         if (!inventory.isEmpty)
         {
             if (inventory.item === Items.CLAY)
             {
-                if (world!!.getBlockState(pos).get(PotteryBarrelBlock.state) == 1)
+                if (world[pos].get(PotteryBarrelBlock.state) == 1)
                 {
-                    world!!.setBlockState(pos, world!!.getBlockState(pos).with(PotteryBarrelBlock.state, 2))
+                    world[pos, PotteryBarrelBlock.state] = 2
                 }
             } else if (inventory.item === Items.WATER_BUCKET)
             {
-                if (world!!.getBlockState(pos).get(PotteryBarrelBlock.state) == 0)
+                if (world[pos, PotteryBarrelBlock.state] == 0)
                 {
-                    world!!.setBlockState(pos, world!!.getBlockState(pos).with(PotteryBarrelBlock.state, 1))
+                    world[pos, PotteryBarrelBlock.state] = 1
                 }
             } else
             {

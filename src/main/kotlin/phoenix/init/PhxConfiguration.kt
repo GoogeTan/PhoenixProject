@@ -8,13 +8,13 @@ import net.minecraftforge.common.ForgeConfigSpec.IntValue
 object PhxConfiguration
 {
     val caudaInventorySize : Int
-        inline get() = COMMON_CONFIG.gameMode.get().caudaInventorySize
+        get() = COMMON_CONFIG.gameMode.get().caudaInventorySize
     val gameMode : GameMode
-        inline get() = COMMON_CONFIG.gameMode.get()
+        get() = COMMON_CONFIG.gameMode.get()
     val biomeSize : Int
-        inline get() = COMMON_CONFIG.BIOME_SIZE.get()
+        get() = COMMON_CONFIG.BIOME_SIZE.get()
     val isDebugMode : Boolean
-        inline get() = COMMON_CONFIG.debug.get()
+        get() = COMMON_CONFIG.debug.get()
 
     lateinit var COMMON_CONFIG: Common
 
@@ -31,6 +31,8 @@ object PhxConfiguration
                     ", but if \"hohserg\" it will be easier and more simple.")
                     .defineEnum("Game mode", GameMode.normal)
             BIOME_SIZE = builder.worldRestart().defineInRange("Biome size", 6, 1, 15)
+            builder.pop()
+            builder.push("Debug settings")
             debug = builder.worldRestart().define("is debug mode", false)
             builder.pop()
         }

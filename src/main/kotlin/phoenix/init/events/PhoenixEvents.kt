@@ -28,7 +28,7 @@ import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.common.Mod
-import phoenix.client.gui.diaryPages.Chapters
+import phoenix.client.gui.diaryPages.Chapter
 import phoenix.init.PhxBlocks
 import phoenix.init.PhxItems
 import phoenix.network.NetworkHandler
@@ -38,7 +38,7 @@ import phoenix.network.SyncStagePacket
 import phoenix.utils.IPhoenixPlayer
 import phoenix.utils.LogManager.error
 import phoenix.utils.LogManager.log
-import phoenix.utils.MTuple
+import phoenix.utils.MutableTuple
 import phoenix.utils.addChapter
 import phoenix.world.GenSaveData
 import phoenix.world.StageManager
@@ -125,7 +125,7 @@ object PhoenixEvents
         }
     }
 
-    private var tasks = ArrayList<MTuple<Int, Int, Runnable>>()
+    private var tasks = ArrayList<MutableTuple<Int, Int, Runnable>>()
 
     @SubscribeEvent
     fun deferredTasks(event: WorldTickEvent)
@@ -153,7 +153,7 @@ object PhoenixEvents
 
     fun addTask(time: Int, r: Runnable)
     {
-        tasks.add(MTuple(0, time, r))
+        tasks.add(MutableTuple(0, time, r))
     }
 
     @SubscribeEvent
@@ -185,7 +185,7 @@ object PhoenixEvents
                 {
                     if (i.item === Items.IRON_INGOT)
                     {
-                        player.addChapter(Chapters.STEEL)
+                        player.addChapter(Chapter.STEEL)
                     }
                 }
             }

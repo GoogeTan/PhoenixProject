@@ -2,8 +2,6 @@ package phoenix;
 
 import net.minecraft.client.audio.MusicTicker;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
 import phoenix.init.PhxSounds;
 import phoenix.utils.EnumUtil;
 import phoenix.utils.PhoenixMusicTracks;

@@ -30,7 +30,7 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 minecraft
 {
-    mappings channel: 'snapshot', version: '20201227-1.15.1'
+    mappings channel: 'snapshot', version: 'googletan-mappings'
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs
     {
@@ -93,6 +93,11 @@ repositories
     maven {
         name = 'Kotlin for Forge'
         url = 'https://thedarkcolour.github.io/KotlinForForge/'
+    }
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mappings"
+        }
     }
 }
 

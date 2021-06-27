@@ -30,13 +30,15 @@ import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.common.ToolType
-import phoenix.client.gui.diaryPages.Chapters
+import phoenix.client.gui.diaryPages.Chapter
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncOvenPacket
 import phoenix.recipes.OvenRecipe
 import phoenix.tile.ash.OvenTile
 import phoenix.utils.addChapter
 import phoenix.utils.block.BlockWithTile
+import phoenix.utils.get
+import phoenix.utils.set
 import java.util.*
 
 class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hardnessAndResistance(10f).harvestTool(ToolType.PICKAXE))
@@ -71,21 +73,21 @@ class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hard
             {
                 tile.burnTime += ForgeHooks.getBurnTime(stack)
                 playerIn.getHeldItem(handIn).shrink(1)
-                if(worldIn.getBlockState(pos)[STATE] == 0)
-                    worldIn.setBlockState(pos, worldIn.getBlockState(pos).with(STATE, 1))
+                if(worldIn[pos, STATE] == 0)
+                    worldIn[pos, STATE] = 1
             }
             else
             {
-                if(worldIn.getBlockState(pos)[STATE] == 1)
-                    worldIn.setBlockState(pos, worldIn.getBlockState(pos).with(STATE, 2))
-                else if(worldIn.getBlockState(pos)[STATE] == 2)
+                if(worldIn[pos, STATE] == 1)
+                    worldIn[pos, STATE] = 2
+                else if(worldIn[pos, STATE] == 2)
                 {
-                    worldIn.setBlockState(pos, worldIn.getBlockState(pos).with(STATE, 1))
+                    worldIn[pos, STATE] = 1
                     val items = tile.outOtherItems()
                     for (i in items)
                         playerIn.addItemStackToInventory(i)
                     if(items.isNotEmpty() && playerIn is ServerPlayerEntity)
-                        playerIn.addChapter(Chapters.STEEL)
+                        playerIn.addChapter(Chapter.STEEL)
                 }
             }
             return ActionResultType.SUCCESS
@@ -103,20 +105,20 @@ class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hard
     )
     {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack)
-        worldIn.setBlockState(pos.up(), Blocks.BARRIER.defaultState)
+        worldIn[pos.up()] = Blocks.BARRIER.defaultState
     }
 
     override fun onPlayerDestroy(worldIn: IWorld, pos: BlockPos, state: BlockState)
     {
         super.onPlayerDestroy(worldIn, pos, state)
-        worldIn.setBlockState(pos.up(), Blocks.AIR.defaultState, 2)
+        worldIn[pos.up()] = Blocks.AIR.defaultState
     }
 
     override fun onReplaced(state: BlockState, worldIn: World, pos: BlockPos, newState: BlockState, isMoving: Boolean)
     {
         super.onReplaced(state, worldIn, pos, newState, isMoving)
         if(newState.block != this)
-            worldIn.setBlockState(pos.up(), Blocks.AIR.defaultState, 2)
+            worldIn[pos.up()] = Blocks.AIR.defaultState
     }
 
     override fun onBlockExploded(state: BlockState?, world: World, pos: BlockPos, explosion: Explosion?)

@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.At
 import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 import phoenix.enity.EnderCrystalEntity
+import phoenix.utils.get
 import phoenix.world.EndDimension
 
 @Mixin(EnderCrystalItem::class)
@@ -20,7 +21,7 @@ class EnderCrystalItemMixin
     {
         val world = context.world
         val blockpos = context.pos
-        val blockstate = world.getBlockState(blockpos)
+        val blockstate = world[blockpos]
         ci.returnValue =  if (blockstate.block !== Blocks.OBSIDIAN && blockstate.block !== Blocks.BEDROCK)
         {
             ActionResultType.FAIL

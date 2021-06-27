@@ -29,6 +29,7 @@ import phoenix.init.PhxItems
 import phoenix.tile.ash.PotteryBarrelTile
 import phoenix.utils.block.BlockWithTile
 import phoenix.utils.block.IColoredBlock
+import phoenix.utils.get
 import javax.annotation.Nonnull
 import javax.annotation.ParametersAreNonnullByDefault
 import kotlin.math.min
@@ -48,7 +49,7 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO).hard
 
     override fun onFallenUpon(worldIn: World, @Nonnull pos: BlockPos, entityIn: Entity, fallDistance: Float)
     {
-        val state = worldIn.getBlockState(pos)
+        val state = worldIn[pos]
         if (pos.y < entityIn.posY && state.get(Companion.state) == 2 && worldIn.getTileEntity(pos) != null)
         {
             (worldIn.getTileEntity(pos) as PotteryBarrelTile?)!!.incrementJumpsCount()

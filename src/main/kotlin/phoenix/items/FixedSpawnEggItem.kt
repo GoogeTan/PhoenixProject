@@ -24,6 +24,8 @@ import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
+import phoenix.utils.get
+import phoenix.utils.getTileAt
 
 class FixedSpawnEggItem
     (
@@ -40,51 +42,32 @@ class FixedSpawnEggItem
     {
         val world = context.world
         return if (world.isRemote)
-        {
             ActionResultType.SUCCESS
-        } else
+        else
         {
-            val itemstack = context.item
-            val blockpos = context.pos
-            val direction = context.face
-            val blockstate = world.getBlockState(blockpos)
-            val block = blockstate.block
+            val stack = context.item
+            val pos: BlockPos = context.pos
+            val dir = context.face
+            val state = world[pos]
+            val block = state.block
             if (block === Blocks.SPAWNER)
             {
-                val tileentity = world.getTileEntity(blockpos)
-                if (tileentity is MobSpawnerTileEntity)
+                val spawner = world.getTileAt<MobSpawnerTileEntity>(pos)
+                if (spawner != null)
                 {
-                    val abstractspawner = tileentity.spawnerBaseLogic
-                    val entitytype1 = getType(itemstack.tag)
-                    abstractspawner.setEntityType(entitytype1)
-                    tileentity.markDirty()
-                    world.notifyBlockUpdate(blockpos, blockstate, blockstate, 3)
-                    itemstack.shrink(1)
+                    val spawnerLogic = spawner.spawnerBaseLogic
+                    spawnerLogic.setEntityType(getType(stack.tag))
+                    spawner.markDirty()
+                    world.notifyBlockUpdate(pos, state, state, 3)
+                    stack.shrink(1)
                     return ActionResultType.SUCCESS
                 }
             }
-            val blockpos1: BlockPos
-            blockpos1 = if (blockstate.getCollisionShape(world, blockpos).isEmpty)
-            {
-                blockpos
-            } else
-            {
-                blockpos.offset(direction)
-            }
-            val entitytype = getType(itemstack.tag)
-            if (entitytype.spawn(
-                    world,
-                    itemstack,
-                    context.player,
-                    blockpos1,
-                    SpawnReason.SPAWN_EGG,
-                    true,
-                    blockpos != blockpos1 && direction == Direction.UP
-                ) != null
-            )
-            {
-                itemstack.shrink(1)
-            }
+            val spawnPos: BlockPos = if (state.getCollisionShape(world, pos).isEmpty) pos else pos.offset(dir)
+
+            val entityType = getType(stack.tag)
+            if (entityType.spawn(world, stack, context.player, spawnPos, SpawnReason.SPAWN_EGG, true, pos != spawnPos && dir == Direction.UP) != null)
+                stack.shrink(1)
             ActionResultType.SUCCESS
         }
     }
@@ -95,69 +78,46 @@ class FixedSpawnEggItem
      */
     override fun onItemRightClick(worldIn: World, playerIn: PlayerEntity, handIn: Hand): ActionResult<ItemStack>
     {
-        val itemstack = playerIn.getHeldItem(handIn)
-        val raytraceresult = rayTrace(worldIn, playerIn, RayTraceContext.FluidMode.SOURCE_ONLY)
-        return if (raytraceresult.type != RayTraceResult.Type.BLOCK)
+        val stack = playerIn.getHeldItem(handIn)
+        val trace = rayTrace(worldIn, playerIn, RayTraceContext.FluidMode.SOURCE_ONLY)
+        return if (trace.type != RayTraceResult.Type.BLOCK)
         {
-            ActionResult.resultPass(itemstack)
+            ActionResult.resultPass(stack)
         } else if (worldIn.isRemote)
         {
-            ActionResult.resultSuccess(itemstack)
+            ActionResult.resultSuccess(stack)
         } else
         {
-            val blockraytraceresult = raytraceresult as BlockRayTraceResult
-            val blockpos = blockraytraceresult.pos
-            if (worldIn.getBlockState(blockpos).block !is FlowingFluidBlock)
+            val blockTrace = trace as BlockRayTraceResult
+            val pos = blockTrace.pos
+            if (worldIn[pos].block !is FlowingFluidBlock)
             {
-                ActionResult.resultPass(itemstack)
-            } else if (worldIn.isBlockModifiable(playerIn, blockpos) && playerIn.canPlayerEdit(
-                    blockpos,
-                    blockraytraceresult.face,
-                    itemstack
-                )
-            )
+                ActionResult.resultPass(stack)
+            } else if (worldIn.isBlockModifiable(playerIn, pos) && playerIn.canPlayerEdit(pos, blockTrace.face, stack))
             {
-                val entitytype = getType(itemstack.tag)
-                if (entitytype.spawn(
-                        worldIn,
-                        itemstack,
-                        playerIn,
-                        blockpos,
-                        SpawnReason.SPAWN_EGG,
-                        false,
-                        false
-                    ) == null
-                )
-                {
-                    ActionResult.resultPass(itemstack)
-                } else
+                val entitytype = getType(stack.tag)
+                if (entitytype.spawn(worldIn, stack, playerIn, pos, SpawnReason.SPAWN_EGG, false, false) == null)
+                    ActionResult.resultPass(stack)
+                else
                 {
                     if (!playerIn.abilities.isCreativeMode)
                     {
-                        itemstack.shrink(1)
+                        stack.shrink(1)
                     }
                     playerIn.addStat(Stats.ITEM_USED[this])
-                    ActionResult.resultSuccess(itemstack)
+                    ActionResult.resultSuccess(stack)
                 }
             } else
             {
-                ActionResult.resultFail(itemstack)
+                ActionResult.resultFail(stack)
             }
         }
     }
 
-    fun hasType(tag: CompoundNBT?, type: EntityType<*>?): Boolean
-    {
-        return getType(tag) == type
-    }
+    @OnlyIn(Dist.CLIENT) fun getColor(tintIndex: Int): Int = if (tintIndex == 0) primaryColor else secondaryColor
+    @OnlyIn(Dist.CLIENT) fun getColor(stack: ItemStack, tintIndex: Int): Int = if (tintIndex == 0) primaryColor else secondaryColor
 
-    @OnlyIn(Dist.CLIENT)
-    fun getColor(tintIndex: Int): Int
-    {
-        return if (tintIndex == 0) primaryColor else secondaryColor
-    }
-
-    fun getType(tag: CompoundNBT?): EntityType<*>
+    private fun getType(tag: CompoundNBT?): EntityType<*>
     {
         if (tag != null && tag.contains("EntityTag", 10))
         {
@@ -170,14 +130,14 @@ class FixedSpawnEggItem
         return typeIn()
     }
 
+    override fun toString(): String = "FixedSpawnEggItem(typeIn=$typeIn, primaryColor=$primaryColor, secondaryColor=$secondaryColor)"
+
     companion object
     {
         private val EGGS: MutableMap<() -> EntityType<*>, FixedSpawnEggItem> = Maps.newIdentityHashMap()
 
-        @OnlyIn(Dist.CLIENT)
-        fun getEgg(type: EntityType<*>): FixedSpawnEggItem = EGGS[{ type }]!!
-        @OnlyIn(Dist.CLIENT)
-        fun getEgg(type: () -> EntityType<*>): FixedSpawnEggItem = EGGS[type]!!
+        @OnlyIn(Dist.CLIENT) fun getEgg(type: EntityType<*>): FixedSpawnEggItem? = EGGS[{ type }]
+        @OnlyIn(Dist.CLIENT) fun getEgg(type: () -> EntityType<*>): FixedSpawnEggItem? = EGGS[type]
 
         val eggs: Iterable<FixedSpawnEggItem>
             get() = Iterables.unmodifiableIterable(EGGS.values)

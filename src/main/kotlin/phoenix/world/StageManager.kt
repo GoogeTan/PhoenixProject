@@ -8,11 +8,12 @@ import net.minecraft.nbt.CompoundNBT
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.IWorld
+import net.minecraftforge.common.MinecraftForge
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 import phoenix.init.PhxBlocks.armoredGlass
 import phoenix.init.PhxEntities
-import phoenix.utils.PhoenixMusicTracks
+import phoenix.utils.*
 import phoenix.world.structures.CustomEndSpike
 import kotlin.math.min
 
@@ -51,28 +52,27 @@ object StageManager
         get() =  data.getInt("part")
         set(part) = data.putInt("part", part)
 
-    fun setStage(stage: Int, provider: NewEndBiomeProvider)
+    private fun setStage(stage: Int, provider: NewEndBiomeProvider, postEvent : Boolean = true)
     {
-        data.putInt("stage", stage)
+        this.stage = stage
         provider.initBiomeLayer()
-    }
 
-    fun addStage()
-    {
-        stage = min(stage + 1, 3)
-    }
-
-    fun addStage(provider: NewEndBiomeProvider) = setStage(min(stage + 1, 3), provider)
-
-    fun addPart()
-    {
-        part++
-        if (data.getInt("part") >= 3)
+        if (postEvent)
         {
-            addStage()
-            part = 0
+            client { _, _, world ->
+                if (world != null)
+                    MinecraftForge.EVENT_BUS.post(ClientChangeStageEvent(world))
+            }
+
+            server { server ->
+                if (server != null)
+                    for (i in server.worlds)
+                        MinecraftForge.EVENT_BUS.post(ServerChangeStageEvent(i))
+            }
         }
     }
+
+    private fun addStage(provider: NewEndBiomeProvider, postEvent : Boolean = false) = setStage(min(stage + 1, 3), provider, postEvent)
 
     fun addPart(provider: NewEndBiomeProvider)
     {
@@ -80,6 +80,16 @@ object StageManager
         if (data.getInt("part") >= 3)
         {
             addStage(provider)
+            client { _, _, world ->
+                if (world != null)
+                    MinecraftForge.EVENT_BUS.post(ClientStageUppedEvent(world))
+            }
+
+            server { server ->
+                if (server != null)
+                    for (i in server.worlds)
+                        MinecraftForge.EVENT_BUS.post(ServerStageUppedEvent(i))
+            }
             part = 0
         }
     }

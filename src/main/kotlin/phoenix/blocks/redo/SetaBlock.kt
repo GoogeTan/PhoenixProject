@@ -20,6 +20,7 @@ import net.minecraft.world.storage.loot.LootContext
 import phoenix.Phoenix
 import phoenix.init.PhxBlocks
 import phoenix.utils.block.ICustomGroup
+import phoenix.utils.get
 import java.util.*
 
 object SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandomly().lightValue(5).hardnessAndResistance(1.0f)), IGrowable, ICustomGroup
@@ -40,7 +41,7 @@ object SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRando
         super.fillStateContainer(builder)
     }
 
-    override fun isValidPosition(state: BlockState, worldIn: IWorldReader, pos: BlockPos): Boolean = worldIn.getBlockState(pos.up()).block == PhxBlocks.fertileEndStone
+    override fun isValidPosition(state: BlockState, worldIn: IWorldReader, pos: BlockPos): Boolean = worldIn[pos.up()].block == PhxBlocks.fertileEndStone
 
     override fun tick(state: BlockState, worldIn: ServerWorld, pos: BlockPos, rand: Random)
     {
@@ -67,7 +68,7 @@ object SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRando
                     for (z in -1..1)
                     {
                         current.setPos(pos.x + x, pos.y + y, pos.z + z)
-                        if (worldIn.isAirBlock(current) && current != pos && isValidPosition(worldIn.getBlockState(current), worldIn, current))
+                        if (worldIn.isAirBlock(current) && current != pos && isValidPosition(worldIn[current], worldIn, current))
                             if(pos2 == BlockPos.ZERO || rand.nextBoolean())
                                 pos2 = current.toImmutable()
                     }

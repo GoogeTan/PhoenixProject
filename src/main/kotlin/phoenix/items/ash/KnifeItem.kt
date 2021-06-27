@@ -24,12 +24,11 @@ import phoenix.enity.KnifeEntity
 import phoenix.init.PhxEnchantments
 import phoenix.init.events.PhoenixEvents.addTask
 import phoenix.utils.destroyBlock
+import phoenix.utils.get
 import phoenix.utils.getEnchantmentLevel
 
 class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, maxUsages: Int, group : ItemGroup) : ToolItem(attackDamageIn, attackSpeedIn, tier, breakableBlocks, Properties().group(group).maxDamage(maxUsages))
 {
-    private val damage: Float = attackDamageIn + tier.attackDamage
-
     override fun onItemRightClick(world: World, player: PlayerEntity, hand: Hand): ActionResult<ItemStack>
     {
         val stack = player.getHeldItem(hand)
@@ -63,7 +62,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
     fun onHitBlock(world: World, owner: LivingEntity?, pos: BlockPos, knife: KnifeEntity, item: ItemStack): Boolean
     {
         var shouldBroke = false
-        val block = world.getBlockState(pos).block
+        val block = world[pos].block
         for (tag in breakableBlocksTypes) if (block.isIn(tag))
         {
             shouldBroke = true
@@ -76,7 +75,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
 
             return false
         }
-        else if (breakableBlocks.contains(world.getBlockState(pos).block) || shouldBroke)
+        else if (breakableBlocks.contains(world[pos].block) || shouldBroke)
         {
             world.destroyBlock(pos, true, owner, item)
             knife.knife.attemptDamageItem(1, world.rand, null)
@@ -94,7 +93,7 @@ class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, ma
     fun onHitEntity(world : World, owner : LivingEntity?, knife : KnifeEntity, hitted : Entity, knifeItem : ItemStack): Boolean
     {
         val powerLevel = knifeItem.getEnchantmentLevel(Enchantments.POWER)
-        val damage = damage + powerLevel.toDouble() * 0.6
+        val damage = attackDamage + powerLevel.toDouble() * 0.6
         if (knifeItem.getEnchantmentLevel(Enchantments.FLAME) > 0 && hitted.type !== EntityType.SNOW_GOLEM)
             hitted.setFire(100)
 
