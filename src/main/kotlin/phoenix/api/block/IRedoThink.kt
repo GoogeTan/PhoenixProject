@@ -1,4 +1,4 @@
-package phoenix.utils.block
+package phoenix.api.block
 
 import net.minecraft.item.ItemGroup
 import phoenix.Phoenix

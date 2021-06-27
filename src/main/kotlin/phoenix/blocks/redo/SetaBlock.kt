@@ -18,8 +18,8 @@ import net.minecraft.world.World
 import net.minecraft.world.server.ServerWorld
 import net.minecraft.world.storage.loot.LootContext
 import phoenix.Phoenix
+import phoenix.api.block.ICustomGroup
 import phoenix.init.PhxBlocks
-import phoenix.utils.block.ICustomGroup
 import phoenix.utils.get
 import java.util.*
 

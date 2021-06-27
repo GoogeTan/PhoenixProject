@@ -10,6 +10,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import phoenix.Phoenix
+import phoenix.api.block.IColoredBlock
 import phoenix.client.render.EnderCrystalRenderer
 import phoenix.client.render.OvenRenderer
 import phoenix.client.render.TankRenderer
@@ -33,7 +34,6 @@ import phoenix.items.FixedSpawnEggItem
 import phoenix.network.NetworkHandler
 import phoenix.utils.ClientStageUppedEvent
 import phoenix.utils.StringUtils
-import phoenix.utils.block.IColoredBlock
 import phoenix.utils.mc
 
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)

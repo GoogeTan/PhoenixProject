@@ -13,6 +13,7 @@ import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.fluids.capability.templates.FluidTank
+import phoenix.api.tile.ISyncable
 import phoenix.utils.*
 import phoenix.utils.block.PhoenixTile
 

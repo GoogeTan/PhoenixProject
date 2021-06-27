@@ -11,6 +11,7 @@ enum class Chapter(var id: Int, var type : ChapterType, val chapterName : String
     CLAY(2, ChapterType.THOUGHT, "clay"),
     OVEN(3, ChapterType.THOUGHT, "oven"),
     REDO(4, ChapterType.THOUGHT, "redo"),
+    KNIFE_ENCHANTING(4, ChapterType.THOUGHT, "knife_enchanting"),
     THE_WHO(5, ChapterType.STORY, "the_who");
 
     fun getText() : String = I18n.format("phoenix.book.$chapterName")

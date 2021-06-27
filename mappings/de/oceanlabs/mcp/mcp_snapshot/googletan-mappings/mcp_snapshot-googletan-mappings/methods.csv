@@ -12485,4 +12485,4 @@ func_98297_h,getSeeFriendlyInvisiblesEnabled,2,Checks whether members of this te
 func_98298_a,setFriendlyFlags,0,Sets friendly fire and invisibles flags based off of the given bitmask.
 func_98299_i,getFriendlyFlags,2,Gets a bitmask containing the friendly fire and invisibles flags.
 func_98300_b,setSeeFriendlyInvisiblesEnabled,2,Sets whether members of this team can see other members that are invisible.
-func_99999_d,run,0,
+func_99999_d,run,0

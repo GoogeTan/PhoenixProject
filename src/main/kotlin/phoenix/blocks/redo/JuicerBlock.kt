@@ -15,10 +15,10 @@ import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.fluids.FluidActionResult
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
+import phoenix.api.block.IRedoThink
 import phoenix.tile.FluidTileSidable
 import phoenix.tile.redo.JuicerTile
 import phoenix.utils.block.BlockWithTile
-import phoenix.utils.block.IRedoThink
 import phoenix.utils.interactWithFluidHandler
 
 object JuicerBlock : BlockWithTile(

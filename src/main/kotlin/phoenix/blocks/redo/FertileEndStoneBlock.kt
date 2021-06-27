@@ -7,7 +7,7 @@ import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.world.storage.loot.LootContext
 import phoenix.Phoenix.Companion.REDO
-import phoenix.utils.block.ICustomGroup
+import phoenix.api.block.ICustomGroup
 
 object FertileEndStoneBlock : Block(Properties.create(Material.ROCK).hardnessAndResistance(3.0f)), ICustomGroup
 {

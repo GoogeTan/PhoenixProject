@@ -11,10 +11,11 @@ import net.minecraft.util.math.shapes.ISelectionContext
 import net.minecraft.util.math.shapes.VoxelShape
 import net.minecraft.world.IBlockReader
 import phoenix.Phoenix
+import phoenix.api.block.ICustomGroup
 import phoenix.tile.redo.pipe.VerticalBambooPipeTile
-import phoenix.utils.block.ICustomGroup
 
-object VerticalBambooPipeBlock : RotatedPillarBlock(Properties.create(Material.WOOD).notSolid().hardnessAndResistance(1.0f)), ICustomGroup
+object VerticalBambooPipeBlock : RotatedPillarBlock(Properties.create(Material.WOOD).notSolid().hardnessAndResistance(1.0f)),
+    ICustomGroup
 {
     private val NORMAL = makeCuboidShape(4.0, 0.0, 4.0, 12.0, 16.0, 12.0)
 

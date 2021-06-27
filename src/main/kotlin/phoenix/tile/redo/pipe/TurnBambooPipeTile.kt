@@ -7,7 +7,7 @@ import net.minecraft.util.Direction
 import phoenix.init.PhxTiles
 import phoenix.tile.FluidTileSidable
 import phoenix.utils.MutablePair
-import phoenix.utils.block.IFluidPipe
+import phoenix.api.block.IFluidPipe
 import phoenix.utils.next
 import phoenix.utils.uniquePairOf
 
@@ -16,7 +16,8 @@ open class TurnBambooPipeTile
     type : TileEntityType<out TurnBambooPipeTile> = PhxTiles.turnBambooPipe,
     capacity: Int = 1000,
     pullAmount: Int = 1000
-) : FluidTileSidable(type, BlockStateProperties.HORIZONTAL_FACING, pullAmount, capacity), ITickableTileEntity, IFluidPipe
+) : FluidTileSidable(type, BlockStateProperties.HORIZONTAL_FACING, pullAmount, capacity), ITickableTileEntity,
+    IFluidPipe
 {
     override var needSync: Boolean = false
         get() = false

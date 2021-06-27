@@ -4,12 +4,10 @@ import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
 import phoenix.containers.DiaryContainer
 
-class DiaryPage(val maxSize : Int, val elements : ArrayList<ADiaryElement>)
+class DiaryPage(private val maxSize : Int, val elements : ArrayList<ADiaryElement>)
 {
-    var sum = 0
+    private var sum = 0
     constructor(maxSize : Int) : this(maxSize, ArrayList())
-
-    fun isFull(sizeX : Int, sizeY : Int) : Boolean = sum < maxSize
 
     fun tryAdd(element: ADiaryElement, sizeX: Int, sizeY: Int) : Boolean
     {

@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.Mixin
 import org.spongepowered.asm.mixin.injection.At
 import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
+import phoenix.api.entity.IPhoenixPlayer
 import phoenix.client.gui.diaryPages.Chapter
-import phoenix.utils.IPhoenixPlayer
 import phoenix.utils.addChapter
 import phoenix.utils.sendMessage
 

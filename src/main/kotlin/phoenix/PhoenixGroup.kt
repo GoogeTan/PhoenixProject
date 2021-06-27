@@ -1,16 +1,12 @@
 package phoenix
 
-import net.minecraft.block.Block
 import net.minecraft.item.*
 import net.minecraft.util.IItemProvider
 import net.minecraft.util.NonNullList
-import net.minecraftforge.fml.RegistryObject
 
 class PhoenixGroup(name: String, private val item: () -> IItemProvider) : ItemGroup(name)
 {
     constructor(name: String, item: IItemProvider) : this(name, {item})
-
-    constructor(name: String, item: RegistryObject<Block>) : this(name, item::get)
 
     override fun createIcon() = ItemStack(item.invoke())
     override fun hasSearchBar() = false
@@ -37,7 +33,7 @@ class PhoenixGroup(name: String, private val item: () -> IItemProvider) : ItemGr
 
         private fun getWeight(i1: ItemStack): Int
         {
-            return when (i1.item)
+            return when (i1.getItem())
             {
                 is BlockItem -> 1
                 is ToolItem  -> 2

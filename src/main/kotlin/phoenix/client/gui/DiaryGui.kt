@@ -5,6 +5,7 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.util.text.ITextComponent
 import phoenix.Phoenix
+import phoenix.api.entity.IPhoenixPlayer
 import phoenix.client.gui.diaryPages.Chapter
 import phoenix.client.gui.diaryPages.DiaryBook
 import phoenix.client.gui.diaryPages.elements.ADiaryElement

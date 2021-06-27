@@ -25,10 +25,10 @@ import net.minecraft.world.IBlockReader
 import net.minecraft.world.ILightReader
 import net.minecraft.world.World
 import net.minecraft.world.storage.loot.LootContext
+import phoenix.api.block.IColoredBlock
 import phoenix.init.PhxItems
 import phoenix.tile.ash.PotteryBarrelTile
 import phoenix.utils.block.BlockWithTile
-import phoenix.utils.block.IColoredBlock
 import phoenix.utils.get
 import javax.annotation.Nonnull
 import javax.annotation.ParametersAreNonnullByDefault
@@ -67,7 +67,7 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO).hard
         return if (state.get(Companion.state) != 3)
         {
             val stateInt = state.get(Companion.state)
-            val item = itemStack.item
+            val item = itemStack.getItem()
             when
             {
                 item === Items.WATER_BUCKET ->
@@ -132,7 +132,7 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO).hard
         }
     }
 
-    private fun setState(worldIn: World, pos: BlockPos?, state: BlockState, level: Int)
+    private fun setState(worldIn: World, pos: BlockPos, state: BlockState, level: Int)
     {
         worldIn.setBlockState(pos, state.with(Companion.state, level))
     }
@@ -160,7 +160,7 @@ class PotteryBarrelBlock : BlockWithTile(Properties.create(Material.BAMBOO).hard
 
     companion object
     {
-        val SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), VoxelShapes.or(makeCuboidShape(0.0, 0.0, 4.0, 16.0, 3.0, 12.0), makeCuboidShape(4.0, 0.0, 0.0, 12.0, 3.0, 16.0), makeCuboidShape(2.0, 0.0, 2.0, 14.0, 3.0, 14.0), makeCuboidShape(2.0, 4.0, 2.0, 14.0, 16.0, 14.0)), IBooleanFunction.ONLY_FIRST)
+        val SHAPE: VoxelShape = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), VoxelShapes.or(makeCuboidShape(0.0, 0.0, 4.0, 16.0, 3.0, 12.0), makeCuboidShape(4.0, 0.0, 0.0, 12.0, 3.0, 16.0), makeCuboidShape(2.0, 0.0, 2.0, 14.0, 3.0, 14.0), makeCuboidShape(2.0, 4.0, 2.0, 14.0, 16.0, 14.0)), IBooleanFunction.ONLY_FIRST)
         val state: IntegerProperty = IntegerProperty.create("state", 0, 2)
     }
 

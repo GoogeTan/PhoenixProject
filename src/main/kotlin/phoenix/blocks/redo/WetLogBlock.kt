@@ -11,8 +11,8 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import phoenix.Phoenix
+import phoenix.api.block.ICustomGroup
 import phoenix.init.PhxBlocks
-import phoenix.utils.block.ICustomGroup
 import phoenix.utils.getEnchantmentLevel
 
 object WetLogBlock : RotatedPillarBlock(Properties.create(Material.WOOD).hardnessAndResistance(3.0f)), ICustomGroup

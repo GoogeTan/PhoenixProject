@@ -7,7 +7,7 @@ import net.minecraft.util.Direction
 import phoenix.init.PhxTiles
 import phoenix.tile.FluidTileSidable
 import phoenix.utils.MutablePair
-import phoenix.utils.block.IFluidPipe
+import phoenix.api.block.IFluidPipe
 import phoenix.utils.uniquePairOf
 
 open class VerticalBambooPipeTile

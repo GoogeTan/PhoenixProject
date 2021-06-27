@@ -22,6 +22,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
 import phoenix.Phoenix.Companion.ASH
+import phoenix.api.block.ICustomGroup
 import phoenix.init.PhxBiomes.HEARTVOID
 import phoenix.init.PhxBiomes.UNDER
 import phoenix.init.PhxBlocks.blocks
@@ -38,8 +39,7 @@ import phoenix.network.NetworkHandler
 import phoenix.utils.ServerStageUppedEvent
 import phoenix.utils.addStructure
 import phoenix.utils.addZirconiumOre
-import phoenix.utils.block.ICustomGroup
-import phoenix.utils.block.INonItem
+import phoenix.api.block.INonItem
 import thedarkcolour.kotlinforforge.forge.ObjectHolderDelegate
 
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)

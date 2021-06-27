@@ -20,7 +20,6 @@ import net.minecraft.state.IProperty
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.Direction
-import net.minecraft.util.Hand
 import net.minecraft.util.JSONUtils
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
@@ -59,9 +58,10 @@ import net.minecraftforge.fml.DistExecutor
 import net.minecraftforge.fml.RegistryObject
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper
-import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.IForgeRegistryEntry
 import phoenix.Phoenix
+import phoenix.api.entity.Date
+import phoenix.api.entity.IPhoenixPlayer
 import phoenix.client.gui.diaryPages.Chapter
 import phoenix.init.PhxBlocks
 import phoenix.mixin.serverInstance
@@ -69,7 +69,6 @@ import phoenix.network.NetworkHandler
 import phoenix.network.SyncBookPacket
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import java.util.*
-import kotlin.math.abs
 import kotlin.math.roundToInt
 
 data class MutableTuple<V, M, K>(var first: V, var second: M, var third: K)
@@ -80,7 +79,6 @@ data class MutablePair<V, M>(var first: V, var second: M)
     operator fun<T> contains(v : T) : Boolean = v != null && first == v || second == v
 }
 
-fun<V, M> mutablePairOf(first: V, second: M) = MutablePair(first, second)
 fun<V, M> uniquePairOf(first: V? = null, second: M? = null) : MutablePair<V?, M?> = if (first != second) MutablePair(first, second) else MutablePair(null, second)
 
 fun World.destroyBlock(pos: BlockPos, shouldDrop: Boolean, entity: Entity?, stack: ItemStack) : Boolean
@@ -113,7 +111,7 @@ operator fun <T : Comparable<T>, V : T> World.set(pos: BlockPos, property: IProp
         false
 }
 
-operator fun IWorldReader.get(pos: BlockPos) = getBlockState(pos)
+operator fun IWorldReader.get(pos: BlockPos): BlockState = getBlockState(pos)
 operator fun <T : Comparable<T>> World.get(pos: BlockPos, property: IProperty<T>) : T = this[pos][property]
 operator fun IWorld.get(pos: BlockPos) : BlockState = this.getBlockState(pos)
 operator fun IWorld.set(pos: BlockPos, state : BlockState, flag : Int) : Boolean = this.setBlockState(pos, state, flag)
@@ -121,10 +119,7 @@ operator fun IWorld.set(pos: BlockPos, state : BlockState) : Boolean = this.setB
 
 operator fun IChunk.get(pos: BlockPos) : BlockState = this.getBlockState(pos)
 operator fun IChunk.set(pos: BlockPos, state : BlockState) = this.setBlockState(pos, state, false)
-operator fun IChunk.set(pos: BlockPos, state : BlockState, isMooving : Boolean) = this.setBlockState(pos, state, isMooving)
-
-fun ItemStack.getFluidContained() = FluidUtil.getFluidContained(this).orElse(FluidStack.EMPTY)
-fun PlayerEntity.getFluidContainedInHand(hand: Hand) = FluidUtil.getFluidContained(this.getHeldItem(hand)).orElse(FluidStack.EMPTY)
+operator fun IChunk.set(pos: BlockPos, state : BlockState, isMoving : Boolean) = this.setBlockState(pos, state, isMoving)
 
 fun <V : IForgeRegistryEntry<V>> KDeferredRegister<V>.register(name: String, value: V) = register(name) { value }
 
@@ -141,6 +136,7 @@ fun JsonObject.getItemStack(nameIn: String): ItemStack
     else
     {
         val name = JSONUtils.getString(this, nameIn)
+        //ItemStack(ForgeRegistries.ITEMS.getValue(ResourceLocation(name))!!.item)
         ItemStack(Registry.ITEM.getValue(ResourceLocation(name)).orElseThrow { IllegalStateException("Item: $name does not exist") })
     }
 }
@@ -168,12 +164,12 @@ fun PacketBuffer.writeDate(date: Date)
 
 fun PacketBuffer.readDate() : Date = Date(readLong(), readLong(), readLong())
 
-fun <T : Number> min(vararg vals: T) : T
+fun <T : Number> min(vararg values: T) : T
 {
-    if(vals.isEmpty())
+    if(values.isEmpty())
         throw NullPointerException()
-    var res : T = vals[0]
-    for(i in vals)
+    var res : T = values[0]
+    for(i in values)
     {
         if(i.toDouble() < res.toDouble())
             res = i
@@ -181,12 +177,12 @@ fun <T : Number> min(vararg vals: T) : T
     return res
 }
 
-fun <T : Number> max(vararg vals: T) : T
+fun <T : Number> max(vararg values: T) : T
 {
-    if(vals.isEmpty())
+    if(values.isEmpty())
         throw NullPointerException()
-    var res : T = vals[0]
-    for(i in vals)
+    var res : T = values[0]
+    for(i in values)
     {
         if(i.toDouble() > res.toDouble())
             res = i
@@ -198,16 +194,16 @@ fun <T : Number> max(vararg vals: T) : T
 fun <T : TileEntity> create(tile: T, block: Block) : () -> TileEntityType<T> = { TileEntityType.Builder.create({ tile }, block).build() }
 fun <T : TileEntity> create(tile: T, block: RegistryObject<Block>) : () -> TileEntityType<T> = { TileEntityType.Builder.create({ tile }, block.get()).build() }
 
-fun <T : IForgeRegistryEntry<T>> DeferredRegister<T>.registerValue(nameIn: String, value: T): RegistryObject<T> = this.register(nameIn) { value }
-
 private const val daysAYear = 319
 private const val dayLength = 12000
 private const val secondLength = 12000
 
 fun World.getDate() = Date((795 + dayTime) % dayLength / secondLength, (gameTime + 2005) % daysAYear, (gameTime + 2005) / daysAYear)
 
-fun ServerPlayerEntity.addChapter(chapter: Chapter)
+fun ServerPlayerEntity.addChapter(chapter: Chapter?)
 {
+    if (chapter == null)
+        return
     if(this is IPhoenixPlayer)
     {
         this.addChapter(chapter.id, world.getDate())
@@ -216,7 +212,13 @@ fun ServerPlayerEntity.addChapter(chapter: Chapter)
     }
 }
 
-fun ServerPlayerEntity.hasChapter(chapter: Chapter) : Boolean = if(this is IPhoenixPlayer) hasChapter(chapter) else false
+fun IntRange.toSet() : MutableSet<Int>
+{
+    val res = kotlin.collections.HashSet<Int>()
+    for (i in this)
+        res.add(i)
+    return res
+}
 
 inline fun <reified T> IWorld.getTileAt(pos: BlockPos): T?
 {
@@ -242,6 +244,14 @@ val clientPlayer : ClientPlayerEntity?
 val clientWorld : ClientWorld?
     @OnlyIn(Dist.CLIENT)
     inline get() = mc.world
+val World.isServer
+    get() = !this.isRemote
+
+val PlayerEntity.isServer
+    get() = !world.isRemote
+
+val PlayerEntity.isRemote
+    get() = world.isRemote
 
 val server : MinecraftServer?
     get() = try { mc.integratedServer } catch(e : Throwable) { serverInstance }
@@ -296,37 +306,11 @@ fun interactWithFluidHandler
 
 fun areFluidsCompatible(f: FluidStack, s: FluidStack) : Boolean = f.isEmpty xor s.isEmpty || f.fluid === s.fluid
 
-fun interactBetweenPipes(f: IFluidHandler, s: IFluidHandler, max: Int) : Boolean
-{
-    val ff = f.getFluidInTank(0)
-    val sf = s.getFluidInTank(0)
-    return if (areFluidsCompatible(sf, ff))
-    {
-        val amount = min(abs(ff.amount - sf.amount) / 2, max, f.getTankCapacity(0) - ff.amount, s.getTankCapacity(0) - sf.amount)
-        if(amount != 0)
-        {
-            if (ff.amount > sf.amount)
-            {
-                s.fill(f.drain(amount, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE)
-            } else
-            {
-                f.fill(s.drain(amount, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE)
-            }
-        }
-        amount != 0
-    } else false
-}
-
 val next: ImmutableMap<Direction, Direction> = ImmutableMap.of(Direction.NORTH, Direction.EAST, Direction.EAST, Direction.SOUTH, Direction.SOUTH, Direction.WEST, Direction.WEST, Direction.NORTH)
 
 fun Direction.next() : Direction = next[this] ?: Direction.NORTH
 
-val axisToFace: ImmutableMap<Direction.Axis, Direction> = ImmutableMap.of(Direction.Axis.X, Direction.NORTH, Direction.Axis.Z, Direction.SOUTH)
-
-fun Direction.Axis.getMainDirection() : Direction = axisToFace[this] ?: Direction.NORTH
-
 fun<T> client(task : (mc : Minecraft, player : ClientPlayerEntity?, world : ClientWorld?) -> T) : T = DistExecutor.safeCallWhenOn(Dist.CLIENT) { DistExecutor.SafeCallable { task(mc, clientPlayer, clientWorld) }}
-fun<T> server(task : () -> T) : T = DistExecutor.safeCallWhenOn(Dist.DEDICATED_SERVER) {  DistExecutor.SafeCallable{ task() } }
 fun<T> server(task : (MinecraftServer?) -> T) : T = DistExecutor.safeCallWhenOn(Dist.DEDICATED_SERVER) { DistExecutor.SafeCallable { task(server) } }
 
 fun PacketBuffer.writeFluidTank(tank: FluidTank)
