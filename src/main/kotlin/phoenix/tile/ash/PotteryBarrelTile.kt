@@ -10,7 +10,7 @@ import net.minecraft.network.NetworkManager
 import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
-import phoenix.blocks.ash.PotteryBarrelBlock.Companion.state
+import phoenix.blocks.ash.PotteryBarrelBlock.Companion.POTTERY_STATE
 import phoenix.init.PhxTiles.potteryBarrel
 import phoenix.utils.block.PhoenixTile
 import phoenix.utils.get
@@ -27,15 +27,15 @@ class PotteryBarrelTile : PhoenixTile(potteryBarrel), IInventory,
         {
             if (inventory.item === Items.CLAY)
             {
-                if (world[pos, state] == 1)
+                if (world[pos, POTTERY_STATE] == 1)
                 {
-                    world[pos, state] = 2
+                    world[pos, POTTERY_STATE] = 2
                 }
             } else if (inventory.item === Items.WATER_BUCKET)
             {
-                if (world[pos, state] == 0)
+                if (world[pos, POTTERY_STATE] == 0)
                 {
-                    world[pos, state] = 1
+                    world[pos, POTTERY_STATE] = 1
                 }
             } else
             {

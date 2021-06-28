@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"ambientocclusion": false,
 	"textures": {
 		"particle": "block/barrel_top",
 		"top": "block/barrel_top",
@@ -76,7 +75,6 @@
 			"from": [2, 1, 2],
 			"to": [14, 12, 15],
 			"rotation": {"angle": 0, "axis": "y", "origin": [10, 9, 10]},
-			"color": 4,
 			"faces": {
 				"up": { "texture": "#water", "tintindex": 0 }
 			}

@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderTypeLookup
 import net.minecraft.client.util.Splashes
 import net.minecraft.util.text.TextFormatting.*
+import net.minecraftforge.client.event.ColorHandlerEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.client.registry.RenderingRegistry
@@ -40,6 +41,25 @@ import phoenix.utils.mc
 object PhoenixClientEvents
 {
     @SubscribeEvent
+    fun onBlockColor(event: ColorHandlerEvent.Block)
+    {
+        for (block in blocks.getEntries().map { b -> b.get() })
+            if (block is IColoredBlock && block.getBlockColor() != null)
+                event.blockColors.register(block.getBlockColor()!!, block)
+    }
+
+    @SubscribeEvent
+    fun onItemColor(event : ColorHandlerEvent.Item)
+    {
+        for (block in blocks.getEntries().map { b -> b.get() })
+            if (block is IColoredBlock && block.getItemColor() != null)
+                event.itemColors.register(block.getItemColor()!!, block)
+
+        for (i in FixedSpawnEggItem.eggs)
+            event.itemColors.register(i::getColor, i)
+    }
+
+    @SubscribeEvent
     fun onClientSetup(event: FMLClientSetupEvent)
     {
         NetworkHandler.init()
@@ -55,6 +75,7 @@ object PhoenixClientEvents
         RenderTypeLookup.setRenderLayer(PhxBlocks.wetStairs, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.setaJuice, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.juicer, RenderType.getCutoutMipped())
+        RenderTypeLookup.setRenderLayer(PhxBlocks.potteryBarrel, RenderType.getTranslucent())
         RenderingRegistry.registerEntityRenderingHandler(talpa, ::TalpaRenderer)
         RenderingRegistry.registerEntityRenderingHandler(ancientGolemEntity, ::AncientGolemRenderer)
         RenderingRegistry.registerEntityRenderingHandler(cauda, ::CaudaRenderer)
@@ -68,19 +89,6 @@ object PhoenixClientEvents
         ClientRegistry.bindTileEntityRenderer(PhxTiles.juicer, ::TankRenderer)
         ClientRegistry.bindTileEntityRenderer(PhxTiles.oven, ::OvenRenderer)
         //ClientRegistry.bindTileEntityRenderer(PhxTiles.TEXT, ::TextRenderer)
-
-        // регистрация цветных блоков
-        for (block in blocks.getEntries())
-        {
-            if (block is IColoredBlock)
-            {
-                if (block.getBlockColor() != null) mc.blockColors.register(block.getBlockColor()!!, block.get())
-                if (block.getItemColor() != null) mc.itemColors.register(block.getItemColor()!!, block.get())
-            }
-        }
-
-        for (i in FixedSpawnEggItem.eggs)
-            mc.itemColors.register(i::getColor, i)
 
         mc.splashes = Splashes(mc.splashes.gameSession)
         mc.splashes.possibleSplashes.add(StringUtils.rainbowColor("God is an artist, since there are so many \n colors in the world")) //Reference to: Beautiful mind
