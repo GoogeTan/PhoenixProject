@@ -2,6 +2,7 @@ package phoenix.tile.ash
 
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.IInventory
+import net.minecraft.inventory.Inventory
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.nbt.CompoundNBT
@@ -24,12 +25,11 @@ import phoenix.utils.set
 import java.lang.Integer.max
 import java.lang.Integer.min
 
-class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory
+class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory by Inventory(5)
 {
     var timers = IntArray(4)
     var burnTime = 0
     private val maxBurnTime = 20 * 60
-    var inventory = OvenContainer()
 
     init
     {
@@ -45,10 +45,10 @@ class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory
         var has = false
         for (i in 0..3)
         {
-            if(!recipesFromInputs.contains(inventory[i].item) || inventory[i].item == PhxItems.COOKED_SETA)
+            if(!recipesFromInputs.contains(this[i].item) || this[i].item == PhxItems.COOKED_SETA)
             {
-                res.add(inventory[i].copy())
-                inventory[i] = ItemStack.EMPTY
+                res.add(this[i].copy())
+                this[i] = ItemStack.EMPTY
                 timers[i] = 0
                 has = true
             }
@@ -63,9 +63,9 @@ class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory
         val res = ArrayList<ItemStack>()
         for (i in 0..3)
         {
-            if(!recipesFromInputs.contains(inventory[i].item))
+            if(!recipesFromInputs.contains(this[i].item))
             {
-                res.add(inventory[i]);
+                res.add(this[i]);
             }
         }
         return res
@@ -74,9 +74,9 @@ class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory
     fun addItem(stack : ItemStack) : Boolean
     {
         for (i in 0..3)
-            if(inventory[i].item == Items.AIR)
+            if(this[i].item == Items.AIR)
             {
-                inventory[i] = ItemStack(stack.item)
+                this[i] = ItemStack(stack.item)
                 timers[i] = 0
                 return true
             }
@@ -98,7 +98,7 @@ class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory
                     var has = false
                     for (i in 0..3)
                     {
-                        val current = inventory[i]
+                        val current = this[i]
                         if (recipesFromInputs.contains(current.item))
                         {
                             val recipe = recipesFromInputs[current.item]!!
@@ -106,7 +106,7 @@ class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory
                             timers[i]++
                             if (timers[i] >= cookTime)
                             {
-                                inventory[i] = recipe.result
+                                this[i] = recipe.result
                                 has = true
                                 timers[i] = 0
                             }
@@ -121,7 +121,7 @@ class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory
         }
     }
 
-    override fun getUpdatePacket(): SUpdateTileEntityPacket = UpdatePacket(timers, burnTime, inventory, pos)
+    override fun getUpdatePacket(): SUpdateTileEntityPacket = UpdatePacket(timers, burnTime, this, pos)
 
     override fun onDataPacket(net: NetworkManager, pkt: SUpdateTileEntityPacket)
     {
@@ -138,7 +138,7 @@ class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory
         for (i in 0..3)
         {
             val stack = CompoundNBT()
-            inventory[i].write(stack)
+            this[i].write(stack)
             nbt.put("slot$i", stack)
         }
 
@@ -156,13 +156,13 @@ class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory
         for (i in 0..3)
         {
             val current = nbt.getCompound("slot$i")
-            inventory[i] = ItemStack.read(current)
+            this[i] = ItemStack.read(current)
         }
         super.read(compound)
     }
 
 
-    class UpdatePacket(var timers: IntArray, var burnTime : Int, var container: OvenContainer, pos: BlockPos) : SUpdateTileEntityPacket(pos, 32, CompoundNBT())
+    class UpdatePacket(var timers: IntArray, var burnTime : Int, var container: OvenTile, pos: BlockPos) : SUpdateTileEntityPacket(pos, 32, CompoundNBT())
     {
         override fun writePacketData(buf: PacketBuffer)
         {
@@ -185,30 +185,6 @@ class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory
             container[2] = buf.readItemStack()
             container[3] = buf.readItemStack()
         }
-    }
-
-    override fun clear() = inventory.inventory.clear()
-    override fun getSizeInventory() = inventory.size
-    override fun isEmpty() = inventory.inventory.isEmpty
-    override fun getStackInSlot(index: Int): ItemStack = inventory[index]
-    override fun isUsableByPlayer(player: PlayerEntity) = player.position - pos < 20
-
-    override fun decrStackSize(index: Int, count: Int): ItemStack
-    {
-        inventory[index].shrink(count)
-        return inventory[index]
-    }
-
-    override fun removeStackFromSlot(index: Int) : ItemStack
-    {
-        val tmp = inventory[index];
-        inventory[index] = ItemStack.EMPTY
-        return tmp
-    }
-
-    override fun setInventorySlotContents(index : Int, stack : ItemStack)
-    {
-        inventory[index] = stack
     }
 
     operator fun get(i : Int) = getStackInSlot(i)

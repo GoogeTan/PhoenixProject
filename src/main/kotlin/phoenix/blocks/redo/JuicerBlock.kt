@@ -18,7 +18,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler
 import phoenix.api.block.IRedoThink
 import phoenix.tile.FluidTileSidable
 import phoenix.tile.redo.JuicerTile
-import phoenix.utils.block.BlockWithTile
+import phoenix.api.block.BlockWithTile
 import phoenix.utils.interactWithFluidHandler
 
 object JuicerBlock : BlockWithTile(

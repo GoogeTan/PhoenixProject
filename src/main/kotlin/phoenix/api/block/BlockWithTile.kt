@@ -1,4 +1,4 @@
-package phoenix.utils.block
+package phoenix.api.block
 
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState

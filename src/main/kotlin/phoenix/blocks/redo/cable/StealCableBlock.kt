@@ -5,7 +5,7 @@ import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.world.IBlockReader
-import phoenix.utils.block.BlockWithTile
+import phoenix.api.block.BlockWithTile
 
 object StealCableBlock : BlockWithTile(Properties.create(Material.IRON).sound(SoundType.CORAL).hardnessAndResistance(4F).notSolid())
 {

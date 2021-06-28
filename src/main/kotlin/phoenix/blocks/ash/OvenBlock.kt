@@ -30,18 +30,19 @@ import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.common.ToolType
+import phoenix.api.block.BlockWithContainer
 import phoenix.client.gui.diaryPages.Chapter
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncOvenPacket
 import phoenix.recipes.OvenRecipe
 import phoenix.tile.ash.OvenTile
 import phoenix.utils.addChapter
-import phoenix.utils.block.BlockWithTile
+import phoenix.api.block.BlockWithTile
 import phoenix.utils.get
 import phoenix.utils.set
 import java.util.*
 
-class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hardnessAndResistance(10f).harvestTool(ToolType.PICKAXE))
+class OvenBlock : BlockWithContainer(Properties.create(Material.ROCK).notSolid().hardnessAndResistance(10f).harvestTool(ToolType.PICKAXE))
 {
     companion object
     {
@@ -134,7 +135,7 @@ class OvenBlock : BlockWithTile(Properties.create(Material.ROCK).notSolid().hard
 
     override fun getStateForPlacement(context: BlockItemUseContext) = defaultState.with(BlockStateProperties.HORIZONTAL_FACING, context.placementHorizontalFacing.opposite)
     override fun getRenderType(state: BlockState) = BlockRenderType.MODEL
-    override fun createTileEntity(state: BlockState, world: IBlockReader): TileEntity = OvenTile()
+    override fun createNewTileEntity(worldIn: IBlockReader): TileEntity = OvenTile()
 
     @OnlyIn(Dist.CLIENT)
     override fun animateTick(stateIn: BlockState, worldIn: World, pos: BlockPos, rand: Random)

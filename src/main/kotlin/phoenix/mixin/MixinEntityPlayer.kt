@@ -20,15 +20,6 @@ import phoenix.init.PhxItems
 import phoenix.utils.addChapter
 import phoenix.utils.toSet
 
-val itemToChapter : Map<IItemProvider, Chapter> = ImmutableMap.of(
-    Items.IRON_INGOT, Chapter.STEEL,
-    Items.CLAY, Chapter.CLAY,
-    Items.CLAY_BALL, Chapter.CLAY,
-    PhxItems.HIGH_QUALITY_CLAY_ITEM, Chapter.OVEN
-)
-
-val specialChapters = listOf<(ItemStack) -> Chapter?> { stack -> if (stack.isEnchanted) Chapter.KNIFE_ENCHANTING else null }
-
 @Mixin(PlayerEntity::class)
 abstract class MixinEntityPlayer : IPhoenixPlayer
 {
@@ -119,5 +110,17 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
             }
             specialChaptersIndices.removeAll(toRemove)
         }
+    }
+
+    companion object
+    {
+        val itemToChapter : Map<IItemProvider, Chapter> = ImmutableMap.of(
+            Items.IRON_INGOT, Chapter.STEEL,
+            Items.CLAY, Chapter.CLAY,
+            Items.CLAY_BALL, Chapter.CLAY,
+            PhxItems.HIGH_QUALITY_CLAY_ITEM, Chapter.OVEN
+        )
+
+        val specialChapters = listOf<(ItemStack) -> Chapter?> { stack -> if (stack.isEnchanted) Chapter.KNIFE_ENCHANTING else null }
     }
 }
