@@ -27,15 +27,15 @@ class ElectricBarrelTile : PhoenixTile(PhxTiles.electricBarrel), IInventory, ITi
         {
             if (inventory.item === Items.CLAY)
             {
-                if (world[pos].get(PotteryBarrelBlock.state) == 1)
+                if (world[pos].get(PotteryBarrelBlock.POTTERY_STATE) == 1)
                 {
-                    world[pos, PotteryBarrelBlock.state] = 2
+                    world[pos, PotteryBarrelBlock.POTTERY_STATE] = 2
                 }
             } else if (inventory.item === Items.WATER_BUCKET)
             {
-                if (world[pos, PotteryBarrelBlock.state] == 0)
+                if (world[pos, PotteryBarrelBlock.POTTERY_STATE] == 0)
                 {
-                    world[pos, PotteryBarrelBlock.state] = 1
+                    world[pos, PotteryBarrelBlock.POTTERY_STATE] = 1
                 }
             } else
             {
