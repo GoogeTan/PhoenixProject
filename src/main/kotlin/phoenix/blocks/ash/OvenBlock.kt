@@ -6,8 +6,8 @@ import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
 import net.minecraft.block.material.Material
 import net.minecraft.entity.LivingEntity
+import net.minecraft.entity.item.ItemEntity
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.item.BlockItemUseContext
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
@@ -21,6 +21,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.BlockRayTraceResult
 import net.minecraft.util.math.shapes.ISelectionContext
 import net.minecraft.util.math.shapes.VoxelShape
+import net.minecraft.util.text.StringTextComponent
 import net.minecraft.world.Explosion
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.IWorld
@@ -30,17 +31,18 @@ import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.common.ToolType
+import net.minecraftforge.fluids.FluidUtil
 import phoenix.api.block.BlockWithContainer
-import phoenix.client.gui.diaryPages.Chapter
+import phoenix.init.PhxSounds
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncOvenPacket
 import phoenix.recipes.OvenRecipe
 import phoenix.tile.ash.OvenTile
-import phoenix.utils.addChapter
-import phoenix.api.block.BlockWithTile
 import phoenix.utils.get
+import phoenix.utils.getTileAt
 import phoenix.utils.set
 import java.util.*
+import kotlin.collections.ArrayList
 
 class OvenBlock : BlockWithContainer(Properties.create(Material.ROCK).notSolid().hardnessAndResistance(10f).harvestTool(ToolType.PICKAXE))
 {
@@ -59,39 +61,52 @@ class OvenBlock : BlockWithContainer(Properties.create(Material.ROCK).notSolid()
     {
         if (!worldIn.isRemote)
         {
-            val tile = worldIn.getTileEntity(pos) as OvenTile
+            val tile = worldIn.getTileAt<OvenTile>(pos)!!
             val stack: ItemStack = playerIn.getHeldItem(handIn)
+            var toPrint = "${tile.timers.contentToString()} ${tile.items} ${tile.burnTime} "
 
-            if (OvenRecipe.recipesFromInputs[stack.item] != null)
+            toPrint += worldIn[pos, STATE]
+            toPrint += " ${playerIn.heldItemMainhand.getItem() === Items.AIR} "
+
+            if (playerIn.heldItemMainhand.getItem() === Items.AIR)
+            {
+                if(worldIn[pos, STATE] != 2){
+                    worldIn[pos, STATE] = 2
+                    toPrint += "3"
+                }
+                else
+                {
+                    worldIn[pos, STATE] = 1
+                    val items = tile.outOtherItems()
+                    for (i in items)
+                    {
+                        if (playerIn.addItemStackToInventory(i))
+                            worldIn.playSound(playerIn, pos, PhxSounds.getItemFromOven, SoundCategory.BLOCKS, 1F, 1F)
+                        else
+                            worldIn.addEntity(ItemEntity(worldIn, playerIn.posX, (playerIn.posY + 1), playerIn.posZ, i))
+                    }
+                    toPrint += "4"
+                }
+            }
+            else if (OvenRecipe.recipesFromInputs[stack.getItem()] != null)
             {
                 if(tile.addItem(stack))
                 {
                     playerIn.getHeldItem(handIn).shrink(1)
                 }
                 NetworkHandler.sendToAll(SyncOvenPacket(tile))
+                toPrint += "1";
             }
-            else if (stack.item != Items.LAVA_BUCKET && ForgeHooks.getBurnTime(stack) > 0)
+            else if (ForgeHooks.getBurnTime(stack) > 0 && !FluidUtil.getFluidContained(stack).isPresent)
             {
                 tile.burnTime += ForgeHooks.getBurnTime(stack)
                 playerIn.getHeldItem(handIn).shrink(1)
                 if(worldIn[pos, STATE] == 0)
                     worldIn[pos, STATE] = 1
+                toPrint += "2";
             }
-            else
-            {
-                if(worldIn[pos, STATE] == 1)
-                    worldIn[pos, STATE] = 2
-                else if(worldIn[pos, STATE] == 2)
-                {
-                    worldIn[pos, STATE] = 1
-                    val items = tile.outOtherItems()
-                    for (i in items)
-                        playerIn.addItemStackToInventory(i)
-                    if(items.isNotEmpty() && playerIn is ServerPlayerEntity)
-                        playerIn.addChapter(Chapter.STEEL)
-                }
-            }
-            return ActionResultType.SUCCESS
+            playerIn.sendStatusMessage(StringTextComponent(toPrint), true)
+            return ActionResultType.CONSUME
         }
 
         return ActionResultType.PASS
@@ -168,4 +183,6 @@ class OvenBlock : BlockWithContainer(Properties.create(Material.ROCK).notSolid()
 
     override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext) = SHAPE
     override fun getCollisionShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext) = SHAPE
+
+
 }

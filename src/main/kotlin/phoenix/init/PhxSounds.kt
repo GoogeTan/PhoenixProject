@@ -10,20 +10,24 @@ import phoenix.Phoenix
 @Mod.EventBusSubscriber(modid=Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 object PhxSounds
 {
-    var CHANGE_STAGE: SoundEvent = SoundEvent(ResourceLocation("change_stage"))
-    val REDO_MUSIC         : SoundEvent = phoenixSound("redo_music")
-    val PUT_SMTH_TO_BARREL : SoundEvent = phoenixSound("put_smth_to_barrel")
+    var changeStage       : SoundEvent = phoenixSound("change_stage")
+    val redoMusic         : SoundEvent = phoenixSound("redo_music")
+    val getItemFromBarrel : SoundEvent = phoenixSound("put_smth_to_barrel")
+    val getItemFromOven   : SoundEvent = phoenixSound("get_item_from_oven")
 
     @SubscribeEvent
     fun resister(event: RegistryEvent.Register<SoundEvent>)
     {
-        CHANGE_STAGE.registryName = ResourceLocation("change_stage")
-        event.registry.register(CHANGE_STAGE)
-        REDO_MUSIC.registryName = ResourceLocation("phoenix", "redo_music")
-        event.registry.register(REDO_MUSIC)
-        PUT_SMTH_TO_BARREL.registryName = ResourceLocation("phoenix", "put_smth_to_barrel")
-        event.registry.register(PUT_SMTH_TO_BARREL)
+        event.registry.register(changeStage)
+        event.registry.register(redoMusic)
+        event.registry.register(getItemFromBarrel)
+        event.registry.register(getItemFromOven)
     }
 
-    private fun phoenixSound(nameIn: String) = SoundEvent(ResourceLocation(Phoenix.MOD_ID, nameIn))
+    private fun phoenixSound(nameIn: String): SoundEvent
+    {
+        val res = SoundEvent(ResourceLocation(Phoenix.MOD_ID, nameIn))
+        res.registryName = ResourceLocation(Phoenix.MOD_ID, nameIn)
+        return  res
+    }
 }

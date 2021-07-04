@@ -70,6 +70,7 @@ object PhoenixCommonEvents
         HEARTVOID.addSpawn(EntityClassification.CREATURE, SpawnListEntry(talpa, 15, 1, 4))
         END_HIGHLANDS.addStructure(PhxFeatures.REMAINS)
         UNDER.addStructure(PhxFeatures.REMAINS)
+        UNDER.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, PhxFeatures.WATER.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG))
         HEARTVOID.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, PhxFeatures.WET_TREE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG))
 
         for (biome in Registry.BIOME)
@@ -84,15 +85,14 @@ object PhoenixCommonEvents
         BrewingRecipeRegistry.addRecipe(
             Ingredient.fromStacks(PotionUtils.addPotionToItemStack(ItemStack(Items.POTION), MUNDANE)),
             Ingredient.fromItems(PhxItems.GOLDEN_SETA),
-            PotionUtils.addPotionToItemStack(ItemStack(Items.POTION), LEVITATION))
+            PotionUtils.addPotionToItemStack(ItemStack(Items.POTION), LEVITATION)
+        )
 
         BrewingRecipeRegistry.addRecipe(
             Ingredient.fromStacks(PotionUtils.addPotionToItemStack(ItemStack(Items.POTION), LEVITATION)),
             Ingredient.fromItems(Items.REDSTONE),
-            PotionUtils.addPotionToItemStack(ItemStack(Items.POTION), LONG_LEVITATION))
-
-
-
+            PotionUtils.addPotionToItemStack(ItemStack(Items.POTION), LONG_LEVITATION)
+        )
     }
 
     @SubscribeEvent

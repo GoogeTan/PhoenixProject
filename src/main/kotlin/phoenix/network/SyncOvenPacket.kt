@@ -2,16 +2,17 @@ package phoenix.network
 
 import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
+import net.minecraft.inventory.IInventory
+import net.minecraft.inventory.Inventory
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.math.BlockPos
-import phoenix.containers.ash.OvenContainer
 import phoenix.tile.ash.OvenTile
 import phoenix.utils.getTileAt
 
-class SyncOvenPacket(var timers: IntArray, var burnTime : Int, var container: OvenContainer, var pos: BlockPos) : NetworkHandler.Packet()
+class SyncOvenPacket(var timers: IntArray, var burnTime : Int, var container: IInventory, var pos: BlockPos) : NetworkHandler.Packet()
 {
-    constructor() : this(IntArray(4), 0, OvenContainer(), BlockPos.ZERO.add(0, 5, 0))
-    constructor(tile: OvenTile) : this(tile.timers, tile.burnTime, tile.inventory, tile.pos)
+    constructor() : this(IntArray(4), 0, OvenTile(), BlockPos.ZERO.add(0, 5, 0))
+    constructor(tile: OvenTile) : this(tile.timers, tile.burnTime, tile, tile.pos)
 
     override fun encode(packet: NetworkHandler.Packet, buf: PacketBuffer)
     {
@@ -21,10 +22,10 @@ class SyncOvenPacket(var timers: IntArray, var burnTime : Int, var container: Ov
             container = packet.container
             burnTime = packet.burnTime
             timers = packet.timers
-            buf.writeItemStack(packet.container[0])
-            buf.writeItemStack(packet.container[1])
-            buf.writeItemStack(packet.container[2])
-            buf.writeItemStack(packet.container[3])
+            buf.writeItemStack(packet.container.getStackInSlot(0))
+            buf.writeItemStack(packet.container.getStackInSlot(1))
+            buf.writeItemStack(packet.container.getStackInSlot(2))
+            buf.writeItemStack(packet.container.getStackInSlot(3))
             buf.writeBlockPos(packet.pos)
             buf.writeVarIntArray(packet.timers)
             buf.writeVarInt(packet.burnTime)
@@ -33,11 +34,11 @@ class SyncOvenPacket(var timers: IntArray, var burnTime : Int, var container: Ov
 
     override fun decode(buf: PacketBuffer): NetworkHandler.Packet
     {
-        val cont = OvenContainer()
-        cont[0] = buf.readItemStack()
-        cont[1] = buf.readItemStack()
-        cont[2] = buf.readItemStack()
-        cont[3] = buf.readItemStack()
+        val cont = Inventory(4)
+        cont.setInventorySlotContents(0, buf.readItemStack())
+        cont.setInventorySlotContents(1, buf.readItemStack())
+        cont.setInventorySlotContents(2, buf.readItemStack())
+        cont.setInventorySlotContents(3, buf.readItemStack())
         val pos      = buf.readBlockPos()
         val timers   = buf.readVarIntArray()
         val burnTime = buf.readVarInt()
@@ -51,7 +52,8 @@ class SyncOvenPacket(var timers: IntArray, var burnTime : Int, var container: Ov
         if(tile != null)
         {
             tile.burnTime = burnTime
-            tile.inventory = container
+            for (i in 0..3)
+                tile.setInventorySlotContents(i, container.getStackInSlot(i))
             tile.timers = timers
         }
     }
@@ -59,4 +61,5 @@ class SyncOvenPacket(var timers: IntArray, var burnTime : Int, var container: Ov
     override fun server(player: ServerPlayerEntity?) {}
 
     override fun toString() = "SyncOvenPacket(timers=${timers.contentToString()}, burnTime=$burnTime, container=$container, pos=$pos)"
+
 }

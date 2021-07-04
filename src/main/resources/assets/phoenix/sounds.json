@@ -21,6 +21,17 @@
 			}
 		]
 	},
+	"get_item_from_oven":
+	{
+		"category": "block",
+		"sounds":
+		[
+			{
+				"name": "phoenix:get_item_from_oven",
+				"stream": false
+			}
+		]
+	},
 	"redo_music":
 	{
 		"category": "music",

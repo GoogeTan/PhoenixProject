@@ -25,9 +25,9 @@ class OvenRenderer(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEnt
     {
         val direction: Direction = te.blockState[AbstractFurnaceBlock.FACING]
         matrixStackIn.translate(0.0, 1.0, 0.0)
-        for (i in 0 until te.inventory.size)
+        for (i in 0 until te.sizeInventory)
         {
-            val stack: ItemStack = te.inventory[i]
+            val stack: ItemStack = te[i]
             if (stack != ItemStack.EMPTY)
             {
                 matrixStackIn.push()

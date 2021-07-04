@@ -47,13 +47,15 @@ class OvenRecipe(
     companion object
     {
         var recipesFromInputs = HashMap<Item, OvenRecipe>()
+        var recipesByResult = HashMap<Item, OvenRecipe>()
     }
 
     init
     {
         for (stack in ingredientIn.matchingStacks)
         {
-            recipesFromInputs[stack.item] = this
+            recipesFromInputs[stack.getItem()] = this
         }
+        recipesByResult[result.getItem()] = this
     }
 }

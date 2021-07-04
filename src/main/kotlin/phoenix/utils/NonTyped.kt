@@ -102,16 +102,10 @@ fun World.destroyBlock(pos: BlockPos, shouldDrop: Boolean, entity: Entity?, stac
     }
 }
 
-operator fun <T : Comparable<T>, V : T> World.set(pos: BlockPos, property: IProperty<T>, value: V) : Boolean
+operator fun <T : Comparable<T>, V : T> World.set(pos: BlockPos, property: IProperty<T>, value: V)
 {
     val state = world[pos]
-    return if(state.has(property))
-    {
-        world[pos] = state.with(property, value)
-        true
-    }
-    else
-        false
+    world[pos] = state.with(property, value)
 }
 
 operator fun IWorldReader.get(pos: BlockPos): BlockState = getBlockState(pos)

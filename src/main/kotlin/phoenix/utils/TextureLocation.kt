@@ -19,7 +19,6 @@ class TextureLocation : ResourceLocation
     {
         try
         {
-
             if (mc == null || mc.getTextureManager() == null)
                 flag = true
             else

@@ -87,8 +87,8 @@ object StageManager
 
             server { server ->
                 if (server != null)
-                    for (i in server.worlds)
-                        MinecraftForge.EVENT_BUS.post(ServerStageUppedEvent(i))
+                    for (world in server.worlds)
+                        MinecraftForge.EVENT_BUS.post(ServerStageUppedEvent(world))
             }
             part = 0
         }

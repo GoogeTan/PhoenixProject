@@ -39,7 +39,6 @@ import phoenix.utils.get
 import javax.annotation.Nonnull
 import javax.annotation.ParametersAreNonnullByDefault
 
-
 class PotteryBarrelBlock : Block(Properties.create(Material.BAMBOO).hardnessAndResistance(4.0f)), IColoredBlock
 {
     @Nonnull

@@ -1,5 +1,6 @@
 package phoenix.init.events
 
+import net.minecraft.block.Block
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderTypeLookup
 import net.minecraft.client.util.Splashes
@@ -36,6 +37,7 @@ import phoenix.network.NetworkHandler
 import phoenix.utils.ClientStageUppedEvent
 import phoenix.utils.StringUtils
 import phoenix.utils.mc
+import thedarkcolour.kotlinforforge.forge.ObjectHolderDelegate
 
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 object PhoenixClientEvents
@@ -43,7 +45,7 @@ object PhoenixClientEvents
     @SubscribeEvent
     fun onBlockColor(event: ColorHandlerEvent.Block)
     {
-        for (block in blocks.getEntries().map { b -> b.get() })
+        for (block in blocks.getEntries().map(ObjectHolderDelegate<out Block>::get))
             if (block is IColoredBlock && block.getBlockColor() != null)
                 event.blockColors.register(block.getBlockColor()!!, block)
     }
@@ -51,7 +53,7 @@ object PhoenixClientEvents
     @SubscribeEvent
     fun onItemColor(event : ColorHandlerEvent.Item)
     {
-        for (block in blocks.getEntries().map { b -> b.get() })
+        for (block in blocks.getEntries().map(ObjectHolderDelegate<out Block>::get))
             if (block is IColoredBlock && block.getItemColor() != null)
                 event.itemColors.register(block.getItemColor()!!, block)
 

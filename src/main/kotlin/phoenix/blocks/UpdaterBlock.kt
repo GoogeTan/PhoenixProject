@@ -31,7 +31,7 @@ object UpdaterBlock : Block(Properties.create(Material.ROCK).lightValue(5).hardn
         player.ridingEntity
         if (!worldIn.isRemote && worldIn.getDimension().type === DimensionType.THE_END)
         {
-            worldIn.playSound(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), PhxSounds.CHANGE_STAGE, SoundCategory.BLOCKS, 1f, 1f, true)
+            worldIn.playSound(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), PhxSounds.changeStage, SoundCategory.BLOCKS, 1f, 1f, true)
             addPart((worldIn.getDimension() as EndDimension).biomeProvider)
             for (entity in worldIn.players)
             {

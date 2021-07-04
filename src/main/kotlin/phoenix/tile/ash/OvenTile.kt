@@ -1,6 +1,5 @@
 package phoenix.tile.ash
 
-import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.Inventory
 import net.minecraft.item.ItemStack
@@ -11,25 +10,28 @@ import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.util.math.BlockPos
+import net.minecraftforge.common.ForgeHooks
 import phoenix.blocks.ash.OvenBlock
-import phoenix.containers.ash.OvenContainer
 import phoenix.init.PhxItems
 import phoenix.init.PhxTiles
 import phoenix.network.NetworkHandler
 import phoenix.network.SyncOvenPacket
+import phoenix.recipes.OvenRecipe.Companion.recipesByResult
 import phoenix.recipes.OvenRecipe.Companion.recipesFromInputs
-import phoenix.utils.BlockPosUtils.minus
 import phoenix.utils.block.PhoenixTile
 import phoenix.utils.get
 import phoenix.utils.set
 import java.lang.Integer.max
 import java.lang.Integer.min
 
-class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory by Inventory(5)
+class OvenTile(val inventory: Inventory = Inventory(5)) : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory by inventory
 {
     var timers = IntArray(4)
     var burnTime = 0
-    private val maxBurnTime = 20 * 60
+    companion object
+    {
+        private const val maxBurnTime = 1200
+    }
 
     init
     {
@@ -37,6 +39,16 @@ class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory by 
         timers[1] = -1
         timers[2] = -1
         timers[3] = -1
+
+        inventory.addListener {
+            val time = ForgeHooks.getBurnTime(getStackInSlot(4))
+            if (time > 0)
+            {
+                burnTime += time
+                burnTime = min(burnTime, maxBurnTime)
+            }
+            setInventorySlotContents(4, ItemStack.EMPTY)
+        }
     }
 
     fun outOtherItems() : List<ItemStack>
@@ -45,7 +57,7 @@ class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory by 
         var has = false
         for (i in 0..3)
         {
-            if(!recipesFromInputs.contains(this[i].item) || this[i].item == PhxItems.COOKED_SETA)
+            if(recipesByResult.containsKey(this[i].item) || this[i].item == PhxItems.COOKED_SETA)
             {
                 res.add(this[i].copy())
                 this[i] = ItemStack.EMPTY
@@ -63,7 +75,7 @@ class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory by 
         val res = ArrayList<ItemStack>()
         for (i in 0..3)
         {
-            if(!recipesFromInputs.contains(this[i].item))
+            if(recipesByResult.containsKey(this[i].item) || this[i].item == PhxItems.COOKED_SETA)
             {
                 res.add(this[i]);
             }
@@ -187,7 +199,16 @@ class OvenTile : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory by 
         }
     }
 
-    operator fun get(i : Int) = getStackInSlot(i)
+    override fun markDirty()
+    {
+        super.markDirty()
+        inventory.markDirty()
+    }
+
+    operator fun get(i : Int): ItemStack = getStackInSlot(i)
     operator fun set(i : Int, stack : ItemStack) = setInventorySlotContents(i, stack)
+
+    val items
+        get() = arrayListOf(this[0], this[1], this[2], this[3])
 }
 
