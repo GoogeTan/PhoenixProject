@@ -15,7 +15,7 @@ import net.minecraft.world.gen.feature.template.TemplateManager
 import phoenix.world.structures.remains.RemainsPieces.init
 import java.util.function.Function
 
-class RemainsStructure : ScatteredStructure<NoFeatureConfig>(Function { p_214639_0_: Dynamic<*> -> NoFeatureConfig.deserialize(p_214639_0_) })
+object RemainsStructure : ScatteredStructure<NoFeatureConfig>(Function { p_214639_0_: Dynamic<*> -> NoFeatureConfig.deserialize(p_214639_0_) })
 {
     override fun getStructureName(): String = "Remains"
 

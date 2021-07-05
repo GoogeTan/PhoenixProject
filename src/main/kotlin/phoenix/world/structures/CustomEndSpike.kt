@@ -27,18 +27,15 @@ import javax.annotation.ParametersAreNonnullByDefault
 import kotlin.math.cos
 import kotlin.math.sin
 
-
 @ParametersAreNonnullByDefault
-class CustomEndSpike : Feature<CustomEndSpikeConfig>({ dynamic: Dynamic<*> -> CustomEndSpikeConfig.deserialize(dynamic) })
-{
+object CustomEndSpike : Feature<CustomEndSpikeConfig>({ dynamic: Dynamic<*> -> CustomEndSpikeConfig.deserialize(dynamic) }) {
     override fun place(
         worldIn: IWorld,
         generator: ChunkGenerator<out GenerationSettings?>,
         rand: Random,
         pos: BlockPos,
         config: CustomEndSpikeConfig
-    ): Boolean
-    {
+    ): Boolean {
         var list = config.spikes
         if (list.isEmpty()) list = generateSpikes(worldIn)
         for (spike in list) if (spike.doesStartInChunk(pos)) placeSpike(worldIn, rand, config, spike)
@@ -48,32 +45,27 @@ class CustomEndSpike : Feature<CustomEndSpikeConfig>({ dynamic: Dynamic<*> -> Cu
     /**
      * Places the End Spike in the world. Also generates the obsidian tower.
      */
-    private fun placeSpike(worldIn: IWorld, rand: Random, config: CustomEndSpikeConfig, spike: EndSpike)
-    {
+    private fun placeSpike(worldIn: IWorld, rand: Random, config: CustomEndSpikeConfig, spike: EndSpike) {
         val radius = spike.radius
         for (blockpos in BlockPos.getAllInBoxMutable(
             BlockPos(spike.centerX - radius, 0, spike.centerZ - radius),
             BlockPos(spike.centerX + radius, spike.height + 10, spike.centerZ + radius)
-        ))
-        {
+        )) {
             if (blockpos.distanceSq(
                     spike.centerX.toDouble(),
                     blockpos.y.toDouble(),
                     spike.centerZ.toDouble(),
                     false
                 ) <= (radius * radius + 1).toDouble() && blockpos.y < spike.height
-            )
-            {
+            ) {
                 setBlockState(worldIn, blockpos, Blocks.OBSIDIAN.defaultState)
-            } else if (blockpos.y > 65)
-            {
+            } else if (blockpos.y > 65) {
                 setBlockState(worldIn, blockpos, Blocks.AIR.defaultState)
             }
         }
         stageEnum.createTower(this, worldIn, spike)
         val crystal = PhxEntities.enderCrystal.create(worldIn.world)
-        if (crystal != null)
-        {
+        if (crystal != null) {
             crystal.setBeamTarget(config.crystalBeamTarget)
             crystal.isInvulnerable = config.isCrystalInvulnerable
             crystal.setLocationAndAngles(
@@ -88,8 +80,7 @@ class CustomEndSpike : Feature<CustomEndSpikeConfig>({ dynamic: Dynamic<*> -> Cu
         }
     }
 
-    class EndSpike(val centerX: Int, val centerZ: Int, val radius: Int, val height: Int, val isGuarded: Boolean)
-    {
+    class EndSpike(val centerX: Int, val centerZ: Int, val radius: Int, val height: Int, val isGuarded: Boolean) {
         val topBoundingBox: AxisAlignedBB = AxisAlignedBB(
             (centerX - radius).toDouble(),
             0.0,
@@ -101,8 +92,7 @@ class CustomEndSpike : Feature<CustomEndSpikeConfig>({ dynamic: Dynamic<*> -> Cu
 
         fun doesStartInChunk(pos: BlockPos): Boolean = pos.x shr 4 == centerX shr 4 && pos.z shr 4 == centerZ shr 4
 
-        fun <T> serialise(ops: DynamicOps<T>): Dynamic<T>
-        {
+        fun <T> serialise(ops: DynamicOps<T>): Dynamic<T> {
             val builder: ImmutableMap.Builder<T, T> = ImmutableMap.builder()
             builder.put(ops.createString("centerX"), ops.createInt(centerX))
             builder.put(ops.createString("centerZ"), ops.createInt(centerZ))
@@ -112,10 +102,8 @@ class CustomEndSpike : Feature<CustomEndSpikeConfig>({ dynamic: Dynamic<*> -> Cu
             return Dynamic(ops, ops.createMap(builder.build()))
         }
 
-        companion object
-        {
-            fun <T> deserialize(dynamic: Dynamic<T>): EndSpike
-            {
+        companion object {
+            fun <T> deserialize(dynamic: Dynamic<T>): EndSpike {
                 return EndSpike(
                     dynamic["centerX"].asInt(0),
                     dynamic["centerZ"].asInt(0),
@@ -128,15 +116,12 @@ class CustomEndSpike : Feature<CustomEndSpikeConfig>({ dynamic: Dynamic<*> -> Cu
 
     }
 
-    class EndSpikeCacheLoader : CacheLoader<Long, List<EndSpike>>()
-    {
-        override fun load(seed: Long): List<EndSpike>
-        {
+    class EndSpikeCacheLoader : CacheLoader<Long, List<EndSpike>>() {
+        override fun load(seed: Long): List<EndSpike> {
             val list = IntStream.range(0, 10).boxed().collect(Collectors.toList())
             list.shuffle(Random(seed))
             val res: MutableList<EndSpike> = Lists.newArrayList()
-            for (i in list.indices)
-            {
+            for (i in list.indices) {
                 val centerX = MathHelper.floor(42.0 * cos(2.0 * (-Math.PI + Math.PI / 10.0 * i.toDouble())))
                 val centerZ = MathHelper.floor(42.0 * sin(2.0 * (-Math.PI + Math.PI / 10.0 * i.toDouble())))
                 val current = list[i]
@@ -149,20 +134,17 @@ class CustomEndSpike : Feature<CustomEndSpikeConfig>({ dynamic: Dynamic<*> -> Cu
         }
     }
 
-    public override fun setBlockState(worldIn: IWorldWriter, pos: BlockPos, state: BlockState)
-    {
+    public override fun setBlockState(worldIn: IWorldWriter, pos: BlockPos, state: BlockState) {
         worldIn.setBlockState(pos, state, 3)
     }
 
-    companion object
-    {
-        var LOADING_CACHE: LoadingCache<Long, List<EndSpike>> = CacheBuilder.newBuilder().expireAfterWrite(5L, TimeUnit.MINUTES).build(EndSpikeCacheLoader())
 
-        fun generateSpikes(worldIn: IWorld): List<EndSpike>
-        {
-            val random = Random(worldIn.seed)
-            val i = random.nextLong() and 65535L
-            return LOADING_CACHE.getUnchecked(i)
-        }
+    var LOADING_CACHE: LoadingCache<Long, List<EndSpike>> =
+        CacheBuilder.newBuilder().expireAfterWrite(5L, TimeUnit.MINUTES).build(EndSpikeCacheLoader())
+
+    fun generateSpikes(worldIn: IWorld): List<EndSpike> {
+        val random = Random(worldIn.seed)
+        val i = random.nextLong() and 65535L
+        return LOADING_CACHE.getUnchecked(i)
     }
 }

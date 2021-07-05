@@ -13,7 +13,7 @@ import phoenix.init.PhxBlocks
 import phoenix.utils.nextInt
 import java.util.*
 
-class WaterPlacesFeature : Feature<NoFeatureConfig>({ dyn: Dynamic<*>? -> NoFeatureConfig.deserialize(dyn) })
+object WaterPlacesFeature : Feature<NoFeatureConfig>({ dyn: Dynamic<*>? -> NoFeatureConfig.deserialize(dyn) })
 {
     override fun place(
         worldIn: IWorld,

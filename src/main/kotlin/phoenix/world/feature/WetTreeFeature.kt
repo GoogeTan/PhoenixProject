@@ -11,7 +11,7 @@ import phoenix.init.PhxBlocks
 import java.util.*
 import java.util.function.Function
 
-class WetTreeFeature : Feature<NoFeatureConfig>(Function { dyn: Dynamic<*>? -> NoFeatureConfig.deserialize(dyn) })
+object WetTreeFeature : Feature<NoFeatureConfig>(Function { dyn: Dynamic<*>? -> NoFeatureConfig.deserialize(dyn) })
 {
     override fun place(
         worldIn: IWorld,

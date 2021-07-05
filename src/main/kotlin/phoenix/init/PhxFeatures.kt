@@ -13,10 +13,10 @@ object PhxFeatures
 {
     val FEATURES = KDeferredRegister(ForgeRegistries.FEATURES, Phoenix.MOD_ID)
 
-    val REMAINS   by FEATURES.register("remains",       ::RemainsStructure)
-    val END_SPIKE by FEATURES.register("new_end_spike", ::CustomEndSpike)
-    val WET_TREE  by FEATURES.register("wet_tree",      ::WetTreeFeature)
-    val WATER     by FEATURES.register("water",         ::WaterPlacesFeature)
+    val REMAINS   by FEATURES.register("remains")       { RemainsStructure   }
+    val END_SPIKE by FEATURES.register("new_end_spike") { CustomEndSpike     }
+    val WET_TREE  by FEATURES.register("wet_tree")      { WetTreeFeature     }
+    val WATER     by FEATURES.register("water")         { WaterPlacesFeature }
 
     fun register() = FEATURES.register(MOD_BUS)
 }
