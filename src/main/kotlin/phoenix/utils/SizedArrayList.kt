@@ -60,8 +60,8 @@ class SizedArrayList<T> : ArrayList<T>
             }
         }
 
-        fun<T> copyOf(tin : Array<T>) : SizedArrayList<T> = if(tin.isNotEmpty()) SizedArrayList(tin.size, tin::get) else SizedArrayList()
-
+        fun<T> copyOf(tin : Array<T>) : SizedArrayList<T> = if (tin.isNotEmpty()) SizedArrayList(tin.size, tin::get) else SizedArrayList()
+        fun<T> copyOf(tin :  List<T>) : SizedArrayList<T> = if (tin.isNotEmpty()) SizedArrayList(tin.size, tin::get) else SizedArrayList()
         fun<T> copyOf(tin : Collection<T>) : SizedArrayList<T>
         {
             return if(tin.isNotEmpty())
@@ -76,6 +76,5 @@ class SizedArrayList<T> : ArrayList<T>
             }
         }
 
-        fun<T> copyOf(tin : List<T>) : SizedArrayList<T> =  if (tin.isNotEmpty()) SizedArrayList(tin.size, tin::get) else SizedArrayList()
     }
 }

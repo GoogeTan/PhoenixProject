@@ -1,86 +1,76 @@
 package phoenix.world.structures.bunker
 
-import com.mojang.datafixers.util.Pair
-import net.minecraft.nbt.CompoundNBT
+import net.minecraft.util.Direction
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.Rotation
-import net.minecraft.util.SharedSeedRandom
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.MutableBoundingBox
-import net.minecraft.world.gen.ChunkGenerator
-import net.minecraft.world.gen.feature.jigsaw.JigsawManager
-import net.minecraft.world.gen.feature.jigsaw.JigsawPattern
-import net.minecraft.world.gen.feature.jigsaw.JigsawPiece
-import net.minecraft.world.gen.feature.jigsaw.SingleJigsawPiece
-import net.minecraft.world.gen.feature.structure.AbstractVillagePiece
-import net.minecraft.world.gen.feature.structure.IStructurePieceType
-import net.minecraft.world.gen.feature.structure.StructurePiece
-import net.minecraft.world.gen.feature.template.TemplateManager
+import net.minecraft.world.gen.Heightmap
+import net.minecraft.world.server.ServerWorld
 import phoenix.Phoenix
-import phoenix.utils.SizedArrayList
+import phoenix.utils.nextInt
+import phoenix.world.structures.ICompositePieceType
+import phoenix.world.structures.IPieceType
+import kotlin.math.sqrt
 
-object BunkerPieces
+enum class BunkerPieces : ICompositePieceType<BunkerProperties>
 {
-    fun func_215139_a(
-        chunkGeneratorIn: ChunkGenerator<*>,
-        templateManagerIn: TemplateManager,
-        posIn: BlockPos,
-        structurePieces: List<StructurePiece>,
-        rand: SharedSeedRandom
-    )
+    Enternace
     {
-        JigsawManager.addPieces(
-            ResourceLocation("bunker/base_plates"),
-            7,
-            { manager: TemplateManager, jigsawPieceIn: JigsawPiece, pos: BlockPos, seed: Int, rotationIn: Rotation, boundsIn: MutableBoundingBox -> BunkerPiece(manager, jigsawPieceIn, pos, seed, rotationIn, boundsIn) },
-            chunkGeneratorIn,
-            templateManagerIn,
-            posIn,
-            structurePieces,
-            rand
-        )
+        override val variants: Array<out IPieceType> = EntrancePieces.values()
+        override val outputs: Array<out IPieceType> = HallwayPieces.values()
+
+        override fun placeRecursive(world: ServerWorld, inputPos: BlockPos, info: BunkerProperties)
+        {
+            val variant = variants[sqrt(world.rand.nextInt(0, variants.size * variants.size).toDouble()).toInt()]
+            val pos = world.getHeight(Heightmap.Type.WORLD_SURFACE_WG, inputPos) - variant.inputOffset.first
+            variant.place(world, pos)
+        }
+    },
+    Hallway
+    {
+        override val variants: Array<out IPieceType> = EntrancePieces.values()
+        override val outputs: Array<out IPieceType> = HallwayPieces.values()
+    };
+
+    override fun placeRecursive(world: ServerWorld, inputPos: BlockPos, info: BunkerProperties)
+    {
+        val variant = variants[sqrt(world.rand.nextInt(0, variants.size * variants.size).toDouble()).toInt()]
+        val pos = world.getHeight(Heightmap.Type.WORLD_SURFACE_WG, inputPos) - variant.inputOffset.first
+        variant.place(world, pos)
     }
 
-    init
+    enum class EntrancePieces(override val outputs: List<Pair<BlockPos, Direction>>, override val inputOffset: Pair<BlockPos, Direction>, override val path: ResourceLocation) : IPieceType
     {
-        JigsawManager.REGISTRY.register(
-            JigsawPattern
-            (
-                ResourceLocation(Phoenix.MOD_ID, "bunker/base_plates"),
-                ResourceLocation("empty"),
-                SizedArrayList.of(Pair.of(SingleJigsawPiece("bunker/base_plate"), 1)),
-                JigsawPattern.PlacementBehaviour.RIGID
-            )
-        )
+        BaseEntrance(listOf(Pair(BlockPos(2, 0, 2), Direction.DOWN)), Pair(BlockPos(2, 5, 2), Direction.UP), ResourceLocation(Phoenix.MOD_ID, "bunker/entrance_1")),
+        RareEntrance(listOf(Pair(BlockPos(4, 0, 4), Direction.DOWN)), Pair(BlockPos(4, 6, 4), Direction.UP), ResourceLocation(Phoenix.MOD_ID, "bunker/entrance_3")),
+        EpicEntrance(listOf(Pair(BlockPos(2, 0, 2), Direction.DOWN)), Pair(BlockPos(2, 5, 2), Direction.UP), ResourceLocation(Phoenix.MOD_ID, "bunker/entrance_2"));
     }
 
-
-    class BunkerPiece : AbstractVillagePiece
+    enum class HallwayPieces(override val outputs: List<Pair<BlockPos, Direction>>, override val inputOffset: Pair<BlockPos, Direction>, override val path: ResourceLocation) : IPieceType
     {
-        constructor
+        BaseHallway
         (
-            templateManagerIn: TemplateManager,
-            jigsawPieceIn: JigsawPiece,
-            posIn: BlockPos,
-            groundLevelDelta: Int,
-            rotation: Rotation,
-            boundingBox: MutableBoundingBox
-        ) : super
+            listOf(
+                Pair(BlockPos(2, 1, 0), Direction.NORTH),
+                Pair(BlockPos(0, 1, 3), Direction.WEST),
+                Pair(BlockPos(3, 1, 5), Direction.SOUTH),
+                Pair(BlockPos(5, 1, 2), Direction.EAST)
+                  ),
+            Pair(BlockPos(2, 4, 2), Direction.UP),
+            ResourceLocation(Phoenix.MOD_ID, "bunker/hallway_1")
+        ),
+        RareHallway
         (
-            IStructurePieceType.PCP,
-            templateManagerIn,
-            jigsawPieceIn,
-            posIn,
-            groundLevelDelta,
-            rotation,
-            boundingBox
-        )
-
-        constructor(
-            templateManagerIn: TemplateManager,
-            tag: CompoundNBT,
-            structurePieceTypeIn: IStructurePieceType
-        ) : super(templateManagerIn, tag, structurePieceTypeIn)
+            listOf(Pair(BlockPos(4, 1, 7), Direction.SOUTH)),
+            Pair(BlockPos(3, 4, 3), Direction.UP),
+            ResourceLocation(Phoenix.MOD_ID, "bunker/hallway_2")
+        );
     }
 
+    companion object
+    {
+        operator fun BlockPos.minus(second: BlockPos): BlockPos
+        {
+            return BlockPos(x - second.x, y - second.y, z - second.z)
+        }
+    }
 }
