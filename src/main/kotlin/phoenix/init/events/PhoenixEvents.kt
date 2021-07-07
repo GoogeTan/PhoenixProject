@@ -32,7 +32,6 @@ import phoenix.api.entity.IPhoenixPlayer
 import phoenix.init.PhxBlocks
 import phoenix.init.PhxItems
 import phoenix.network.NetworkHandler
-import phoenix.network.NetworkHandler.sendTo
 import phoenix.network.SyncBookPacket
 import phoenix.network.SyncStagePacket
 import phoenix.utils.LogManager.error
@@ -77,7 +76,7 @@ object PhoenixEvents
         {
             val nbt = event.world.worldInfo.getDimensionData(DimensionType.THE_END)
             StageManager.read(nbt)
-            NetworkHandler.sendToAll(SyncStagePacket(StageManager.stage, StageManager.part))
+            SyncStagePacket(StageManager.stage, StageManager.part).sendToAll()
         }
     }
 
@@ -213,7 +212,7 @@ object PhoenixEvents
         }
         if (!event.world.isRemote && entity is ServerPlayerEntity && entity is IPhoenixPlayer)
         {
-            sendTo(SyncBookPacket(entity.getOpenedChapters()), entity)
+            SyncBookPacket(entity.getOpenedChapters()).sendTo(entity)
         }
     }
 }

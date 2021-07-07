@@ -66,7 +66,7 @@ class OvenTile(val inventory: Inventory = Inventory(5)) : PhoenixTile(PhxTiles.o
             }
         }
         if(has)
-            NetworkHandler.sendToAll(SyncOvenPacket(this))
+            SyncOvenPacket(this).sendToAll()
         return res
     }
 
@@ -125,7 +125,7 @@ class OvenTile(val inventory: Inventory = Inventory(5)) : PhoenixTile(PhxTiles.o
                         }
                     }
                     if (has)
-                        NetworkHandler.sendToDim(SyncOvenPacket(this), world.dimension.type)
+                        SyncOvenPacket(this).sendTo(world.dimension.type)
                 }
                 if (burnTime == 0)
                     world[pos, OvenBlock.STATE] = 0

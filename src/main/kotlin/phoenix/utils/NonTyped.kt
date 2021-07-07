@@ -204,7 +204,7 @@ fun ServerPlayerEntity.addChapter(chapter: Chapter?)
     if(this is IPhoenixPlayer)
     {
         this.addChapter(chapter.id, world.getDate())
-        NetworkHandler.sendTo(SyncBookPacket(this.getOpenedChapters()), this)
+        SyncBookPacket(this.getOpenedChapters()).sendTo(this)
         sendMessage("Chapter ${getOpenedChapters()}")
     }
 }

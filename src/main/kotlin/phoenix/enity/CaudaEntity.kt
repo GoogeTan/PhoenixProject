@@ -232,7 +232,7 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
             {
                 player.openContainer = CaudaContainer(player.currentWindowId, player.inventory)
                 player.openContainer.addListener(player)
-                NetworkHandler.sendTo(OpenCaudaInventoryPacket(this.entityId), player)
+                OpenCaudaInventoryPacket(this.entityId).sendTo(player)
             } else if (saddled)
             {
                 SitCaudaTrigger.test(player)

@@ -20,8 +20,5 @@ open class TankTile
 {
     override var needSync: Boolean = true
 
-    override fun sync()
-    {
-        NetworkHandler.sendToDim(SyncTankPacket(this), world!!.dimension.type)
-    }
+    override fun sync() = SyncTankPacket(this).sendTo(world!!.dimension.type)
 }

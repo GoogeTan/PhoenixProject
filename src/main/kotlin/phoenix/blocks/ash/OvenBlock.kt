@@ -94,7 +94,7 @@ class OvenBlock : BlockWithContainer(Properties.create(Material.ROCK).notSolid()
                 {
                     playerIn.getHeldItem(handIn).shrink(1)
                 }
-                NetworkHandler.sendToAll(SyncOvenPacket(tile))
+                SyncOvenPacket(tile).sendToAll()
                 toPrint += "1";
             }
             else if (ForgeHooks.getBurnTime(stack) > 0 && !FluidUtil.getFluidContained(stack).isPresent)
