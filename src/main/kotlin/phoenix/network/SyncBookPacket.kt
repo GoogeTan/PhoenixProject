@@ -1,5 +1,6 @@
 package phoenix.network
 
+import io.netty.buffer.ByteBuf
 import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.network.PacketBuffer
@@ -10,35 +11,6 @@ import phoenix.utils.writeDate
 
 class SyncBookPacket(var list : List<Pair<Int, Date>>): NetworkHandler.Packet()
 {
-    override fun encode(packet: NetworkHandler.Packet, buf: PacketBuffer)
-    {
-        if(packet is SyncBookPacket)
-        {
-            list = packet.list
-            buf.writeInt(list.size)
-            for (i in list)
-            {
-                buf.writeInt(i.first)
-                buf.writeDate(i.second)
-            }
-        }
-    }
-
-    override fun decode(buf: PacketBuffer): NetworkHandler.Packet
-    {
-        val res = ArrayList<Pair<Int, Date>>()
-
-        val count = buf.readInt()
-        for (i in 0 until count)
-        {
-            val id = buf.readInt()
-            val date = buf.readDate()
-            res.add(Pair(id, date))
-        }
-
-        return SyncBookPacket(res)
-    }
-
     override fun client(player: ClientPlayerEntity?)
     {
         if(player is IPhoenixPlayer)
@@ -49,4 +21,32 @@ class SyncBookPacket(var list : List<Pair<Int, Date>>): NetworkHandler.Packet()
     }
 
     override fun server(player: ServerPlayerEntity?) {}
+
+    object Serializer : NetworkHandler.Packet.Serializer<SyncBookPacket>()
+    {
+        override fun encode(packet: SyncBookPacket, buf: PacketBuffer) : ByteBuf
+        {
+            for (i in packet.list)
+            {
+                buf.writeInt(i.first)
+                buf.writeDate(i.second)
+            }
+            return buf
+        }
+
+        override fun decode(buf: PacketBuffer): SyncBookPacket
+        {
+            val res = ArrayList<Pair<Int, Date>>()
+
+            val count = buf.readInt()
+            for (i in 0 until count)
+            {
+                val id = buf.readInt()
+                val date = buf.readDate()
+                res.add(Pair(id, date))
+            }
+
+            return SyncBookPacket(res)
+        }
+    }
 }

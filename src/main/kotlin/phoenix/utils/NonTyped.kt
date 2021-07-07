@@ -319,10 +319,11 @@ fun Direction.next() : Direction = next[this] ?: Direction.NORTH
 fun<T> client(task : (mc : Minecraft, player : ClientPlayerEntity?, world : ClientWorld?) -> T) : T = DistExecutor.safeCallWhenOn(Dist.CLIENT) { DistExecutor.SafeCallable { task(mc, clientPlayer, clientWorld) }}
 fun<T> server(task : (MinecraftServer?) -> T) : T = DistExecutor.safeCallWhenOn(Dist.DEDICATED_SERVER) { DistExecutor.SafeCallable { task(server) } }
 
-fun PacketBuffer.writeFluidTank(tank: FluidTank)
+fun PacketBuffer.writeFluidTank(tank: FluidTank) : PacketBuffer
 {
     this.writeFluidStack(tank.fluid)
     this.writeInt(tank.capacity)
+    return this
 }
 
 fun PacketBuffer.readFluidTank(): FluidTank
