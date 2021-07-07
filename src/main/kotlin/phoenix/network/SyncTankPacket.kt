@@ -2,33 +2,26 @@ package phoenix.network
 
 import io.netty.buffer.ByteBuf
 import net.minecraft.client.entity.player.ClientPlayerEntity
-import net.minecraft.item.ItemStack
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fluids.capability.templates.FluidTank
-import phoenix.tile.redo.JuicerTile
 import phoenix.tile.redo.TankTile
 import phoenix.utils.getTileAt
 import phoenix.utils.mc
 import phoenix.utils.readFluidTank
 import phoenix.utils.writeFluidTank
 
-class SyncTankPacket(var pos : BlockPos, var tank : FluidTank, var stack : ItemStack) : NetworkHandler.Packet()
+class SyncTankPacket(var pos : BlockPos, var tank : FluidTank) : NetworkHandler.Packet()
 {
-    constructor(tankTile : TankTile) : this(tankTile.pos, tankTile.fluidTank, (tankTile as? JuicerTile)?.stack?: ItemStack.EMPTY)
+    constructor(tankTile : TankTile) : this(tankTile.pos, tankTile.fluidTank)
 
     override fun client(player: ClientPlayerEntity?)
     {
         val world = mc.world
         if(world != null)
         {
-            val tile = world.getTileAt<TankTile>(pos)
-            if(tile != null)
-            {
-                tile.fluidTank = tank
-                if(tile is JuicerTile)
-                    tile.stack = stack
-            }
+            val tile = world.getTileAt<TankTile>(pos) ?: return
+            tile.fluidTank = tank
         }
     }
 
