@@ -60,7 +60,7 @@ open class OvenData(size : Int) : SizableInventory(size), INBTSerializable<Compo
         this.burnTime = other.burnTime
         this.maxBurnTime = other.maxBurnTime
         this.resize(timers.size)
-        for (i in 0 until sizeInventory)
+        for (i in 1 until sizeInventory)
             this[i] = other[i]
     }
 
@@ -76,7 +76,7 @@ open class OvenData(size : Int) : SizableInventory(size), INBTSerializable<Compo
     fun tickItems() : Boolean
     {
         var has = false
-        for (i in 0..3)
+        for (i in 1 until sizeInventory)
         {
             val current = this[i]
             if (OvenRecipe.recipesFromInputs.contains(current.item))
@@ -103,11 +103,11 @@ open class OvenData(size : Int) : SizableInventory(size), INBTSerializable<Compo
         res.putInt("burn_time", burnTime)
 
         val nbt = CompoundNBT()
-        for (i in 0..3)
+        for (index in 1 until sizeInventory)
         {
             val stack = CompoundNBT()
-            this[i].write(stack)
-            nbt.put("slot$i", stack)
+            this[index].write(stack)
+            nbt.put("slot$index", stack)
         }
 
         res.put("data", nbt)
@@ -120,7 +120,7 @@ open class OvenData(size : Int) : SizableInventory(size), INBTSerializable<Compo
         timers = tag.getIntArray("timers")
         burnTime = tag.getInt("burn_time")
         val nbt = tag.getCompound("data")
-        for (i in 0 until sizeInventory)
+        for (i in 1 until sizeInventory)
         {
             this[i] = ItemStack.read(nbt.getCompound("slot$i"))
         }
@@ -138,7 +138,7 @@ open class OvenData(size : Int) : SizableInventory(size), INBTSerializable<Compo
         buf.writeVarIntArray(timers)
         buf.writeInt(burnTime)
         buf.writeInt(maxBurnTime)
-        for (i in 0 until sizeInventory)
+        for (i in 1 until sizeInventory)
             buf.writeItemStack(this[i])
     }
 
@@ -148,7 +148,7 @@ open class OvenData(size : Int) : SizableInventory(size), INBTSerializable<Compo
         timers = buf.readVarIntArray()
         burnTime = buf.readInt()
         maxBurnTime = buf.readInt()
-        for (i in 0 until sizeInventory)
+        for (i in 1 until sizeInventory)
             this[i] = buf.readItemStack()
     }
 }

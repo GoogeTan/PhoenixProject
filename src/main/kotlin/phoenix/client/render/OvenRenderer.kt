@@ -27,7 +27,7 @@ class OvenRenderer(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEnt
         matrixStackIn.translate(0.0, 1.0, 0.0)
         for (i in 0 until te.sizeInventory)
         {
-            val stack: ItemStack = te[i]
+            val stack: ItemStack = te.data[i]
             if (stack != ItemStack.EMPTY)
             {
                 matrixStackIn.push()
