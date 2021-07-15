@@ -11,11 +11,9 @@ import phoenix.utils.mc
 import phoenix.utils.readFluidTank
 import phoenix.utils.writeFluidTank
 
-class SyncTankPacket(var pos : BlockPos, var tank : FluidTank) : NetworkHandler.Packet()
+class SyncTankPacket(var pos : BlockPos, var tank : FluidTank) : Packet()
 {
-    constructor(tankTile : TankTile) : this(tankTile.pos, tankTile.fluidTank)
-
-    override fun client(player: ClientPlayerEntity?)
+    override fun processClient(player: ClientPlayerEntity?)
     {
         val world = mc.world
         if(world != null)
@@ -25,9 +23,9 @@ class SyncTankPacket(var pos : BlockPos, var tank : FluidTank) : NetworkHandler.
         }
     }
 
-    object Serializer : NetworkHandler.Packet.Serializer<SyncTankPacket>()
+    object Serializer : Packet.Serializer<SyncTankPacket>()
     {
-        override fun encode(packet: SyncTankPacket, buf: PacketBuffer) : ByteBuf = buf.writeBlockPos(packet.pos).writeFluidTank(packet.tank).writeItemStack(packet.stack)
-        override fun decode(buf: PacketBuffer): SyncTankPacket                   = SyncTankPacket(buf.readBlockPos(), buf.readFluidTank(), buf.readItemStack())
+        override fun encode(packet: SyncTankPacket, buf: PacketBuffer) : ByteBuf = buf.writeBlockPos(packet.pos).writeFluidTank(packet.tank)
+        override fun decode(buf: PacketBuffer): SyncTankPacket                   = SyncTankPacket(buf.readBlockPos(), buf.readFluidTank())
     }
 }

@@ -68,8 +68,8 @@ import phoenix.api.entity.IPhoenixPlayer
 import phoenix.client.gui.diaryPages.Chapter
 import phoenix.init.PhxBlocks
 import phoenix.mixin.serverInstance
-import phoenix.network.NetworkHandler
 import phoenix.network.SyncBookPacket
+import phoenix.network.sendToPlayer
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import java.util.*
 import kotlin.math.roundToInt
@@ -204,7 +204,7 @@ fun ServerPlayerEntity.addChapter(chapter: Chapter?)
     if(this is IPhoenixPlayer)
     {
         this.addChapter(chapter.id, world.getDate())
-        SyncBookPacket(this.getOpenedChapters()).sendTo(this)
+        SyncBookPacket(this.getOpenedChapters()).sendToPlayer(this)
         sendMessage("Chapter ${getOpenedChapters()}")
     }
 }
@@ -336,5 +336,9 @@ fun PacketBuffer.readFluidTank(): FluidTank
     return res
 }
 
-fun key  (name: String) = ResourceLocation(Phoenix.MOD_ID, name)
-fun block(name: String) = ResourceLocation(Phoenix.MOD_ID, "textures/blocks/$name.png")
+fun keyOf  (name: String) = ResourceLocation(Phoenix.MOD_ID, name)
+fun blockOf(name: String) = ResourceLocation(Phoenix.MOD_ID, "textures/blocks/$name.png")
+
+fun<T> sizedArrayListOf(vararg elements : T) : SizedArrayList<T> = SizedArrayList.of(*elements)
+
+fun<T> sizedArrayListFrom(source : Collection<T>) : SizedArrayList<T> = SizedArrayList.copyOf(source)

@@ -27,3 +27,5 @@ forge*changelog.txt
 build.gradle
 *.gradle
 build.gradle
+logs/debug.log
+logs/latest.log

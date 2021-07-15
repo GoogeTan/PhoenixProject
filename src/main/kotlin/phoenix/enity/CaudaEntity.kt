@@ -45,8 +45,9 @@ import phoenix.advancements.SitCaudaTrigger
 import phoenix.init.CaudaArmorItem
 import phoenix.init.PhxConfiguration
 import phoenix.init.PhxContainers
-import phoenix.network.NetworkHandler
 import phoenix.network.OpenCaudaInventoryPacket
+import phoenix.network.sendToDimension
+import phoenix.network.sendToPlayer
 import phoenix.utils.max
 import phoenix.utils.min
 import java.lang.Math.abs
@@ -232,7 +233,7 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
             {
                 player.openContainer = CaudaContainer(player.currentWindowId, player.inventory)
                 player.openContainer.addListener(player)
-                OpenCaudaInventoryPacket(this.entityId).sendTo(player)
+                OpenCaudaInventoryPacket(this.entityId).sendToPlayer(player)
             } else if (saddled)
             {
                 SitCaudaTrigger.test(player)

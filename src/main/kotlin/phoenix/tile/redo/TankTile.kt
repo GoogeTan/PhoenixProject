@@ -6,8 +6,8 @@ import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.Direction
 import phoenix.init.PhxTiles
-import phoenix.network.NetworkHandler
 import phoenix.network.SyncTankPacket
+import phoenix.network.sendToDimension
 import phoenix.tile.FluidTileSidable
 
 open class TankTile
@@ -20,5 +20,5 @@ open class TankTile
 {
     override var needSync: Boolean = true
 
-    override fun sync() = SyncTankPacket(this).sendTo(world!!.dimension.type)
+    override fun sync() = SyncTankPacket(pos, this.fluidTank).sendToDimension(world!!.dimension.type)
 }

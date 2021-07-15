@@ -10,15 +10,26 @@ import net.minecraft.util.ResourceLocation
 import phoenix.init.PhxRecipeSerializers.OVEN
 import phoenix.init.PhxRecipes
 
-class OvenRecipe(
-    idIn: ResourceLocation,
-    groupIn: String,
-    ingredientIn: Ingredient,
-    resultIn: ItemStack,
-    experienceIn: Float,
-    cookTimeIn: Int
-) :
-    AbstractCookingRecipe(PhxRecipes.OVEN, idIn, groupIn, ingredientIn, resultIn, experienceIn, cookTimeIn)
+class OvenRecipe
+    (
+        idIn: ResourceLocation,
+        groupIn: String,
+        ingredientIn: Ingredient,
+        resultIn: ItemStack,
+        experienceIn: Float,
+        cookTimeIn: Int
+    )
+    :
+    AbstractCookingRecipe
+    (
+        PhxRecipes.OVEN,
+        idIn,
+        groupIn,
+        ingredientIn,
+        resultIn,
+        experienceIn,
+        cookTimeIn
+    )
 {
     override fun getSerializer(): IRecipeSerializer<OvenRecipe> = OVEN
 
@@ -29,20 +40,14 @@ class OvenRecipe(
 
     override fun getExperience(): Float = experience
     override fun getCookTime(): Int = cookTime
-
     override fun getGroup(): String = group
 
     val inputs: List<List<ItemStack>>
-        get()
-        = ImmutableList.of<List<ItemStack>>(ImmutableList.copyOf(ingredient.matchingStacks))
+        get() = ImmutableList.of<List<ItemStack>>(ImmutableList.copyOf(ingredient.matchingStacks))
     val outputs: List<List<ItemStack>>
-        get()
-        = ImmutableList.of<List<ItemStack>>(ImmutableList.of(result))
+        get() = ImmutableList.of<List<ItemStack>>(ImmutableList.of(result))
 
-    override fun toString(): String
-    {
-        return "OvenRecipe{ingredient=$ingredient, result=$result, cookTime=$cookTime}"
-    }
+    override fun toString(): String =  "OvenRecipe{ingredient=$ingredient, result=$result, cookTime=$cookTime}"
 
     companion object
     {

@@ -16,9 +16,11 @@ import net.minecraft.world.gen.GenerationStage
 import net.minecraft.world.gen.feature.IFeatureConfig
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry
 import net.minecraftforge.event.RegistryEvent.Register
+import net.minecraftforge.eventbus.ASMEventHandler
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
+import net.minecraftforge.fml.event.lifecycle.GatherDataEvent
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
 import phoenix.Phoenix.Companion.ASH
@@ -36,7 +38,7 @@ import phoenix.init.PhxPotions.LEVITATION
 import phoenix.init.PhxPotions.LONG_LEVITATION
 import phoenix.init.PhxRecipes
 import phoenix.items.FixedSpawnEggItem
-import phoenix.network.NetworkHandler
+import phoenix.network.initPacketSystem
 import phoenix.utils.ServerStageUppedEvent
 import phoenix.utils.addStructure
 import phoenix.utils.addZirconiumOre
@@ -64,7 +66,7 @@ object PhoenixCommonEvents
     @SubscribeEvent
     fun init(event: FMLCommonSetupEvent)
     {
-        NetworkHandler.init()
+        initPacketSystem()
         PhxRecipes.register()
         UNDER.addSpawn(EntityClassification.CREATURE, SpawnListEntry(cauda, 15, 1, 1))
         HEARTVOID.addSpawn(EntityClassification.CREATURE, SpawnListEntry(talpa, 15, 1, 4))

@@ -10,7 +10,7 @@ import net.minecraft.block.BlockState
 interface IFacadeable
 {
     /**
-     * @return If this container has a facade.
+     * @return If this data has a facade.
      */
     fun hasFacade(): Boolean
     /**

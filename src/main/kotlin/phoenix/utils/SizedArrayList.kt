@@ -16,32 +16,48 @@ class SizedArrayList<T> : ArrayList<T>
             add(initializer(i))
     }
 
-    fun resize(newSize : Int, t : T)
+    fun resize(newSize : Int, initializer : (index : Int) -> T)
     {
-        if(newSize < 0 || newSize == size)
-            return
+        if (newSize < 0)
+            throw ArrayIndexOutOfBoundsException(newSize)
+        if(newSize == size) return
+
         if(newSize > size)
-            for (i in size..newSize)
-                add(t)
+        {
+            for (i in size until newSize)
+            {
+                add(initializer(i))
+            }
+        }
         else
         {
-            for (i in size..newSize)
-                removeAt(i)
+            removeRange(newSize, size)
         }
     }
 
-    fun resize(newSize : Int, initializer : (index : Int) -> T)
+    override fun equals(other: Any?): Boolean
     {
-        if(newSize < 0 || newSize == size)
-            return
-        if(newSize > size)
-            for (i in size..newSize)
-                add(initializer(i))
-        else
+        if (other == null) return false;
+        if (this === other) return true
+        if (other is List<*>)
         {
-            for (i in size..newSize)
-                removeAt(i)
+            if (this.size != other.size)
+                return false;
+
+            for (i in indices)
+                if (this[i] != other[i])
+                    return false
         }
+        else if (other is Collection<*>)
+        {
+            if (this.size != other.size)
+                return false;
+            for ((index, element) in other.withIndex())
+                if (element != this[index])
+                    return false
+            return true
+        }
+        return true
     }
 
     companion object
@@ -54,7 +70,8 @@ class SizedArrayList<T> : ArrayList<T>
                 for (t in elementsIn)
                     res.add(t)
                 res
-            } else
+            }
+            else
             {
                 SizedArrayList()
             }

@@ -9,9 +9,9 @@ import phoenix.api.entity.IPhoenixPlayer
 import phoenix.utils.readDate
 import phoenix.utils.writeDate
 
-class SyncBookPacket(var list : List<Pair<Int, Date>>): NetworkHandler.Packet()
+class SyncBookPacket(var list : List<Pair<Int, Date>>): Packet()
 {
-    override fun client(player: ClientPlayerEntity?)
+    override fun processClient(player: ClientPlayerEntity?)
     {
         if(player is IPhoenixPlayer)
         {
@@ -20,9 +20,9 @@ class SyncBookPacket(var list : List<Pair<Int, Date>>): NetworkHandler.Packet()
         }
     }
 
-    override fun server(player: ServerPlayerEntity?) {}
+    override fun processServer(player: ServerPlayerEntity?) {}
 
-    object Serializer : NetworkHandler.Packet.Serializer<SyncBookPacket>()
+    object Serializer :     Packet.Serializer<SyncBookPacket>()
     {
         override fun encode(packet: SyncBookPacket, buf: PacketBuffer) : ByteBuf
         {

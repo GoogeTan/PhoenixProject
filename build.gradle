@@ -107,6 +107,7 @@ repositories
 
 dependencies
 {
+    implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
     minecraft 'net.minecraftforge:forge:1.15.2-31.2.47:userdev'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
@@ -132,3 +133,6 @@ jar {
     )
 }
 
+test {
+    useTestNG()
+}

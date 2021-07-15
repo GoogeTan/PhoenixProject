@@ -7,8 +7,8 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import org.lwjgl.opengl.GL11
-import phoenix.utils.block
-import phoenix.utils.key
+import phoenix.utils.blockOf
+import phoenix.utils.keyOf
 
 @OnlyIn(Dist.CLIENT)
 object PhxRenderTypes
@@ -18,8 +18,8 @@ object PhxRenderTypes
     val          eyesTexture : RenderType = RenderType.getEyes(ResourceLocation("phoenix", "textures/entity/cauda/cauda_eyes.png"))
     fun init()
     {
-        tankTexture = initTexture(block("tank"), "tank")
-        pipeTexture = initTexture(block("pipe_"), "pipe_")
+        tankTexture = initTexture(blockOf("tank"), "tank")
+        pipeTexture = initTexture(blockOf("pipe_"), "pipe_")
     }
 
     fun initTexture(path: ResourceLocation, name: String): RenderType
@@ -36,5 +36,5 @@ object PhxRenderTypes
     }
 
     @OnlyIn(Dist.CLIENT)
-    private fun createType(name: String, state: RenderType.State) = RenderType.makeType(key(name).toString(), DefaultVertexFormats.POSITION_COLOR_TEX, GL11.GL_QUADS, 32768, false, false, state)
+    private fun createType(name: String, state: RenderType.State) = RenderType.makeType(keyOf(name).toString(), DefaultVertexFormats.POSITION_COLOR_TEX, GL11.GL_QUADS, 32768, false, false, state)
 }

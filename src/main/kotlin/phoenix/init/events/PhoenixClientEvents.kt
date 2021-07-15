@@ -33,7 +33,7 @@ import phoenix.init.PhxEntities.zirconiumKnife
 import phoenix.init.PhxRenderTypes
 import phoenix.init.PhxTiles
 import phoenix.items.FixedSpawnEggItem
-import phoenix.network.NetworkHandler
+import phoenix.network.initPacketSystem
 import phoenix.utils.ClientStageUppedEvent
 import phoenix.utils.StringUtils
 import phoenix.utils.mc
@@ -64,7 +64,7 @@ object PhoenixClientEvents
     @SubscribeEvent
     fun onClientSetup(event: FMLClientSetupEvent)
     {
-        NetworkHandler.init()
+        initPacketSystem()
         PhxRenderTypes.init()
         PhxContainers.registerScreens()
         RenderTypeLookup.setRenderLayer(PhxBlocks.oven, RenderType.getCutoutMipped())

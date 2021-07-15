@@ -7,12 +7,11 @@ import phoenix.client.gui.CaudaGuiContainer
 import phoenix.enity.CaudaEntity
 import phoenix.utils.mc
 
-class OpenCaudaInventoryPacket(var entityId : Int) : NetworkHandler.Packet()
+class OpenCaudaInventoryPacket(var entityId : Int) : Packet()
 {
-    override fun client(player: ClientPlayerEntity?)
+    override fun processClient(player: ClientPlayerEntity?)
     {
-        if(player == null)
-            return
+        if(player == null) return
         val cauda: Entity? = player.world.getEntityByID(entityId)
         if (cauda is CaudaEntity)
         {
@@ -22,7 +21,7 @@ class OpenCaudaInventoryPacket(var entityId : Int) : NetworkHandler.Packet()
         }
     }
 
-    object Serializer : NetworkHandler.Packet.Serializer<OpenCaudaInventoryPacket>()
+    object Serializer : Packet.Serializer<OpenCaudaInventoryPacket>()
     {
         override fun encode(packet: OpenCaudaInventoryPacket, buf: PacketBuffer) = buf.writeInt(packet.entityId)
         override fun decode(buf: PacketBuffer): OpenCaudaInventoryPacket = OpenCaudaInventoryPacket(buf.readInt())

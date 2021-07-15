@@ -3,7 +3,7 @@ package phoenix.enity.boss.phase
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.phases.ash.*
 import phoenix.enity.boss.phase.phases.redo.*
-import phoenix.utils.ArrayUtils.resize
+import phoenix.utils.SizedArrayList
 import phoenix.world.StageManager
 
 class PhaseType private constructor
@@ -21,7 +21,7 @@ class PhaseType private constructor
 
     companion object
     {
-        private var phases = ArrayList<PhaseType?>()
+        private var phases = SizedArrayList<PhaseType?>()
 
         val ASH_HOLDING_PATTERN   = create(::AshHoldingPatternPhase, "AshHoldingPattern")
         val ASH_STRAFE_PLAYER     = create(::AshStrafePlayerPhase, "AshStrafePlayer")
@@ -54,7 +54,7 @@ class PhaseType private constructor
         private fun create(constructor: (AbstractEnderDragonEntity) -> IPhase, nameIn: String): PhaseType
         {
             val type = PhaseType(phases.size, constructor, nameIn)
-            phases.resize(phases.size + 1, null)
+            phases.resize(phases.size + 1) { null }
             phases[type.getId()] = type
             return type
         }

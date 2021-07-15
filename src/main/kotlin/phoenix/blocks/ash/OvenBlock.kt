@@ -1,9 +1,6 @@
 package phoenix.blocks.ash
 
-import net.minecraft.block.Block
-import net.minecraft.block.BlockRenderType
-import net.minecraft.block.BlockState
-import net.minecraft.block.Blocks
+import net.minecraft.block.*
 import net.minecraft.block.material.Material
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.item.ItemEntity
@@ -34,22 +31,21 @@ import net.minecraftforge.common.ToolType
 import net.minecraftforge.fluids.FluidUtil
 import phoenix.api.block.BlockWithContainer
 import phoenix.init.PhxSounds
-import phoenix.network.NetworkHandler
 import phoenix.network.SyncOvenPacket
+import phoenix.network.sendToAllPlayers
 import phoenix.recipes.OvenRecipe
 import phoenix.tile.ash.OvenTile
 import phoenix.utils.get
 import phoenix.utils.getTileAt
 import phoenix.utils.set
 import java.util.*
-import kotlin.collections.ArrayList
 
 class OvenBlock : BlockWithContainer(Properties.create(Material.ROCK).notSolid().hardnessAndResistance(10f).harvestTool(ToolType.PICKAXE))
 {
     companion object
     {
         val STATE : IntegerProperty = IntegerProperty.create("state", 0, 2)
-        val SHAPE   : VoxelShape      = Block.makeCuboidShape(0.0, 0.0, 0.0, 16.0, 32.0, 16.0)
+        val SHAPE   : VoxelShape    = Block.makeCuboidShape(0.0, 0.0, 0.0, 16.0, 32.0, 16.0)
     }
 
     init
@@ -63,21 +59,16 @@ class OvenBlock : BlockWithContainer(Properties.create(Material.ROCK).notSolid()
         {
             val tile = worldIn.getTileAt<OvenTile>(pos)!!
             val stack: ItemStack = playerIn.getHeldItem(handIn)
-            var toPrint = "${tile.timers.contentToString()} ${tile.items} ${tile.burnTime} "
-
-            toPrint += worldIn[pos, STATE]
-            toPrint += " ${playerIn.heldItemMainhand.getItem() === Items.AIR} "
 
             if (playerIn.heldItemMainhand.getItem() === Items.AIR)
             {
                 if(worldIn[pos, STATE] != 2){
                     worldIn[pos, STATE] = 2
-                    toPrint += "3"
                 }
                 else
                 {
                     worldIn[pos, STATE] = 1
-                    val items = tile.outOtherItems()
+                    val items = tile.getOutOtherItems()
                     for (i in items)
                     {
                         if (playerIn.addItemStackToInventory(i))
@@ -85,7 +76,6 @@ class OvenBlock : BlockWithContainer(Properties.create(Material.ROCK).notSolid()
                         else
                             worldIn.addEntity(ItemEntity(worldIn, playerIn.posX, (playerIn.posY + 1), playerIn.posZ, i))
                     }
-                    toPrint += "4"
                 }
             }
             else if (OvenRecipe.recipesFromInputs[stack.getItem()] != null)
@@ -94,18 +84,15 @@ class OvenBlock : BlockWithContainer(Properties.create(Material.ROCK).notSolid()
                 {
                     playerIn.getHeldItem(handIn).shrink(1)
                 }
-                SyncOvenPacket(tile).sendToAll()
-                toPrint += "1";
+                SyncOvenPacket(tile).sendToAllPlayers()
             }
             else if (ForgeHooks.getBurnTime(stack) > 0 && !FluidUtil.getFluidContained(stack).isPresent)
             {
-                tile.burnTime += ForgeHooks.getBurnTime(stack)
+                tile.data[0] = ItemStack(stack.getItem(), 1)
                 playerIn.getHeldItem(handIn).shrink(1)
                 if(worldIn[pos, STATE] == 0)
                     worldIn[pos, STATE] = 1
-                toPrint += "2";
             }
-            playerIn.sendStatusMessage(StringTextComponent(toPrint), true)
             return ActionResultType.CONSUME
         }
 
@@ -148,15 +135,14 @@ class OvenBlock : BlockWithContainer(Properties.create(Material.ROCK).notSolid()
         builder.add(BlockStateProperties.HORIZONTAL_FACING).add(STATE)
     }
 
-    override fun getStateForPlacement(context: BlockItemUseContext) = defaultState.with(BlockStateProperties.HORIZONTAL_FACING, context.placementHorizontalFacing.opposite)
+    override fun getStateForPlacement(context: BlockItemUseContext): BlockState = defaultState.with(BlockStateProperties.HORIZONTAL_FACING, context.placementHorizontalFacing.opposite)
     override fun getRenderType(state: BlockState) = BlockRenderType.MODEL
     override fun createNewTileEntity(worldIn: IBlockReader): TileEntity = OvenTile()
 
     @OnlyIn(Dist.CLIENT)
     override fun animateTick(stateIn: BlockState, worldIn: World, pos: BlockPos, rand: Random)
     {
-        val time = (worldIn.getTileEntity(pos) as OvenTile).burnTime
-        if (time > 0)
+        if ((worldIn.getTileEntity(pos) as OvenTile).data.isBurning())
         {
             val d0 = pos.x.toDouble() + 0.5
             val d1 = pos.y.toDouble()

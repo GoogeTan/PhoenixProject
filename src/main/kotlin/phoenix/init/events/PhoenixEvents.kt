@@ -31,9 +31,10 @@ import net.minecraftforge.fml.common.Mod
 import phoenix.api.entity.IPhoenixPlayer
 import phoenix.init.PhxBlocks
 import phoenix.init.PhxItems
-import phoenix.network.NetworkHandler
 import phoenix.network.SyncBookPacket
 import phoenix.network.SyncStagePacket
+import phoenix.network.sendToAllPlayers
+import phoenix.network.sendToPlayer
 import phoenix.utils.LogManager.error
 import phoenix.utils.LogManager.log
 import phoenix.utils.MutableTuple
@@ -76,7 +77,7 @@ object PhoenixEvents
         {
             val nbt = event.world.worldInfo.getDimensionData(DimensionType.THE_END)
             StageManager.read(nbt)
-            SyncStagePacket(StageManager.stage, StageManager.part).sendToAll()
+            SyncStagePacket(StageManager.stage, StageManager.part).sendToAllPlayers()
         }
     }
 
@@ -212,7 +213,7 @@ object PhoenixEvents
         }
         if (!event.world.isRemote && entity is ServerPlayerEntity && entity is IPhoenixPlayer)
         {
-            SyncBookPacket(entity.getOpenedChapters()).sendTo(entity)
+            SyncBookPacket(entity.getOpenedChapters()).sendToPlayer(entity)
         }
     }
 }

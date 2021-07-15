@@ -17,8 +17,8 @@ interface ICable
      * Check if this part should connect with the given cable for the given side.
      * This method MUST NOT call the [ICable.canConnect] method
      * of the connector, this is checked externally, otherwise infinite loops will occur.
-     * @param connector The connecting block.
-     * @param side The side of the connecting block.
+     * @param connector The connecting blockOf.
+     * @param side The side of the connecting blockOf.
      * @return If it should connect.
      */
     fun canConnect(connector: ICable?, side: Direction?): Boolean
@@ -33,13 +33,13 @@ interface ICable
      * This method should not check any neighbours,
      * it should internally store the connection.
      * @param side The side to check a connection for.
-     * @return If this block is connected with that side.
+     * @return If this blockOf is connected with that side.
      */
     fun isConnected(side: Direction?): Boolean
 
     /**
      * Disconnect the cable connection for a side.
-     * @param side The side to block the connection for.
+     * @param side The side to blockOf the connection for.
      */
     fun disconnect(side: Direction?)
 

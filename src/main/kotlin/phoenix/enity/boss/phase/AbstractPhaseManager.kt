@@ -20,7 +20,7 @@ class AbstractPhaseManager(private val dragon: AbstractEnderDragonEntity)
             currentPhase = getPhase(phaseIn)
             if (!dragon.world.isRemote)
                 dragon.dataManager.set(AbstractEnderDragonEntity.PHASE, phaseIn!!.getId())
-            LOGGER.debug("Dragon is now in phase {} on the {}", phaseIn, if (dragon.world.isRemote) "client" else "server")
+            LOGGER.debug("Dragon is now in phase {} on the {}", phaseIn, if (dragon.world.isRemote) "client" else "processServer")
             currentPhase?.initPhase()
         }
     }

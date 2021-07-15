@@ -6,19 +6,19 @@ import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.network.PacketBuffer
 import phoenix.world.StageManager
 
-class SyncStagePacket(var stage : Int, var part : Int) : NetworkHandler.Packet()
+class SyncStagePacket(var stage : Int, var part : Int) : Packet()
 {
     constructor() : this(0, 0)
 
-    override fun client(player: ClientPlayerEntity?)
+    override fun processClient(player: ClientPlayerEntity?)
     {
         StageManager.stage = stage
         StageManager.part = part
     }
 
-    override fun server(player: ServerPlayerEntity?) {}
+    override fun processServer(player: ServerPlayerEntity?) {}
 
-    object Serializer : NetworkHandler.Packet.Serializer<SyncStagePacket>()
+    object Serializer : Packet.Serializer<SyncStagePacket>()
     {
         override fun encode(packet: SyncStagePacket, buf: PacketBuffer) : ByteBuf = buf.writeInt(packet.stage).writeInt(packet.part)
         override fun decode(buf: PacketBuffer) = SyncStagePacket(buf.readInt(), buf.readInt())
