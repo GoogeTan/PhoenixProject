@@ -1,4 +1,4 @@
-package phoenix.utils
+package phoenix.init
 
 import net.minecraft.client.audio.MusicTicker
 

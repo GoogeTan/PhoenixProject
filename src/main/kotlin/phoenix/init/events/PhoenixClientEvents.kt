@@ -92,15 +92,16 @@ object PhoenixClientEvents
         ClientRegistry.bindTileEntityRenderer(PhxTiles.oven, ::OvenRenderer)
         //ClientRegistry.bindTileEntityRenderer(PhxTiles.TEXT, ::TextRenderer)
 
-        mc.splashes = Splashes(mc.splashes.gameSession)
-        mc.splashes.possibleSplashes.add(StringUtils.rainbowColor("God is an artist, since there are so many \n colors in the world")) //Reference to: Beautiful mind
-        mc.splashes.possibleSplashes.add("$RED The essence of life is that it changes itself") //Reference to: Evangelion-3.33 you can(not) redo
-        mc.splashes.possibleSplashes.add("$BLUE Bridge station is absent") //Reference to: Dovecote in a yellow glade
-        mc.splashes.possibleSplashes.add("$DARK_BLUE Third child is an angel!!") //Reference to: Rebuild of Neon Genesis Evangelion
-        mc.splashes.possibleSplashes.add("$GOLD Project E.N.D.") // Reference to: Phoenix project's old name
-        mc.splashes.possibleSplashes.add("$AQUA Still, the first enemy of human is itself.") // Reference to: Neon Genesis Evangelion
-        mc.splashes.possibleSplashes.add("$WHITE The hands of the clock cannot be turned back.$WHITE But it is in our power to move them forward!") // Reference to: Neon Genesis Evangelion
-        mc.splashes.possibleSplashes.add("$RED Where are the fixes, Lebowski?") // Reference to: The Big Lebowski
+
+        mc!!.splashes = Splashes(mc!!.splashes.gameSession)
+        mc!!.splashes.possibleSplashes.add(StringUtils.rainbowColor("God is an artist, since there are so many \n colors in the world")) //Reference to: Beautiful mind
+        mc!!.splashes.possibleSplashes.add("$RED The essence of life is that it changes itself") //Reference to: Evangelion-3.33 you can(not) redo
+        mc!!.splashes.possibleSplashes.add("$BLUE Bridge station is absent") //Reference to: Dovecote in a yellow glade
+        mc!!.splashes.possibleSplashes.add("$DARK_BLUE Third child is an angel!!") //Reference to: Rebuild of Neon Genesis Evangelion
+        mc!!.splashes.possibleSplashes.add("$GOLD Project E.N.D.") // Reference to: Phoenix project's old name
+        mc!!.splashes.possibleSplashes.add("$AQUA Still, the first enemy of human is itself.") // Reference to: Neon Genesis Evangelion
+        mc!!.splashes.possibleSplashes.add("$WHITE The hands of the clock cannot be turned back.$WHITE But it is in our power to move them forward!") // Reference to: Neon Genesis Evangelion
+        mc!!.splashes.possibleSplashes.add("$RED Where are the fixes, Lebowski?") // Reference to: The Big Lebowski
     }
 
     @SubscribeEvent

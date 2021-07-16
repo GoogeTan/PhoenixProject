@@ -4,9 +4,11 @@ import kotlin.math.sqrt
 
 class Vec2(var x: Double, var y: Double)
 {
-    fun toUnit()
+    constructor(x : Number, y : Number) : this(x.toDouble(), y.toDouble())
+    fun toUnit() : Vec2
     {
         this /= this()
+        return this
     }
 
 
@@ -14,9 +16,9 @@ class Vec2(var x: Double, var y: Double)
 
     operator fun minus(o : Vec2) : Vec2 = Vec2(x - o.x, y - o.y)
 
-    operator fun times(o : Double) = Vec2(x * o, y * o)
+    operator fun times(o : Number) = Vec2(x * o.toDouble(), y * o.toDouble())
 
-    operator fun div(o : Double) = times(1 / o)
+    operator fun div(o : Number) = times(1 / o.toDouble())
     
     operator fun divAssign(o : Double)
     {
@@ -25,4 +27,15 @@ class Vec2(var x: Double, var y: Double)
     }
 
     operator fun invoke() = sqrt(x * x + y * y)
+
+    override fun toString(): String = "Vec[x:$x, y:$y]"
+
+    override fun equals(other: Any?): Boolean
+    {
+        if (this === other)
+            return true
+        if (other !is Vec2)
+            return false
+        return x == other.x && y == other.y
+    }
 }

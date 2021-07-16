@@ -46,7 +46,7 @@ class OvenRenderer(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEnt
                     matrixStackIn.scale(0.3f, 0.3f, 0.3f)
                     matrixStackIn.rotate(Quaternion(90f, 0f, 90f, true))
                 }
-                itemRenderer.renderItem(
+                itemRenderer?.renderItem(
                     stack,
                     ItemCameraTransforms.TransformType.FIXED,
                     combinedLightIn,

@@ -61,6 +61,7 @@ import net.minecraftforge.fml.DistExecutor
 import net.minecraftforge.fml.RegistryObject
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper
+import net.minecraftforge.registries.ForgeRegistries
 import net.minecraftforge.registries.IForgeRegistryEntry
 import phoenix.Phoenix
 import phoenix.api.entity.Date
@@ -133,8 +134,7 @@ fun JsonObject.getItemStack(nameIn: String): ItemStack
     else
     {
         val name = JSONUtils.getString(this, nameIn)
-        //ItemStack(ForgeRegistries.ITEMS.getValue(ResourceLocation(name))!!.item)
-        ItemStack(Registry.ITEM.getValue(ResourceLocation(name)).orElseThrow { IllegalStateException("Item: $name does not exist") })
+        ItemStack(ForgeRegistries.ITEMS.getValue(ResourceLocation(name)) ?: throw IllegalStateException("Item: $name does not exist"))
     }
 }
 
@@ -232,15 +232,25 @@ fun JsonObject.addProp(property: String, value: Number) : JsonObject
 }
 
 
-val mc : Minecraft
+val mc : Minecraft?
     @OnlyIn(Dist.CLIENT)
-    inline get() = Minecraft.getInstance()
+    inline get()
+    {
+        try
+        {
+            return Minecraft.getInstance()
+        }
+        catch (e : Throwable)
+        {
+            return null
+        }
+    }
 val clientPlayer : ClientPlayerEntity?
     @OnlyIn(Dist.CLIENT)
-    inline get() = mc.player
+    inline get() = mc?.player
 val clientWorld : ClientWorld?
     @OnlyIn(Dist.CLIENT)
-    inline get() = mc.world
+    inline get() = mc?.world
 val World.isServer
     get() = !this.isRemote
 
@@ -251,16 +261,16 @@ val PlayerEntity.isRemote
     get() = world.isRemote
 
 val server : MinecraftServer?
-    get() = try { mc.integratedServer } catch(e : Throwable) { serverInstance }
+    get() = mc?.integratedServer ?: serverInstance
 
-val textureManager : TextureManager
-    get() = Minecraft.getInstance().textureManager
+val textureManager : TextureManager?
+    get() = mc?.textureManager
 
-val itemRenderer : ItemRenderer
-    get() = Minecraft.getInstance().itemRenderer
+val itemRenderer : ItemRenderer?
+    get() = mc?.itemRenderer
 
-val font : FontRenderer
-    get() = Minecraft.getInstance().fontRenderer
+val font : FontRenderer?
+    get() = mc?.fontRenderer
 
 fun PlayerEntity.sendMessage(text: String) = sendMessage(StringTextComponent(text))
 
@@ -316,7 +326,7 @@ val next: ImmutableMap<Direction, Direction> = ImmutableMap.of(Direction.NORTH, 
 
 fun Direction.next() : Direction = next[this] ?: Direction.NORTH
 
-fun<T> client(task : (mc : Minecraft, player : ClientPlayerEntity?, world : ClientWorld?) -> T) : T = DistExecutor.safeCallWhenOn(Dist.CLIENT) { DistExecutor.SafeCallable { task(mc, clientPlayer, clientWorld) }}
+fun<T> client(task : (mc : Minecraft, player : ClientPlayerEntity?, world : ClientWorld?) -> T) : T = DistExecutor.safeCallWhenOn(Dist.CLIENT) { DistExecutor.SafeCallable { task(mc!!, clientPlayer, clientWorld) }}
 fun<T> server(task : (MinecraftServer?) -> T) : T = DistExecutor.safeCallWhenOn(Dist.DEDICATED_SERVER) { DistExecutor.SafeCallable { task(server) } }
 
 fun PacketBuffer.writeFluidTank(tank: FluidTank) : PacketBuffer

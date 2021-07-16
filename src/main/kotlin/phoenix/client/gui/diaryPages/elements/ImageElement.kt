@@ -8,6 +8,7 @@ import phoenix.containers.DiaryContainer
 import phoenix.utils.RenderUtils.drawRectScalable
 import phoenix.utils.TextureLocation
 import phoenix.utils.mc
+import phoenix.utils.textureManager
 import kotlin.math.ceil
 
 class ImageElement(private val img: TextureLocation, var w: Int, var h: Int) : ADiaryElement()
@@ -49,7 +50,7 @@ class ImageElement(private val img: TextureLocation, var w: Int, var h: Int) : A
         val scale = scale(xSize, ySize)
         RenderSystem.pushMatrix()
         RenderSystem.scaled(scale, scale, scale)
-        mc.getTextureManager().bindTexture(img)
+        textureManager?.bindTexture(img)
         drawRectScalable(img, x + 15, y + 15, xSize.toDouble(), ySize.toDouble(), depth)
         RenderSystem.scaled(1 / scale, 1 / scale, 1 / scale)
         RenderSystem.popMatrix()

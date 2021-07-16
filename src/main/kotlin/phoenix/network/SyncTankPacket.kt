@@ -6,19 +6,15 @@ import net.minecraft.network.PacketBuffer
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fluids.capability.templates.FluidTank
 import phoenix.tile.redo.TankTile
-import phoenix.utils.getTileAt
-import phoenix.utils.mc
-import phoenix.utils.readFluidTank
-import phoenix.utils.writeFluidTank
+import phoenix.utils.*
 
 class SyncTankPacket(var pos : BlockPos, var tank : FluidTank) : Packet()
 {
     override fun processClient(player: ClientPlayerEntity?)
     {
-        val world = mc.world
-        if(world != null)
+        if(clientWorld != null)
         {
-            val tile = world.getTileAt<TankTile>(pos) ?: return
+            val tile = clientWorld!!.getTileAt<TankTile>(pos) ?: return
             tile.fluidTank = tank
         }
     }

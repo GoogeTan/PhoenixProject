@@ -28,30 +28,30 @@ import java.lang.Integer.min
 
 open class OvenTile(open val data : OvenData = OvenData(5)) : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory by data
 {
-    fun getOutOtherItems() : List<ItemStack>
+    fun getOutOtherItems(): List<ItemStack>
     {
         val res = ArrayList<ItemStack>()
         var has = false
         for (i in 0..3)
         {
-            if(recipesByResult.containsKey(data[i].item) || data[i].item == PhxItems.COOKED_SETA)
+            if (recipesByResult.containsKey(data[i].item) || data[i].item == PhxItems.COOKED_SETA)
             {
                 res.add(data[i].copy())
                 data[i] = ItemStack.EMPTY
                 has = true
             }
         }
-        if(has)
+        if (has)
             SyncOvenPacket(this).sendToAllPlayers()
         return res
     }
 
-    fun getOtherItems() : List<ItemStack>
+    fun getOtherItems(): List<ItemStack>
     {
         val res = ArrayList<ItemStack>()
         for (i in 0..3)
         {
-            if(recipesByResult.containsKey(data[i].item) || data[i].item == PhxItems.COOKED_SETA)
+            if (recipesByResult.containsKey(data[i].item) || data[i].item == PhxItems.COOKED_SETA)
             {
                 res.add(data[i]);
             }
@@ -59,10 +59,10 @@ open class OvenTile(open val data : OvenData = OvenData(5)) : PhoenixTile(PhxTil
         return res
     }
 
-    fun addItem(stack : ItemStack) : Boolean
+    fun addItem(stack: ItemStack): Boolean
     {
         for (i in 0..3)
-            if(data[i].isEmpty)
+            if (data[i].isEmpty)
             {
                 data[i] = ItemStack(stack.item)
                 return true
@@ -73,12 +73,12 @@ open class OvenTile(open val data : OvenData = OvenData(5)) : PhoenixTile(PhxTil
     override fun tick()
     {
         val world = world!!
-        if(!world.isRemote)
+        if (!world.isRemote)
         {
-            if(data.isBurning())
+            if (data.isBurning())
             {
                 data.tickFire()
-                if(world[pos, OvenBlock.STATE] == 2)
+                if (world[pos, OvenBlock.STATE] == 2)
                 {
                     val hasChanges = data.tickItems()
                     if (hasChanges)
@@ -90,13 +90,6 @@ open class OvenTile(open val data : OvenData = OvenData(5)) : PhoenixTile(PhxTil
         }
     }
 
-    override fun getUpdatePacket(): SUpdateTileEntityPacket = UpdatePacket(data, pos)
-
-    override fun onDataPacket(net: NetworkManager, pkt: SUpdateTileEntityPacket)
-    {
-        data replace (pkt as UpdatePacket).data
-    }
-
     override fun write(compound: CompoundNBT): CompoundNBT?
     {
         compound.put("data", data.serializeNBT())
@@ -106,23 +99,21 @@ open class OvenTile(open val data : OvenData = OvenData(5)) : PhoenixTile(PhxTil
 
     override fun read(compound: CompoundNBT)
     {
-        data replace OvenData(compound.getCompound("data"))
+        data.deserializeNBT(compound.getCompound("data"))
         super.read(compound)
     }
 
-    class UpdatePacket(var data: OvenData, pos: BlockPos) : SUpdateTileEntityPacket(pos, 32, CompoundNBT())
-    {
-        override fun writePacketData(buf: PacketBuffer)
-        {
-            super.writePacketData(buf)
-            data.writeToBuf(buf)
-        }
 
-        override fun readPacketData(buf: PacketBuffer)
-        {
-            super.readPacketData(buf)
-            data.readFromBuf(buf)
-        }
+    override fun writePacketData(buf: PacketBuffer)
+    {
+        super.writePacketData(buf)
+        data.writeToBuf(buf)
+    }
+
+    override fun readPacketData(buf: PacketBuffer)
+    {
+        super.readPacketData(buf)
+        data.readFromBuf(buf)
     }
 
     override fun markDirty()

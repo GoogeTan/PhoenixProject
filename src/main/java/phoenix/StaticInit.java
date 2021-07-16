@@ -4,7 +4,7 @@ import net.minecraft.client.audio.MusicTicker;
 import net.minecraft.util.SoundEvent;
 import phoenix.init.PhxSounds;
 import phoenix.utils.EnumUtil;
-import phoenix.utils.PhoenixMusicTracks;
+import phoenix.init.PhoenixMusicTracks;
 
 public class StaticInit
 {

@@ -34,24 +34,19 @@ class CeramicTile
             super.deserializeNBT(tag)
     }
 
-    override fun getUpdatePacket(): SUpdateTileEntityPacket = UpdatePacket()
-
-    inner class UpdatePacket: SUpdateTileEntityPacket()
+    override fun readPacketData(buf: PacketBuffer)
     {
-        override fun readPacketData(buf: PacketBuffer)
-        {
-            super.readPacketData(buf)
-            colour = buf.readInt()
-            hardness = buf.readFloat()
-            resistance = buf.readFloat()
-        }
+        super.readPacketData(buf)
+        colour = buf.readInt()
+        hardness = buf.readFloat()
+        resistance = buf.readFloat()
+    }
 
-        override fun writePacketData(buf: PacketBuffer)
-        {
-            super.writePacketData(buf)
-            buf.writeInt(colour)
-            buf.writeFloat(hardness)
-            buf.writeFloat(resistance)
-        }
+    override fun writePacketData(buf: PacketBuffer)
+    {
+        super.writePacketData(buf)
+        buf.writeInt(colour)
+        buf.writeFloat(hardness)
+        buf.writeFloat(resistance)
     }
 }

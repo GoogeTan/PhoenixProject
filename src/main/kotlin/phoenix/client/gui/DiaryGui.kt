@@ -28,7 +28,7 @@ class DiaryGui(val container: DiaryContainer, inv: PlayerInventory, titleIn: ITe
         super.init()
         addButton(InvisibleButton(guiLeft - 40, guiTop, ySize, { book.prev() }, true))
         addButton(InvisibleButton(guiLeft + xSize - 10, guiTop, ySize, { book.next() }, true))
-        book = DiaryBook(xSize - 30, ySize, mc.fontRenderer)
+        book = DiaryBook(xSize - 30, ySize, font)
 
         val player = clientPlayer
 
@@ -49,7 +49,7 @@ class DiaryGui(val container: DiaryContainer, inv: PlayerInventory, titleIn: ITe
     override fun resize(mc: Minecraft, width: Int, height: Int)
     {
         super.resize(mc, width, height)
-        book = DiaryBook(xSize - 30, ySize, phoenix.utils.mc.fontRenderer)
+        book = DiaryBook(xSize - 30, ySize, font)
 
         val player = clientPlayer
 

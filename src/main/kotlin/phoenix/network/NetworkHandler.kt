@@ -5,7 +5,6 @@ import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.registry.MutableRegistry
 import net.minecraft.world.chunk.Chunk
 import net.minecraft.world.dimension.DimensionType
 import net.minecraftforge.api.distmarker.Dist
@@ -14,8 +13,6 @@ import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.network.NetworkEvent
 import net.minecraftforge.fml.network.NetworkRegistry
 import net.minecraftforge.fml.network.PacketDistributor
-import net.minecraftforge.registries.ForgeRegistries
-import org.apache.http.config.Registry
 import phoenix.Phoenix
 import phoenix.utils.clientPlayer
 import java.util.function.Supplier
@@ -32,9 +29,9 @@ fun initPacketSystem()
     registerPacket(OpenCaudaInventoryPacket::class, OpenCaudaInventoryPacket.Serializer, 4)
 }
 
-private fun<T : Packet> registerPacket(packet: KClass<T>, handler : Packet.Serializer<T>, id : Int)
+private fun<T : Packet> registerPacket(packetClass : KClass<T>, handler : Packet.Serializer<T>, id : Int)
 {
-    CHANNEL.registerMessage(id, packet.java, handler::encode, handler::decode)
+    CHANNEL.registerMessage(id, packetClass.java, handler::encode, handler::decode)
     { packet: T, context: Supplier<NetworkEvent.Context> ->
         val ctx: NetworkEvent.Context = context.get()
         if (ctx.direction.receptionSide == LogicalSide.CLIENT)

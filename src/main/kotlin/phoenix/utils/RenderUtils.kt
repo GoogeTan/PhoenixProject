@@ -41,7 +41,7 @@ object RenderUtils
     )
     {
         RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f)
-        mc.getTextureManager().bindTexture(texture)
+        textureManager?.bindTexture(texture)
         blit(x, y, blitOffset, 0f, 0f, sizeX, sizeY, textureSizeX, textureSizeY)
     }
 

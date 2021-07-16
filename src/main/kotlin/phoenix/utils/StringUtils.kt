@@ -20,6 +20,8 @@ object StringUtils
                 current = ""
             } else if (this[i] == ' ' || i == this.length - 1)
             {
+                if (this[i] != ' ')
+                    current += this[i]
                 result.add(current)
                 current = ""
             } else
@@ -47,7 +49,7 @@ object StringUtils
         drawStringWithShadow(string, (x - this.getStringWidth(string)).toFloat(), y.toFloat(), colour)
     }
 
-    var rainbow = arrayOf(
+    val rainbow = arrayOf(
         TextFormatting.RED,
         TextFormatting.YELLOW,
         TextFormatting.GREEN,

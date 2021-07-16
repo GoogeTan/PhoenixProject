@@ -23,6 +23,4 @@ open class BambooPipeTile
     override fun sync()
     {
     }
-
-    override fun getUpdatePacket(): SUpdateTileEntityPacket = SUpdateTileEntityPacket()
 }

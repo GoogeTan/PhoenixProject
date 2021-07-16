@@ -12,23 +12,18 @@ import phoenix.init.PhxTiles
 
 open class JuicerTile(type : TileEntityType<out JuicerTile> = PhxTiles.juicer) : TankTile(type)
 {
-    open var stack : ItemStack = ItemStack.EMPTY
+    open var stack: ItemStack = ItemStack.EMPTY
 
-    override fun getUpdatePacket(): SUpdateTileEntityPacket = SyncPacket()
-
-    inner class SyncPacket : SUpdateTileEntityPacket()
+    override fun readPacketData(buf: PacketBuffer)
     {
-        override fun readPacketData(buffer : PacketBuffer)
-        {
-            super.readPacketData(buffer)
-            stack = buffer.readItemStack()
-        }
+        super.readPacketData(buf)
+        stack = buf.readItemStack()
+    }
 
-        override fun writePacketData(buffer: PacketBuffer)
-        {
-            super.writePacketData(buffer)
-            buffer.writeItemStack(stack)
-        }
+    override fun writePacketData(buf: PacketBuffer)
+    {
+        super.writePacketData(buf)
+        buf.writeItemStack(stack)
     }
 
     override fun <T : Any> getCapability(cap: Capability<T>, side: Direction?): LazyOptional<T>

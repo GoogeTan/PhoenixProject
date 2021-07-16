@@ -17,7 +17,7 @@ class OpenCaudaInventoryPacket(var entityId : Int) : Packet()
         {
             val container = cauda.CaudaContainer(0, player.inventory)
             player.openContainer = container
-            mc.displayGuiScreen(CaudaGuiContainer(container, player.inventory, cauda.name))
+            mc?.displayGuiScreen(CaudaGuiContainer(container, player.inventory, cauda.name))
         }
     }
 

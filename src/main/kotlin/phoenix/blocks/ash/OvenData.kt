@@ -18,10 +18,12 @@ open class OvenData(size : Int) : SizableInventory(size), INBTSerializable<Compo
     init
     {
         addListener {
+            if (it.getStackInSlot(0).isEmpty)
+                return@addListener
             val time = ForgeHooks.getBurnTime(getStackInSlot(4))
             if (time > 0)
                 addTime(time);
-            setInventorySlotContents(4, ItemStack.EMPTY)
+            setInventorySlotContents(0, ItemStack.EMPTY)
         }
     }
 
@@ -150,5 +152,27 @@ open class OvenData(size : Int) : SizableInventory(size), INBTSerializable<Compo
         maxBurnTime = buf.readInt()
         for (i in 1 until sizeInventory)
             this[i] = buf.readItemStack()
+    }
+
+    override fun equals(other: Any?): Boolean
+    {
+        if (this === other) return true
+        if (other !is OvenData) return false
+
+        if (!timers.contentEquals(other.timers)) return false
+        if (burnTime != other.burnTime) return false
+        if (maxBurnTime != other.maxBurnTime) return false
+        for (i in 0 until sizeInventory)
+            if (other[i] != this[i])
+                return false
+        return true
+    }
+
+    override fun hashCode(): Int
+    {
+        var result = timers.contentHashCode()
+        result = 31 * result + burnTime
+        result = 31 * result + maxBurnTime
+        return result
     }
 }

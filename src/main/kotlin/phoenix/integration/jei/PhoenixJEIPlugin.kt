@@ -11,6 +11,7 @@ import net.minecraft.item.crafting.IRecipe
 import net.minecraft.util.ResourceLocation
 import phoenix.init.PhxBlocks
 import phoenix.init.PhxRecipes
+import phoenix.utils.clientWorld
 import phoenix.utils.mc
 
 @JeiPlugin
@@ -24,15 +25,15 @@ class PhoenixJEIPlugin : IModPlugin
     {
         val jeiHelpers = registration.jeiHelpers
         val guiHelper = jeiHelpers.guiHelper
-        val modIdHelper = jeiHelpers.modIdHelper
+        //val modIdHelper = jeiHelpers.modIdHelper TODO remove it
         ovenCategory = OvenCategory(guiHelper)
         registration.addRecipeCategories(ovenCategory)
     }
 
     override fun registerRecipes(register: IRecipeRegistration)
     {
-        assert(mc.world != null)
-        val manager = mc.world!!.recipeManager
+        assert(clientWorld != null)
+        val manager = clientWorld!!.recipeManager
         // oven
         val ovenRecipes: Collection<IRecipe<IInventory>> = manager.getRecipes(PhxRecipes.OVEN).values
         register.addRecipes(ovenRecipes, ovenCategory.uid)

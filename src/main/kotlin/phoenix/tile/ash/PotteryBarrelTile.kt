@@ -2,6 +2,7 @@ package phoenix.tile.ash
 
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.IInventory
+import net.minecraft.inventory.Inventory
 import net.minecraft.inventory.InventoryHelper
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
@@ -16,10 +17,13 @@ import phoenix.utils.block.PhoenixTile
 import phoenix.utils.get
 import phoenix.utils.set
 
-class PotteryBarrelTile : PhoenixTile(potteryBarrel), IInventory,
-    ITickableTileEntity
+class PotteryBarrelTile : PhoenixTile(potteryBarrel), IInventory by Inventory(1), ITickableTileEntity
 {
     var jumpsCount = 0
+    private var inventory
+            get() = getStackInSlot(0)
+            set(value) = setInventorySlotContents(0, value)
+
     override fun tick()
     {
         val world = world
@@ -31,13 +35,15 @@ class PotteryBarrelTile : PhoenixTile(potteryBarrel), IInventory,
                 {
                     world[pos, POTTERY_STATE] = 2
                 }
-            } else if (inventory.item === Items.WATER_BUCKET)
+            }
+            else if (inventory.item === Items.WATER_BUCKET)
             {
                 if (world[pos, POTTERY_STATE] == 0)
                 {
                     world[pos, POTTERY_STATE] = 1
                 }
-            } else
+            }
+            else
             {
                 InventoryHelper.spawnItemStack(
                     world,
@@ -75,71 +81,21 @@ class PotteryBarrelTile : PhoenixTile(potteryBarrel), IInventory,
         removeStackFromSlot(0)
     }
 
-    private var inventory = ItemStack.EMPTY
-    override fun getUpdatePacket(): SUpdateTileEntityPacket
+    override fun markDirty()
     {
-        return UpdatePacket(jumpsCount)
+        super.markDirty()
+        (this as IInventory).markDirty()
     }
 
-    override fun onDataPacket(net: NetworkManager, pkt: SUpdateTileEntityPacket)
+    override fun readPacketData(buf: PacketBuffer)
     {
-        jumpsCount = (pkt as UpdatePacket).jumpsCount
+        super.readPacketData(buf)
+        jumpsCount = buf.readInt()
     }
 
-    override fun getSizeInventory(): Int
+    override fun writePacketData(buf: PacketBuffer)
     {
-        return 1
-    }
-
-    override fun isEmpty(): Boolean
-    {
-        return inventory.isEmpty
-    }
-
-    override fun getStackInSlot(index: Int): ItemStack
-    {
-        return inventory
-    }
-
-    override fun decrStackSize(index: Int, count: Int): ItemStack
-    {
-        val stack = inventory.copy()
-        stack.shrink(count)
-        return stack
-    }
-
-    override fun removeStackFromSlot(index: Int): ItemStack
-    {
-        return ItemStack.EMPTY.also { inventory = it }
-    }
-
-    override fun setInventorySlotContents(index: Int, stack: ItemStack)
-    {
-        inventory = stack
-    }
-
-    override fun isUsableByPlayer(player: PlayerEntity): Boolean
-    {
-        return true
-    }
-
-    override fun clear()
-    {
-        inventory = ItemStack.EMPTY
-    }
-
-    internal class UpdatePacket(var jumpsCount: Int) : SUpdateTileEntityPacket()
-    {
-        override fun readPacketData(buf: PacketBuffer)
-        {
-            super.readPacketData(buf)
-            jumpsCount = buf.readInt()
-        }
-
-        override fun writePacketData(buf: PacketBuffer)
-        {
-            super.writePacketData(buf)
-            buf.writeInt(jumpsCount)
-        }
+        super.writePacketData(buf)
+        buf.writeInt(jumpsCount)
     }
 }

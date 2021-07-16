@@ -19,12 +19,12 @@ class TextureLocation : ResourceLocation
     {
         try
         {
-            if (mc == null || mc.getTextureManager() == null)
+            if (mc == null || textureManager == null)
                 flag = true
             else
             {
                 val prevTexture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D)
-                mc.getTextureManager().bindTexture(this)
+                textureManager?.bindTexture(this)
                 width = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH)
                 height = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT)
                 GL11.glBindTexture(GL11.GL_TEXTURE_2D, prevTexture)
@@ -38,12 +38,12 @@ class TextureLocation : ResourceLocation
         if(flag)
         {
             val prevTexture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D)
-            mc.getTextureManager().bindTexture(this)
+            textureManager?.bindTexture(this)
             width = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH)
             height = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT)
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, prevTexture)
         }
-        mc.getTextureManager().bindTexture(this)
+        textureManager?.bindTexture(this)
     }
 
     @OnlyIn(Dist.CLIENT)

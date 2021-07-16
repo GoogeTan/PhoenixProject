@@ -11,6 +11,7 @@ import net.minecraft.world.IWorld
 import net.minecraftforge.common.MinecraftForge
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
+import phoenix.init.PhoenixMusicTracks
 import phoenix.init.PhxBlocks.armoredGlass
 import phoenix.init.PhxEntities
 import phoenix.utils.*
