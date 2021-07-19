@@ -72,6 +72,7 @@ import phoenix.mixin.serverInstance
 import phoenix.network.SyncBookPacket
 import phoenix.network.sendToPlayer
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
+import java.math.BigDecimal
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -162,16 +163,49 @@ fun PacketBuffer.writeDate(date: Date)
 
 fun PacketBuffer.readDate() : Date = Date(readLong(), readLong(), readLong())
 
-fun <T : Number> min(vararg values: T) : T
+fun min(vararg values: Number) : Number
 {
     if(values.isEmpty())
-        throw NullPointerException()
-    var res : T = values[0]
+        throw ArrayIndexOutOfBoundsException()
+    var res = values[0]
     for(i in values)
     {
-        if(i.toDouble() < res.toDouble())
+        if (i.toBigDecimal() < res.toBigDecimal())
             res = i
     }
+    return res
+}
+
+fun min(vararg values: Int) : Int
+{
+    if(values.isEmpty())
+        throw ArrayIndexOutOfBoundsException()
+    var res = values[0]
+    for(i in values)
+        if (i < res)
+            res = i
+    return res
+}
+
+fun min(vararg values : Float) : Float
+{
+    if(values.isEmpty())
+        throw ArrayIndexOutOfBoundsException()
+    var res = values[0]
+    for(i in values)
+        if (i < res)
+        res = i
+    return res
+}
+
+fun min(vararg values : Double) : Double
+{
+    if(values.isEmpty())
+        throw ArrayIndexOutOfBoundsException()
+    var res = values[0]
+    for(i in values)
+        if (i < res)
+            res = i
     return res
 }
 
@@ -187,6 +221,10 @@ fun <T : Number> max(vararg values: T) : T
     }
     return res
 }
+
+fun Number.toBigDecimal() = BigDecimal(this.toString())
+
+
 
 
 fun <T : TileEntity> create(tile: T, block: Block) : () -> TileEntityType<T> = { TileEntityType.Builder.create({ tile }, block).build() }

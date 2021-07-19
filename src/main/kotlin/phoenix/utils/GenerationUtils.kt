@@ -7,7 +7,7 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder
 object GenerationUtils
 {
     /*
-     * Создает классический конфиг для биома в краю.
+     * Создает стандратный конфиг для биома в краю.
      */
     fun <T : ISurfaceBuilderConfig> defaultSettingsForEnd(surfaceBuilderIn: SurfaceBuilder<T>, surfaceBuilderConfigIn: T): Biome.Builder
     {

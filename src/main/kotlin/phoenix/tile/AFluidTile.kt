@@ -71,8 +71,7 @@ abstract class FluidTileSidable
     }
 
     // first - input, second - output
-    open fun getDirections(): MutablePair<Direction?, Direction?> =
-        uniquePairOf(blockState[facing], blockState[facing].opposite)
+    open fun getDirections(): MutablePair<Direction?, Direction?> = uniquePairOf(blockState[facing], blockState[facing].opposite)
 
     open fun extract(tile: TileEntity, fluid: IFluidHandler, side: Direction): Boolean
     {

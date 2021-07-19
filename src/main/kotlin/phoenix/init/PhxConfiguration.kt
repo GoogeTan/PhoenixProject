@@ -4,7 +4,6 @@ import net.minecraftforge.common.ForgeConfigSpec
 import net.minecraftforge.common.ForgeConfigSpec.EnumValue
 import net.minecraftforge.common.ForgeConfigSpec.IntValue
 
-
 object PhxConfiguration
 {
     val caudaInventorySize : Int
@@ -15,6 +14,8 @@ object PhxConfiguration
         get() = COMMON_CONFIG.BIOME_SIZE.get()
     val isDebugMode : Boolean
         get() = COMMON_CONFIG.debug.get()
+    fun getPipeCapacity(tier : Int) = COMMON_CONFIG.PIPE_CAPACITIES.get()[tier]
+    fun getTransferRate(tier : Int) = COMMON_CONFIG.PIPE_CAPACITIES.get()[tier]
 
     lateinit var COMMON_CONFIG: Common
 
@@ -22,6 +23,7 @@ object PhxConfiguration
     {
         var gameMode : EnumValue<GameMode>
         var BIOME_SIZE : IntValue
+        var PIPE_CAPACITIES : ForgeConfigSpec.ConfigValue<List<Int>>
         var debug : ForgeConfigSpec.BooleanValue
 
         init
@@ -34,6 +36,9 @@ object PhxConfiguration
             builder.pop()
             builder.push("Debug settings")
             debug = builder.worldRestart().define("is debug mode", false)
+            builder.pop()
+            builder.push("Pipe settings")
+            PIPE_CAPACITIES = builder.comment("List of pipe capacities. ") .define("Values", arrayListOf(1000, 2000, 4000, 8000));
             builder.pop()
         }
     }

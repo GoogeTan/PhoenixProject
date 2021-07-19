@@ -14,6 +14,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.network.NetworkHooks
 import phoenix.init.PhxEntities
 import phoenix.utils.get
+import phoenix.utils.isServer
 import phoenix.utils.set
 
 class IceBallEntity : ThrowableEntity
@@ -26,7 +27,7 @@ class IceBallEntity : ThrowableEntity
     override fun tick()
     {
         super.tick()
-        if (!world.getFluidState(position).isEmpty)
+        if (world.isServer && !world.getFluidState(position).isEmpty)
             onImpact(null)
     }
 
@@ -41,11 +42,12 @@ class IceBallEntity : ThrowableEntity
                 applyEnchantments(owner, entity)
             }
 
-            for (dX in (-3)..3)
+            val explosionPower = 1 + rand.nextInt(2)
+            for (dX in -explosionPower..explosionPower)
             {
-                for (dZ in (-3)..3)
+                for (dZ in -explosionPower..explosionPower)
                 {
-                    for (dY in (-3)..3)
+                    for (dY in -explosionPower..explosionPower)
                     {
                         val pos = position.add(dX, dY, dZ)
                         val dist = pos.distanceSq(position)

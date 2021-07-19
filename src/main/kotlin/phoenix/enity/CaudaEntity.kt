@@ -167,7 +167,7 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
                 jumpMovementFactor = this.aiMoveSpeed * 0.1f
                 if (canPassengerSteer())
                 {
-                    this.aiMoveSpeed = getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).value.toFloat() * 0.225f * ((getArmorStack().item as? CaudaArmorItem)?.material?.speedModifier?:1.0f)
+                    this.aiMoveSpeed = getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).value.toFloat() * 0.225f * ((getArmorStack().getItem() as? CaudaArmorItem)?.material?.speedModifier?:1.0f)
                     super.travel(Vec3d(0.0, entity.moveForward.toDouble(), 1.0))
                     newPosRotationIncrements = 0
                 }
@@ -218,17 +218,17 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
         return if (player is ServerPlayerEntity && player != this.controllingPassenger)
         {
             val item = player.getHeldItem(hand)
-            if (Block.getBlockFromItem(item.item) is ChestBlock && !equipment)
+            if (Block.getBlockFromItem(item.getItem()) is ChestBlock && !equipment)
             {
                 equipment = true
                 item.shrink(1)
                 player.setHeldItem(hand, item)
-            } else if (!saddled && item.item == Items.SADDLE)
+            } else if (!saddled && item.getItem() == Items.SADDLE)
             {
                 saddled = true
                 item.shrink(1)
                 player.setHeldItem(hand, item)
-            } else if (!saddled && item.item == Items.NAME_TAG)
+            } else if (!saddled && item.getItem() == Items.NAME_TAG)
             {
                 item.interactWithEntity(player, this, hand)
             } else if (player.isSneaking)
@@ -317,12 +317,12 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
 
                 addSlot(object : Slot(this@CaudaEntity.chests, i++, 172, 92)
                 {
-                    override fun isItemValid(stack: ItemStack) = stack.item is CaudaArmorItem
+                    override fun isItemValid(stack: ItemStack) = stack.getItem() is CaudaArmorItem
                 })
 
                 addSlot(object : Slot(this@CaudaEntity.chests, i++, 172, 113)
                 {
-                    override fun isItemValid(stack: ItemStack) = stack.item is BannerItem
+                    override fun isItemValid(stack: ItemStack) = stack.getItem() is BannerItem
                 })
             }
             else
@@ -333,12 +333,12 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
 
                 addSlot(object : Slot(this@CaudaEntity.chests, i++, 152, 8)
                 {
-                    override fun isItemValid(stack: ItemStack) = stack.item is CaudaArmorItem
+                    override fun isItemValid(stack: ItemStack) = stack.getItem() is CaudaArmorItem
                 })
 
                 addSlot(object : Slot(this@CaudaEntity.chests, i++, 152, 44)
                 {
-                    override fun isItemValid(stack: ItemStack) = stack.item is BannerItem
+                    override fun isItemValid(stack: ItemStack) = stack.getItem() is BannerItem
                 })
             }
 
@@ -629,44 +629,6 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
             {
                 this@CaudaEntity.attackPhase = AttackPhase.CIRCLE
             }
-        }
-    }
-
-    inner class AttackPlayerGoal : Goal()
-    {
-        private val predicate = EntityPredicate().setDistance(64.0)
-        private var tickDelay = 20
-
-        override fun shouldExecute(): Boolean
-        {
-            return if (tickDelay > 0)
-            {
-                --tickDelay
-                false
-            } else
-            {
-                tickDelay = 60
-                val list: MutableList<PlayerEntity> = this@CaudaEntity.world.getTargettablePlayersWithinAABB(predicate, this@CaudaEntity, this@CaudaEntity.boundingBox.grow(16.0, 64.0, 16.0))
-                if (list.isNotEmpty())
-                {
-                    list.sortWith { entity: PlayerEntity, player2: PlayerEntity -> if (entity.posY > player2.posY) -1 else 1 }
-                    for (player in list)
-                    {
-                        if (this@CaudaEntity.canAttack(player, EntityPredicate.DEFAULT))
-                        {
-                            this@CaudaEntity.attackTarget = player
-                            return true
-                        }
-                    }
-                }
-                false
-            }
-        }
-
-        override fun shouldContinueExecuting(): Boolean
-        {
-            val entity: LivingEntity? = this@CaudaEntity.attackTarget
-            return if (entity != null) this@CaudaEntity.canAttack(entity, EntityPredicate.DEFAULT) else false
         }
     }
 }

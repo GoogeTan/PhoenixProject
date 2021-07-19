@@ -224,10 +224,10 @@ class AncientGolemEntity(type: EntityType<out AncientGolemEntity> = PhxEntities.
 
                         if (attackStep > 1)
                         {
-                            this@AncientGolemEntity.world.playEvent(null, 1018, BlockPos(this@AncientGolemEntity), 0)
-                            val knife = IceBallEntity(world, this@AncientGolemEntity)
-                            knife.shoot(this@AncientGolemEntity, this@AncientGolemEntity.rotationPitch, this@AncientGolemEntity.rotationYaw, 0.0f, 2f, 0.3f)
-                            world.addEntity(knife)
+                            IceBallEntity(world, this@AncientGolemEntity).apply {
+                                shoot(this@AncientGolemEntity, this@AncientGolemEntity.rotationPitch, this@AncientGolemEntity.rotationYaw, 0.0f, 2f, 0.3f)
+                                world.addEntity(this)
+                            }
                         }
                     }
                     this@AncientGolemEntity.lookController.setLookPositionWithEntity(target, 10.0f, 10.0f)
