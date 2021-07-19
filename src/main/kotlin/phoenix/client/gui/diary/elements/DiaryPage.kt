@@ -1,7 +1,8 @@
-package phoenix.client.gui.diaryPages.elements
+package phoenix.client.gui.diary.elements
 
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
+import phoenix.client.gui.diary.elements.ADiaryElement
 import phoenix.containers.DiaryContainer
 
 class DiaryPage(private val maxSize : Int, val elements : ArrayList<ADiaryElement>)

@@ -26,7 +26,7 @@ import net.minecraft.util.Direction
 import net.minecraft.util.JSONUtils
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.registry.Registry
+import net.minecraft.util.math.Vec3d
 import net.minecraft.util.text.StringTextComponent
 import net.minecraft.world.IWorld
 import net.minecraft.world.IWorldReader
@@ -66,7 +66,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry
 import phoenix.Phoenix
 import phoenix.api.entity.Date
 import phoenix.api.entity.IPhoenixPlayer
-import phoenix.client.gui.diaryPages.Chapter
+import phoenix.client.gui.diary.Chapter
 import phoenix.init.PhxBlocks
 import phoenix.mixin.serverInstance
 import phoenix.network.SyncBookPacket
@@ -119,6 +119,7 @@ operator fun IChunk.get(pos: BlockPos) : BlockState = this.getBlockState(pos)
 operator fun IChunk.set(pos: BlockPos, state : BlockState) = this.setBlockState(pos, state, false)
 operator fun IChunk.set(pos: BlockPos, state : BlockState, isMoving : Boolean) = this.setBlockState(pos, state, isMoving)
 
+fun BlockPos.add(lookVec: Vec3d): BlockPos = add(lookVec.x.toInt(), lookVec.y.toInt(), lookVec.z.toInt())
 fun <V : IForgeRegistryEntry<V>> KDeferredRegister<V>.register(name: String, value: V) = register(name) { value }
 
 fun <T : TileEntity> TileEntityType.Builder<T>.build(): TileEntityType<T> = this.build(null)

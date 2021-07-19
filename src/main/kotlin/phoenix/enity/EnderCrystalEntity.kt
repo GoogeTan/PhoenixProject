@@ -21,9 +21,6 @@ import phoenix.utils.get
 import phoenix.world.EndDimension
 import java.util.*
 
-var BEAM_TARGET: DataParameter<Optional<BlockPos>> = EntityDataManager.createKey(EnderCrystalEntity::class.java, DataSerializers.OPTIONAL_BLOCK_POS)
-var SHOW_BOTTOM: DataParameter<Boolean> = EntityDataManager.createKey(EnderCrystalEntity::class.java, DataSerializers.BOOLEAN)
-
 class EnderCrystalEntity(type: EntityType<out EnderCrystalEntity>, world: World) : Entity(type, world)
 {
     var innerRotation = 0
@@ -137,15 +134,9 @@ class EnderCrystalEntity(type: EntityType<out EnderCrystalEntity>, world: World)
         getDataManager().set(BEAM_TARGET, Optional.ofNullable(value))
     }
 
-    fun getBeamTarget(): BlockPos?
-    {
-        return (getDataManager().get(BEAM_TARGET) as Optional<*>).orElse(null) as? BlockPos
-    }
+    fun getBeamTarget(): BlockPos? = (getDataManager().get(BEAM_TARGET) as Optional<*>).orElse(null) as? BlockPos
 
-    fun setShowBottom(value : Boolean)
-    {
-        getDataManager().set(SHOW_BOTTOM, value)
-    }
+    fun setShowBottom(value : Boolean) = getDataManager().set(SHOW_BOTTOM, value)
 
     fun shouldShowBottom(): Boolean
     {
@@ -153,10 +144,13 @@ class EnderCrystalEntity(type: EntityType<out EnderCrystalEntity>, world: World)
     }
 
     @OnlyIn(Dist.CLIENT)
-    override fun isInRangeToRenderDist(range: Double): Boolean
-    {
-        return super.isInRangeToRenderDist(range) || this.getBeamTarget() != null
-    }
+    override fun isInRangeToRenderDist(range: Double): Boolean = super.isInRangeToRenderDist(range) || this.getBeamTarget() != null
 
     override fun createSpawnPacket() = NetworkHooks.getEntitySpawningPacket(this)!!
+
+    companion object
+    {
+        var BEAM_TARGET: DataParameter<Optional<BlockPos>> = EntityDataManager.createKey(EnderCrystalEntity::class.java, DataSerializers.OPTIONAL_BLOCK_POS)
+        var SHOW_BOTTOM: DataParameter<Boolean> = EntityDataManager.createKey(EnderCrystalEntity::class.java, DataSerializers.BOOLEAN)
+    }
 }

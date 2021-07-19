@@ -19,8 +19,13 @@ import net.minecraft.util.Hand
 import net.minecraft.util.SoundEvents
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
+import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
+import phoenix.enity.projectile.IceBallEntity
+import phoenix.enity.projectile.KnifeEntity
 import phoenix.init.PhxEntities
+import phoenix.utils.add
+import phoenix.utils.getEnchantmentLevel
 import java.util.*
 
 class AncientGolemEntity(type: EntityType<out AncientGolemEntity> = PhxEntities.ancientGolemEntity, worldIn: World) : MonsterEntity(type, worldIn)
@@ -197,9 +202,6 @@ class AncientGolemEntity(type: EntityType<out AncientGolemEntity> = PhxEntities.
                     this@AncientGolemEntity.moveHelper.setMoveTo(target.posX, target.posY, target.posZ, 1.0)
                 } else if (distanceToTarget < followDistance * followDistance && canSeeTarget)
                 {
-                    val x = target.posX - this@AncientGolemEntity.posX
-                    val y = target.getPosYHeight(0.5) - this@AncientGolemEntity.getPosYHeight(0.5)
-                    val z = target.posZ - this@AncientGolemEntity.posZ
                     if (attackTime <= 0)
                     {
                         ++attackStep
@@ -219,15 +221,13 @@ class AncientGolemEntity(type: EntityType<out AncientGolemEntity> = PhxEntities.
                                 attackStep = 0
                             }
                         }
+
                         if (attackStep > 1)
                         {
-                            val halfOfDistance = MathHelper.sqrt(MathHelper.sqrt(distanceToTarget)) * 0.5f
                             this@AncientGolemEntity.world.playEvent(null, 1018, BlockPos(this@AncientGolemEntity), 0)
-
-                            val fireBall = SmallFireballEntity(this@AncientGolemEntity.world, this@AncientGolemEntity, x + this@AncientGolemEntity.rng.nextGaussian() * halfOfDistance.toDouble(), y, z + this@AncientGolemEntity.rng.nextGaussian() * halfOfDistance.toDouble())
-                            fireBall.setPosition(fireBall.posX, this@AncientGolemEntity.getPosYHeight(0.5) + 0.5, fireBall.posZ)
-                            this@AncientGolemEntity.world.addEntity(fireBall)
-
+                            val knife = IceBallEntity(world, this@AncientGolemEntity)
+                            knife.shoot(this@AncientGolemEntity, this@AncientGolemEntity.rotationPitch, this@AncientGolemEntity.rotationYaw, 0.0f, 2f, 0.3f)
+                            world.addEntity(knife)
                         }
                     }
                     this@AncientGolemEntity.lookController.setLookPositionWithEntity(target, 10.0f, 10.0f)

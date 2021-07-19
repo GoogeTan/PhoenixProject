@@ -1,4 +1,4 @@
-package phoenix.client.gui.diaryPages.elements
+package phoenix.client.gui.diary.elements
 
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
@@ -18,6 +18,5 @@ abstract class ADiaryElement
         depth: Int
     )
 
-    abstract fun serialize(): CompoundNBT?
     abstract override fun toString(): String
 }

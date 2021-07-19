@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At
 import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 import phoenix.api.entity.IPhoenixPlayer
-import phoenix.client.gui.diaryPages.Chapter
+import phoenix.client.gui.diary.Chapter
 import phoenix.utils.addChapter
 import phoenix.utils.sendMessage
 
@@ -20,7 +20,7 @@ class FurnaceResultSlotMixin
     @Inject(at = [At("HEAD")], method = ["onTake"])
     fun onTake(thePlayer: PlayerEntity?, stack: ItemStack?, cir: CallbackInfoReturnable<ItemStack>)
     {
-        if(thePlayer is ServerPlayerEntity && thePlayer is IPhoenixPlayer && stack?.item == Items.IRON_INGOT)
+        if(thePlayer is ServerPlayerEntity && thePlayer is IPhoenixPlayer && stack?.getItem() == Items.IRON_INGOT)
         {
             thePlayer.addChapter(Chapter.STEEL)
             thePlayer.sendMessage("Chapter ${thePlayer.getOpenedChapters()}")

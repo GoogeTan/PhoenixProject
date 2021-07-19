@@ -1,10 +1,10 @@
-package phoenix.client.gui.diaryPages
+package phoenix.client.gui.diary
 
 import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
-import phoenix.client.gui.diaryPages.elements.ADiaryElement
-import phoenix.client.gui.diaryPages.elements.DiaryPage
+import phoenix.client.gui.diary.elements.ADiaryElement
+import phoenix.client.gui.diary.elements.DiaryPage
 import phoenix.containers.DiaryContainer
 import java.util.*
 

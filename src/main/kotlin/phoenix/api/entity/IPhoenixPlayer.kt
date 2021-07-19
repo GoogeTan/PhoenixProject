@@ -1,7 +1,7 @@
 package phoenix.api.entity
 
 import net.minecraft.item.ItemStack
-import phoenix.client.gui.diaryPages.Chapter
+import phoenix.client.gui.diary.Chapter
 
 interface IPhoenixPlayer
 {

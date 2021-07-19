@@ -46,19 +46,21 @@ import phoenix.init.CaudaArmorItem
 import phoenix.init.PhxConfiguration
 import phoenix.init.PhxContainers
 import phoenix.network.OpenCaudaInventoryPacket
-import phoenix.network.sendToDimension
 import phoenix.network.sendToPlayer
 import phoenix.utils.max
 import phoenix.utils.min
-import java.lang.Math.abs
 import java.util.*
 import javax.annotation.Nonnull
-
-private val EQUIPMENT = EntityDataManager.createKey(CaudaEntity::class.java, DataSerializers.BOOLEAN)
-private val SADDLE    = EntityDataManager.createKey(CaudaEntity::class.java, DataSerializers.BOOLEAN)
+import kotlin.math.abs
 
 open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEntity(type, worldIn), IMob
 {
+    companion object
+    {
+        private val EQUIPMENT = EntityDataManager.createKey(CaudaEntity::class.java, DataSerializers.BOOLEAN)
+        private val SADDLE    = EntityDataManager.createKey(CaudaEntity::class.java, DataSerializers.BOOLEAN)
+    }
+
     var chests : Inventory = Inventory(PhxConfiguration.caudaInventorySize + 2)
 
     var saddled : Boolean
@@ -378,7 +380,7 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
         }
     }
 
-    inner class LookHelperController() : LookController((this@CaudaEntity)) { override fun tick() {} }
+    inner class LookHelperController : LookController((this@CaudaEntity)) { override fun tick() {} }
 
     abstract inner class MoveGoal : Goal()
     {

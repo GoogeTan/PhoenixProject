@@ -6,16 +6,15 @@ import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.util.text.ITextComponent
 import phoenix.Phoenix
 import phoenix.api.entity.IPhoenixPlayer
-import phoenix.client.gui.diaryPages.Chapter
-import phoenix.client.gui.diaryPages.DiaryBook
-import phoenix.client.gui.diaryPages.elements.ADiaryElement
-import phoenix.client.gui.diaryPages.elements.RightAlignedTextElement
+import phoenix.client.gui.diary.Chapter
+import phoenix.client.gui.diary.DiaryBook
+import phoenix.client.gui.diary.elements.ADiaryElement
+import phoenix.client.gui.diary.elements.RightAlignedTextElement
 import phoenix.containers.DiaryContainer
 import phoenix.utils.DiaryUtils.makeParagraph
 import phoenix.utils.RenderUtils
 import phoenix.utils.TextureLocation
 import phoenix.utils.clientPlayer
-import phoenix.utils.mc
 
 private val backgoundTexture = TextureLocation(Phoenix.MOD_ID, "textures/gui/diary_2.png")
 

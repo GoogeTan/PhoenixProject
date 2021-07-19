@@ -24,7 +24,6 @@ object PhxRenderTypes
 
     fun initTexture(path: ResourceLocation, name: String): RenderType
     {
-        //mc.getTextureManager().loadTexture(path, SimpleTexture(path))
         return createType(
             name,
             RenderType.State.getBuilder()

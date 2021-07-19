@@ -1,13 +1,12 @@
-package phoenix.client.gui.diaryPages.elements
+package phoenix.client.gui.diary.elements
 
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
-import net.minecraft.nbt.CompoundNBT
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.util.text.StringTextComponent
 import net.minecraft.util.text.TextFormatting
+import phoenix.client.gui.diary.elements.ADiaryElement
 import phoenix.containers.DiaryContainer
-
 
 open class TextElement : ADiaryElement
 {
@@ -42,12 +41,4 @@ open class TextElement : ADiaryElement
     }
 
     override fun toString(): String = text.formattedText
-
-    override fun serialize(): CompoundNBT
-    {
-        val res = CompoundNBT()
-        res.putString("text", text.formattedText)
-        res.putString("type", "string")
-        return res
-    }
 }

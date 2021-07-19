@@ -28,6 +28,7 @@ import phoenix.init.PhxEntities.dragonAshStage
 import phoenix.init.PhxEntities.dragonRedoStage
 import phoenix.init.PhxEntities.enderCrystal
 import phoenix.init.PhxEntities.explosiveBall
+import phoenix.init.PhxEntities.iceBall
 import phoenix.init.PhxEntities.talpa
 import phoenix.init.PhxEntities.zirconiumKnife
 import phoenix.init.PhxRenderTypes
@@ -80,6 +81,7 @@ object PhoenixClientEvents
         RenderTypeLookup.setRenderLayer(PhxBlocks.potteryBarrel, RenderType.getTranslucent())
         RenderingRegistry.registerEntityRenderingHandler(talpa, ::TalpaRenderer)
         RenderingRegistry.registerEntityRenderingHandler(ancientGolemEntity, ::AncientGolemRenderer)
+        RenderingRegistry.registerEntityRenderingHandler(iceBall, ::IceBallRenderer)
         RenderingRegistry.registerEntityRenderingHandler(cauda, ::CaudaRenderer)
         RenderingRegistry.registerEntityRenderingHandler(zirconiumKnife, ::KnifeRenderer)
         RenderingRegistry.registerEntityRenderingHandler(dragonAshStage, ::AshDragonRenderer)

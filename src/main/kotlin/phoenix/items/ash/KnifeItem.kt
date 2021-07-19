@@ -20,7 +20,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.Explosion
 import net.minecraft.world.World
 import net.minecraftforge.common.Tags
-import phoenix.enity.KnifeEntity
+import phoenix.enity.projectile.KnifeEntity
 import phoenix.init.PhxEnchantments
 import phoenix.init.events.PhoenixEvents.addTask
 import phoenix.utils.destroyBlock

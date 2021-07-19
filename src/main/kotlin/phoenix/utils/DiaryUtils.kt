@@ -1,8 +1,8 @@
 package phoenix.utils
 
 import net.minecraft.client.gui.FontRenderer
-import phoenix.client.gui.diaryPages.elements.ADiaryElement
-import phoenix.client.gui.diaryPages.elements.TextElement
+import phoenix.client.gui.diary.elements.ADiaryElement
+import phoenix.client.gui.diary.elements.TextElement
 import phoenix.utils.StringUtils.toWords
 
 object DiaryUtils

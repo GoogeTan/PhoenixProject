@@ -1,4 +1,4 @@
-package phoenix.enity
+package phoenix.enity.projectile
 
 import net.minecraft.block.Blocks
 import net.minecraft.enchantment.EnchantmentHelper
@@ -27,7 +27,7 @@ import phoenix.utils.get
 import phoenix.utils.getEnchantmentLevel
 
 
-class KnifeEntity : ThrowableEntity
+open class KnifeEntity : ThrowableEntity
 {
     var knife = ItemStack(PhxItems.ZIRCONIUM_KNIFE)
     var isReal = true
@@ -91,7 +91,7 @@ class KnifeEntity : ThrowableEntity
                        onKillCommand()
                    }
                }
-                else -> {}
+               else -> {}
             }
         }
     }

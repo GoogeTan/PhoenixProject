@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
 import phoenix.api.entity.Date
 import phoenix.api.entity.IPhoenixPlayer
-import phoenix.client.gui.diaryPages.Chapter
+import phoenix.client.gui.diary.Chapter
 import phoenix.init.PhxItems
 import phoenix.utils.addChapter
 import phoenix.utils.toSet

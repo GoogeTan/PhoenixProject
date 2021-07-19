@@ -9,6 +9,8 @@ import phoenix.enity.*
 import phoenix.enity.boss.DragonAshStageEntity
 import phoenix.enity.boss.DragonRedoStageEntity
 import phoenix.enity.boss.balls.ExplosiveBallEntity
+import phoenix.enity.projectile.IceBallEntity
+import phoenix.enity.projectile.KnifeEntity
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
@@ -74,18 +76,23 @@ object PhxEntities
 
     val explosiveBall : EntityType<ExplosiveBallEntity> by ENTITIES.register("explosiveball")
     {
-        EntityType.Builder.create(::ExplosiveBallEntity, EntityClassification.MONSTER)
+        EntityType.Builder.create(::ExplosiveBallEntity, EntityClassification.MISC)
                 .immuneToFire()
-                .size(16.0f, 8.0f)
+                .size(1.0f, 1.0f)
                 .build(ResourceLocation(Phoenix.MOD_ID, "explosiveball").toString())
     }
 
     val ancientGolemEntity : EntityType<AncientGolemEntity> by ENTITIES.register("ancient_golem")
     {
-        EntityType.Builder.create(::AncientGolemEntity, EntityClassification.MONSTER)
+        EntityType.Builder.create(::AncientGolemEntity, EntityClassification.MONSTER).immuneToFire().size(1.0f, 1.0f).build(ResourceLocation(Phoenix.MOD_ID, "ancient_golem").toString())
+    }
+
+    val iceBall : EntityType<IceBallEntity> by ENTITIES.register("iceball")
+    {
+        EntityType.Builder.create(::IceBallEntity, EntityClassification.MISC)
             .immuneToFire()
-            .size(1.0f, 1.0f)
-            .build(ResourceLocation(Phoenix.MOD_ID, "ancient_golem").toString())
+            .size(0.5f, 0.5f)
+            .build(ResourceLocation(Phoenix.MOD_ID, "iceball").toString())
     }
 
     fun register() = ENTITIES.register(MOD_BUS)

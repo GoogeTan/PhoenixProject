@@ -1,13 +1,12 @@
-package phoenix.client.gui.diaryPages.elements
+package phoenix.client.gui.diary.elements
 
 import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
-import net.minecraft.nbt.CompoundNBT
+import phoenix.client.gui.diary.elements.ADiaryElement
 import phoenix.containers.DiaryContainer
 import phoenix.utils.RenderUtils.drawRectScalable
 import phoenix.utils.TextureLocation
-import phoenix.utils.mc
 import phoenix.utils.textureManager
 import kotlin.math.ceil
 
@@ -39,7 +38,7 @@ class ImageElement(private val img: TextureLocation, var w: Int, var h: Int) : A
 
     override fun render(
         gui: ContainerScreen<DiaryContainer>,
-        renderer: FontRenderer,
+        font: FontRenderer,
         xSize: Int,
         ySize: Int,
         x: Int,
@@ -56,17 +55,5 @@ class ImageElement(private val img: TextureLocation, var w: Int, var h: Int) : A
         RenderSystem.popMatrix()
     }
 
-    //*
     override fun toString(): String = img.toString()
-
-    //*/
-    override fun serialize(): CompoundNBT
-    {
-        val res = CompoundNBT()
-        res.putString("type", "img")
-        res.putString("res", img.path)
-        //res.putInt("maxx", maxSizeX);
-        //res.putInt("maxy", maxSizeY);
-        return res
-    }
 }

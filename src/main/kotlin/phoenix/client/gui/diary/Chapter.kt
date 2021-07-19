@@ -1,4 +1,4 @@
-package phoenix.client.gui.diaryPages
+package phoenix.client.gui.diary
 
 import net.minecraft.client.resources.I18n
 

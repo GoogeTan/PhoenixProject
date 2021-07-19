@@ -57,21 +57,15 @@ abstract class Packet
     }
 }
 
-
-@OnlyIn(Dist.DEDICATED_SERVER)
 fun Packet.sendToAllPlayers() = CHANNEL.send(PacketDistributor.ALL.noArg(), this)
 
-@OnlyIn(Dist.CLIENT)
 fun Packet.sendToServer() = CHANNEL.send(PacketDistributor.SERVER.noArg(), this)
 
-@OnlyIn(Dist.DEDICATED_SERVER)
 fun Packet.sendToDimension(type : DimensionType) = CHANNEL.send(PacketDistributor.DIMENSION.with { type }, this)
 
-@OnlyIn(Dist.DEDICATED_SERVER)
 fun Packet.sendToPlayer(player : ServerPlayerEntity) = CHANNEL.send(PacketDistributor.PLAYER.with { player }, this)
 
 /**
  * метод позволяет отправить наш пакет всем отслеживающим чанк
  */
-@OnlyIn(Dist.DEDICATED_SERVER)
 fun Packet.sendToTrackingChunk(chunk: Chunk) = CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with { chunk }, this)
