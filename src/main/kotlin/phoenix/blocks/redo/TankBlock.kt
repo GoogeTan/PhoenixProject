@@ -24,7 +24,7 @@ import phoenix.api.block.IRedoThink
 import phoenix.tile.FluidTileSidable
 import phoenix.tile.redo.TankTile
 import phoenix.api.block.BlockWithTile
-import phoenix.utils.interactWithFluidHandler
+import phoenix.other.interactWithFluidHandler
 
 object TankBlock : BlockWithTile(Properties.create(Material.GLASS).notSolid().hardnessAndResistance(3.0f)), IRedoThink
 {

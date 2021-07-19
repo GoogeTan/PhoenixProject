@@ -19,8 +19,8 @@ import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor
 import net.minecraft.world.gen.feature.template.PlacementSettings
 import net.minecraft.world.gen.feature.template.TemplateManager
 import phoenix.init.PhxLootTables
-import phoenix.utils.BlockPosUtils.isNear
-import phoenix.utils.min
+import phoenix.other.isNear
+import phoenix.other.min
 import java.util.*
 
 object RemainsPieces

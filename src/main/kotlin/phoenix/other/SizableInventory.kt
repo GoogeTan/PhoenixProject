@@ -1,4 +1,4 @@
-package phoenix.utils
+package phoenix.other
 
 import com.google.common.collect.Lists
 import net.minecraft.entity.player.PlayerEntity

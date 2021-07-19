@@ -33,9 +33,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.items.ItemHandlerHelper
 import phoenix.init.PhxItems
 import phoenix.api.block.IColoredBlock
-import phoenix.tile.ash.PotteryBarrelTile
-import phoenix.api.block.BlockWithTile
-import phoenix.utils.get
+import phoenix.other.get
 import javax.annotation.Nonnull
 import javax.annotation.ParametersAreNonnullByDefault
 

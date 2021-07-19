@@ -9,7 +9,7 @@ import net.minecraft.world.gen.feature.EndPodiumFeature
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.PhaseType
 import phoenix.enity.boss.phase.phases.Phase
-import phoenix.utils.LogManager
+import phoenix.other.LogManager
 
 open class AshLandingApproachPhase(dragonIn: AbstractEnderDragonEntity) : Phase(dragonIn)
 {

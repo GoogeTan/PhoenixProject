@@ -13,7 +13,7 @@ import net.minecraft.world.World
 import phoenix.Phoenix
 import phoenix.api.block.ICustomGroup
 import phoenix.init.PhxBlocks
-import phoenix.utils.getEnchantmentLevel
+import phoenix.other.getEnchantmentLevel
 
 object WetLogBlock : RotatedPillarBlock(Properties.create(Material.WOOD).hardnessAndResistance(3.0f)), ICustomGroup
 {

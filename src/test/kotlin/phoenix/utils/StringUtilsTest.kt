@@ -3,7 +3,7 @@ package phoenix.utils
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
-import phoenix.utils.StringUtils.toWords
+import phoenix.other.toWords
 
 internal class StringUtilsTest
 {

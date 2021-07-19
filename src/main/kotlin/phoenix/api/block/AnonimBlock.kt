@@ -1,4 +1,4 @@
-package phoenix.utils.block
+package phoenix.api.block
 
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
@@ -9,8 +9,7 @@ import net.minecraft.tileentity.TileEntity
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.storage.loot.LootContext
 import phoenix.Phoenix
-import phoenix.api.block.ICustomGroup
-import phoenix.utils.SizedArrayList
+import phoenix.other.SizedArrayList
 
 class AnonimBlock(properties: Properties, val tile : () -> TileEntity? = {null}, val itemGroup : ItemGroup = Phoenix.ASH) : Block(properties),
     ICustomGroup

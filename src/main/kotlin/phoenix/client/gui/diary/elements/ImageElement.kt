@@ -3,11 +3,10 @@ package phoenix.client.gui.diary.elements
 import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
-import phoenix.client.gui.diary.elements.ADiaryElement
 import phoenix.containers.DiaryContainer
-import phoenix.utils.RenderUtils.drawRectScalable
-import phoenix.utils.TextureLocation
-import phoenix.utils.textureManager
+import phoenix.other.TextureLocation
+import phoenix.other.drawRectScalable
+import phoenix.other.textureManager
 import kotlin.math.ceil
 
 class ImageElement(private val img: TextureLocation, var w: Int, var h: Int) : ADiaryElement()

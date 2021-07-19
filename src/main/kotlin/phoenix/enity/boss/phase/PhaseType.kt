@@ -3,7 +3,7 @@ package phoenix.enity.boss.phase
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.enity.boss.phase.phases.ash.*
 import phoenix.enity.boss.phase.phases.redo.*
-import phoenix.utils.SizedArrayList
+import phoenix.other.SizedArrayList
 import phoenix.world.StageManager
 
 class PhaseType private constructor

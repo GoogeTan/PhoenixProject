@@ -10,7 +10,7 @@ import net.minecraft.world.gen.GenerationSettings
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.NoFeatureConfig
 import phoenix.init.PhxBlocks
-import phoenix.utils.nextInt
+import phoenix.other.nextInt
 import java.util.*
 
 object WaterPlacesFeature : Feature<NoFeatureConfig>({ dyn: Dynamic<*>? -> NoFeatureConfig.deserialize(dyn) })

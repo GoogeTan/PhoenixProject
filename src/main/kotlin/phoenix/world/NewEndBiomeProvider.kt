@@ -17,7 +17,7 @@ import net.minecraft.world.gen.layer.ZoomLayer
 import phoenix.init.PhxBiomes
 import phoenix.init.PhxConfiguration
 import phoenix.init.PhxFeatures
-import phoenix.utils.invoke
+import phoenix.other.invoke
 import phoenix.world.genlayers.*
 
 class NewEndBiomeProvider(var settings: EndBiomeProviderSettings) : BiomeProvider(biomes)

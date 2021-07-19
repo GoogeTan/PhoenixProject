@@ -18,11 +18,11 @@ import net.minecraft.world.gen.feature.IFeatureConfig
 import net.minecraft.world.gen.placement.IPlacementConfig
 import net.minecraft.world.gen.placement.Placement
 import phoenix.init.PhxBlocks
-import phoenix.utils.GenerationUtils
-import phoenix.utils.getDownHeight
+import phoenix.other.defaultSettingsForEnd
+import phoenix.other.getDownHeight
 import phoenix.world.builders.Builders
 
-object UnderBiome : Biome(GenerationUtils.defaultSettingsForEnd(Builders.UNDER, Builders.UNDER_CONFIG))
+object UnderBiome : Biome(defaultSettingsForEnd(Builders.UNDER, Builders.UNDER_CONFIG))
 {
     override fun decorate   (
         stage           : GenerationStage.Decoration,

@@ -19,7 +19,7 @@ import phoenix.api.block.IRedoThink
 import phoenix.tile.FluidTileSidable
 import phoenix.tile.redo.JuicerTile
 import phoenix.api.block.BlockWithTile
-import phoenix.utils.interactWithFluidHandler
+import phoenix.other.interactWithFluidHandler
 
 object JuicerBlock : BlockWithTile(
     Properties.create(Material.ROCK).lightValue(5).notSolid().hardnessAndResistance(3.0f)

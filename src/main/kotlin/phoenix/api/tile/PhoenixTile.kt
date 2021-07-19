@@ -1,4 +1,4 @@
-package phoenix.utils.block
+package phoenix.api.tile
 
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.network.NetworkManager

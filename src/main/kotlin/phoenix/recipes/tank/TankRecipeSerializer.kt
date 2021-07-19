@@ -7,10 +7,10 @@ import net.minecraft.item.crafting.IRecipeSerializer
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.registries.ForgeRegistryEntry
-import phoenix.utils.getFloat
-import phoenix.utils.getInt
-import phoenix.utils.getItemStack
-import phoenix.utils.getString
+import phoenix.other.getFloat
+import phoenix.other.getInt
+import phoenix.other.getItemStack
+import phoenix.other.getString
 
 class TankRecipeSerializer : IRecipeSerializer<TankRecipe>, ForgeRegistryEntry<IRecipeSerializer<*>>()
 {

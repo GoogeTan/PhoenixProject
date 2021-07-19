@@ -12,7 +12,7 @@ import phoenix.tile.redo.TankTile
 import phoenix.tile.redo.pipe.BambooPipeTile
 import phoenix.tile.redo.pipe.TurnBambooPipeTile
 import phoenix.tile.redo.pipe.VerticalBambooPipeTile
-import phoenix.utils.build
+import phoenix.other.build
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 

@@ -14,6 +14,8 @@ import phoenix.enity.boss.phase.PhaseType
 import phoenix.init.PhoenixMusicTracks
 import phoenix.init.PhxBlocks.armoredGlass
 import phoenix.init.PhxEntities
+import phoenix.other.client
+import phoenix.other.server
 import phoenix.utils.*
 import phoenix.world.structures.CustomEndSpike
 import kotlin.math.min

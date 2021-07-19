@@ -3,7 +3,6 @@ package phoenix.init
 import net.minecraft.block.*
 import net.minecraft.block.material.Material
 import net.minecraft.block.material.MaterialColor
-import net.minecraft.fluid.FlowingFluid
 import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.world.storage.loot.LootContext
@@ -19,7 +18,7 @@ import phoenix.blocks.redo.pipe.BambooPipeBlock
 import phoenix.blocks.redo.pipe.TurnBambooPipeBlock
 import phoenix.blocks.redo.pipe.VerticalBambooPipeBlock
 import phoenix.tile.TextTile
-import phoenix.utils.block.AnonimBlock
+import phoenix.api.block.AnonimBlock
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 

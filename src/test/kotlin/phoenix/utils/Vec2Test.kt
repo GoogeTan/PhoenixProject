@@ -3,6 +3,7 @@ package phoenix.utils
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
+import phoenix.other.Vec2
 
 internal class Vec2Test
 {

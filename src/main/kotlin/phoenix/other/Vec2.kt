@@ -1,4 +1,4 @@
-package phoenix.utils
+package phoenix.other
 
 import kotlin.math.sqrt
 

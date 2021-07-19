@@ -2,7 +2,6 @@ package phoenix.tile
 
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.network.PacketBuffer
-import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.state.IProperty
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntity
@@ -14,8 +13,8 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.fluids.capability.templates.FluidTank
 import phoenix.api.tile.ISyncable
-import phoenix.utils.*
-import phoenix.utils.block.PhoenixTile
+import phoenix.api.tile.PhoenixTile
+import phoenix.other.*
 
 abstract class FluidTileSidable
     (

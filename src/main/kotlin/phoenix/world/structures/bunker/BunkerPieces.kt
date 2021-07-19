@@ -6,7 +6,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.gen.Heightmap
 import net.minecraft.world.server.ServerWorld
 import phoenix.Phoenix
-import phoenix.utils.nextInt
+import phoenix.other.nextInt
 import phoenix.world.structures.ICompositePieceType
 import phoenix.world.structures.IPieceType
 import kotlin.math.sqrt

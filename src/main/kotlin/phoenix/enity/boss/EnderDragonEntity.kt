@@ -32,7 +32,7 @@ import org.apache.logging.log4j.LogManager
 import phoenix.enity.EnderCrystalEntity
 import phoenix.enity.boss.phase.AbstractPhaseManager
 import phoenix.enity.boss.phase.PhaseType
-import phoenix.utils.get
+import phoenix.other.get
 import phoenix.world.CustomDragonFightManager
 import phoenix.world.EndDimension
 import phoenix.world.StageManager

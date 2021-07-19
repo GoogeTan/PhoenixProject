@@ -3,10 +3,9 @@ package phoenix.tile.redo
 import net.minecraft.block.material.MaterialColor
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.network.PacketBuffer
-import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.TileEntityType
 import phoenix.init.PhxTiles
-import phoenix.utils.block.PhoenixTile
+import phoenix.api.tile.PhoenixTile
 
 class CeramicTile
     (

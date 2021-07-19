@@ -35,10 +35,10 @@ import phoenix.network.SyncBookPacket
 import phoenix.network.SyncStagePacket
 import phoenix.network.sendToAllPlayers
 import phoenix.network.sendToPlayer
-import phoenix.utils.LogManager.error
-import phoenix.utils.LogManager.log
-import phoenix.utils.MutableTuple
-import phoenix.utils.isServer
+import phoenix.other.LogManager.error
+import phoenix.other.LogManager.log
+import phoenix.other.MutableTuple
+import phoenix.other.isServer
 import phoenix.world.GenSaveData
 import phoenix.world.StageManager
 import java.util.*

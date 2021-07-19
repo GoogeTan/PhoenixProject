@@ -8,8 +8,8 @@ import net.minecraft.advancements.criterion.CriterionInstance
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.util.ResourceLocation
 import phoenix.Phoenix
-import phoenix.utils.addProp
-import phoenix.utils.getInt
+import phoenix.other.addProp
+import phoenix.other.getInt
 
 object ChangeStageTrigger : AbstractCriterionTrigger<ChangeStageTrigger.Instance>()
 {

@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig
 import phoenix.init.*
 import phoenix.init.PhxConfiguration.Common
-import phoenix.utils.client
+import phoenix.other.client
 import phoenix.world.EndDimension
 
 @Mod(Phoenix.MOD_ID)

@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.model.EntityModel
 import net.minecraft.client.renderer.texture.OverlayTexture
 import phoenix.client.models.entity.CaudaModel
 import phoenix.enity.CaudaEntity
-import phoenix.init.CaudaArmorItem
+import phoenix.items.CaudaArmorItem
 
 class CaudaArmorLayer<T : CaudaEntity, M : EntityModel<T>>(renderer: IEntityRenderer<T, M>) : LayerRenderer<T, M>(renderer)
 {

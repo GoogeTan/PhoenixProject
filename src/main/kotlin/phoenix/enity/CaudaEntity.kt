@@ -42,13 +42,13 @@ import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.wrapper.InvWrapper
 import phoenix.advancements.SitCaudaTrigger
-import phoenix.init.CaudaArmorItem
 import phoenix.init.PhxConfiguration
 import phoenix.init.PhxContainers
+import phoenix.items.CaudaArmorItem
 import phoenix.network.OpenCaudaInventoryPacket
 import phoenix.network.sendToPlayer
-import phoenix.utils.max
-import phoenix.utils.min
+import phoenix.other.max
+import phoenix.other.min
 import java.util.*
 import javax.annotation.Nonnull
 import kotlin.math.abs

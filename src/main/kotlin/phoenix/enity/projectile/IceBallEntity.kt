@@ -13,9 +13,9 @@ import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import net.minecraftforge.fml.network.NetworkHooks
 import phoenix.init.PhxEntities
-import phoenix.utils.get
-import phoenix.utils.isServer
-import phoenix.utils.set
+import phoenix.other.get
+import phoenix.other.isServer
+import phoenix.other.set
 
 class IceBallEntity : ThrowableEntity
 {

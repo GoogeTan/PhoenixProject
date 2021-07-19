@@ -2,13 +2,11 @@ package phoenix.network
 
 import io.netty.buffer.ByteBuf
 import net.minecraft.client.entity.player.ClientPlayerEntity
-import net.minecraft.inventory.IInventory
-import net.minecraft.inventory.Inventory
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.math.BlockPos
 import phoenix.blocks.ash.OvenData
 import phoenix.tile.ash.OvenTile
-import phoenix.utils.getTileAt
+import phoenix.other.getTileAt
 
 class SyncOvenPacket(val data : OvenData, var pos: BlockPos) : Packet()
 {

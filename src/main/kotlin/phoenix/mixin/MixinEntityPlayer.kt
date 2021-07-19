@@ -17,8 +17,8 @@ import phoenix.api.entity.Date
 import phoenix.api.entity.IPhoenixPlayer
 import phoenix.client.gui.diary.Chapter
 import phoenix.init.PhxItems
-import phoenix.utils.addChapter
-import phoenix.utils.toSet
+import phoenix.other.addChapter
+import phoenix.other.toSet
 
 @Mixin(PlayerEntity::class)
 abstract class MixinEntityPlayer : IPhoenixPlayer
@@ -76,7 +76,7 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
         else specialChaptersIndices = specialChapters.indices.toSet()
     }
 
-    @Deprecated("Use phoenix.utils.addChapter(chapters : Chapter)")
+    @Deprecated("Use phoenix.other.addChapter(chapters : Chapter)")
     override fun addChapter(id: Int, date: Date): Boolean
     {
         val toAdd = Pair(id, date)

@@ -3,6 +3,7 @@ package phoenix.utils
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
+import phoenix.other.sizedArrayListOf
 
 internal class SizedArrayListTest
 {

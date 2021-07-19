@@ -32,7 +32,7 @@ import net.minecraft.world.server.TicketType
 import org.apache.logging.log4j.LogManager
 import phoenix.enity.EnderCrystalEntity
 import phoenix.enity.boss.AbstractEnderDragonEntity
-import phoenix.utils.get
+import phoenix.other.get
 import java.util.*
 
 class CustomDragonFightManager(var world: ServerWorld, compound: CompoundNBT, dim: EndDimension)

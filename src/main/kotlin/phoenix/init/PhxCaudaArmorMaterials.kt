@@ -1,7 +1,7 @@
 package phoenix.init
 
 import phoenix.Phoenix
-import phoenix.utils.TextureLocation
+import phoenix.other.TextureLocation
 
 interface ICaudaArmorMaterial
 {

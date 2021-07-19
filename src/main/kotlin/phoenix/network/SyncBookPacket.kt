@@ -6,8 +6,8 @@ import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.network.PacketBuffer
 import phoenix.api.entity.Date
 import phoenix.api.entity.IPhoenixPlayer
-import phoenix.utils.readDate
-import phoenix.utils.writeDate
+import phoenix.other.readDate
+import phoenix.other.writeDate
 
 class SyncBookPacket(var list : List<Pair<Int, Date>>): Packet()
 {

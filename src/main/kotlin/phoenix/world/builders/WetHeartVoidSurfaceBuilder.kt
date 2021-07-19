@@ -9,7 +9,7 @@ import net.minecraft.world.chunk.IChunk
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig
 import phoenix.init.PhxBlocks
-import phoenix.utils.get
+import phoenix.other.get
 import java.util.*
 import java.util.function.Function
 

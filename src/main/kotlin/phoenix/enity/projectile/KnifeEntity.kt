@@ -23,8 +23,8 @@ import phoenix.init.PhxEnchantments
 import phoenix.init.PhxEntities
 import phoenix.init.PhxItems
 import phoenix.items.ash.KnifeItem
-import phoenix.utils.get
-import phoenix.utils.getEnchantmentLevel
+import phoenix.other.get
+import phoenix.other.getEnchantmentLevel
 
 
 open class KnifeEntity : ThrowableEntity

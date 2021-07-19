@@ -24,8 +24,8 @@ import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
-import phoenix.utils.get
-import phoenix.utils.getTileAt
+import phoenix.other.get
+import phoenix.other.getTileAt
 
 class FixedSpawnEggItem
     (

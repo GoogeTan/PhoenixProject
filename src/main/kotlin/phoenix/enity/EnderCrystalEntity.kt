@@ -17,7 +17,7 @@ import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.fml.network.NetworkHooks
 import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.init.PhxEntities
-import phoenix.utils.get
+import phoenix.other.get
 import phoenix.world.EndDimension
 import java.util.*
 

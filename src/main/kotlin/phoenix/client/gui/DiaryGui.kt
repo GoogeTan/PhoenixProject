@@ -11,10 +11,10 @@ import phoenix.client.gui.diary.DiaryBook
 import phoenix.client.gui.diary.elements.ADiaryElement
 import phoenix.client.gui.diary.elements.RightAlignedTextElement
 import phoenix.containers.DiaryContainer
-import phoenix.utils.DiaryUtils.makeParagraph
-import phoenix.utils.RenderUtils
-import phoenix.utils.TextureLocation
-import phoenix.utils.clientPlayer
+import phoenix.other.makeParagraph
+import phoenix.other.TextureLocation
+import phoenix.other.clientPlayer
+import phoenix.other.drawRectScalable
 
 private val backgoundTexture = TextureLocation(Phoenix.MOD_ID, "textures/gui/diary_2.png")
 
@@ -70,7 +70,7 @@ class DiaryGui(val container: DiaryContainer, inv: PlayerInventory, titleIn: ITe
 
     override fun renderBackground()
     {
-        RenderUtils.drawRectScalable(backgoundTexture, guiLeft, guiTop, xSize.toDouble(), ySize.toDouble(), blitOffset)
+        drawRectScalable(backgoundTexture, guiLeft, guiTop, xSize.toDouble(), ySize.toDouble(), blitOffset)
     }
 
     override fun render(p1: Int, p2: Int, p3: Float)

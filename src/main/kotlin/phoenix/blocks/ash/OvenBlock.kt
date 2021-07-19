@@ -18,7 +18,6 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.BlockRayTraceResult
 import net.minecraft.util.math.shapes.ISelectionContext
 import net.minecraft.util.math.shapes.VoxelShape
-import net.minecraft.util.text.StringTextComponent
 import net.minecraft.world.Explosion
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.IWorld
@@ -35,9 +34,9 @@ import phoenix.network.SyncOvenPacket
 import phoenix.network.sendToAllPlayers
 import phoenix.recipes.OvenRecipe
 import phoenix.tile.ash.OvenTile
-import phoenix.utils.get
-import phoenix.utils.getTileAt
-import phoenix.utils.set
+import phoenix.other.get
+import phoenix.other.getTileAt
+import phoenix.other.set
 import java.util.*
 
 class OvenBlock : BlockWithContainer(Properties.create(Material.ROCK).notSolid().hardnessAndResistance(10f).harvestTool(ToolType.PICKAXE))

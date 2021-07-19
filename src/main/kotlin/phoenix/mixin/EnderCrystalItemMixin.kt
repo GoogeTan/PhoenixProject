@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At
 import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 import phoenix.enity.EnderCrystalEntity
-import phoenix.utils.get
+import phoenix.other.get
 import phoenix.world.EndDimension
 
 @Mixin(EnderCrystalItem::class)

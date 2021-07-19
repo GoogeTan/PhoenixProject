@@ -11,8 +11,8 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
 import phoenix.tile.ash.PotteryBarrelTile
-import phoenix.utils.get
-import phoenix.utils.getTileAt
+import phoenix.other.get
+import phoenix.other.getTileAt
 
 class ElectricBarrelBlock : ContainerBlock(Properties.create(Material.BAMBOO).hardnessAndResistance(5.0f))
 {

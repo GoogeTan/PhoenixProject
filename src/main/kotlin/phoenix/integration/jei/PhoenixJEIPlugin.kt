@@ -11,8 +11,7 @@ import net.minecraft.item.crafting.IRecipe
 import net.minecraft.util.ResourceLocation
 import phoenix.init.PhxBlocks
 import phoenix.init.PhxRecipes
-import phoenix.utils.clientWorld
-import phoenix.utils.mc
+import phoenix.other.clientWorld
 
 @JeiPlugin
 class PhoenixJEIPlugin : IModPlugin

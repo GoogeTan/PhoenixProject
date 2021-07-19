@@ -1,4 +1,4 @@
-package phoenix.utils
+package phoenix.other
 
 class SizedArrayList<T> : ArrayList<T>
 {

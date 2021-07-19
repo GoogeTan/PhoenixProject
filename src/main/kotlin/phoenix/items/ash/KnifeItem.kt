@@ -23,9 +23,9 @@ import net.minecraftforge.common.Tags
 import phoenix.enity.projectile.KnifeEntity
 import phoenix.init.PhxEnchantments
 import phoenix.init.events.PhoenixEvents.addTask
-import phoenix.utils.destroyBlock
-import phoenix.utils.get
-import phoenix.utils.getEnchantmentLevel
+import phoenix.other.destroyBlock
+import phoenix.other.get
+import phoenix.other.getEnchantmentLevel
 
 class KnifeItem(tier: IItemTier, attackDamageIn: Float, attackSpeedIn: Float, maxUsages: Int, group : ItemGroup) : ToolItem(attackDamageIn, attackSpeedIn, tier, breakableBlocks, Properties().group(group).maxDamage(maxUsages))
 {

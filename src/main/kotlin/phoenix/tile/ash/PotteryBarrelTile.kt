@@ -1,21 +1,18 @@
 package phoenix.tile.ash
 
-import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.Inventory
 import net.minecraft.inventory.InventoryHelper
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.nbt.CompoundNBT
-import net.minecraft.network.NetworkManager
 import net.minecraft.network.PacketBuffer
-import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import phoenix.blocks.ash.PotteryBarrelBlock.Companion.POTTERY_STATE
 import phoenix.init.PhxTiles.potteryBarrel
-import phoenix.utils.block.PhoenixTile
-import phoenix.utils.get
-import phoenix.utils.set
+import phoenix.api.tile.PhoenixTile
+import phoenix.other.get
+import phoenix.other.set
 
 class PotteryBarrelTile : PhoenixTile(potteryBarrel), IInventory by Inventory(1), ITickableTileEntity
 {

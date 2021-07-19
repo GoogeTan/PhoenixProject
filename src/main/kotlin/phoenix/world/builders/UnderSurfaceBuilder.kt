@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.biome.Biome
 import net.minecraft.world.chunk.IChunk
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder
-import phoenix.utils.get
+import phoenix.other.get
 import java.util.*
 import java.util.function.Function
 import javax.annotation.ParametersAreNonnullByDefault

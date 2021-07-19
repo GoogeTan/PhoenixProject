@@ -5,8 +5,11 @@ import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fluids.capability.templates.FluidTank
+import phoenix.other.clientWorld
+import phoenix.other.getTileAt
+import phoenix.other.readFluidTank
+import phoenix.other.writeFluidTank
 import phoenix.tile.redo.TankTile
-import phoenix.utils.*
 
 class SyncTankPacket(var pos : BlockPos, var tank : FluidTank) : Packet()
 {

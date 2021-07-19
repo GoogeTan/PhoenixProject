@@ -3,13 +3,8 @@ package phoenix.tile.ash
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.CompoundNBT
-import net.minecraft.network.NetworkManager
 import net.minecraft.network.PacketBuffer
-import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
-import net.minecraft.util.math.BlockPos
-import net.minecraftforge.common.ForgeHooks
-import net.minecraftforge.common.util.INBTSerializable
 import phoenix.blocks.ash.OvenBlock
 import phoenix.blocks.ash.OvenData
 import phoenix.init.PhxItems
@@ -18,13 +13,9 @@ import phoenix.network.SyncOvenPacket
 import phoenix.network.sendToAllPlayers
 import phoenix.network.sendToDimension
 import phoenix.recipes.OvenRecipe.Companion.recipesByResult
-import phoenix.recipes.OvenRecipe.Companion.recipesFromInputs
-import phoenix.utils.SizableInventory
-import phoenix.utils.block.PhoenixTile
-import phoenix.utils.get
-import phoenix.utils.set
-import java.lang.Integer.max
-import java.lang.Integer.min
+import phoenix.api.tile.PhoenixTile
+import phoenix.other.get
+import phoenix.other.set
 
 open class OvenTile(open val data : OvenData = OvenData(5)) : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory by data
 {

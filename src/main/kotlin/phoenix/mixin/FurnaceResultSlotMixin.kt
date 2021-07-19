@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 import phoenix.api.entity.IPhoenixPlayer
 import phoenix.client.gui.diary.Chapter
-import phoenix.utils.addChapter
-import phoenix.utils.sendMessage
+import phoenix.other.addChapter
+import phoenix.other.sendMessage
 
 @Mixin(FurnaceResultSlot::class)
 class FurnaceResultSlotMixin

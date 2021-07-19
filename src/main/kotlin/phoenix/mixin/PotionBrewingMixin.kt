@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
 import phoenix.init.PhxItems.GOLDEN_SETA
 import phoenix.init.PhxPotions.LEVITATION
 import phoenix.init.PhxPotions.LONG_LEVITATION
-import phoenix.utils.LogManager.error
+import phoenix.other.LogManager.error
 
 @Mixin(PotionBrewing::class)
 class PotionBrewingMixin

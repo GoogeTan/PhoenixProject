@@ -17,7 +17,7 @@ import net.minecraft.util.Direction
 import net.minecraft.util.NonNullList
 import phoenix.init.PhxItems
 import phoenix.tile.ash.OvenTile
-import phoenix.utils.itemRenderer
+import phoenix.other.itemRenderer
 
 class OvenRenderer(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEntityRenderer<OvenTile>(rendererDispatcherIn), IContainerListener
 {

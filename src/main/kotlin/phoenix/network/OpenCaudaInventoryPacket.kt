@@ -5,7 +5,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.network.PacketBuffer
 import phoenix.client.gui.CaudaGuiContainer
 import phoenix.enity.CaudaEntity
-import phoenix.utils.mc
+import phoenix.other.mc
 
 class OpenCaudaInventoryPacket(var entityId : Int) : Packet()
 {

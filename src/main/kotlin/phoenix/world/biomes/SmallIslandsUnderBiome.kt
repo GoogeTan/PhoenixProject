@@ -12,11 +12,11 @@ import net.minecraft.world.gen.ChunkGenerator
 import net.minecraft.world.gen.GenerationSettings
 import net.minecraft.world.gen.GenerationStage
 import phoenix.init.PhxBlocks
-import phoenix.utils.GenerationUtils
-import phoenix.utils.getDownHeight
+import phoenix.other.defaultSettingsForEnd
+import phoenix.other.getDownHeight
 import phoenix.world.builders.Builders
 
-object SmallIslandsUnderBiome : Biome(GenerationUtils.defaultSettingsForEnd(Builders.UNDER, Builders.UNDER_CONFIG))
+object SmallIslandsUnderBiome : Biome(defaultSettingsForEnd(Builders.UNDER, Builders.UNDER_CONFIG))
 {
     override fun decorate   (
         stage           : GenerationStage.Decoration,

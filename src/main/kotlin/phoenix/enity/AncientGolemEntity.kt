@@ -8,7 +8,6 @@ import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.ai.goal.*
 import net.minecraft.entity.monster.MonsterEntity
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.entity.projectile.SmallFireballEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.network.datasync.DataParameter
@@ -18,14 +17,9 @@ import net.minecraft.util.DamageSource
 import net.minecraft.util.Hand
 import net.minecraft.util.SoundEvents
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.MathHelper
-import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import phoenix.enity.projectile.IceBallEntity
-import phoenix.enity.projectile.KnifeEntity
 import phoenix.init.PhxEntities
-import phoenix.utils.add
-import phoenix.utils.getEnchantmentLevel
 import java.util.*
 
 class AncientGolemEntity(type: EntityType<out AncientGolemEntity> = PhxEntities.ancientGolemEntity, worldIn: World) : MonsterEntity(type, worldIn)

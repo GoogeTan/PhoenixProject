@@ -15,7 +15,7 @@ import net.minecraftforge.fml.network.NetworkEvent
 import net.minecraftforge.fml.network.NetworkRegistry
 import net.minecraftforge.fml.network.PacketDistributor
 import phoenix.Phoenix
-import phoenix.utils.clientPlayer
+import phoenix.other.clientPlayer
 import java.util.function.Supplier
 import kotlin.reflect.KClass
 

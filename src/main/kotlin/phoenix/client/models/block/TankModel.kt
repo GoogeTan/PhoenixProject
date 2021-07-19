@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.world.dimension.DimensionType
 import phoenix.init.PhxRenderTypes
 import phoenix.tile.redo.TankTile
-import phoenix.utils.RenderUtils.refreshDrawing
+import phoenix.other.refreshDrawing
 
 open class TankModel<T : TankTile>(var tileTank : T) : Model({ PhxRenderTypes.tankTexture })
 {

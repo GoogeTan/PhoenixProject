@@ -20,7 +20,7 @@ import net.minecraft.world.storage.loot.LootContext
 import phoenix.Phoenix
 import phoenix.api.block.ICustomGroup
 import phoenix.init.PhxBlocks
-import phoenix.utils.get
+import phoenix.other.get
 import java.util.*
 
 object SetaBlock : Block(Properties.create(Material.CACTUS).notSolid().tickRandomly().lightValue(5).hardnessAndResistance(1.0f)), IGrowable, ICustomGroup

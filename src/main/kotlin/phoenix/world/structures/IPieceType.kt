@@ -2,13 +2,10 @@ package phoenix.world.structures
 
 import net.minecraft.util.Direction
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.Rotation
 import net.minecraft.util.math.BlockPos
-import net.minecraft.world.IWorld
 import net.minecraft.world.gen.feature.template.PlacementSettings
 import net.minecraft.world.server.ServerWorld
-import phoenix.utils.LogManager
-import phoenix.world.GenSaveData
+import phoenix.other.LogManager
 
 interface IPieceType
 {

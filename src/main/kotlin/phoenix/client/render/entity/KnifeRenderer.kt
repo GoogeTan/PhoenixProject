@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import phoenix.enity.projectile.KnifeEntity
 import phoenix.init.PhxItems.ZIRCONIUM_KNIFE
-import phoenix.utils.itemRenderer
+import phoenix.other.itemRenderer
 
 class KnifeRenderer<T : KnifeEntity>(renderManagerIn: EntityRendererManager) : EntityRenderer<T>(renderManagerIn)
 {

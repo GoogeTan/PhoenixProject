@@ -16,11 +16,9 @@ import net.minecraft.world.gen.GenerationStage
 import net.minecraft.world.gen.feature.IFeatureConfig
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry
 import net.minecraftforge.event.RegistryEvent.Register
-import net.minecraftforge.eventbus.ASMEventHandler
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
 import phoenix.Phoenix.Companion.ASH
@@ -40,8 +38,8 @@ import phoenix.init.PhxRecipes
 import phoenix.items.FixedSpawnEggItem
 import phoenix.network.initPacketSystem
 import phoenix.utils.ServerStageUppedEvent
-import phoenix.utils.addStructure
-import phoenix.utils.addZirconiumOre
+import phoenix.other.addStructure
+import phoenix.other.addZirconiumOre
 import thedarkcolour.kotlinforforge.forge.ObjectHolderDelegate
 
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)

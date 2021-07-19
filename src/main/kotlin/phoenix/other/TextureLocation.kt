@@ -1,4 +1,4 @@
-package phoenix.utils
+package phoenix.other
 
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.api.distmarker.Dist
@@ -10,7 +10,7 @@ class TextureLocation : ResourceLocation
 {
     var width : Int = 0
     var height : Int = 0
-    var flag = false
+    var hasNotCalculatedSize = false
 
     constructor(modId: String, path: String) : super(modId, path)
     constructor(path : String) : super(path)
@@ -20,7 +20,7 @@ class TextureLocation : ResourceLocation
         try
         {
             if (mc == null || textureManager == null)
-                flag = true
+                hasNotCalculatedSize = true
             else
             {
                 val prevTexture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D)
@@ -30,12 +30,12 @@ class TextureLocation : ResourceLocation
                 GL11.glBindTexture(GL11.GL_TEXTURE_2D, prevTexture)
             }
         }
-        catch (e : Exception) { flag = true }
+        catch (e : Exception) { hasNotCalculatedSize = true }
     }
 
     fun bind()
     {
-        if(flag)
+        if(hasNotCalculatedSize)
         {
             val prevTexture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D)
             textureManager?.bindTexture(this)
