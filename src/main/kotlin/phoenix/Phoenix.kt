@@ -32,7 +32,7 @@ class Phoenix
         PhxFluids.register()
         val specPair = ForgeConfigSpec.Builder().configure(::Common)
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, specPair.right)
-        PhxConfiguration.COMMON_CONFIG = specPair.left
+        PhxConfiguration.commonConfig = specPair.left
 
         client { _, _, _ -> StaticInit.init() }
     }

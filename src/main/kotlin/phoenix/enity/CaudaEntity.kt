@@ -307,20 +307,20 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
         {
             this@CaudaEntity.chests.openInventory(inventory.player)
 
-            var i = 0
+            var id = 0
 
             if(PhxConfiguration.gameMode != PhxConfiguration.GameMode.Liahim)
             {
                 for (y in 0..3)
                     for (x in 0..4)
-                        addSlot(CaudaEntitySlot(this@CaudaEntity.chests, i++, 18 + 80 + x * 18, 8 + y * 18))
+                        addSlot(CaudaEntitySlot(this@CaudaEntity.chests, id++, 18 + 80 + x * 18, 8 + y * 18))
 
-                addSlot(object : Slot(this@CaudaEntity.chests, i++, 172, 92)
+                addSlot(object : Slot(this@CaudaEntity.chests, id++, 172, 92)
                 {
                     override fun isItemValid(stack: ItemStack) = stack.getItem() is CaudaArmorItem
                 })
 
-                addSlot(object : Slot(this@CaudaEntity.chests, i++, 172, 113)
+                addSlot(object : Slot(this@CaudaEntity.chests, id++, 172, 113)
                 {
                     override fun isItemValid(stack: ItemStack) = stack.getItem() is BannerItem
                 })
@@ -329,14 +329,14 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
             {
                 for (y in 0..2)
                     for (x in 0..2)
-                        addSlot(CaudaEntitySlot(this@CaudaEntity.chests, i++, 18 + 80 + x * 18, 8 + y * 18))
+                        addSlot(CaudaEntitySlot(this@CaudaEntity.chests, id++, 18 + 80 + x * 18, 8 + y * 18))
 
-                addSlot(object : Slot(this@CaudaEntity.chests, i++, 152, 8)
+                addSlot(object : Slot(this@CaudaEntity.chests, id++, 152, 8)
                 {
                     override fun isItemValid(stack: ItemStack) = stack.getItem() is CaudaArmorItem
                 })
 
-                addSlot(object : Slot(this@CaudaEntity.chests, i++, 152, 44)
+                addSlot(object : Slot(this@CaudaEntity.chests, id++, 152, 44)
                 {
                     override fun isItemValid(stack: ItemStack) = stack.getItem() is BannerItem
                 })

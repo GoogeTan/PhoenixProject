@@ -61,7 +61,7 @@ object PhxItems
     val ZIRCONIUM_AXE                  by ITEMS.register("ceramic_zirconium_axe")     { AxeItem(PhxTiers.ZIRCONIUM_TIER, 9.0f, -3.2f, Item.Properties().group(ASH)) }
     val ZIRCONIUM_PICKAXE              by ITEMS.register("ceramic_zirconium_pickaxe") { PickaxeItem(PhxTiers.ZIRCONIUM_TIER, 0, -1f, Item.Properties().group(ASH))  }
     val ZIRCONIUM_SWORD                by ITEMS.register("ceramic_zirconium_sword")   { SwordItem(PhxTiers.ZIRCONIUM_TIER, 2, -0.5f, Item.Properties().group(ASH))  }
-    val ZIRCONIUM_KNIFE                by ITEMS.register("ceramic_zirconium_knife")   { KnifeItem(PhxTiers.ZIRCONIUM_TIER, 3f, -10f, PhxConfiguration.COMMON_CONFIG.gameMode.get().maxKnifeUsages, ASH) }
+    val ZIRCONIUM_KNIFE                by ITEMS.register("ceramic_zirconium_knife")   { KnifeItem(PhxTiers.ZIRCONIUM_TIER, 3f, -10f, PhxConfiguration.commonConfig.gameMode.get().maxKnifeUsages, ASH) }
 
     val STEEL_AXE                      by ITEMS.register("steel_axe")     { AxeItem(PhxTiers.STEEL_TIER, 5.0f, -2f, Item.Properties().group(ASH))  }
     val STEEL_PICKAXE                  by ITEMS.register("steel_pickaxe") { PickaxeItem(PhxTiers.STEEL_TIER, 0, -2f, Item.Properties().group(ASH)) }

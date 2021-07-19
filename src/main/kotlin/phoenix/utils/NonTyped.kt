@@ -1,3 +1,5 @@
+@file:Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+
 package phoenix.utils
 
 import com.google.common.collect.ImmutableMap
@@ -86,6 +88,7 @@ data class MutablePair<V, M>(var first: V, var second: M)
 
 fun<V, M> uniquePairOf(first: V? = null, second: M? = null) : MutablePair<V?, M?> = if (first != second) MutablePair(first, second) else MutablePair(null, second)
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 fun World.destroyBlock(pos: BlockPos, shouldDrop: Boolean, entity: Entity?, stack: ItemStack) : Boolean
 {
     val state = this[pos]
@@ -123,6 +126,7 @@ operator fun IChunk.set(pos: BlockPos, state : BlockState, isMoving : Boolean) =
 fun BlockPos.add(lookVec: Vec3d): BlockPos = add(lookVec.x.toInt(), lookVec.y.toInt(), lookVec.z.toInt())
 fun <V : IForgeRegistryEntry<V>> KDeferredRegister<V>.register(name: String, value: V) = register(name) { value }
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 fun <T : TileEntity> TileEntityType.Builder<T>.build(): TileEntityType<T> = this.build(null)
 
 fun JsonObject.getFloat(nameIn: String, fallback: Float)           = JSONUtils.getFloat(this, nameIn, fallback)
@@ -262,7 +266,6 @@ inline fun <reified T> IWorld.getTileAt(pos: BlockPos): T?
     return if(tile is T) tile else null
 }
 
-fun IWorld.getTileAt(pos: BlockPos) = getTileAt<TileEntity>(pos)
 
 fun JsonObject.addProp(property: String, value: Number) : JsonObject
 {
@@ -270,18 +273,16 @@ fun JsonObject.addProp(property: String, value: Number) : JsonObject
     return this
 }
 
-
 val mc : Minecraft?
     @OnlyIn(Dist.CLIENT)
     inline get()
     {
-        try
+        return try
         {
-            return Minecraft.getInstance()
-        }
-        catch (e : Throwable)
+            Minecraft.getInstance()
+        } catch (e : Throwable)
         {
-            return null
+            null
         }
     }
 val clientPlayer : ClientPlayerEntity?

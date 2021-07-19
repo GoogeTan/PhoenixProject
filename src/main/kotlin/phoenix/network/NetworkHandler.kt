@@ -1,3 +1,4 @@
+
 package phoenix.network
 
 import io.netty.buffer.ByteBuf
@@ -29,9 +30,10 @@ fun initPacketSystem()
     registerPacket(OpenCaudaInventoryPacket::class, OpenCaudaInventoryPacket.Serializer, 4)
 }
 
+@Suppress("INACCESSIBLE_TYPE")
 private fun<T : Packet> registerPacket(packetClass : KClass<T>, handler : Packet.Serializer<T>, id : Int)
 {
-    CHANNEL.registerMessage(id, packetClass.java, handler::encode, handler::decode)
+    CHANNEL.registerMessage<T>(id, packetClass.java, handler::encode, handler::decode)
     { packet: T, context: Supplier<NetworkEvent.Context> ->
         val ctx: NetworkEvent.Context = context.get()
         if (ctx.direction.receptionSide == LogicalSide.CLIENT)
