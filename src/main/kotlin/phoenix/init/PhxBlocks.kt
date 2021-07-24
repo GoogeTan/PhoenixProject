@@ -18,7 +18,6 @@ import phoenix.blocks.redo.pipe.BambooPipeBlock
 import phoenix.blocks.redo.pipe.TurnBambooPipeBlock
 import phoenix.blocks.redo.pipe.VerticalBambooPipeBlock
 import phoenix.tile.TextTile
-import phoenix.api.block.AnonimBlock
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 

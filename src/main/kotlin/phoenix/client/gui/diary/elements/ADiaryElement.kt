@@ -2,7 +2,6 @@ package phoenix.client.gui.diary.elements
 
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
-import net.minecraft.nbt.CompoundNBT
 import phoenix.containers.DiaryContainer
 
 abstract class ADiaryElement

@@ -2,7 +2,6 @@ package phoenix.tile.redo
 
 import net.minecraft.item.ItemStack
 import net.minecraft.network.PacketBuffer
-import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.Direction
 import net.minecraftforge.common.capabilities.Capability

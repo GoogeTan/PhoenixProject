@@ -3,7 +3,6 @@ package phoenix.init.events
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderTypeLookup
-import net.minecraft.client.util.Splashes
 import net.minecraft.util.text.TextFormatting.*
 import net.minecraftforge.client.event.ColorHandlerEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -29,9 +28,9 @@ import phoenix.init.PhxRenderTypes
 import phoenix.init.PhxTiles
 import phoenix.items.FixedSpawnEggItem
 import phoenix.network.initPacketSystem
-import phoenix.utils.ClientStageUppedEvent
 import phoenix.other.mc
 import phoenix.other.rainbowColor
+import phoenix.utils.ClientStageUppedEvent
 import thedarkcolour.kotlinforforge.forge.ObjectHolderDelegate
 
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)

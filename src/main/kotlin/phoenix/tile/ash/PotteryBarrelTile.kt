@@ -8,9 +8,9 @@ import net.minecraft.item.Items
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.network.PacketBuffer
 import net.minecraft.tileentity.ITickableTileEntity
+import phoenix.api.tile.PhoenixTile
 import phoenix.blocks.ash.PotteryBarrelBlock.Companion.POTTERY_STATE
 import phoenix.init.PhxTiles.potteryBarrel
-import phoenix.api.tile.PhoenixTile
 import phoenix.other.get
 import phoenix.other.set
 

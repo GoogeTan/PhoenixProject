@@ -15,11 +15,11 @@ import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.fluids.FluidActionResult
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
+import phoenix.api.block.BlockWithTile
 import phoenix.api.block.IRedoThink
+import phoenix.other.interactWithFluidHandler
 import phoenix.tile.FluidTileSidable
 import phoenix.tile.redo.JuicerTile
-import phoenix.api.block.BlockWithTile
-import phoenix.other.interactWithFluidHandler
 
 object JuicerBlock : BlockWithTile(
     Properties.create(Material.ROCK).lightValue(5).notSolid().hardnessAndResistance(3.0f)

@@ -14,7 +14,10 @@ import phoenix.init.PhoenixMusicTracks
 import phoenix.init.PhxBlocks.armoredGlass
 import phoenix.other.client
 import phoenix.other.server
-import phoenix.utils.*
+import phoenix.utils.ClientChangeStageEvent
+import phoenix.utils.ClientStageUppedEvent
+import phoenix.utils.ServerChangeStageEvent
+import phoenix.utils.ServerStageUppedEvent
 import phoenix.world.structures.CustomEndSpike
 import kotlin.math.min
 

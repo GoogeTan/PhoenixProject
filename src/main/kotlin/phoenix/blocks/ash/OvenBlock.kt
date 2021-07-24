@@ -1,6 +1,9 @@
 package phoenix.blocks.ash
 
-import net.minecraft.block.*
+import net.minecraft.block.Block
+import net.minecraft.block.BlockRenderType
+import net.minecraft.block.BlockState
+import net.minecraft.block.Blocks
 import net.minecraft.block.material.Material
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.item.ItemEntity
@@ -32,11 +35,11 @@ import phoenix.api.block.BlockWithContainer
 import phoenix.init.PhxSounds
 import phoenix.network.SyncOvenPacket
 import phoenix.network.sendToAllPlayers
-import phoenix.recipes.OvenRecipe
-import phoenix.tile.ash.OvenTile
 import phoenix.other.get
 import phoenix.other.getTileAt
 import phoenix.other.set
+import phoenix.recipes.OvenRecipe
+import phoenix.tile.ash.OvenTile
 import java.util.*
 
 class OvenBlock : BlockWithContainer(Properties.create(Material.ROCK).notSolid().hardnessAndResistance(10f).harvestTool(ToolType.PICKAXE))

@@ -16,8 +16,8 @@ import net.minecraft.network.play.server.SSetSlotPacket
 import net.minecraft.util.Direction
 import net.minecraft.util.NonNullList
 import phoenix.init.PhxItems
-import phoenix.tile.ash.OvenTile
 import phoenix.other.itemRenderer
+import phoenix.tile.ash.OvenTile
 
 class OvenRenderer(rendererDispatcherIn: TileEntityRendererDispatcher) : TileEntityRenderer<OvenTile>(rendererDispatcherIn), IContainerListener
 {

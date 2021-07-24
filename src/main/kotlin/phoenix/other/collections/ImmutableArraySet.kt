@@ -1,14 +1,14 @@
 package phoenix.other.collections
 
-import phoenix.other.makeVariableInConstructor
+import phoenix.other.sortedBy
 import phoenix.other.unique
 
 class ImmutableArraySet<out V : Comparable<@kotlin.UnsafeVariance V>> private constructor(val elements: List<V>) : Set<V>, Iterable<V>
 {
     override val size: Int = elements.size
     private constructor(source: ArrayList<V>) : this(List(source.size,  source.unique()::get))
-    constructor(source : Collection<V>) : this(ArrayList<V>().apply { addAll(source) }.unique())
-    constructor(source : Array<V>     ) : this(ArrayList<V>().apply { addAll(source) }.unique())
+    constructor(source : Collection<V>) : this(ArrayList<V>().apply { addAll(source) }.sortedBy().unique())
+    constructor(vararg source : V     ) : this(ArrayList<V>().apply { addAll(source) }.sortedBy().unique())
 
     override fun contains(element: @UnsafeVariance V): Boolean
     {
@@ -29,7 +29,7 @@ class ImmutableArraySet<out V : Comparable<@kotlin.UnsafeVariance V>> private co
     }
 
     override fun isEmpty(): Boolean = elements.isEmpty()
-    override operator fun iterator(): Iterator<V> = elements.iterator()
+    override operator fun iterator(): Iterator<V> = object : Iterator<V> by elements.iterator() {}
 
     override fun containsAll(elements: Collection<@UnsafeVariance V>): Boolean
     {

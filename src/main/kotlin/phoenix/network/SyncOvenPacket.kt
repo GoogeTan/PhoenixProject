@@ -5,8 +5,8 @@ import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.math.BlockPos
 import phoenix.blocks.ash.OvenData
-import phoenix.tile.ash.OvenTile
 import phoenix.other.getTileAt
+import phoenix.tile.ash.OvenTile
 
 class SyncOvenPacket(val data : OvenData, var pos: BlockPos) : Packet()
 {

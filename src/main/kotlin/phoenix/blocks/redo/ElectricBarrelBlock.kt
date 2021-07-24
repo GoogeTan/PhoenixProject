@@ -10,9 +10,9 @@ import net.minecraft.util.Direction
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
-import phoenix.tile.ash.PotteryBarrelTile
 import phoenix.other.get
 import phoenix.other.getTileAt
+import phoenix.tile.ash.PotteryBarrelTile
 
 class ElectricBarrelBlock : ContainerBlock(Properties.create(Material.BAMBOO).hardnessAndResistance(5.0f))
 {

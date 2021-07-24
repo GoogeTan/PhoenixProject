@@ -18,7 +18,6 @@ import net.minecraft.world.IWorldWriter
 import net.minecraft.world.gen.ChunkGenerator
 import net.minecraft.world.gen.GenerationSettings
 import net.minecraft.world.gen.feature.Feature
-import phoenix.init.PhxEntities
 import phoenix.world.StageManager.stageEnum
 import java.util.*
 import java.util.concurrent.TimeUnit

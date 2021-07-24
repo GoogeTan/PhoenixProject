@@ -18,7 +18,7 @@ class PhoenixJEIPlugin : IModPlugin
 {
     private lateinit var ovenCategory: OvenCategory
 
-    override fun getPluginUid(): ResourceLocation = ResourceLocation("phoenix", "jei_plugin")
+    override fun getPluginUid(): ResourceLocation = id
 
     override fun registerCategories(registration: IRecipeCategoryRegistration)
     {
@@ -33,7 +33,6 @@ class PhoenixJEIPlugin : IModPlugin
     {
         assert(clientWorld != null)
         val manager = clientWorld!!.recipeManager
-        // oven
         val ovenRecipes: Collection<IRecipe<IInventory>> = manager.getRecipes(PhxRecipes.OVEN).values
         register.addRecipes(ovenRecipes, ovenCategory.uid)
     }
@@ -43,5 +42,8 @@ class PhoenixJEIPlugin : IModPlugin
         registration.addRecipeCatalyst(ItemStack(PhxBlocks.oven), ovenCategory.uid)
     }
 
-
+    companion object
+    {
+        private val id = ResourceLocation("phoenix", "jei_plugin")
+    }
 }

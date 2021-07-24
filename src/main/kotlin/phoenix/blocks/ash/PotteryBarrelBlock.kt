@@ -31,8 +31,8 @@ import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.items.ItemHandlerHelper
-import phoenix.init.PhxItems
 import phoenix.api.block.IColoredBlock
+import phoenix.init.PhxItems
 import phoenix.other.get
 import javax.annotation.Nonnull
 import javax.annotation.ParametersAreNonnullByDefault

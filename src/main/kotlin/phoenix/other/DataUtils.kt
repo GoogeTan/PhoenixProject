@@ -13,8 +13,6 @@ import phoenix.client.gui.diary.elements.TextElement
 import phoenix.other.collections.SizedArrayList
 import java.math.BigDecimal
 import java.util.*
-import kotlin.Comparator
-import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 fun String.toWords(): ArrayList<String>
@@ -273,5 +271,11 @@ inline fun<T> ArrayList<T>.unique(isEqual : (f : T, s : T) -> Boolean = { f, s -
 inline fun<T> ArrayList<T>.sortedBy(comparator: Comparator<T>) : ArrayList<T>
 {
     this.sortWith(comparator)
+    return this
+}
+
+inline fun<T : Comparable<T>> ArrayList<T>.sortedBy() : ArrayList<T>
+{
+    this.sort()
     return this
 }

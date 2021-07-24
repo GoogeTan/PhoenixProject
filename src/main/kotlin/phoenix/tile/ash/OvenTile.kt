@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.network.PacketBuffer
 import net.minecraft.tileentity.ITickableTileEntity
+import phoenix.api.tile.PhoenixTile
 import phoenix.blocks.ash.OvenBlock
 import phoenix.blocks.ash.OvenData
 import phoenix.init.PhxItems
@@ -12,10 +13,9 @@ import phoenix.init.PhxTiles
 import phoenix.network.SyncOvenPacket
 import phoenix.network.sendToAllPlayers
 import phoenix.network.sendToDimension
-import phoenix.recipes.OvenRecipe.Companion.recipesByResult
-import phoenix.api.tile.PhoenixTile
 import phoenix.other.get
 import phoenix.other.set
+import phoenix.recipes.OvenRecipe.Companion.recipesByResult
 
 open class OvenTile(open val data : OvenData = OvenData(5)) : PhoenixTile(PhxTiles.oven), ITickableTileEntity, IInventory by data
 {

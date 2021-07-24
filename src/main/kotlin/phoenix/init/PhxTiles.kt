@@ -3,6 +3,7 @@ package phoenix.init
 import net.minecraft.tileentity.TileEntityType
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
+import phoenix.other.build
 import phoenix.tile.ash.OvenTile
 import phoenix.tile.ash.PotteryBarrelTile
 import phoenix.tile.redo.CeramicTile
@@ -12,7 +13,6 @@ import phoenix.tile.redo.TankTile
 import phoenix.tile.redo.pipe.BambooPipeTile
 import phoenix.tile.redo.pipe.TurnBambooPipeTile
 import phoenix.tile.redo.pipe.VerticalBambooPipeTile
-import phoenix.other.build
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 

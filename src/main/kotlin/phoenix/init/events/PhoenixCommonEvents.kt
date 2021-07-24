@@ -37,9 +37,9 @@ import phoenix.init.PhxPotions.LONG_LEVITATION
 import phoenix.init.PhxRecipes
 import phoenix.items.FixedSpawnEggItem
 import phoenix.network.initPacketSystem
-import phoenix.utils.ServerStageUppedEvent
 import phoenix.other.addStructure
 import phoenix.other.addZirconiumOre
+import phoenix.utils.ServerStageUppedEvent
 import thedarkcolour.kotlinforforge.forge.ObjectHolderDelegate
 
 @EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)

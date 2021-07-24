@@ -5,7 +5,6 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.util.text.StringTextComponent
 import net.minecraft.util.text.TextFormatting
-import phoenix.client.gui.diary.elements.ADiaryElement
 import phoenix.containers.DiaryContainer
 
 open class TextElement : ADiaryElement

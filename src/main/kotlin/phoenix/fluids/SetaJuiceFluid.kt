@@ -12,7 +12,7 @@ import phoenix.init.PhxBlocks
 import phoenix.init.PhxFluids
 import phoenix.init.PhxItems
 
-abstract class SetaJuiceFluid(properties: Properties) : ForgeFlowingFluid(properties)
+sealed class SetaJuiceFluid(properties: Properties) : ForgeFlowingFluid(properties)
 {
     private companion object
     {
@@ -39,19 +39,14 @@ abstract class SetaJuiceFluid(properties: Properties) : ForgeFlowingFluid(proper
         }
 
         override fun getLevel(state: IFluidState): Int = state.get(LEVEL_1_8)
-
         override fun isSource(state: IFluidState?): Boolean = false
 
-        init
-        {
-            defaultState = getStateContainer().baseState.with(LEVEL_1_8, 7)
-        }
+        init { defaultState = getStateContainer().baseState.with(LEVEL_1_8, 7) }
     }
 
     object Source : SetaJuiceFluid(Properties(PhxFluids::seta_juice_source, PhxFluids::seta_juice_flowing, makeAttributes()).block(PhxBlocks::setaJuice).bucket(PhxItems::SETA_JUICE_BUCKET))
     {
         override fun getLevel(state: IFluidState?): Int = 8
-
         override fun isSource(state: IFluidState?): Boolean = true
     }
 }

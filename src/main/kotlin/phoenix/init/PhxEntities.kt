@@ -5,7 +5,9 @@ import net.minecraft.entity.EntityType
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
-import phoenix.enity.*
+import phoenix.enity.AncientGolemEntity
+import phoenix.enity.CaudaEntity
+import phoenix.enity.TalpaEntity
 import phoenix.enity.projectile.ExplosiveBallEntity
 import phoenix.enity.projectile.IceBallEntity
 import phoenix.enity.projectile.KnifeEntity

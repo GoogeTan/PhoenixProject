@@ -6,10 +6,10 @@ import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.Direction
 import phoenix.api.block.IFluidPipe
 import phoenix.init.PhxTiles
-import phoenix.tile.FluidTileSidable
 import phoenix.other.MutablePair
 import phoenix.other.next
 import phoenix.other.uniquePairOf
+import phoenix.tile.FluidTileSidable
 
 open class TurnBambooPipeTile
     (

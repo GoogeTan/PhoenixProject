@@ -1,14 +1,8 @@
 package phoenix.init
 
-import net.minecraft.entity.Entity
-import net.minecraft.fluid.Fluid
 import net.minecraft.inventory.EquipmentSlotType
 import net.minecraft.item.*
-import net.minecraft.nbt.CompoundNBT
-import net.minecraftforge.common.capabilities.ICapabilityProvider
-import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper
 import net.minecraftforge.registries.ForgeRegistries
-import phoenix.Phoenix
 import phoenix.Phoenix.Companion.ASH
 import phoenix.Phoenix.Companion.MOD_ID
 import phoenix.items.CaudaArmorItem

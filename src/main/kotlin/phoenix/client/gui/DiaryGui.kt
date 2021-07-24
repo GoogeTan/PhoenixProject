@@ -11,10 +11,10 @@ import phoenix.client.gui.diary.DiaryBook
 import phoenix.client.gui.diary.elements.ADiaryElement
 import phoenix.client.gui.diary.elements.RightAlignedTextElement
 import phoenix.containers.DiaryContainer
-import phoenix.other.makeParagraph
 import phoenix.other.TextureLocation
 import phoenix.other.clientPlayer
 import phoenix.other.drawRectScalable
+import phoenix.other.makeParagraph
 import java.rmi.UnexpectedException
 
 class DiaryGui(val container: DiaryContainer, inv: PlayerInventory, titleIn: ITextComponent) : ContainerScreen<DiaryContainer>(container, inv, titleIn)

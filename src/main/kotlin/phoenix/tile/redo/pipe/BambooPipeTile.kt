@@ -1,6 +1,5 @@
 package phoenix.tile.redo.pipe
 
-import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.state.IProperty
 import net.minecraft.state.properties.BlockStateProperties
 import net.minecraft.tileentity.TileEntityType
