@@ -10,8 +10,11 @@ import phoenix.Phoenix
 import phoenix.api.entity.Date
 import phoenix.client.gui.diary.elements.ADiaryElement
 import phoenix.client.gui.diary.elements.TextElement
+import phoenix.other.collections.SizedArrayList
 import java.math.BigDecimal
 import java.util.*
+import kotlin.Comparator
+import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 fun String.toWords(): ArrayList<String>
@@ -109,7 +112,7 @@ fun blockOf(name: String) = ResourceLocation(Phoenix.MOD_ID, "textures/blocks/$n
 
 fun<T> sizedArrayListOf(vararg elements : T) : SizedArrayList<T> = SizedArrayList.of(*elements)
 fun<T> sizedArrayListFrom(source : Collection<T>) : SizedArrayList<T> = SizedArrayList.copyOf(source)
-
+fun<T> sizedArrayListFrom(source : Array<T>) : SizedArrayList<T> = SizedArrayList.copyOf(source)
 
 fun PacketBuffer.writeFluidTank(tank: FluidTank) : PacketBuffer
 {
@@ -137,21 +140,36 @@ fun PacketBuffer.writeDate(date: Date)
     this.writeLong(date.year)
 }
 
-
-
 data class MutableTuple<V, M, K>(var first: V, var second: M, var third: K)
+
 data class MutablePair<V, M>(var first: V, var second: M)
 {
     operator fun not() : MutablePair<M, V> = MutablePair(second, first)
 
-    operator fun<T> contains(v : T) : Boolean = v != null && first == v || second == v
+    operator fun<T> contains(v : T) : Boolean = v != null && (first == v || second == v)
+}
+
+fun<V : Comparable<V>, M : Comparable<M>> MutablePair<V, M>.compareTo(other: MutablePair<V, M>) : Int
+{
+    val i = first.compareTo(other.first)
+    return if (i != 0) i else second.compareTo(other.second)
 }
 
 fun<V, M> uniquePairOf(first: V? = null, second: M? = null) : MutablePair<V?, M?> = if (first != second) MutablePair(first, second) else MutablePair(null, second)
+fun<T> arrayListFrom(collection: Collection<T>) : ArrayList<T>
+{
+    val res = ArrayList<T>()
+    res.addAll(collection)
+    return res
+}
+fun<T> arrayListFrom(collection: Array<T>) : ArrayList<T>
+{
+    val res = ArrayList<T>()
+    res.addAll(collection)
+    return res
+}
 
 fun Random.nextInt(min: Int, max: Int) = (min - 0.5 + this.nextDouble() * (max - min + 1)).roundToInt()
-
-
 
 fun min(vararg values: Number) : Number
 {
@@ -222,3 +240,38 @@ fun IntRange.toSet() : MutableSet<Int>
     return res
 }
 
+fun<T : Comparable<T>, K> comparePairByFirst() : Comparator<Pair<T, K>>  = Comparator { p1, p2 -> p1.first.compareTo(p2.first) }
+
+inline fun<T> makeVariableInConstructor(task : () -> T) : T = task()
+
+inline fun<T, Res> foreach(iterator: Iterator<T>, res : Res, tack : Res.(value : T) -> Unit) : Res
+{
+    while (iterator.hasNext())
+        res.tack(iterator.next())
+    return res
+}
+
+inline fun<T, Res> Iterable<T>.foreach(res : Res, tack : Res.(value : T) -> Unit) : Res
+{
+    val iterator = this.iterator()
+    while (iterator.hasNext())
+        res.tack(iterator.next())
+    return res
+}
+
+fun<T, R> T?.ifNotNull(block : T.() -> R) = if (this == null) null else block(this)
+
+inline fun<T> ArrayList<T>.unique(isEqual : (f : T, s : T) -> Boolean = { f, s -> f != s }) : ArrayList<T>
+{
+    val res = ArrayList<T>()
+    for (i in this)
+        if (res.isEmpty() || isEqual(res.last(), i))
+            res.add(i)
+    return res
+}
+
+inline fun<T> ArrayList<T>.sortedBy(comparator: Comparator<T>) : ArrayList<T>
+{
+    this.sortWith(comparator)
+    return this
+}

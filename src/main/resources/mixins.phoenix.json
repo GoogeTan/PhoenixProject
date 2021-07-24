@@ -4,7 +4,6 @@
   "package": "phoenix.mixin",
   "refmap": "mixins.phoenix.refmap.json",
   "mixins": [
-    "EnderCrystalItemMixin",
     "FurnaceResultSlotMixin",
     "MixinEntityPlayer",
     "PotionBrewingMixin"

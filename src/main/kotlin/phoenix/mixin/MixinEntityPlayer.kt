@@ -31,14 +31,13 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
     fun onWriteEntityToNBT(nbt: CompoundNBT, ci: CallbackInfo?)
     {
         nbt.putInt("count_of_opened", chapters.size)
-        for (i in chapters.indices)
+        for ((i, element) in chapters.withIndex())
         {
-            nbt.putInt("id$i", chapters[i].first)
-            nbt.putLong("min$i", chapters[i].second.minute)
-            nbt.putLong("day$i", chapters[i].second.day)
-            nbt.putLong("year$i", chapters[i].second.year)
+            nbt.putInt("id$i", element.first)
+            nbt.putLong("min$i", element.second.minute)
+            nbt.putLong("day$i", element.second.day)
+            nbt.putLong("year$i", element.second.year)
         }
-
 
         specialChaptersIndices = HashSet()
         nbt.putInt("count_of_predicates", chapters.size)
@@ -63,8 +62,8 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
                 addChapter(id, Date(min, day, year))
             }
         }
-        else if (chapters.isEmpty()) addChapter(0, Date((795 % 12000 / 100), (2005 % 319), (2005 / 319)))
 
+        if (chapters.isEmpty()) addChapter(0, Date((795 % 12000 / 100), (2005 % 319), (2005 / 319)))
 
         if (nbt.contains("count_of_predicates"))
         {

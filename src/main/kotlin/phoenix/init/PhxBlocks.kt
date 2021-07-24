@@ -62,6 +62,7 @@ object PhxBlocks
     val diedWetStairs   : Block by blocks.register("died_wet_stairs") { object : StairsBlock(diedWetLog::getDefaultState, Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
     val setaJuice               by blocks.register("seta_juice")      { FluidBlock(PhxFluids::seta_juice_source) }
     val ceramic         : Block by blocks.register("ceramic_bricks")  { object : Block(Properties.create(Material.ROCK).sound(SoundType.STONE)), IRedoThink { }  }
+
     fun register() = blocks.register(MOD_BUS)
 }
 

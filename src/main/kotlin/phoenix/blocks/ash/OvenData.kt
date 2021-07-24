@@ -7,7 +7,7 @@ import net.minecraft.network.PacketBuffer
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.common.util.INBTSerializable
 import phoenix.recipes.OvenRecipe
-import phoenix.other.SizableInventory
+import phoenix.other.collections.SizableInventory
 
 open class OvenData(size : Int) : SizableInventory(size), INBTSerializable<CompoundNBT>
 {

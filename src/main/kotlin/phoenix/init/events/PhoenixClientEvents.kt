@@ -13,20 +13,14 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import phoenix.Phoenix
 import phoenix.api.block.IColoredBlock
-import phoenix.client.render.EnderCrystalRenderer
 import phoenix.client.render.OvenRenderer
 import phoenix.client.render.TankRenderer
-import phoenix.client.render.dragon.AshDragonRenderer
-import phoenix.client.render.dragon.RedoDragonRenderer
 import phoenix.client.render.entity.*
 import phoenix.init.PhxBlocks
 import phoenix.init.PhxBlocks.blocks
 import phoenix.init.PhxContainers
 import phoenix.init.PhxEntities.ancientGolemEntity
 import phoenix.init.PhxEntities.cauda
-import phoenix.init.PhxEntities.dragonAshStage
-import phoenix.init.PhxEntities.dragonRedoStage
-import phoenix.init.PhxEntities.enderCrystal
 import phoenix.init.PhxEntities.explosiveBall
 import phoenix.init.PhxEntities.iceBall
 import phoenix.init.PhxEntities.talpa
@@ -72,7 +66,6 @@ object PhoenixClientEvents
         RenderTypeLookup.setRenderLayer(PhxBlocks.bambooPipe, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.tank, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.armoredGlass, RenderType.getCutoutMipped())
-        //RenderTypeLookup.setRenderLayer(PhxBlocks.textBlock,    RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.wetLog, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.wetSlab, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.wetStairs, RenderType.getCutoutMipped())
@@ -84,18 +77,11 @@ object PhoenixClientEvents
         RenderingRegistry.registerEntityRenderingHandler(iceBall, ::IceBallRenderer)
         RenderingRegistry.registerEntityRenderingHandler(cauda, ::CaudaRenderer)
         RenderingRegistry.registerEntityRenderingHandler(zirconiumKnife, ::KnifeRenderer)
-        RenderingRegistry.registerEntityRenderingHandler(dragonAshStage, ::AshDragonRenderer)
-        RenderingRegistry.registerEntityRenderingHandler(dragonRedoStage, ::RedoDragonRenderer)
-        RenderingRegistry.registerEntityRenderingHandler(dragonAshStage, ::AshDragonRenderer)
         RenderingRegistry.registerEntityRenderingHandler(explosiveBall, ::ExplosiveBallRenderer)
-        RenderingRegistry.registerEntityRenderingHandler(enderCrystal, ::EnderCrystalRenderer)
         ClientRegistry.bindTileEntityRenderer(PhxTiles.tank, ::TankRenderer)
         ClientRegistry.bindTileEntityRenderer(PhxTiles.juicer, ::TankRenderer)
         ClientRegistry.bindTileEntityRenderer(PhxTiles.oven, ::OvenRenderer)
-        //ClientRegistry.bindTileEntityRenderer(PhxTiles.TEXT, ::TextRenderer)
 
-
-        mc!!.splashes = Splashes(mc!!.splashes.gameSession)
         mc!!.splashes.possibleSplashes.add(rainbowColor("God is an artist, since there are so many \n colors in the world")) //Reference to: Beautiful mind
         mc!!.splashes.possibleSplashes.add("$RED The essence of life is that it changes itself") //Reference to: Evangelion-3.33 you can(not) redo
         mc!!.splashes.possibleSplashes.add("$BLUE Bridge station is absent") //Reference to: Dovecote in a yellow glade

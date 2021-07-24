@@ -1,4 +1,4 @@
-package phoenix.enity.boss.balls
+package phoenix.enity.projectile
 
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity

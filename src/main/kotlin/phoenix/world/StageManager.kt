@@ -4,16 +4,14 @@ import net.minecraft.block.Blocks
 import net.minecraft.block.PaneBlock
 import net.minecraft.client.audio.MusicTicker
 import net.minecraft.entity.EntityType
+import net.minecraft.entity.boss.dragon.EnderDragonEntity
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.IWorld
 import net.minecraftforge.common.MinecraftForge
-import phoenix.enity.boss.AbstractEnderDragonEntity
-import phoenix.enity.boss.phase.PhaseType
 import phoenix.init.PhoenixMusicTracks
 import phoenix.init.PhxBlocks.armoredGlass
-import phoenix.init.PhxEntities
 import phoenix.other.client
 import phoenix.other.server
 import phoenix.utils.*
@@ -106,27 +104,27 @@ object StageManager
                 if (spike.isGuarded)
                 {
                     val pos = BlockPos.Mutable()
-                    for (k in -2..2)
+                    for (x in -2..2)
                     {
-                        for (l in -2..2)
+                        for (z in -2..2)
                         {
-                            for (i1 in 0..3)
+                            for (y in 0..3)
                             {
-                                val isRight = MathHelper.abs(k) == 2
-                                val ifLeft = MathHelper.abs(l) == 2
-                                val isTop = i1 == 3
+                                val isRight = MathHelper.abs(x) == 2
+                                val ifLeft = MathHelper.abs(z) == 2
+                                val isTop = y == 3
                                 if (isRight || ifLeft || isTop)
                                 {
-                                    val isNorth = k == -2 || k == 2 || isTop
-                                    val flag4 = l == -2 || l == 2 || isTop
+                                    val isNorth = x == -2 || x == 2 || isTop
+                                    val flag4 = z == -2 || z == 2 || isTop
                                     val blockstate = Blocks.IRON_BARS.defaultState
-                                        .with(PaneBlock.NORTH, isNorth && l != -2)
-                                        .with(PaneBlock.SOUTH, isNorth && l != 2)
-                                        .with(PaneBlock.WEST, flag4 && k != -2)
-                                        .with(PaneBlock.EAST, flag4 && k != 2)
+                                        .with(PaneBlock.NORTH, isNorth && z != -2)
+                                        .with(PaneBlock.SOUTH, isNorth && z != 2)
+                                        .with(PaneBlock.WEST, flag4 && x != -2)
+                                        .with(PaneBlock.EAST, flag4 && x != 2)
                                     future.setBlockState(
                                         world,
-                                        pos.setPos(spike.centerX + k, spike.height + i1, spike.centerZ + l),
+                                        pos.setPos(spike.centerX + x, spike.height + y, spike.centerZ + z),
                                         blockstate
                                     )
                                 }
@@ -134,81 +132,54 @@ object StageManager
                         }
                     }
                 }
-
-
             }
 
             override val music: MusicTicker.MusicType = MusicTicker.MusicType.END
 
-            override val holdingPhase: PhaseType = PhaseType.ASH_HOLDING_PATTERN
-            override val hoverPhase: PhaseType = PhaseType.ASH_HOVER
-
-            override val dragonType: EntityType<out AbstractEnderDragonEntity> = PhxEntities.dragonAshStage
+            override val dragonType: EntityType<out EnderDragonEntity> = EntityType.ENDER_DRAGON
         },
         REDO
         {
             override fun createTower(future: CustomEndSpike, world: IWorld, spike: CustomEndSpike.EndSpike)
             {
                 val pos = BlockPos.Mutable()
-                for (k in -2..2)
+                for (x in -2..2)
                 {
-                    for (l in -2..2)
+                    for (z in -2..2)
                     {
-                        for (i1 in 0..3)
+                        for (y in 0..3)
                         {
-                            val isRight = MathHelper.abs(k) == 2
-                            val ifLeft = MathHelper.abs(l) == 2
-                            val isTop = i1 == 3
+                            val isRight = MathHelper.abs(x) == 2
+                            val ifLeft = MathHelper.abs(z) == 2
+                            val isTop = y == 3
                             if (isRight || ifLeft || isTop)
                             {
-                                val blockstate = armoredGlass.defaultState
-                                future.setBlockState(
-                                    world,
-                                    pos.setPos(spike.centerX + k, spike.height + i1, spike.centerZ + l),
-                                    blockstate
-                                )
+                                future.setBlockState(world, pos.setPos(spike.centerX + x, spike.height + y, spike.centerZ + z), armoredGlass.defaultState)
                             }
                         }
                     }
                 }
             }
             override val music: MusicTicker.MusicType = PhoenixMusicTracks.REDO_MUSIC
-
-            override val holdingPhase: PhaseType = PhaseType.REDO_HOLDING_PATTERN
-            override val hoverPhase: PhaseType = PhaseType.REDO_HOVER
-
-            override val dragonType: EntityType<out AbstractEnderDragonEntity> = PhxEntities.dragonRedoStage
+            override val dragonType: EntityType<out EnderDragonEntity> = ASH.dragonType
         },
         REBIRTH
         {
             override fun createTower(future: CustomEndSpike, world: IWorld, spike: CustomEndSpike.EndSpike) = REDO.createTower(future, world, spike)
-
             override val music: MusicTicker.MusicType = REDO.music
-
-            override val holdingPhase: PhaseType = REDO.holdingPhase
-            override val hoverPhase: PhaseType = REDO.hoverPhase
-
-            override val dragonType: EntityType<out AbstractEnderDragonEntity> = REDO.dragonType
+            override val dragonType: EntityType<out EnderDragonEntity> = REDO.dragonType
         },
         AIR
         {
             override fun createTower(future: CustomEndSpike, world: IWorld, spike: CustomEndSpike.EndSpike) = ASH.createTower(future, world, spike)
-
             override val music: MusicTicker.MusicType = REBIRTH.music
-
-            override val holdingPhase: PhaseType = REBIRTH.holdingPhase
-            override val hoverPhase: PhaseType = REBIRTH.hoverPhase
-
-            override val dragonType: EntityType<out AbstractEnderDragonEntity> = REBIRTH.dragonType
+            override val dragonType: EntityType<out EnderDragonEntity> = REBIRTH.dragonType
         };
 
         abstract fun createTower(future: CustomEndSpike, world: IWorld, spike: CustomEndSpike.EndSpike)
 
         abstract val music : MusicTicker.MusicType
 
-        abstract val holdingPhase : PhaseType
-        abstract val hoverPhase : PhaseType
-
-        abstract val dragonType : EntityType<out AbstractEnderDragonEntity>
+        abstract val dragonType : EntityType<out EnderDragonEntity>
     }
 }

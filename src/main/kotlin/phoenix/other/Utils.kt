@@ -1,4 +1,4 @@
-@file:Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+@file:Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "NOTHING_TO_INLINE")
 
 package phoenix.other
 
@@ -87,6 +87,7 @@ import phoenix.network.sendToPlayer
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import java.math.BigDecimal
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
@@ -97,12 +98,8 @@ fun <T : TileEntity> TileEntityType.Builder<T>.build(): TileEntityType<T> = this
 
 fun ItemStack.getEnchantmentLevel(enchantment: Enchantment) = EnchantmentHelper.getEnchantmentLevel(enchantment, this)
 
-
-//fun <T : TileEntity> create(tile: T, block: Block) : () -> TileEntityType<T> = { TileEntityType.Builder.create({ tile }, block).build() }
-//fun <T : TileEntity> create(tile: T, block: RegistryObject<Block>) : () -> TileEntityType<T> = { TileEntityType.Builder.create({ tile }, block.get()).build() }
-
+@get:OnlyIn(Dist.CLIENT)
 val mc : Minecraft?
-    @OnlyIn(Dist.CLIENT)
     inline get()
     {
         return try
@@ -113,30 +110,29 @@ val mc : Minecraft?
             null
         }
     }
+
+@get:OnlyIn(Dist.CLIENT)
 val clientPlayer : ClientPlayerEntity?
-    @OnlyIn(Dist.CLIENT)
     inline get() = mc?.player
+@get:OnlyIn(Dist.CLIENT)
 val clientWorld : ClientWorld?
-    @OnlyIn(Dist.CLIENT)
     inline get() = mc?.world
-val World.isServer
-    get() = !this.isRemote
 
-val PlayerEntity.isServer
-    get() = !world.isRemote
+val World.isServer        get() = !this.isRemote
+val PlayerEntity.isServer get() = !world.isRemote
+val PlayerEntity.isRemote get() = world.isRemote
 
-val PlayerEntity.isRemote
-    get() = world.isRemote
+val server : MinecraftServer? get() = mc?.integratedServer ?: serverInstance
 
-val server : MinecraftServer?
-    get() = mc?.integratedServer ?: serverInstance
-
+@get:OnlyIn(Dist.CLIENT)
 val textureManager : TextureManager?
     get() = mc?.textureManager
 
+@get:OnlyIn(Dist.CLIENT)
 val itemRenderer : ItemRenderer?
     get() = mc?.itemRenderer
 
+@get:OnlyIn(Dist.CLIENT)
 val font : FontRenderer?
     get() = mc?.fontRenderer
 
@@ -144,12 +140,7 @@ fun PlayerEntity.sendMessage(text: String) = sendMessage(StringTextComponent(tex
 
 fun TileEntity.getFluid(direction: Direction?) : LazyOptional<IFluidHandler> = getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, direction)
 
-fun interactWithFluidHandler
-    (
-        container: ItemStack,
-        fluidHandler: IFluidHandler?,
-        player: PlayerEntity?
-    ): FluidActionResult
+fun interactWithFluidHandler(container: ItemStack, fluidHandler: IFluidHandler?, player: PlayerEntity?): FluidActionResult
 {
     if (container.isEmpty || fluidHandler == null || player == null)
         return FluidActionResult.FAILURE
@@ -168,6 +159,7 @@ val next: ImmutableMap<Direction, Direction> = ImmutableMap.of(Direction.NORTH, 
 
 fun Direction.next() : Direction = next[this] ?: Direction.NORTH
 
-fun<T> client(task : (mc : Minecraft, player : ClientPlayerEntity?, world : ClientWorld?) -> T) : T = DistExecutor.safeCallWhenOn(Dist.CLIENT) { DistExecutor.SafeCallable { task(mc!!, clientPlayer, clientWorld) }}
-fun<T> server(task : (MinecraftServer?) -> T) : T = DistExecutor.safeCallWhenOn(Dist.DEDICATED_SERVER) { DistExecutor.SafeCallable { task(server) } }
-
+fun<T> client(task : (mc : Minecraft, player : ClientPlayerEntity?, world : ClientWorld?) -> T) : T =
+    DistExecutor.safeCallWhenOn(Dist.CLIENT) { DistExecutor.SafeCallable { task(mc!!, clientPlayer, clientWorld) }}
+fun<T> server(task : (MinecraftServer?) -> T) : T =
+    DistExecutor.safeCallWhenOn(Dist.DEDICATED_SERVER) { DistExecutor.SafeCallable { task(server) } }

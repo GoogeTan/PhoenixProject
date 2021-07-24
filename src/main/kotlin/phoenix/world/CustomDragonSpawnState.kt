@@ -1,16 +1,15 @@
 package phoenix.world
 
 import com.google.common.collect.ImmutableList
+import net.minecraft.entity.item.EnderCrystalEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.Explosion
 import net.minecraft.world.server.ServerWorld
-import phoenix.enity.EnderCrystalEntity
 import phoenix.init.PhxFeatures.END_SPIKE
 import phoenix.world.structures.CustomEndSpike
 import phoenix.world.structures.CustomEndSpikeConfig
 import java.util.*
 import java.util.function.Consumer
-
 
 enum class CustomDragonSpawnState
 {

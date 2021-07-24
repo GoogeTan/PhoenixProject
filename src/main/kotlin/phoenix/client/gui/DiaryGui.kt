@@ -15,8 +15,7 @@ import phoenix.other.makeParagraph
 import phoenix.other.TextureLocation
 import phoenix.other.clientPlayer
 import phoenix.other.drawRectScalable
-
-private val backgoundTexture = TextureLocation(Phoenix.MOD_ID, "textures/gui/diary_2.png")
+import java.rmi.UnexpectedException
 
 class DiaryGui(val container: DiaryContainer, inv: PlayerInventory, titleIn: ITextComponent) : ContainerScreen<DiaryContainer>(container, inv, titleIn)
 {
@@ -33,15 +32,19 @@ class DiaryGui(val container: DiaryContainer, inv: PlayerInventory, titleIn: ITe
 
         if(player is IPhoenixPlayer)
         {
-           val els = ArrayList<ADiaryElement>()
+           val elements = ArrayList<ADiaryElement>()
            val chapters = player.getOpenedChapters()
 
            for ((id, date) in chapters)
            {
-               els.addAll(makeParagraph(font, xSize / 2 - 5, Chapter.values()[id].getText()))
-               els.add(RightAlignedTextElement(date.toString()))
+               elements.addAll(makeParagraph(font, xSize / 2 - 5, Chapter.values()[id].getText()))
+               elements.add(RightAlignedTextElement(date.toString()))
            }
-           book.add(els)
+           book.add(elements)
+        }
+        else
+        {
+            throw UnexpectedException("Broken player mixin")
         }
     }
 
@@ -78,5 +81,10 @@ class DiaryGui(val container: DiaryContainer, inv: PlayerInventory, titleIn: ITe
         super.render(p1, p2, p3)
         this.renderBackground()
         book.render(this, font, xSize, ySize, guiLeft, guiTop, blitOffset)
+    }
+
+    companion object
+    {
+        private val backgoundTexture = TextureLocation(Phoenix.MOD_ID, "textures/gui/diary_2.png")
     }
 }

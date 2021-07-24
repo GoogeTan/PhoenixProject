@@ -9,6 +9,7 @@ import com.mojang.datafixers.Dynamic
 import com.mojang.datafixers.types.DynamicOps
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
+import net.minecraft.entity.EntityType
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
@@ -64,9 +65,9 @@ object CustomEndSpike : Feature<CustomEndSpikeConfig>({ dynamic: Dynamic<*> -> C
             }
         }
         stageEnum.createTower(this, worldIn, spike)
-        val crystal = PhxEntities.enderCrystal.create(worldIn.world)
+        val crystal = EntityType.END_CRYSTAL.create(worldIn.world)
         if (crystal != null) {
-            crystal.setBeamTarget(config.crystalBeamTarget)
+            crystal.beamTarget = config.crystalBeamTarget
             crystal.isInvulnerable = config.isCrystalInvulnerable
             crystal.setLocationAndAngles(
                 (spike.centerX.toFloat() + 0.5f).toDouble(),

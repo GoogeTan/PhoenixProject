@@ -7,6 +7,9 @@ import net.minecraft.block.pattern.BlockMatcher
 import net.minecraft.block.pattern.BlockPattern
 import net.minecraft.block.pattern.BlockPattern.PatternHelper
 import net.minecraft.block.pattern.BlockPatternBuilder
+import net.minecraft.entity.boss.dragon.EnderDragonEntity
+import net.minecraft.entity.boss.dragon.phase.PhaseType
+import net.minecraft.entity.item.EnderCrystalEntity
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.nbt.IntNBT
@@ -30,8 +33,6 @@ import net.minecraft.world.server.ServerBossInfo
 import net.minecraft.world.server.ServerWorld
 import net.minecraft.world.server.TicketType
 import org.apache.logging.log4j.LogManager
-import phoenix.enity.EnderCrystalEntity
-import phoenix.enity.boss.AbstractEnderDragonEntity
 import phoenix.other.get
 import java.util.*
 
@@ -62,9 +63,9 @@ class CustomDragonFightManager(var world: ServerWorld, compound: CompoundNBT, di
                 field = null
                 dragonKilled = false
                 val dragon = createNewDragon()
-                for (serverplayerentity in bossInfo.players)
+                for (player in bossInfo.players)
                 {
-                    CriteriaTriggers.SUMMONED_ENTITY.trigger(serverplayerentity, dragon)
+                    CriteriaTriggers.SUMMONED_ENTITY.trigger(player, dragon)
                 }
             } else
             {
@@ -74,27 +75,28 @@ class CustomDragonFightManager(var world: ServerWorld, compound: CompoundNBT, di
 
     var respawnStateTicks = 0
     var crystals: List<EnderCrystalEntity>? = null
+
     fun write(): CompoundNBT
     {
-        val compoundnbt = CompoundNBT()
+        val tag = CompoundNBT()
         if (dragonUniqueId != null)
         {
-            compoundnbt.putUniqueId("DragonUUID", dragonUniqueId)
+            tag.putUniqueId("DragonUUID", dragonUniqueId)
         }
-        compoundnbt.putBoolean("DragonKilled", dragonKilled)
-        compoundnbt.putBoolean("PreviouslyKilled", previouslyKilled)
-        compoundnbt.putBoolean("LegacyScanPerformed", !scanForLegacyFight) // Forge: fix MC-105080
+        tag.putBoolean("DragonKilled", dragonKilled)
+        tag.putBoolean("PreviouslyKilled", previouslyKilled)
+        tag.putBoolean("LegacyScanPerformed", !scanForLegacyFight) // Forge: fix MC-105080
         if (exitPortalLocation != null)
         {
-            compoundnbt.put("ExitPortalLocation", NBTUtil.writeBlockPos(exitPortalLocation))
+            tag.put("ExitPortalLocation", NBTUtil.writeBlockPos(exitPortalLocation))
         }
         val listnbt = ListNBT()
         for (i in gateways)
         {
             listnbt.add(IntNBT.valueOf(i))
         }
-        compoundnbt.put("Gateways", listnbt)
-        return compoundnbt
+        tag.put("Gateways", listnbt)
+        return tag
     }
 
     open fun tick()
@@ -225,19 +227,19 @@ class CustomDragonFightManager(var world: ServerWorld, compound: CompoundNBT, di
             for (j in -8..8)
             {
                 val chunk = world.getChunk(i, j)
-                for (tileentity in chunk.tileEntityMap.values)
+                for (tile in chunk.tileEntityMap.values)
                 {
-                    if (tileentity is EndPortalTileEntity)
+                    if (tile is EndPortalTileEntity)
                     {
-                        val `blockpattern$patternhelper` = portalPattern.match(world, tileentity.getPos())
-                        if (`blockpattern$patternhelper` != null)
+                        val pattern = portalPattern.match(world, tile.getPos())
+                        if (pattern != null)
                         {
-                            val blockpos = `blockpattern$patternhelper`.translateOffset(3, 3, 3).pos
+                            val blockpos = pattern.translateOffset(3, 3, 3).pos
                             if (exitPortalLocation == null && blockpos.x == 0 && blockpos.z == 0)
                             {
                                 exitPortalLocation = blockpos
                             }
-                            return `blockpattern$patternhelper`
+                            return pattern
                         }
                     }
                 }
@@ -316,7 +318,7 @@ class CustomDragonFightManager(var world: ServerWorld, compound: CompoundNBT, di
         LOGGER.debug("Found {} end crystals still alive", numAliveCrystals)
     }
 
-    fun processDragonDeath(dragon: AbstractEnderDragonEntity)
+    fun processDragonDeath(dragon: EnderDragonEntity)
     {
         if (dragon.uniqueID == dragonUniqueId)
         {
@@ -373,13 +375,13 @@ class CustomDragonFightManager(var world: ServerWorld, compound: CompoundNBT, di
         )
     }
 
-    open fun createNewDragon(): AbstractEnderDragonEntity?
+    open fun createNewDragon(): EnderDragonEntity?
     {
         world.getChunkAt(BlockPos(0, 128, 0))
         val dragon = StageManager.stageEnum.dragonType.create(world)
         return if(dragon != null)
         {
-            dragon.phaseManager.setPhase(StageManager.stageEnum.holdingPhase)
+            dragon.phaseManager.setPhase(PhaseType.HOVER)
             dragon.setLocationAndAngles(0.0, 128.0, 0.0, world.rand.nextFloat() * 360.0f, 0.0f)
             world.addEntity(dragon)
             dragonUniqueId = dragon.uniqueID
@@ -388,7 +390,7 @@ class CustomDragonFightManager(var world: ServerWorld, compound: CompoundNBT, di
             null
     }
 
-    fun dragonUpdate(dragonIn: AbstractEnderDragonEntity)
+    fun dragonUpdate(dragonIn: EnderDragonEntity)
     {
         if (dragonIn.uniqueID == dragonUniqueId)
         {
@@ -414,7 +416,7 @@ class CustomDragonFightManager(var world: ServerWorld, compound: CompoundNBT, di
         {
             findAliveCrystals()
             val entity = world.getEntityByUuid(dragonUniqueId)
-            if (entity is AbstractEnderDragonEntity)
+            if (entity is EnderDragonEntity)
             {
                 entity.onCrystalDestroyed(crystal, BlockPos(crystal), dmgSrc)
             }
