@@ -17,15 +17,14 @@ object PhxContainers
 {
     private val CONTAINERS = KDeferredRegister(ForgeRegistries.CONTAINERS, Phoenix.MOD_ID)
 
-    val GUIDE by CONTAINERS.register("diary") { ContainerType(::DiaryContainer) }
+    //val GUIDE by CONTAINERS.register("diary") { ContainerType(::DiaryContainer) }
     val CAUDA by CONTAINERS.register("cauda") { ContainerType{ id : Int, player : PlayerInventory -> (player.player.ridingEntity as CaudaEntity).CaudaContainer(id, player)  } }
-
 
     fun register() = CONTAINERS.register(MOD_BUS)
 
     @OnlyIn(Dist.CLIENT)
     fun registerScreens()
     {
-        ScreenManager.registerFactory(GUIDE, ::DiaryGui)
+        //ScreenManager.registerFactory(GUIDE, ::DiaryGui)
     }
 }

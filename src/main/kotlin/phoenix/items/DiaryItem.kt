@@ -16,8 +16,8 @@ class DiaryItem : Item(Properties().rarity(Rarity.EPIC).group(Phoenix.ASH).maxSt
 {
     override fun onItemRightClick(worldIn: World, playerIn: PlayerEntity, handIn: Hand): ActionResult<ItemStack>
     {
-        if (playerIn is ServerPlayerEntity)
-            NetworkHooks.openGui(playerIn, PhxContainers.GUIDE.create(0, playerIn.inventory))
+       // if (playerIn is ServerPlayerEntity)
+        //    NetworkHooks.openGui(playerIn, PhxContainers.GUIDE.create(0, playerIn.inventory))
         return super.onItemRightClick(worldIn, playerIn, handIn)
     }
 }
