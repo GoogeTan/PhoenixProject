@@ -8,7 +8,7 @@ import net.minecraft.util.text.ITextComponent
 import net.minecraft.util.text.StringTextComponent
 import phoenix.init.PhxContainers
 
-class DiaryContainer(id: Int) : Container(PhxContainers.CAUDA, id), INamedContainerProvider
+class DiaryContainer(id: Int) : Container(PhxContainers.GUIDE, id), INamedContainerProvider
 {
     constructor(id: Int, inventory: PlayerInventory) : this(id)
     var name: ITextComponent = StringTextComponent("Zahara")
