@@ -2,10 +2,10 @@ package phoenix.client.gui.diary
 
 import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.gui.FontRenderer
-import net.minecraft.client.gui.screen.inventory.ContainerScreen
+import phoenix.client.gui.DiaryGui
 import phoenix.client.gui.diary.elements.ADiaryElement
 import phoenix.client.gui.diary.elements.DiaryPage
-import phoenix.containers.DiaryContainer
+import phoenix.other.matrix
 import java.util.*
 
 class DiaryBook(private val xSize: Int, private val ySize: Int, private val font: FontRenderer)
@@ -13,10 +13,24 @@ class DiaryBook(private val xSize: Int, private val ySize: Int, private val font
     private val pages = LinkedList<DiaryPage>()
     private var page = 0
 
-    fun add(elements: kotlin.collections.ArrayList<ADiaryElement>)
+    fun add(elements: List<ADiaryElement>)
     {
         var i = 0
-        while (i in 0 until elements.size)
+        while (i in elements.indices)
+        {
+            if(pages.size == 0)
+                pages.add(DiaryPage(ySize / font.FONT_HEIGHT))
+            while (i < elements.size && pages.last.tryAdd(elements[i], xSize, ySize))
+            {
+                i++
+            }
+            pages.add(DiaryPage(ySize / font.FONT_HEIGHT))
+        }
+    }
+    fun add(vararg elements: ADiaryElement)
+    {
+        var i = 0
+        while (i in elements.indices)
         {
             if(pages.size == 0)
                 pages.add(DiaryPage(ySize / font.FONT_HEIGHT))
@@ -28,21 +42,17 @@ class DiaryBook(private val xSize: Int, private val ySize: Int, private val font
         }
     }
 
-    fun add(element: ADiaryElement) = add(arrayListOf(element))
-
-    fun render(gui: ContainerScreen<DiaryContainer>, renderer: FontRenderer, xSize: Int, ySize: Int, x: Int, y: Int, depth: Int)
+    fun render(gui: DiaryGui, renderer: FontRenderer, xSize: Int, ySize: Int, depth: Int)
     {
-        RenderSystem.pushMatrix()
-        RenderSystem.scalef(0.5f, 0.5f, 0.5f)
-        leftPage.render(gui, font, xSize / 2, ySize, x, y, depth)
-        RenderSystem.scalef(2f, 2f, 2f)
-        RenderSystem.popMatrix()
-
-        RenderSystem.pushMatrix()
-        RenderSystem.scalef(0.5f, 0.5f, 0.5f)
-        rightPage.render(gui, renderer, xSize / 2, ySize, x + xSize / 2, y, depth)
-        RenderSystem.scalef(2f, 2f, 2f)
-        RenderSystem.popMatrix()
+        matrix {
+            //scale(0.5f, 0.5f, 1f) {
+            leftPage.render(gui, font, xSize / 2, ySize, depth)
+            //}
+        }
+        RenderSystem.translatef(xSize / 2f, 0f, 0f)
+        //scale(0.5f, 0.5f, 1f) {
+            rightPage.render(gui, renderer, xSize / 2, ySize, depth)
+        //}
     }
 
     private val isLast : Boolean get() = page + 1 >= pages.size - 1

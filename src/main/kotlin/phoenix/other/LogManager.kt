@@ -4,67 +4,58 @@ import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
 import phoenix.init.PhxConfiguration
 
-object LogManager
+//TODO make fast logs for render thread by RenderSystem.isOnRenderThread()
+val LOGGER = LogManager.getLogger("PhoenixProject")!!
+
+inline fun<reified T> T.debug(message : String)
 {
-    private val LOGGER = LogManager.getLogger("PhoenixProject")!!
-
-    fun log(obj : Any, message : String)
-    {
-        LOGGER
-        if(PhxConfiguration.isDebugMode)
-            LOGGER.error("<${obj.javaClass.lastName()}> " + message)
-        else
-            LOGGER.log(Level.DEBUG, "<${obj.javaClass.lastName()}> " + message)
-    }
-
-    fun log(from : String, message : String)
-    {
-        if(PhxConfiguration.isDebugMode)
-            LOGGER.error("<$from> $message")
-        else
-            LOGGER.log(Level.DEBUG, "<$from> $message")
-    }
-
-    fun error(obj : Any, message : String?) = LOGGER.error("<${obj.javaClass.lastName()}> " + (message ?: ""))
-
-    fun error(message : String)
-    {
-        val e = Thread.currentThread().stackTrace[2]
-        val from = e.className.split(".").last()
-        val method = e.methodName
-        val line = e.lineNumber
-        LOGGER.error("<$from::$method::$line> $message")
-    }
-
-    fun error(obj : Any, message : Exception?)
-    {
-        if(message != null)
-            LOGGER.error("Exception in class <${obj.javaClass.lastName()}>: " + message.toString())
-    }
-
-    fun error(from : String, message : Exception?)
-    {
-        if(message != null)
-            LOGGER.error("Exception in class <$from>: $message")
-    }
-
-    fun error(from : String, message : String) = LOGGER.error("<$from> $message")
-
-    fun errorObjects(obj : Any, vararg objects : Any?)
-    {
-        var message = ""
-        for (i in objects)
-            message += " $i"
-        error(obj, message)
-    }
-
-    fun errorObjects(from : String, vararg objects : Any)
-    {
-        var message = ""
-        for (i in objects)
-            message += " $i"
-        error(from, message)
-    }
-
-    private fun<T> Class<T>.lastName() = this.canonicalName.split(".").last()
+    if (PhxConfiguration.isDebugMode)
+        LOGGER.error("<${T::class.java.lastName()}> " + message)
+    else
+        LOGGER.log(Level.DEBUG, "<${T::class.java.lastName()}> " + message)
 }
+
+inline fun<reified T> T.error(message : String?) = error(T::class.java.lastName(), message)
+inline fun<reified T> T.error(exception : Exception?)
+{
+    if (exception != null)
+    {
+        val builder = StringBuilder("Exception in class <${T::class.java.lastName()}>: ${exception.message} at ${traceToString(exception.stackTrace[0])}")
+
+        val cause = exception.cause
+        if (cause != null)
+            builder.append(" because: ${cause.message} at ${traceToString(cause.stackTrace[0])}")
+
+        LOGGER.error(builder)
+    }
+}
+
+fun debug(from : String, message : String?) = LOGGER.debug("<$from> $message")
+fun error(from : String, message : String?) = LOGGER.error("<$from> $message")
+fun error(from : String, exception : Exception?)
+{
+    if (exception != null)
+    {
+        val builder =
+            StringBuilder("Exception in class <$from>: ${exception.message} at ${traceToString(exception.stackTrace[0])}")
+
+        val cause = exception.cause
+        if (cause != null)
+            builder.append(" because: ${cause.message} at ${traceToString(cause.stackTrace[0])}")
+
+        LOGGER.error(builder)
+    }
+}
+
+fun traceToString(element : StackTraceElement) : String
+{
+    val builder = StringBuilder()
+    if (element.fileName?.split(".")?.get(0) != element.className.split(".").last())
+        builder.append(element.fileName!!.split(".")[0])
+    else
+        builder.append(element.className)
+    builder.append("::${element.methodName}")
+    return builder.toString()
+}
+
+fun<T> Class<T>.lastName() = this.canonicalName.split(".").last()

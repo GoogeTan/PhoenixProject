@@ -2,8 +2,7 @@ package phoenix.client.gui.diary.elements
 
 import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.gui.FontRenderer
-import net.minecraft.client.gui.screen.inventory.ContainerScreen
-import phoenix.containers.DiaryContainer
+import phoenix.client.gui.DiaryGui
 import phoenix.other.TextureLocation
 import phoenix.other.drawRectScalable
 import phoenix.other.textureManager
@@ -36,7 +35,7 @@ class ImageElement(private val img: TextureLocation, var w: Int, var h: Int) : A
     }
 
     override fun render(
-        gui: ContainerScreen<DiaryContainer>,
+        gui: DiaryGui,
         font: FontRenderer,
         xSize: Int,
         ySize: Int,

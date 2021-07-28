@@ -60,7 +60,6 @@ object PhoenixClientEvents
     {
         initPacketSystem()
         PhxRenderTypes.init()
-        PhxContainers.registerScreens()
         RenderTypeLookup.setRenderLayer(PhxBlocks.oven, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.bambooPipe, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.tank, RenderType.getCutoutMipped())

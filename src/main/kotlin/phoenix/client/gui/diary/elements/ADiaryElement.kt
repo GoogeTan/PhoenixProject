@@ -1,14 +1,13 @@
 package phoenix.client.gui.diary.elements
 
 import net.minecraft.client.gui.FontRenderer
-import net.minecraft.client.gui.screen.inventory.ContainerScreen
-import phoenix.containers.DiaryContainer
+import phoenix.client.gui.DiaryGui
 
 abstract class ADiaryElement
 {
     abstract fun getHeight(maxSizeXIn: Int, maxSizeYIn: Int): Int
     abstract fun render(
-        gui: ContainerScreen<DiaryContainer>,
+        gui: DiaryGui,
         font: FontRenderer,
         xSize: Int,
         ySize: Int,
