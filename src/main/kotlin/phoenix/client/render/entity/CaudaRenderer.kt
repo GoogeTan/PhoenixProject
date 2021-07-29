@@ -11,19 +11,12 @@ import phoenix.client.render.entity.layer.CaudaArmorLayer
 import phoenix.client.render.entity.layer.SimpleEyesLayer
 import phoenix.enity.CaudaEntity
 import phoenix.init.PhxRenderTypes
-import phoenix.other.debug
-import phoenix.other.hash
 import javax.annotation.Nonnull
 
 class CaudaRenderer(renderManager: EntityRendererManager) : MobRenderer<CaudaEntity, CaudaModel>(renderManager, CaudaModel(), 1f)
 {
     @Nonnull
-    override fun getEntityTexture(entity: CaudaEntity) : ResourceLocation {
-        return if (entity.nameHash == 2275778216L)
-            ResourceLocation(Phoenix.MOD_ID, "textures/entity/cauda/texture_special.png")
-        else
-            ResourceLocation(Phoenix.MOD_ID, "textures/entity/cauda/texture_.png")
-    }
+    override fun getEntityTexture(entity: CaudaEntity) = ResourceLocation(Phoenix.MOD_ID, "textures/entity/cauda/texture_.png")
 
     override fun applyRotations(
         entity: CaudaEntity,

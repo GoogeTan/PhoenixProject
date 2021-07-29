@@ -18,7 +18,6 @@ import phoenix.other.collections.SizedArrayList
 import java.math.BigDecimal
 import java.util.*
 import kotlin.Comparator
-import kotlin.math.pow
 import kotlin.math.roundToInt
 
 fun String.toWords(): ArrayList<String>
@@ -278,12 +277,4 @@ inline fun<T : Comparable<T>, L : MutableList<T>> L.sortedBy() : L
     return this
 }
 
-inline fun<Source, Result> Source.map(block: Source.() -> Result) : Result = block(this)
-
-fun hash(str : String) : Long
-{
-    var res : Long = 0
-    for ((i, el) in str.withIndex())
-        res += el.toLong() * 31.0.pow(str.length - 1 - i).toLong();
-    return res
-}
+inline fun<Source, Result> Source.map(block: Source.() -> Result) = block(this)

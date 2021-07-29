@@ -24,7 +24,10 @@ import net.minecraft.nbt.CompoundNBT
 import net.minecraft.nbt.ListNBT
 import net.minecraft.network.datasync.DataSerializers
 import net.minecraft.network.datasync.EntityDataManager
-import net.minecraft.util.*
+import net.minecraft.util.Direction
+import net.minecraft.util.EntityPredicates
+import net.minecraft.util.Hand
+import net.minecraft.util.SoundEvents
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec3d
@@ -38,14 +41,12 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.wrapper.InvWrapper
-import phoenix.Phoenix
 import phoenix.advancements.SitCaudaTrigger
 import phoenix.init.PhxConfiguration
 import phoenix.init.PhxContainers
 import phoenix.items.CaudaArmorItem
 import phoenix.network.OpenCaudaInventoryPacket
 import phoenix.network.sendToPlayer
-import phoenix.other.hash
 import phoenix.other.max
 import phoenix.other.min
 import java.util.*
@@ -54,8 +55,6 @@ import kotlin.math.abs
 
 open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEntity(type, worldIn), IMob
 {
-    var nameHash : Long = 0
-
     companion object
     {
         private val EQUIPMENT = EntityDataManager.createKey(CaudaEntity::class.java, DataSerializers.BOOLEAN)
@@ -138,7 +137,7 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
     {
         super.registerAttributes()
         getAttribute(SharedMonsterAttributes.MAX_HEALTH).baseValue = 28.0
-        getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).baseValue = 2.4
+        getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).baseValue = 1.2
         getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).baseValue = 40.0
         getAttribute(SharedMonsterAttributes.ARMOR).baseValue = 4.0
     }
@@ -196,12 +195,7 @@ open class CaudaEntity(type: EntityType<CaudaEntity>, worldIn: World) : FlyingEn
         }
     }
 
-    override fun setCustomName(name: ITextComponent?)
-    {
-        val new = name?.unformattedComponentText?.replace("Hentai", "Anime")?.replace("GoogleTan", "Zahara V. M.")?:""
-        super.setCustomName(StringTextComponent(new))
-        nameHash = hash(customName?.string ?: "")
-    }
+    override fun setCustomName(name: ITextComponent?) = super.setCustomName(StringTextComponent(name?.unformattedComponentText?.replace("Hentai", "18+ Anime")?.replace("GoogleTan", "Zahara")?:""))
 
     override fun dropInventory()
     {
