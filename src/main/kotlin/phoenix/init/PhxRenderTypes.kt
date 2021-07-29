@@ -1,3 +1,5 @@
+@file:Suppress("INACCESSIBLE_TYPE")
+
 package phoenix.init
 
 import net.minecraft.client.renderer.RenderState
@@ -16,6 +18,8 @@ object PhxRenderTypes
     lateinit var tankTexture : RenderType
     lateinit var pipeTexture : RenderType
     val          eyesTexture : RenderType = RenderType.getEyes(ResourceLocation("phoenix", "textures/entity/cauda/cauda_eyes.png"))
+    val   eyesTextureSpecial : RenderType = RenderType.getEyes(ResourceLocation("phoenix", "textures/entity/cauda/cauda_eyes_special.png"))
+
     fun init()
     {
         tankTexture = initTexture(blockOf("tank"), "tank")
