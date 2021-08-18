@@ -1,11 +1,14 @@
 package phoenix.api.tile
 
+import io.netty.buffer.ByteBuf
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.network.NetworkManager
 import net.minecraft.network.PacketBuffer
 import net.minecraft.network.play.server.SUpdateTileEntityPacket
+import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityType
+import phoenix.network.Packet
 
 abstract class PhoenixTile(tileEntityTypeIn: TileEntityType<out PhoenixTile>) : TileEntity(tileEntityTypeIn)
 {
@@ -32,5 +35,33 @@ abstract class PhoenixTile(tileEntityTypeIn: TileEntityType<out PhoenixTile>) : 
             super.writePacketData(buf)
             this@PhoenixTile.writePacketData(buf)
         }
+    }
+}
+
+
+abstract class TickablePhoenixTile(tileEntityTypeIn: TileEntityType<out PhoenixTile>) : PhoenixTile(tileEntityTypeIn), ITickableTileEntity
+{
+    final override fun tick()
+    {
+        universalTick()
+        if (world!!.isRemote)
+            clientTick()
+        else
+            serverTick()
+    }
+
+    open fun universalTick()
+    {
+
+    }
+
+    open fun clientTick()
+    {
+
+    }
+
+    open fun serverTick()
+    {
+
     }
 }
