@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.world.IWorldReader
 import net.minecraftforge.fluids.FluidAttributes
 import net.minecraftforge.fluids.ForgeFlowingFluid
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.init.PhxBlocks
 import phoenix.init.PhxFluids
@@ -18,8 +19,8 @@ sealed class SetaJuiceFluid(properties: Properties) : ForgeFlowingFluid(properti
     {
         fun makeAttributes(): FluidAttributes.Builder
         {
-            val still = ResourceLocation(Phoenix.MOD_ID, "fluid/seta_juice_still")
-            val flowing = ResourceLocation(Phoenix.MOD_ID, "fluid/seta_juice_flow")
+            val still = ResourceLocation(MOD_ID, "fluid/seta_juice_still")
+            val flowing = ResourceLocation(MOD_ID, "fluid/seta_juice_flow")
             return FluidAttributes.builder(still, flowing)
                 .density(3000)
                 .viscosity(1200)

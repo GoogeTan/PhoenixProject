@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.IRenderTypeBuffer
 import net.minecraft.client.renderer.entity.EntityRendererManager
 import net.minecraft.client.renderer.entity.layers.HeldItemLayer
 import net.minecraft.util.ResourceLocation
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.client.models.entity.AncientGolemModel
 import phoenix.client.render.KMobRenderer
@@ -14,7 +15,7 @@ import javax.annotation.Nonnull
 class AncientGolemRenderer(renderManager: EntityRendererManager) : KMobRenderer<AncientGolemEntity, AncientGolemModel>(renderManager, AncientGolemModel(), 0.5f)
 {
     @Nonnull
-    override fun getEntityTexture(entity: AncientGolemEntity) = ResourceLocation(Phoenix.MOD_ID, "textures/entity/ancient_golem.png")
+    override fun getEntityTexture(entity: AncientGolemEntity) = ResourceLocation(MOD_ID, "textures/entity/ancient_golem.png")
 
     init
     {

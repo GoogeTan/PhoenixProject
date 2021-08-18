@@ -5,9 +5,10 @@ import net.minecraft.util.SoundEvent
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
+import phoenix.MOD_ID
 import phoenix.Phoenix
 
-@Mod.EventBusSubscriber(modid=Phoenix.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid=MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 object PhxSounds
 {
     var changeStage       : SoundEvent = phoenixSound("change_stage")
@@ -26,8 +27,8 @@ object PhxSounds
 
     private fun phoenixSound(nameIn: String): SoundEvent
     {
-        val res = SoundEvent(ResourceLocation(Phoenix.MOD_ID, nameIn))
-        res.registryName = ResourceLocation(Phoenix.MOD_ID, nameIn)
+        val res = SoundEvent(ResourceLocation(MOD_ID, nameIn))
+        res.registryName = ResourceLocation(MOD_ID, nameIn)
         return  res
     }
 }

@@ -9,13 +9,14 @@ import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.registries.ForgeRegistries
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 
 @Mod.EventBusSubscriber
 object PhxPoits
 {
-    val poits = KDeferredRegister(ForgeRegistries.POI_TYPES, Phoenix.MOD_ID)
+    val poits = KDeferredRegister(ForgeRegistries.POI_TYPES, MOD_ID)
 
     val craftingTable by poits.register("crafting_table") { PointOfInterestType("herbsmith", PointOfInterestType.getAllStates(Blocks.CRAFTING_TABLE), 1, 1) }
 

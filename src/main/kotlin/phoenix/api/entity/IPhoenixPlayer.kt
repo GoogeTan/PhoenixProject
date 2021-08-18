@@ -6,10 +6,10 @@ import phoenix.client.gui.diary.Chapter
 interface IPhoenixPlayer
 {
     fun getOpenedChapters() : ArrayList<Pair<Int, Date>>
-    //Use ServerPlayerEntity.addChapter(Chapter)
+    //Use ServerPlayerEntity.addChapter(Chapter) instead
     fun addChapter(id : Int, date: Date) : Boolean
-    fun hasChapter(id: Int) : Boolean
-    fun hasChapter(ch : Chapter) : Boolean = hasChapter(ch.id)
+    fun hasChapter(id : Int) : Boolean
+    fun hasChapter(chapter : Chapter): Boolean = hasChapter(chapter.id)
     fun testItem(stack : ItemStack)
 }
 

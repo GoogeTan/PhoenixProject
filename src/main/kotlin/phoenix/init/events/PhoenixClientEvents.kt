@@ -10,6 +10,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.client.registry.RenderingRegistry
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.api.block.IColoredBlock
 import phoenix.client.render.OvenRenderer
@@ -33,7 +34,7 @@ import phoenix.other.rainbowColor
 import phoenix.utils.ClientStageUppedEvent
 import thedarkcolour.kotlinforforge.forge.ObjectHolderDelegate
 
-@EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 object PhoenixClientEvents
 {
     @SubscribeEvent
@@ -60,7 +61,6 @@ object PhoenixClientEvents
     {
         initPacketSystem()
         PhxRenderTypes.init()
-        PhxContainers.registerScreens()
         RenderTypeLookup.setRenderLayer(PhxBlocks.oven, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.bambooPipe, RenderType.getCutoutMipped())
         RenderTypeLookup.setRenderLayer(PhxBlocks.tank, RenderType.getCutoutMipped())

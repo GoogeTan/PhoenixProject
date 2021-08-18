@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package phoenix.other
 
 import com.mojang.blaze3d.systems.RenderSystem
@@ -13,7 +15,6 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.ResourceLocation
 import org.lwjgl.opengl.GL11
 import kotlin.math.sqrt
-
 
 fun drawRectScalable(texture: TextureLocation, x: Int, y: Int, maxSizeX: Double, maxSizeY: Double, depth: Int)
 {
@@ -145,7 +146,7 @@ fun refreshDrawing(vb: IVertexBuilder, type: RenderType)
     }
 }
 
-fun FontRenderer.drawRightAlignedString(string: String, x: Int, y: Int, colour: Int)
+inline fun FontRenderer.drawRightAlignedString(string: String, x: Int, y: Int, colour: Int)
 {
     drawStringWithShadow(string, (x - this.getStringWidth(string)).toFloat(), y.toFloat(), colour)
 }
@@ -158,4 +159,46 @@ fun getTextureSize(texture: ResourceLocation): Pair<Int, Int>
     val height = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT)
     GL11.glBindTexture(GL11.GL_TEXTURE_2D, prevTexture)
     return Pair(width, height)
+}
+
+inline fun matrix(block : () -> Unit)
+{
+    RenderSystem.pushMatrix()
+    block()
+    RenderSystem.popMatrix()
+}
+
+inline fun scale(x : Float, y : Float, z : Float, block : () -> Unit)
+{
+    RenderSystem.scalef(x, y, z)
+    block()
+    RenderSystem.scalef(1f / x, 1f / y, 1f / z)
+}
+
+inline fun scale(x : Float, y : Float, block : () -> Unit)
+{
+    RenderSystem.scalef(x, y, 1f)
+    block()
+    RenderSystem.scalef(1f / x, 1f / y, 1f)
+}
+
+inline fun scale(scale : Float, block : () -> Unit)
+{
+    RenderSystem.scalef(scale, scale, 1f)
+    block()
+    RenderSystem.scalef(1f / scale, 1f / scale, 1f)
+}
+
+inline fun translate(x : Float, y : Float, z : Float, block : () -> Unit)
+{
+    RenderSystem.translatef(x, y, z)
+    block()
+    RenderSystem.translatef(-x, -y, -z)
+}
+
+inline fun translate(x : Float, y : Float, block : () -> Unit)
+{
+    RenderSystem.translatef(x, y, 1f)
+    block()
+    RenderSystem.translatef(-x, -y, 0f)
 }

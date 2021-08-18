@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.client.models.entity.IceBallModel
 import phoenix.enity.projectile.IceBallEntity
@@ -41,7 +42,7 @@ class IceBallRenderer(renderManagerIn: EntityRendererManager) : EntityRenderer<I
 
     companion object
     {
-        private val ICEEBALL_TEXTURE = ResourceLocation(Phoenix.MOD_ID, "textures/entity/iceball.png")
+        private val ICEEBALL_TEXTURE = ResourceLocation(MOD_ID, "textures/entity/iceball.png")
         private val TEXTURE_TYPE = RenderType.getEntityCutoutNoCull(ICEEBALL_TEXTURE)
     }
 }

@@ -1,5 +1,6 @@
 package phoenix.init
 
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.other.TextureLocation
 
@@ -15,10 +16,10 @@ enum class PhxCaudaArmorMaterials(override val defend : Float, override val spee
 {
     STEEL(0.7f, 0.6f, 800)
     {
-        override val texture: TextureLocation = TextureLocation(Phoenix.MOD_ID, "textures/models/armor/steel_cauda_armor.png")
+        override val texture: TextureLocation = TextureLocation(MOD_ID, "textures/models/armor/steel_cauda_armor.png")
     },
     CERAMIC(0.8f, 0.9f, 1000)
     {
-        override val texture: TextureLocation = TextureLocation(Phoenix.MOD_ID, "textures/models/armor/ceramic_cauda_armor.png")
+        override val texture: TextureLocation = TextureLocation(MOD_ID, "textures/models/armor/ceramic_cauda_armor.png")
     };
 }

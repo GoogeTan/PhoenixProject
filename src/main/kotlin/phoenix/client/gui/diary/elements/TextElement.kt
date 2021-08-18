@@ -1,11 +1,10 @@
 package phoenix.client.gui.diary.elements
 
 import net.minecraft.client.gui.FontRenderer
-import net.minecraft.client.gui.screen.inventory.ContainerScreen
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.util.text.StringTextComponent
 import net.minecraft.util.text.TextFormatting
-import phoenix.containers.DiaryContainer
+import phoenix.client.gui.DiaryGui
 
 open class TextElement : ADiaryElement
 {
@@ -27,7 +26,7 @@ open class TextElement : ADiaryElement
     override fun getHeight(maxSizeXIn: Int, maxSizeYIn: Int): Int = 1
 
     override fun render(
-        gui: ContainerScreen<DiaryContainer>,
+        gui: DiaryGui,
         font: FontRenderer,
         xSize: Int,
         ySize: Int,

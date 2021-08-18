@@ -11,13 +11,15 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.network.NetworkHooks
 import phoenix.Phoenix
 import phoenix.init.PhxContainers
+import phoenix.network.OpenDiaryPacket
+import phoenix.network.sendToPlayer
 
 class DiaryItem : Item(Properties().rarity(Rarity.EPIC).group(Phoenix.ASH).maxStackSize(1))
 {
     override fun onItemRightClick(worldIn: World, playerIn: PlayerEntity, handIn: Hand): ActionResult<ItemStack>
     {
-       // if (playerIn is ServerPlayerEntity)
-        //    NetworkHooks.openGui(playerIn, PhxContainers.GUIDE.create(0, playerIn.inventory))
+        if (playerIn is ServerPlayerEntity)
+            OpenDiaryPacket().sendToPlayer(playerIn)
         return super.onItemRightClick(worldIn, playerIn, handIn)
     }
 }

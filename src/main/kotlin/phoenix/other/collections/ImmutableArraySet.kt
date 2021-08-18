@@ -6,11 +6,12 @@ import phoenix.other.unique
 class ImmutableArraySet<out V : Comparable<@kotlin.UnsafeVariance V>> private constructor(val elements: List<V>) : Set<V>, Iterable<V>
 {
     override val size: Int = elements.size
-    private constructor(source: ArrayList<V>) : this(List(source.size,  source.unique()::get))
-    constructor(source : Collection<V>) : this(ArrayList<V>().apply { addAll(source) }.sortedBy().unique())
-    constructor(vararg source : V     ) : this(ArrayList<V>().apply { addAll(source) }.sortedBy().unique())
+    private constructor(source: ArrayList<V>) : this(List(source.size,  source::get))
 
-    override fun contains(element: @UnsafeVariance V): Boolean
+    constructor(source : Collection<V>) : this(source.toMutableList().sortedBy().unique())
+    constructor(vararg source : V     ) : this(source.toMutableList().sortedBy().unique())
+
+    override operator fun contains(element: @UnsafeVariance V): Boolean
     {
         var left = 0
         var right = elements.size - 1
@@ -22,7 +23,7 @@ class ImmutableArraySet<out V : Comparable<@kotlin.UnsafeVariance V>> private co
             {
                 elem < element -> left = middle
                 elem > element -> right = middle
-                else          -> return true
+                else           -> return true
             }
         }
         return false
@@ -37,5 +38,16 @@ class ImmutableArraySet<out V : Comparable<@kotlin.UnsafeVariance V>> private co
             if (!contains(value))
                 return false
         return true
+    }
+
+    operator fun contains(elements: Collection<@UnsafeVariance V>) = containsAll(elements)
+
+    override fun toString(): String
+    {
+        val builder = StringBuilder("Set[")
+        for (i in this)
+            builder.append("$i, ")
+        builder.append("]")
+        return super.toString()
     }
 }

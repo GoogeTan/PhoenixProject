@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.Vector3f
 import net.minecraft.client.renderer.entity.EntityRendererManager
 import net.minecraft.client.renderer.entity.MobRenderer
 import net.minecraft.util.ResourceLocation
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.client.models.entity.CaudaModel
 import phoenix.client.render.entity.layer.CaudaArmorLayer
@@ -16,7 +17,7 @@ import javax.annotation.Nonnull
 class CaudaRenderer(renderManager: EntityRendererManager) : MobRenderer<CaudaEntity, CaudaModel>(renderManager, CaudaModel(), 1f)
 {
     @Nonnull
-    override fun getEntityTexture(entity: CaudaEntity) = ResourceLocation(Phoenix.MOD_ID, "textures/entity/cauda/texture_.png")
+    override fun getEntityTexture(entity: CaudaEntity) = ResourceLocation(MOD_ID, "textures/entity/cauda/texture_.png")
 
     override fun applyRotations(
         entity: CaudaEntity,

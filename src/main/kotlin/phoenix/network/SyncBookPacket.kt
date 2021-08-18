@@ -6,6 +6,7 @@ import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.network.PacketBuffer
 import phoenix.api.entity.Date
 import phoenix.api.entity.IPhoenixPlayer
+import phoenix.other.debug
 import phoenix.other.readDate
 import phoenix.other.writeDate
 
@@ -17,15 +18,15 @@ class SyncBookPacket(var list : List<Pair<Int, Date>>): Packet()
         {
             for (i in list)
                 player.addChapter(i.first, i.second)
+            debug("Player synced. Catched ${list.size} chapters")
         }
     }
 
-    override fun processServer(player: ServerPlayerEntity?) {}
-
-    object Serializer :     Packet.Serializer<SyncBookPacket>()
+    object Serializer :  Packet.Serializer<SyncBookPacket>()
     {
         override fun encode(packet: SyncBookPacket, buf: PacketBuffer) : ByteBuf
         {
+            buf.writeInt(packet.list.size)
             for (i in packet.list)
             {
                 buf.writeInt(i.first)

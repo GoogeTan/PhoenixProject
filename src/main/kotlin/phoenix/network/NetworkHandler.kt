@@ -14,26 +14,30 @@ import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.network.NetworkEvent
 import net.minecraftforge.fml.network.NetworkRegistry
 import net.minecraftforge.fml.network.PacketDistributor
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.other.clientPlayer
 import java.util.function.Supplier
 import kotlin.reflect.KClass
 
-private val CHANNEL = NetworkRegistry.newSimpleChannel(ResourceLocation(Phoenix.MOD_ID, "network"), { "2.0" }, { true }, { true })
+private val CHANNEL = NetworkRegistry.newSimpleChannel(ResourceLocation(MOD_ID, "network"), { "2.0" }, { true }, { true })
 
 fun initPacketSystem()
 {
-    registerPacket(SyncStagePacket::class, SyncStagePacket.Serializer, 0)
-    registerPacket(SyncBookPacket::class, SyncBookPacket.Serializer, 1)
-    registerPacket(SyncOvenPacket::class, SyncOvenPacket.Serializer, 2)
-    registerPacket(SyncTankPacket::class, SyncTankPacket.Serializer, 3)
-    registerPacket(OpenCaudaInventoryPacket::class, OpenCaudaInventoryPacket.Serializer, 4)
+    registerPacket(SyncStagePacket.Serializer)
+    registerPacket(SyncBookPacket.Serializer)
+    registerPacket(SyncOvenPacket.Serializer)
+    registerPacket(SyncTankPacket.Serializer)
+    registerPacket(OpenCaudaInventoryPacket.Serializer)
+    registerPacket(OpenDiaryPacket.Serializer)
 }
 
+private var id = 0
+
 @Suppress("INACCESSIBLE_TYPE")
-private fun<T : Packet> registerPacket(packetClass : KClass<T>, handler : Packet.Serializer<T>, id : Int)
+private inline fun<reified T : Packet> registerPacket(handler : Packet.Serializer<T>)
 {
-    CHANNEL.registerMessage<T>(id, packetClass.java, handler::encode, handler::decode)
+    CHANNEL.registerMessage(id, T::class.java, handler::encode, handler::decode)
     { packet: T, context: Supplier<NetworkEvent.Context> ->
         val ctx: NetworkEvent.Context = context.get()
         if (ctx.direction.receptionSide == LogicalSide.CLIENT)
@@ -42,6 +46,7 @@ private fun<T : Packet> registerPacket(packetClass : KClass<T>, handler : Packet
             packet.processServer(ctx.sender)
         ctx.packetHandled = true
     }
+    ++id
 }
 
 abstract class Packet

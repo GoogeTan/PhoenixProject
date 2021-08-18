@@ -1,8 +1,7 @@
 package phoenix.client.gui.diary.elements
 
 import net.minecraft.client.gui.FontRenderer
-import net.minecraft.client.gui.screen.inventory.ContainerScreen
-import phoenix.containers.DiaryContainer
+import phoenix.client.gui.DiaryGui
 
 class RightAlignedTextElement : TextElement
 {
@@ -15,7 +14,7 @@ class RightAlignedTextElement : TextElement
     }
 
     override fun render(
-        gui: ContainerScreen<DiaryContainer>,
+        gui: DiaryGui,
         font: FontRenderer,
         xSize: Int,
         ySize: Int,

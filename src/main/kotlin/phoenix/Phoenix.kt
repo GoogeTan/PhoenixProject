@@ -13,7 +13,10 @@ import phoenix.init.PhxConfiguration.Common
 import phoenix.other.client
 import phoenix.world.EndDimension
 
-@Mod(Phoenix.MOD_ID)
+
+internal const val MOD_ID = "phoenix"
+
+@Mod(MOD_ID)
 class Phoenix
 {
     init
@@ -39,8 +42,6 @@ class Phoenix
 
     companion object
     {
-        const val MOD_ID = "phoenix"
-
         val ASH : ItemGroup = PhoenixGroup("$MOD_ID.ash", Blocks.END_PORTAL_FRAME)
         val REDO: ItemGroup = PhoenixGroup("$MOD_ID.redo", PhxBlocks::seta)
 
