@@ -1,6 +1,5 @@
 package phoenix.api.tile
 
-import io.netty.buffer.ByteBuf
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.network.NetworkManager
 import net.minecraft.network.PacketBuffer
@@ -8,7 +7,6 @@ import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityType
-import phoenix.network.Packet
 
 abstract class PhoenixTile(tileEntityTypeIn: TileEntityType<out PhoenixTile>) : TileEntity(tileEntityTypeIn)
 {

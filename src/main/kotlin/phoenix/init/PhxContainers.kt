@@ -1,14 +1,11 @@
 package phoenix.init
 
-import net.minecraft.client.gui.ScreenManager
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.inventory.container.ContainerType
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
-import phoenix.client.gui.DiaryGui
-import phoenix.containers.DiaryContainer
 import phoenix.enity.CaudaEntity
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import thedarkcolour.kotlinforforge.forge.MOD_BUS

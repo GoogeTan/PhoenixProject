@@ -6,7 +6,6 @@ import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.ResourceLocation
-import net.minecraft.world.chunk.Chunk
 import net.minecraft.world.dimension.DimensionType
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
@@ -17,7 +16,6 @@ import net.minecraftforge.fml.network.PacketDistributor
 import phoenix.Phoenix
 import phoenix.other.clientPlayer
 import java.util.function.Supplier
-import kotlin.reflect.KClass
 
 private val CHANNEL = NetworkRegistry.newSimpleChannel(ResourceLocation(Phoenix.MOD_ID, "network"), { "2.0" }, { true }, { true })
 
