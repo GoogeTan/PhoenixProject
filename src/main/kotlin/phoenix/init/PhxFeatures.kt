@@ -1,6 +1,7 @@
 package phoenix.init
 
 import net.minecraftforge.registries.ForgeRegistries
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.world.feature.WaterPlacesFeature
 import phoenix.world.feature.WetTreeFeature
@@ -11,7 +12,7 @@ import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
 object PhxFeatures
 {
-    val FEATURES = KDeferredRegister(ForgeRegistries.FEATURES, Phoenix.MOD_ID)
+    val FEATURES = KDeferredRegister(ForgeRegistries.FEATURES, MOD_ID)
 
     val REMAINS   by FEATURES.register("remains")       { RemainsStructure   }
     val END_SPIKE by FEATURES.register("new_end_spike") { CustomEndSpike     }

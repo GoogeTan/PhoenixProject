@@ -14,12 +14,13 @@ import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.network.NetworkEvent
 import net.minecraftforge.fml.network.NetworkRegistry
 import net.minecraftforge.fml.network.PacketDistributor
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.other.clientPlayer
 import java.util.function.Supplier
 import kotlin.reflect.KClass
 
-private val CHANNEL = NetworkRegistry.newSimpleChannel(ResourceLocation(Phoenix.MOD_ID, "network"), { "2.0" }, { true }, { true })
+private val CHANNEL = NetworkRegistry.newSimpleChannel(ResourceLocation(MOD_ID, "network"), { "2.0" }, { true }, { true })
 
 fun initPacketSystem()
 {

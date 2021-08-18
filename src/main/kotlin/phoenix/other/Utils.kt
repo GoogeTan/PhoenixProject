@@ -34,7 +34,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry
 import phoenix.mixin.serverInstance
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 
-fun <V : IForgeRegistryEntry<V>> KDeferredRegister<V>.register(name: String, value: V) = register(name) { value }
+fun <V : IForgeRegistryEntry<V>, T : V> KDeferredRegister<V>.register(name: String, value: T) = register(name) { value }
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 fun <T : TileEntity> TileEntityType.Builder<T>.build(): TileEntityType<T> = this.build(null)

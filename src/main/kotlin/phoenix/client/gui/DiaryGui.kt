@@ -2,6 +2,7 @@ package phoenix.client.gui
 
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screen.Screen
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.api.entity.IPhoenixPlayer
 import phoenix.client.gui.diary.Chapter
@@ -82,7 +83,7 @@ class DiaryGui : Screen("Diary".toTextComponent())
 
     companion object
     {
-        private val backgroundTexture = TextureLocation(Phoenix.MOD_ID, "textures/gui/diary_2.png")
+        private val backgroundTexture = TextureLocation(MOD_ID, "textures/gui/diary_2.png")
         const val textureWidth = 253
         const val textureHeight = 187
     }

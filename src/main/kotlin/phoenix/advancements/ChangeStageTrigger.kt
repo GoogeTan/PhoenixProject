@@ -7,13 +7,14 @@ import net.minecraft.advancements.criterion.AbstractCriterionTrigger
 import net.minecraft.advancements.criterion.CriterionInstance
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.util.ResourceLocation
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.other.addProp
 import phoenix.other.getInt
 
 object ChangeStageTrigger : AbstractCriterionTrigger<ChangeStageTrigger.Instance>()
 {
-    private val id = ResourceLocation(Phoenix.MOD_ID, "achieve_stage")
+    private val id = ResourceLocation(MOD_ID, "achieve_stage")
 
     override fun getId() = id
 
@@ -26,7 +27,7 @@ object ChangeStageTrigger : AbstractCriterionTrigger<ChangeStageTrigger.Instance
         }
     }
 
-    class Instance(private val stage : Int) : CriterionInstance(ResourceLocation(Phoenix.MOD_ID, "achieve_stage"))
+    class Instance(private val stage : Int) : CriterionInstance(ResourceLocation(MOD_ID, "achieve_stage"))
     {
         fun test(stageIn : Int) : Boolean = stageIn >= this.stage
 

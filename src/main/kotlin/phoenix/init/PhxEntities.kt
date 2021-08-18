@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityClassification
 import net.minecraft.entity.EntityType
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.registries.ForgeRegistries
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.enity.AncientGolemEntity
 import phoenix.enity.CaudaEntity
@@ -16,7 +17,7 @@ import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
 object PhxEntities
 {
-    private val ENTITIES = KDeferredRegister(ForgeRegistries.ENTITIES, Phoenix.MOD_ID)
+    private val ENTITIES = KDeferredRegister(ForgeRegistries.ENTITIES, MOD_ID)
 
     val talpa: EntityType<TalpaEntity> by ENTITIES.register("talpa")
     {
@@ -25,7 +26,7 @@ object PhxEntities
                 .setTrackingRange(80)
                 .setUpdateInterval(3)
                 .setShouldReceiveVelocityUpdates(true)
-                .build(ResourceLocation(Phoenix.MOD_ID, "talpa").toString())
+                .build(ResourceLocation(MOD_ID, "talpa").toString())
     }
 
     val cauda: EntityType<CaudaEntity> by ENTITIES.register("cauda")
@@ -35,7 +36,7 @@ object PhxEntities
                 .setTrackingRange(80)
                 .setUpdateInterval(3)
                 .setShouldReceiveVelocityUpdates(true)
-                .build(ResourceLocation(Phoenix.MOD_ID, "cauda").toString())
+                .build(ResourceLocation(MOD_ID, "cauda").toString())
     }
 
     val zirconiumKnife: EntityType<KnifeEntity> by ENTITIES.register("zirconium_knife")
@@ -45,7 +46,7 @@ object PhxEntities
                 .setTrackingRange(80)
                 .setUpdateInterval(1)
                 .setShouldReceiveVelocityUpdates(true)
-                .build(ResourceLocation(Phoenix.MOD_ID, "zirconium_knife").toString())
+                .build(ResourceLocation(MOD_ID, "zirconium_knife").toString())
     }
 
     val explosiveBall : EntityType<ExplosiveBallEntity> by ENTITIES.register("explosiveball")
@@ -53,12 +54,12 @@ object PhxEntities
         EntityType.Builder.create(::ExplosiveBallEntity, EntityClassification.MISC)
                 .immuneToFire()
                 .size(1.0f, 1.0f)
-                .build(ResourceLocation(Phoenix.MOD_ID, "explosiveball").toString())
+                .build(ResourceLocation(MOD_ID, "explosiveball").toString())
     }
 
     val ancientGolemEntity : EntityType<AncientGolemEntity> by ENTITIES.register("ancient_golem")
     {
-        EntityType.Builder.create(::AncientGolemEntity, EntityClassification.MONSTER).immuneToFire().size(1.0f, 1.0f).build(ResourceLocation(Phoenix.MOD_ID, "ancient_golem").toString())
+        EntityType.Builder.create(::AncientGolemEntity, EntityClassification.MONSTER).immuneToFire().size(1.0f, 1.0f).build(ResourceLocation(MOD_ID, "ancient_golem").toString())
     }
 
     val iceBall : EntityType<IceBallEntity> by ENTITIES.register("iceball")
@@ -66,7 +67,7 @@ object PhxEntities
         EntityType.Builder.create(::IceBallEntity, EntityClassification.MISC)
             .immuneToFire()
             .size(0.5f, 0.5f)
-            .build(ResourceLocation(Phoenix.MOD_ID, "iceball").toString())
+            .build(ResourceLocation(MOD_ID, "iceball").toString())
     }
 
     fun register() = ENTITIES.register(MOD_BUS)

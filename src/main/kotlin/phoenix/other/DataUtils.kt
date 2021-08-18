@@ -10,11 +10,14 @@ import net.minecraft.util.text.StringTextComponent
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.util.text.TranslationTextComponent
 import net.minecraftforge.fluids.capability.templates.FluidTank
+import net.minecraftforge.registries.IForgeRegistryEntry
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.api.entity.Date
 import phoenix.client.gui.diary.elements.ADiaryElement
 import phoenix.client.gui.diary.elements.TextElement
 import phoenix.other.collections.SizedArrayList
+import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import java.math.BigDecimal
 import java.util.*
 import kotlin.Comparator
@@ -112,8 +115,8 @@ fun makeParagraph(font: FontRenderer, xSize: Int, vararg text: String): ArrayLis
 
 
 
-fun keyOf  (name: String) = ResourceLocation(Phoenix.MOD_ID, name)
-fun blockOf(name: String) = ResourceLocation(Phoenix.MOD_ID, "textures/blocks/$name.png")
+fun keyOf  (name: String) = ResourceLocation(MOD_ID, name)
+fun blockOf(name: String) = ResourceLocation(MOD_ID, "textures/blocks/$name.png")
 
 fun<T> sizedArrayListOf(vararg elements : T) : SizedArrayList<T> = SizedArrayList.of(*elements)
 fun<T> sizedArrayListFrom(source : Collection<T>) : SizedArrayList<T> = SizedArrayList.copyOf(source)

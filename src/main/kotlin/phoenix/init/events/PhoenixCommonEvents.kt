@@ -20,6 +20,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import net.minecraftforge.registries.ForgeRegistries
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.Phoenix.Companion.ASH
 import phoenix.api.block.ICustomGroup
@@ -42,7 +43,7 @@ import phoenix.other.addZirconiumOre
 import phoenix.utils.ServerStageUppedEvent
 import thedarkcolour.kotlinforforge.forge.ObjectHolderDelegate
 
-@EventBusSubscriber(modid = Phoenix.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 object PhoenixCommonEvents
 {
     @SubscribeEvent
@@ -101,9 +102,9 @@ object PhoenixCommonEvents
         if (event.registry === ForgeRegistries.ITEMS)
         {
             val caudaEgg = FixedSpawnEggItem(PhxEntities::cauda, MaterialColor.BLACK.colorValue, MaterialColor.BLACK_TERRACOTTA.colorValue, Item.Properties().group(ItemGroup.MISC))
-            caudaEgg.registryName = ResourceLocation(Phoenix.MOD_ID, "cauda_spawn_egg")
+            caudaEgg.registryName = ResourceLocation(MOD_ID, "cauda_spawn_egg")
             val golemSpawnEntity = FixedSpawnEggItem(PhxEntities::ancientGolemEntity, MaterialColor.CYAN.colorValue, MaterialColor.BLACK.colorValue, Item.Properties().group(ItemGroup.MISC))
-            golemSpawnEntity.registryName = ResourceLocation(Phoenix.MOD_ID, "ancient_golem_spawn_egg")
+            golemSpawnEntity.registryName = ResourceLocation(MOD_ID, "ancient_golem_spawn_egg")
             ForgeRegistries.ITEMS.registerAll(caudaEgg, golemSpawnEntity)
         }
     }
