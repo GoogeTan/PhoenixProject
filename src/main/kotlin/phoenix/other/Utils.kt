@@ -3,6 +3,7 @@
 package phoenix.other
 
 import com.google.common.collect.ImmutableMap
+import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.client.gui.FontRenderer
@@ -31,10 +32,13 @@ import net.minecraftforge.fml.DistExecutor
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper
 import net.minecraftforge.registries.IForgeRegistryEntry
+import phoenix.init.PhxBlocks
 import phoenix.mixin.serverInstance
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 
 fun <V : IForgeRegistryEntry<V>> KDeferredRegister<V>.register(name: String, value: V) = register(name) { value }
+
+fun<T : TileEntity> KDeferredRegister<TileEntityType<*>>.register(name: String, value: () -> T, vararg block : Block) = register(name) { TileEntityType.Builder.create(value, *block).build() }
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 fun <T : TileEntity> TileEntityType.Builder<T>.build(): TileEntityType<T> = this.build(null)

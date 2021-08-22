@@ -4,6 +4,7 @@ import net.minecraft.tileentity.TileEntityType
 import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
 import phoenix.other.build
+import phoenix.tile.ash.DryerTile
 import phoenix.tile.ash.OvenTile
 import phoenix.tile.ash.PotteryBarrelTile
 import phoenix.tile.redo.CeramicTile
@@ -30,6 +31,7 @@ object PhxTiles
     val electricBarrel : TileEntityType<ElectricBarrelTile> by TILE_ENTITIES.register("electric_barrel"){ TileEntityType.Builder.create(::ElectricBarrelTile, PhxBlocks.potteryBarrel).build() }
     val juicer         : TileEntityType<JuicerTile>         by TILE_ENTITIES.register("juicer")         { TileEntityType.Builder.create(::JuicerTile, PhxBlocks.juicer).build() }
     val ceramic        : TileEntityType<CeramicTile>        by TILE_ENTITIES.register("ceramic")        { TileEntityType.Builder.create(::CeramicTile, PhxBlocks.ceramic).build() }
+    val dryer          : TileEntityType<DryerTile>          by TILE_ENTITIES.register("dryer")          { TileEntityType.Builder.create(::DryerTile, PhxBlocks.dryer).build() }
     //val TEXT            by TILE_ENTITIES.register("text")           { TileEntityType.Builder.create(::TextTile, PhxBlocks.textBlock).build(null) }
 
     fun register() = TILE_ENTITIES.register(MOD_BUS)

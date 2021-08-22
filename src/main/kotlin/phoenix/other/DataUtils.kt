@@ -61,7 +61,7 @@ val rainbow = arrayOf(
     TextFormatting.DARK_PURPLE
 )
 
-fun rainbowColor(string: String): String
+fun rainbow(string: String): String
 {
     val s = StringBuilder()
     for (i in string.indices)
@@ -154,18 +154,6 @@ fun<V : Comparable<V>, M : Comparable<M>> MutablePair<V, M>.compareTo(other: Mut
 }
 
 fun<V, M> uniquePairOf(first: V? = null, second: M? = null) : MutablePair<V?, M?> = if (first != second) MutablePair(first, second) else MutablePair(null, second)
-fun<T> arrayListFrom(collection: Collection<T>) : ArrayList<T>
-{
-    val res = ArrayList<T>()
-    res.addAll(collection)
-    return res
-}
-fun<T> arrayListFrom(collection: Array<T>) : ArrayList<T>
-{
-    val res = ArrayList<T>()
-    res.addAll(collection)
-    return res
-}
 
 fun Random.nextInt(min: Int, max: Int) = (min - 0.5 + this.nextDouble() * (max - min + 1)).roundToInt()
 

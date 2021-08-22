@@ -6,6 +6,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.state.IProperty
+import net.minecraft.state.properties.BlockStateProperties
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.IWorld
@@ -59,8 +60,8 @@ fun World.destroyBlock(pos: BlockPos, shouldDrop: Boolean, entity: Entity?, stac
 
 operator fun <T : Comparable<T>, V : T> World.set(pos: BlockPos, property: IProperty<T>, value: V)
 {
-    val state = world[pos]
-    world[pos] = state.with(property, value)
+    val state = this[pos]
+    this[pos] = state.with(property, value)
 }
 
 operator fun IWorldReader.get(pos: BlockPos): BlockState = getBlockState(pos)
@@ -73,7 +74,7 @@ operator fun IChunk.get(pos: BlockPos) : BlockState = this.getBlockState(pos)
 operator fun IChunk.set(pos: BlockPos, state : BlockState) = this.setBlockState(pos, state, false)
 operator fun IChunk.set(pos: BlockPos, state : BlockState, isMoving : Boolean) = this.setBlockState(pos, state, isMoving)
 
-fun BlockPos.add(lookVec: Vec3d): BlockPos = add(lookVec.x.toInt(), lookVec.y.toInt(), lookVec.z.toInt())
+fun BlockPos.add(vec : Vec3d): BlockPos = add(vec.x.toInt(), vec.y.toInt(), vec.z.toInt())
 
 fun IWorld.getDownHeight(pos: BlockPos, max: Int): BlockPos
 {

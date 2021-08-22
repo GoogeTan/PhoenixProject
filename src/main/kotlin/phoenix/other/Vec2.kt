@@ -38,4 +38,11 @@ class Vec2(var x: Double, var y: Double)
             return false
         return x == other.x && y == other.y
     }
+
+    override fun hashCode(): Int
+    {
+        var result = x.hashCode()
+        result = 31 * result + y.hashCode()
+        return result
+    }
 }

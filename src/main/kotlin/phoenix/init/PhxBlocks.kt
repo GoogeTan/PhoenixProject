@@ -11,6 +11,7 @@ import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
 import phoenix.api.block.*
 import phoenix.blocks.UpdaterBlock
+import phoenix.blocks.ash.DryerBlock
 import phoenix.blocks.ash.OvenBlock
 import phoenix.blocks.ash.PotteryBarrelBlock
 import phoenix.blocks.redo.*
@@ -61,6 +62,8 @@ object PhxBlocks
     val diedWetStairs   : Block by blocks.register("died_wet_stairs") { object : StairsBlock(diedWetLog::getDefaultState, Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
     val setaJuice               by blocks.register("seta_juice")      { FluidBlock(PhxFluids::seta_juice_source) }
     val ceramic         : Block by blocks.register("ceramic_bricks")  { object : Block(Properties.create(Material.ROCK).sound(SoundType.STONE)), IRedoThink { }  }
+
+    val dryer : DryerBlock      by blocks.register("dryer") { DryerBlock(Block.Properties.create(Material.WOOD)) }
 
     fun register() = blocks.register(MOD_BUS)
 }
