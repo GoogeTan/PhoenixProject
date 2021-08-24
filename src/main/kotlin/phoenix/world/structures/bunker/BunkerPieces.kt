@@ -3,9 +3,9 @@ package phoenix.world.structures.bunker
 import net.minecraft.util.Direction
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
-import net.minecraft.world.gen.Heightmap
 import net.minecraft.world.server.ServerWorld
 import phoenix.Phoenix
+import phoenix.other.LogManager
 import phoenix.other.nextInt
 import phoenix.world.structures.ICompositePieceType
 import phoenix.world.structures.IPieceType
@@ -13,29 +13,54 @@ import kotlin.math.sqrt
 
 enum class BunkerPieces : ICompositePieceType<BunkerProperties>
 {
-    Enternace
+    Tunnel
     {
         override val variants: Array<out IPieceType> = EntrancePieces.values()
-        override val outputs: Array<out IPieceType> = HallwayPieces.values()
-
-        override fun placeRecursive(world: ServerWorld, inputPos: BlockPos, info: BunkerProperties)
-        {
-            val variant = variants[sqrt(world.rand.nextInt(0, variants.size * variants.size).toDouble()).toInt()]
-            val pos = world.getHeight(Heightmap.Type.WORLD_SURFACE_WG, inputPos) - variant.inputOffset.first
-            variant.place(world, pos)
-        }
+        override val outputs: Array<ICompositePieceType<BunkerProperties>> = arrayOf(this)
     },
     Hallway
     {
+        override val variants: Array<out IPieceType> = HallwayPieces.values()
+        override val outputs: Array<ICompositePieceType<BunkerProperties>> = arrayOf(Tunnel)
+    },
+    Enternace
+    {
         override val variants: Array<out IPieceType> = EntrancePieces.values()
-        override val outputs: Array<out IPieceType> = HallwayPieces.values()
+        override val outputs: Array<ICompositePieceType<BunkerProperties>> = arrayOf(Hallway)
+
+        override fun placeRecursive(world: ServerWorld, inputPos: BlockPos, info: BunkerProperties, direction: Direction)
+        {
+            val pos = BlockPos.Mutable(inputPos)
+            while(world.isAirBlock(pos))
+                pos.move(Direction.DOWN)
+            super.placeRecursive(world, pos, info, direction)
+        }
     };
 
-    override fun placeRecursive(world: ServerWorld, inputPos: BlockPos, info: BunkerProperties)
+    override fun placeRecursive(world: ServerWorld, inputPos: BlockPos, info: BunkerProperties, direction: Direction)
     {
-        val variant = variants[sqrt(world.rand.nextInt(0, variants.size * variants.size).toDouble()).toInt()]
-        val pos = world.getHeight(Heightmap.Type.WORLD_SURFACE_WG, inputPos) - variant.inputOffset.first
-        variant.place(world, pos)
+        val variant = variants[sqrt(world.rand.nextInt(0, (variants.size - 1) * (variants.size - 1)).toDouble()).toInt()]
+        variant.place(world, inputPos, direction)
+        val props = BunkerProperties(info, deep = info.deep - 1)
+        try {
+            if (props.deep >= 0)
+            {
+                for ((pos, dir) in variant.outputs)
+                {
+                    outputs[sqrt(world.rand.nextInt(0, (outputs.size - 1) * (outputs.size - 1)).toDouble()).toInt()]
+                        .placeRecursive(
+                            world,
+                            inputPos + pos - variant.inputOffset.first,
+                            props,
+                            dir
+                        )
+                }
+            }
+        }
+        catch (e : Exception)
+        {
+            LogManager.error("${this::class} $e")
+        }
     }
 
     enum class EntrancePieces(override val outputs: List<Pair<BlockPos, Direction>>, override val inputOffset: Pair<BlockPos, Direction>, override val path: ResourceLocation) : IPieceType
@@ -71,6 +96,11 @@ enum class BunkerPieces : ICompositePieceType<BunkerProperties>
         operator fun BlockPos.minus(second: BlockPos): BlockPos
         {
             return BlockPos(x - second.x, y - second.y, z - second.z)
+        }
+
+        operator fun BlockPos.plus(second: BlockPos): BlockPos
+        {
+            return BlockPos(x + second.x, y + second.y, z + second.z)
         }
     }
 }

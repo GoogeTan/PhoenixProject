@@ -45,30 +45,33 @@ class SolarDryerTile(tileEntityTypeIn: TileEntityType<out SolarDryerTile>) : Tic
         time = buf.readInt()
     }
 
-    fun sync()
+    private fun sync()
     {
         SyncDryerPacket(pos, item).sendToDimension(world!!.dimension.type)
     }
 
     override fun serverTick()
     {
-        val recipe = DryerRecipe.recipesFromInputs[item.getItem()]
-        if (recipe != null)
+        if (world!!.canSeeSky(pos))
         {
-            ++time
-            if (time > recipe.time)
+            val recipe = DryerRecipe.recipesFromInputs[item.getItem()]
+            if (recipe != null)
             {
-                if (world?.rand?.nextBoolean() ?: false)
+                ++time
+                if (time > recipe.time)
                 {
-                    time = 0
-                    item = recipe.result
-                    sync()
+                    if (world?.rand?.nextBoolean() ?: false)
+                    {
+                       time = 0
+                       item = recipe.result
+                       sync()
+                    }
                 }
             }
-        }
-        else
-        {
-            time = 0
+            else
+            {
+                time = 0
+            }
         }
     }
 }
