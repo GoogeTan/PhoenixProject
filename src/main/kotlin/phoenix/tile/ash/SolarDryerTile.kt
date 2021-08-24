@@ -10,9 +10,9 @@ import phoenix.network.SyncDryerPacket
 import phoenix.network.sendToDimension
 import phoenix.recipes.DryerRecipe
 
-open class DryerTile(tileEntityTypeIn: TileEntityType<out DryerTile>) : TickablePhoenixTile(tileEntityTypeIn)
+class SolarDryerTile(tileEntityTypeIn: TileEntityType<out SolarDryerTile>) : TickablePhoenixTile(tileEntityTypeIn)
 {
-    constructor() : this(PhxTiles.dryer)
+    constructor() : this(PhxTiles.solarDryer)
     var item : ItemStack = ItemStack.EMPTY
     var time : Int = 0
 
@@ -45,7 +45,7 @@ open class DryerTile(tileEntityTypeIn: TileEntityType<out DryerTile>) : Tickable
         time = buf.readInt()
     }
 
-    open fun sync()
+    fun sync()
     {
         SyncDryerPacket(pos, item).sendToDimension(world!!.dimension.type)
     }

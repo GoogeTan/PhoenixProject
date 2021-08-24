@@ -29,11 +29,10 @@ import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.fml.DistExecutor
+import net.minecraftforge.fml.server.ServerLifecycleHooks
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper
 import net.minecraftforge.registries.IForgeRegistryEntry
-import phoenix.init.PhxBlocks
-import phoenix.mixin.serverInstance
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 
 fun <V : IForgeRegistryEntry<V>> KDeferredRegister<V>.register(name: String, value: V) = register(name) { value }
@@ -69,7 +68,7 @@ val World.isServer        get() = !this.isRemote
 val PlayerEntity.isServer get() = !world.isRemote
 val PlayerEntity.isRemote get() = world.isRemote
 
-val server : MinecraftServer? get() = mc?.integratedServer ?: serverInstance
+val server : MinecraftServer? get() = mc?.integratedServer ?: ServerLifecycleHooks.getCurrentServer()
 
 @get:OnlyIn(Dist.CLIENT)
 val textureManager : TextureManager?

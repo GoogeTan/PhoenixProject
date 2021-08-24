@@ -11,7 +11,8 @@ import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix
 import phoenix.api.block.*
 import phoenix.blocks.UpdaterBlock
-import phoenix.blocks.ash.DryerBlock
+import phoenix.blocks.ash.HandMillBlock
+import phoenix.blocks.ash.SolarDryerBlock
 import phoenix.blocks.ash.OvenBlock
 import phoenix.blocks.ash.PotteryBarrelBlock
 import phoenix.blocks.redo.*
@@ -63,7 +64,8 @@ object PhxBlocks
     val setaJuice               by blocks.register("seta_juice")      { FluidBlock(PhxFluids::seta_juice_source) }
     val ceramic         : Block by blocks.register("ceramic_bricks")  { object : Block(Properties.create(Material.ROCK).sound(SoundType.STONE)), IRedoThink { }  }
 
-    val dryer : DryerBlock      by blocks.register("dryer") { DryerBlock(Block.Properties.create(Material.WOOD)) }
+    val solarDryer : SolarDryerBlock by blocks.register("solar_dryer") { SolarDryerBlock(Block.Properties.create(Material.WOOD)) }
+    val handMill   : HandMillBlock   by blocks.register("hand_mill")   { HandMillBlock(Block.Properties.create(Material.ROCK)) }
 
     fun register() = blocks.register(MOD_BUS)
 }

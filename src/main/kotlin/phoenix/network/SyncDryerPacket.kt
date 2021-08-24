@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.math.BlockPos
 import phoenix.other.getTileAt
-import phoenix.tile.ash.DryerTile
+import phoenix.tile.ash.SolarDryerTile
 
 class SyncDryerPacket(var pos : BlockPos, var stack : ItemStack): Packet()
 {
@@ -15,7 +15,7 @@ class SyncDryerPacket(var pos : BlockPos, var stack : ItemStack): Packet()
     override fun processClient(player: ClientPlayerEntity?)
     {
         super.processClient(player)
-        player?.world?.getTileAt<DryerTile>(pos)?.item = stack
+        player?.world?.getTileAt<SolarDryerTile>(pos)?.item = stack
     }
 
     object Serializer : Packet.Serializer<SyncDryerPacket>()
