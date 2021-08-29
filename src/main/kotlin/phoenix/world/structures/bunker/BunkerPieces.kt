@@ -86,8 +86,34 @@ enum class BunkerPieces : ICompositePieceType<BunkerProperties>
         RareHallway
         (
             listOf(Pair(BlockPos(4, 1, 7), Direction.SOUTH)),
-            Pair(BlockPos(3, 4, 3), Direction.UP),
+            Pair(BlockPos(2, 4, 2), Direction.UP),
             ResourceLocation(Phoenix.MOD_ID, "bunker/hallway_2")
+        );
+    }
+
+    enum class TunnelPieces(override val outputs: List<Pair<BlockPos, Direction>>, override val inputOffset: Pair<BlockPos, Direction>, override val path: ResourceLocation) : IPieceType
+    {
+        BaseTunnel
+            (
+            listOf(
+                Pair(BlockPos(2, 1, 0), Direction.NORTH),
+                Pair(BlockPos(0, 1, 3), Direction.WEST),
+                Pair(BlockPos(3, 1, 5), Direction.SOUTH),
+                Pair(BlockPos(5, 1, 2), Direction.EAST)
+            ),
+            Pair(BlockPos(2, 4, 2), Direction.UP),
+            ResourceLocation(Phoenix.MOD_ID, "bunker/tunel_1")
+        ),
+        RareTunnel(
+            listOf(Pair(BlockPos(4, 1, 7), Direction.SOUTH)),
+            Pair(BlockPos(3, 4, 3), Direction.UP),
+            ResourceLocation(Phoenix.MOD_ID, "bunker/tunel_2")
+        ),
+        EpicTunnel
+            (
+            listOf(Pair(BlockPos(4, 1, 7), Direction.SOUTH)),
+            Pair(BlockPos(3, 4, 3), Direction.UP),
+            ResourceLocation(Phoenix.MOD_ID, "bunker/tunel_3")
         );
     }
 
