@@ -13,7 +13,6 @@ import net.minecraft.util.registry.Registry
 import net.minecraftforge.registries.ForgeRegistryEntry
 import javax.annotation.Nonnull
 
-
 object OvenRecipeSerializer : ForgeRegistryEntry<IRecipeSerializer<*>>(),
     IRecipeSerializer<OvenRecipe>
 {

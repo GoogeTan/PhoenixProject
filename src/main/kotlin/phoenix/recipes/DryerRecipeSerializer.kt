@@ -13,7 +13,7 @@ import net.minecraft.util.registry.Registry
 import net.minecraftforge.registries.ForgeRegistryEntry
 import javax.annotation.Nonnull
 
-class DryerRecipeSerializer: ForgeRegistryEntry<IRecipeSerializer<*>?>(),
+object DryerRecipeSerializer: ForgeRegistryEntry<IRecipeSerializer<*>?>(),
     IRecipeSerializer<DryerRecipe>
 {
     @Nonnull
