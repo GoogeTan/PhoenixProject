@@ -13,11 +13,12 @@ import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.network.NetworkEvent
 import net.minecraftforge.fml.network.NetworkRegistry
 import net.minecraftforge.fml.network.PacketDistributor
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.other.clientPlayer
 import java.util.function.Supplier
 
-private val CHANNEL = NetworkRegistry.newSimpleChannel(ResourceLocation(Phoenix.MOD_ID, "network"), { "2.0" }, { true }, { true })
+private val CHANNEL = NetworkRegistry.newSimpleChannel(ResourceLocation(MOD_ID, "network"), { "2.0" }, { true }, { true })
 
 fun initPacketSystem()
 {
@@ -27,9 +28,11 @@ fun initPacketSystem()
     registerPacket(SyncTankPacket.Serializer)
     registerPacket(OpenCaudaInventoryPacket.Serializer)
     registerPacket(SyncDryerPacket.Serializer)
+    registerPacket(OpenDiaryPacket.Serializer)
 }
 
-var id = 0
+
+private var id = 0
 
 @Suppress("INACCESSIBLE_TYPE")
 private inline fun<reified T : Packet> registerPacket(handler : Packet.Serializer<T>)

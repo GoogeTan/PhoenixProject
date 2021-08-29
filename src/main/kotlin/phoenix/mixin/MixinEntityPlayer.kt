@@ -1,31 +1,26 @@
 package phoenix.mixin
 
-import com.google.common.collect.ImmutableMap
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.item.ItemStack
-import net.minecraft.item.Items
 import net.minecraft.nbt.CompoundNBT
-import net.minecraft.util.IItemProvider
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
 import org.spongepowered.asm.mixin.Mixin
 import org.spongepowered.asm.mixin.injection.At
 import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
 import phoenix.api.entity.Date
 import phoenix.api.entity.IPhoenixPlayer
-import phoenix.client.gui.diary.Chapter
-import phoenix.init.PhxItems
 import phoenix.other.addChapter
-import phoenix.other.toSet
+import phoenix.other.mixin.MixinEntityPlayer
+import phoenix.other.mixin.MixinEntityPlayer.specialChapters
+import phoenix.other.*
 
 @Mixin(PlayerEntity::class)
 abstract class MixinEntityPlayer : IPhoenixPlayer
 {
     private val chaptersSet: MutableSet<Int> = LinkedHashSet()
-    private lateinit var chapters : ArrayList<Pair<Int, Date>>
-    private lateinit var specialChaptersIndices : MutableSet<Int>
+    private var chapters : ArrayList<Pair<Int, Date>> = ArrayList()
+    private var specialChaptersIndices : MutableSet<Int> = HashSet()
 
     @Inject(method = ["writeAdditional"], at = [At("TAIL")])
     fun onWriteEntityToNBT(nbt: CompoundNBT, ci: CallbackInfo?)
@@ -48,7 +43,7 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
     @Inject(method = ["readAdditional"], at = [At("TAIL")])
     fun onReadEntityFromNBT(nbt: CompoundNBT, ci: CallbackInfo?)
     {
-        chapters = arrayListOf()
+        chapters = ArrayList()
 
         if (nbt.contains("count_of_opened"))
         {
@@ -73,6 +68,7 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
                 specialChaptersIndices.add(nbt.getInt("index$i"))
         }
         else specialChaptersIndices = specialChapters.indices.toSet()
+        error("Player loaded $chapters")
     }
 
     @Deprecated("Use phoenix.other.addChapter(chapters : Chapter)")
@@ -86,17 +82,16 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
         } else false
     }
 
-    override fun getOpenedChapters(): ArrayList<Pair<Int, Date>> = chapters
+    override fun getOpenedChapters(): ArrayList<Pair<Int, Date>> = chapters ?: arrayListOf()
 
     override fun hasChapter(id: Int): Boolean = chaptersSet.contains(id)
 
-    @OnlyIn(Dist.DEDICATED_SERVER)
     override fun testItem(stack: ItemStack)
     {
         val player = this
         if (player is ServerPlayerEntity)
         {
-            player.addChapter(itemToChapter[stack.getItem()])
+            player.addChapter(MixinEntityPlayer.itemToChapter[stack.getItem()])
             val toRemove = mutableListOf<Int>()
             for ((index, test) in specialChapters.withIndex())
             {
@@ -109,17 +104,5 @@ abstract class MixinEntityPlayer : IPhoenixPlayer
             }
             specialChaptersIndices.removeAll(toRemove)
         }
-    }
-
-    companion object
-    {
-        val itemToChapter : Map<IItemProvider, Chapter> = ImmutableMap.of(
-            Items.IRON_INGOT, Chapter.STEEL,
-            Items.CLAY, Chapter.CLAY,
-            Items.CLAY_BALL, Chapter.CLAY,
-            PhxItems.HIGH_QUALITY_CLAY_ITEM, Chapter.OVEN
-        )
-
-        val specialChapters = listOf<(ItemStack) -> Chapter?> { stack -> if (stack.isEnchanted) Chapter.KNIFE_ENCHANTING else null }
     }
 }

@@ -35,8 +35,7 @@ import phoenix.network.SyncBookPacket
 import phoenix.network.SyncStagePacket
 import phoenix.network.sendToAllPlayers
 import phoenix.network.sendToPlayer
-import phoenix.other.LogManager.error
-import phoenix.other.LogManager.log
+import phoenix.other.*
 import phoenix.other.MutableTuple
 import phoenix.other.isServer
 import phoenix.world.GenSaveData
@@ -54,7 +53,7 @@ object PhoenixEvents
         {
             val world = event.player.world as ServerWorld
             val player = event.player
-            log(this, "Particles!!!")
+            debug("Particles!!!")
             world.spawnParticle(ParticleTypes.PORTAL, player.posX, player.posY, player.posZ, 32, 0.1, 2.0, 0.1, 0.5)
         }
     }
@@ -160,12 +159,12 @@ object PhoenixEvents
     {
         if(!event.player.world.isRemote)
         {
-            log(this, "Phoenix is starting saving")
+            debug("Phoenix is starting saving")
             val nbt = event.player.world.worldInfo.getDimensionData(DimensionType.THE_END)
             StageManager.write(nbt)
-            log(this, "Stage = ${StageManager.stage + 1} Part = ${StageManager.stage}")
+            debug("Stage = ${StageManager.stage + 1} Part = ${StageManager.stage}")
             event.player.world.worldInfo.setDimensionData(DimensionType.THE_END, nbt)
-            log(this, "Phoenix has ended saving")
+            debug("Phoenix has ended saving")
         }
     }
 
@@ -175,7 +174,7 @@ object PhoenixEvents
     fun playerTick(event: TickEvent.PlayerTickEvent)
     {
         if (event.player.isServer)
-            time++;
+            ++time
         if(!event.player.world.isRemote && time % 20L == 0L && event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END)
         {
             val player = event.player as ServerPlayerEntity
@@ -204,7 +203,7 @@ object PhoenixEvents
                 template.addBlocksToWorld(world, BlockPos(-1000, 100, 1000), PlacementSettings())
                 template.addBlocksToWorld(world, BlockPos(1000, 100, -1000), PlacementSettings())
                 template.addBlocksToWorld(world, BlockPos(-1000, 100, -1000), PlacementSettings())
-                log("<Other events> ", "Corn genned ^)")
+                debug("<Other events> ", "Corn genned ^)")
             }
             else
             {

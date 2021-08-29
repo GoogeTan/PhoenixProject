@@ -3,6 +3,7 @@
   "compatibilityLevel": "JAVA_8",
   "package": "phoenix.mixin",
   "refmap": "mixins.phoenix.refmap.json",
+  "setSourceFile" : true,
   "mixins": [
     "MixinEntityPlayer"
   ],

@@ -14,7 +14,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry
 import javax.annotation.Nonnull
 
 
-class OvenRecipeSerializer : ForgeRegistryEntry<IRecipeSerializer<*>?>(),
+object OvenRecipeSerializer : ForgeRegistryEntry<IRecipeSerializer<*>>(),
     IRecipeSerializer<OvenRecipe>
 {
     @Nonnull

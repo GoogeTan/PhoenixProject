@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package phoenix.other
 
 import com.google.common.collect.ImmutableMap
@@ -8,15 +10,21 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.Rotation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.LanguageMap
+import net.minecraft.util.text.StringTextComponent
 import net.minecraft.util.text.TextFormatting
+import net.minecraft.util.text.TranslationTextComponent
 import net.minecraftforge.fluids.capability.templates.FluidTank
+import net.minecraftforge.registries.IForgeRegistryEntry
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.api.entity.Date
 import phoenix.client.gui.diary.elements.ADiaryElement
 import phoenix.client.gui.diary.elements.TextElement
 import phoenix.other.collections.SizedArrayList
+import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 import java.math.BigDecimal
 import java.util.*
+import kotlin.Comparator
 import kotlin.math.roundToInt
 
 fun String.toWords(): ArrayList<String>
@@ -75,7 +83,7 @@ fun makeParagraph(font: FontRenderer, xSize: Int, vararg text: String): ArrayLis
     for (current in text)  //проходим по всем артиклам
     {
         words.addAll(current.toWords())
-        words.add("[n]")
+        words.add("\n")
     }
 
     var i = 0
@@ -90,6 +98,8 @@ fun makeParagraph(font: FontRenderer, xSize: Int, vararg text: String): ArrayLis
             i++
             if (i < words.size)
                 nextWord = words[i]
+            if (nextWord == "\n")
+                break
         }
 
         if(stringToAdd.isNotEmpty())
@@ -99,8 +109,8 @@ fun makeParagraph(font: FontRenderer, xSize: Int, vararg text: String): ArrayLis
     return res
 }
 
-fun keyOf  (name: String) = ResourceLocation(Phoenix.MOD_ID, name)
-fun blockOf(name: String) = ResourceLocation(Phoenix.MOD_ID, "textures/blocks/$name.png")
+fun keyOf  (name: String) = ResourceLocation(MOD_ID, name)
+fun blockOf(name: String) = ResourceLocation(MOD_ID, "textures/blocks/$name.png")
 
 fun PacketBuffer.writeFluidTank(tank: FluidTank) : PacketBuffer
 {
@@ -113,7 +123,6 @@ fun PacketBuffer.readFluidTank(): FluidTank
 {
     val stack = this.readFluidStack()
     val capacity = this.readInt()
-
     val res = FluidTank(capacity)
     res.fluid = stack
     return res
@@ -127,6 +136,9 @@ fun PacketBuffer.writeDate(date: Date)
     this.writeLong(date.day)
     this.writeLong(date.year)
 }
+
+inline fun String.toTextComponent() = StringTextComponent(this)
+inline fun String.toTranslationTextComponent() = TranslationTextComponent(this)
 
 data class MutableTuple<V, M, K>(var first: V, var second: M, var third: K)
 
@@ -216,9 +228,9 @@ fun IntRange.toSet() : MutableSet<Int>
     return res
 }
 
-fun<T : Comparable<T>, K> comparePairByFirst() : Comparator<Pair<T, K>>  = Comparator { p1, p2 -> p1.first.compareTo(p2.first) }
+inline fun<T : Comparable<T>, K> comparePairByFirst() : Comparator<Pair<T, K>>  = Comparator { p1, p2 -> p1.first.compareTo(p2.first) }
 
-inline fun<T> makeVariableInConstructor(task : () -> T) : T = task()
+inline fun<T> variable(task : () -> T) : T = task()
 
 inline fun<T, Res> foreach(iterator: Iterator<T>, res : Res, tack : Res.(value : T) -> Unit) : Res
 {
@@ -235,24 +247,24 @@ inline fun<T, Res> Iterable<T>.foreach(res : Res, tack : Res.(value : T) -> Unit
     return res
 }
 
-fun<T, R> T?.ifNotNull(block : T.() -> R) = if (this == null) null else block(this)
+fun<T, R> T?.ifNotNull(block : T.() -> R) : R? = if (this == null) null else block(this)
 
-inline fun<T> ArrayList<T>.unique(isEqual : (f : T, s : T) -> Boolean = { f, s -> f != s }) : ArrayList<T>
+inline fun<T> MutableList<T>.unique(isNotEqual : (f : T, s : T) -> Boolean = { f, s -> f != s }) : ArrayList<T>
 {
     val res = ArrayList<T>()
     for (i in this)
-        if (res.isEmpty() || isEqual(res.last(), i))
+        if (res.isEmpty() || isNotEqual(res.last(), i))
             res.add(i)
     return res
 }
 
-inline fun<T> ArrayList<T>.sortedBy(comparator: Comparator<T>) : ArrayList<T>
+inline fun<T, L : MutableList<T>> L.sortedBy(comparator: Comparator<T>) : L
 {
     this.sortWith(comparator)
     return this
 }
 
-inline fun<T : Comparable<T>> ArrayList<T>.sortedBy() : ArrayList<T>
+inline fun<T : Comparable<T>, L : MutableList<T>> L.sortedBy() : L
 {
     this.sort()
     return this
@@ -272,3 +284,5 @@ fun BlockPos.rotate(rotation: Rotation) : BlockPos
         Rotation.COUNTERCLOCKWISE_90 -> BlockPos(-x, y, z)
     }
 }
+
+inline fun<Source, Result> Source.map(block: Source.() -> Result) = block(this)

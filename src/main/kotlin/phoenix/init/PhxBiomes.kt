@@ -2,6 +2,7 @@ package phoenix.init
 
 import net.minecraft.world.biome.Biome
 import net.minecraftforge.registries.ForgeRegistries
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.other.defaultSettingsForEnd
 import phoenix.world.biomes.SmallIslandsUnderBiome
@@ -12,7 +13,7 @@ import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
 object PhxBiomes
 {
-    val BIOMES = KDeferredRegister(ForgeRegistries.BIOMES, Phoenix.MOD_ID)
+    val BIOMES = KDeferredRegister(ForgeRegistries.BIOMES, MOD_ID)
 
     val UNDER               by BIOMES.register("under")      { UnderBiome }
     val HEARTVOID           by BIOMES.register("heart_void") { object : Biome(defaultSettingsForEnd(Builders.HEARTVOID, Builders.HEARTVOID_CONFIG)){} }

@@ -2,6 +2,7 @@ package phoenix.init
 
 import net.minecraft.tileentity.TileEntityType
 import net.minecraftforge.registries.ForgeRegistries
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.other.build
 import phoenix.tile.ash.HandMillTile
@@ -20,7 +21,7 @@ import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
 object PhxTiles
 {
-    val TILE_ENTITIES = KDeferredRegister(ForgeRegistries.TILE_ENTITIES, Phoenix.MOD_ID)
+    val TILE_ENTITIES = KDeferredRegister(ForgeRegistries.TILE_ENTITIES, MOD_ID)
 
     val tank            : TileEntityType<TankTile>           by TILE_ENTITIES.register("tank")           { TileEntityType.Builder.create(::TankTile, PhxBlocks.tank).build() }
     val bambooPipe          : TileEntityType<BambooPipeTile> by TILE_ENTITIES.register("bamboo_pipe")    { TileEntityType.Builder.create(::BambooPipeTile, PhxBlocks.bambooPipe).build() }

@@ -35,7 +35,7 @@ import net.minecraftforge.items.wrapper.PlayerMainInvWrapper
 import net.minecraftforge.registries.IForgeRegistryEntry
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 
-fun <V : IForgeRegistryEntry<V>> KDeferredRegister<V>.register(name: String, value: V) = register(name) { value }
+fun <V : IForgeRegistryEntry<V>, T : V> KDeferredRegister<V>.register(name: String, value: T) = register(name) { value }
 
 fun<T : TileEntity> KDeferredRegister<TileEntityType<*>>.register(name: String, value: () -> T, vararg block : Block) = register(name) { TileEntityType.Builder.create(value, *block).build() }
 

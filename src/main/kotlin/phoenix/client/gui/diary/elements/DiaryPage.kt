@@ -1,8 +1,8 @@
 package phoenix.client.gui.diary.elements
 
+import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.gui.FontRenderer
-import net.minecraft.client.gui.screen.inventory.ContainerScreen
-import phoenix.containers.DiaryContainer
+import phoenix.client.gui.DiaryGui
 
 class DiaryPage(private val maxSize : Int, val elements : ArrayList<ADiaryElement>)
 {
@@ -20,14 +20,17 @@ class DiaryPage(private val maxSize : Int, val elements : ArrayList<ADiaryElemen
         else false
     }
 
-    fun render(gui: ContainerScreen<DiaryContainer>, font: FontRenderer, xSize: Int, ySize: Int, x: Int, y: Int, depth: Int)
+    fun render(gui: DiaryGui, font: FontRenderer, xSize: Int, ySize: Int, depth: Int)
     {
+        RenderSystem.pushMatrix()
         var sum = 0
         for (element in elements)
         {
-            element.render(gui, font, xSize, ySize, x, y + sum * (font.FONT_HEIGHT + 2), depth)
+            RenderSystem.translatef(0f, (font.FONT_HEIGHT + 2).toFloat(), 0f)
+            element.render(gui, font, xSize, ySize, 0, 0, depth)
             sum += element.getHeight(xSize, ySize)
         }
+        RenderSystem.popMatrix()
     }
 
     override fun toString(): String = "DiaryPage(elements=$elements)"

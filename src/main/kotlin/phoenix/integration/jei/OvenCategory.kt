@@ -8,6 +8,7 @@ import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.recipe.category.IRecipeCategory
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
+import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.init.PhxBlocks
 import phoenix.recipes.OvenRecipe
@@ -15,7 +16,7 @@ import phoenix.recipes.OvenRecipe
 class OvenCategory(private val helper: IGuiHelper) : IRecipeCategory<OvenRecipe>
 {
     private val background: IDrawable = helper.drawableBuilder(image, 0, 0, 64, 32).setTextureSize(64, 32).build()
-    override fun getUid        (): ResourceLocation      = ResourceLocation(Phoenix.MOD_ID, "oven")
+    override fun getUid        (): ResourceLocation      = ResourceLocation(MOD_ID, "oven")
     override fun getRecipeClass(): Class<out OvenRecipe> = OvenRecipe::class.java
     override fun getTitle      (): String                = "Oven"
     override fun getBackground (): IDrawable             = background
@@ -37,6 +38,6 @@ class OvenCategory(private val helper: IGuiHelper) : IRecipeCategory<OvenRecipe>
 
     companion object
     {
-        private val image = ResourceLocation(Phoenix.MOD_ID, "textures/gui/oven.png")
+        private val image = ResourceLocation(MOD_ID, "textures/gui/oven.png")
     }
 }
