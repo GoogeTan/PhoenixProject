@@ -5,7 +5,8 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.gen.feature.template.PlacementSettings
 import net.minecraft.world.server.ServerWorld
-import phoenix.other.*
+import phoenix.other.LogManager
+import phoenix.other.rotationOf
 
 interface IPieceType
 {
@@ -13,17 +14,21 @@ interface IPieceType
     val inputOffset : Pair<BlockPos, Direction>
     val path : ResourceLocation
 
-    fun place(world : ServerWorld, pos : BlockPos, settings: PlacementSettings = PlacementSettings())
+    fun place(world: ServerWorld, pos: BlockPos, dir: Direction, settings: PlacementSettings = PlacementSettings())
     {
-        val template =  world.structureTemplateManager.getTemplate(path)
-        if (template != null)
+        settings.rotation = rotationOf(dir)
+        LogManager.error("$pos ${inputOffset.first.rotate(rotationOf(dir))}")
+        val place = pos - inputOffset.first.rotate(rotationOf(dir))
+        LogManager.error(place.toString())
+        pos.rotate(rotationOf(dir))
+        world.structureTemplateManager.getTemplate(path)?.addBlocksToWorld(world, place, settings)
+    }
+
+    companion object
+    {
+        operator fun BlockPos.minus(second: BlockPos): BlockPos
         {
-            template.addBlocksToWorld(world, pos.add(inputOffset.first), settings)
-            debug("<Other events> ", "Corn genned ^)")
-        }
-        else
-        {
-            error("<Other events> ", "Corn was not genned ^(. template is null... I it is very bad think.")
+            return BlockPos(x - second.x, y - second.y, z - second.z)
         }
     }
 }

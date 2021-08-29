@@ -15,6 +15,8 @@ import phoenix.api.block.ICustomGroup
 import phoenix.api.block.INonItem
 import phoenix.api.block.IRedoThink
 import phoenix.blocks.UpdaterBlock
+import phoenix.blocks.ash.HandMillBlock
+import phoenix.blocks.ash.SolarDryerBlock
 import phoenix.blocks.ash.OvenBlock
 import phoenix.blocks.ash.PotteryBarrelBlock
 import phoenix.blocks.redo.*
@@ -64,6 +66,9 @@ object PhxBlocks
     val diedWetStairs   : Block by blocks.register("died_wet_stairs") { object : StairsBlock(diedWetLog::getDefaultState, Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0f, 3.0f).sound(SoundType.WOOD)), ICustomGroup { override val tab: ItemGroup = Phoenix.REDO } }
     val setaJuice       : FluidBlock by blocks.register("seta_juice", FluidBlock(PhxFluids::seta_juice_source))
     val ceramic         : Block by blocks.register("ceramic_bricks")  { object : Block(Properties.create(Material.ROCK).sound(SoundType.STONE)), IRedoThink { }  }
+
+    val solarDryer : SolarDryerBlock by blocks.register("solar_dryer") { SolarDryerBlock(Block.Properties.create(Material.WOOD)) }
+    val handMill   : HandMillBlock   by blocks.register("hand_mill")   { HandMillBlock(Block.Properties.create(Material.ROCK)) }
 
     fun register() = blocks.register(MOD_BUS)
 }

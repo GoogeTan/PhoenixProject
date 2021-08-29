@@ -6,7 +6,6 @@ import net.minecraftforge.registries.ForgeRegistries
 import phoenix.Phoenix.Companion.ASH
 import phoenix.Phoenix.Companion.MOD_ID
 import phoenix.items.CaudaArmorItem
-import phoenix.items.DiaryItem
 import phoenix.items.PhoenixBucketItem
 import phoenix.items.ash.CrucibleItem
 import phoenix.items.ash.KnifeItem

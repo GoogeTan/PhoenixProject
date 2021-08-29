@@ -5,6 +5,8 @@ import net.minecraftforge.registries.ForgeRegistries
 import phoenix.MOD_ID
 import phoenix.Phoenix
 import phoenix.other.build
+import phoenix.tile.ash.HandMillTile
+import phoenix.tile.ash.SolarDryerTile
 import phoenix.tile.ash.OvenTile
 import phoenix.tile.ash.PotteryBarrelTile
 import phoenix.tile.redo.CeramicTile
@@ -31,7 +33,8 @@ object PhxTiles
     val electricBarrel : TileEntityType<ElectricBarrelTile> by TILE_ENTITIES.register("electric_barrel"){ TileEntityType.Builder.create(::ElectricBarrelTile, PhxBlocks.potteryBarrel).build() }
     val juicer         : TileEntityType<JuicerTile>         by TILE_ENTITIES.register("juicer")         { TileEntityType.Builder.create(::JuicerTile, PhxBlocks.juicer).build() }
     val ceramic        : TileEntityType<CeramicTile>        by TILE_ENTITIES.register("ceramic")        { TileEntityType.Builder.create(::CeramicTile, PhxBlocks.ceramic).build() }
-    //val TEXT            by TILE_ENTITIES.register("text")           { TileEntityType.Builder.create(::TextTile, PhxBlocks.textBlock).build(null) }
+    val solarDryer     : TileEntityType<SolarDryerTile>     by TILE_ENTITIES.register("solar_dryer")     { TileEntityType.Builder.create(::SolarDryerTile, PhxBlocks.solarDryer).build() }
+    val handMill       : TileEntityType<HandMillTile>       by TILE_ENTITIES.register("hand_mill")      { TileEntityType.Builder.create(::HandMillTile,   PhxBlocks.handMill).build() }
 
     fun register() = TILE_ENTITIES.register(MOD_BUS)
 }

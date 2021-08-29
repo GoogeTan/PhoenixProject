@@ -8,7 +8,6 @@ import net.minecraft.item.Rarity
 import net.minecraft.util.ActionResult
 import net.minecraft.util.Hand
 import net.minecraft.world.World
-import net.minecraftforge.fml.network.NetworkHooks
 import phoenix.Phoenix
 import phoenix.init.PhxContainers
 import phoenix.network.OpenDiaryPacket

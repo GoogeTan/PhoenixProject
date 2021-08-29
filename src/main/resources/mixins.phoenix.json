@@ -5,13 +5,11 @@
   "refmap": "mixins.phoenix.refmap.json",
   "setSourceFile" : true,
   "mixins": [
-    "FurnaceResultSlotMixin",
     "MixinEntityPlayer"
   ],
   "client": [
     "MixinMainMenuScreen"
   ],
   "server": [
-    "MinecraftServerMixin"
   ]
 }

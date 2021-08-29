@@ -2,9 +2,13 @@
 
 package phoenix.other
 
+import com.google.common.collect.ImmutableMap
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.network.PacketBuffer
+import net.minecraft.util.Direction
 import net.minecraft.util.ResourceLocation
+import net.minecraft.util.Rotation
+import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.LanguageMap
 import net.minecraft.util.text.StringTextComponent
 import net.minecraft.util.text.TextFormatting
@@ -34,28 +38,20 @@ fun String.toWords(): ArrayList<String>
             result.add(current)
             result.add("\n")
             current = ""
-        } else if (this[i] == ' ' || i == this.length - 1)
+        }
+        else if (this[i] == ' ' || i == this.length - 1)
         {
             if (this[i] != ' ')
                 current += this[i]
             result.add(current)
             current = ""
-        } else
+        }
+        else
         {
             current += this[i]
         }
     }
     return result
-}
-
-fun translateAll(vararg strings: String): ArrayList<String>
-{
-    val res = ArrayList<String>()
-    for (string in strings)
-    {
-        res.add(LanguageMap.getInstance().translateKey(string))
-    }
-    return res
 }
 
 fun String.translate(): String = LanguageMap.getInstance().translateKey(this)
@@ -69,7 +65,7 @@ val rainbow = arrayOf(
     TextFormatting.DARK_PURPLE
 )
 
-fun rainbowColor(string: String): String
+fun rainbow(string: String): String
 {
     val s = StringBuilder()
     for (i in string.indices)
@@ -84,7 +80,7 @@ fun makeParagraph(font: FontRenderer, xSize: Int, vararg text: String): ArrayLis
 {
     val res = ArrayList<ADiaryElement>()
     val words: MutableList<String> = ArrayList()
-    for (current in text)  //проходим по всем параграфам
+    for (current in text)  //проходим по всем артиклам
     {
         words.addAll(current.toWords())
         words.add("\n")
@@ -113,14 +109,8 @@ fun makeParagraph(font: FontRenderer, xSize: Int, vararg text: String): ArrayLis
     return res
 }
 
-
-
 fun keyOf  (name: String) = ResourceLocation(MOD_ID, name)
 fun blockOf(name: String) = ResourceLocation(MOD_ID, "textures/blocks/$name.png")
-
-fun<T> sizedArrayListOf(vararg elements : T) : SizedArrayList<T> = SizedArrayList.of(*elements)
-fun<T> sizedArrayListFrom(source : Collection<T>) : SizedArrayList<T> = SizedArrayList.copyOf(source)
-fun<T> sizedArrayListFrom(source : Array<T>) : SizedArrayList<T> = SizedArrayList.copyOf(source)
 
 fun PacketBuffer.writeFluidTank(tank: FluidTank) : PacketBuffer
 {
@@ -278,6 +268,21 @@ inline fun<T : Comparable<T>, L : MutableList<T>> L.sortedBy() : L
 {
     this.sort()
     return this
+}
+
+val fromDirectionToRotationMap = ImmutableMap.of(Direction.NORTH, Rotation.NONE, Direction.EAST, Rotation.CLOCKWISE_90, Direction.SOUTH, Rotation.CLOCKWISE_180, Direction.WEST, Rotation.COUNTERCLOCKWISE_90)
+
+fun rotationOf(direction: Direction) = fromDirectionToRotationMap[direction] ?: Rotation.NONE
+
+fun BlockPos.rotate(rotation: Rotation) : BlockPos
+{
+    return when(rotation)
+    {
+        Rotation.NONE -> this
+        Rotation.CLOCKWISE_90 -> BlockPos(-z, y, x)
+        Rotation.CLOCKWISE_180 -> BlockPos(-z, y, -x)
+        Rotation.COUNTERCLOCKWISE_90 -> BlockPos(-x, y, z)
+    }
 }
 
 inline fun<Source, Result> Source.map(block: Source.() -> Result) = block(this)

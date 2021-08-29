@@ -3,6 +3,7 @@
 package phoenix.other
 
 import com.google.common.collect.ImmutableMap
+import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.client.gui.FontRenderer
@@ -28,13 +29,15 @@ import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.fml.DistExecutor
+import net.minecraftforge.fml.server.ServerLifecycleHooks
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper
 import net.minecraftforge.registries.IForgeRegistryEntry
-import phoenix.mixin.serverInstance
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 
 fun <V : IForgeRegistryEntry<V>, T : V> KDeferredRegister<V>.register(name: String, value: T) = register(name) { value }
+
+fun<T : TileEntity> KDeferredRegister<TileEntityType<*>>.register(name: String, value: () -> T, vararg block : Block) = register(name) { TileEntityType.Builder.create(value, *block).build() }
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 fun <T : TileEntity> TileEntityType.Builder<T>.build(): TileEntityType<T> = this.build(null)
@@ -65,7 +68,7 @@ val World.isServer        get() = !this.isRemote
 val PlayerEntity.isServer get() = !world.isRemote
 val PlayerEntity.isRemote get() = world.isRemote
 
-val server : MinecraftServer? get() = mc?.integratedServer ?: serverInstance
+val server : MinecraftServer? get() = mc?.integratedServer ?: ServerLifecycleHooks.getCurrentServer()
 
 @get:OnlyIn(Dist.CLIENT)
 val textureManager : TextureManager?

@@ -30,7 +30,7 @@ import phoenix.init.PhxTiles
 import phoenix.items.FixedSpawnEggItem
 import phoenix.network.initPacketSystem
 import phoenix.other.mc
-import phoenix.other.rainbowColor
+import phoenix.other.rainbow
 import phoenix.utils.ClientStageUppedEvent
 import thedarkcolour.kotlinforforge.forge.ObjectHolderDelegate
 
@@ -81,7 +81,7 @@ object PhoenixClientEvents
         ClientRegistry.bindTileEntityRenderer(PhxTiles.juicer, ::TankRenderer)
         ClientRegistry.bindTileEntityRenderer(PhxTiles.oven, ::OvenRenderer)
 
-        mc!!.splashes.possibleSplashes.add(rainbowColor("God is an artist, since there are so many \n colors in the world")) //Reference to: Beautiful mind
+        mc!!.splashes.possibleSplashes.add(rainbow("God is an artist, since there are so many \n colors in the world")) //Reference to: Beautiful mind
         mc!!.splashes.possibleSplashes.add("$RED The essence of life is that it changes itself") //Reference to: Evangelion-3.33 you can(not) redo
         mc!!.splashes.possibleSplashes.add("$BLUE Bridge station is absent") //Reference to: Dovecote in a yellow glade
         mc!!.splashes.possibleSplashes.add("$DARK_BLUE Third child is an angel!!") //Reference to: Rebuild of Neon Genesis Evangelion
