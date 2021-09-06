@@ -1,8 +1,0 @@
-{
-    "parent": "block/chorus_flower",
-    "textures": {
-        "texture":  "phoenix:blocks/chorus_flower",
-        "bottom":   "phoenix:blocks/chorus_plant",
-        "particle": "phoenix:blocks/chorus_flower"
-    }
-}

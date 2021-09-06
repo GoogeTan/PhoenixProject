@@ -1,6 +1,0 @@
-{
-  "variants": {
-    "axis=z":   { "model": "phoenix:block/bamboo_pipe", "y": 90},
-    "axis=x":   { "model": "phoenix:block/bamboo_pipe" }
-  }
-}

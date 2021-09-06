@@ -1,8 +1,0 @@
-{
-    "parent": "block/outer_stairs",
-    "textures": {
-        "bottom": "phoenix:blocks/died_wet_planks",
-        "top": "phoenix:blocks/died_wet_planks",
-        "side": "phoenix:blocks/died_wet_planks"
-    }
-}

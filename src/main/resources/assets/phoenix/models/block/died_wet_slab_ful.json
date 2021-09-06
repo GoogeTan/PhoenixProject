@@ -1,7 +1,0 @@
-{
-  "parent": "block/cube_column",
-  "textures": {
-    "side": "phoenix:blocks/died_wet_planks",
-    "end":  "phoenix:blocks/died_wet_planks"
-  }
-}

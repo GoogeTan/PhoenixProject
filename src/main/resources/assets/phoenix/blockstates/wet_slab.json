@@ -1,7 +1,0 @@
-{
-  "variants": {
-    "type=bottom": { "model": "phoenix:block/wet_slab" },
-    "type=top": { "model": "phoenix:block/wet_slab_top" },
-    "type=double": { "model": "phoenix:block/wet_slab_ful" }
-  }
-}

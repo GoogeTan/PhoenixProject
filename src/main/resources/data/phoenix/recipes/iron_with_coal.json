@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "phoenix:crucible_with_iron_ore"
-  },
-  "result": "phoenix:iron_with_coal",
-  "experience": 1.0,
-  "cookingtime": 200
-}

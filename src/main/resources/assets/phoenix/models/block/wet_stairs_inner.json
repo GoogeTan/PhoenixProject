@@ -1,8 +1,0 @@
-{
-    "parent": "block/inner_stairs",
-    "textures": {
-        "bottom": "phoenix:blocks/wet_planks",
-        "top": "phoenix:blocks/wet_planks",
-        "side": "phoenix:blocks/wet_slab"
-    }
-}
