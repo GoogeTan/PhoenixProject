@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "phoenix:block/deep_stone_side",
+    "side": "phoenix:block/deep_stone_side"
+  }
+}
